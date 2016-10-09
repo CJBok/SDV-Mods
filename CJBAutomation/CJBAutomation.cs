@@ -165,6 +165,10 @@ namespace CJBAutomation {
                         obj.heldObject = new StardewValley.Object(Vector2.Zero, 303, "Pale Ale", false, true, false, false);
                         obj.heldObject.name = "Pale Ale";
                         obj.minutesUntilReady = 2250;
+                    } else if (Automation.RemoveItemFromChestsByName(chests, "Coffee Bean", -1, 5)) {
+                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 395, "Coffee", false, true, false, false);
+                        obj.heldObject.name = "Coffee";
+                        obj.minutesUntilReady = 120;
                     } else {
                         StardewValley.Object item = (StardewValley.Object)Automation.GetItemFromChestsByCategory(chests, -79, -1);
                         if (item == null)

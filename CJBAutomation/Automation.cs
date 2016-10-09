@@ -93,18 +93,50 @@ namespace CJBAutomation {
             return null;
         }
 
-        public static bool RemoveItemFromChestsByName(List<Chest> chests, string name, int excludeid) {
+        public static bool ChestsHaveEnoughItemsByName(List<Chest> chests, string name, int excludeid, int stack)
+        {
+            int stack_tmp = 0;
+            foreach (Chest chest in chests)
+            {
+                foreach (Item item in chest.items)
+                {
+                    if (item.Name == null)
+                        continue;
+                    if (item.Name == name && item.parentSheetIndex != excludeid)
+                        stack_tmp += item.Stack;
+                    if (stack_tmp >= stack)
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool RemoveItemFromChestsByName(List<Chest> chests, string name, int excludeid, int stack = 1) {
+            if (stack > 1 && !ChestsHaveEnoughItemsByName(chests, name, excludeid, stack))
+                return false;
+
             foreach (Chest chest in chests) {
+                var toRemove = new List<Item>();
                 foreach (Item item in chest.items) {
                     if (item.Name == null) continue;
                     if (item.Name == name && item.parentSheetIndex != excludeid) {
-                        item.Stack -= 1;
+                        int remove = Math.Min(stack, item.Stack);
+                        item.Stack -= remove;
+                        stack -= remove;
                         if (item.Stack <= 0)
-                            chest.items.Remove(item);
-                        chest.clearNulls();
-                        return true;
+                            toRemove.Add(item);
+                        if (stack <= 0)
+                        {
+                            foreach (var victim in toRemove)
+                                chest.items.Remove(victim);
+                            chest.clearNulls();
+                            return true;
+                        }
                     }
                 }
+                foreach (var victim in toRemove)
+                    chest.items.Remove(victim);
+                chest.clearNulls();
             }
             return false;
         }
