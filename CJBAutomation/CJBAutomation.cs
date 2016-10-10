@@ -128,17 +128,26 @@ namespace CJBAutomation {
                 }
                 if (obj.heldObject == null && !obj.readyForHarvest) {
                     if (Automation.RemoveItemFromChests(chests, 176) || Automation.RemoveItemFromChests(chests, 180)) {
+                        // small white egg / small brown egg -> normal mayonnaise
                         obj.heldObject = new StardewValley.Object(Vector2.Zero, 306, (string)null, false, true, false, false);
                         obj.minutesUntilReady = 180;
                     } else
                     if (Automation.RemoveItemFromChests(chests, 107) || Automation.RemoveItemFromChests(chests, 174) || Automation.RemoveItemFromChests(chests, 182)) {
+                        // dino egg / white large egg / brown large egg -> gold quality mayonnaise
                         obj.heldObject = new StardewValley.Object(Vector2.Zero, 306, (string)null, false, true, false, false) {
                             quality = 2
                         };
                         obj.minutesUntilReady = 180;
                     } else
                     if (Automation.RemoveItemFromChests(chests, 442)) {
+                        // duck egg -> duck mayonnaise
                         obj.heldObject = new StardewValley.Object(Vector2.Zero, 307, (string)null, false, true, false, false);
+                        obj.minutesUntilReady = 180;
+                    } else
+                    if (Automation.RemoveItemFromChests(chests, 305))
+                    {
+                        // void egg -> void mayonnaise
+                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 308, (string)null, false, true, false, false);
                         obj.minutesUntilReady = 180;
                     }
                 }
