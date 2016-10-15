@@ -165,43 +165,75 @@ namespace CJBAutomation {
                     }
                 }
                 if (obj.heldObject == null && !obj.readyForHarvest) {
-                    if (Automation.RemoveItemFromChests(chests, 340)) { // honey, regardless of flower type
-                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 459, "Mead", false, true, false, false);
-                        obj.minutesUntilReady = 600;
-                    } else
-                    if (Automation.RemoveItemFromChestsByName(chests, "Wheat", -1)) {
-                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 346, "Beer", false, true, false, false);
-                        obj.heldObject.name = "Beer";
-                        obj.minutesUntilReady = 1750;
-                    } else
-                    if (Automation.RemoveItemFromChestsByName(chests, "Hops", -1)) {
-                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 303, "Pale Ale", false, true, false, false);
-                        obj.heldObject.name = "Pale Ale";
-                        obj.minutesUntilReady = 2250;
-                    } else if (Automation.RemoveItemFromChestsByName(chests, "Coffee Bean", -1, 5)) {
-                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 395, "Coffee", false, true, false, false);
-                        obj.heldObject.name = "Coffee";
-                        obj.minutesUntilReady = 120;
-                    } else {
-                        StardewValley.Object item = (StardewValley.Object)Automation.GetItemFromChestsByCategory(chests, -79, -1);
-                        if (item == null)
-                            item = (StardewValley.Object)Automation.GetItemFromChestsByCategory(chests, -75, -1);
-
-                        if (item != null) {
-                            if (item.category == -79) {
-                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 348, item.Name + " Wine", false, true, false, false);
-                                obj.heldObject.Price = item.Price * 3;
-                                obj.heldObject.Name = item.Name + " Wine";
-                                obj.minutesUntilReady = 10000;
-                                Automation.RemoveItemFromChestsCategory(chests, -79, -1);
+                    foreach (var chest in chests)
+                    {
+                        foreach (var stack in chest.items)
+                        {
+                            switch (stack.parentSheetIndex)
+                            {
+                                case 340: // honey, regardless of flower type
+                                    if (Automation.RemoveItemFromChests(chests, 340))
+                                    {
+                                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 459, "Mead", false, true, false, false);
+                                        obj.minutesUntilReady = 600;
+                                    }
+                                    break;
+                                case 262: // wheat
+                                    if (Automation.RemoveItemFromChests(chests, 262))
+                                    {
+                                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 346, "Beer", false, true, false, false);
+                                        obj.minutesUntilReady = 1750;
+                                    }
+                                    break;
+                                case 304: // hops
+                                    if (Automation.RemoveItemFromChests(chests, 304))
+                                    {
+                                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 303, "Pale Ale", false, true, false, false);
+                                        obj.minutesUntilReady = 2250;
+                                    }
+                                    break;
+                                case 433: // coffee bean
+                                    if (Automation.RemoveItemFromChestsByName(chests, "Coffee Bean", -1, 5))
+                                    {
+                                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 395, "Coffee", false, true, false, false);
+                                        obj.minutesUntilReady = 120;
+                                    }
+                                    break;
+                                case 256: // tomato, default would produce tomato wine instead of juice
+                                    if (Automation.RemoveItemFromChests(chests, 256, 1))
+                                    {
+                                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 350, stack.Name + " Juice", false, true, false, false);
+                                        obj.heldObject.Price = (int)(((StardewValley.Object)stack).Price * 2.25d);
+                                        obj.minutesUntilReady = 6000;
+                                    }
+                                    break;
+                                case 260: // hot pepper, default would produce juice instead of wine
+                                    if (Automation.RemoveItemFromChests(chests, 260, 1))
+                                    {
+                                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 348, stack.Name + " Wine", false, true, false, false);
+                                        obj.heldObject.Price = ((StardewValley.Object)stack).Price * 3;
+                                        obj.minutesUntilReady = 10000;
+                                    }
+                                    break;
+                                default:
+                                    if (stack.category == -79) // fruit
+                                    {
+                                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 348, stack.Name + " Wine", false, true, false, false);
+                                        obj.heldObject.Price = ((StardewValley.Object)stack).Price * 3;
+                                        obj.minutesUntilReady = 10000;
+                                        Automation.RemoveItemFromChests(chests, stack.parentSheetIndex, -1);
+                                    }
+                                    else if (stack.category == -75) // veggie
+                                    {
+                                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 350, stack.Name + " Juice", false, true, false, false);
+                                        obj.heldObject.Price = (int)(((StardewValley.Object)stack).Price * 2.25d);
+                                        obj.minutesUntilReady = 6000;
+                                        Automation.RemoveItemFromChests(chests, stack.parentSheetIndex, -1);
+                                    }
+                                    break;
                             }
-                            if (item.category == -75) {
-                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 350, item.Name + " Juice", false, true, false, false);
-                                obj.heldObject.Price = (int)(item.price * 2.25d);
-                                obj.heldObject.Name = item.Name + " Juice";
-                                obj.minutesUntilReady = 6000;
-                                Automation.RemoveItemFromChestsCategory(chests, -75, -1);
-                            }
+                            if (obj.heldObject != null)
+                                break;
                         }
                     }
                 }
