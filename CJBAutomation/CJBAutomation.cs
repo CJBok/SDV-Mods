@@ -165,6 +165,10 @@ namespace CJBAutomation {
                     }
                 }
                 if (obj.heldObject == null && !obj.readyForHarvest) {
+                    if (Automation.RemoveItemFromChests(chests, 340)) { // honey, regardless of flower type
+                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 459, "Mead", false, true, false, false);
+                        obj.minutesUntilReady = 600;
+                    } else
                     if (Automation.RemoveItemFromChestsByName(chests, "Wheat", -1)) {
                         obj.heldObject = new StardewValley.Object(Vector2.Zero, 346, "Beer", false, true, false, false);
                         obj.heldObject.name = "Beer";
