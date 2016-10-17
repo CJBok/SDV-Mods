@@ -27,7 +27,7 @@ namespace CJBAutomation {
 
             foreach (GameLocation gLoc in Game1.locations) {
 
-                if (!gLoc.name.Contains("Farm") && !gLoc.name.Contains("GreenHouse"))
+                if (!gLoc.name.Contains("Farm") && !gLoc.name.Contains("GreenHouse") && gLoc.name != "Cellar")
                     continue;
 
                 locations.Add(gLoc);
@@ -528,6 +528,72 @@ namespace CJBAutomation {
                                 obj.readyForHarvest = false;
                                 break;
                             }
+                        }
+                    }
+                }
+            }
+            else if (obj.name.Equals("Cask"))
+            {
+                if (gLoc.Name != "Cellar")
+                    return;
+                var chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                if (obj.heldObject != null && obj.quality == 4)
+                {
+                    foreach (var chest in chests)
+                    {
+                        if (chest.addItem(obj.heldObject.getOne()) == null)
+                        {
+                            obj.heldObject = null;
+                            obj.minutesUntilReady = -1;
+                            break;
+                        }
+                    }
+                }
+                if (obj.heldObject == null)
+                {
+                    foreach (var chest in chests)
+                    {
+                        foreach (var stack in chest.items)
+                        {
+                            if ((((StardewValley.Object)stack).quality) == 4) // skip already-iridium stuff
+                                continue;
+                            float agingRate = -1f;
+                            switch (stack.parentSheetIndex)
+                            {
+                                case 424: // cheese
+                                case 426: // goat cheese
+                                    agingRate = 4f;
+                                    break;
+                                case 459: // mead
+                                case 346: // beer
+                                    agingRate = 2f;
+                                    break;
+                                case 303: // pale ale
+                                    agingRate = 1.66f;
+                                    break;
+                                case 348: // wine
+                                    agingRate = 1f;
+                                    break;
+                            }
+                            if (agingRate < 0) // not something we could age
+                                continue;
+                            obj.heldObject = (StardewValley.Object)stack.getOne();
+                            switch (((StardewValley.Object)stack).quality)
+                            {
+                                case 0:
+                                    ((Cask)obj).daysToMature = 56f;
+                                    break;
+                                case 1:
+                                    ((Cask)obj).daysToMature = 42f;
+                                    break;
+                                case 2:
+                                    ((Cask)obj).daysToMature = 28f;
+                                    break;
+                            }
+                            ((Cask)obj).agingRate = agingRate;
+                            obj.minutesUntilReady = 999999;
+                            Automation.DecreaseStack(chest, stack, 1);
+                            return;
                         }
                     }
                 }

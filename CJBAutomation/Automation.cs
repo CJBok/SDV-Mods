@@ -42,6 +42,14 @@ namespace CJBAutomation {
             return false;
         }
 
+        public static void DecreaseStack(Chest chest, Item stack, int amount = 1)
+        {
+            stack.Stack -= amount;
+            if (stack.Stack <= 0)
+                chest.items.Remove(stack);
+            chest.clearNulls();
+        }
+
         public static bool RemoveItemFromChests(List<Chest> chests, int index, int stack = 1) {
             foreach (Chest chest in chests) {
                 foreach (Item item in chest.items) {
