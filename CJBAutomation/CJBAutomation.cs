@@ -606,6 +606,36 @@ namespace CJBAutomation {
                     }
                 }
             }
+            else if (obj.name == "Slime Egg-Press")
+            {
+                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                if (obj.heldObject != null && obj.readyForHarvest) {
+                    foreach (Chest chest in chests) {
+                        if (chest != null) {
+                            if (chest.addItem(obj.heldObject.getOne()) == null) {
+                                obj.heldObject = null;
+                                obj.readyForHarvest = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (obj.heldObject == null)
+                {
+                    if (Automation.RemoveItemFromChestsByName(chests, "Slime", -1, 99))
+                    {
+                        int parentSheetIndex = 680;
+                        if (Game1.random.NextDouble() < 0.05)
+                            parentSheetIndex = 439;
+                        else if (Game1.random.NextDouble() < 0.1)
+                            parentSheetIndex = 437;
+                        else if (Game1.random.NextDouble() < 0.25)
+                            parentSheetIndex = 413;
+                        obj.heldObject = new StardewValley.Object(parentSheetIndex, 1, false, -1, 0);
+                        obj.minutesUntilReady = 1200;
+                    }
+                }
+            }
             // end
         }
     }
