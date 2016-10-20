@@ -545,14 +545,17 @@ namespace CJBAutomation {
                 if (gLoc.Name != "Cellar")
                     return;
                 var chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
-                if (obj.heldObject != null && obj.quality == 4)
+                if (obj.heldObject != null && obj.heldObject.quality == 4)
                 {
                     foreach (var chest in chests)
                     {
                         if (chest.addItem(obj.heldObject.getOne()) == null)
                         {
                             obj.heldObject = null;
-                            obj.minutesUntilReady = -1;
+                            obj.minutesUntilReady = 0;
+                            obj.readyForHarvest = false;
+                            ((Cask)obj).agingRate = 0.0f;
+                            ((Cask)obj).daysToMature = 0.0f;
                             break;
                         }
                     }
