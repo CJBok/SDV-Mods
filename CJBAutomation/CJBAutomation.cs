@@ -172,54 +172,36 @@ namespace CJBAutomation {
                             switch (stack.parentSheetIndex)
                             {
                                 case 340: // honey, regardless of flower type
-                                    if (Automation.RemoveItemFromChests(chests, 340))
-                                    {
-                                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 459, "Mead", false, true, false, false);
-                                        obj.minutesUntilReady = 600;
-                                        obj.heldObject.name = "Mead";
-                                    }
+                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 459, "Mead", false, true, false, false);
+                                    obj.minutesUntilReady = 600;
+                                    obj.heldObject.name = "Mead";
                                     break;
                                 case 262: // wheat
-                                    if (Automation.RemoveItemFromChests(chests, 262))
-                                    {
-                                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 346, "Beer", false, true, false, false);
-                                        obj.minutesUntilReady = 1750;
-                                        obj.heldObject.name = "Beer";
-                                    }
+                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 346, "Beer", false, true, false, false);
+                                    obj.minutesUntilReady = 1750;
+                                    obj.heldObject.name = "Beer";
                                     break;
                                 case 304: // hops
-                                    if (Automation.RemoveItemFromChests(chests, 304))
-                                    {
-                                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 303, "Pale Ale", false, true, false, false);
-                                        obj.minutesUntilReady = 2250;
-                                        obj.heldObject.name = "Pale Ale";
-                                    }
+                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 303, "Pale Ale", false, true, false, false);
+                                    obj.minutesUntilReady = 2250;
+                                    obj.heldObject.name = "Pale Ale";
                                     break;
                                 case 433: // coffee bean
-                                    if (Automation.RemoveItemFromChestsByName(chests, "Coffee Bean", -1, 5))
-                                    {
-                                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 395, "Coffee", false, true, false, false);
-                                        obj.heldObject.name = "Coffee";
-                                        obj.minutesUntilReady = 120;
-                                    }
+                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 395, "Coffee", false, true, false, false);
+                                    obj.heldObject.name = "Coffee";
+                                    obj.minutesUntilReady = 120;
                                     break;
                                 case 256: // tomato, default would produce tomato wine instead of juice
-                                    if (Automation.RemoveItemFromChests(chests, 256, 1))
-                                    {
-                                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 350, stack.Name + " Juice", false, true, false, false);
-                                        obj.heldObject.Price = (int)(((StardewValley.Object)stack).Price * 2.25d);
-                                        obj.heldObject.name = stack.Name + " Juice";
-                                        obj.minutesUntilReady = 6000;
-                                    }
+                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 350, stack.Name + " Juice", false, true, false, false);
+                                    obj.heldObject.Price = (int)(((StardewValley.Object)stack).Price * 2.25d);
+                                    obj.heldObject.name = stack.Name + " Juice";
+                                    obj.minutesUntilReady = 6000;
                                     break;
                                 case 260: // hot pepper, default would produce juice instead of wine
-                                    if (Automation.RemoveItemFromChests(chests, 260, 1))
-                                    {
-                                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 348, stack.Name + " Wine", false, true, false, false);
-                                        obj.heldObject.Price = ((StardewValley.Object)stack).Price * 3;
-                                        obj.heldObject.name = stack.Name + " Wine";
-                                        obj.minutesUntilReady = 10000;
-                                    }
+                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 348, stack.Name + " Wine", false, true, false, false);
+                                    obj.heldObject.Price = ((StardewValley.Object)stack).Price * 3;
+                                    obj.heldObject.name = stack.Name + " Wine";
+                                    obj.minutesUntilReady = 10000;
                                     break;
                                 default:
                                     if (stack.category == -79) // fruit
@@ -228,7 +210,6 @@ namespace CJBAutomation {
                                         obj.heldObject.name = stack.Name + " Wine";
                                         obj.heldObject.Price = ((StardewValley.Object)stack).Price * 3;
                                         obj.minutesUntilReady = 10000;
-                                        Automation.RemoveItemFromChests(chests, stack.parentSheetIndex, -1);
                                     }
                                     else if (stack.category == -75) // veggie
                                     {
@@ -236,12 +217,14 @@ namespace CJBAutomation {
                                         obj.heldObject.Price = (int)(((StardewValley.Object)stack).Price * 2.25d);
                                         obj.heldObject.name = stack.Name + " Juice";
                                         obj.minutesUntilReady = 6000;
-                                        Automation.RemoveItemFromChests(chests, stack.parentSheetIndex, -1);
                                     }
                                     break;
                             }
-                            if (obj.heldObject != null)
-                                break;
+                            if (obj.heldObject != null) // we have put something in the keg, no need to loop over more chests/stacks
+                            {
+                                Automation.DecreaseStack(chest, stack, 1);
+                                return;
+                            }
                         }
                     }
                 }
