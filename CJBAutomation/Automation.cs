@@ -5,6 +5,8 @@ using StardewValley;
 using StardewValley.Objects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using SDV = StardewValley;
 
 namespace CJBAutomation {
     public class Automation {
@@ -30,6 +32,17 @@ namespace CJBAutomation {
                 }
             }
             return chests;
+        }
+
+        public static IEnumerable<T> FindItemTypes<T>(GameLocation loc)
+            where T : SDV.Object
+        {
+            return loc.objects.Values.Where(o => o is T).Select(m => (T)m);
+        }
+
+        public static IEnumerable<Chest> GetChestFromSurroundingLocation(GameLocation loc)
+        {
+            return FindItemTypes<Chest>(loc);
         }
 
         public static bool DoesChestsHaveItem(List<Chest> chests, int index, int stack) {

@@ -7,6 +7,8 @@ using StardewValley.Buildings;
 using StardewValley.Locations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using SDV = StardewValley;
 
 namespace CJBAutomation {
     public class CJBAutomation : Mod {
@@ -619,6 +621,32 @@ namespace CJBAutomation {
                             parentSheetIndex = 413;
                         obj.heldObject = new StardewValley.Object(parentSheetIndex, 1, false, -1, 0);
                         obj.minutesUntilReady = 1200;
+                    }
+                }
+            }
+            else if (obj.Name.Contains("Mushroom Box"))
+            {
+                if (obj.heldObject != null && obj.readyForHarvest)
+                {
+                    IEnumerable<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                    if (!chests.Any())
+                    {
+                        // two possible modes
+                        // - output mushrooms to adjancent chests like other machines (for realism)
+                        // - output to any single chest inside the mushroom cave to save space, but only as long as there is
+                        //   exactly one in the whole cave
+                        chests = Automation.GetChestFromSurroundingLocation(gLoc);
+                        if (chests.Skip(1).Any())
+                            return;
+                    }
+                    foreach (var chest in chests)
+                    {
+                        if (chest != null && chest.addItem(obj.heldObject) == null)
+                        {
+                            obj.heldObject = null;
+                            obj.readyForHarvest = false;
+                            break;
+                        }
                     }
                 }
             }
