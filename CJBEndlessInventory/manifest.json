@@ -9,6 +9,5 @@
   },
   "Description": "Carry all the items you'll need!",
   "UniqueID": "CJBEndlessInventory",
-  "PerSaveConfigs": true,
   "EntryDll":  "CJBEndlessInventory.dll"
 }

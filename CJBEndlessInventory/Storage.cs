@@ -8,10 +8,8 @@ using StardewValley.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Serialization;
 
 namespace CJBEndlessInventory {
-    [XmlInclude(typeof(MeleeWeapon))]
     public class Storage : StardewValley.Object {
         public const int capacity = 36;
 
