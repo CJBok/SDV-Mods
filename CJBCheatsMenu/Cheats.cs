@@ -52,8 +52,10 @@ namespace CJBCheatsMenu {
                 }
                 if (ter is FruitTree) {
                     FruitTree tree = (FruitTree)ter;
-                    if (!tree.stump)
+                    if (!tree.stump) {
                         tree.growthStage = 5;
+                        tree.daysUntilMature = 0;
+                    }
                 }
             }
         }

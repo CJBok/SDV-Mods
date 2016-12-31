@@ -91,3 +91,4 @@ setting | default | what it affects
 
 1.13:
 * Updated to Stardew Valley 1.1+ and SMAPI 1.5.
+* Fixed instantly-grown fruit trees not producing fruit until their normal growth date.
