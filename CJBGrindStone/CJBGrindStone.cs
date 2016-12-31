@@ -89,7 +89,7 @@ namespace CJBGrindStone
 
         private void ControlEvents_KeyReleased(object sender, EventArgsKeyPressed e) {
             if (e.KeyPressed == Microsoft.Xna.Framework.Input.Keys.End) {
-                Log.Info("test");
+                this.Monitor.Log("test", LogLevel.Info);
                 Game1.player.addItemToInventory(new GrindStone(Vector2.Zero));
             }
         }

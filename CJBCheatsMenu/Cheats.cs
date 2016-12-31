@@ -312,8 +312,6 @@ namespace CJBCheatsMenu {
 
                 
 
-                //Log.Info(Game1.currentLocation.name + ": " + plr.getTileLocation().X + ", " + plr.getTileLocation().Y);
-
                 if (CJBCheatsMenu.config.increasedMovement && plr.running)
                     plr.addedSpeed = CJBCheatsMenu.config.moveSpeed;
                 else if (!CJBCheatsMenu.config.increasedMovement && plr.addedSpeed == CJBCheatsMenu.config.moveSpeed)
