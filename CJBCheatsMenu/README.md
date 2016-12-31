@@ -16,7 +16,8 @@ Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
 
 ## Configuration
 The mod will work fine out of the box, but you can tweak its settings by editing the `config.json`
-file. These are the available settings.
+file. You can also edit these values through the in-game settings menu. These are the available
+settings.
 
 ### Keyboard buttons
 (See [valid keyboard buttons](https://msdn.microsoft.com/en-us/library/microsoft.xna.framework.input.keys.aspx).)
@@ -56,6 +57,7 @@ setting | default | what it affects
 `freezeTime` | `false` | The game clock never changes.
 `freezeTimeInside` | `false` | The game clock doesn't change when you're inside a building.
 `freezeTimeCaves` | `false` | The game clock doesn't change when you're inside the mines, Skull Cavern, or farm cave.
+`fastCask` | `false` | Casks finish instantly.
 `fastFurnace` | `false` | Furnaces finish instantly.
 `fastRecyclingMachine` | `false` | Recycling machines finish instantly.
 `fastCrystalarium` | `false` | Crystalariums finish instantly.
@@ -74,6 +76,7 @@ setting | default | what it affects
 `fastMushroomBox` | `false` | Mushroom boxs finish instantly.
 `fastTapper` | `false` | Tappers finish instantly.
 `fastLightningRod` | `false` | Lightning rods finish instantly.
+`fastWormBin` | `false` | Worm bins finish instantly.
 
 ### Other cheats
 setting | default | what it affects
@@ -91,4 +94,5 @@ setting | default | what it affects
 
 1.13:
 * Updated to Stardew Valley 1.1+ and SMAPI 1.5.
+* Added support for casks and worm bins.
 * Fixed instantly-grown fruit trees not producing fruit until their normal growth date.

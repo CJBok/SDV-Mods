@@ -31,6 +31,7 @@ namespace CJBCheatsMenu {
         public bool durableTackles { get; set; }
         public bool harvestSickle { get; set; }
 
+        public bool fastCask { get; set; }
         public bool fastFurnace { get; set; }
         public bool fastRecyclingMachine { get; set; }
         public bool fastCrystalarium { get; set; }
@@ -49,6 +50,7 @@ namespace CJBCheatsMenu {
         public bool fastMushroomBox { get; set; }
         public bool fastTapper { get; set; }
         public bool fastLightningRod { get; set; }
+        public bool fastWormBin { get; set; }
 
         public int moveSpeed { get; set; } = 1;
     }

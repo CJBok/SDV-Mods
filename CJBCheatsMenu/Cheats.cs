@@ -179,7 +179,12 @@ namespace CJBCheatsMenu {
                         ((Fence)kp.Value).repair();
                         continue;
                     }
-
+                    if (CJBCheatsMenu.config.fastCask && kp.Value is Cask) {
+                        if (kp.Value.heldObject != null) {
+                                kp.Value.minutesUntilReady = 0;
+                                kp.Value.heldObject.quality = 4;
+                            }
+                    }
                     if (CJBCheatsMenu.config.fastFurnace && kp.Value.name.Equals("Furnace")) {
                         kp.Value.minutesUntilReady = 0;
                         continue;
@@ -249,6 +254,11 @@ namespace CJBCheatsMenu {
                         continue;
                     }
                     if (CJBCheatsMenu.config.fastLightningRod && kp.Value.name.Equals("Lightning Rod")) {
+                        kp.Value.minutesUntilReady = 0;
+                        continue;
+                    }
+                    if (CJBCheatsMenu.config.fastWormBin && kp.Value.name.Equals("Worm Bin"))
+                    {
                         kp.Value.minutesUntilReady = 0;
                         continue;
                     }

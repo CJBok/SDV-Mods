@@ -99,6 +99,7 @@ namespace CJBCheatsMenu {
                 this.options.Add((OptionsElement)new CheatsOptionsCheckbox("Durable Tackles", 21, -1, -1));
 
                 this.options.Add(new OptionsElement("Fast Machine Processing:"));
+                this.options.Add((OptionsElement)new CheatsOptionsCheckbox("Cask", 118, -1, -1));
                 this.options.Add((OptionsElement)new CheatsOptionsCheckbox("Furnace", 100, -1, -1));
                 this.options.Add((OptionsElement)new CheatsOptionsCheckbox("Recycling Machine", 101, -1, -1));
                 this.options.Add((OptionsElement)new CheatsOptionsCheckbox("Crystalarium", 102, -1, -1));
@@ -117,6 +118,7 @@ namespace CJBCheatsMenu {
                 this.options.Add((OptionsElement)new CheatsOptionsCheckbox("Lightning Rod", 117, -1, -1));
                 this.options.Add((OptionsElement)new CheatsOptionsCheckbox("Bee House", 114, -1, -1));
                 this.options.Add((OptionsElement)new CheatsOptionsCheckbox("Mushroom Box", 115, -1, -1));
+                this.options.Add((OptionsElement)new CheatsOptionsCheckbox("Worm Bin", 119, -1, -1));
             }
 
             if (tab == 2) {

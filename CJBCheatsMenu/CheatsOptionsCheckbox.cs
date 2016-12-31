@@ -134,6 +134,12 @@ namespace CJBCheatsMenu {
                 case 117:
                     isChecked = CJBCheatsMenu.config.fastLightningRod;
                     break;
+                case 118:
+                    isChecked = CJBCheatsMenu.config.fastCask;
+                    break;
+                case 119:
+                    isChecked = CJBCheatsMenu.config.fastWormBin;
+                    break;
 
             }
         }
@@ -265,6 +271,12 @@ namespace CJBCheatsMenu {
                     break;
                 case 117:
                     CJBCheatsMenu.config.fastLightningRod = isChecked;
+                    break;
+                case 118:
+                    CJBCheatsMenu.config.fastCask = isChecked;
+                    break;
+                case 119:
+                    CJBCheatsMenu.config.fastWormBin = isChecked;
                     break;
             }
 
