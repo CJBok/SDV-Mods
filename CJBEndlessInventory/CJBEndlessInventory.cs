@@ -4,9 +4,6 @@ using StardewValley;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 
@@ -16,9 +13,10 @@ namespace CJBEndlessInventory
     {
         public static StorageItems storageItems { get; set; }
         public static ModSettings settings { get; set; }
-        
 
-        public override void Entry(params object[] objects) {
+        /// <summary>The mod entry point, called after the mod is first loaded.</summary>
+        /// <param name="helper">Provides simplified APIs for writing mods.</param>
+        public override void Entry(IModHelper helper) {
             PlayerEvents.LoadedGame += PlayerEvents_LoadedGame;
             ControlEvents.KeyPressed += ControlEvents_KeyPressed;
             GameEvents.UpdateTick += GameEvents_UpdateTick;

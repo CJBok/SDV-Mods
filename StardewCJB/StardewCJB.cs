@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -18,7 +17,9 @@ namespace StardewCJB
         public static SGame TheGame => Program.gamePtr;
         public static RenderTarget2D RTarg { get; set; }
 
-        public override void Entry(params object[] objects) {
+        /// <summary>The mod entry point, called after the mod is first loaded.</summary>
+        /// <param name="helper">Provides simplified APIs for writing mods.</param>
+        public override void Entry(IModHelper helper) {
             //GraphicsEvents.DrawTick += GraphicsEvents_OnPostRenderGuiEvent;
             GraphicsEvents.OnPostRenderGuiEvent += GraphicsEvents_OnPostRenderGuiEvent;
         }

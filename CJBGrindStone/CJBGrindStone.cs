@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using StardewValley;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -10,13 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using StardewModdingAPI.Inheritance;
 using Microsoft.Xna.Framework;
-using System.Xml.Serialization;
-using System.Reflection;
-using StardewValley.Monsters;
-using StardewValley.Characters;
-using StardewValley.TerrainFeatures;
-using StardewValley.Quests;
-using StardewValley.Objects;
 
 namespace CJBGrindStone
 {
@@ -25,7 +14,9 @@ namespace CJBGrindStone
 
         public static Texture2D grindstoneTex;
 
-        public override void Entry(params object[] objects) {
+        /// <summary>The mod entry point, called after the mod is first loaded.</summary>
+        /// <param name="helper">Provides simplified APIs for writing mods.</param>
+        public override void Entry(IModHelper helper) {
             /*SaveGame.serializer = new XmlSerializer(typeof(SaveGame), new Type[28]
               {
                 typeof (Tool),

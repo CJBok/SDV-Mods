@@ -5,18 +5,19 @@ using StardewValley;
 using StardewValley.Menus;
 using System.Reflection;
 using StardewModdingAPI.Events;
-using StardewModdingAPI.Inheritance;
-using Microsoft.Xna.Framework.Graphics;
-using xTile;
 
 namespace CJBCheatsMenu
 {
     public class CJBCheatsMenu : Mod {
 
         public static Settings config;
-        public override void Entry(params object[] objects) {
 
+
+        /// <summary>The mod entry point, called after the mod is first loaded.</summary>
+        /// <param name="helper">Provides simplified APIs for writing mods.</param>
+        public override void Entry(IModHelper helper) {
             config = new Settings().InitializeConfig(BaseConfigPath);
+
             GameEvents.UpdateTick += Events_UpdateTick;
             GameEvents.OneSecondTick += GameEvents_OneSecondTick;
             TimeEvents.TimeOfDayChanged += TimeEvents_TimeOfDayChanged;
