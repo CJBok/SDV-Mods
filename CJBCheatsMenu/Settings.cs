@@ -1,17 +1,12 @@
-﻿using StardewModdingAPI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework.Input;
 
 namespace CJBCheatsMenu {
-    public class Settings : Config {
-
-        public string openMenuKey { get; set; }
-        public string freezeTimeKey { get; set; }
-        public string growTreeKey { get; set; }
-        public string growCropsKey { get; set; }
+    public class Settings {
+        
+        public string openMenuKey { get; set; } = Keys.P.ToString();
+        public string freezeTimeKey { get; set; } = Keys.T.ToString();
+        public string growTreeKey { get; set; } = Keys.NumPad1.ToString();
+        public string growCropsKey { get; set; } = Keys.NumPad2.ToString();
 
         public bool increasedMovement { get; set; }
         public bool infiniteHealth { get; set; }
@@ -55,61 +50,6 @@ namespace CJBCheatsMenu {
         public bool fastTapper { get; set; }
         public bool fastLightningRod { get; set; }
 
-        public int moveSpeed { get; set; }
-
-        public override T GenerateDefaultConfig<T>() {
-
-            openMenuKey = "P";
-            freezeTimeKey = "T";
-            growTreeKey = "NumPad1";
-            growCropsKey = "NumPad2";
-
-            increasedMovement = false;
-            infiniteHealth = false;
-            infiniteStamina = false;
-            instantCatch = false;
-            oneHitKill = false;
-            infiniteWateringCan = false;
-            throwBobberMax = false;
-            maxDailyLuck = false;
-            alwaysGiveGift = false;
-            noFriendshipDecay = false;
-            freezeTime = false;
-            freezeTimeInside = false;
-            freezeTimeCaves = false;
-            alwaysTreasure = false;
-            durableFences = false;
-            oneHitBreak = false;
-            instantBite = false;
-            instantBuild = false;
-            autoFeed = false;
-            infiniteHay = false;
-            durableTackles = false;
-            harvestSickle = false;
-
-            fastFurnace = false;
-            fastRecyclingMachine = false;
-            fastCrystalarium = false;
-            fastIncubator = false;
-            fastSlimeIncubator = false;
-            fastKeg = false;
-            fastPreservesJar = false;
-            fastCheesePress = false;
-            fastMayonnaiseMachine = false;
-            fastLoom = false;
-            fastOilMaker = false;
-            fastSeedMaker = false;
-            fastCharcoalKiln = false;
-            fastSlimeEggPress = false;
-            fastBeeHouse = false;
-            fastMushroomBox = false;
-            fastTapper = false;
-            fastLightningRod = false;
-
-            moveSpeed = 1;
-
-            return this as T;
-        }
-
+        public int moveSpeed { get; set; } = 1;
     }
 }

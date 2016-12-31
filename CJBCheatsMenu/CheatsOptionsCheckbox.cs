@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 
@@ -268,7 +267,9 @@ namespace CJBCheatsMenu {
                     CJBCheatsMenu.config.fastLightningRod = isChecked;
                     break;
             }
-            CJBCheatsMenu.config.WriteConfig();
+
+
+            CJBCheatsMenu.SaveConfig();
         }
 
         public override void draw(SpriteBatch b, int slotX, int slotY) {

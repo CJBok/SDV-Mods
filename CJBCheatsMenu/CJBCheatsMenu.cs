@@ -10,13 +10,15 @@ namespace CJBCheatsMenu
 {
     public class CJBCheatsMenu : Mod {
 
+        private static IModHelper helper;
         public static Settings config;
 
 
         /// <summary>The mod entry point, called after the mod is first loaded.</summary>
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper) {
-            config = new Settings().InitializeConfig(BaseConfigPath);
+            CJBCheatsMenu.helper = helper;
+            CJBCheatsMenu.config = helper.ReadConfig<Settings>();
 
             GameEvents.UpdateTick += Events_UpdateTick;
             GameEvents.OneSecondTick += GameEvents_OneSecondTick;
@@ -25,6 +27,11 @@ namespace CJBCheatsMenu
             ControlEvents.ControllerButtonPressed += ControlEvents_ControllerButtonPressed;
             GraphicsEvents.OnPostRenderEvent += GraphicsEvents_DrawTick;
             TimeEvents.DayOfMonthChanged += TimeEvents_DayOfMonthChanged;
+        }
+
+        /// <summary>Update the mod's config.json file from the current <see cref="config"/>.</summary>
+        internal static void SaveConfig() {
+            CJBCheatsMenu.helper.WriteConfig(CJBCheatsMenu.config);
         }
 
         private void GameEvents_OneSecondTick(object sender, EventArgs e) {

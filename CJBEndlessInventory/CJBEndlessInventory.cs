@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
-
+using Microsoft.Xna.Framework.Input;
 
 namespace CJBEndlessInventory
 {
@@ -21,7 +21,7 @@ namespace CJBEndlessInventory
             ControlEvents.KeyPressed += ControlEvents_KeyPressed;
             GameEvents.UpdateTick += GameEvents_UpdateTick;
 
-            settings = new ModSettings().InitializeConfig(BaseConfigPath);
+            settings = helper.ReadConfig<ModSettings>();
         }
 
         public static bool newDay = false;
@@ -65,12 +65,7 @@ namespace CJBEndlessInventory
         }
     }
 
-    public class ModSettings : Config {
-        public string menuButton { get; set; }
-
-        public override T GenerateDefaultConfig<T>() {
-            menuButton = Microsoft.Xna.Framework.Input.Keys.Q.ToString();
-            return this as T;
-        }
+    public class ModSettings {
+        public string menuButton { get; set; } = Keys.Q.ToString();
     }
 }
