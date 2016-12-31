@@ -276,6 +276,10 @@ namespace CJBCheatsMenu {
                         CJBCheatsMenu.config.growTreeKey = key.ToString();
                         CJBCheatsMenu.SaveConfig();
                         break;
+                    case 1003:
+                        CJBCheatsMenu.config.growCropsKey = key.ToString();
+                        CJBCheatsMenu.SaveConfig();
+                        break;
                 }
                 this.buttonNames[0] = key.ToString();
                 Game1.soundBank.PlayCue("coin");

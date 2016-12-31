@@ -96,3 +96,4 @@ setting | default | what it affects
 * Updated to Stardew Valley 1.1+ and SMAPI 1.5.
 * Added support for casks and worm bins.
 * Fixed instantly-grown fruit trees not producing fruit until their normal growth date.
+* Fix 'grow crops' key in settings menu not being saved.
