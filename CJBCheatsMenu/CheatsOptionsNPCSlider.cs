@@ -26,7 +26,7 @@ namespace CJBCheatsMenu {
             sliderLabel = npc.getName();
             sliderMaxValue = maxValue;
 
-            mugshot = new ClickableTextureComponent(this.bounds, "", "", npc.sprite.Texture, npc.getMugShotSourceRect(), 0.7f * Game1.pixelZoom);
+            mugshot = new ClickableTextureComponent("mugshot", this.bounds, "", "", npc.sprite.Texture, npc.getMugShotSourceRect(), 0.7f * Game1.pixelZoom);
 
 
             if (Game1.player.friendships.ContainsKey(npc.name)) {

@@ -1,14 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CJBCheatsMenu {
     class CheatsOptionsInputListener : OptionsElement {
@@ -270,15 +266,19 @@ namespace CJBCheatsMenu {
                 switch (whichOption) {
                     case 1000:
                         CJBCheatsMenu.config.openMenuKey = key.ToString();
-                        CJBCheatsMenu.config.WriteConfig();
+                        CJBCheatsMenu.SaveConfig();
                         break;
                     case 1001:
                         CJBCheatsMenu.config.freezeTimeKey = key.ToString();
-                        CJBCheatsMenu.config.WriteConfig();
+                        CJBCheatsMenu.SaveConfig();
                         break;
                     case 1002:
                         CJBCheatsMenu.config.growTreeKey = key.ToString();
-                        CJBCheatsMenu.config.WriteConfig();
+                        CJBCheatsMenu.SaveConfig();
+                        break;
+                    case 1003:
+                        CJBCheatsMenu.config.growCropsKey = key.ToString();
+                        CJBCheatsMenu.SaveConfig();
                         break;
                 }
                 this.buttonNames[0] = key.ToString();

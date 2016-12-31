@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Inheritance;
-using StardewModdingAPI.Inheritance.Menus;
 using StardewValley;
 using StardewValley.Minigames;
 using StardewValley.Buildings;
@@ -53,8 +52,10 @@ namespace CJBCheatsMenu {
                 }
                 if (ter is FruitTree) {
                     FruitTree tree = (FruitTree)ter;
-                    if (!tree.stump)
+                    if (!tree.stump) {
                         tree.growthStage = 5;
+                        tree.daysUntilMature = 0;
+                    }
                 }
             }
         }
@@ -178,7 +179,12 @@ namespace CJBCheatsMenu {
                         ((Fence)kp.Value).repair();
                         continue;
                     }
-
+                    if (CJBCheatsMenu.config.fastCask && kp.Value is Cask) {
+                        if (kp.Value.heldObject != null) {
+                                kp.Value.minutesUntilReady = 0;
+                                kp.Value.heldObject.quality = 4;
+                            }
+                    }
                     if (CJBCheatsMenu.config.fastFurnace && kp.Value.name.Equals("Furnace")) {
                         kp.Value.minutesUntilReady = 0;
                         continue;
@@ -251,6 +257,11 @@ namespace CJBCheatsMenu {
                         kp.Value.minutesUntilReady = 0;
                         continue;
                     }
+                    if (CJBCheatsMenu.config.fastWormBin && kp.Value.name.Equals("Worm Bin"))
+                    {
+                        kp.Value.minutesUntilReady = 0;
+                        continue;
+                    }
                 }
             }
             locations.Clear();
@@ -312,8 +323,6 @@ namespace CJBCheatsMenu {
                 Farmer plr = Game1.player;
 
                 
-
-                //Log.Info(Game1.currentLocation.name + ": " + plr.getTileLocation().X + ", " + plr.getTileLocation().Y);
 
                 if (CJBCheatsMenu.config.increasedMovement && plr.running)
                     plr.addedSpeed = CJBCheatsMenu.config.moveSpeed;

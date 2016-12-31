@@ -16,6 +16,7 @@ using StardewValley.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Object = StardewValley.Object;
 
 namespace CJBItemSpawner {
     public class ItemMenu : ItemMenuWithInventory {
@@ -39,7 +40,7 @@ namespace CJBItemSpawner {
         private List<ClickableComponent> tabs = new List<ClickableComponent>();
         private static int tab = 0;
         private static int sortID = 0;
-        private static int quality = 0;
+        private static ItemQuality quality = ItemQuality.Normal;
 
         private TextBox textBox;
         private Rectangle textBoxBounds;
@@ -71,8 +72,8 @@ namespace CJBItemSpawner {
             title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + width - Game1.tileSize, this.yPositionOnScreen - Game1.tileSize * 2, Game1.tileSize * 4, Game1.tileSize), "CJB Item Spawner");
             sortButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen - Game1.tileSize * 2 + 10, Game1.tileSize * 4, Game1.tileSize), "Sort By: Name");
             qualityButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen + Game1.tileSize * 4, this.yPositionOnScreen - Game1.tileSize * 2 + 10, Game1.tileSize * 4, Game1.tileSize), "Quality");
-            this.upArrow = new ClickableTextureComponent(new Rectangle(this.xPositionOnScreen + width - Game1.tileSize / 2, this.yPositionOnScreen - Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), (float)Game1.pixelZoom);
-            this.downArrow = new ClickableTextureComponent(new Rectangle(this.xPositionOnScreen + width - Game1.tileSize / 2, this.yPositionOnScreen + height / 2 - Game1.tileSize * 2, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), (float)Game1.pixelZoom);
+            this.upArrow = new ClickableTextureComponent("up-arrow", new Rectangle(this.xPositionOnScreen + width - Game1.tileSize / 2, this.yPositionOnScreen - Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), (float)Game1.pixelZoom);
+            this.downArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.xPositionOnScreen + width - Game1.tileSize / 2, this.yPositionOnScreen + height / 2 - Game1.tileSize * 2, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), (float)Game1.pixelZoom);
 
             int i = -1;
 
@@ -129,8 +130,8 @@ namespace CJBItemSpawner {
             foreach (Item item in tempItems) {
                 item.Stack = item.maximumStackSize();
 
-                if (item is StardewValley.Object)
-                    ((StardewValley.Object)item).quality = quality;
+                if (item is Object)
+                    ((Object)item).quality = (int)quality;
 
                 if (isCategoryAllowed(item) && item.Name.ToLower().Contains(this.textBox.Text.ToLower()))
                     this.inventoryItems.Add(item);
@@ -386,9 +387,9 @@ namespace CJBItemSpawner {
                 }
 
                 if (qualityButton.bounds.Contains(x, y)) {
-                    quality++;
-                    if (quality > 2)
-                        quality = 0;
+                    quality = quality != quality.GetNext()
+                        ? quality.GetNext()
+                        : ItemQuality.Normal;
                     Open();
                 }
 
@@ -512,7 +513,10 @@ namespace CJBItemSpawner {
 
             if (this.heldItem == null && this.hoveredItem != null && Game1.oldKBState.IsKeyDown(Keys.LeftShift)) {
                 try {
-                    ((StardewValley.Object)hoveredItem).quality = direction > 0 ? Math.Min(2, ((StardewValley.Object)hoveredItem).quality + 1) : Math.Max(0, ((StardewValley.Object)hoveredItem).quality - 1);
+                    Object obj = (Object)hoveredItem;
+                    obj.quality = direction > 0
+                        ? (int)((ItemQuality)obj.quality).GetNext()
+                        : (int)((ItemQuality)obj.quality).GetPrevious();
                 } catch (Exception) { }
                 
                 return;

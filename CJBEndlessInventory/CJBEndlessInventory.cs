@@ -4,11 +4,7 @@ using StardewValley;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-
+using Microsoft.Xna.Framework.Input;
 
 namespace CJBEndlessInventory
 {
@@ -16,26 +12,24 @@ namespace CJBEndlessInventory
     {
         public static StorageItems storageItems { get; set; }
         public static ModSettings settings { get; set; }
-        
+        private string storageFilePath => $"data/{Constants.SaveFolderName}/inventory.json";
 
-        public override void Entry(params object[] objects) {
+        /// <summary>The mod entry point, called after the mod is first loaded.</summary>
+        /// <param name="helper">Provides simplified APIs for writing mods.</param>
+        public override void Entry(IModHelper helper) {
             PlayerEvents.LoadedGame += PlayerEvents_LoadedGame;
             ControlEvents.KeyPressed += ControlEvents_KeyPressed;
             GameEvents.UpdateTick += GameEvents_UpdateTick;
 
-            settings = new ModSettings().InitializeConfig(BaseConfigPath);
+            settings = helper.ReadConfig<ModSettings>();
         }
 
         public static bool newDay = false;
         private void GameEvents_UpdateTick(object sender, EventArgs e) {
             if (Game1.newDay != newDay) {
                 newDay = Game1.newDay;
-                if (newDay == false) {
-                    XmlSerializer SerializerObj = new XmlSerializer(typeof(StorageItems));
-                    TextWriter writeFileStream = new StreamWriter(PerSaveConfigPath);
-                    SerializerObj.Serialize(writeFileStream, CJBEndlessInventory.storageItems);
-                    writeFileStream.Close();
-                }
+                if (newDay == false)
+                    this.Helper.WriteJsonFile(this.storageFilePath, CJBEndlessInventory.storageItems);
             }
         }
 
@@ -49,30 +43,16 @@ namespace CJBEndlessInventory
 
         private void PlayerEvents_LoadedGame(object sender, EventArgsLoadedGameChanged e) {
             storageItems = new StorageItems();
-            if (File.Exists(PerSaveConfigPath)) {
-                XmlSerializer SerializerObj = new XmlSerializer(typeof(StorageItems));
-                FileStream readFileStream = new FileStream(PerSaveConfigPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-                storageItems = (StorageItems)SerializerObj.Deserialize(readFileStream);
-                readFileStream.Close();
-            }
+            if (File.Exists(this.storageFilePath))
+                storageItems = this.Helper.ReadJsonFile<StorageItems>(this.storageFilePath);
         }
     }
 
-    [Serializable()]
     public class StorageItems {
-        public List<Item> playerItems { get; set; }
-
-        public StorageItems() {
-            playerItems = new List<Item>();
-        }
+        public List<Item> playerItems { get; set; } = new List<Item>();
     }
 
-    public class ModSettings : Config {
-        public string menuButton { get; set; }
-
-        public override T GenerateDefaultConfig<T>() {
-            menuButton = Microsoft.Xna.Framework.Input.Keys.Q.ToString();
-            return this as T;
-        }
+    public class ModSettings {
+        public string menuButton { get; set; } = Keys.Q.ToString();
     }
 }

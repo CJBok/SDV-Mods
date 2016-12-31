@@ -1,6 +1,6 @@
 ﻿{
   "Name": "CJB GrindStone",
-  "Authour": "CJ Bok",
+  "Author": "CJ Bok",
   "Version": {
     "MajorVersion": 1,
     "MinorVersion": 0,
@@ -9,6 +9,5 @@
   },
   "Description": "Added GrindStone",
   "UniqueID": "CJBGrindStone",
-  "PerSaveConfigs": true,
-  "EntryDll":  "CJBGrindStone.dll"
+  "EntryDll": "CJBGrindStone.dll"
 }

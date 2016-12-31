@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 
@@ -42,7 +41,7 @@ namespace CJBCheatsMenu {
             switch (whichOption) {
                 case 0:
                     CJBCheatsMenu.config.moveSpeed = value;
-                    CJBCheatsMenu.config.WriteConfig();
+                    CJBCheatsMenu.SaveConfig();
                     break;
                 case 10:
                     Game1.timeOfDay = this.value * 100 + 600;

@@ -131,7 +131,7 @@ namespace CJBAutomation {
             if (cropData == null) {
                 cropData = new Dictionary<int, int>();
                 if (Game1.temporaryContent == null) {
-                    Game1.temporaryContent = new ContentManager(Game1.content.ServiceProvider, Game1.content.RootDirectory);
+                    Game1.temporaryContent = new LocalizedContentManager(Game1.content.ServiceProvider, Game1.content.RootDirectory);
                 }
                 Dictionary<int, string> dictionary = Game1.temporaryContent.Load<Dictionary<int, string>>("Data\\Crops");
                 foreach (KeyValuePair<int, string> current in dictionary) {

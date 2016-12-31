@@ -1,14 +1,13 @@
 ﻿{
   "Name": "CJB Automation",
-  "Authour": "CJ Bok",
+  "Author": "CJ Bok",
   "Version": {
     "MajorVersion": 1,
-    "MinorVersion": 3,
+    "MinorVersion": 4,
     "PatchVersion": 0,
     "Build": ""
   },
   "Description": "Automate processing of machines",
   "UniqueID": "CJBAutomation",
-  "PerSaveConfigs": false,
-  "EntryDll":  "CJBAutomation.dll"
+  "EntryDll": "CJBAutomation.dll"
 }
