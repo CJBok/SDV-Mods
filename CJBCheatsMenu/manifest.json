@@ -1,6 +1,6 @@
 ﻿{
   "Name": "CJB Cheats Menu",
-  "Authour": "CJ Bok",
+  "Author": "CJ Bok",
   "Version": {
     "MajorVersion": 1,
     "MinorVersion": 12,
@@ -9,6 +9,5 @@
   },
   "Description": "Simple in-game cheats menu!",
   "UniqueID": "CJBCheatsMenu",
-  "PerSaveConfigs": false,
-  "EntryDll":  "CJBCheatsMenu.dll"
+  "EntryDll": "CJBCheatsMenu.dll"
 }

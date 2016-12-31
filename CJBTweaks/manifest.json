@@ -1,6 +1,6 @@
 ﻿{
   "Name": "CJB Tweaks",
-  "Authour": "CJ Bok",
+  "Author": "CJ Bok",
   "Version": {
     "MajorVersion": 1,
     "MinorVersion": 0,
@@ -9,6 +9,5 @@
   },
   "Description": "Small tweaks.",
   "UniqueID": "CJBTweaks",
-  "PerSaveConfigs": false,
   "EntryDll":  "CJBTweaks.dll"
 }

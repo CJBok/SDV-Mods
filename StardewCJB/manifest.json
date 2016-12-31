@@ -1,6 +1,6 @@
 ﻿{
   "Name": "CJB Show Item Sell Price",
-  "Authour": "CJ Bok",
+  "Author": "CJ Bok",
   "Version": {
     "MajorVersion": 1,
     "MinorVersion": 4,
@@ -9,6 +9,5 @@
   },
   "Description": "Show item sell price in your inventory!",
   "UniqueID": "CJBShowItemSellPrice",
-  "PerSaveConfigs": false,
-  "EntryDll":  "StardewCJB.dll"
+  "EntryDll": "StardewCJB.dll"
 }
