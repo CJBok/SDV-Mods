@@ -11,6 +11,14 @@ Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
 2. [Install this mod from Nexus mods](http://www.nexusmods.com/stardewvalley/mods/211).
 3. Run the game using SMAPI.
 
+## Configuration
+The mod will work fine out of the box, but you can tweak its settings by editing the `config.json`
+file. These are the available settings.
+
+setting | default | what it affects
+------- | ------- | ---------------
+`diagonal` | `false` | Whether to link with chests which are diagonally adjacent to the machine.
+
 ## Versions
 1.0–1.3:
 * Initial versions.
