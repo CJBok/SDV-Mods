@@ -21,3 +21,4 @@ Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
 
 1.6:
 * Updated to Stardew Valley 1.1+ and SMAPI 1.5.
+* Added support for new iridium quality.

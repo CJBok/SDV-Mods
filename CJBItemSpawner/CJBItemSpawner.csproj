@@ -39,6 +39,7 @@
     <Compile Include="ItemInventoryMenu.cs" />
     <Compile Include="ItemMenu.cs" />
     <Compile Include="ItemMenuWithInventory.cs" />
+    <Compile Include="ItemQuality.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
