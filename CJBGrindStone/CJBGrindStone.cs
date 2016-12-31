@@ -95,7 +95,7 @@ namespace CJBGrindStone
         }
 
         private void GameEvents_LoadContent(object sender, EventArgs e) {
-            FileStream filestream = new FileStream(PathOnDisk + @"\Content\grindstone.png", FileMode.Open);
+            FileStream filestream = new FileStream(Path.Combine(this.Helper.DirectoryPath, "Content", "grindstone.png"), FileMode.Open);
             grindstoneTex = Texture2D.FromStream(SGame.Instance.GraphicsDevice, filestream);
         }
     }
