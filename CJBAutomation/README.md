@@ -14,3 +14,6 @@ Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
 ## Versions
 1.0–1.3:
 * Initial versions.
+
+1.4:
+* Updated to Stardew Valley 1.1+ and SMAPI 1.5.
