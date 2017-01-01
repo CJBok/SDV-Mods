@@ -5,6 +5,8 @@ using StardewValley;
 using StardewValley.Objects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using SDV = StardewValley;
 
 namespace CJBAutomation {
     public class Automation {
@@ -32,6 +34,17 @@ namespace CJBAutomation {
             return chests;
         }
 
+        public static IEnumerable<T> FindItemTypes<T>(GameLocation loc)
+            where T : SDV.Object
+        {
+            return loc.objects.Values.Where(o => o is T).Select(m => (T)m);
+        }
+
+        public static IEnumerable<Chest> GetChestFromSurroundingLocation(GameLocation loc)
+        {
+            return FindItemTypes<Chest>(loc);
+        }
+
         public static bool DoesChestsHaveItem(List<Chest> chests, int index, int stack) {
             foreach (Chest chest in chests) {
                 foreach (Item item in chest.items) {
@@ -40,6 +53,14 @@ namespace CJBAutomation {
                 }
             }
             return false;
+        }
+
+        public static void DecreaseStack(Chest chest, Item stack, int amount = 1)
+        {
+            stack.Stack -= amount;
+            if (stack.Stack <= 0)
+                chest.items.Remove(stack);
+            chest.clearNulls();
         }
 
         public static bool RemoveItemFromChests(List<Chest> chests, int index, int stack = 1) {
@@ -93,18 +114,50 @@ namespace CJBAutomation {
             return null;
         }
 
-        public static bool RemoveItemFromChestsByName(List<Chest> chests, string name, int excludeid) {
+        public static bool ChestsHaveEnoughItemsByName(List<Chest> chests, string name, int excludeid, int stack)
+        {
+            int stack_tmp = 0;
+            foreach (Chest chest in chests)
+            {
+                foreach (Item item in chest.items)
+                {
+                    if (item.Name == null)
+                        continue;
+                    if (item.Name == name && item.parentSheetIndex != excludeid)
+                        stack_tmp += item.Stack;
+                    if (stack_tmp >= stack)
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool RemoveItemFromChestsByName(List<Chest> chests, string name, int excludeid, int stack = 1) {
+            if (stack > 1 && !ChestsHaveEnoughItemsByName(chests, name, excludeid, stack))
+                return false;
+
             foreach (Chest chest in chests) {
+                var toRemove = new List<Item>();
                 foreach (Item item in chest.items) {
                     if (item.Name == null) continue;
                     if (item.Name == name && item.parentSheetIndex != excludeid) {
-                        item.Stack -= 1;
+                        int remove = Math.Min(stack, item.Stack);
+                        item.Stack -= remove;
+                        stack -= remove;
                         if (item.Stack <= 0)
-                            chest.items.Remove(item);
-                        chest.clearNulls();
-                        return true;
+                            toRemove.Add(item);
+                        if (stack <= 0)
+                        {
+                            foreach (var victim in toRemove)
+                                chest.items.Remove(victim);
+                            chest.clearNulls();
+                            return true;
+                        }
                     }
                 }
+                foreach (var victim in toRemove)
+                    chest.items.Remove(victim);
+                chest.clearNulls();
             }
             return false;
         }
@@ -130,10 +183,7 @@ namespace CJBAutomation {
 
             if (cropData == null) {
                 cropData = new Dictionary<int, int>();
-                if (Game1.temporaryContent == null) {
-                    Game1.temporaryContent = new LocalizedContentManager(Game1.content.ServiceProvider, Game1.content.RootDirectory);
-                }
-                Dictionary<int, string> dictionary = Game1.temporaryContent.Load<Dictionary<int, string>>("Data\\Crops");
+                Dictionary<int, string> dictionary = Game1.content.Load<Dictionary<int, string>>("Data\\Crops");
                 foreach (KeyValuePair<int, string> current in dictionary) {
                     cropData.Add(Convert.ToInt32(current.Value.Split(new char[] { '/' })[3]), current.Key);
                 }

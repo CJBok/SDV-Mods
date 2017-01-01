@@ -7,6 +7,8 @@ using StardewValley.Buildings;
 using StardewValley.Locations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using SDV = StardewValley;
 
 namespace CJBAutomation {
     public class CJBAutomation : Mod {
@@ -27,7 +29,7 @@ namespace CJBAutomation {
 
             foreach (GameLocation gLoc in Game1.locations) {
 
-                if (!gLoc.name.Contains("Farm") && !gLoc.name.Contains("GreenHouse"))
+                if (!gLoc.name.Contains("Farm") && !gLoc.name.Contains("GreenHouse") && gLoc.name != "Cellar")
                     continue;
 
                 locations.Add(gLoc);
@@ -128,17 +130,26 @@ namespace CJBAutomation {
                 }
                 if (obj.heldObject == null && !obj.readyForHarvest) {
                     if (Automation.RemoveItemFromChests(chests, 176) || Automation.RemoveItemFromChests(chests, 180)) {
+                        // small white egg / small brown egg -> normal mayonnaise
                         obj.heldObject = new StardewValley.Object(Vector2.Zero, 306, (string)null, false, true, false, false);
                         obj.minutesUntilReady = 180;
                     } else
                     if (Automation.RemoveItemFromChests(chests, 107) || Automation.RemoveItemFromChests(chests, 174) || Automation.RemoveItemFromChests(chests, 182)) {
+                        // dino egg / white large egg / brown large egg -> gold quality mayonnaise
                         obj.heldObject = new StardewValley.Object(Vector2.Zero, 306, (string)null, false, true, false, false) {
                             quality = 2
                         };
                         obj.minutesUntilReady = 180;
                     } else
                     if (Automation.RemoveItemFromChests(chests, 442)) {
+                        // duck egg -> duck mayonnaise
                         obj.heldObject = new StardewValley.Object(Vector2.Zero, 307, (string)null, false, true, false, false);
+                        obj.minutesUntilReady = 180;
+                    } else
+                    if (Automation.RemoveItemFromChests(chests, 305))
+                    {
+                        // void egg -> void mayonnaise
+                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 308, (string)null, false, true, false, false);
                         obj.minutesUntilReady = 180;
                     }
                 }
@@ -156,34 +167,65 @@ namespace CJBAutomation {
                     }
                 }
                 if (obj.heldObject == null && !obj.readyForHarvest) {
-                    if (Automation.RemoveItemFromChestsByName(chests, "Wheat", -1)) {
-                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 346, "Beer", false, true, false, false);
-                        obj.heldObject.name = "Beer";
-                        obj.minutesUntilReady = 1750;
-                    } else
-                    if (Automation.RemoveItemFromChestsByName(chests, "Hops", -1)) {
-                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 303, "Pale Ale", false, true, false, false);
-                        obj.heldObject.name = "Pale Ale";
-                        obj.minutesUntilReady = 2250;
-                    } else {
-                        StardewValley.Object item = (StardewValley.Object)Automation.GetItemFromChestsByCategory(chests, -79, -1);
-                        if (item == null)
-                            item = (StardewValley.Object)Automation.GetItemFromChestsByCategory(chests, -75, -1);
-
-                        if (item != null) {
-                            if (item.category == -79) {
-                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 348, item.Name + " Wine", false, true, false, false);
-                                obj.heldObject.Price = item.Price * 3;
-                                obj.heldObject.Name = item.Name + " Wine";
-                                obj.minutesUntilReady = 10000;
-                                Automation.RemoveItemFromChestsCategory(chests, -79, -1);
+                    foreach (var chest in chests)
+                    {
+                        foreach (var stack in chest.items)
+                        {
+                            switch (stack.parentSheetIndex)
+                            {
+                                case 340: // honey, regardless of flower type
+                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 459, "Mead", false, true, false, false);
+                                    obj.minutesUntilReady = 600;
+                                    obj.heldObject.name = "Mead";
+                                    break;
+                                case 262: // wheat
+                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 346, "Beer", false, true, false, false);
+                                    obj.minutesUntilReady = 1750;
+                                    obj.heldObject.name = "Beer";
+                                    break;
+                                case 304: // hops
+                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 303, "Pale Ale", false, true, false, false);
+                                    obj.minutesUntilReady = 2250;
+                                    obj.heldObject.name = "Pale Ale";
+                                    break;
+                                case 433: // coffee bean
+                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 395, "Coffee", false, true, false, false);
+                                    obj.heldObject.name = "Coffee";
+                                    obj.minutesUntilReady = 120;
+                                    break;
+                                case 256: // tomato, default would produce tomato wine instead of juice
+                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 350, stack.Name + " Juice", false, true, false, false);
+                                    obj.heldObject.Price = (int)(((StardewValley.Object)stack).Price * 2.25d);
+                                    obj.heldObject.name = stack.Name + " Juice";
+                                    obj.minutesUntilReady = 6000;
+                                    break;
+                                case 260: // hot pepper, default would produce juice instead of wine
+                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 348, stack.Name + " Wine", false, true, false, false);
+                                    obj.heldObject.Price = ((StardewValley.Object)stack).Price * 3;
+                                    obj.heldObject.name = stack.Name + " Wine";
+                                    obj.minutesUntilReady = 10000;
+                                    break;
+                                default:
+                                    if (stack.category == -79) // fruit
+                                    {
+                                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 348, stack.Name + " Wine", false, true, false, false);
+                                        obj.heldObject.name = stack.Name + " Wine";
+                                        obj.heldObject.Price = ((StardewValley.Object)stack).Price * 3;
+                                        obj.minutesUntilReady = 10000;
+                                    }
+                                    else if (stack.category == -75) // veggie
+                                    {
+                                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 350, stack.Name + " Juice", false, true, false, false);
+                                        obj.heldObject.Price = (int)(((StardewValley.Object)stack).Price * 2.25d);
+                                        obj.heldObject.name = stack.Name + " Juice";
+                                        obj.minutesUntilReady = 6000;
+                                    }
+                                    break;
                             }
-                            if (item.category == -75) {
-                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 350, item.Name + " Juice", false, true, false, false);
-                                obj.heldObject.Price = (int)(item.price * 2.25d);
-                                obj.heldObject.Name = item.Name + " Juice";
-                                obj.minutesUntilReady = 6000;
-                                Automation.RemoveItemFromChestsCategory(chests, -75, -1);
+                            if (obj.heldObject != null) // we have put something in the keg, no need to loop over more chests/stacks
+                            {
+                                Automation.DecreaseStack(chest, stack, 1);
+                                return;
                             }
                         }
                     }
@@ -479,6 +521,133 @@ namespace CJBAutomation {
                                 obj.readyForHarvest = false;
                                 break;
                             }
+                        }
+                    }
+                }
+            }
+            else if (obj.name.Equals("Cask"))
+            {
+                if (gLoc.Name != "Cellar")
+                    return;
+                var chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                if (obj.heldObject != null && obj.heldObject.quality == 4)
+                {
+                    foreach (var chest in chests)
+                    {
+                        if (chest.addItem(obj.heldObject.getOne()) == null)
+                        {
+                            obj.heldObject = null;
+                            obj.minutesUntilReady = 0;
+                            obj.readyForHarvest = false;
+                            ((Cask)obj).agingRate = 0.0f;
+                            ((Cask)obj).daysToMature = 0.0f;
+                            break;
+                        }
+                    }
+                }
+                if (obj.heldObject == null)
+                {
+                    foreach (var chest in chests)
+                    {
+                        foreach (var stack in chest.items)
+                        {
+                            if ((((StardewValley.Object)stack).quality) == 4) // skip already-iridium stuff
+                                continue;
+                            float agingRate = -1f;
+                            switch (stack.parentSheetIndex)
+                            {
+                                case 424: // cheese
+                                case 426: // goat cheese
+                                    agingRate = 4f;
+                                    break;
+                                case 459: // mead
+                                case 346: // beer
+                                    agingRate = 2f;
+                                    break;
+                                case 303: // pale ale
+                                    agingRate = 1.66f;
+                                    break;
+                                case 348: // wine
+                                    agingRate = 1f;
+                                    break;
+                            }
+                            if (agingRate < 0) // not something we could age
+                                continue;
+                            obj.heldObject = (StardewValley.Object)stack.getOne();
+                            switch (((StardewValley.Object)stack).quality)
+                            {
+                                case 0:
+                                    ((Cask)obj).daysToMature = 56f;
+                                    break;
+                                case 1:
+                                    ((Cask)obj).daysToMature = 42f;
+                                    break;
+                                case 2:
+                                    ((Cask)obj).daysToMature = 28f;
+                                    break;
+                            }
+                            ((Cask)obj).agingRate = agingRate;
+                            obj.minutesUntilReady = 999999;
+                            Automation.DecreaseStack(chest, stack, 1);
+                            return;
+                        }
+                    }
+                }
+            }
+            else if (obj.name == "Slime Egg-Press")
+            {
+                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                if (obj.heldObject != null && obj.readyForHarvest) {
+                    foreach (Chest chest in chests) {
+                        if (chest != null) {
+                            if (chest.addItem(obj.heldObject.getOne()) == null) {
+                                obj.heldObject = null;
+                                obj.readyForHarvest = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (obj.heldObject == null)
+                {
+                    if (Automation.RemoveItemFromChestsByName(chests, "Slime", -1, 99))
+                    {
+                        int parentSheetIndex = 680;
+                        if (Game1.random.NextDouble() < 0.05)
+                            parentSheetIndex = 439;
+                        else if (Game1.random.NextDouble() < 0.1)
+                            parentSheetIndex = 437;
+                        else if (Game1.random.NextDouble() < 0.25)
+                            parentSheetIndex = 413;
+                        obj.heldObject = new StardewValley.Object(parentSheetIndex, 1, false, -1, 0);
+                        obj.minutesUntilReady = 1200;
+                    }
+                }
+            }
+            else if (obj.Name.Contains("Mushroom Box"))
+            {
+                if (obj.heldObject != null && obj.readyForHarvest)
+                {
+                    IEnumerable<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                    if (!chests.Any())
+                    {
+                        // two possible modes
+                        // - output mushrooms to adjancent chests like other machines (for realism)
+                        // - output to any single chest inside the mushroom cave to save space, but only as long as there is
+                        //   exactly one in the whole cave
+                        chests = Automation.GetChestFromSurroundingLocation(gLoc);
+                        if (chests.Skip(1).Any())
+                            return;
+                    }
+                    foreach (var chest in chests)
+                    {
+                        if (chest != null && chest.addItem(obj.heldObject) == null)
+                        {
+                            obj.heldObject = null;
+                            obj.readyForHarvest = false;
+                            obj.minutesUntilReady = -1;
+                            obj.showNextIndex = false;
+                            break;
                         }
                     }
                 }

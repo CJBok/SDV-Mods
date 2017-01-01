@@ -25,3 +25,7 @@ setting | default | what it affects
 
 1.4:
 * Updated to Stardew Valley 1.1+ and SMAPI 1.5.
+* Added support for casks, mushroom cave boxes, and slime egg-presses.
+* Added support for coffee, mead, and void mayonnaise.
+* Fixed error when automating seed maker.
+* Fixed juices and wines not correctly named.
