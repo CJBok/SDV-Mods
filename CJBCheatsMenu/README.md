@@ -89,11 +89,58 @@ setting | default | what it affects
 `infiniteHay` | `false` | Your hay silos are always full.
 
 ## Versions
-1.0–1.12:
-* Initial versions.
-
-1.13:
+1.13 (upcoming):
 * Updated to Stardew Valley 1.1+ and SMAPI 1.5.
+* Added compatibility with Linux and Mac.
 * Added support for casks and worm bins.
 * Fixed instantly-grown fruit trees not producing fruit until their normal growth date.
 * Fixed 'grow crops' key in settings menu not being saved.
+
+1.12 (2016-04-09):
+* Updated to Stardew Valley 1.07+ and SMAPI 0.40.0+.
+* Added cheats: durable tackles, harvest with sickle, grow tree, and grow crops.
+* Added changeable relationships.
+* Fixed mouse cursor showing when disabled.
+
+1.11 (2016-04-02):
+* Updated for SMAPI 0.39.6.
+* Added cheats: fast tapper, fast lightning rod, always auto-feed, and infinite hay.
+* Added casino coins cheats.
+* Added warps to bathhouse, Sandy, and casino.
+* Added time slider.
+* Fixed time frozen label.
+
+1.10 (2016-03-30):
+* Updated for SMAPI 0.39.4.
+* Added cheats: no friendship decay, instant build.
+* Fixed fast machine processing in barns and coops.
+
+1.9 (2016-03-23):
+* Updated for SMAPI 0.39.1.
+
+1.8.2 (2016-03-23):
+* Fixed cheats not working in the greenhouse.
+
+1.8.1 (2016-03-22):
+* Fixed cheats not working in the greenhouse.
+
+1.8 (2016-03-21):
+* Updated to Stardew Valley 1.0.6 and SMAPI 0.38.3.
+* Fixed watering fields in the greenhouse.
+* Fixed fast machine processing.
+* Removed the `nini.dll` file (no longer needed, now uses save method in latest SMAPI update).
+
+1.7.1 (2016-03-18):
+* Fixed fast machine processing.
+* Fixed watering fields in the greenhouse.
+
+1.7 (2016-03-17):
+* Added fast processing for all machines (each toggleable).
+* Added skill reset.
+* You can now switch between categories with controller (shoulder triggers).
+* Fixed leveling up skills.
+* Fixed watering fields in some cases.
+
+1.6 (2016-03-11):
+* Menu now contains categories (last scroll position and category will be remembered).
+* Fixed 'always treasure' cheat.

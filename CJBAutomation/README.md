@@ -20,12 +20,25 @@ setting | default | what it affects
 `diagonal` | `false` | Whether to link with chests which are diagonally adjacent to the machine.
 
 ## Versions
-1.0–1.3:
-* Initial versions.
-
-1.4:
+1.4 (upcoming):
 * Updated to Stardew Valley 1.1+ and SMAPI 1.5.
+* Added compatibility with Linux and Mac.
 * Added support for casks, mushroom cave boxes, and slime egg-presses.
 * Added support for coffee, mead, and void mayonnaise.
 * Fixed error when automating seed maker.
 * Fixed juices and wines not correctly named.
+
+1.3 (2016-04-02):
+* Added tapper.
+* Added lightning rod.
+* Fixed wrong beehouse output.
+
+1.2 (2016-03-30):
+* Fixed automation in barns and coops.
+* Added config file to toggle diagonal chests support (default `false`).
+
+1.1 (2016-03-30):
+* Added support for recycling machines, seed makers, and oil makers.
+
+1.0 (2016-03-29):
+* First release.
