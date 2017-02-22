@@ -91,7 +91,7 @@ namespace CJBAutomation {
                             obj.minutesUntilReady = 480;
                         } else if (Automation.DoesChestsHaveItem(chests, 80, 1)) {
                             Automation.RemoveItemFromChests(chests, 382, 1);
-                            Automation.RemoveItemFromChests(chests, 80, 5);
+                            Automation.RemoveItemFromChests(chests, 80, 1);
                             obj.heldObject = new StardewValley.Object(Vector2.Zero, 338, "Refined Quartz", false, true, false, false);
                             obj.minutesUntilReady = 90;
                         }
