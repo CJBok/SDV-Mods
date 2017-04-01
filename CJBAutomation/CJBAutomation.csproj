@@ -39,6 +39,7 @@
     </Compile>
     <Compile Include="Automation.cs" />
     <Compile Include="CJBAutomation.cs" />
+    <Compile Include="ModConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

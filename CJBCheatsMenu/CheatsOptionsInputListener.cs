@@ -1,19 +1,33 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewValley;
 using StardewValley.Menus;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace CJBCheatsMenu {
-    class CheatsOptionsInputListener : OptionsElement {
-        public static Rectangle setButtonSource = new Rectangle(294, 428, 21, 11);
-        public List<string> buttonNames = new List<string>();
+namespace CJBCheatsMenu
+{
+    class CheatsOptionsInputListener : OptionsElement
+    {
+        /*********
+        ** Properties
+        *********/
         private string listenerMessage;
         private bool listening;
         private Rectangle setbuttonBounds;
 
+
+        /*********
+        ** Accessors
+        *********/
+        public static Rectangle setButtonSource = new Rectangle(294, 428, 21, 11);
+        public List<string> buttonNames = new List<string>();
+
+
+        /*********
+        ** Public methods
+        *********/
         public CheatsOptionsInputListener(string label, int whichOption, int slotWidth, int x = -1, int y = -1)
           : base(label, x, y, slotWidth - x, 11 * Game1.pixelZoom, whichOption)
         {
@@ -21,7 +35,8 @@ namespace CJBCheatsMenu {
             if (whichOption == -1)
                 return;
 
-            switch (whichOption) {
+            switch (whichOption)
+            {
                 case 1000:
                     buttonNames.Add(CJBCheatsMenu.config.openMenuKey);
                     break;
@@ -37,15 +52,19 @@ namespace CJBCheatsMenu {
             }
         }
 
-        public override void leftClickHeld(int x, int y) {
+        public override void leftClickHeld(int x, int y)
+        {
             int num = this.greyedOut ? 1 : 0;
         }
 
-        public override void receiveLeftClick(int x, int y) {
+        public override void receiveLeftClick(int x, int y)
+        {
             if (this.greyedOut || this.listening || !this.setbuttonBounds.Contains(x, y))
                 return;
-            if (buttonNames.Count() == 0) {
-                switch (whichOption) {
+            if (buttonNames.Count() == 0)
+            {
+                switch (whichOption)
+                {
                     case 2:
                         Game1.player.money += 100;
                         Game1.soundBank.PlayCue("coin");
@@ -184,7 +203,8 @@ namespace CJBCheatsMenu {
                     case 200:
                         int lvl1 = Game1.player.newLevels.Count();
                         Game1.player.gainExperience(0, CJB.getExperiencePoints(Game1.player.farmingLevel));
-                        if (lvl1 < Game1.player.newLevels.Count()) {
+                        if (lvl1 < Game1.player.newLevels.Count())
+                        {
                             Game1.player.newLevels.RemoveAt(Game1.player.newLevels.Count() - 1);
                         }
                         Game1.exitActiveMenu();
@@ -193,7 +213,8 @@ namespace CJBCheatsMenu {
                     case 201:
                         int lvl2 = Game1.player.newLevels.Count();
                         Game1.player.gainExperience(3, CJB.getExperiencePoints(Game1.player.miningLevel));
-                        if (lvl2 < Game1.player.newLevels.Count()) {
+                        if (lvl2 < Game1.player.newLevels.Count())
+                        {
                             Game1.player.newLevels.RemoveAt(Game1.player.newLevels.Count() - 1);
                         }
                         Game1.exitActiveMenu();
@@ -202,7 +223,8 @@ namespace CJBCheatsMenu {
                     case 202:
                         int lvl3 = Game1.player.newLevels.Count();
                         Game1.player.gainExperience(2, CJB.getExperiencePoints(Game1.player.foragingLevel));
-                        if (lvl3 < Game1.player.newLevels.Count()) {
+                        if (lvl3 < Game1.player.newLevels.Count())
+                        {
                             Game1.player.newLevels.RemoveAt(Game1.player.newLevels.Count() - 1);
                         }
                         Game1.exitActiveMenu();
@@ -211,7 +233,8 @@ namespace CJBCheatsMenu {
                     case 203:
                         int lvl4 = Game1.player.newLevels.Count();
                         Game1.player.gainExperience(1, CJB.getExperiencePoints(Game1.player.fishingLevel));
-                        if (lvl4 < Game1.player.newLevels.Count()) {
+                        if (lvl4 < Game1.player.newLevels.Count())
+                        {
                             Game1.player.newLevels.RemoveAt(Game1.player.newLevels.Count() - 1);
                         }
                         Game1.exitActiveMenu();
@@ -220,7 +243,8 @@ namespace CJBCheatsMenu {
                     case 204:
                         int lvl5 = Game1.player.newLevels.Count();
                         Game1.player.gainExperience(4, CJB.getExperiencePoints(Game1.player.combatLevel));
-                        if (lvl5 < Game1.player.newLevels.Count()) {
+                        if (lvl5 < Game1.player.newLevels.Count())
+                        {
                             Game1.player.newLevels.RemoveAt(Game1.player.newLevels.Count() - 1);
                         }
                         Game1.exitActiveMenu();
@@ -247,7 +271,9 @@ namespace CJBCheatsMenu {
                         break;
 
                 }
-            } else {
+            }
+            else
+            {
                 this.listening = true;
                 Game1.soundBank.PlayCue("breathin");
                 GameMenu.forcePreventClose = true;
@@ -255,15 +281,20 @@ namespace CJBCheatsMenu {
             }
         }
 
-        public override void receiveKeyPress(Keys key) {
+        public override void receiveKeyPress(Keys key)
+        {
             if (this.greyedOut || !this.listening)
                 return;
-            if (key == Keys.Escape) {
+            if (key == Keys.Escape)
+            {
                 Game1.soundBank.PlayCue("bigDeSelect");
                 this.listening = false;
                 GameMenu.forcePreventClose = false;
-            } else {
-                switch (whichOption) {
+            }
+            else
+            {
+                switch (whichOption)
+                {
                     case 1000:
                         CJBCheatsMenu.config.openMenuKey = key.ToString();
                         CJBCheatsMenu.SaveConfig();
@@ -288,10 +319,12 @@ namespace CJBCheatsMenu {
             }
         }
 
-        public override void draw(SpriteBatch b, int slotX, int slotY) {
+        public override void draw(SpriteBatch b, int slotX, int slotY)
+        {
             string lvl = "";
             Farmer plr = Game1.player;
-            switch (whichOption) {
+            switch (whichOption)
+            {
                 case 200:
                     lvl = plr.farmingLevel.ToString();
                     greyedOut = plr.farmingLevel >= 10;

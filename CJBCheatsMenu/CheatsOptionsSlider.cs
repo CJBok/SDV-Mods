@@ -3,9 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
 
-namespace CJBCheatsMenu {
-    class CheatsOptionsSlider : OptionsElement 
-        {
+namespace CJBCheatsMenu
+{
+    class CheatsOptionsSlider : OptionsElement
+    {
+        /*********
+        ** Accessors
+        *********/
         public static Rectangle sliderBGSource = new Rectangle(403, 383, 6, 6);
         public static Rectangle sliderButtonRect = new Rectangle(420, 441, 10, 6);
         public const int pixelsWide = 48;
@@ -16,12 +20,17 @@ namespace CJBCheatsMenu {
 
         public string sliderLabel = "";
 
+
+        /*********
+        ** Public methods
+        *********/
         public CheatsOptionsSlider(string label, int whichOption, int maxValue = 100, int x = -1, int y = -1, int width = 48)
             : base(label, x, y, width * Game1.pixelZoom, 6 * Game1.pixelZoom, whichOption)
         {
             sliderLabel = label;
             sliderMaxValue = maxValue;
-            switch (whichOption) {
+            switch (whichOption)
+            {
                 case 0:
                     value = CJBCheatsMenu.config.moveSpeed;
                     break;
@@ -31,14 +40,16 @@ namespace CJBCheatsMenu {
             }
         }
 
-        public override void leftClickHeld(int x, int y) {
+        public override void leftClickHeld(int x, int y)
+        {
             if (this.greyedOut)
                 return;
 
             base.leftClickHeld(x, y);
             this.value = x >= this.bounds.X ? (x <= this.bounds.Right - 10 * Game1.pixelZoom ? (int)((double)((float)(x - this.bounds.X) / (float)(this.bounds.Width - 10 * Game1.pixelZoom)) * this.sliderMaxValue) : this.sliderMaxValue) : 0;
 
-            switch (whichOption) {
+            switch (whichOption)
+            {
                 case 0:
                     CJBCheatsMenu.config.moveSpeed = value;
                     CJBCheatsMenu.SaveConfig();
@@ -49,19 +60,22 @@ namespace CJBCheatsMenu {
             }
         }
 
-        public override void receiveLeftClick(int x, int y) {
+        public override void receiveLeftClick(int x, int y)
+        {
             if (this.greyedOut)
                 return;
             base.receiveLeftClick(x, y);
             this.leftClickHeld(x, y);
         }
 
-        public override void draw(SpriteBatch b, int slotX, int slotY) {
+        public override void draw(SpriteBatch b, int slotX, int slotY)
+        {
             base.label = this.sliderLabel + ": " + this.value;
 
             this.greyedOut = false;
 
-            switch (whichOption) {
+            switch (whichOption)
+            {
                 case 0:
                     this.greyedOut = !CJBCheatsMenu.config.increasedMovement;
                     break;

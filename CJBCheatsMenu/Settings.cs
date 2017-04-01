@@ -1,8 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace CJBCheatsMenu {
-    public class Settings {
-        
+namespace CJBCheatsMenu
+{
+    public class Settings
+    {
+        /*********
+        ** Accessors
+        *********/
         public string openMenuKey { get; set; } = Keys.P.ToString();
         public string freezeTimeKey { get; set; } = Keys.T.ToString();
         public string growTreeKey { get; set; } = Keys.NumPad1.ToString();
@@ -36,11 +40,11 @@ namespace CJBCheatsMenu {
         public bool fastRecyclingMachine { get; set; }
         public bool fastCrystalarium { get; set; }
         public bool fastIncubator { get; set; }
-        public bool fastSlimeIncubator  { get; set; }
+        public bool fastSlimeIncubator { get; set; }
         public bool fastKeg { get; set; }
         public bool fastPreservesJar { get; set; }
         public bool fastCheesePress { get; set; }
-        public bool fastMayonnaiseMachine  { get; set; }
+        public bool fastMayonnaiseMachine { get; set; }
         public bool fastLoom { get; set; }
         public bool fastOilMaker { get; set; }
         public bool fastSeedMaker { get; set; }

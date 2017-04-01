@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using StardewModdingAPI;
 using Object = StardewValley.Object;
 
 namespace CJBItemSpawner
@@ -17,6 +15,9 @@ namespace CJBItemSpawner
     /// <summary>Extension methods for <see cref="ItemQuality"/>.</summary>
     internal static class ItemQualityExtensions
     {
+        /*********
+        ** Public methods
+        *********/
         /// <summary>Get the quality name.</summary>
         /// <param name="current">The quality.</param>
         public static string GetName(this ItemQuality current)

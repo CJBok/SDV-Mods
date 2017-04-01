@@ -1,41 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Menus;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Reflection;
-using Microsoft.Xna.Framework.Input;
 
 namespace CJBShowItemSellPrice
 {
     public class StardewCJB : Mod
     {
+        /*********
+        ** Accessors
+        *********/
         public static RenderTarget2D RTarg { get; set; }
 
+
+        /*********
+        ** Public methods
+        *********/
         /// <summary>The mod entry point, called after the mod is first loaded.</summary>
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
-        public override void Entry(IModHelper helper) {
+        public override void Entry(IModHelper helper)
+        {
             //GraphicsEvents.DrawTick += GraphicsEvents_OnPostRenderGuiEvent;
             GraphicsEvents.OnPostRenderGuiEvent += GraphicsEvents_OnPostRenderGuiEvent;
         }
 
-        private void GraphicsEvents_OnPostRenderGuiEvent(object sender, EventArgs e) {
-            if (Game1.activeClickableMenu != null) {
+
+        /*********
+        ** Private methods
+        *********/
+        private void GraphicsEvents_OnPostRenderGuiEvent(object sender, EventArgs e)
+        {
+            if (Game1.activeClickableMenu != null)
+            {
                 Item item = null;
 
-                if (Game1.activeClickableMenu is GameMenu) {
+                if (Game1.activeClickableMenu is GameMenu)
+                {
                     GameMenu menu = (GameMenu)Game1.activeClickableMenu;
 
-                    if (menu.currentTab == 0) {
+                    if (menu.currentTab == 0)
+                    {
                         List<IClickableMenu> pages = (List<IClickableMenu>)typeof(GameMenu).GetField("pages", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(menu);
                         InventoryPage inv = (InventoryPage)pages[0];
 
                         item = (Item)typeof(InventoryPage).GetField("hoveredItem", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(inv);
                     }
-                    if (menu.currentTab == 4) {
+                    if (menu.currentTab == 4)
+                    {
                         List<IClickableMenu> pages = (List<IClickableMenu>)typeof(GameMenu).GetField("pages", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(menu);
                         CraftingPage inv = (CraftingPage)pages[4];
 
@@ -43,7 +60,8 @@ namespace CJBShowItemSellPrice
                     }
                 }
 
-                if (Game1.activeClickableMenu is MenuWithInventory) {
+                if (Game1.activeClickableMenu is MenuWithInventory)
+                {
                     MenuWithInventory menu = (MenuWithInventory)Game1.activeClickableMenu;
                     InventoryMenu inv = menu.inventory;
                     item = menu.hoveredItem;
@@ -52,13 +70,16 @@ namespace CJBShowItemSellPrice
                 if (item == null)
                     return;
 
-                if (item is StardewValley.Object) {
+                if (item is StardewValley.Object)
+                {
                     StardewValley.Object o = item as StardewValley.Object;
                     if (o.stack > 1)
                         drawHoverTextBox(Game1.smallFont, o.sellToStorePrice(), o.stack);
                     else
                         drawHoverTextBox(Game1.smallFont, o.sellToStorePrice());
-                } else if (item != null) {
+                }
+                else if (item != null)
+                {
                     if (item.Stack > 1)
                         drawHoverTextBox(Game1.smallFont, (item.salePrice() / 2), item.Stack);
                     else
@@ -67,7 +88,8 @@ namespace CJBShowItemSellPrice
             }
         }
 
-        private void drawHoverTextBox(SpriteFont font, int price, int stack = -1) {
+        private void drawHoverTextBox(SpriteFont font, int price, int stack = -1)
+        {
 
             if (price < 1)
                 return;
@@ -82,12 +104,13 @@ namespace CJBShowItemSellPrice
 
             string message1 = "Single: ";
 
-            if (stack > 1) {
+            if (stack > 1)
+            {
                 message += Environment.NewLine + s2;
                 message1 += Environment.NewLine + "Stack: ";
             }
 
-            
+
             Vector2 bounds = font.MeasureString(message);
             int width = (int)bounds.X + Game1.tileSize / 2 + 40;
             int height = (int)font.MeasureString(message).Y + Game1.tileSize / 3 + 5;
@@ -95,10 +118,12 @@ namespace CJBShowItemSellPrice
             int x = (int)(Mouse.GetState().X / Game1.options.zoomLevel) - Game1.tileSize / 2 - width;
             int y = (int)(Mouse.GetState().Y / Game1.options.zoomLevel) + Game1.tileSize / 2;
 
-            if (x < 0) {
+            if (x < 0)
+            {
                 x = 0;
             }
-            if (y + height > Game1.graphics.GraphicsDevice.Viewport.Height) {
+            if (y + height > Game1.graphics.GraphicsDevice.Viewport.Height)
+            {
                 y = Game1.graphics.GraphicsDevice.Viewport.Height - height;
             }
 

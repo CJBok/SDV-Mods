@@ -1,35 +1,41 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CJBCheatsMenu {
-    class CheatsOptionsElement : OptionsElement {
-
+namespace CJBCheatsMenu
+{
+    class CheatsOptionsElement : OptionsElement
+    {
+        /*********
+        ** Accessors
+        *********/
         public string activeLabel = "";
 
+
+        /*********
+        ** Public methods
+        *********/
         public CheatsOptionsElement(string label, int whichOption)
-          : base(label) {
+          : base(label)
+        {
             base.whichOption = whichOption;
             activeLabel = label;
         }
 
-        public override void draw(SpriteBatch b, int slotX, int slotY) {
-            if (this.whichOption == -1) {
+        public override void draw(SpriteBatch b, int slotX, int slotY)
+        {
+            if (this.whichOption == -1)
+            {
                 SpriteText.drawString(b, this.label, slotX + this.bounds.X, slotY + this.bounds.Y + Game1.pixelZoom * 3, 999, -1, 999, 1f, 0.1f, false, -1, "", -1);
                 return;
             }
 
             string info = "";
 
-            switch (whichOption) {
+            switch (whichOption)
+            {
                 case 1:
                     info = CJB.getWeatherNexDay();
                     break;

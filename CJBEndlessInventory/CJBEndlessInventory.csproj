@@ -41,8 +41,10 @@
     <Compile Include="ItemInventoryMenu.cs" />
     <Compile Include="ItemMenu.cs" />
     <Compile Include="ItemMenuWithInventory.cs" />
+    <Compile Include="ModSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage.cs" />
+    <Compile Include="StorageItems.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="manifest.json">
