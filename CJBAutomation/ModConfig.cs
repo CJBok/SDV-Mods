@@ -1,6 +1,6 @@
 ﻿namespace CJBAutomation
 {
-    public class ModConfig
+    internal class ModConfig
     {
         /*********
         ** Accessors

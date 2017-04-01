@@ -9,7 +9,7 @@ using StardewValley.Menus;
 
 namespace CJBEndlessInventory
 {
-    public class ItemInventoryMenu : IClickableMenu
+    internal class ItemInventoryMenu : IClickableMenu
     {
         /*********
         ** Properties

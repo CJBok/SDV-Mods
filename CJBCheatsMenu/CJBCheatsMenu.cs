@@ -19,7 +19,7 @@ namespace CJBCheatsMenu
         /*********
         ** Accessors
         *********/
-        public static Settings Config;
+        internal static Settings Config;
 
 
         /*********

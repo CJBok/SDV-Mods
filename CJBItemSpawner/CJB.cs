@@ -7,7 +7,7 @@ using StardewValley.Menus;
 
 namespace CJBItemSpawner
 {
-    public class CJB
+    internal class CJB
     {
         /*********
         ** Public methods

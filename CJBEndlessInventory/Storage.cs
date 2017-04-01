@@ -11,7 +11,7 @@ using StardewValley.Tools;
 
 namespace CJBEndlessInventory
 {
-    public class Storage : StardewValley.Object
+    internal class Storage : StardewValley.Object
     {
         /*********
         ** Accessors

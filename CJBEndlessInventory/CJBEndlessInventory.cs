@@ -17,9 +17,9 @@ namespace CJBEndlessInventory
         /*********
         ** Accessors
         *********/
-        public static StorageItems StorageItems { get; set; }
-        public static ModSettings Settings { get; set; }
-        public static bool NewDay = false;
+        internal static StorageItems StorageItems { get; set; }
+        internal static ModSettings Settings { get; set; }
+        internal static bool NewDay = false;
 
 
         /*********

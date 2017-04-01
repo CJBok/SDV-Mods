@@ -6,7 +6,7 @@ using StardewValley.Tools;
 
 namespace CJBGrindStone
 {
-    public class GrindStone : StardewValley.Object
+    internal class GrindStone : StardewValley.Object
     {
         /*********
         ** Accessors

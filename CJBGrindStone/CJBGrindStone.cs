@@ -13,7 +13,7 @@ namespace CJBGrindStone
         /*********
         ** Accessors
         *********/
-        public static Texture2D Texture;
+        internal static Texture2D Texture;
 
 
         /*********

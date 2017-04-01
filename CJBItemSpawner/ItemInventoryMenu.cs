@@ -15,7 +15,7 @@ using StardewValley.Menus;
 
 namespace CJBItemSpawner
 {
-    public class ItemInventoryMenu : IClickableMenu
+    internal class ItemInventoryMenu : IClickableMenu
     {
         /*********
         ** Properties

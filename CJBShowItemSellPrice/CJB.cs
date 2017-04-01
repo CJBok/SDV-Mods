@@ -8,8 +8,7 @@ using StardewValley.Menus;
 
 namespace CJBShowItemSellPrice
 {
-
-    public class CJB
+    internal class CJB
     {
         /*********
         ** Public methods

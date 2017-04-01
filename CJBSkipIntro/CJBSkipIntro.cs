@@ -9,9 +9,9 @@ namespace CJBSkipIntro
     public class CJBSkipIntro : Mod
     {
         /*********
-        ** Accessors
+        ** Properties
         *********/
-        public bool LoadMenu = false;
+        private bool LoadMenu = false;
 
 
         /*********

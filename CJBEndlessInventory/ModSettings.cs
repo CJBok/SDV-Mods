@@ -2,7 +2,7 @@
 
 namespace CJBEndlessInventory
 {
-    public class ModSettings
+    internal class ModSettings
     {
         /*********
         ** Accessors

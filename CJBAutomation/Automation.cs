@@ -4,11 +4,10 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using StardewValley;
 using StardewValley.Objects;
-using SDV = StardewValley;
 
 namespace CJBAutomation
 {
-    public class Automation
+    internal class Automation
     {
         /*********
         ** Properties
@@ -44,15 +43,9 @@ namespace CJBAutomation
             return chests;
         }
 
-        public static IEnumerable<T> FindItemTypes<T>(GameLocation location)
-            where T : SDV.Object
-        {
-            return location.objects.Values.OfType<T>();
-        }
-
         public static IEnumerable<Chest> GetChestsInLocation(GameLocation location)
         {
-            return FindItemTypes<Chest>(location);
+            return location.objects.Values.OfType<Chest>();
         }
 
         public static bool DoChestsHaveItem(List<Chest> chests, int index, int stack)

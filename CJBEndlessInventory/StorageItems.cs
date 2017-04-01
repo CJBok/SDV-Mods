@@ -3,7 +3,7 @@ using StardewValley;
 
 namespace CJBEndlessInventory
 {
-    public class StorageItems
+    internal class StorageItems
     {
         /*********
         ** Accessors

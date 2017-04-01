@@ -2,7 +2,7 @@
 
 namespace CJBCheatsMenu
 {
-    public class Settings
+    internal class Settings
     {
         /*********
         ** Accessors

@@ -16,7 +16,7 @@ namespace CJBShowItemSellPrice
         /*********
         ** Accessors
         *********/
-        public static RenderTarget2D RenderTarget { get; set; }
+        internal static RenderTarget2D RenderTarget { get; set; }
 
 
         /*********

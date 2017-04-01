@@ -18,7 +18,7 @@ using Object = StardewValley.Object;
 
 namespace CJBItemSpawner
 {
-    public class ItemMenu : ItemMenuWithInventory
+    internal class ItemMenu : ItemMenuWithInventory
     {
         /*********
         ** Properties

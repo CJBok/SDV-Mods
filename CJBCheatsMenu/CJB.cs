@@ -7,7 +7,7 @@ using StardewValley.Menus;
 
 namespace CJBCheatsMenu
 {
-    public class CJB
+    internal class CJB
     {
         /*********
         ** Public methods

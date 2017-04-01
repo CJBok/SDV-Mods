@@ -5,7 +5,7 @@ using StardewValley.Menus;
 
 namespace CJBCheatsMenu
 {
-    public class CheatsOptionsCheckbox : OptionsElement
+    internal class CheatsOptionsCheckbox : OptionsElement
     {
         /*********
         ** Accessors

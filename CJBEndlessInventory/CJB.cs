@@ -9,7 +9,7 @@ using StardewValley.Menus;
 namespace CJBEndlessInventory
 {
 
-    public class CJB
+    internal class CJB
     {
         /*********
         ** Public methods

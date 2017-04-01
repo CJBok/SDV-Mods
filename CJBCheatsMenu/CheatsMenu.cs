@@ -10,7 +10,7 @@ using StardewValley.Menus;
 
 namespace CJBCheatsMenu
 {
-    public class CheatsMenu : IClickableMenu
+    internal class CheatsMenu : IClickableMenu
     {
         /*********
         ** Properties

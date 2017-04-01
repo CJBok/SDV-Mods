@@ -15,7 +15,7 @@ using StardewValley.Tools;
 
 namespace CJBCheatsMenu
 {
-    public class Cheats
+    internal class Cheats
     {
         /*********
         ** Properties

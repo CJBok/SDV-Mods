@@ -15,7 +15,7 @@ using StardewValley.Menus;
 
 namespace CJBEndlessInventory
 {
-    public class ItemMenu : ItemMenuWithInventory
+    internal class ItemMenu : ItemMenuWithInventory
     {
         /*********
         ** Properties

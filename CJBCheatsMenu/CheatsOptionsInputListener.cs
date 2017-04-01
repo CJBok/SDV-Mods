@@ -8,7 +8,7 @@ using StardewValley.Menus;
 
 namespace CJBCheatsMenu
 {
-    class CheatsOptionsInputListener : OptionsElement
+    internal class CheatsOptionsInputListener : OptionsElement
     {
         /*********
         ** Properties

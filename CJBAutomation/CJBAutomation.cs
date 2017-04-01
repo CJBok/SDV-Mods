@@ -16,7 +16,7 @@ namespace CJBAutomation
         /*********
         ** Accessors
         *********/
-        public static ModConfig Config;
+        internal static ModConfig Config;
 
 
         /*********
