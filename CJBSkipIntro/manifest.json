@@ -5,9 +5,9 @@
     "MajorVersion": 1,
     "MinorVersion": 0,
     "PatchVersion": 0,
-    "Build": ""
+    "Build": null
   },
   "Description": "Starts game at loading screen.",
-  "UniqueID": "CJBSkipIntro",
-  "EntryDll":  "CJBSkipIntro.dll"
+  "UniqueID": "CJBok.SkipIntro",
+  "EntryDll": "CJBSkipIntro.dll"
 }

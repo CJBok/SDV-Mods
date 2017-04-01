@@ -5,9 +5,9 @@
     "MajorVersion": 1,
     "MinorVersion": 6,
     "PatchVersion": 0,
-    "Build": ""
+    "Build": null
   },
-  "Description": "Simple in-game Item Spawner!",
-  "UniqueID": "CJBItemSpawner",
+  "Description": "Simple in-game item spawner!",
+  "UniqueID": "CJBok.ItemSpawner",
   "EntryDll": "CJBItemSpawner.dll"
 }

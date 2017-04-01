@@ -5,9 +5,9 @@
     "MajorVersion": 1,
     "MinorVersion": 4,
     "PatchVersion": 0,
-    "Build": ""
+    "Build": null
   },
   "Description": "Automate processing of machines",
-  "UniqueID": "CJBAutomation",
+  "UniqueID": "CJBok.Automation",
   "EntryDll": "CJBAutomation.dll"
 }
