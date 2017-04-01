@@ -218,8 +218,8 @@ namespace CJBItemSpawner
                     index = this.Capacity / this.Rows * ItemInventoryMenu.ScrollIndex + index;
                 if (clickableComponent.containsPoint(x, y) && index < this.ActualInventory.Count && this.ActualInventory[index] != null)
                 {
-                    if (this.ActualInventory[index] is Tool && (toAddTo == null || toAddTo is StardewValley.Object) && (this.ActualInventory[index] as Tool).canThisBeAttached((StardewValley.Object)toAddTo))
-                        return (Item)(this.ActualInventory[index] as Tool).attach(toAddTo == null ? (StardewValley.Object)null : (StardewValley.Object)toAddTo);
+                    if (this.ActualInventory[index] is Tool tool && (toAddTo == null || toAddTo is StardewValley.Object) && (this.ActualInventory[index] as Tool).canThisBeAttached((StardewValley.Object)toAddTo))
+                        return tool.attach((StardewValley.Object)toAddTo);
                     if (toAddTo == null)
                     {
                         if (this.ActualInventory[index].maximumStackSize() != -1)
@@ -408,16 +408,12 @@ namespace CJBItemSpawner
 
         public static Item AddItemToInventory(Item item, int position, List<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null)
         {
-            if (items.Equals(Game1.player.items) && item is StardewValley.Object && (item as StardewValley.Object).specialItem)
+            if (items.Equals(Game1.player.items) && item is StardewValley.Object obj && obj.specialItem)
             {
-                if ((item as StardewValley.Object).bigCraftable)
-                {
-                    Game1.player.specialBigCraftables.Add((item as StardewValley.Object).isRecipe ? (-(item as StardewValley.Object).parentSheetIndex) : (item as StardewValley.Object).parentSheetIndex);
-                }
+                if (obj.bigCraftable)
+                    Game1.player.specialBigCraftables.Add(obj.isRecipe ? (-obj.parentSheetIndex) : obj.parentSheetIndex);
                 else
-                {
-                    Game1.player.specialItems.Add((item as StardewValley.Object).isRecipe ? (-(item as StardewValley.Object).parentSheetIndex) : (item as StardewValley.Object).parentSheetIndex);
-                }
+                    Game1.player.specialItems.Add(obj.isRecipe ? (-obj.parentSheetIndex) : obj.parentSheetIndex);
             }
             if (position < 0 || position >= items.Count<Item>())
             {

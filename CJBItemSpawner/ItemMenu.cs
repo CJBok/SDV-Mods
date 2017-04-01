@@ -150,8 +150,8 @@ namespace CJBItemSpawner
             {
                 item.Stack = item.maximumStackSize();
 
-                if (item is Object)
-                    ((Object)item).quality = (int)ItemMenu.Quality;
+                if (item is Object obj)
+                    obj.quality = (int)ItemMenu.Quality;
 
                 if (this.IsCategoryAllowed(item) && item.Name.ToLower().Contains(this.Textbox.Text.ToLower()))
                     this.InventoryItems.Add(item);
@@ -381,19 +381,19 @@ namespace CJBItemSpawner
             if (this.HeldItem == null && this.ShowReceivingMenu)
             {
                 this.HeldItem = this.ItemsToGrabMenu.RightClick(x, y, this.HeldItem, false);
-                if (this.HeldItem is StardewValley.Object && (this.HeldItem as StardewValley.Object).parentSheetIndex == 326)
+                if (this.HeldItem is Object obj && obj.parentSheetIndex == 326)
                 {
-                    this.HeldItem = (Item)null;
+                    this.HeldItem = null;
                     Game1.player.canUnderstandDwarves = true;
                     this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2((float)(x - x % Game1.tileSize + Game1.tileSize / 4), (float)(y - y % Game1.tileSize + Game1.tileSize / 4)), false, false);
                     Game1.playSound("fireball");
                 }
-                else if (this.HeldItem is StardewValley.Object && (this.HeldItem as StardewValley.Object).isRecipe)
+                else if (this.HeldItem is Object recipe && recipe.isRecipe)
                 {
-                    string key = this.HeldItem.Name.Substring(0, this.HeldItem.Name.IndexOf("Recipe") - 1);
+                    string key = this.HeldItem.Name.Substring(0, recipe.Name.IndexOf("Recipe") - 1);
                     try
                     {
-                        if ((this.HeldItem as StardewValley.Object).category == -7)
+                        if (recipe.category == -7)
                             Game1.player.cookingRecipes.Add(key, 0);
                         else
                             Game1.player.craftingRecipes.Add(key, 0);
@@ -482,26 +482,26 @@ namespace CJBItemSpawner
             if (this.HeldItem == null && this.ShowReceivingMenu)
             {
                 this.HeldItem = this.ItemsToGrabMenu.LeftClick(x, y, this.HeldItem, false);
-                if (this.HeldItem is StardewValley.Object && (this.HeldItem as StardewValley.Object).parentSheetIndex == 326)
+                if (this.HeldItem is Object obj && obj.parentSheetIndex == 326)
                 {
-                    this.HeldItem = (Item)null;
+                    this.HeldItem = null;
                     Game1.player.canUnderstandDwarves = true;
                     this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2((float)(x - x % Game1.tileSize + Game1.tileSize / 4), (float)(y - y % Game1.tileSize + Game1.tileSize / 4)), false, false);
                     Game1.playSound("fireball");
                 }
-                else if (this.HeldItem is StardewValley.Object && (this.HeldItem as StardewValley.Object).parentSheetIndex == 102)
+                else if (this.HeldItem is Object && (this.HeldItem as StardewValley.Object).parentSheetIndex == 102)
                 {
                     this.HeldItem = (Item)null;
                     Game1.player.foundArtifact(102, 1);
                     this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2((float)(x - x % Game1.tileSize + Game1.tileSize / 4), (float)(y - y % Game1.tileSize + Game1.tileSize / 4)), false, false);
                     Game1.playSound("fireball");
                 }
-                else if (this.HeldItem is StardewValley.Object && (this.HeldItem as StardewValley.Object).isRecipe)
+                else if (this.HeldItem is Object recipe && recipe.isRecipe)
                 {
-                    string key = this.HeldItem.Name.Substring(0, this.HeldItem.Name.IndexOf("Recipe") - 1);
+                    string key = recipe.Name.Substring(0, recipe.Name.IndexOf("Recipe") - 1);
                     try
                     {
-                        if ((this.HeldItem as StardewValley.Object).category == -7)
+                        if (recipe.category == -7)
                             Game1.player.cookingRecipes.Add(key, 0);
                         else
                             Game1.player.craftingRecipes.Add(key, 0);
@@ -568,9 +568,9 @@ namespace CJBItemSpawner
                 Game1.setMousePosition(this.TrashCan.bounds.Center);
             if (key != Keys.Delete || this.HeldItem == null || !this.HeldItem.canBeTrashed())
                 return;
-            if (this.HeldItem is StardewValley.Object && Game1.player.specialItems.Contains((this.HeldItem as StardewValley.Object).parentSheetIndex))
-                Game1.player.specialItems.Remove((this.HeldItem as StardewValley.Object).parentSheetIndex);
-            this.HeldItem = (Item)null;
+            if (this.HeldItem is Object obj && Game1.player.specialItems.Contains(obj.parentSheetIndex))
+                Game1.player.specialItems.Remove(obj.parentSheetIndex);
+            this.HeldItem = null;
             Game1.playSound("trashcan");
         }
 
@@ -670,13 +670,12 @@ namespace CJBItemSpawner
             if (this.HeldItem != null)
                 this.HeldItem.drawInMenu(spriteBatch, new Vector2((float)(Game1.getOldMouseX() + 8), (float)(Game1.getOldMouseY() + 8)), 1f);
 
-            if (this.HoveredItem is StardewValley.Object)
+            if (this.HoveredItem is Object obj)
             {
-                StardewValley.Object o = this.HoveredItem as StardewValley.Object;
-                if (o.stack > 1)
-                    this.DrawHoverTextBox(spriteBatch, Game1.smallFont, o.sellToStorePrice(), o.stack);
+                if (obj.stack > 1)
+                    this.DrawHoverTextBox(spriteBatch, Game1.smallFont, obj.sellToStorePrice(), obj.stack);
                 else
-                    this.DrawHoverTextBox(spriteBatch, Game1.smallFont, o.sellToStorePrice());
+                    this.DrawHoverTextBox(spriteBatch, Game1.smallFont, obj.sellToStorePrice());
             }
             else if (this.HoveredItem != null)
             {

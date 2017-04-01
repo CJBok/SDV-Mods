@@ -378,16 +378,12 @@ namespace CJBEndlessInventory
 
         public static Item AddItemToInventory(Item item, int position, List<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null)
         {
-            if (items.Equals(Game1.player.items) && item is StardewValley.Object && (item as StardewValley.Object).specialItem)
+            if (items.Equals(Game1.player.items) && item is StardewValley.Object obj && obj.specialItem)
             {
-                if ((item as StardewValley.Object).bigCraftable)
-                {
-                    Game1.player.specialBigCraftables.Add((item as StardewValley.Object).isRecipe ? (-(item as StardewValley.Object).parentSheetIndex) : (item as StardewValley.Object).parentSheetIndex);
-                }
+                if (obj.bigCraftable)
+                    Game1.player.specialBigCraftables.Add(obj.isRecipe ? (-obj.parentSheetIndex) : obj.parentSheetIndex);
                 else
-                {
-                    Game1.player.specialItems.Add((item as StardewValley.Object).isRecipe ? (-(item as StardewValley.Object).parentSheetIndex) : (item as StardewValley.Object).parentSheetIndex);
-                }
+                    Game1.player.specialItems.Add(obj.isRecipe ? (-obj.parentSheetIndex) : obj.parentSheetIndex);
             }
             if (position < 0 || position >= items.Count<Item>())
             {

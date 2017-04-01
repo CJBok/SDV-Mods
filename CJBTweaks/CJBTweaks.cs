@@ -25,10 +25,8 @@ namespace CJBTweaks
         *********/
         private void MenuEvents_MenuChanged(object sender, EventArgsClickableMenuChanged e)
         {
-            if (e.NewMenu is ShopMenu && !(e.PriorMenu is ShopMenu))
+            if (e.NewMenu is ShopMenu menu && !(e.PriorMenu is ShopMenu))
             {
-                ShopMenu menu = (ShopMenu)e.NewMenu;
-
                 if (menu.portraitPerson?.name == "Clint")
                 {
                     Dictionary<Item, int[]> saleList = Utility.getBlacksmithStock();

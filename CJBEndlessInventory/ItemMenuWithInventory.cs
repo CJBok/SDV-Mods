@@ -89,9 +89,9 @@ namespace CJBEndlessInventory
             }
             if (this.TrashCan == null || !this.TrashCan.containsPoint(x, y) || (this.HeldItem == null))
                 return;
-            if (this.HeldItem is StardewValley.Object && Game1.player.specialItems.Contains((this.HeldItem as StardewValley.Object).parentSheetIndex))
-                Game1.player.specialItems.Remove((this.HeldItem as StardewValley.Object).parentSheetIndex);
-            this.HeldItem = (Item)null;
+            if (this.HeldItem is StardewValley.Object obj && Game1.player.specialItems.Contains(obj.parentSheetIndex))
+                Game1.player.specialItems.Remove(obj.parentSheetIndex);
+            this.HeldItem = null;
             Game1.playSound("trashcan");
         }
 

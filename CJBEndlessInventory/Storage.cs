@@ -174,23 +174,20 @@ namespace CJBEndlessInventory
                     Game1.player.addQuest(6);
                     Game1.screenOverlayTempSprites.Add(new TemporaryAnimatedSprite(Game1.mouseCursors, new Rectangle(128, 208, 16, 16), 200f, 2, 30, new Vector2((float)(Game1.dayTimeMoneyBox.questButton.bounds.Left - Game1.tileSize / 4), (float)(Game1.dayTimeMoneyBox.questButton.bounds.Bottom + Game1.pixelZoom * 2)), false, false, 1f, 0f, Color.White, (float)Game1.pixelZoom, 0f, 0f, 0f, true));
                 }
-                if (this.Items[0] is StardewValley.Object && !(this.Items[0] as StardewValley.Object).bigCraftable && this.Items[0].parentSheetIndex == 434)
+                if (this.Items[0] is StardewValley.Object obj && !obj.bigCraftable && obj.parentSheetIndex == 434)
                 {
                     if (!Game1.player.mailReceived.Contains("CF_Mines"))
                     {
-                        Game1.playerEatObject(this.Items[0] as StardewValley.Object, true);
+                        Game1.playerEatObject(obj, true);
                         Game1.player.mailReceived.Add("CF_Mines");
                     }
                     this.Items.Clear();
                 }
                 else
-                {
                     this.Opener.addItemByMenuIfNecessaryElseHoldUp(this.Items[0], new ItemGrabMenu.behaviorOnItemSelect(this.OnItemTaken));
-                }
-                if (this.Opener.currentLocation is MineShaft)
-                {
-                    (this.Opener.currentLocation as MineShaft).updateMineLevelData(1, -1);
-                }
+
+                if (this.Opener.currentLocation is MineShaft mineshaft)
+                    mineshaft.updateMineLevelData(1, -1);
             }
             if (this.ChestType.Equals("Monster"))
             {
@@ -260,9 +257,9 @@ namespace CJBEndlessInventory
                 else if (this.CurrentLidFrame == 503 && this.Items.Count<Item>() > 0)
                 {
                     who.addItemByMenuIfNecessaryElseHoldUp(this.Items[0], new ItemGrabMenu.behaviorOnItemSelect(this.OnItemTaken));
-                    if (this.Items.Count<Item>() > 0 && this.Items[0] != null && this.Items[0] is StardewValley.Object)
+                    if (this.Items.Count<Item>() > 0 && this.Items[0] is StardewValley.Object obj)
                     {
-                        int arg_14B_0 = (this.Items[0] as StardewValley.Object).ParentSheetIndex;
+                        int arg_14B_0 = obj.ParentSheetIndex;
                     }
                 }
             }

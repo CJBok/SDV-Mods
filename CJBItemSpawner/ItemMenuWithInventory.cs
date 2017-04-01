@@ -91,8 +91,8 @@ namespace CJBItemSpawner
             }
             if (this.TrashCan == null || !this.TrashCan.containsPoint(x, y) || (this.HeldItem == null))
                 return;
-            if (this.HeldItem is StardewValley.Object && Game1.player.specialItems.Contains((this.HeldItem as StardewValley.Object).parentSheetIndex))
-                Game1.player.specialItems.Remove((this.HeldItem as StardewValley.Object).parentSheetIndex);
+            if (this.HeldItem is StardewValley.Object obj && Game1.player.specialItems.Contains(obj.parentSheetIndex))
+                Game1.player.specialItems.Remove(obj.parentSheetIndex);
             this.HeldItem = (Item)null;
             Game1.playSound("trashcan");
         }

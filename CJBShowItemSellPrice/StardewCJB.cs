@@ -38,47 +38,42 @@ namespace CJBShowItemSellPrice
         {
             if (Game1.activeClickableMenu != null)
             {
+                // get item
                 Item item = null;
-
-                if (Game1.activeClickableMenu is GameMenu)
+                if (Game1.activeClickableMenu is GameMenu gameMenu)
                 {
-                    GameMenu menu = (GameMenu)Game1.activeClickableMenu;
-
-                    if (menu.currentTab == 0)
+                    if (gameMenu.currentTab == 0)
                     {
-                        List<IClickableMenu> pages = (List<IClickableMenu>)typeof(GameMenu).GetField("pages", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(menu);
+                        List<IClickableMenu> pages = (List<IClickableMenu>)typeof(GameMenu).GetField("pages", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(gameMenu);
                         InventoryPage inv = (InventoryPage)pages[0];
 
                         item = (Item)typeof(InventoryPage).GetField("hoveredItem", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(inv);
                     }
-                    if (menu.currentTab == 4)
+                    else if (gameMenu.currentTab == 4)
                     {
-                        List<IClickableMenu> pages = (List<IClickableMenu>)typeof(GameMenu).GetField("pages", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(menu);
+                        List<IClickableMenu> pages = (List<IClickableMenu>)typeof(GameMenu).GetField("pages", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(gameMenu);
                         CraftingPage inv = (CraftingPage)pages[4];
 
                         item = (Item)typeof(CraftingPage).GetField("hoverItem", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(inv);
                     }
                 }
 
-                if (Game1.activeClickableMenu is MenuWithInventory)
+                else if (Game1.activeClickableMenu is MenuWithInventory inventoryMenu)
                 {
-                    MenuWithInventory menu = (MenuWithInventory)Game1.activeClickableMenu;
-                    InventoryMenu inv = menu.inventory;
-                    item = menu.hoveredItem;
+                    item = inventoryMenu.hoveredItem;
                 }
-
                 if (item == null)
                     return;
 
-                if (item is StardewValley.Object)
+                // show hover info
+                if (item is StardewValley.Object obj)
                 {
-                    StardewValley.Object o = item as StardewValley.Object;
-                    if (o.stack > 1)
-                        this.DrawHoverTextBox(Game1.smallFont, o.sellToStorePrice(), o.stack);
+                    if (obj.stack > 1)
+                        this.DrawHoverTextBox(Game1.smallFont, obj.sellToStorePrice(), obj.stack);
                     else
-                        this.DrawHoverTextBox(Game1.smallFont, o.sellToStorePrice());
+                        this.DrawHoverTextBox(Game1.smallFont, obj.sellToStorePrice());
                 }
-                else if (item != null)
+                else
                 {
                     if (item.Stack > 1)
                         this.DrawHoverTextBox(Game1.smallFont, (item.salePrice() / 2), item.Stack);

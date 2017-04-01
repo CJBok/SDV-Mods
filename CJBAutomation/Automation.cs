@@ -33,11 +33,10 @@ namespace CJBAutomation
                     if ((CJBAutomation.Config.Diagonal || (x == 0 || y == 0)) && !(x == 0 && y == 0))
                     {
                         Vector2 index = new Vector2(tile.X - x, tile.Y - y);
-                        if (location.objects.ContainsKey(index))
+                        if (location.objects.TryGetValue(index, out StardewValley.Object obj))
                         {
-                            StardewValley.Object o = location.objects[index];
-                            if (o is Chest)
-                                chests.Add((Chest)o);
+                            if (obj is Chest chest)
+                                chests.Add(chest);
                         }
                     }
                 }
@@ -48,7 +47,7 @@ namespace CJBAutomation
         public static IEnumerable<T> FindItemTypes<T>(GameLocation location)
             where T : SDV.Object
         {
-            return location.objects.Values.Where(o => o is T).Select(m => (T)m);
+            return location.objects.Values.OfType<T>();
         }
 
         public static IEnumerable<Chest> GetChestsInLocation(GameLocation location)

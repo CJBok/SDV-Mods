@@ -39,18 +39,16 @@ namespace CJBAutomation
         {
             List<GameLocation> locations = new List<GameLocation>();
 
-            foreach (GameLocation gLoc in Game1.locations)
+            foreach (GameLocation location in Game1.locations)
             {
-
-                if (!gLoc.name.Contains("Farm") && !gLoc.name.Contains("GreenHouse") && gLoc.name != "Cellar")
+                if (!location.name.Contains("Farm") && !location.name.Contains("GreenHouse") && location.name != "Cellar")
                     continue;
 
-                locations.Add(gLoc);
+                locations.Add(location);
 
-                if (gLoc is BuildableGameLocation)
+                if (location is BuildableGameLocation buildableLocation)
                 {
-                    BuildableGameLocation bLoc = (BuildableGameLocation)gLoc;
-                    foreach (Building build in bLoc.buildings)
+                    foreach (Building build in buildableLocation.buildings)
                     {
                         if (build.indoors != null)
                             locations.Add(build.indoors);
@@ -58,13 +56,13 @@ namespace CJBAutomation
                 }
             }
 
-            foreach (GameLocation loc in locations)
+            foreach (GameLocation location in locations)
             {
-                foreach (KeyValuePair<Vector2, StardewValley.Object> kp in loc.objects)
+                foreach (KeyValuePair<Vector2, StardewValley.Object> pair in location.objects)
                 {
-                    if (kp.Value == null)
+                    if (pair.Value == null)
                         continue;
-                    ProcessObject(loc, kp.Key, kp.Value);
+                    ProcessObject(location, pair.Key, pair.Value);
                 }
             }
             locations.Clear();

@@ -79,15 +79,12 @@ namespace CJBCheatsMenu
                 return;
             }
 
-            if (Game1.activeClickableMenu is GameMenu)
+            if (Game1.activeClickableMenu is GameMenu menu)
             {
-                GameMenu menu = (GameMenu)Game1.activeClickableMenu;
                 List<IClickableMenu> pages = (List<IClickableMenu>)typeof(GameMenu).GetField("pages", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(menu);
 
                 if (pages[menu.currentTab] is CheatsMenu)
-                {
                     pages[menu.currentTab].receiveGamePadButton(e.ButtonPressed);
-                }
             }
         }
 
