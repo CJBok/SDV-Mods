@@ -17,9 +17,9 @@ namespace CJBEndlessInventory
         /*********
         ** Accessors
         *********/
-        public static StorageItems storageItems { get; set; }
-        public static ModSettings settings { get; set; }
-        public static bool newDay = false;
+        public static StorageItems StorageItems { get; set; }
+        public static ModSettings Settings { get; set; }
+        public static bool NewDay = false;
 
 
         /*********
@@ -33,7 +33,7 @@ namespace CJBEndlessInventory
             ControlEvents.KeyPressed += ControlEvents_KeyPressed;
             GameEvents.UpdateTick += GameEvents_UpdateTick;
 
-            settings = helper.ReadConfig<ModSettings>();
+            CJBEndlessInventory.Settings = helper.ReadConfig<ModSettings>();
         }
 
 
@@ -42,17 +42,17 @@ namespace CJBEndlessInventory
         *********/
         private void GameEvents_UpdateTick(object sender, EventArgs e)
         {
-            if (Game1.newDay != newDay)
+            if (Game1.newDay != CJBEndlessInventory.NewDay)
             {
-                newDay = Game1.newDay;
-                if (newDay == false)
-                    this.Helper.WriteJsonFile(this.storageFilePath, CJBEndlessInventory.storageItems);
+                CJBEndlessInventory.NewDay = Game1.newDay;
+                if (CJBEndlessInventory.NewDay == false)
+                    this.Helper.WriteJsonFile(this.storageFilePath, CJBEndlessInventory.StorageItems);
             }
         }
 
         private void ControlEvents_KeyPressed(object sender, EventArgsKeyPressed e)
         {
-            if (e.KeyPressed.ToString().Equals(settings.menuButton.ToString()))
+            if (e.KeyPressed.ToString().Equals(CJBEndlessInventory.Settings.MenuButton.ToString()))
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null && Game1.player.CanMove && !Game1.dialogueUp && !Game1.eventUp)
                 {
@@ -63,9 +63,9 @@ namespace CJBEndlessInventory
 
         private void PlayerEvents_LoadedGame(object sender, EventArgsLoadedGameChanged e)
         {
-            storageItems = new StorageItems();
+            CJBEndlessInventory.StorageItems = new StorageItems();
             if (File.Exists(this.storageFilePath))
-                storageItems = this.Helper.ReadJsonFile<StorageItems>(this.storageFilePath);
+                CJBEndlessInventory.StorageItems = this.Helper.ReadJsonFile<StorageItems>(this.storageFilePath);
         }
     }
 }

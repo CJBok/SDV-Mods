@@ -8,6 +8,6 @@ namespace CJBEndlessInventory
         /*********
         ** Accessors
         *********/
-        public List<Item> playerItems { get; set; } = new List<Item>();
+        public List<Item> PlayerItems { get; set; } = new List<Item>();
     }
 }

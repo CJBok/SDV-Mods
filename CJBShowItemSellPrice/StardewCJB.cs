@@ -16,7 +16,7 @@ namespace CJBShowItemSellPrice
         /*********
         ** Accessors
         *********/
-        public static RenderTarget2D RTarg { get; set; }
+        public static RenderTarget2D RenderTarget { get; set; }
 
 
         /*********
@@ -74,42 +74,36 @@ namespace CJBShowItemSellPrice
                 {
                     StardewValley.Object o = item as StardewValley.Object;
                     if (o.stack > 1)
-                        drawHoverTextBox(Game1.smallFont, o.sellToStorePrice(), o.stack);
+                        this.DrawHoverTextBox(Game1.smallFont, o.sellToStorePrice(), o.stack);
                     else
-                        drawHoverTextBox(Game1.smallFont, o.sellToStorePrice());
+                        this.DrawHoverTextBox(Game1.smallFont, o.sellToStorePrice());
                 }
                 else if (item != null)
                 {
                     if (item.Stack > 1)
-                        drawHoverTextBox(Game1.smallFont, (item.salePrice() / 2), item.Stack);
+                        this.DrawHoverTextBox(Game1.smallFont, (item.salePrice() / 2), item.Stack);
                     else
-                        drawHoverTextBox(Game1.smallFont, item.salePrice());
+                        this.DrawHoverTextBox(Game1.smallFont, item.salePrice());
                 }
             }
         }
 
-        private void drawHoverTextBox(SpriteFont font, int price, int stack = -1)
+        private void DrawHoverTextBox(SpriteFont font, int price, int stack = -1)
         {
-
             if (price < 1)
                 return;
 
-            string p = price.ToString();
-            string ps = Environment.NewLine + (price * stack).ToString();
+            string priceString = price.ToString();
+            string stackPriceString = Environment.NewLine + (price * stack).ToString();
 
-            string s1 = "Single: " + price;
-            string s2 = "Stack: " + price * stack;
-
-            string message = "" + s1;
-
+            string message = "Single: " + price;
             string message1 = "Single: ";
 
             if (stack > 1)
             {
-                message += Environment.NewLine + s2;
+                message += Environment.NewLine + "Stack: " + price * stack;
                 message1 += Environment.NewLine + "Stack: ";
             }
-
 
             Vector2 bounds = font.MeasureString(message);
             int width = (int)bounds.X + Game1.tileSize / 2 + 40;
@@ -143,9 +137,9 @@ namespace CJBShowItemSellPrice
                 Game1.spriteBatch.Draw(Game1.debrisSpriteSheet, new Vector2((float)(x + Game1.tileSize / 4) + font.MeasureString(message + "   ").X, (float)(y + Game1.tileSize / 4 + 38)), new Rectangle?(Game1.getSourceRectForStandardTileSheet(Game1.debrisSpriteSheet, 8, 16, 16)), Color.White, 0.0f, new Vector2(8f, 8f), (float)Game1.pixelZoom, SpriteEffects.None, 0.95f);
             Utility.drawTextWithShadow(Game1.spriteBatch, message1, font, new Vector2((float)(x + Game1.tileSize / 4), (float)(y + Game1.tileSize / 4)), Game1.textColor, 1f, -1f, -1, -1, 1F, 3);
 
-            Utility.drawTextWithShadow(Game1.spriteBatch, p, font, new Vector2((float)(x + width + Game1.tileSize / 4 - 60 - font.MeasureString(p).X), (float)(y + Game1.tileSize / 4)), Game1.textColor, 1f, -1f, -1, -1, 1F, 3);
+            Utility.drawTextWithShadow(Game1.spriteBatch, priceString, font, new Vector2((float)(x + width + Game1.tileSize / 4 - 60 - font.MeasureString(priceString).X), (float)(y + Game1.tileSize / 4)), Game1.textColor, 1f, -1f, -1, -1, 1F, 3);
             if (stack > 1)
-                Utility.drawTextWithShadow(Game1.spriteBatch, ps, font, new Vector2((float)(x + width + Game1.tileSize / 4 - 60 - font.MeasureString(ps).X), (float)(y + Game1.tileSize / 4)), Game1.textColor, 1f, -1f, -1, -1, 1F, 3);
+                Utility.drawTextWithShadow(Game1.spriteBatch, stackPriceString, font, new Vector2((float)(x + width + Game1.tileSize / 4 - 60 - font.MeasureString(stackPriceString).X), (float)(y + Game1.tileSize / 4)), Game1.textColor, 1f, -1f, -1, -1, 1F, 3);
 
             /*Game1.spriteBatch.End();
 

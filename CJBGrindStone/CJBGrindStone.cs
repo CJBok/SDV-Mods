@@ -13,7 +13,7 @@ namespace CJBGrindStone
         /*********
         ** Accessors
         *********/
-        public static Texture2D grindstoneTex;
+        public static Texture2D Texture;
 
 
         /*********
@@ -109,7 +109,7 @@ namespace CJBGrindStone
         private void GameEvents_LoadContent(object sender, EventArgs e)
         {
             using (FileStream filestream = new FileStream(Path.Combine(this.Helper.DirectoryPath, "Content", "grindstone.png"), FileMode.Open))
-                grindstoneTex = Texture2D.FromStream(Game1.graphics.GraphicsDevice, filestream);
+                CJBGrindStone.Texture = Texture2D.FromStream(Game1.graphics.GraphicsDevice, filestream);
         }
     }
 }

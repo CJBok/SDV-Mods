@@ -25,31 +25,31 @@ namespace CJBCheatsMenu
             return f.FullName;
         }
 
-        public static void drawTextBox(int x, int y, SpriteFont font, string message, int align = 0, float colorIntensity = 1F)
+        public static void DrawTextBox(int x, int y, SpriteFont font, string message, int align = 0, float colorIntensity = 1F)
         {
-            SpriteBatch b = Game1.spriteBatch;
+            SpriteBatch spriteBatch = Game1.spriteBatch;
 
             Vector2 bounds = font.MeasureString(message);
             int width = (int)bounds.X + Game1.tileSize / 2;
             int height = (int)font.MeasureString(message).Y + Game1.tileSize / 3;
             if (align == 0)
             {
-                IClickableMenu.drawTextureBox(b, Game1.menuTexture, new Rectangle(0, 256, 60, 60), x, y, width, height + Game1.tileSize / 16, Color.White * colorIntensity, 1f, true);
-                Utility.drawTextWithShadow(b, message, font, new Vector2((float)(x + Game1.tileSize / 4), (float)(y + Game1.tileSize / 4)), Game1.textColor);
+                IClickableMenu.drawTextureBox(spriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), x, y, width, height + Game1.tileSize / 16, Color.White * colorIntensity, 1f, true);
+                Utility.drawTextWithShadow(spriteBatch, message, font, new Vector2((float)(x + Game1.tileSize / 4), (float)(y + Game1.tileSize / 4)), Game1.textColor);
             }
             if (align == 1)
             {
-                IClickableMenu.drawTextureBox(b, Game1.menuTexture, new Rectangle(0, 256, 60, 60), x - width / 2, y, width, height + Game1.tileSize / 16, Color.White * colorIntensity, 1f, true);
-                Utility.drawTextWithShadow(b, message, font, new Vector2((float)(x + Game1.tileSize / 4 - width / 2), (float)(y + Game1.tileSize / 4)), Game1.textColor);
+                IClickableMenu.drawTextureBox(spriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), x - width / 2, y, width, height + Game1.tileSize / 16, Color.White * colorIntensity, 1f, true);
+                Utility.drawTextWithShadow(spriteBatch, message, font, new Vector2((float)(x + Game1.tileSize / 4 - width / 2), (float)(y + Game1.tileSize / 4)), Game1.textColor);
             }
             if (align == 2)
             {
-                IClickableMenu.drawTextureBox(b, Game1.menuTexture, new Rectangle(0, 256, 60, 60), x - width, y, width, height + Game1.tileSize / 16, Color.White * colorIntensity, 1f, true);
-                Utility.drawTextWithShadow(b, message, font, new Vector2((float)(x + Game1.tileSize / 4 - width), (float)(y + Game1.tileSize / 4)), Game1.textColor);
+                IClickableMenu.drawTextureBox(spriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), x - width, y, width, height + Game1.tileSize / 16, Color.White * colorIntensity, 1f, true);
+                Utility.drawTextWithShadow(spriteBatch, message, font, new Vector2((float)(x + Game1.tileSize / 4 - width), (float)(y + Game1.tileSize / 4)), Game1.textColor);
             }
         }
 
-        public static string getWeatherNexDay()
+        public static string GetWeatherNexDay()
         {
             switch (Game1.weatherForTomorrow)
             {
@@ -71,7 +71,7 @@ namespace CJBCheatsMenu
             return "";
         }
 
-        public static int getExperiencePoints(int level)
+        public static int GetExperiencePoints(int level)
         {
 
             if (level < 0 || level > 9)

@@ -11,7 +11,7 @@ namespace CJBSkipIntro
         /*********
         ** Accessors
         *********/
-        public bool loadMenu = false;
+        public bool LoadMenu = false;
 
 
         /*********
@@ -30,11 +30,11 @@ namespace CJBSkipIntro
         *********/
         private void Events_UpdateTick(object sender, EventArgs e)
         {
-            if (Game1.activeClickableMenu is TitleMenu && !loadMenu)
+            if (Game1.activeClickableMenu is TitleMenu && !this.LoadMenu)
             {
                 Game1.activeClickableMenu.receiveKeyPress(Microsoft.Xna.Framework.Input.Keys.Escape);
                 (Game1.activeClickableMenu as TitleMenu).performButtonAction("Load");
-                loadMenu = true;
+                this.LoadMenu = true;
             }
         }
     }

@@ -5,6 +5,6 @@
         /*********
         ** Accessors
         *********/
-        public bool diagonal { get; set; }
+        public bool Diagonal { get; set; }
     }
 }

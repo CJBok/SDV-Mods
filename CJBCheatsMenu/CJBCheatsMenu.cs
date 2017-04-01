@@ -13,13 +13,13 @@ namespace CJBCheatsMenu
         /*********
         ** Properties
         *********/
-        private static IModHelper helper;
+        private static IModHelper Helper;
 
 
         /*********
         ** Accessors
         *********/
-        public static Settings config;
+        public static Settings Config;
 
 
         /*********
@@ -29,8 +29,8 @@ namespace CJBCheatsMenu
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
         {
-            CJBCheatsMenu.helper = helper;
-            CJBCheatsMenu.config = helper.ReadConfig<Settings>();
+            CJBCheatsMenu.Helper = helper;
+            CJBCheatsMenu.Config = helper.ReadConfig<Settings>();
 
             GameEvents.UpdateTick += Events_UpdateTick;
             GameEvents.OneSecondTick += GameEvents_OneSecondTick;
@@ -41,10 +41,10 @@ namespace CJBCheatsMenu
             TimeEvents.DayOfMonthChanged += TimeEvents_DayOfMonthChanged;
         }
 
-        /// <summary>Update the mod's config.json file from the current <see cref="config"/>.</summary>
+        /// <summary>Update the mod's config.json file from the current <see cref="Config"/>.</summary>
         internal static void SaveConfig()
         {
-            CJBCheatsMenu.helper.WriteConfig(CJBCheatsMenu.config);
+            CJBCheatsMenu.Helper.WriteConfig(CJBCheatsMenu.Config);
         }
 
 
@@ -61,7 +61,7 @@ namespace CJBCheatsMenu
 
         private void ControlEvents_ControllerButtonPressed(object sender, EventArgsControllerButtonPressed e)
         {
-            if (e.ButtonPressed.ToString().Equals(CJBCheatsMenu.config.openMenuKey))
+            if (e.ButtonPressed.ToString().Equals(CJBCheatsMenu.Config.OpenMenuKey))
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null && Game1.player.CanMove && !Game1.dialogueUp && !Game1.eventUp)
                 {
@@ -70,11 +70,11 @@ namespace CJBCheatsMenu
                 return;
             }
 
-            if (e.ButtonPressed.ToString().Equals(CJBCheatsMenu.config.freezeTimeKey))
+            if (e.ButtonPressed.ToString().Equals(CJBCheatsMenu.Config.FreezeTimeKey))
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
                 {
-                    CJBCheatsMenu.config.freezeTime = !CJBCheatsMenu.config.freezeTime;
+                    CJBCheatsMenu.Config.FreezeTime = !CJBCheatsMenu.Config.FreezeTime;
                 }
                 return;
             }
@@ -93,7 +93,7 @@ namespace CJBCheatsMenu
 
         private void Events_KeyPressed(object sender, EventArgsKeyPressed e)
         {
-            Cheats.onKeyPress(e.KeyPressed);
+            Cheats.OnKeyPress(e.KeyPressed);
         }
 
         private void TimeEvents_DayOfMonthChanged(object sender, EventArgsIntChanged e)
@@ -101,7 +101,7 @@ namespace CJBCheatsMenu
             if (!Game1.hasLoadedGame)
                 return;
 
-            Cheats.onDayOfMonthChanged();
+            Cheats.OnDayOfMonthChanged();
         }
 
         private void GraphicsEvents_DrawTick(object sender, EventArgs e)
@@ -109,7 +109,7 @@ namespace CJBCheatsMenu
             if (!Game1.hasLoadedGame)
                 return;
 
-            Cheats.onDrawTick();
+            Cheats.OnDrawTick();
         }
 
         private void TimeEvents_TimeOfDayChanged(object sender, EventArgsIntChanged e)
@@ -117,14 +117,14 @@ namespace CJBCheatsMenu
             if (!Game1.hasLoadedGame)
                 return;
 
-            Cheats.onTimeOfDayChanged();
+            Cheats.OnTimeOfDayChanged();
         }
 
         private void Events_UpdateTick(object sender, EventArgs e)
         {
             if (!Game1.hasLoadedGame)
                 return;
-            Cheats.onUpdate();
+            Cheats.OnUpdate();
         }
     }
 }

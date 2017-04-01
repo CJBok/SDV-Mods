@@ -11,7 +11,7 @@ namespace CJBGrindStone
         /*********
         ** Accessors
         *********/
-        public static Rectangle textureBounds = new Rectangle(0, 0, 16, 32);
+        public static Rectangle Sprite = new Rectangle(0, 0, 16, 32);
 
 
         /*********
@@ -19,12 +19,12 @@ namespace CJBGrindStone
         *********/
         public GrindStone()
         {
-            init();
+            this.Init();
         }
 
         public GrindStone(Vector2 location)
         {
-            init();
+            this.Init();
             tileLocation = location;
         }
 
@@ -110,12 +110,12 @@ namespace CJBGrindStone
 
         public override void drawInMenu(SpriteBatch spriteBatch, Vector2 location, float scaleSize, float transparency, float layerDepth, bool drawStackNumber)
         {
-            spriteBatch.Draw(CJBGrindStone.grindstoneTex, location + new Vector2((float)(Game1.tileSize / 2), (float)(Game1.tileSize / 2)), new Microsoft.Xna.Framework.Rectangle?(textureBounds), Color.White * transparency, 0f, new Vector2(8f, 16f), (float)Game1.pixelZoom * (((double)scaleSize < 0.2) ? scaleSize : (scaleSize / 2f)), SpriteEffects.None, layerDepth);
+            spriteBatch.Draw(CJBGrindStone.Texture, location + new Vector2((float)(Game1.tileSize / 2), (float)(Game1.tileSize / 2)), new Microsoft.Xna.Framework.Rectangle?(GrindStone.Sprite), Color.White * transparency, 0f, new Vector2(8f, 16f), (float)Game1.pixelZoom * (((double)scaleSize < 0.2) ? scaleSize : (scaleSize / 2f)), SpriteEffects.None, layerDepth);
         }
 
         public override void drawWhenHeld(SpriteBatch spriteBatch, Vector2 objectPosition, Farmer f)
         {
-            spriteBatch.Draw(CJBGrindStone.grindstoneTex, objectPosition, textureBounds, Color.White, 0f, Vector2.Zero, (float)Game1.pixelZoom, SpriteEffects.None, Math.Max(0f, (float)(f.getStandingY() + 2) / 10000f));
+            spriteBatch.Draw(CJBGrindStone.Texture, objectPosition, GrindStone.Sprite, Color.White, 0f, Vector2.Zero, (float)Game1.pixelZoom, SpriteEffects.None, Math.Max(0f, (float)(f.getStandingY() + 2) / 10000f));
         }
 
         public override void draw(SpriteBatch spriteBatch, int x, int y, float alpha = 1)
@@ -124,7 +124,7 @@ namespace CJBGrindStone
             value *= (float)Game1.pixelZoom;
             Vector2 value2 = Game1.GlobalToLocal(Game1.viewport, new Vector2((float)(x * Game1.tileSize), (float)(y * Game1.tileSize - Game1.tileSize)));
             Microsoft.Xna.Framework.Rectangle destinationRectangle = new Microsoft.Xna.Framework.Rectangle((int)(value2.X - value.X / 2f) + ((this.shakeTimer > 0) ? Game1.random.Next(-1, 2) : 0), (int)(value2.Y - value.Y / 2f) + ((this.shakeTimer > 0) ? Game1.random.Next(-1, 2) : 0), (int)((float)Game1.tileSize + value.X), (int)((float)(Game1.tileSize * 2) + value.Y / 2f));
-            spriteBatch.Draw(CJBGrindStone.grindstoneTex, destinationRectangle, textureBounds, Color.White * alpha, 0f, Vector2.Zero, SpriteEffects.None, Math.Max(0f, (float)((y + 1) * Game1.tileSize - Game1.pixelZoom * 6) / 10000f) + ((this.parentSheetIndex == 105) ? 0.0035f : 0f) + (float)x * 1E-08f);
+            spriteBatch.Draw(CJBGrindStone.Texture, destinationRectangle, GrindStone.Sprite, Color.White * alpha, 0f, Vector2.Zero, SpriteEffects.None, Math.Max(0f, (float)((y + 1) * Game1.tileSize - Game1.pixelZoom * 6) / 10000f) + ((this.parentSheetIndex == 105) ? 0.0035f : 0f) + (float)x * 1E-08f);
             if (this.readyForHarvest)
             {
                 float num = 4f * (float)Math.Round(Math.Sin(DateTime.Now.TimeOfDay.TotalMilliseconds / 250.0), 2);
@@ -137,7 +137,7 @@ namespace CJBGrindStone
         /*********
         ** Private methods
         *********/
-        private void init()
+        private void Init()
         {
             parentSheetIndex = 3920;
             bigCraftable = true;

@@ -7,6 +7,6 @@ namespace CJBEndlessInventory
         /*********
         ** Accessors
         *********/
-        public string menuButton { get; set; } = Keys.Q.ToString();
+        public string MenuButton { get; set; } = Keys.Q.ToString();
     }
 }

@@ -16,7 +16,7 @@ namespace CJBAutomation
         /*********
         ** Accessors
         *********/
-        public static ModConfig config;
+        public static ModConfig Config;
 
 
         /*********
@@ -26,7 +26,7 @@ namespace CJBAutomation
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
         {
-            config = helper.ReadConfig<ModConfig>();
+            CJBAutomation.Config = helper.ReadConfig<ModConfig>();
 
             TimeEvents.TimeOfDayChanged += TimeEvents_TimeOfDayChanged;
         }
@@ -70,11 +70,11 @@ namespace CJBAutomation
             locations.Clear();
         }
 
-        private void ProcessObject(GameLocation gLoc, Vector2 objLoc, StardewValley.Object obj)
+        private void ProcessObject(GameLocation location, Vector2 tile, StardewValley.Object obj)
         {
             if (obj.name.Equals("Furnace"))
             {
-                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                List<Chest> chests = Automation.GetConnectedChests(location, tile);
                 if (obj.heldObject != null && obj.readyForHarvest)
                 {
                     foreach (Chest chest in chests)
@@ -92,37 +92,37 @@ namespace CJBAutomation
                 }
                 if (obj.heldObject == null && !obj.readyForHarvest)
                 {
-                    if (Automation.DoesChestsHaveItem(chests, 382, 1))
+                    if (Automation.DoChestsHaveItem(chests, 382, 1))
                     {
-                        if (Automation.DoesChestsHaveItem(chests, 378, 5))
+                        if (Automation.DoChestsHaveItem(chests, 378, 5))
                         {
                             Automation.RemoveItemFromChests(chests, 382, 1);
                             Automation.RemoveItemFromChests(chests, 378, 5);
                             obj.heldObject = new StardewValley.Object(Vector2.Zero, 334, 1);
                             obj.minutesUntilReady = 30;
                         }
-                        else if (Automation.DoesChestsHaveItem(chests, 380, 5))
+                        else if (Automation.DoChestsHaveItem(chests, 380, 5))
                         {
                             Automation.RemoveItemFromChests(chests, 382, 1);
                             Automation.RemoveItemFromChests(chests, 380, 5);
                             obj.heldObject = new StardewValley.Object(Vector2.Zero, 335, 1);
                             obj.minutesUntilReady = 120;
                         }
-                        else if (Automation.DoesChestsHaveItem(chests, 384, 5))
+                        else if (Automation.DoChestsHaveItem(chests, 384, 5))
                         {
                             Automation.RemoveItemFromChests(chests, 382, 1);
                             Automation.RemoveItemFromChests(chests, 384, 5);
                             obj.heldObject = new StardewValley.Object(Vector2.Zero, 336, 1);
                             obj.minutesUntilReady = 300;
                         }
-                        else if (Automation.DoesChestsHaveItem(chests, 386, 5))
+                        else if (Automation.DoChestsHaveItem(chests, 386, 5))
                         {
                             Automation.RemoveItemFromChests(chests, 382, 1);
                             Automation.RemoveItemFromChests(chests, 386, 5);
                             obj.heldObject = new StardewValley.Object(Vector2.Zero, 337, 1);
                             obj.minutesUntilReady = 480;
                         }
-                        else if (Automation.DoesChestsHaveItem(chests, 80, 1))
+                        else if (Automation.DoChestsHaveItem(chests, 80, 1))
                         {
                             Automation.RemoveItemFromChests(chests, 382, 1);
                             Automation.RemoveItemFromChests(chests, 80, 1);
@@ -133,14 +133,14 @@ namespace CJBAutomation
 
                     if (obj.heldObject != null)
                     {
-                        obj.initializeLightSource(objLoc);
+                        obj.initializeLightSource(tile);
                         obj.showNextIndex = true;
                     }
                 }
             }
             else if (obj.name.Equals("Crystalarium"))
             {
-                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                List<Chest> chests = Automation.GetConnectedChests(location, tile);
                 if (obj.heldObject != null && obj.readyForHarvest)
                 {
                     foreach (Chest chest in chests)
@@ -149,7 +149,7 @@ namespace CJBAutomation
                         {
                             if (chest.addItem(obj.heldObject.getOne()) == null)
                             {
-                                obj.minutesUntilReady = Automation.getMinutesForCrystalarium(obj.heldObject.parentSheetIndex);
+                                obj.minutesUntilReady = Automation.GetMinutesForCrystalarium(obj.heldObject.parentSheetIndex);
                                 obj.readyForHarvest = false;
                                 break;
                             }
@@ -159,7 +159,7 @@ namespace CJBAutomation
             }
             else if (obj.name.Equals("Mayonnaise Machine"))
             {
-                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                List<Chest> chests = Automation.GetConnectedChests(location, tile);
                 if (obj.heldObject != null && obj.readyForHarvest)
                 {
                     foreach (Chest chest in chests)
@@ -211,7 +211,7 @@ namespace CJBAutomation
             }
             else if (obj.name.Equals("Keg"))
             {
-                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                List<Chest> chests = Automation.GetConnectedChests(location, tile);
                 if (obj.heldObject != null && obj.readyForHarvest)
                 {
                     foreach (Chest chest in chests)
@@ -295,7 +295,7 @@ namespace CJBAutomation
             }
             else if (obj.name.Equals("Charcoal Kiln"))
             {
-                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                List<Chest> chests = Automation.GetConnectedChests(location, tile);
                 if (obj.heldObject != null && obj.readyForHarvest)
                 {
                     foreach (Chest chest in chests)
@@ -323,7 +323,7 @@ namespace CJBAutomation
             }
             else if (obj.name.Equals("Cheese Press"))
             {
-                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                List<Chest> chests = Automation.GetConnectedChests(location, tile);
                 if (obj.heldObject != null && obj.readyForHarvest)
                 {
                     foreach (Chest chest in chests)
@@ -371,7 +371,7 @@ namespace CJBAutomation
             }
             else if (obj.name.Equals("Preserves Jar"))
             {
-                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                List<Chest> chests = Automation.GetConnectedChests(location, tile);
                 if (obj.heldObject != null && obj.readyForHarvest)
                 {
                     foreach (Chest chest in chests)
@@ -416,7 +416,7 @@ namespace CJBAutomation
             }
             else if (obj.name.Equals("Loom"))
             {
-                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                List<Chest> chests = Automation.GetConnectedChests(location, tile);
                 if (obj.heldObject != null && obj.readyForHarvest)
                 {
                     foreach (Chest chest in chests)
@@ -445,7 +445,7 @@ namespace CJBAutomation
             }
             else if (obj.name.Equals("Bee House") && !Game1.currentSeason.Equals("winter"))
             {
-                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                List<Chest> chests = Automation.GetConnectedChests(location, tile);
                 if (obj.heldObject != null && obj.readyForHarvest)
                 {
                     foreach (Chest chest in chests)
@@ -456,7 +456,7 @@ namespace CJBAutomation
                             {
                                 string str = "Wild";
                                 int price = 0;
-                                if (gLoc is Farm)
+                                if (location is Farm)
                                 {
                                     Crop crop = Utility.findCloseFlower(obj.tileLocation);
                                     if (crop != null)
@@ -486,7 +486,7 @@ namespace CJBAutomation
             }
             else if (obj.name.Equals("Worm Bin"))
             {
-                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                List<Chest> chests = Automation.GetConnectedChests(location, tile);
                 if (obj.heldObject != null && obj.readyForHarvest)
                 {
                     foreach (Chest chest in chests)
@@ -507,7 +507,7 @@ namespace CJBAutomation
             }
             else if (obj.name.Equals("Seed Maker"))
             {
-                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                List<Chest> chests = Automation.GetConnectedChests(location, tile);
                 if (obj.heldObject != null && obj.readyForHarvest)
                 {
                     foreach (Chest chest in chests)
@@ -544,7 +544,7 @@ namespace CJBAutomation
             }
             else if (obj.name.Equals("Recycling Machine"))
             {
-                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                List<Chest> chests = Automation.GetConnectedChests(location, tile);
                 if (obj.heldObject != null && obj.readyForHarvest)
                 {
                     foreach (Chest chest in chests)
@@ -591,7 +591,7 @@ namespace CJBAutomation
             }
             else if (obj.name.Equals("Oil Maker"))
             {
-                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                List<Chest> chests = Automation.GetConnectedChests(location, tile);
                 if (obj.heldObject != null && obj.readyForHarvest)
                 {
                     foreach (Chest chest in chests)
@@ -633,7 +633,7 @@ namespace CJBAutomation
             }
             else if (obj.name.Equals("Tapper"))
             {
-                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                List<Chest> chests = Automation.GetConnectedChests(location, tile);
                 if (obj.heldObject != null && obj.readyForHarvest)
                 {
                     foreach (Chest chest in chests)
@@ -692,7 +692,7 @@ namespace CJBAutomation
             }
             else if (obj.name.Equals("Lightning Rod"))
             {
-                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                List<Chest> chests = Automation.GetConnectedChests(location, tile);
                 if (obj.heldObject != null && obj.readyForHarvest)
                 {
                     foreach (Chest chest in chests)
@@ -711,9 +711,9 @@ namespace CJBAutomation
             }
             else if (obj.name.Equals("Cask"))
             {
-                if (gLoc.Name != "Cellar")
+                if (location.Name != "Cellar")
                     return;
-                var chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                var chests = Automation.GetConnectedChests(location, tile);
                 if (obj.heldObject != null && obj.heldObject.quality == 4)
                 {
                     foreach (var chest in chests)
@@ -780,7 +780,7 @@ namespace CJBAutomation
             }
             else if (obj.name == "Slime Egg-Press")
             {
-                List<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                List<Chest> chests = Automation.GetConnectedChests(location, tile);
                 if (obj.heldObject != null && obj.readyForHarvest)
                 {
                     foreach (Chest chest in chests)
@@ -816,14 +816,14 @@ namespace CJBAutomation
             {
                 if (obj.heldObject != null && obj.readyForHarvest)
                 {
-                    IEnumerable<Chest> chests = Automation.GetChestsFromSurroundingLocation(gLoc, objLoc);
+                    IEnumerable<Chest> chests = Automation.GetConnectedChests(location, tile);
                     if (!chests.Any())
                     {
                         // two possible modes
                         // - output mushrooms to adjancent chests like other machines (for realism)
                         // - output to any single chest inside the mushroom cave to save space, but only as long as there is
                         //   exactly one in the whole cave
-                        chests = Automation.GetChestFromSurroundingLocation(gLoc);
+                        chests = Automation.GetChestsInLocation(location);
                         if (chests.Skip(1).Any())
                             return;
                     }
