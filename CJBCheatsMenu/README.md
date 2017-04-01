@@ -89,7 +89,10 @@ setting | default | what it affects
 `infiniteHay` | `false` | Your hay silos are always full.
 
 ## Versions
-1.13 (upcoming):
+1.14 (2017-04-01):
+* Updated to SMAPI 1.9.
+
+1.13 (2017-01-04):
 * Updated to Stardew Valley 1.1+ and SMAPI 1.5.
 * Added compatibility with Linux and Mac.
 * Added support for casks and worm bins.

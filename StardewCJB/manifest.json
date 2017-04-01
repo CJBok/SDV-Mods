@@ -3,10 +3,11 @@
   "Author": "CJ Bok",
   "Version": {
     "MajorVersion": 1,
-    "MinorVersion": 6,
+    "MinorVersion": 7,
     "PatchVersion": 0,
     "Build": null
   },
+  "MinimumApiVersion": "1.9",
   "Description": "Show item sell price in your inventory!",
   "UniqueID": "CJBok.ShowItemSellPrice",
   "EntryDll": "StardewCJB.dll"

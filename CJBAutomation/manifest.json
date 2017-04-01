@@ -3,10 +3,11 @@
   "Author": "CJ Bok",
   "Version": {
     "MajorVersion": 1,
-    "MinorVersion": 4,
+    "MinorVersion": 5,
     "PatchVersion": 0,
     "Build": null
   },
+  "MinimumApiVersion": "1.9",
   "Description": "Automate processing of machines",
   "UniqueID": "CJBok.Automation",
   "EntryDll": "CJBAutomation.dll"
