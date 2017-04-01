@@ -6,9 +6,9 @@ documentation and release notes:
 * [CJB Endless Inventory](CJBEndlessInventory) (unreleased)
 * [CJB Grind Stone](CJBGrindStone) (unreleased)
 * [CJB Item Spawner](CJBItemSpawner)
+* [CJB Show Item Sell Price](CJBShowItemSellPrice)
 * [CJB Skip Intro](CJBSkipIntro) (unreleased)
 * [CJB Tweaks](CJBTweaks) (unreleased)
-* [CJB Show Item Sell Price](StardewCJB)
 
 ## Compiling the mods
 Installing stable releases from Nexus Mods is recommended for most users. If you really want to

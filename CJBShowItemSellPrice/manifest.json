@@ -10,5 +10,5 @@
   "MinimumApiVersion": "1.9",
   "Description": "Show item sell price in your inventory!",
   "UniqueID": "CJBok.ShowItemSellPrice",
-  "EntryDll": "StardewCJB.dll"
+  "EntryDll": "CJBShowItemSellPrice.dll"
 }

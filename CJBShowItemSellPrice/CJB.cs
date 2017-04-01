@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 using StardewValley.Menus;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace StardewCJB {
+namespace CJBShowItemSellPrice {
 
     public class CJB {
         private static string GetSaveLocation() {

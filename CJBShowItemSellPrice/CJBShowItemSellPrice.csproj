@@ -7,8 +7,8 @@
     <ProjectGuid>{D4C790D4-10E4-431E-83AE-926AA16407DD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StardewCJB</RootNamespace>
-    <AssemblyName>StardewCJB</AssemblyName>
+    <RootNamespace>CJBShowItemSellPrice</RootNamespace>
+    <AssemblyName>CJBShowItemSellPrice</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

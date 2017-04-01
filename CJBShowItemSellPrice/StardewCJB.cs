@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Reflection;
 using Microsoft.Xna.Framework.Input;
 
-namespace StardewCJB
+namespace CJBShowItemSellPrice
 {
     public class StardewCJB : Mod
     {

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StardewCJB", "StardewCJB\StardewCJB.csproj", "{D4C790D4-10E4-431E-83AE-926AA16407DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CJBShowItemSellPrice", "CJBShowItemSellPrice\CJBShowItemSellPrice.csproj", "{D4C790D4-10E4-431E-83AE-926AA16407DD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CJBCheatsMenu", "CJBCheatsMenu\CJBCheatsMenu.csproj", "{25358189-F40E-427D-B4E9-5F0EB707A8A1}"
 EndProject
