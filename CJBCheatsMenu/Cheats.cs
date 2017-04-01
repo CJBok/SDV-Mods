@@ -321,6 +321,7 @@ namespace CJBCheatsMenu
 
             if (CJBCheatsMenu.Config.AutoFeed)
             {
+                Farm farm = Game1.getFarm();
                 foreach (GameLocation location in Game1.locations)
                 {
                     if (!location.isFarm && !location.name.Contains("Greenhouse"))
@@ -334,8 +335,8 @@ namespace CJBCheatsMenu
                                 int animalcount = indoors.animals.Count;
                                 building.currentOccupants = animalcount;
                                 int hayobjects = indoors.numberOfObjectsWithName("Hay");
-                                int hayUsed = Math.Min(animalcount - hayobjects, (Game1.getLocationFromName("Farm") as Farm).piecesOfHay);
-                                (Game1.getLocationFromName("Farm") as Farm).piecesOfHay -= hayUsed;
+                                int hayUsed = Math.Min(animalcount - hayobjects, farm.piecesOfHay);
+                                farm.piecesOfHay -= hayUsed;
 
                                 int tileX = 6;
                                 if (indoors.name.Contains("Barn"))
@@ -348,9 +349,7 @@ namespace CJBCheatsMenu
 
                                     Vector2 tile = new Vector2((float)(tileX + i), 3f);
                                     if (!indoors.objects.ContainsKey(tile))
-                                    {
                                         indoors.objects.Add(tile, new StardewValley.Object(178, 1, false, -1, 0));
-                                    }
                                     hayUsed--;
                                 }
                             }
@@ -506,11 +505,9 @@ namespace CJBCheatsMenu
 
             if (CJBCheatsMenu.Config.InfiniteHay)
             {
-                Farm farm = (Farm)Game1.getLocationFromName("Farm");
+                Farm farm = Game1.getFarm();
                 if (farm != null)
-                {
                     farm.piecesOfHay = Utility.numSilos() * 240;
-                }
             }
         }
 

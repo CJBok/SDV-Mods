@@ -41,7 +41,7 @@ namespace CJBAutomation
 
             foreach (GameLocation location in Game1.locations)
             {
-                if (!location.name.Contains("Farm") && !location.name.Contains("GreenHouse") && location.name != "Cellar")
+                if (!location.IsFarm && !location.name.Contains("GreenHouse") && location.name != "Cellar")
                     continue;
 
                 locations.Add(location);
