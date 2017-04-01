@@ -4,7 +4,6 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
-using StardewModdingAPI.Inheritance;
 using Microsoft.Xna.Framework;
 
 namespace CJBGrindStone
@@ -96,7 +95,7 @@ namespace CJBGrindStone
 
         private void GameEvents_LoadContent(object sender, EventArgs e) {
             using (FileStream filestream = new FileStream(Path.Combine(this.Helper.DirectoryPath, "Content", "grindstone.png"), FileMode.Open))
-                grindstoneTex = Texture2D.FromStream(SGame.Instance.GraphicsDevice, filestream);
+                grindstoneTex = Texture2D.FromStream(Game1.graphics.GraphicsDevice, filestream);
         }
     }
 }

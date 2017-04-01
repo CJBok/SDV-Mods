@@ -7,14 +7,12 @@ using StardewValley.Menus;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Reflection;
-using StardewModdingAPI.Inheritance;
 using Microsoft.Xna.Framework.Input;
 
 namespace StardewCJB
 {
     public class StardewCJB : Mod
     {
-        public static SGame TheGame => Program.gamePtr;
         public static RenderTarget2D RTarg { get; set; }
 
         /// <summary>The mod entry point, called after the mod is first loaded.</summary>

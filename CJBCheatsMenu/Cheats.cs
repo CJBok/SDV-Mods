@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using StardewModdingAPI;
-using StardewModdingAPI.Inheritance;
 using StardewValley;
 using StardewValley.Minigames;
 using StardewValley.Buildings;
