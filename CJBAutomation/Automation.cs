@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using StardewValley;
 using StardewValley.Objects;
+using SObject = StardewValley.Object;
 
 namespace CJBAutomation
 {
@@ -32,7 +33,7 @@ namespace CJBAutomation
                     if ((CJBAutomation.Config.Diagonal || (x == 0 || y == 0)) && !(x == 0 && y == 0))
                     {
                         Vector2 index = new Vector2(tile.X - x, tile.Y - y);
-                        if (location.objects.TryGetValue(index, out StardewValley.Object obj))
+                        if (location.objects.TryGetValue(index, out SObject obj))
                         {
                             if (obj is Chest chest)
                                 chests.Add(chest);

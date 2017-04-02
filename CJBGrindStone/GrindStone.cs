@@ -3,10 +3,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Tools;
+using SObject = StardewValley.Object;
 
 namespace CJBGrindStone
 {
-    internal class GrindStone : StardewValley.Object
+    internal class GrindStone : SObject
     {
         /*********
         ** Properties
@@ -77,7 +78,7 @@ namespace CJBGrindStone
             return false;
         }
 
-        public override bool performObjectDropInAction(StardewValley.Object dropIn, bool probe, Farmer who)
+        public override bool performObjectDropInAction(SObject dropIn, bool probe, Farmer who)
         {
             if (dropIn == null || this.heldObject != null || this.readyForHarvest || probe)
                 return false;
@@ -85,12 +86,12 @@ namespace CJBGrindStone
             switch (dropIn.parentSheetIndex)
             {
                 case 262:
-                    this.heldObject = new StardewValley.Object(246, 1);
+                    this.heldObject = new SObject(246, 1);
                     minutesUntilReady = 30;
                     Game1.playSound("Ship");
                     return true;
                 case 284:
-                    this.heldObject = new StardewValley.Object(245, 1);
+                    this.heldObject = new SObject(245, 1);
                     minutesUntilReady = 30;
                     Game1.playSound("Ship");
                     return true;

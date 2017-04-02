@@ -8,6 +8,7 @@ using StardewValley;
 using StardewValley.Buildings;
 using StardewValley.Locations;
 using StardewValley.Objects;
+using SObject = StardewValley.Object;
 
 namespace CJBAutomation
 {
@@ -58,7 +59,7 @@ namespace CJBAutomation
 
             foreach (GameLocation location in locations)
             {
-                foreach (KeyValuePair<Vector2, StardewValley.Object> pair in location.objects)
+                foreach (KeyValuePair<Vector2, SObject> pair in location.objects)
                 {
                     if (pair.Value == null)
                         continue;
@@ -68,7 +69,7 @@ namespace CJBAutomation
             locations.Clear();
         }
 
-        private void ProcessObject(GameLocation location, Vector2 tile, StardewValley.Object obj)
+        private void ProcessObject(GameLocation location, Vector2 tile, SObject obj)
         {
             switch (obj.name)
             {
@@ -95,35 +96,35 @@ namespace CJBAutomation
                                 {
                                     Automation.RemoveItemFromChests(chests, 382);
                                     Automation.RemoveItemFromChests(chests, 378, 5);
-                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 334, 1);
+                                    obj.heldObject = new SObject(Vector2.Zero, 334, 1);
                                     obj.minutesUntilReady = 30;
                                 }
                                 else if (Automation.DoChestsHaveItem(chests, 380, 5))
                                 {
                                     Automation.RemoveItemFromChests(chests, 382);
                                     Automation.RemoveItemFromChests(chests, 380, 5);
-                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 335, 1);
+                                    obj.heldObject = new SObject(Vector2.Zero, 335, 1);
                                     obj.minutesUntilReady = 120;
                                 }
                                 else if (Automation.DoChestsHaveItem(chests, 384, 5))
                                 {
                                     Automation.RemoveItemFromChests(chests, 382);
                                     Automation.RemoveItemFromChests(chests, 384, 5);
-                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 336, 1);
+                                    obj.heldObject = new SObject(Vector2.Zero, 336, 1);
                                     obj.minutesUntilReady = 300;
                                 }
                                 else if (Automation.DoChestsHaveItem(chests, 386, 5))
                                 {
                                     Automation.RemoveItemFromChests(chests, 382);
                                     Automation.RemoveItemFromChests(chests, 386, 5);
-                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 337, 1);
+                                    obj.heldObject = new SObject(Vector2.Zero, 337, 1);
                                     obj.minutesUntilReady = 480;
                                 }
                                 else if (Automation.DoChestsHaveItem(chests, 80, 1))
                                 {
                                     Automation.RemoveItemFromChests(chests, 382);
                                     Automation.RemoveItemFromChests(chests, 80);
-                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 338, "Refined Quartz", false, true, false, false);
+                                    obj.heldObject = new SObject(Vector2.Zero, 338, "Refined Quartz", false, true, false, false);
                                     obj.minutesUntilReady = 90;
                                 }
                             }
@@ -175,14 +176,14 @@ namespace CJBAutomation
                             if (Automation.RemoveItemFromChests(chests, 176) || Automation.RemoveItemFromChests(chests, 180))
                             {
                                 // small white egg / small brown egg -> normal mayonnaise
-                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 306, null, false, true, false, false);
+                                obj.heldObject = new SObject(Vector2.Zero, 306, null, false, true, false, false);
                                 obj.minutesUntilReady = 180;
                             }
                             else
                             if (Automation.RemoveItemFromChests(chests, 107) || Automation.RemoveItemFromChests(chests, 174) || Automation.RemoveItemFromChests(chests, 182))
                             {
                                 // dino egg / white large egg / brown large egg -> gold quality mayonnaise
-                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 306, null, false, true, false, false)
+                                obj.heldObject = new SObject(Vector2.Zero, 306, null, false, true, false, false)
                                 {
                                     quality = 2
                                 };
@@ -192,14 +193,14 @@ namespace CJBAutomation
                             if (Automation.RemoveItemFromChests(chests, 442))
                             {
                                 // duck egg -> duck mayonnaise
-                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 307, null, false, true, false, false);
+                                obj.heldObject = new SObject(Vector2.Zero, 307, null, false, true, false, false);
                                 obj.minutesUntilReady = 180;
                             }
                             else
                             if (Automation.RemoveItemFromChests(chests, 305))
                             {
                                 // void egg -> void mayonnaise
-                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 308, null, false, true, false, false);
+                                obj.heldObject = new SObject(Vector2.Zero, 308, null, false, true, false, false);
                                 obj.minutesUntilReady = 180;
                             }
                         }
@@ -230,49 +231,49 @@ namespace CJBAutomation
                                     switch (stack.parentSheetIndex)
                                     {
                                         case 340: // honey, regardless of flower type
-                                            obj.heldObject = new StardewValley.Object(Vector2.Zero, 459, "Mead", false, true, false, false);
+                                            obj.heldObject = new SObject(Vector2.Zero, 459, "Mead", false, true, false, false);
                                             obj.minutesUntilReady = 600;
                                             obj.heldObject.name = "Mead";
                                             break;
                                         case 262: // wheat
-                                            obj.heldObject = new StardewValley.Object(Vector2.Zero, 346, "Beer", false, true, false, false);
+                                            obj.heldObject = new SObject(Vector2.Zero, 346, "Beer", false, true, false, false);
                                             obj.minutesUntilReady = 1750;
                                             obj.heldObject.name = "Beer";
                                             break;
                                         case 304: // hops
-                                            obj.heldObject = new StardewValley.Object(Vector2.Zero, 303, "Pale Ale", false, true, false, false);
+                                            obj.heldObject = new SObject(Vector2.Zero, 303, "Pale Ale", false, true, false, false);
                                             obj.minutesUntilReady = 2250;
                                             obj.heldObject.name = "Pale Ale";
                                             break;
                                         case 433: // coffee bean
-                                            obj.heldObject = new StardewValley.Object(Vector2.Zero, 395, "Coffee", false, true, false, false);
+                                            obj.heldObject = new SObject(Vector2.Zero, 395, "Coffee", false, true, false, false);
                                             obj.heldObject.name = "Coffee";
                                             obj.minutesUntilReady = 120;
                                             break;
                                         case 256: // tomato, default would produce tomato wine instead of juice
-                                            obj.heldObject = new StardewValley.Object(Vector2.Zero, 350, stack.Name + " Juice", false, true, false, false);
-                                            obj.heldObject.Price = (int)(((StardewValley.Object)stack).Price * 2.25d);
+                                            obj.heldObject = new SObject(Vector2.Zero, 350, stack.Name + " Juice", false, true, false, false);
+                                            obj.heldObject.Price = (int)(((SObject)stack).Price * 2.25d);
                                             obj.heldObject.name = stack.Name + " Juice";
                                             obj.minutesUntilReady = 6000;
                                             break;
                                         case 260: // hot pepper, default would produce juice instead of wine
-                                            obj.heldObject = new StardewValley.Object(Vector2.Zero, 348, stack.Name + " Wine", false, true, false, false);
-                                            obj.heldObject.Price = ((StardewValley.Object)stack).Price * 3;
+                                            obj.heldObject = new SObject(Vector2.Zero, 348, stack.Name + " Wine", false, true, false, false);
+                                            obj.heldObject.Price = ((SObject)stack).Price * 3;
                                             obj.heldObject.name = stack.Name + " Wine";
                                             obj.minutesUntilReady = 10000;
                                             break;
                                         default:
                                             if (stack.category == -79) // fruit
                                             {
-                                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 348, stack.Name + " Wine", false, true, false, false);
+                                                obj.heldObject = new SObject(Vector2.Zero, 348, stack.Name + " Wine", false, true, false, false);
                                                 obj.heldObject.name = stack.Name + " Wine";
-                                                obj.heldObject.Price = ((StardewValley.Object)stack).Price * 3;
+                                                obj.heldObject.Price = ((SObject)stack).Price * 3;
                                                 obj.minutesUntilReady = 10000;
                                             }
                                             else if (stack.category == -75) // veggie
                                             {
-                                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 350, stack.Name + " Juice", false, true, false, false);
-                                                obj.heldObject.Price = (int)(((StardewValley.Object)stack).Price * 2.25d);
+                                                obj.heldObject = new SObject(Vector2.Zero, 350, stack.Name + " Juice", false, true, false, false);
+                                                obj.heldObject.Price = (int)(((SObject)stack).Price * 2.25d);
                                                 obj.heldObject.name = stack.Name + " Juice";
                                                 obj.minutesUntilReady = 6000;
                                             }
@@ -308,7 +309,7 @@ namespace CJBAutomation
                         {
                             if (Automation.RemoveItemFromChests(chests, 388, 10))
                             {
-                                obj.heldObject = new StardewValley.Object(382, 1);
+                                obj.heldObject = new SObject(382, 1);
                                 obj.minutesUntilReady = 30;
                                 obj.showNextIndex = true;
                             }
@@ -335,12 +336,12 @@ namespace CJBAutomation
                         {
                             if (Automation.RemoveItemFromChests(chests, 184))
                             {
-                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 424, null, false, true, false, false);
+                                obj.heldObject = new SObject(Vector2.Zero, 424, null, false, true, false, false);
                                 obj.minutesUntilReady = 200;
                             }
                             else if (Automation.RemoveItemFromChests(chests, 186))
                             {
-                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 424, "Cheese (=)", false, true, false, false)
+                                obj.heldObject = new SObject(Vector2.Zero, 424, "Cheese (=)", false, true, false, false)
                                 {
                                     quality = 2
                                 };
@@ -348,12 +349,12 @@ namespace CJBAutomation
                             }
                             else if (Automation.RemoveItemFromChests(chests, 436))
                             {
-                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 426, null, false, true, false, false);
+                                obj.heldObject = new SObject(Vector2.Zero, 426, null, false, true, false, false);
                                 obj.minutesUntilReady = 200;
                             }
                             else if (Automation.RemoveItemFromChests(chests, 438))
                             {
-                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 426, null, false, true, false, false)
+                                obj.heldObject = new SObject(Vector2.Zero, 426, null, false, true, false, false)
                                 {
                                     quality = 2
                                 };
@@ -380,15 +381,15 @@ namespace CJBAutomation
                         }
                         if (obj.heldObject == null && !obj.readyForHarvest)
                         {
-                            StardewValley.Object item =
-                                (StardewValley.Object)Automation.GetItemFromChestsByCategory(chests, -79, -1)
-                                ?? (StardewValley.Object)Automation.GetItemFromChestsByCategory(chests, -75, -1);
+                            SObject item =
+                                (SObject)Automation.GetItemFromChestsByCategory(chests, -79, -1)
+                                ?? (SObject)Automation.GetItemFromChestsByCategory(chests, -75, -1);
 
                             if (item != null)
                             {
                                 if (item.category == -79)
                                 {
-                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 344, item.Name + " Jelly", false, true, false, false);
+                                    obj.heldObject = new SObject(Vector2.Zero, 344, item.Name + " Jelly", false, true, false, false);
                                     obj.heldObject.Price = 50 + item.Price * 2;
                                     obj.heldObject.Name = item.Name + " Jelly";
                                     obj.minutesUntilReady = 4000;
@@ -396,7 +397,7 @@ namespace CJBAutomation
                                 }
                                 if (item.category == -75)
                                 {
-                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 342, "Pickled " + item.Name, false, true, false, false);
+                                    obj.heldObject = new SObject(Vector2.Zero, 342, "Pickled " + item.Name, false, true, false, false);
                                     obj.heldObject.Price = 50 + item.Price * 2;
                                     obj.heldObject.Name = "Pickled " + item.Name;
                                     obj.minutesUntilReady = 4000;
@@ -427,7 +428,7 @@ namespace CJBAutomation
                         {
                             if (Automation.RemoveItemFromChests(chests, 440))
                             {
-                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 428, null, false, true, false, false);
+                                obj.heldObject = new SObject(Vector2.Zero, 428, null, false, true, false, false);
                                 obj.minutesUntilReady = 240;
                                 obj.showNextIndex = true;
                             }
@@ -461,7 +462,7 @@ namespace CJBAutomation
                                         obj.heldObject.price += price;
                                         if (chest.addItem(obj.heldObject) == null)
                                         {
-                                            obj.heldObject = new StardewValley.Object(Vector2.Zero, 340, null, false, true, false, false);
+                                            obj.heldObject = new SObject(Vector2.Zero, 340, null, false, true, false, false);
                                             if (Game1.currentSeason == "winter")
                                             {
                                                 obj.heldObject = null;
@@ -487,7 +488,7 @@ namespace CJBAutomation
                             {
                                 if (chest.addItem(obj.heldObject) == null)
                                 {
-                                    obj.heldObject = new StardewValley.Object(685, Game1.random.Next(2, 6));
+                                    obj.heldObject = new SObject(685, Game1.random.Next(2, 6));
                                     obj.minutesUntilReady = 2400 - Game1.timeOfDay;
                                     obj.readyForHarvest = false;
                                     obj.showNextIndex = false;
@@ -519,14 +520,14 @@ namespace CJBAutomation
                             if (seedId != -1)
                             {
                                 Random random = new Random((int)(Game1.stats.DaysPlayed + (uint)((int)Game1.uniqueIDForThisGame / 2) + (uint)((int)obj.tileLocation.X) + (uint)((int)obj.tileLocation.Y * 77) + (uint)Game1.timeOfDay));
-                                obj.heldObject = new StardewValley.Object(seedId, random.Next(1, 4));
+                                obj.heldObject = new SObject(seedId, random.Next(1, 4));
                                 if (random.NextDouble() < 0.005)
                                 {
-                                    obj.heldObject = new StardewValley.Object(499, 1);
+                                    obj.heldObject = new SObject(499, 1);
                                 }
                                 else if (random.NextDouble() < 0.02)
                                 {
-                                    obj.heldObject = new StardewValley.Object(770, random.Next(1, 5));
+                                    obj.heldObject = new SObject(770, random.Next(1, 5));
                                 }
                                 obj.minutesUntilReady = 20;
                             }
@@ -554,25 +555,25 @@ namespace CJBAutomation
                             Random random2 = new Random((int)Game1.uniqueIDForThisGame / 2 + (int)Game1.stats.DaysPlayed + Game1.timeOfDay + (int)obj.tileLocation.X * 200 + (int)obj.tileLocation.Y);
                             if (Automation.RemoveItemFromChests(chests, 168))
                             {
-                                obj.heldObject = new StardewValley.Object((random2.NextDouble() < 0.3) ? 382 : ((random2.NextDouble() < 0.3) ? 380 : 390), random2.Next(1, 4));
+                                obj.heldObject = new SObject((random2.NextDouble() < 0.3) ? 382 : ((random2.NextDouble() < 0.3) ? 380 : 390), random2.Next(1, 4));
                                 obj.minutesUntilReady = 60;
                                 Game1.stats.PiecesOfTrashRecycled += 1u;
                             }
                             else if (Automation.RemoveItemFromChests(chests, 169))
                             {
-                                obj.heldObject = new StardewValley.Object((random2.NextDouble() < 0.25) ? 382 : 388, random2.Next(1, 4));
+                                obj.heldObject = new SObject((random2.NextDouble() < 0.25) ? 382 : 388, random2.Next(1, 4));
                                 obj.minutesUntilReady = 60;
                                 Game1.stats.PiecesOfTrashRecycled += 1u;
                             }
                             else if (Automation.RemoveItemFromChests(chests, 170) || Automation.RemoveItemFromChests(chests, 171))
                             {
-                                obj.heldObject = new StardewValley.Object(338, 1);
+                                obj.heldObject = new SObject(338, 1);
                                 obj.minutesUntilReady = 60;
                                 Game1.stats.PiecesOfTrashRecycled += 1u;
                             }
                             else if (Automation.RemoveItemFromChests(chests, 172))
                             {
-                                obj.heldObject = ((random2.NextDouble() < 0.1) ? new StardewValley.Object(428, 1) : new Torch(Vector2.Zero, 3));
+                                obj.heldObject = ((random2.NextDouble() < 0.1) ? new SObject(428, 1) : new Torch(Vector2.Zero, 3));
                                 obj.minutesUntilReady = 60;
                                 Game1.stats.PiecesOfTrashRecycled += 1u;
                             }
@@ -599,22 +600,22 @@ namespace CJBAutomation
                         {
                             if (Automation.RemoveItemFromChests(chests, 270))
                             {
-                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 247, null, false, true, false, false);
+                                obj.heldObject = new SObject(Vector2.Zero, 247, null, false, true, false, false);
                                 obj.minutesUntilReady = 1000;
                             }
                             else if (Automation.RemoveItemFromChests(chests, 421))
                             {
-                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 247, null, false, true, false, false);
+                                obj.heldObject = new SObject(Vector2.Zero, 247, null, false, true, false, false);
                                 obj.minutesUntilReady = 60;
                             }
                             else if (Automation.RemoveItemFromChests(chests, 430))
                             {
-                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 432, null, false, true, false, false);
+                                obj.heldObject = new SObject(Vector2.Zero, 432, null, false, true, false, false);
                                 obj.minutesUntilReady = 360;
                             }
                             else if (Automation.RemoveItemFromChests(chests, 431))
                             {
-                                obj.heldObject = new StardewValley.Object(247, 1);
+                                obj.heldObject = new SObject(247, 1);
                                 obj.minutesUntilReady = 3200;
                             }
                         }
@@ -642,23 +643,23 @@ namespace CJBAutomation
                                     else if (id == 422)
                                     {
                                         obj.minutesUntilReady = 3000 - Game1.timeOfDay;
-                                        obj.heldObject = new StardewValley.Object(420, 1);
+                                        obj.heldObject = new SObject(420, 1);
                                     }
                                     else if (id == 404 || id == 420)
                                     {
                                         obj.minutesUntilReady = 3000 - Game1.timeOfDay;
                                         if (Game1.currentSeason != "fall")
                                         {
-                                            obj.heldObject = new StardewValley.Object(404, 1);
+                                            obj.heldObject = new SObject(404, 1);
                                             obj.minutesUntilReady = 6000 - Game1.timeOfDay;
                                         }
                                         if (Game1.dayOfMonth % 10 == 0)
-                                            obj.heldObject = new StardewValley.Object(422, 1);
+                                            obj.heldObject = new SObject(422, 1);
                                         if (Game1.currentSeason == "winter")
                                             obj.minutesUntilReady = 80000 - Game1.timeOfDay;
                                     }
                                     if (obj.heldObject != null)
-                                        obj.heldObject = (StardewValley.Object)obj.heldObject.getOne();
+                                        obj.heldObject = (SObject)obj.heldObject.getOne();
                                     obj.readyForHarvest = false;
                                     break;
                                 }
@@ -711,7 +712,7 @@ namespace CJBAutomation
                             {
                                 foreach (var stack in chest.items)
                                 {
-                                    if ((((StardewValley.Object)stack).quality) == 4) // skip already-iridium stuff
+                                    if ((((SObject)stack).quality) == 4) // skip already-iridium stuff
                                         continue;
                                     float agingRate = -1f;
                                     switch (stack.parentSheetIndex)
@@ -733,8 +734,8 @@ namespace CJBAutomation
                                     }
                                     if (agingRate < 0) // not something we could age
                                         continue;
-                                    obj.heldObject = (StardewValley.Object)stack.getOne();
-                                    switch (((StardewValley.Object)stack).quality)
+                                    obj.heldObject = (SObject)stack.getOne();
+                                    switch (((SObject)stack).quality)
                                     {
                                         case 0:
                                             ((Cask)obj).daysToMature = 56f;
@@ -782,7 +783,7 @@ namespace CJBAutomation
                                     parentSheetIndex = 437;
                                 else if (Game1.random.NextDouble() < 0.25)
                                     parentSheetIndex = 413;
-                                obj.heldObject = new StardewValley.Object(parentSheetIndex, 1);
+                                obj.heldObject = new SObject(parentSheetIndex, 1);
                                 obj.minutesUntilReady = 1200;
                             }
                         }

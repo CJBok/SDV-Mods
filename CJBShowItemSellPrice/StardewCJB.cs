@@ -7,6 +7,7 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Menus;
+using SObject = StardewValley.Object;
 
 namespace CJBShowItemSellPrice
 {
@@ -37,7 +38,7 @@ namespace CJBShowItemSellPrice
                 return;
 
             // show hover info
-            if (item is StardewValley.Object obj)
+            if (item is SObject obj)
                 this.DrawHoverTextBox(Game1.smallFont, obj.sellToStorePrice(), obj.stack);
             else
             {

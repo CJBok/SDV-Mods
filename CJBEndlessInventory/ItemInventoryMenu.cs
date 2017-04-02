@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewValley;
 using StardewValley.Menus;
+using SObject = StardewValley.Object;
 
 namespace CJBEndlessInventory
 {
@@ -170,8 +171,8 @@ namespace CJBEndlessInventory
                     index = this.Capacity / this.Rows * this.ScrollIndex + index;
                 if (component.containsPoint(x, y) && (this.ActualInventory[index] == null || this.HighlightMethod(this.ActualInventory[index])) && index < this.ActualInventory.Count && this.ActualInventory[index] != null)
                 {
-                    if (this.ActualInventory[index] is Tool && (toAddTo == null || toAddTo is StardewValley.Object) && (this.ActualInventory[index] as Tool).canThisBeAttached((StardewValley.Object)toAddTo))
-                        return (this.ActualInventory[index] as Tool).attach((StardewValley.Object)toAddTo);
+                    if (this.ActualInventory[index] is Tool && (toAddTo == null || toAddTo is SObject) && (this.ActualInventory[index] as Tool).canThisBeAttached((SObject)toAddTo))
+                        return (this.ActualInventory[index] as Tool).attach((SObject)toAddTo);
                     if (toAddTo == null)
                     {
                         if (this.ActualInventory[index].maximumStackSize() != -1)
@@ -332,7 +333,7 @@ namespace CJBEndlessInventory
 
         public static Item AddItemToInventory(Item item, int position, List<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null)
         {
-            if (items == Game1.player.items && item is StardewValley.Object obj && obj.specialItem)
+            if (items == Game1.player.items && item is SObject obj && obj.specialItem)
             {
                 if (obj.bigCraftable)
                     Game1.player.specialBigCraftables.Add(obj.isRecipe ? (-obj.parentSheetIndex) : obj.parentSheetIndex);
@@ -349,7 +350,7 @@ namespace CJBEndlessInventory
                 onAddFunction?.Invoke(item, null);
                 return null;
             }
-            if (items[position].maximumStackSize() == -1 || items[position].Name != item.Name || (item is StardewValley.Object addItem && items[position] is StardewValley.Object slotItem && (addItem.quality != slotItem.quality || addItem.parentSheetIndex != slotItem.parentSheetIndex)) || !item.canStackWith(items[position]))
+            if (items[position].maximumStackSize() == -1 || items[position].Name != item.Name || (item is SObject addItem && items[position] is SObject slotItem && (addItem.quality != slotItem.quality || addItem.parentSheetIndex != slotItem.parentSheetIndex)) || !item.canStackWith(items[position]))
             {
                 Item foundItem = items[position];
                 if (position == Game1.player.CurrentToolIndex && items == Game1.player.items && foundItem != null)

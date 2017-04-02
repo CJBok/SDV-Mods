@@ -12,6 +12,7 @@ using StardewValley.Monsters;
 using StardewValley.Objects;
 using StardewValley.TerrainFeatures;
 using StardewValley.Tools;
+using SObject = StardewValley.Object;
 
 namespace CJBCheatsMenu
 {
@@ -170,7 +171,7 @@ namespace CJBCheatsMenu
 
             foreach (GameLocation location in locations)
             {
-                foreach (KeyValuePair<Vector2, StardewValley.Object> pair in location.objects)
+                foreach (KeyValuePair<Vector2, SObject> pair in location.objects)
                 {
                     if (pair.Value == null)
                         continue;
@@ -257,7 +258,7 @@ namespace CJBCheatsMenu
 
                                     Vector2 tile = new Vector2(tileX + i, 3f);
                                     if (!indoors.objects.ContainsKey(tile))
-                                        indoors.objects.Add(tile, new StardewValley.Object(178, 1));
+                                        indoors.objects.Add(tile, new SObject(178, 1));
                                     hayUsed--;
                                 }
                             }
@@ -327,7 +328,7 @@ namespace CJBCheatsMenu
 
                     if (player.CurrentTool is Pickaxe && player.currentLocation.objects.ContainsKey(tile))
                     {
-                        StardewValley.Object obj = player.currentLocation.Objects[tile];
+                        SObject obj = player.currentLocation.Objects[tile];
                         if (obj != null && obj.name == "Stone")
                             obj.minutesUntilReady = 0;
                     }

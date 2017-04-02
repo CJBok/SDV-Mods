@@ -1,10 +1,4 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: StardewValley.Menus.InventoryMenu
-// Assembly: Stardew Valley, Version=1.0.5912.41135, Culture=neutral, PublicKeyToken=null
-// MVID: B585F4A7-F5D4-496B-8930-4705FA185302
-// Assembly location: K:\SteamLibrary\steamapps\common\Stardew Valley\Stardew Valley.exe
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -12,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewValley;
 using StardewValley.Menus;
+using SObject = StardewValley.Object;
 
 namespace CJBItemSpawner
 {
@@ -173,8 +168,8 @@ namespace CJBItemSpawner
                     index = this.Capacity / this.Rows * ItemInventoryMenu.ScrollIndex + index;
                 if (clickableComponent.containsPoint(x, y) && index < this.ActualInventory.Count && this.ActualInventory[index] != null)
                 {
-                    if (this.ActualInventory[index] is Tool tool && (toAddTo == null || toAddTo is StardewValley.Object) && tool.canThisBeAttached((StardewValley.Object)toAddTo))
-                        return tool.attach((StardewValley.Object)toAddTo);
+                    if (this.ActualInventory[index] is Tool tool && (toAddTo == null || toAddTo is SObject) && tool.canThisBeAttached((SObject)toAddTo))
+                        return tool.attach((SObject)toAddTo);
                     if (toAddTo == null)
                     {
                         if (this.ActualInventory[index].maximumStackSize() != -1)
@@ -338,7 +333,7 @@ namespace CJBItemSpawner
 
         public static Item AddItemToInventory(Item item, int position, List<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null)
         {
-            if (items == Game1.player.items && item is StardewValley.Object obj && obj.specialItem)
+            if (items == Game1.player.items && item is SObject obj && obj.specialItem)
             {
                 if (obj.bigCraftable)
                     Game1.player.specialBigCraftables.Add(obj.isRecipe ? (-obj.parentSheetIndex) : obj.parentSheetIndex);
@@ -355,7 +350,7 @@ namespace CJBItemSpawner
                 onAddFunction?.Invoke(item, null);
                 return null;
             }
-            if (items[position].maximumStackSize() == -1 || items[position].Name != item.Name || (item is StardewValley.Object itemObj && items[position] is StardewValley.Object slotObj && (itemObj.quality != slotObj.quality || itemObj.parentSheetIndex != slotObj.parentSheetIndex)) || !item.canStackWith(items[position]))
+            if (items[position].maximumStackSize() == -1 || items[position].Name != item.Name || (item is SObject itemObj && items[position] is SObject slotObj && (itemObj.quality != slotObj.quality || itemObj.parentSheetIndex != slotObj.parentSheetIndex)) || !item.canStackWith(items[position]))
             {
                 Item item2 = items[position];
                 if (position == Game1.player.CurrentToolIndex && items == Game1.player.items && item2 != null)

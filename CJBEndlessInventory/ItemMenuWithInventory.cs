@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
+using SObject = StardewValley.Object;
 
 namespace CJBEndlessInventory
 {
@@ -81,7 +82,7 @@ namespace CJBEndlessInventory
             }
             if (this.TrashCan == null || !this.TrashCan.containsPoint(x, y) || (this.HeldItem == null))
                 return;
-            if (this.HeldItem is StardewValley.Object obj && Game1.player.specialItems.Contains(obj.parentSheetIndex))
+            if (this.HeldItem is SObject obj && Game1.player.specialItems.Contains(obj.parentSheetIndex))
                 Game1.player.specialItems.Remove(obj.parentSheetIndex);
             this.HeldItem = null;
             Game1.playSound("trashcan");

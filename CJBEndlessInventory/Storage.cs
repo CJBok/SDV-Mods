@@ -7,10 +7,11 @@ using StardewValley.Locations;
 using StardewValley.Menus;
 using StardewValley.Monsters;
 using StardewValley.Tools;
+using SObject = StardewValley.Object;
 
 namespace CJBEndlessInventory
 {
-    internal class Storage : StardewValley.Object
+    internal class Storage : SObject
     {
         /*********
         ** Accessors
@@ -79,10 +80,10 @@ namespace CJBEndlessInventory
                             this.Coins = (int)location.Y % 3 + 2;
                             break;
                         case 2:
-                            this.Items.Add(new StardewValley.Object(this.tileLocation, 382, (int)location.Y % 3 + 1));
+                            this.Items.Add(new SObject(this.tileLocation, 382, (int)location.Y % 3 + 1));
                             break;
                         case 3:
-                            this.Items.Add(new StardewValley.Object(this.tileLocation, (Game1.mine.getMineArea() == 0) ? 378 : ((Game1.mine.getMineArea() == 40) ? 380 : 384), (int)location.Y % 3 + 1));
+                            this.Items.Add(new SObject(this.tileLocation, (Game1.mine.getMineArea() == 0) ? 378 : ((Game1.mine.getMineArea() == 40) ? 380 : 384), (int)location.Y % 3 + 1));
                             break;
                         case 4:
                             this.ChestType = "Monster";
@@ -92,7 +93,7 @@ namespace CJBEndlessInventory
 
                 case "OreChest":
                     for (int i = 0; i < 8; i++)
-                        this.Items.Add(new StardewValley.Object(this.tileLocation, (Game1.random.NextDouble() < 0.5) ? 384 : 382, 1));
+                        this.Items.Add(new SObject(this.tileLocation, (Game1.random.NextDouble() < 0.5) ? 384 : 382, 1));
                     break;
             }
         }
@@ -109,7 +110,7 @@ namespace CJBEndlessInventory
             this.boundingBox = new Rectangle((int)this.tileLocation.X * Game1.tileSize, (int)this.tileLocation.Y * Game1.tileSize, Game1.tileSize, Game1.tileSize);
         }
 
-        public override bool performObjectDropInAction(StardewValley.Object dropIn, bool probe, Farmer who)
+        public override bool performObjectDropInAction(SObject dropIn, bool probe, Farmer who)
         {
             return false;
         }
@@ -154,7 +155,7 @@ namespace CJBEndlessInventory
                     Game1.player.addQuest(6);
                     Game1.screenOverlayTempSprites.Add(new TemporaryAnimatedSprite(Game1.mouseCursors, new Rectangle(128, 208, 16, 16), 200f, 2, 30, new Vector2(Game1.dayTimeMoneyBox.questButton.bounds.Left - Game1.tileSize / 4, Game1.dayTimeMoneyBox.questButton.bounds.Bottom + Game1.pixelZoom * 2), false, false, 1f, 0f, Color.White, Game1.pixelZoom, 0f, 0f, 0f, true));
                 }
-                if (this.Items[0] is StardewValley.Object obj && !obj.bigCraftable && obj.parentSheetIndex == 434)
+                if (this.Items[0] is SObject obj && !obj.bigCraftable && obj.parentSheetIndex == 434)
                 {
                     if (!Game1.player.mailReceived.Contains("CF_Mines"))
                     {
