@@ -13,22 +13,20 @@ namespace CJBEndlessInventory
         /*********
         ** Properties
         *********/
-        private ItemInventoryMenu ItemsToGrabMenu;
+        private readonly ItemInventoryMenu ItemsToGrabMenu;
+        private readonly ClickableComponent Title;
+        private readonly ClickableTextureComponent UpArrow;
+        private readonly ClickableTextureComponent DownArrow;
+        private readonly BehaviorOnItemSelect BehaviorFunction;
+        private readonly BehaviorOnItemSelect BehaviorOnItemGrab;
+        private readonly bool AllowRightClick;
+
         private TemporaryAnimatedSprite Poof;
-
-        private ClickableComponent Title;
-        private ClickableTextureComponent UpArrow;
-        private ClickableTextureComponent DownArrow;
-
         private bool ShowReceivingMenu = true;
         private bool ReverseGrab = true;
         private bool DestroyItemOnClick = true;
         private bool CanExitOnKey = true;
-        private bool AllowRightClick;
         private bool CanClose;
-
-        private BehaviorOnItemSelect BehaviorFunction;
-        private BehaviorOnItemSelect BehaviorOnItemGrab;
 
 
         /*********
@@ -67,7 +65,7 @@ namespace CJBEndlessInventory
                 this.HeldItem = this.ItemsToGrabMenu.RightClick(x, y, this.HeldItem, false);
                 if (this.HeldItem != null)
                     BehaviorOnItemGrab?.Invoke(this.HeldItem, Game1.player);
-                if (this.HeldItem is StardewValley.Object && (this.HeldItem as StardewValley.Object).parentSheetIndex == 326)
+                if (this.HeldItem is Object && (this.HeldItem as Object).parentSheetIndex == 326)
                 {
                     this.HeldItem = null;
                     Game1.player.canUnderstandDwarves = true;
@@ -75,7 +73,7 @@ namespace CJBEndlessInventory
                     Game1.playSound("fireball");
                     return;
                 }
-                if (this.HeldItem is StardewValley.Object recipe && recipe.isRecipe)
+                if (this.HeldItem is Object recipe && recipe.isRecipe)
                 {
                     string key = recipe.Name.Substring(0, recipe.Name.IndexOf("Recipe") - 1);
                     try
@@ -102,9 +100,7 @@ namespace CJBEndlessInventory
             {
                 this.BehaviorFunction(this.HeldItem, Game1.player);
                 if (this.DestroyItemOnClick)
-                {
                     this.HeldItem = null;
-                }
             }
         }
 
@@ -130,21 +126,21 @@ namespace CJBEndlessInventory
                 this.HeldItem = this.ItemsToGrabMenu.LeftClick(x, y, this.HeldItem, false);
                 if (this.HeldItem != null)
                     BehaviorOnItemGrab?.Invoke(this.HeldItem, Game1.player);
-                if (this.HeldItem is StardewValley.Object obj && obj.parentSheetIndex == 326)
+                if (this.HeldItem is Object obj && obj.parentSheetIndex == 326)
                 {
                     this.HeldItem = null;
                     Game1.player.canUnderstandDwarves = true;
                     this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                     Game1.playSound("fireball");
                 }
-                else if (this.HeldItem is StardewValley.Object && (this.HeldItem as StardewValley.Object).parentSheetIndex == 102)
+                else if (this.HeldItem is Object && (this.HeldItem as Object).parentSheetIndex == 102)
                 {
                     this.HeldItem = null;
                     Game1.player.foundArtifact(102, 1);
                     this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                     Game1.playSound("fireball");
                 }
-                else if (this.HeldItem is StardewValley.Object recipe && recipe.isRecipe)
+                else if (this.HeldItem is Object recipe && recipe.isRecipe)
                 {
                     string key = recipe.Name.Substring(0, recipe.Name.IndexOf("Recipe") - 1);
                     try
@@ -203,7 +199,7 @@ namespace CJBEndlessInventory
                 Game1.setMousePosition(this.TrashCan.bounds.Center);
             if (key != Keys.Delete || this.HeldItem == null || !this.HeldItem.canBeTrashed())
                 return;
-            if (this.HeldItem is StardewValley.Object obj && Game1.player.specialItems.Contains(obj.parentSheetIndex))
+            if (this.HeldItem is Object obj && Game1.player.specialItems.Contains(obj.parentSheetIndex))
                 Game1.player.specialItems.Remove(obj.parentSheetIndex);
             this.HeldItem = null;
             Game1.playSound("trashcan");

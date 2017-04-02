@@ -13,11 +13,11 @@ namespace CJBCheatsMenu
         /*********
         ** Properties
         *********/
+        private readonly Rectangle SetButtonSprite = new Rectangle(294, 428, 21, 11);
+        private readonly List<string> ButtonNames = new List<string>();
         private string ListenerMessage;
         private bool Listening;
         private Rectangle SetButtonBounds;
-        private Rectangle SetButtonSprite = new Rectangle(294, 428, 21, 11);
-        private List<string> ButtonNames = new List<string>();
 
 
         /*********

@@ -10,9 +10,9 @@ namespace CJBCheatsMenu
         /*********
         ** Properties
         *********/
-        private int SliderMaxValue;
+        private readonly string SliderLabel;
+        private readonly int SliderMaxValue;
         private int Value;
-        private string SliderLabel;
 
 
         /*********

@@ -14,13 +14,13 @@ namespace CJBEndlessInventory
         /*********
         ** Properties
         *********/
-        private bool PlayerInventory;
-        private List<ClickableComponent> Inventory = new List<ClickableComponent>();
-        private int Capacity;
-        private int Rows;
-        private int HorizontalGap;
-        private int VerticalGap;
-        private static int ScrollIndex;
+        private readonly bool PlayerInventory;
+        private readonly List<ClickableComponent> Inventory = new List<ClickableComponent>();
+        private readonly int Capacity;
+        private readonly int Rows;
+        private readonly int HorizontalGap;
+        private readonly int VerticalGap;
+        private int ScrollIndex;
 
 
         /*********
@@ -100,7 +100,7 @@ namespace CJBEndlessInventory
                 {
                     int index = Convert.ToInt32(component.name);
                     if (!this.PlayerInventory)
-                        index = this.Capacity / this.Rows * ItemInventoryMenu.ScrollIndex + index;
+                        index = this.Capacity / this.Rows * this.ScrollIndex + index;
                     if (index < this.ActualInventory.Count && (this.ActualInventory[index] == null || this.HighlightMethod(this.ActualInventory[index]) || this.ActualInventory[index].canStackWith(toPlace)))
                     {
                         if (this.ActualInventory[index] != null)
@@ -167,7 +167,7 @@ namespace CJBEndlessInventory
             {
                 int index = Convert.ToInt32(component.name);
                 if (!this.PlayerInventory)
-                    index = this.Capacity / this.Rows * ItemInventoryMenu.ScrollIndex + index;
+                    index = this.Capacity / this.Rows * this.ScrollIndex + index;
                 if (component.containsPoint(x, y) && (this.ActualInventory[index] == null || this.HighlightMethod(this.ActualInventory[index])) && index < this.ActualInventory.Count && this.ActualInventory[index] != null)
                 {
                     if (this.ActualInventory[index] is Tool && (toAddTo == null || toAddTo is StardewValley.Object) && (this.ActualInventory[index] as Tool).canThisBeAttached((StardewValley.Object)toAddTo))
@@ -234,7 +234,7 @@ namespace CJBEndlessInventory
             {
                 int index = Convert.ToInt32(clickableComponent.name);
                 if (!this.PlayerInventory)
-                    index = this.Capacity / this.Rows * ItemInventoryMenu.ScrollIndex + index;
+                    index = this.Capacity / this.Rows * this.ScrollIndex + index;
 
                 clickableComponent.scale = Math.Max(1f, clickableComponent.scale - 0.025f);
                 if (clickableComponent.containsPoint(x, y) && index < this.ActualInventory.Count && this.ActualInventory[index] != null)
@@ -284,14 +284,14 @@ namespace CJBEndlessInventory
                 return;
             base.receiveScrollWheelAction(direction);
             if (direction > 0)
-                ItemInventoryMenu.ScrollIndex--;
+                this.ScrollIndex--;
             if (direction < 0)
-                ItemInventoryMenu.ScrollIndex++;
+                this.ScrollIndex++;
 
-            if (ItemInventoryMenu.ScrollIndex < 0)
-                ItemInventoryMenu.ScrollIndex = 0;
-            if (ItemInventoryMenu.ScrollIndex > ((this.ActualInventory.Count - 1) / (this.Capacity / this.Rows)))
-                ItemInventoryMenu.ScrollIndex = ((this.ActualInventory.Count - 1) / (this.Capacity / this.Rows));
+            if (this.ScrollIndex < 0)
+                this.ScrollIndex = 0;
+            if (this.ScrollIndex > ((this.ActualInventory.Count - 1) / (this.Capacity / this.Rows)))
+                this.ScrollIndex = ((this.ActualInventory.Count - 1) / (this.Capacity / this.Rows));
         }
 
         public override void draw(SpriteBatch spriteBatch)
@@ -300,7 +300,7 @@ namespace CJBEndlessInventory
             {
                 int indexOffset = index;
                 if (!this.PlayerInventory)
-                    indexOffset = 36 / 3 * ItemInventoryMenu.ScrollIndex + index;
+                    indexOffset = 36 / 3 * this.ScrollIndex + index;
 
                 Vector2 slotPosition = new Vector2(this.xPositionOnScreen + index % (36 / 3) * Game1.tileSize + this.HorizontalGap * (index % (36 / 3)), this.yPositionOnScreen + index / (36 / 3) * (Game1.tileSize + this.VerticalGap) + (index / (36 / 3) - 1) * Game1.pixelZoom);
                 spriteBatch.Draw(Game1.menuTexture, slotPosition, Game1.getSourceRectForStandardTileSheet(Game1.menuTexture, 10), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.5f);

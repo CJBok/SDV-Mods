@@ -62,7 +62,7 @@ namespace CJBCheatsMenu
             if (level < 0 || level > 9)
                 return 0;
 
-            int[] exp = new int[] { 100, 280, 390, 530, 850, 1150, 1500, 2100, 3100, 5000 };
+            int[] exp = { 100, 280, 390, 530, 850, 1150, 1500, 2100, 3100, 5000 };
 
             return exp[level];
         }

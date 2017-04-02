@@ -20,12 +20,12 @@ namespace CJBItemSpawner
         /*********
         ** Properties
         *********/
-        private bool PlayerInventory;
-        private List<ClickableComponent> Inventory = new List<ClickableComponent>();
-        private int Capacity;
-        private int Rows;
-        private int HorizontalGap;
-        private int VerticalGap;
+        private readonly bool PlayerInventory;
+        private readonly List<ClickableComponent> Inventory = new List<ClickableComponent>();
+        private readonly int Capacity;
+        private readonly int Rows;
+        private readonly int HorizontalGap;
+        private readonly int VerticalGap;
 
 
         /*********

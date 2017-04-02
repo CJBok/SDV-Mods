@@ -11,6 +11,8 @@ namespace CJBItemSpawner
         /*********
         ** Properties
         *********/
+        private readonly int InventoryYOffset;
+
         private string DescriptionText = "";
         protected string HoverText = "";
         protected Item HoveredItem; // referenced by CJB Show Item Sell Price
@@ -18,7 +20,6 @@ namespace CJBItemSpawner
         private ClickableTextureComponent OkButton;
         protected ClickableTextureComponent TrashCan;
         private float TrashCanLidRotation;
-        private int InventoryYOffset;
 
 
         /*********

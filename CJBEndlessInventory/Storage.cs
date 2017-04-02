@@ -15,15 +15,16 @@ namespace CJBEndlessInventory
         /*********
         ** Accessors
         *********/
+        private readonly List<Item> Items = new List<Item>();
+        private readonly Color Tint = Color.White;
+        private readonly bool IsPlayerChest;
+        private readonly bool IsGiftbox;
+
         private int CurrentLidFrame = 501;
         private int FrameCounter = -1;
         private int Coins;
-        private List<Item> Items = new List<Item>();
         private Farmer Opener;
         private string ChestType = "";
-        private Color Tint = Color.White;
-        private bool IsPlayerChest;
-        private bool IsGiftbox;
 
 
         /*********

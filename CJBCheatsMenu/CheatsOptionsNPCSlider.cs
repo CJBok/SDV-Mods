@@ -11,11 +11,11 @@ namespace CJBCheatsMenu
         /*********
         ** Properties
         *********/
-        private int SliderMaxValue;
+        private readonly string SliderLabel;
+        private readonly int SliderMaxValue;
+        private readonly NPC Npc;
+        private readonly ClickableTextureComponent Mugshot;
         private int Value;
-        private NPC Npc;
-        private ClickableTextureComponent Mugshot;
-        private string SliderLabel;
 
 
         /*********

@@ -16,29 +16,28 @@ namespace CJBItemSpawner
         /*********
         ** Properties
         *********/
+        private readonly ClickableComponent Title;
+        private readonly ClickableComponent SortButton;
+        private readonly ClickableComponent QualityButton;
+        private readonly ClickableTextureComponent UpArrow;
+        private readonly ClickableTextureComponent DownArrow;
+        private readonly List<ClickableComponent> Tabs = new List<ClickableComponent>();
+        private readonly TextBox Textbox;
+        private readonly List<Item> InventoryItems;
+        private readonly bool AllowRightClick;
+
+        private static bool ItemsLoaded;
+        private static List<Item> ItemList;
+
         private ItemInventoryMenu ItemsToGrabMenu;
         private TemporaryAnimatedSprite Poof;
-        private static bool ItemsLoaded;
-
-        private ClickableComponent Title;
-        private ClickableComponent SortButton;
-        private ClickableComponent QualityButton;
-        private List<ClickableComponent> Tabs = new List<ClickableComponent>();
-        private static int TabIndex;
-        private static int SortID;
-        private static ItemQuality Quality = ItemQuality.Normal;
-
-        private TextBox Textbox;
+        private int TabIndex;
+        private int SortID;
+        private ItemQuality Quality = ItemQuality.Normal;
         private Rectangle TextboxBounds;
-        private List<Item> InventoryItems;
-        private ClickableTextureComponent UpArrow;
-        private ClickableTextureComponent DownArrow;
-
         private bool ShowReceivingMenu = true;
         private bool CanExitOnKey = true;
-        private bool AllowRightClick;
-        private static List<Item> ItemList;
-        private static string TempText = "";
+        private string TempText = "";
 
 
         /*********
@@ -58,7 +57,7 @@ namespace CJBItemSpawner
             this.Textbox.X = this.xPositionOnScreen + (width / 2) - (this.Textbox.Width / 2) - Game1.tileSize + 32;
             this.Textbox.Y = this.yPositionOnScreen + (height / 2) + Game1.tileSize * 2 + 40;
             this.Textbox.Selected = false;
-            this.Textbox.Text = ItemMenu.TempText;
+            this.Textbox.Text = this.TempText;
             Game1.keyboardDispatcher.Subscriber = this.Textbox;
             this.TextboxBounds = new Rectangle(this.Textbox.X, this.Textbox.Y, this.Textbox.Width, this.Textbox.Height / 3);
 
@@ -94,7 +93,7 @@ namespace CJBItemSpawner
             this.AllowRightClick = true;
             this.Inventory.ShowGrayedOutSlots = true;
 
-            switch (ItemMenu.SortID)
+            switch (this.SortID)
             {
                 case 0:
                     this.SortButton.name = "Sort By: Name";
@@ -114,7 +113,7 @@ namespace CJBItemSpawner
         {
             List<Item> items = ItemMenu.ItemList.OrderBy(o => o.Name).ToList();
 
-            switch (ItemMenu.SortID)
+            switch (this.SortID)
             {
                 case 1:
                     items = ItemMenu.ItemList.OrderBy(o => o.category).ToList();
@@ -130,7 +129,7 @@ namespace CJBItemSpawner
                 item.Stack = item.maximumStackSize();
 
                 if (item is Object obj)
-                    obj.quality = (int)ItemMenu.Quality;
+                    obj.quality = (int)this.Quality;
 
                 if (this.IsCategoryAllowed(item) && item.Name.ToLower().Contains(this.Textbox.Text.ToLower()))
                     this.InventoryItems.Add(item);
@@ -140,7 +139,7 @@ namespace CJBItemSpawner
         }
         private bool IsCategoryAllowed(Item item)
         {
-            switch (ItemMenu.TabIndex)
+            switch (this.TabIndex)
             {
                 case 0:
                     return true;
@@ -387,7 +386,7 @@ namespace CJBItemSpawner
                     ClickableComponent tab = this.Tabs[i];
                     if (tab.bounds.Contains(x, y))
                     {
-                        ItemMenu.TabIndex = i;
+                        this.TabIndex = i;
                         Game1.exitActiveMenu();
                         ItemInventoryMenu.ScrollIndex = 0;
                         ItemMenu.Open();
@@ -397,16 +396,16 @@ namespace CJBItemSpawner
 
                 if (this.SortButton.bounds.Contains(x, y))
                 {
-                    ItemMenu.SortID++;
-                    if (ItemMenu.SortID > 2)
-                        ItemMenu.SortID = 0;
+                    this.SortID++;
+                    if (this.SortID > 2)
+                        this.SortID = 0;
                     ItemMenu.Open();
                 }
 
                 if (this.QualityButton.bounds.Contains(x, y))
                 {
-                    ItemMenu.Quality = ItemMenu.Quality != ItemMenu.Quality.GetNext()
-                        ? ItemMenu.Quality.GetNext()
+                    this.Quality = this.Quality != this.Quality.GetNext()
+                        ? this.Quality.GetNext()
                         : ItemQuality.Normal;
                     ItemMenu.Open();
                 }
@@ -498,9 +497,9 @@ namespace CJBItemSpawner
 
         public override void update(GameTime time)
         {
-            if (ItemMenu.TempText != this.Textbox.Text)
+            if (this.TempText != this.Textbox.Text)
             {
-                ItemMenu.TempText = this.Textbox.Text;
+                this.TempText = this.Textbox.Text;
                 ItemInventoryMenu.ScrollIndex = 0;
                 this.LoadInventory();
             }
@@ -555,7 +554,7 @@ namespace CJBItemSpawner
                 for (int i = 0; i < this.Tabs.Count; i++)
                 {
                     ClickableComponent current = this.Tabs[i];
-                    CJB.DrawTextBox(current.bounds.X + current.bounds.Width, current.bounds.Y, Game1.smallFont, current.name, true, 2, ItemMenu.TabIndex == i ? 1F : 0.7F);
+                    CJB.DrawTextBox(current.bounds.X + current.bounds.Width, current.bounds.Y, Game1.smallFont, current.name, true, 2, this.TabIndex == i ? 1F : 0.7F);
                 }
 
                 CJB.DrawTextBox(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name, true);

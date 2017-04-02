@@ -15,21 +15,22 @@ namespace CJBCheatsMenu
         /*********
         ** Properties
         *********/
-        private string HoverText = "";
-        private List<ClickableComponent> OptionSlots = new List<ClickableComponent>();
-        private List<OptionsElement> Options = new List<OptionsElement>();
-        private int OptionsSlotHeld = -1;
+        private readonly List<ClickableComponent> OptionSlots = new List<ClickableComponent>();
+        private readonly List<OptionsElement> Options = new List<OptionsElement>();
+        private readonly ClickableTextureComponent UpArrow;
+        private readonly ClickableTextureComponent DownArrow;
+        private readonly ClickableTextureComponent Scrollbar;
+        private readonly List<ClickableComponent> Tabs = new List<ClickableComponent>();
+        private readonly ClickableComponent Title;
         private const int ItemsPerPage = 10;
-        private static int CurrentItemIndex;
-        private ClickableTextureComponent UpArrow;
-        private ClickableTextureComponent DownArrow;
-        private ClickableTextureComponent Scrollbar;
+
+        private string HoverText = "";
+        private int OptionsSlotHeld = -1;
+        private int CurrentItemIndex;
         private bool IsScrolling;
         private Rectangle ScrollbarRunner;
         private bool CanClose;
-        private List<ClickableComponent> Tabs = new List<ClickableComponent>();
-        private static int TabIndex;
-        private ClickableComponent Title;
+        private int TabIndex;
 
 
         /*********
@@ -63,152 +64,147 @@ namespace CJBCheatsMenu
             for (int i = 0; i < CheatsMenu.ItemsPerPage; i++)
                 this.OptionSlots.Add(new ClickableComponent(new Rectangle(this.xPositionOnScreen + Game1.tileSize / 4, this.yPositionOnScreen + Game1.tileSize * 5 / 4 + Game1.pixelZoom + i * ((height - Game1.tileSize * 2) / CheatsMenu.ItemsPerPage), width - Game1.tileSize / 2, (height - Game1.tileSize * 2) / CheatsMenu.ItemsPerPage + Game1.pixelZoom), string.Concat(i)));
 
-            if (CheatsMenu.TabIndex == 0)
+            switch (this.TabIndex)
             {
-                this.Options.Add(new OptionsElement("Player:"));
-                this.Options.Add(new CheatsOptionsCheckbox("Infinite Stamina", 1));
-                this.Options.Add(new CheatsOptionsCheckbox("Infinite Health", 2));
-                this.Options.Add(new CheatsOptionsCheckbox("Increased Movement Speed", 0));
-                this.Options.Add(new CheatsOptionsSlider("Move Speed", 0, 10));
-                this.Options.Add(new CheatsOptionsCheckbox("One Hit Kill", 6));
-                this.Options.Add(new CheatsOptionsCheckbox("Max Daily Luck", 7));
+                case 0:
+                    this.Options.Add(new OptionsElement("Player:"));
+                    this.Options.Add(new CheatsOptionsCheckbox("Infinite Stamina", 1));
+                    this.Options.Add(new CheatsOptionsCheckbox("Infinite Health", 2));
+                    this.Options.Add(new CheatsOptionsCheckbox("Increased Movement Speed", 0));
+                    this.Options.Add(new CheatsOptionsSlider("Move Speed", 0, 10));
+                    this.Options.Add(new CheatsOptionsCheckbox("One Hit Kill", 6));
+                    this.Options.Add(new CheatsOptionsCheckbox("Max Daily Luck", 7));
 
-                this.Options.Add(new OptionsElement("Tools:"));
-                this.Options.Add(new CheatsOptionsCheckbox("Infinite Water in Can", 3));
-                this.Options.Add(new CheatsOptionsCheckbox("One Hit Break", 15));
-                this.Options.Add(new CheatsOptionsCheckbox("Harvest With Sickle", 22));
+                    this.Options.Add(new OptionsElement("Tools:"));
+                    this.Options.Add(new CheatsOptionsCheckbox("Infinite Water in Can", 3));
+                    this.Options.Add(new CheatsOptionsCheckbox("One Hit Break", 15));
+                    this.Options.Add(new CheatsOptionsCheckbox("Harvest With Sickle", 22));
 
-                this.Options.Add(new OptionsElement("Money:"));
-                this.Options.Add(new CheatsOptionsInputListener("Add 100g", 2, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Add 1000g", 3, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Add 10000g", 4, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Add 100000g", 5, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new OptionsElement("Money:"));
+                    this.Options.Add(new CheatsOptionsInputListener("Add 100g", 2, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Add 1000g", 3, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Add 10000g", 4, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Add 100000g", 5, this.OptionSlots[0].bounds.Width));
 
-                this.Options.Add(new OptionsElement("Casino Coins:"));
-                this.Options.Add(new CheatsOptionsInputListener("Add 100", 6, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Add 1000", 7, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Add 10000", 8, this.OptionSlots[0].bounds.Width));
-            }
+                    this.Options.Add(new OptionsElement("Casino Coins:"));
+                    this.Options.Add(new CheatsOptionsInputListener("Add 100", 6, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Add 1000", 7, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Add 10000", 8, this.OptionSlots[0].bounds.Width));
+                    break;
 
-            if (CheatsMenu.TabIndex == 1)
-            {
-                this.Options.Add(new OptionsElement("Farm:"));
-                this.Options.Add(new CheatsOptionsInputListener("Water All Fields", 9, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsCheckbox("Durable Fences", 13));
-                this.Options.Add(new CheatsOptionsCheckbox("Instant Build", 18));
-                this.Options.Add(new CheatsOptionsCheckbox("Always Auto-Feed", 19));
-                this.Options.Add(new CheatsOptionsCheckbox("Infinite Hay", 20));
+                case 1:
+                    this.Options.Add(new OptionsElement("Farm:"));
+                    this.Options.Add(new CheatsOptionsInputListener("Water All Fields", 9, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsCheckbox("Durable Fences", 13));
+                    this.Options.Add(new CheatsOptionsCheckbox("Instant Build", 18));
+                    this.Options.Add(new CheatsOptionsCheckbox("Always Auto-Feed", 19));
+                    this.Options.Add(new CheatsOptionsCheckbox("Infinite Hay", 20));
 
-                this.Options.Add(new OptionsElement("Fishing:"));
-                this.Options.Add(new CheatsOptionsCheckbox("Instant Catch", 4));
-                this.Options.Add(new CheatsOptionsCheckbox("Instant Bite", 16));
-                this.Options.Add(new CheatsOptionsCheckbox("Always Throw Max Distance", 5));
-                this.Options.Add(new CheatsOptionsCheckbox("Always Treasure", 14));
-                this.Options.Add(new CheatsOptionsCheckbox("Durable Tackles", 21));
+                    this.Options.Add(new OptionsElement("Fishing:"));
+                    this.Options.Add(new CheatsOptionsCheckbox("Instant Catch", 4));
+                    this.Options.Add(new CheatsOptionsCheckbox("Instant Bite", 16));
+                    this.Options.Add(new CheatsOptionsCheckbox("Always Throw Max Distance", 5));
+                    this.Options.Add(new CheatsOptionsCheckbox("Always Treasure", 14));
+                    this.Options.Add(new CheatsOptionsCheckbox("Durable Tackles", 21));
 
-                this.Options.Add(new OptionsElement("Fast Machine Processing:"));
-                this.Options.Add(new CheatsOptionsCheckbox("Cask", 118));
-                this.Options.Add(new CheatsOptionsCheckbox("Furnace", 100));
-                this.Options.Add(new CheatsOptionsCheckbox("Recycling Machine", 101));
-                this.Options.Add(new CheatsOptionsCheckbox("Crystalarium", 102));
-                this.Options.Add(new CheatsOptionsCheckbox("Incubator", 103));
-                this.Options.Add(new CheatsOptionsCheckbox("Slime Incubator", 104));
-                this.Options.Add(new CheatsOptionsCheckbox("Keg", 105));
-                this.Options.Add(new CheatsOptionsCheckbox("Preserves Jar", 106));
-                this.Options.Add(new CheatsOptionsCheckbox("Cheese Press", 107));
-                this.Options.Add(new CheatsOptionsCheckbox("Mayonnaise Machine", 108));
-                this.Options.Add(new CheatsOptionsCheckbox("Loom", 109));
-                this.Options.Add(new CheatsOptionsCheckbox("Oil Maker", 110));
-                this.Options.Add(new CheatsOptionsCheckbox("Seed Maker", 111));
-                this.Options.Add(new CheatsOptionsCheckbox("Charcoal Kiln", 112));
-                this.Options.Add(new CheatsOptionsCheckbox("Slime Egg-Press", 113));
-                this.Options.Add(new CheatsOptionsCheckbox("Tapper", 116));
-                this.Options.Add(new CheatsOptionsCheckbox("Lightning Rod", 117));
-                this.Options.Add(new CheatsOptionsCheckbox("Bee House", 114));
-                this.Options.Add(new CheatsOptionsCheckbox("Mushroom Box", 115));
-                this.Options.Add(new CheatsOptionsCheckbox("Worm Bin", 119));
-            }
+                    this.Options.Add(new OptionsElement("Fast Machine Processing:"));
+                    this.Options.Add(new CheatsOptionsCheckbox("Cask", 118));
+                    this.Options.Add(new CheatsOptionsCheckbox("Furnace", 100));
+                    this.Options.Add(new CheatsOptionsCheckbox("Recycling Machine", 101));
+                    this.Options.Add(new CheatsOptionsCheckbox("Crystalarium", 102));
+                    this.Options.Add(new CheatsOptionsCheckbox("Incubator", 103));
+                    this.Options.Add(new CheatsOptionsCheckbox("Slime Incubator", 104));
+                    this.Options.Add(new CheatsOptionsCheckbox("Keg", 105));
+                    this.Options.Add(new CheatsOptionsCheckbox("Preserves Jar", 106));
+                    this.Options.Add(new CheatsOptionsCheckbox("Cheese Press", 107));
+                    this.Options.Add(new CheatsOptionsCheckbox("Mayonnaise Machine", 108));
+                    this.Options.Add(new CheatsOptionsCheckbox("Loom", 109));
+                    this.Options.Add(new CheatsOptionsCheckbox("Oil Maker", 110));
+                    this.Options.Add(new CheatsOptionsCheckbox("Seed Maker", 111));
+                    this.Options.Add(new CheatsOptionsCheckbox("Charcoal Kiln", 112));
+                    this.Options.Add(new CheatsOptionsCheckbox("Slime Egg-Press", 113));
+                    this.Options.Add(new CheatsOptionsCheckbox("Tapper", 116));
+                    this.Options.Add(new CheatsOptionsCheckbox("Lightning Rod", 117));
+                    this.Options.Add(new CheatsOptionsCheckbox("Bee House", 114));
+                    this.Options.Add(new CheatsOptionsCheckbox("Mushroom Box", 115));
+                    this.Options.Add(new CheatsOptionsCheckbox("Worm Bin", 119));
+                    break;
 
-            if (CheatsMenu.TabIndex == 2)
-            {
-                this.Options.Add(new OptionsElement("Skills:"));
-                this.Options.Add(new CheatsOptionsInputListener("Incr. Farming Lvl", 200, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Incr. Mining Lvl", 201, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Incr. Foraging Lvl", 202, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Incr. Fishing Lvl", 203, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Incr. Combat Lvl", 204, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("RESET SKILLS!", 205, this.OptionSlots[0].bounds.Width));
-            }
+                case 2:
+                    this.Options.Add(new OptionsElement("Skills:"));
+                    this.Options.Add(new CheatsOptionsInputListener("Incr. Farming Lvl", 200, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Incr. Mining Lvl", 201, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Incr. Foraging Lvl", 202, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Incr. Fishing Lvl", 203, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Incr. Combat Lvl", 204, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("RESET SKILLS!", 205, this.OptionSlots[0].bounds.Width));
+                    break;
 
-            if (CheatsMenu.TabIndex == 3)
-            {
-                this.Options.Add(new OptionsElement("Weather Next Day:"));
-                this.Options.Add(new CheatsOptionsElement("Current: ", 1));
-                this.Options.Add(new CheatsOptionsInputListener("Sunny", 10, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Raining", 11, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Lightning", 12, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Snowing", 13, this.OptionSlots[0].bounds.Width));
-            }
+                case 3:
+                    this.Options.Add(new OptionsElement("Weather Next Day:"));
+                    this.Options.Add(new CheatsOptionsElement("Current: ", 1));
+                    this.Options.Add(new CheatsOptionsInputListener("Sunny", 10, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Raining", 11, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Lightning", 12, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Snowing", 13, this.OptionSlots[0].bounds.Width));
+                    break;
 
-            if (CheatsMenu.TabIndex == 4)
-            {
-                this.Options.Add(new OptionsElement("Relationships:"));
-                this.Options.Add(new CheatsOptionsCheckbox("Give Gift Anytime", 9));
-                this.Options.Add(new CheatsOptionsCheckbox("No Friendship Decay", 17));
-                this.Options.Add(new OptionsElement("Friends:"));
+                case 4:
+                    this.Options.Add(new OptionsElement("Relationships:"));
+                    this.Options.Add(new CheatsOptionsCheckbox("Give Gift Anytime", 9));
+                    this.Options.Add(new CheatsOptionsCheckbox("No Friendship Decay", 17));
+                    this.Options.Add(new OptionsElement("Friends:"));
 
-                foreach (NPC npc in Utility.getAllCharacters().OrderBy(p => p.name))
-                {
-                    if ((npc.name != "Sandy" || Game1.player.mailReceived.Contains("ccVault")) && npc.name != "???" && npc.name != "Bouncer" && npc.name != "Marlon" && npc.name != "Gil" && npc.name != "Gunther" && !npc.IsMonster && !(npc is Horse) && !(npc is Pet))
+                    foreach (NPC npc in Utility.getAllCharacters().OrderBy(p => p.name))
                     {
-                        if (Game1.player.friendships.ContainsKey(npc.name))
-                            this.Options.Add(new CheatsOptionsNPCSlider(npc, 9999));
+                        if ((npc.name != "Sandy" || Game1.player.mailReceived.Contains("ccVault")) && npc.name != "???" && npc.name != "Bouncer" && npc.name != "Marlon" && npc.name != "Gil" && npc.name != "Gunther" && !npc.IsMonster && !(npc is Horse) && !(npc is Pet))
+                        {
+                            if (Game1.player.friendships.ContainsKey(npc.name))
+                                this.Options.Add(new CheatsOptionsNPCSlider(npc, 9999));
+                        }
                     }
-                }
-            }
+                    break;
 
-            if (CheatsMenu.TabIndex == 5)
-            {
-                this.Options.Add(new OptionsElement("Warp to:"));
-                this.Options.Add(new CheatsOptionsInputListener("Farm", 100, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Pierre's", 101, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Blacksmith", 102, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Archaeology Office", 103, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Saloon", 104, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Community Center", 105, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Carpenter", 106, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Guild", 107, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Ranch", 113, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Mines", 109, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Willy", 110, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Wizard", 114, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Hats", 115, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Desert", 112, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Sandy", 119, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Casino", 120, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Quarry", 108, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("New Beach", 111, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Secret Forest", 116, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Sewer", 117, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Bathhouse", 118, this.OptionSlots[0].bounds.Width));
-            }
+                case 5:
+                    this.Options.Add(new OptionsElement("Warp to:"));
+                    this.Options.Add(new CheatsOptionsInputListener("Farm", 100, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Pierre's", 101, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Blacksmith", 102, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Archaeology Office", 103, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Saloon", 104, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Community Center", 105, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Carpenter", 106, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Guild", 107, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Ranch", 113, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Mines", 109, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Willy", 110, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Wizard", 114, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Hats", 115, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Desert", 112, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Sandy", 119, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Casino", 120, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Quarry", 108, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("New Beach", 111, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Secret Forest", 116, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Sewer", 117, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Bathhouse", 118, this.OptionSlots[0].bounds.Width));
+                    break;
 
-            if (CheatsMenu.TabIndex == 6)
-            {
-                this.Options.Add(new OptionsElement("Time:"));
-                this.Options.Add(new CheatsOptionsCheckbox("Freeze Time Inside", 10));
-                this.Options.Add(new CheatsOptionsCheckbox("Freeze Time Caves", 12));
-                this.Options.Add(new CheatsOptionsCheckbox("Freeze Time Everywhere", 11));
-                this.Options.Add(new CheatsOptionsSlider("Time", 10, 20, -1, -1, 100));
-            }
+                case 6:
+                    this.Options.Add(new OptionsElement("Time:"));
+                    this.Options.Add(new CheatsOptionsCheckbox("Freeze Time Inside", 10));
+                    this.Options.Add(new CheatsOptionsCheckbox("Freeze Time Caves", 12));
+                    this.Options.Add(new CheatsOptionsCheckbox("Freeze Time Everywhere", 11));
+                    this.Options.Add(new CheatsOptionsSlider("Time", 10, 20, -1, -1, 100));
+                    break;
 
-            if (CheatsMenu.TabIndex == 7)
-            {
-                this.Options.Add(new OptionsElement("Controls:"));
-                this.Options.Add(new CheatsOptionsInputListener("Open Menu", 1000, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Freeze Time", 1001, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Grow Tree", 1002, this.OptionSlots[0].bounds.Width));
-                this.Options.Add(new CheatsOptionsInputListener("Grow Crops", 1003, this.OptionSlots[0].bounds.Width));
+                case 7:
+                    this.Options.Add(new OptionsElement("Controls:"));
+                    this.Options.Add(new CheatsOptionsInputListener("Open Menu", 1000, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Freeze Time", 1001, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Grow Tree", 1002, this.OptionSlots[0].bounds.Width));
+                    this.Options.Add(new CheatsOptionsInputListener("Grow Crops", 1003, this.OptionSlots[0].bounds.Width));
+                    break;
             }
             this.SetScrollBarToCurrentIndex();
         }
@@ -217,8 +213,8 @@ namespace CJBCheatsMenu
         {
             if (!this.Options.Any())
                 return;
-            this.Scrollbar.bounds.Y = this.ScrollbarRunner.Height / Math.Max(1, this.Options.Count - CheatsMenu.ItemsPerPage + 1) * CheatsMenu.CurrentItemIndex + this.UpArrow.bounds.Bottom + Game1.pixelZoom;
-            if (CheatsMenu.CurrentItemIndex != this.Options.Count - CheatsMenu.ItemsPerPage)
+            this.Scrollbar.bounds.Y = this.ScrollbarRunner.Height / Math.Max(1, this.Options.Count - CheatsMenu.ItemsPerPage + 1) * this.CurrentItemIndex + this.UpArrow.bounds.Bottom + Game1.pixelZoom;
+            if (this.CurrentItemIndex != this.Options.Count - CheatsMenu.ItemsPerPage)
                 return;
             this.Scrollbar.bounds.Y = this.DownArrow.bounds.Y - this.Scrollbar.bounds.Height - Game1.pixelZoom;
         }
@@ -232,7 +228,7 @@ namespace CJBCheatsMenu
             {
                 int num = this.Scrollbar.bounds.Y;
                 this.Scrollbar.bounds.Y = Math.Min(this.yPositionOnScreen + this.height - Game1.tileSize - Game1.pixelZoom * 3 - this.Scrollbar.bounds.Height, Math.Max(y, this.yPositionOnScreen + this.UpArrow.bounds.Height + Game1.pixelZoom * 5));
-                CheatsMenu.CurrentItemIndex = Math.Min(this.Options.Count - CheatsMenu.ItemsPerPage, Math.Max(0, (int)(this.Options.Count * (double)((y - this.ScrollbarRunner.Y) / (float)this.ScrollbarRunner.Height))));
+                this.CurrentItemIndex = Math.Min(this.Options.Count - CheatsMenu.ItemsPerPage, Math.Max(0, (int)(this.Options.Count * (double)((y - this.ScrollbarRunner.Y) / (float)this.ScrollbarRunner.Height))));
                 this.SetScrollBarToCurrentIndex();
                 if (num == this.Scrollbar.bounds.Y)
                     return;
@@ -240,9 +236,9 @@ namespace CJBCheatsMenu
             }
             else
             {
-                if (this.OptionsSlotHeld == -1 || this.OptionsSlotHeld + CheatsMenu.CurrentItemIndex >= this.Options.Count)
+                if (this.OptionsSlotHeld == -1 || this.OptionsSlotHeld + this.CurrentItemIndex >= this.Options.Count)
                     return;
-                this.Options[CheatsMenu.CurrentItemIndex + this.OptionsSlotHeld].leftClickHeld(x - this.OptionSlots[this.OptionsSlotHeld].bounds.X, y - this.OptionSlots[this.OptionsSlotHeld].bounds.Y);
+                this.Options[this.CurrentItemIndex + this.OptionsSlotHeld].leftClickHeld(x - this.OptionSlots[this.OptionsSlotHeld].bounds.X, y - this.OptionSlots[this.OptionsSlotHeld].bounds.Y);
             }
         }
 
@@ -257,19 +253,19 @@ namespace CJBCheatsMenu
 
             this.CanClose = true;
 
-            if (this.OptionsSlotHeld == -1 || this.OptionsSlotHeld + CheatsMenu.CurrentItemIndex >= this.Options.Count)
+            if (this.OptionsSlotHeld == -1 || this.OptionsSlotHeld + this.CurrentItemIndex >= this.Options.Count)
                 return;
-            this.Options[CheatsMenu.CurrentItemIndex + this.OptionsSlotHeld].receiveKeyPress(key);
+            this.Options[this.CurrentItemIndex + this.OptionsSlotHeld].receiveKeyPress(key);
         }
 
         public override void receiveGamePadButton(Buttons key)
         {
             if (key == Buttons.LeftShoulder || key == Buttons.RightShoulder)
             {
-                if (key == Buttons.LeftShoulder) CheatsMenu.TabIndex--;
-                if (key == Buttons.RightShoulder) CheatsMenu.TabIndex++;
-                if (CheatsMenu.TabIndex > 7) CheatsMenu.TabIndex = 0;
-                if (CheatsMenu.TabIndex < 0) CheatsMenu.TabIndex = 7;
+                if (key == Buttons.LeftShoulder) this.TabIndex--;
+                if (key == Buttons.RightShoulder) this.TabIndex++;
+                if (this.TabIndex > 7) this.TabIndex = 0;
+                if (this.TabIndex < 0) this.TabIndex = 7;
                 CheatsMenu.Open();
             }
         }
@@ -279,11 +275,11 @@ namespace CJBCheatsMenu
             if (GameMenu.forcePreventClose)
                 return;
             base.receiveScrollWheelAction(direction);
-            if (direction > 0 && CheatsMenu.CurrentItemIndex > 0)
+            if (direction > 0 && this.CurrentItemIndex > 0)
                 this.UpArrowPressed();
             else
             {
-                if (direction >= 0 || CheatsMenu.CurrentItemIndex >= Math.Max(0, this.Options.Count - CheatsMenu.ItemsPerPage))
+                if (direction >= 0 || this.CurrentItemIndex >= Math.Max(0, this.Options.Count - CheatsMenu.ItemsPerPage))
                     return;
                 this.DownArrowPressed();
             }
@@ -294,8 +290,8 @@ namespace CJBCheatsMenu
             if (GameMenu.forcePreventClose)
                 return;
             base.releaseLeftClick(x, y);
-            if (this.OptionsSlotHeld != -1 && this.OptionsSlotHeld + CheatsMenu.CurrentItemIndex < this.Options.Count)
-                this.Options[CheatsMenu.CurrentItemIndex + this.OptionsSlotHeld].leftClickReleased(x - this.OptionSlots[this.OptionsSlotHeld].bounds.X, y - this.OptionSlots[this.OptionsSlotHeld].bounds.Y);
+            if (this.OptionsSlotHeld != -1 && this.OptionsSlotHeld + this.CurrentItemIndex < this.Options.Count)
+                this.Options[this.CurrentItemIndex + this.OptionsSlotHeld].leftClickReleased(x - this.OptionSlots[this.OptionsSlotHeld].bounds.X, y - this.OptionSlots[this.OptionsSlotHeld].bounds.Y);
             this.OptionsSlotHeld = -1;
             this.IsScrolling = false;
         }
@@ -304,12 +300,12 @@ namespace CJBCheatsMenu
         {
             if (GameMenu.forcePreventClose)
                 return;
-            if (this.DownArrow.containsPoint(x, y) && CheatsMenu.CurrentItemIndex < Math.Max(0, this.Options.Count - CheatsMenu.ItemsPerPage))
+            if (this.DownArrow.containsPoint(x, y) && this.CurrentItemIndex < Math.Max(0, this.Options.Count - CheatsMenu.ItemsPerPage))
             {
                 this.DownArrowPressed();
                 Game1.soundBank.PlayCue("shwip");
             }
-            else if (this.UpArrow.containsPoint(x, y) && CheatsMenu.CurrentItemIndex > 0)
+            else if (this.UpArrow.containsPoint(x, y) && this.CurrentItemIndex > 0)
             {
                 this.UpArrowPressed();
                 Game1.soundBank.PlayCue("shwip");
@@ -322,12 +318,12 @@ namespace CJBCheatsMenu
                 this.leftClickHeld(x, y);
                 this.releaseLeftClick(x, y);
             }
-            CheatsMenu.CurrentItemIndex = Math.Max(0, Math.Min(this.Options.Count - CheatsMenu.ItemsPerPage, CheatsMenu.CurrentItemIndex));
+            this.CurrentItemIndex = Math.Max(0, Math.Min(this.Options.Count - CheatsMenu.ItemsPerPage, this.CurrentItemIndex));
             for (int index = 0; index < this.OptionSlots.Count; ++index)
             {
-                if (this.OptionSlots[index].bounds.Contains(x, y) && CheatsMenu.CurrentItemIndex + index < this.Options.Count && this.Options[CheatsMenu.CurrentItemIndex + index].bounds.Contains(x - this.OptionSlots[index].bounds.X, y - this.OptionSlots[index].bounds.Y - 5))
+                if (this.OptionSlots[index].bounds.Contains(x, y) && this.CurrentItemIndex + index < this.Options.Count && this.Options[this.CurrentItemIndex + index].bounds.Contains(x - this.OptionSlots[index].bounds.X, y - this.OptionSlots[index].bounds.Y - 5))
                 {
-                    this.Options[CheatsMenu.CurrentItemIndex + index].receiveLeftClick(x - this.OptionSlots[index].bounds.X, y - this.OptionSlots[index].bounds.Y + 5);
+                    this.Options[this.CurrentItemIndex + index].receiveLeftClick(x - this.OptionSlots[index].bounds.X, y - this.OptionSlots[index].bounds.Y + 5);
                     this.OptionsSlotHeld = index;
                     break;
                 }
@@ -338,9 +334,9 @@ namespace CJBCheatsMenu
                 ClickableComponent tab = this.Tabs[i];
                 if (tab.bounds.Contains(x, y))
                 {
-                    CheatsMenu.TabIndex = i;
+                    this.TabIndex = i;
                     Game1.exitActiveMenu();
-                    CheatsMenu.CurrentItemIndex = 0;
+                    this.CurrentItemIndex = 0;
                     CheatsMenu.Open();
                     break;
                 }
@@ -370,8 +366,8 @@ namespace CJBCheatsMenu
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null);
             for (int index = 0; index < this.OptionSlots.Count; ++index)
             {
-                if (CheatsMenu.CurrentItemIndex >= 0 && CheatsMenu.CurrentItemIndex + index < this.Options.Count)
-                    this.Options[CheatsMenu.CurrentItemIndex + index].draw(spriteBatch, this.OptionSlots[index].bounds.X, this.OptionSlots[index].bounds.Y + 5);
+                if (this.CurrentItemIndex >= 0 && this.CurrentItemIndex + index < this.Options.Count)
+                    this.Options[this.CurrentItemIndex + index].draw(spriteBatch, this.OptionSlots[index].bounds.X, this.OptionSlots[index].bounds.Y + 5);
             }
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
@@ -381,7 +377,7 @@ namespace CJBCheatsMenu
                 for (int i = 0; i < this.Tabs.Count; i++)
                 {
                     ClickableComponent tab = this.Tabs[i];
-                    CJB.DrawTextBox(tab.bounds.X + tab.bounds.Width, tab.bounds.Y, Game1.smallFont, tab.name, 2, CheatsMenu.TabIndex == i ? 1F : 0.7F);
+                    CJB.DrawTextBox(tab.bounds.X + tab.bounds.Width, tab.bounds.Y, Game1.smallFont, tab.name, 2, this.TabIndex == i ? 1F : 0.7F);
                 }
 
                 this.UpArrow.draw(spriteBatch);
@@ -411,14 +407,14 @@ namespace CJBCheatsMenu
         private void DownArrowPressed()
         {
             this.DownArrow.scale = this.DownArrow.baseScale;
-            ++CheatsMenu.CurrentItemIndex;
+            ++this.CurrentItemIndex;
             this.SetScrollBarToCurrentIndex();
         }
 
         private void UpArrowPressed()
         {
             this.UpArrow.scale = this.UpArrow.baseScale;
-            --CheatsMenu.CurrentItemIndex;
+            --this.CurrentItemIndex;
             this.SetScrollBarToCurrentIndex();
         }
     }

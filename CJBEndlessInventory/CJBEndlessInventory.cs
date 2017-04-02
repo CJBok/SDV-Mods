@@ -12,7 +12,7 @@ namespace CJBEndlessInventory
         ** Properties
         *********/
         private string StorageFilePath => $"data/{Constants.SaveFolderName}/inventory.json";
-        private static bool NewDay;
+        private bool NewDay;
 
         /*********
         ** Accessors
@@ -41,10 +41,10 @@ namespace CJBEndlessInventory
         *********/
         private void GameEvents_UpdateTick(object sender, EventArgs e)
         {
-            if (Game1.newDay != CJBEndlessInventory.NewDay)
+            if (Game1.newDay != this.NewDay)
             {
-                CJBEndlessInventory.NewDay = Game1.newDay;
-                if (CJBEndlessInventory.NewDay == false)
+                this.NewDay = Game1.newDay;
+                if (!this.NewDay)
                     this.Helper.WriteJsonFile(this.StorageFilePath, CJBEndlessInventory.StorageItems);
             }
         }
@@ -54,9 +54,7 @@ namespace CJBEndlessInventory
             if (e.KeyPressed.ToString() == CJBEndlessInventory.Settings.MenuButton)
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null && Game1.player.CanMove && !Game1.dialogueUp && !Game1.eventUp)
-                {
                     ItemMenu.Open();
-                }
             }
         }
 
