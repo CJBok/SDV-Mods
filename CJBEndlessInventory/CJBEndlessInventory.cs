@@ -12,7 +12,7 @@ namespace CJBEndlessInventory
         ** Properties
         *********/
         private string StorageFilePath => $"data/{Constants.SaveFolderName}/inventory.json";
-        private bool NewDay;
+
 
         /*********
         ** Accessors
@@ -28,25 +28,19 @@ namespace CJBEndlessInventory
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
         {
-            PlayerEvents.LoadedGame += PlayerEvents_LoadedGame;
-            ControlEvents.KeyPressed += ControlEvents_KeyPressed;
-            GameEvents.UpdateTick += GameEvents_UpdateTick;
+            SaveEvents.AfterLoad += this.SaveEvents_AfterLoad;
+            SaveEvents.AfterSave += this.SaveEvents_AfterSave;
+            ControlEvents.KeyPressed += this.ControlEvents_KeyPressed;
 
             CJBEndlessInventory.Settings = helper.ReadConfig<ModSettings>();
         }
 
-
         /*********
         ** Private methods
         *********/
-        private void GameEvents_UpdateTick(object sender, EventArgs e)
+        private void SaveEvents_AfterSave(object sender, EventArgs eventArgs)
         {
-            if (Game1.newDay != this.NewDay)
-            {
-                this.NewDay = Game1.newDay;
-                if (!this.NewDay)
-                    this.Helper.WriteJsonFile(this.StorageFilePath, CJBEndlessInventory.StorageItems);
-            }
+            this.Helper.WriteJsonFile(this.StorageFilePath, CJBEndlessInventory.StorageItems);
         }
 
         private void ControlEvents_KeyPressed(object sender, EventArgsKeyPressed e)
@@ -58,7 +52,7 @@ namespace CJBEndlessInventory
             }
         }
 
-        private void PlayerEvents_LoadedGame(object sender, EventArgsLoadedGameChanged e)
+        private void SaveEvents_AfterLoad(object sender, EventArgs e)
         {
             CJBEndlessInventory.StorageItems = new StorageItems();
             if (File.Exists(this.StorageFilePath))
