@@ -146,25 +146,25 @@ namespace CJBItemSpawner
                 case 0:
                     return true;
                 case 1:
-                    return (item is Tool || item.getCategoryName().Equals("Ring") || item is Hat || item is Boots);
+                    return item is Tool || item.getCategoryName() == "Ring" || item is Hat || item is Boots;
                 case 2:
-                    return (item.getCategoryName().Equals("Seed") || item.getCategoryName().Equals("Vegetable") || item.getCategoryName().Equals("Fertilizer") || item.getCategoryName().Equals("Flower"));
+                    return item.getCategoryName() == "Seed" || item.getCategoryName() == "Vegetable" || item.getCategoryName() == "Fertilizer" || item.getCategoryName() == "Flower";
                 case 3:
-                    return (item.getCategoryName().Equals("Fish") || item.getCategoryName().Equals("Bait") || item.getCategoryName().Equals("Trash") || item.getCategoryName().Equals("Fishing Tackle"));
+                    return item.getCategoryName() == "Fish" || item.getCategoryName() == "Bait" || item.getCategoryName() == "Trash" || item.getCategoryName() == "Fishing Tackle";
                 case 4:
-                    return (item.getCategoryName().Equals("Forage") || item.getCategoryName().Equals("Fruit"));
+                    return item.getCategoryName() == "Forage" || item.getCategoryName() == "Fruit";
                 case 5:
-                    return (item.getCategoryName().Equals("Artifact") || item.getCategoryName().Equals("Mineral"));
+                    return item.getCategoryName() == "Artifact" || item.getCategoryName() == "Mineral";
                 case 6:
-                    return (item.getCategoryName().Equals("Resource") || item.getCategoryName().Equals("Crafting") || item.category == -8 || item.category == -9);
+                    return item.getCategoryName() == "Resource" || item.getCategoryName() == "Crafting" || item.category == -8 || item.category == -9;
                 case 7:
-                    return (item.getCategoryName().Equals("Artisan Goods") || item.getCategoryName().Equals("Cooking"));
+                    return item.getCategoryName() == "Artisan Goods" || item.getCategoryName() == "Cooking";
                 case 8:
-                    return (item.getCategoryName().Equals("Animal Product") || item.getCategoryName().Equals("Monster Loot"));
+                    return item.getCategoryName() == "Animal Product" || item.getCategoryName() == "Monster Loot";
                 case 9:
-                    return (item.getCategoryName().Equals("Furniture") || item.getCategoryName().Equals("Decor"));
+                    return item.getCategoryName() == "Furniture" || item.getCategoryName() == "Decor";
                 case 10:
-                    return (item.getCategoryName().Trim().Equals(""));
+                    return item.getCategoryName().Trim() == "";
                 default:
                     return false;
             }
@@ -321,7 +321,7 @@ namespace CJBItemSpawner
         {
             foreach (Item item in ItemMenu.ItemList)
             {
-                if (item.parentSheetIndex == itemID && item.Name.Equals(name))
+                if (item.parentSheetIndex == itemID && item.Name == name)
                     return true;
             }
             return false;
@@ -499,7 +499,7 @@ namespace CJBItemSpawner
 
         public override void update(GameTime time)
         {
-            if (!ItemMenu.TempText.Equals(this.Textbox.Text))
+            if (ItemMenu.TempText != this.Textbox.Text)
             {
                 ItemMenu.TempText = this.Textbox.Text;
                 ItemInventoryMenu.ScrollIndex = 0;

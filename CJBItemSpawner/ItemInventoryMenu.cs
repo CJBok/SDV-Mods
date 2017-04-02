@@ -327,9 +327,9 @@ namespace CJBItemSpawner
             {
                 Item item = items[whichItemIndex].getOne();
                 item.Stack = items[whichItemIndex].Stack;
-                if (whichItemIndex == Game1.player.CurrentToolIndex && items.Equals(Game1.player.items))
+                if (whichItemIndex == Game1.player.CurrentToolIndex && items == Game1.player.items)
                     item.actionWhenStopBeingHeld(Game1.player);
-                if (items.Equals(Game1.player.items))
+                if (items == Game1.player.items)
                     items[whichItemIndex] = null;
                 return item;
             }
@@ -338,7 +338,7 @@ namespace CJBItemSpawner
 
         public static Item AddItemToInventory(Item item, int position, List<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null)
         {
-            if (items.Equals(Game1.player.items) && item is StardewValley.Object obj && obj.specialItem)
+            if (items == Game1.player.items && item is StardewValley.Object obj && obj.specialItem)
             {
                 if (obj.bigCraftable)
                     Game1.player.specialBigCraftables.Add(obj.isRecipe ? (-obj.parentSheetIndex) : obj.parentSheetIndex);
@@ -355,10 +355,10 @@ namespace CJBItemSpawner
                 onAddFunction?.Invoke(item, null);
                 return null;
             }
-            if (items[position].maximumStackSize() == -1 || !items[position].Name.Equals(item.Name) || (item is StardewValley.Object itemObj && items[position] is StardewValley.Object slotObj && (itemObj.quality != slotObj.quality || itemObj.parentSheetIndex != slotObj.parentSheetIndex)) || !item.canStackWith(items[position]))
+            if (items[position].maximumStackSize() == -1 || items[position].Name != item.Name || (item is StardewValley.Object itemObj && items[position] is StardewValley.Object slotObj && (itemObj.quality != slotObj.quality || itemObj.parentSheetIndex != slotObj.parentSheetIndex)) || !item.canStackWith(items[position]))
             {
                 Item item2 = items[position];
-                if (position == Game1.player.CurrentToolIndex && items.Equals(Game1.player.items) && item2 != null)
+                if (position == Game1.player.CurrentToolIndex && items == Game1.player.items && item2 != null)
                 {
                     item2.actionWhenStopBeingHeld(Game1.player);
                     item.actionWhenBeingHeld(Game1.player);

@@ -132,7 +132,7 @@ namespace CJBCheatsMenu
                 {
                     foreach (KeyValuePair<string, int> o in Cheats.PreviousFriendships)
                     {
-                        if (n.Key.Equals(o.Key) && n.Value[0] < o.Value)
+                        if (n.Key == o.Key && n.Value[0] < o.Value)
                             n.Value[0] = o.Value;
                     }
                 }
@@ -185,43 +185,43 @@ namespace CJBCheatsMenu
                             cask.heldObject.quality = 4;
                         }
                     }
-                    else if (CJBCheatsMenu.Config.FastFurnace && pair.Value.name.Equals("Furnace"))
+                    else if (CJBCheatsMenu.Config.FastFurnace && pair.Value.name == "Furnace")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastRecyclingMachine && pair.Value.name.Equals("Recycling Machine"))
+                    else if (CJBCheatsMenu.Config.FastRecyclingMachine && pair.Value.name == "Recycling Machine")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastCrystalarium && pair.Value.name.Equals("Crystalarium"))
+                    else if (CJBCheatsMenu.Config.FastCrystalarium && pair.Value.name == "Crystalarium")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastIncubator && pair.Value.name.Equals("Incubator"))
+                    else if (CJBCheatsMenu.Config.FastIncubator && pair.Value.name == "Incubator")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastSlimeIncubator && pair.Value.name.Equals("Slime Incubator"))
+                    else if (CJBCheatsMenu.Config.FastSlimeIncubator && pair.Value.name == "Slime Incubator")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastKeg && pair.Value.name.Equals("Keg"))
+                    else if (CJBCheatsMenu.Config.FastKeg && pair.Value.name == "Keg")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastPreservesJar && pair.Value.name.Equals("Preserves Jar"))
+                    else if (CJBCheatsMenu.Config.FastPreservesJar && pair.Value.name == "Preserves Jar")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastCheesePress && pair.Value.name.Equals("Cheese Press"))
+                    else if (CJBCheatsMenu.Config.FastCheesePress && pair.Value.name == "Cheese Press")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastMayonnaiseMachine && pair.Value.name.Equals("Mayonnaise Machine"))
+                    else if (CJBCheatsMenu.Config.FastMayonnaiseMachine && pair.Value.name == "Mayonnaise Machine")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastLoom && pair.Value.name.Equals("Loom"))
+                    else if (CJBCheatsMenu.Config.FastLoom && pair.Value.name == "Loom")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastOilMaker && pair.Value.name.Equals("Oil Maker"))
+                    else if (CJBCheatsMenu.Config.FastOilMaker && pair.Value.name == "Oil Maker")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastSeedMaker && pair.Value.name.Equals("Seed Maker"))
+                    else if (CJBCheatsMenu.Config.FastSeedMaker && pair.Value.name == "Seed Maker")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastCharcoalKiln && pair.Value.name.Equals("Charcoal Kiln"))
+                    else if (CJBCheatsMenu.Config.FastCharcoalKiln && pair.Value.name == "Charcoal Kiln")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastSlimeEggPress && pair.Value.name.Equals("Slime Egg-Press"))
+                    else if (CJBCheatsMenu.Config.FastSlimeEggPress && pair.Value.name == "Slime Egg-Press")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastBeeHouse && pair.Value.name.Equals("Bee House"))
+                    else if (CJBCheatsMenu.Config.FastBeeHouse && pair.Value.name == "Bee House")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastMushroomBox && pair.Value.name.Equals("Mushroom Box"))
+                    else if (CJBCheatsMenu.Config.FastMushroomBox && pair.Value.name == "Mushroom Box")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastTapper && pair.Value.name.Equals("Tapper"))
+                    else if (CJBCheatsMenu.Config.FastTapper && pair.Value.name == "Tapper")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastLightningRod && pair.Value.name.Equals("Lightning Rod"))
+                    else if (CJBCheatsMenu.Config.FastLightningRod && pair.Value.name == "Lightning Rod")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastWormBin && pair.Value.name.Equals("Worm Bin"))
+                    else if (CJBCheatsMenu.Config.FastWormBin && pair.Value.name == "Worm Bin")
                         pair.Value.minutesUntilReady = 0;
                 }
             }
@@ -328,7 +328,7 @@ namespace CJBCheatsMenu
                     if (player.CurrentTool is Pickaxe && player.currentLocation.objects.ContainsKey(tile))
                     {
                         StardewValley.Object obj = player.currentLocation.Objects[tile];
-                        if (obj != null && obj.name.Equals("Stone"))
+                        if (obj != null && obj.name == "Stone")
                             obj.minutesUntilReady = 0;
                     }
 
@@ -413,25 +413,25 @@ namespace CJBCheatsMenu
 
         public static void OnKeyPress(Keys key)
         {
-            if (key.ToString().Equals(CJBCheatsMenu.Config.OpenMenuKey))
+            if (key.ToString() == CJBCheatsMenu.Config.OpenMenuKey)
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
                     CheatsMenu.Open();
             }
 
-            else if (key.ToString().Equals(CJBCheatsMenu.Config.FreezeTimeKey))
+            else if (key.ToString() == CJBCheatsMenu.Config.FreezeTimeKey)
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
                     CJBCheatsMenu.Config.FreezeTime = !CJBCheatsMenu.Config.FreezeTime;
             }
 
-            else if (key.ToString().Equals(CJBCheatsMenu.Config.GrowTreeKey))
+            else if (key.ToString() == CJBCheatsMenu.Config.GrowTreeKey)
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
                     Cheats.GrowTree();
             }
 
-            else if (key.ToString().Equals(CJBCheatsMenu.Config.GrowCropsKey))
+            else if (key.ToString() == CJBCheatsMenu.Config.GrowCropsKey)
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
                     Cheats.GrowCrops();

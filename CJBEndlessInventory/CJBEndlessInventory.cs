@@ -51,7 +51,7 @@ namespace CJBEndlessInventory
 
         private void ControlEvents_KeyPressed(object sender, EventArgsKeyPressed e)
         {
-            if (e.KeyPressed.ToString().Equals(CJBEndlessInventory.Settings.MenuButton))
+            if (e.KeyPressed.ToString() == CJBEndlessInventory.Settings.MenuButton)
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null && Game1.player.CanMove && !Game1.dialogueUp && !Game1.eventUp)
                 {

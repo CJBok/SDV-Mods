@@ -58,14 +58,14 @@ namespace CJBCheatsMenu
 
         private void ControlEvents_ControllerButtonPressed(object sender, EventArgsControllerButtonPressed e)
         {
-            if (e.ButtonPressed.ToString().Equals(CJBCheatsMenu.Config.OpenMenuKey))
+            if (e.ButtonPressed.ToString() == CJBCheatsMenu.Config.OpenMenuKey)
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null && Game1.player.CanMove && !Game1.dialogueUp && !Game1.eventUp)
                     CheatsMenu.Open();
                 return;
             }
 
-            if (e.ButtonPressed.ToString().Equals(CJBCheatsMenu.Config.FreezeTimeKey))
+            if (e.ButtonPressed.ToString() == CJBCheatsMenu.Config.FreezeTimeKey)
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
                     CJBCheatsMenu.Config.FreezeTime = !CJBCheatsMenu.Config.FreezeTime;

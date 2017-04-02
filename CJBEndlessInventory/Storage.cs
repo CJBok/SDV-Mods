@@ -146,7 +146,7 @@ namespace CJBEndlessInventory
                 else
                     this.AddContents(random.Next(4, Math.Max(8, Game1.mine.mineLevel / 10 - 5)), Utility.getUncommonItemForThisMineLevel(Game1.mine.mineLevel, new Point((int)this.tileLocation.X, (int)this.tileLocation.Y)));
             }
-            if (this.Items.Count > 0 && !this.ChestType.Equals("Monster") && this.Items.Count >= 1 && this.Opener.IsMainPlayer)
+            if (this.Items.Count > 0 && this.ChestType != "Monster" && this.Items.Count >= 1 && this.Opener.IsMainPlayer)
             {
                 if (Game1.currentLocation is FarmHouse)
                 {
@@ -168,7 +168,7 @@ namespace CJBEndlessInventory
                 if (this.Opener.currentLocation is MineShaft mineshaft)
                     mineshaft.updateMineLevelData(1, -1);
             }
-            if (this.ChestType.Equals("Monster"))
+            if (this.ChestType == "Monster")
             {
                 Monster monsterForThisLevel = Game1.mine.getMonsterForThisLevel(Game1.mine.mineLevel, (int)this.tileLocation.X, (int)this.tileLocation.Y);
                 Vector2 velocityTowardPlayer = Utility.getVelocityTowardPlayer(new Point((int)this.tileLocation.X, (int)this.tileLocation.Y), 8f, this.Opener);
@@ -195,7 +195,7 @@ namespace CJBEndlessInventory
 
         public void OnItemTaken(Item item, Farmer who)
         {
-            if (item != null && this.Items.Count > 0 && item.Equals(this.Items[0]))
+            if (item != null && this.Items.Count > 0 && item == this.Items[0])
                 this.Items.RemoveAt(0);
         }
 

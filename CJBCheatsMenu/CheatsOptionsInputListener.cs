@@ -324,7 +324,7 @@ namespace CJBCheatsMenu
                     greyedOut = plr.combatLevel >= 10;
                     break;
             }
-            if (!lvl.Equals(""))
+            if (lvl != "")
                 Utility.drawTextWithShadow(spriteBatch, $"{this.label}: {lvl}", Game1.dialogueFont, new Vector2(this.bounds.X + slotX, this.bounds.Y + slotY), greyedOut ? Game1.textColor * 0.33f : Game1.textColor, 1f, 0.15f);
             else if (this.ButtonNames.Count == 0)
                 Utility.drawTextWithShadow(spriteBatch, this.label, Game1.dialogueFont, new Vector2(this.bounds.X + slotX, this.bounds.Y + slotY), greyedOut ? Game1.textColor * 0.33f : Game1.textColor, 1f, 0.15f);

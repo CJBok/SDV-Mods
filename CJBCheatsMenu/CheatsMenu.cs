@@ -159,7 +159,7 @@ namespace CJBCheatsMenu
 
                 foreach (NPC npc in Utility.getAllCharacters().OrderBy(p => p.name))
                 {
-                    if ((!npc.name.Equals("Sandy") || Game1.player.mailReceived.Contains("ccVault")) && !npc.name.Equals("???") && !npc.name.Equals("Bouncer") && !npc.name.Equals("Marlon") && !npc.name.Equals("Gil") && !npc.name.Equals("Gunther") && !npc.IsMonster && !(npc is Horse) && !(npc is Pet))
+                    if ((npc.name != "Sandy" || Game1.player.mailReceived.Contains("ccVault")) && npc.name != "???" && npc.name != "Bouncer" && npc.name != "Marlon" && npc.name != "Gil" && npc.name != "Gunther" && !npc.IsMonster && !(npc is Horse) && !(npc is Pet))
                     {
                         if (Game1.player.friendships.ContainsKey(npc.name))
                             this.Options.Add(new CheatsOptionsNPCSlider(npc, 9999));
@@ -248,7 +248,7 @@ namespace CJBCheatsMenu
 
         public override void receiveKeyPress(Keys key)
         {
-            if ((Game1.options.menuButton.Contains(new InputButton(key)) || key.ToString().Equals(CJBCheatsMenu.Config.OpenMenuKey)) && this.readyToClose() && this.CanClose)
+            if ((Game1.options.menuButton.Contains(new InputButton(key)) || key.ToString() == CJBCheatsMenu.Config.OpenMenuKey) && this.readyToClose() && this.CanClose)
             {
                 Game1.exitActiveMenu();
                 Game1.soundBank.PlayCue("bigDeSelect");
@@ -392,7 +392,7 @@ namespace CJBCheatsMenu
                     this.Scrollbar.draw(spriteBatch);
                 }
             }
-            if (!this.HoverText.Equals(""))
+            if (this.HoverText != "")
                 IClickableMenu.drawHoverText(spriteBatch, this.HoverText, Game1.smallFont);
 
             if (!Game1.options.hardwareCursor)

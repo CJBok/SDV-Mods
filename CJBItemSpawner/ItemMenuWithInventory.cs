@@ -146,7 +146,7 @@ namespace CJBItemSpawner
                 if (drawDescriptionArea)
                 {
                     this.drawVerticalUpperIntersectingPartition(spriteBatch, this.xPositionOnScreen + Game1.tileSize * 9, 5 * Game1.tileSize + Game1.tileSize / 8);
-                    if (!this.DescriptionText.Equals(""))
+                    if (this.DescriptionText != "")
                     {
                         int num1 = this.xPositionOnScreen + Game1.tileSize * 9 + Game1.tileSize * 2 / 3 + (this.WiggleWordsTimer > 0 ? Game1.random.Next(-2, 3) : 0);
                         int num2 = this.yPositionOnScreen + IClickableMenu.borderWidth + IClickableMenu.spaceToClearTopBorder - Game1.tileSize / 2 + (this.WiggleWordsTimer > 0 ? Game1.random.Next(-2, 3) : 0);
