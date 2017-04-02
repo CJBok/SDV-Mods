@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -575,20 +574,6 @@ namespace CJBItemSpawner
                 IClickableMenu.drawToolTip(spriteBatch, this.ItemsToGrabMenu.DescriptionText, this.ItemsToGrabMenu.DescriptionTitle, this.HoveredItem, this.HeldItem != null);
             this.HeldItem?.drawInMenu(spriteBatch, new Vector2(Game1.getOldMouseX() + 8, Game1.getOldMouseY() + 8), 1f);
 
-            if (this.HoveredItem is Object obj)
-            {
-                if (obj.stack > 1)
-                    this.DrawHoverTextBox(spriteBatch, Game1.smallFont, obj.sellToStorePrice(), obj.stack);
-                else
-                    this.DrawHoverTextBox(spriteBatch, Game1.smallFont, obj.sellToStorePrice());
-            }
-            else if (this.HoveredItem != null)
-            {
-                if (this.HoveredItem.Stack > 1)
-                    this.DrawHoverTextBox(spriteBatch, Game1.smallFont, (this.HoveredItem.salePrice() / 2), this.HoveredItem.Stack);
-                else
-                    this.DrawHoverTextBox(spriteBatch, Game1.smallFont, this.HoveredItem.salePrice());
-            }
             if (!Game1.options.hardwareCursor)
                 spriteBatch.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 0, 16, 16), Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
         }
@@ -596,44 +581,6 @@ namespace CJBItemSpawner
         public static void Open()
         {
             Game1.activeClickableMenu = new ItemMenu(new List<Item>());
-        }
-
-        private void DrawHoverTextBox(SpriteBatch spriteBatch, SpriteFont font, int price, int stack = -1)
-        {
-            if (price < 1)
-                return;
-
-            string priceString = price.ToString();
-            string stackPriceString = Environment.NewLine + (price * stack);
-
-            string message = "Single: " + price;
-            string message1 = "Single: ";
-
-            if (stack > 1)
-            {
-                message += Environment.NewLine + "Stack: " + price * stack;
-                message1 += Environment.NewLine + "Stack: ";
-            }
-
-            Vector2 bounds = font.MeasureString(message);
-            int width = (int)bounds.X + Game1.tileSize / 2 + 40;
-            int height = (int)font.MeasureString(message).Y + Game1.tileSize / 3 + 5;
-            int x = Game1.getOldMouseX() - Game1.tileSize / 2 - width;
-            int y = Game1.getOldMouseY() + Game1.tileSize / 2;
-
-            if (x < 0)
-                x = 0;
-            if (y + height > Game1.graphics.GraphicsDevice.Viewport.Height)
-                y = Game1.graphics.GraphicsDevice.Viewport.Height - height;
-            IClickableMenu.drawTextureBox(spriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), x, y, width, height, Color.White);
-            spriteBatch.Draw(Game1.debrisSpriteSheet, new Vector2(x + Game1.tileSize / 4 + font.MeasureString(message + "   ").X, y + Game1.tileSize / 4 + 10), Game1.getSourceRectForStandardTileSheet(Game1.debrisSpriteSheet, 8, 16, 16), Color.White, 0.0f, new Vector2(8f, 8f), Game1.pixelZoom, SpriteEffects.None, 1f);
-            if (stack > 1)
-                spriteBatch.Draw(Game1.debrisSpriteSheet, new Vector2(x + Game1.tileSize / 4 + font.MeasureString(message + "   ").X, y + Game1.tileSize / 4 + 38), Game1.getSourceRectForStandardTileSheet(Game1.debrisSpriteSheet, 8, 16, 16), Color.White, 0.0f, new Vector2(8f, 8f), Game1.pixelZoom, SpriteEffects.None, 0.95f);
-            Utility.drawTextWithShadow(spriteBatch, message1, font, new Vector2(x + Game1.tileSize / 4, y + Game1.tileSize / 4), Game1.textColor);
-
-            Utility.drawTextWithShadow(spriteBatch, priceString, font, new Vector2(x + width + Game1.tileSize / 4 - 60 - font.MeasureString(priceString).X, y + Game1.tileSize / 4), Game1.textColor);
-            if (stack > 1)
-                Utility.drawTextWithShadow(spriteBatch, stackPriceString, font, new Vector2(x + width + Game1.tileSize / 4 - 60 - font.MeasureString(stackPriceString).X, y + Game1.tileSize / 4), Game1.textColor);
         }
     }
 }

@@ -74,6 +74,10 @@ namespace CJBShowItemSellPrice
             else if (menu is MenuWithInventory inventoryMenu)
                 return inventoryMenu.hoveredItem;
 
+            // CJB mods
+            else if (menu.GetType().FullName == "CJBItemSpawner.ItemMenu")
+                return (Item)menu.GetType().GetField("HoveredItem", BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(menu);
+
             return null;
         }
 

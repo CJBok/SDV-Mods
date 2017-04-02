@@ -13,7 +13,7 @@ namespace CJBItemSpawner
         *********/
         private string DescriptionText = "";
         protected string HoverText = "";
-        protected Item HoveredItem;
+        protected Item HoveredItem; // referenced by CJB Show Item Sell Price
         private int WiggleWordsTimer;
         private ClickableTextureComponent OkButton;
         protected ClickableTextureComponent TrashCan;

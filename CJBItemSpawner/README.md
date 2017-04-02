@@ -18,6 +18,7 @@ Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
 ## Versions
 1.7 (2017-04-01):
 * Updated to SMAPI 1.9.
+* Now only shows item sell price if you have the CJB Show Item Sell Price mod installed.
 
 1.6 (2017-01-04):
 * Updated to Stardew Valley 1.1+ and SMAPI 1.5.
