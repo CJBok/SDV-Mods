@@ -43,7 +43,7 @@ namespace CJBEndlessInventory
         public static void RemoveLastHudMessage()
         {
             if (Game1.hudMessages.Any())
-                Game1.hudMessages.RemoveAt(Game1.hudMessages.Count() - 1);
+                Game1.hudMessages.RemoveAt(Game1.hudMessages.Count - 1);
         }
     }
 }
