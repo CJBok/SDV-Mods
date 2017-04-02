@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Buildings;
 using StardewValley.Locations;
@@ -285,7 +285,7 @@ namespace CJBCheatsMenu
             }
         }
 
-        public static void OnUpdate()
+        public static void OnUpdate(IModHelper helper)
         {
             if (Game1.player != null)
             {
@@ -365,7 +365,7 @@ namespace CJBCheatsMenu
                 }
 
                 if (CJBCheatsMenu.Config.InfiniteWateringCan && player.CurrentTool is WateringCan can)
-                    typeof(WateringCan).GetField("waterLeft", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(can, can.waterCanMax);
+                    helper.Reflection.GetPrivateField<int>(can, "waterLeft").SetValue(can.waterCanMax);
 
                 if (CJBCheatsMenu.Config.AlwaysGiveGift)
                 {
@@ -394,13 +394,13 @@ namespace CJBCheatsMenu
             if ((CJBCheatsMenu.Config.InstantCatch || CJBCheatsMenu.Config.AlwaysTreasure) && Game1.activeClickableMenu is BobberBar bobberMenu)
             {
                 if (CJBCheatsMenu.Config.AlwaysTreasure)
-                    typeof(BobberBar).GetField("treasure", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(bobberMenu, true);
+                    helper.Reflection.GetPrivateField<bool>(bobberMenu, "treasure").SetValue(true);
 
                 if (CJBCheatsMenu.Config.InstantCatch)
-                    typeof(BobberBar).GetField("distanceFromCatching", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(bobberMenu, 1F);
+                    helper.Reflection.GetPrivateField<float>(bobberMenu, "distanceFromCatching").SetValue(1);
 
-                if ((bool)typeof(BobberBar).GetField("treasure", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(bobberMenu))
-                    typeof(BobberBar).GetField("treasureCaught", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(bobberMenu, true);
+                if (helper.Reflection.GetPrivateValue<bool>(bobberMenu, "treasure"))
+                    helper.Reflection.GetPrivateField<bool>(bobberMenu, "treasureCaught").SetValue(true);
             }
 
             if (CJBCheatsMenu.Config.InfiniteHay)

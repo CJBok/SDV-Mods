@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -74,10 +73,9 @@ namespace CJBCheatsMenu
 
             if (Game1.activeClickableMenu is GameMenu menu)
             {
-                List<IClickableMenu> pages = (List<IClickableMenu>)typeof(GameMenu).GetField("pages", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(menu);
-
-                if (pages[menu.currentTab] is CheatsMenu)
-                    pages[menu.currentTab].receiveGamePadButton(e.ButtonPressed);
+                IClickableMenu page = CJBCheatsMenu.Helper.Reflection.GetPrivateValue<List<IClickableMenu>>(menu, "pages")[menu.currentTab];
+                if (page is CheatsMenu)
+                    page.receiveGamePadButton(e.ButtonPressed);
             }
         }
 
@@ -106,7 +104,7 @@ namespace CJBCheatsMenu
         {
             if (!Game1.hasLoadedGame)
                 return;
-            Cheats.OnUpdate();
+            Cheats.OnUpdate(CJBCheatsMenu.Helper);
         }
     }
 }

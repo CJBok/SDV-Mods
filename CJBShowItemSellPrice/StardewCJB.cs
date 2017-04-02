@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -56,18 +55,11 @@ namespace CJBShowItemSellPrice
             // game menu
             if (menu is GameMenu gameMenu)
             {
-                if (gameMenu.currentTab == GameMenu.inventoryTab)
-                {
-                    List<IClickableMenu> pages = (List<IClickableMenu>)typeof(GameMenu).GetField("pages", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(gameMenu);
-                    InventoryPage inv = (InventoryPage)pages[0];
-                    return (Item)typeof(InventoryPage).GetField("hoveredItem", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(inv);
-                }
-                if (gameMenu.currentTab == GameMenu.craftingTab)
-                {
-                    List<IClickableMenu> pages = (List<IClickableMenu>)typeof(GameMenu).GetField("pages", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(gameMenu);
-                    CraftingPage inv = (CraftingPage)pages[4];
-                    return (Item)typeof(CraftingPage).GetField("hoverItem", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(inv);
-                }
+                IClickableMenu page = this.Helper.Reflection.GetPrivateValue<List<IClickableMenu>>(gameMenu, "pages")[gameMenu.currentTab];
+                if (page is InventoryPage)
+                    return this.Helper.Reflection.GetPrivateValue<Item>(page, "hoveredItem");
+                else if (page is CraftingPage)
+                    return this.Helper.Reflection.GetPrivateValue<Item>(page, "hoverItem");
             }
 
             // from inventory UI
@@ -76,7 +68,7 @@ namespace CJBShowItemSellPrice
 
             // CJB mods
             else if (menu.GetType().FullName == "CJBItemSpawner.ItemMenu")
-                return (Item)menu.GetType().GetField("HoveredItem", BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(menu);
+                return this.Helper.Reflection.GetPrivateValue<Item>(menu, "HoveredItem");
 
             return null;
         }
