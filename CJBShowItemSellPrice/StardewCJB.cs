@@ -33,40 +33,13 @@ namespace CJBShowItemSellPrice
                 return;
 
             // get item
-            Item item = null;
-            if (Game1.activeClickableMenu is GameMenu gameMenu)
-            {
-                if (gameMenu.currentTab == 0)
-                {
-                    List<IClickableMenu> pages = (List<IClickableMenu>)typeof(GameMenu).GetField("pages", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(gameMenu);
-                    InventoryPage inv = (InventoryPage)pages[0];
-
-                    item = (Item)typeof(InventoryPage).GetField("hoveredItem", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(inv);
-                }
-                else if (gameMenu.currentTab == 4)
-                {
-                    List<IClickableMenu> pages = (List<IClickableMenu>)typeof(GameMenu).GetField("pages", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(gameMenu);
-                    CraftingPage inv = (CraftingPage)pages[4];
-
-                    item = (Item)typeof(CraftingPage).GetField("hoverItem", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(inv);
-                }
-            }
-
-            else if (Game1.activeClickableMenu is MenuWithInventory inventoryMenu)
-            {
-                item = inventoryMenu.hoveredItem;
-            }
+            Item item = this.GetItemFromMenu(Game1.activeClickableMenu);
             if (item == null)
                 return;
 
             // show hover info
             if (item is StardewValley.Object obj)
-            {
-                if (obj.stack > 1)
-                    this.DrawHoverTextBox(Game1.smallFont, obj.sellToStorePrice(), obj.stack);
-                else
-                    this.DrawHoverTextBox(Game1.smallFont, obj.sellToStorePrice());
-            }
+                this.DrawHoverTextBox(Game1.smallFont, obj.sellToStorePrice(), obj.stack);
             else
             {
                 if (item.Stack > 1)
@@ -74,6 +47,34 @@ namespace CJBShowItemSellPrice
                 else
                     this.DrawHoverTextBox(Game1.smallFont, item.salePrice());
             }
+        }
+
+        /// <summary>Get the hovered item from an arbitrary menu.</summary>
+        /// <param name="menu">The menu whose hovered item to find.</param>
+        private Item GetItemFromMenu(IClickableMenu menu)
+        {
+            // game menu
+            if (menu is GameMenu gameMenu)
+            {
+                if (gameMenu.currentTab == GameMenu.inventoryTab)
+                {
+                    List<IClickableMenu> pages = (List<IClickableMenu>)typeof(GameMenu).GetField("pages", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(gameMenu);
+                    InventoryPage inv = (InventoryPage)pages[0];
+                    return (Item)typeof(InventoryPage).GetField("hoveredItem", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(inv);
+                }
+                if (gameMenu.currentTab == GameMenu.craftingTab)
+                {
+                    List<IClickableMenu> pages = (List<IClickableMenu>)typeof(GameMenu).GetField("pages", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(gameMenu);
+                    CraftingPage inv = (CraftingPage)pages[4];
+                    return (Item)typeof(CraftingPage).GetField("hoverItem", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(inv);
+                }
+            }
+
+            // from inventory UI
+            else if (menu is MenuWithInventory inventoryMenu)
+                return inventoryMenu.hoveredItem;
+
+            return null;
         }
 
         private void DrawHoverTextBox(SpriteFont font, int price, int stack = -1)
