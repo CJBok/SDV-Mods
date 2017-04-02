@@ -91,6 +91,7 @@ setting | default | what it affects
 ## Versions
 1.14 (2017-04-01):
 * Updated to SMAPI 1.9.
+* Internal refactoring.
 
 1.13 (2017-01-04):
 * Updated to Stardew Valley 1.1+ and SMAPI 1.5.

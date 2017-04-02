@@ -23,6 +23,7 @@ setting | default | what it affects
 1.5 (2017-04-01):
 * Updated to SMAPI 1.9.
 * Fixed refined quartz recipe not using coal.
+* Internal refactoring.
 
 1.4 (2017-01-04):
 * Updated to Stardew Valley 1.1+ and SMAPI 1.5.
