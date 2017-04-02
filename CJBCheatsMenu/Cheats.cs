@@ -34,11 +34,13 @@ namespace CJBCheatsMenu
             Game1.soundBank.PlayCue("thunder");
         }
 
-        public static void WaterAllFields()
+        public static void WaterAllFields(GameLocation[] locations)
         {
-            foreach (GameLocation location in Game1.locations)
+            foreach (GameLocation location in locations)
             {
-                if (!location.isFarm && !location.name.Contains("Greenhouse")) continue;
+                if (!location.isFarm && !location.name.Contains("Greenhouse"))
+                    continue;
+
                 foreach (KeyValuePair<Vector2, TerrainFeature> pair in location.terrainFeatures)
                 {
                     if (pair.Value is HoeDirt dirt)
@@ -123,8 +125,9 @@ namespace CJBCheatsMenu
                 CJB.DrawTextBox(5, inCave ? 100 : 5, Game1.smallFont, "Time Frozen");
         }
 
-        public static void OneSecondUpdate()
+        public static void OneSecondUpdate(GameLocation[] locations)
         {
+            // disable friendship decay
             if (CJBCheatsMenu.Config.NoFriendshipDecay)
             {
                 if (Cheats.PreviousFriendships == null)
@@ -140,10 +143,10 @@ namespace CJBCheatsMenu
                 Cheats.PreviousFriendships = Game1.player.friendships.ToDictionary(p => p.Key.ToString(), p => p.Value[0]);
             }
 
-
+            // instant buildings
             if (CJBCheatsMenu.Config.InstantBuild)
             {
-                foreach (BuildableGameLocation location in Game1.locations.OfType<BuildableGameLocation>())
+                foreach (BuildableGameLocation location in locations.OfType<BuildableGameLocation>())
                 {
                     foreach (Building building in location.buildings)
                     {
@@ -153,22 +156,7 @@ namespace CJBCheatsMenu
                 }
             }
 
-            List<GameLocation> locations = new List<GameLocation>();
-            foreach (GameLocation location in Game1.locations)
-            {
-                if (!location.isFarm && !location.name.Contains("Greenhouse"))
-                    continue;
-                locations.Add(location);
-                if (location is BuildableGameLocation buildableLocation)
-                {
-                    foreach (Building building in buildableLocation.buildings)
-                    {
-                        if (building.indoors != null)
-                            locations.Add(building.indoors);
-                    }
-                }
-            }
-
+            // fast machines
             foreach (GameLocation location in locations)
             {
                 foreach (KeyValuePair<Vector2, SObject> pair in location.objects)
@@ -178,13 +166,11 @@ namespace CJBCheatsMenu
 
                     if (CJBCheatsMenu.Config.DurableFences && pair.Value is Fence fence)
                         fence.repair();
-                    else if (CJBCheatsMenu.Config.FastCask && pair.Value is Cask cask)
+                    else if (CJBCheatsMenu.Config.FastCask && pair.Value is Cask cask && cask.heldObject != null)
                     {
-                        if (cask.heldObject != null)
-                        {
-                            cask.minutesUntilReady = 0;
-                            cask.heldObject.quality = 4;
-                        }
+                        cask.daysToMature = 0;
+                        cask.minutesUntilReady = 0;
+                        cask.heldObject.quality = 4;
                     }
                     else if (CJBCheatsMenu.Config.FastFurnace && pair.Value.name == "Furnace")
                         pair.Value.minutesUntilReady = 0;
@@ -226,12 +212,12 @@ namespace CJBCheatsMenu
                         pair.Value.minutesUntilReady = 0;
                 }
             }
-            locations.Clear();
 
+            // autofeed animals
             if (CJBCheatsMenu.Config.AutoFeed)
             {
                 Farm farm = Game1.getFarm();
-                foreach (GameLocation location in Game1.locations)
+                foreach (GameLocation location in locations)
                 {
                     if (!location.isFarm && !location.name.Contains("Greenhouse"))
                         continue;
@@ -267,9 +253,10 @@ namespace CJBCheatsMenu
                 }
             }
 
+            // harvest with sickle
             if (CJBCheatsMenu.Config.HarvestSickle)
             {
-                foreach (GameLocation location in Game1.locations)
+                foreach (GameLocation location in locations)
                 {
                     if (!location.isFarm && !location.name.Contains("Greenhouse"))
                         continue;

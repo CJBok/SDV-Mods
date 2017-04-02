@@ -91,6 +91,8 @@ setting | default | what it affects
 ## Versions
 1.14 (2017-04-01):
 * Updated to SMAPI 1.9.
+* Fast machines now work anywhere, not only on the farm.
+* Fixed fast cask cheat not working.
 * Internal refactoring.
 
 1.13 (2017-01-04):
