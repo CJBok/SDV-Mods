@@ -77,14 +77,11 @@ namespace CJBAutomation
                 {
                     foreach (Chest chest in chests)
                     {
-                        if (chest != null)
+                        if (chest.addItem(obj.heldObject) == null)
                         {
-                            if (chest.addItem(obj.heldObject) == null)
-                            {
-                                obj.heldObject = null;
-                                obj.readyForHarvest = false;
-                                break;
-                            }
+                            obj.heldObject = null;
+                            obj.readyForHarvest = false;
+                            break;
                         }
                     }
                 }
@@ -94,36 +91,36 @@ namespace CJBAutomation
                     {
                         if (Automation.DoChestsHaveItem(chests, 378, 5))
                         {
-                            Automation.RemoveItemFromChests(chests, 382, 1);
+                            Automation.RemoveItemFromChests(chests, 382);
                             Automation.RemoveItemFromChests(chests, 378, 5);
                             obj.heldObject = new StardewValley.Object(Vector2.Zero, 334, 1);
                             obj.minutesUntilReady = 30;
                         }
                         else if (Automation.DoChestsHaveItem(chests, 380, 5))
                         {
-                            Automation.RemoveItemFromChests(chests, 382, 1);
+                            Automation.RemoveItemFromChests(chests, 382);
                             Automation.RemoveItemFromChests(chests, 380, 5);
                             obj.heldObject = new StardewValley.Object(Vector2.Zero, 335, 1);
                             obj.minutesUntilReady = 120;
                         }
                         else if (Automation.DoChestsHaveItem(chests, 384, 5))
                         {
-                            Automation.RemoveItemFromChests(chests, 382, 1);
+                            Automation.RemoveItemFromChests(chests, 382);
                             Automation.RemoveItemFromChests(chests, 384, 5);
                             obj.heldObject = new StardewValley.Object(Vector2.Zero, 336, 1);
                             obj.minutesUntilReady = 300;
                         }
                         else if (Automation.DoChestsHaveItem(chests, 386, 5))
                         {
-                            Automation.RemoveItemFromChests(chests, 382, 1);
+                            Automation.RemoveItemFromChests(chests, 382);
                             Automation.RemoveItemFromChests(chests, 386, 5);
                             obj.heldObject = new StardewValley.Object(Vector2.Zero, 337, 1);
                             obj.minutesUntilReady = 480;
                         }
                         else if (Automation.DoChestsHaveItem(chests, 80, 1))
                         {
-                            Automation.RemoveItemFromChests(chests, 382, 1);
-                            Automation.RemoveItemFromChests(chests, 80, 1);
+                            Automation.RemoveItemFromChests(chests, 382);
+                            Automation.RemoveItemFromChests(chests, 80);
                             obj.heldObject = new StardewValley.Object(Vector2.Zero, 338, "Refined Quartz", false, true, false, false);
                             obj.minutesUntilReady = 90;
                         }
@@ -143,14 +140,11 @@ namespace CJBAutomation
                 {
                     foreach (Chest chest in chests)
                     {
-                        if (chest != null)
+                        if (chest.addItem(obj.heldObject.getOne()) == null)
                         {
-                            if (chest.addItem(obj.heldObject.getOne()) == null)
-                            {
-                                obj.minutesUntilReady = Automation.GetMinutesForCrystalarium(obj.heldObject.parentSheetIndex);
-                                obj.readyForHarvest = false;
-                                break;
-                            }
+                            obj.minutesUntilReady = Automation.GetMinutesForCrystalarium(obj.heldObject.parentSheetIndex);
+                            obj.readyForHarvest = false;
+                            break;
                         }
                     }
                 }
@@ -162,14 +156,11 @@ namespace CJBAutomation
                 {
                     foreach (Chest chest in chests)
                     {
-                        if (chest != null)
+                        if (chest.addItem(obj.heldObject) == null)
                         {
-                            if (chest.addItem(obj.heldObject) == null)
-                            {
-                                obj.heldObject = null;
-                                obj.readyForHarvest = false;
-                                break;
-                            }
+                            obj.heldObject = null;
+                            obj.readyForHarvest = false;
+                            break;
                         }
                     }
                 }
@@ -178,14 +169,14 @@ namespace CJBAutomation
                     if (Automation.RemoveItemFromChests(chests, 176) || Automation.RemoveItemFromChests(chests, 180))
                     {
                         // small white egg / small brown egg -> normal mayonnaise
-                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 306, (string)null, false, true, false, false);
+                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 306, null, false, true, false, false);
                         obj.minutesUntilReady = 180;
                     }
                     else
                     if (Automation.RemoveItemFromChests(chests, 107) || Automation.RemoveItemFromChests(chests, 174) || Automation.RemoveItemFromChests(chests, 182))
                     {
                         // dino egg / white large egg / brown large egg -> gold quality mayonnaise
-                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 306, (string)null, false, true, false, false)
+                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 306, null, false, true, false, false)
                         {
                             quality = 2
                         };
@@ -195,14 +186,14 @@ namespace CJBAutomation
                     if (Automation.RemoveItemFromChests(chests, 442))
                     {
                         // duck egg -> duck mayonnaise
-                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 307, (string)null, false, true, false, false);
+                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 307, null, false, true, false, false);
                         obj.minutesUntilReady = 180;
                     }
                     else
                     if (Automation.RemoveItemFromChests(chests, 305))
                     {
                         // void egg -> void mayonnaise
-                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 308, (string)null, false, true, false, false);
+                        obj.heldObject = new StardewValley.Object(Vector2.Zero, 308, null, false, true, false, false);
                         obj.minutesUntilReady = 180;
                     }
                 }
@@ -214,14 +205,11 @@ namespace CJBAutomation
                 {
                     foreach (Chest chest in chests)
                     {
-                        if (chest != null)
+                        if (chest.addItem(obj.heldObject) == null)
                         {
-                            if (chest.addItem(obj.heldObject) == null)
-                            {
-                                obj.heldObject = null;
-                                obj.readyForHarvest = false;
-                                break;
-                            }
+                            obj.heldObject = null;
+                            obj.readyForHarvest = false;
+                            break;
                         }
                     }
                 }
@@ -284,7 +272,7 @@ namespace CJBAutomation
                             }
                             if (obj.heldObject != null) // we have put something in the keg, no need to loop over more chests/stacks
                             {
-                                Automation.DecreaseStack(chest, stack, 1);
+                                Automation.DecreaseStack(chest, stack);
                                 return;
                             }
                         }
@@ -298,14 +286,11 @@ namespace CJBAutomation
                 {
                     foreach (Chest chest in chests)
                     {
-                        if (chest != null)
+                        if (chest.addItem(obj.heldObject) == null)
                         {
-                            if (chest.addItem(obj.heldObject) == null)
-                            {
-                                obj.heldObject = null;
-                                obj.readyForHarvest = false;
-                                break;
-                            }
+                            obj.heldObject = null;
+                            obj.readyForHarvest = false;
+                            break;
                         }
                     }
                 }
@@ -313,7 +298,7 @@ namespace CJBAutomation
                 {
                     if (Automation.RemoveItemFromChests(chests, 388, 10))
                     {
-                        obj.heldObject = new StardewValley.Object(382, 1, false, -1, 0);
+                        obj.heldObject = new StardewValley.Object(382, 1);
                         obj.minutesUntilReady = 30;
                         obj.showNextIndex = true;
                     }
@@ -326,14 +311,11 @@ namespace CJBAutomation
                 {
                     foreach (Chest chest in chests)
                     {
-                        if (chest != null)
+                        if (chest.addItem(obj.heldObject) == null)
                         {
-                            if (chest.addItem(obj.heldObject) == null)
-                            {
-                                obj.heldObject = null;
-                                obj.readyForHarvest = false;
-                                break;
-                            }
+                            obj.heldObject = null;
+                            obj.readyForHarvest = false;
+                            break;
                         }
                     }
                 }
@@ -374,22 +356,19 @@ namespace CJBAutomation
                 {
                     foreach (Chest chest in chests)
                     {
-                        if (chest != null)
+                        if (chest.addItem(obj.heldObject) == null)
                         {
-                            if (chest.addItem(obj.heldObject) == null)
-                            {
-                                obj.heldObject = null;
-                                obj.readyForHarvest = false;
-                                break;
-                            }
+                            obj.heldObject = null;
+                            obj.readyForHarvest = false;
+                            break;
                         }
                     }
                 }
                 if (obj.heldObject == null && !obj.readyForHarvest)
                 {
-                    StardewValley.Object item = (StardewValley.Object)Automation.GetItemFromChestsByCategory(chests, -79, -1);
-                    if (item == null)
-                        item = (StardewValley.Object)Automation.GetItemFromChestsByCategory(chests, -75, -1);
+                    StardewValley.Object item =
+                        (StardewValley.Object)Automation.GetItemFromChestsByCategory(chests, -79, -1)
+                        ?? (StardewValley.Object)Automation.GetItemFromChestsByCategory(chests, -75, -1);
 
                     if (item != null)
                     {
@@ -419,15 +398,12 @@ namespace CJBAutomation
                 {
                     foreach (Chest chest in chests)
                     {
-                        if (chest != null)
+                        if (chest.addItem(obj.heldObject) == null)
                         {
-                            if (chest.addItem(obj.heldObject) == null)
-                            {
-                                obj.heldObject = null;
-                                obj.readyForHarvest = false;
-                                obj.showNextIndex = false;
-                                break;
-                            }
+                            obj.heldObject = null;
+                            obj.readyForHarvest = false;
+                            obj.showNextIndex = false;
+                            break;
                         }
                     }
                 }
@@ -448,35 +424,32 @@ namespace CJBAutomation
                 {
                     foreach (Chest chest in chests)
                     {
-                        if (chest != null)
+                        if (chest.items.Count < 36)
                         {
-                            if (chest.items.Count < 36)
+                            string str = "Wild";
+                            int price = 0;
+                            if (location is Farm)
                             {
-                                string str = "Wild";
-                                int price = 0;
-                                if (location is Farm)
+                                Crop crop = Utility.findCloseFlower(obj.tileLocation);
+                                if (crop != null)
                                 {
-                                    Crop crop = Utility.findCloseFlower(obj.tileLocation);
-                                    if (crop != null)
-                                    {
-                                        str = Game1.objectInformation[crop.indexOfHarvest].Split(new char[] { '/' })[0];
-                                        price = Convert.ToInt32(Game1.objectInformation[crop.indexOfHarvest].Split(new char[] { '/' })[1]) * 2;
-                                    }
+                                    str = Game1.objectInformation[crop.indexOfHarvest].Split('/')[0];
+                                    price = Convert.ToInt32(Game1.objectInformation[crop.indexOfHarvest].Split('/')[1]) * 2;
                                 }
-                                obj.heldObject.name = str + " Honey";
-                                obj.heldObject.price += price;
-                                if (chest.addItem(obj.heldObject) == null)
+                            }
+                            obj.heldObject.name = str + " Honey";
+                            obj.heldObject.price += price;
+                            if (chest.addItem(obj.heldObject) == null)
+                            {
+                                obj.heldObject = new StardewValley.Object(Vector2.Zero, 340, null, false, true, false, false);
+                                if (Game1.currentSeason.Equals("winter"))
                                 {
-                                    obj.heldObject = new StardewValley.Object(Vector2.Zero, 340, null, false, true, false, false);
-                                    if (Game1.currentSeason.Equals("winter"))
-                                    {
-                                        obj.heldObject = null;
-                                    }
-                                    obj.minutesUntilReady = 2400 - Game1.timeOfDay + 4320;
-                                    obj.readyForHarvest = false;
-                                    obj.showNextIndex = false;
-                                    break;
+                                    obj.heldObject = null;
                                 }
+                                obj.minutesUntilReady = 2400 - Game1.timeOfDay + 4320;
+                                obj.readyForHarvest = false;
+                                obj.showNextIndex = false;
+                                break;
                             }
                         }
                     }
@@ -489,16 +462,13 @@ namespace CJBAutomation
                 {
                     foreach (Chest chest in chests)
                     {
-                        if (chest != null)
+                        if (chest.addItem(obj.heldObject) == null)
                         {
-                            if (chest.addItem(obj.heldObject) == null)
-                            {
-                                obj.heldObject = new StardewValley.Object(685, Game1.random.Next(2, 6), false, -1, 0);
-                                obj.minutesUntilReady = 2400 - Game1.timeOfDay;
-                                obj.readyForHarvest = false;
-                                obj.showNextIndex = false;
-                                break;
-                            }
+                            obj.heldObject = new StardewValley.Object(685, Game1.random.Next(2, 6));
+                            obj.minutesUntilReady = 2400 - Game1.timeOfDay;
+                            obj.readyForHarvest = false;
+                            obj.showNextIndex = false;
+                            break;
                         }
                     }
                 }
@@ -510,14 +480,11 @@ namespace CJBAutomation
                 {
                     foreach (Chest chest in chests)
                     {
-                        if (chest != null)
+                        if (chest.addItem(obj.heldObject) == null)
                         {
-                            if (chest.addItem(obj.heldObject) == null)
-                            {
-                                obj.heldObject = null;
-                                obj.readyForHarvest = false;
-                                break;
-                            }
+                            obj.heldObject = null;
+                            obj.readyForHarvest = false;
+                            break;
                         }
                     }
                 }
@@ -527,14 +494,14 @@ namespace CJBAutomation
                     if (seedId != -1)
                     {
                         Random random = new Random((int)(Game1.stats.DaysPlayed + (uint)((int)Game1.uniqueIDForThisGame / 2) + (uint)((int)obj.tileLocation.X) + (uint)((int)obj.tileLocation.Y * 77) + (uint)Game1.timeOfDay));
-                        obj.heldObject = new StardewValley.Object(seedId, random.Next(1, 4), false, -1, 0);
+                        obj.heldObject = new StardewValley.Object(seedId, random.Next(1, 4));
                         if (random.NextDouble() < 0.005)
                         {
-                            obj.heldObject = new StardewValley.Object(499, 1, false, -1, 0);
+                            obj.heldObject = new StardewValley.Object(499, 1);
                         }
                         else if (random.NextDouble() < 0.02)
                         {
-                            obj.heldObject = new StardewValley.Object(770, random.Next(1, 5), false, -1, 0);
+                            obj.heldObject = new StardewValley.Object(770, random.Next(1, 5));
                         }
                         obj.minutesUntilReady = 20;
                     }
@@ -547,14 +514,11 @@ namespace CJBAutomation
                 {
                     foreach (Chest chest in chests)
                     {
-                        if (chest != null)
+                        if (chest.addItem(obj.heldObject) == null)
                         {
-                            if (chest.addItem(obj.heldObject) == null)
-                            {
-                                obj.heldObject = null;
-                                obj.readyForHarvest = false;
-                                break;
-                            }
+                            obj.heldObject = null;
+                            obj.readyForHarvest = false;
+                            break;
                         }
                     }
                 }
@@ -563,25 +527,25 @@ namespace CJBAutomation
                     Random random2 = new Random((int)Game1.uniqueIDForThisGame / 2 + (int)Game1.stats.DaysPlayed + Game1.timeOfDay + (int)obj.tileLocation.X * 200 + (int)obj.tileLocation.Y);
                     if (Automation.RemoveItemFromChests(chests, 168))
                     {
-                        obj.heldObject = new StardewValley.Object((random2.NextDouble() < 0.3) ? 382 : ((random2.NextDouble() < 0.3) ? 380 : 390), random2.Next(1, 4), false, -1, 0);
+                        obj.heldObject = new StardewValley.Object((random2.NextDouble() < 0.3) ? 382 : ((random2.NextDouble() < 0.3) ? 380 : 390), random2.Next(1, 4));
                         obj.minutesUntilReady = 60;
                         Game1.stats.PiecesOfTrashRecycled += 1u;
                     }
                     else if (Automation.RemoveItemFromChests(chests, 169))
                     {
-                        obj.heldObject = new StardewValley.Object((random2.NextDouble() < 0.25) ? 382 : 388, random2.Next(1, 4), false, -1, 0);
+                        obj.heldObject = new StardewValley.Object((random2.NextDouble() < 0.25) ? 382 : 388, random2.Next(1, 4));
                         obj.minutesUntilReady = 60;
                         Game1.stats.PiecesOfTrashRecycled += 1u;
                     }
                     else if (Automation.RemoveItemFromChests(chests, 170) || Automation.RemoveItemFromChests(chests, 171))
                     {
-                        obj.heldObject = new StardewValley.Object(338, 1, false, -1, 0);
+                        obj.heldObject = new StardewValley.Object(338, 1);
                         obj.minutesUntilReady = 60;
                         Game1.stats.PiecesOfTrashRecycled += 1u;
                     }
                     else if (Automation.RemoveItemFromChests(chests, 172))
                     {
-                        obj.heldObject = ((random2.NextDouble() < 0.1) ? new StardewValley.Object(428, 1, false, -1, 0) : new Torch(Vector2.Zero, 3));
+                        obj.heldObject = ((random2.NextDouble() < 0.1) ? new StardewValley.Object(428, 1) : new Torch(Vector2.Zero, 3));
                         obj.minutesUntilReady = 60;
                         Game1.stats.PiecesOfTrashRecycled += 1u;
                     }
@@ -594,14 +558,11 @@ namespace CJBAutomation
                 {
                     foreach (Chest chest in chests)
                     {
-                        if (chest != null)
+                        if (chest.addItem(obj.heldObject) == null)
                         {
-                            if (chest.addItem(obj.heldObject) == null)
-                            {
-                                obj.heldObject = null;
-                                obj.readyForHarvest = false;
-                                break;
-                            }
+                            obj.heldObject = null;
+                            obj.readyForHarvest = false;
+                            break;
                         }
                     }
                 }
@@ -624,7 +585,7 @@ namespace CJBAutomation
                     }
                     else if (Automation.RemoveItemFromChests(chests, 431))
                     {
-                        obj.heldObject = new StardewValley.Object(247, 1, false, -1, 0);
+                        obj.heldObject = new StardewValley.Object(247, 1);
                         obj.minutesUntilReady = 3200;
                     }
                 }
@@ -636,54 +597,51 @@ namespace CJBAutomation
                 {
                     foreach (Chest chest in chests)
                     {
-                        if (chest != null)
+                        if (chest.addItem(obj.heldObject) == null)
                         {
-                            if (chest.addItem(obj.heldObject) == null)
+
+                            int id = obj.heldObject.parentSheetIndex;
+
+                            if (id == 724)
                             {
-
-                                int id = obj.heldObject.parentSheetIndex;
-
-                                if (id == 724)
-                                {
-                                    obj.minutesUntilReady = 16000 - Game1.timeOfDay;
-                                }
-                                else if (id == 725)
-                                {
-                                    obj.minutesUntilReady = 13000 - Game1.timeOfDay;
-                                }
-                                else if (id == 726)
-                                {
-                                    obj.minutesUntilReady = 10000 - Game1.timeOfDay;
-                                }
-                                else if (id == 422)
-                                {
-                                    obj.minutesUntilReady = 3000 - Game1.timeOfDay;
-                                    obj.heldObject = new StardewValley.Object(420, 1, false, -1, 0);
-                                }
-                                else if (id == 404 || id == 420)
-                                {
-                                    obj.minutesUntilReady = 3000 - Game1.timeOfDay;
-                                    if (!Game1.currentSeason.Equals("fall"))
-                                    {
-                                        obj.heldObject = new StardewValley.Object(404, 1, false, -1, 0);
-                                        obj.minutesUntilReady = 6000 - Game1.timeOfDay;
-                                    }
-                                    if (Game1.dayOfMonth % 10 == 0)
-                                    {
-                                        obj.heldObject = new StardewValley.Object(422, 1, false, -1, 0);
-                                    }
-                                    if (Game1.currentSeason.Equals("winter"))
-                                    {
-                                        obj.minutesUntilReady = 80000 - Game1.timeOfDay;
-                                    }
-                                }
-                                if (obj.heldObject != null)
-                                {
-                                    obj.heldObject = (StardewValley.Object)obj.heldObject.getOne();
-                                }
-                                obj.readyForHarvest = false;
-                                break;
+                                obj.minutesUntilReady = 16000 - Game1.timeOfDay;
                             }
+                            else if (id == 725)
+                            {
+                                obj.minutesUntilReady = 13000 - Game1.timeOfDay;
+                            }
+                            else if (id == 726)
+                            {
+                                obj.minutesUntilReady = 10000 - Game1.timeOfDay;
+                            }
+                            else if (id == 422)
+                            {
+                                obj.minutesUntilReady = 3000 - Game1.timeOfDay;
+                                obj.heldObject = new StardewValley.Object(420, 1);
+                            }
+                            else if (id == 404 || id == 420)
+                            {
+                                obj.minutesUntilReady = 3000 - Game1.timeOfDay;
+                                if (!Game1.currentSeason.Equals("fall"))
+                                {
+                                    obj.heldObject = new StardewValley.Object(404, 1);
+                                    obj.minutesUntilReady = 6000 - Game1.timeOfDay;
+                                }
+                                if (Game1.dayOfMonth % 10 == 0)
+                                {
+                                    obj.heldObject = new StardewValley.Object(422, 1);
+                                }
+                                if (Game1.currentSeason.Equals("winter"))
+                                {
+                                    obj.minutesUntilReady = 80000 - Game1.timeOfDay;
+                                }
+                            }
+                            if (obj.heldObject != null)
+                            {
+                                obj.heldObject = (StardewValley.Object)obj.heldObject.getOne();
+                            }
+                            obj.readyForHarvest = false;
+                            break;
                         }
                     }
                 }
@@ -695,14 +653,11 @@ namespace CJBAutomation
                 {
                     foreach (Chest chest in chests)
                     {
-                        if (chest != null)
+                        if (chest.addItem(obj.heldObject.getOne()) == null)
                         {
-                            if (chest.addItem(obj.heldObject.getOne()) == null)
-                            {
-                                obj.heldObject = null;
-                                obj.readyForHarvest = false;
-                                break;
-                            }
+                            obj.heldObject = null;
+                            obj.readyForHarvest = false;
+                            break;
                         }
                     }
                 }
@@ -770,7 +725,7 @@ namespace CJBAutomation
                             }
                             ((Cask)obj).agingRate = agingRate;
                             obj.minutesUntilReady = 999999;
-                            Automation.DecreaseStack(chest, stack, 1);
+                            Automation.DecreaseStack(chest, stack);
                             return;
                         }
                     }
@@ -783,14 +738,11 @@ namespace CJBAutomation
                 {
                     foreach (Chest chest in chests)
                     {
-                        if (chest != null)
+                        if (chest.addItem(obj.heldObject.getOne()) == null)
                         {
-                            if (chest.addItem(obj.heldObject.getOne()) == null)
-                            {
-                                obj.heldObject = null;
-                                obj.readyForHarvest = false;
-                                break;
-                            }
+                            obj.heldObject = null;
+                            obj.readyForHarvest = false;
+                            break;
                         }
                     }
                 }
@@ -805,7 +757,7 @@ namespace CJBAutomation
                             parentSheetIndex = 437;
                         else if (Game1.random.NextDouble() < 0.25)
                             parentSheetIndex = 413;
-                        obj.heldObject = new StardewValley.Object(parentSheetIndex, 1, false, -1, 0);
+                        obj.heldObject = new StardewValley.Object(parentSheetIndex, 1);
                         obj.minutesUntilReady = 1200;
                     }
                 }
@@ -825,9 +777,9 @@ namespace CJBAutomation
                         if (chests.Skip(1).Any())
                             return;
                     }
-                    foreach (var chest in chests)
+                    foreach (Chest chest in chests)
                     {
-                        if (chest != null && chest.addItem(obj.heldObject) == null)
+                        if (chest.addItem(obj.heldObject) == null)
                         {
                             obj.heldObject = null;
                             obj.readyForHarvest = false;
@@ -838,7 +790,6 @@ namespace CJBAutomation
                     }
                 }
             }
-            // end
         }
     }
 }

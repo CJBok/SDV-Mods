@@ -38,7 +38,6 @@ namespace CJBCheatsMenu
             ControlEvents.KeyPressed += Events_KeyPressed;
             ControlEvents.ControllerButtonPressed += ControlEvents_ControllerButtonPressed;
             GraphicsEvents.OnPostRenderEvent += GraphicsEvents_DrawTick;
-            TimeEvents.DayOfMonthChanged += TimeEvents_DayOfMonthChanged;
         }
 
         /// <summary>Update the mod's config.json file from the current <see cref="Config"/>.</summary>
@@ -54,9 +53,7 @@ namespace CJBCheatsMenu
         private void GameEvents_OneSecondTick(object sender, EventArgs e)
         {
             if (Game1.hasLoadedGame)
-            {
                 Cheats.OneSecondUpdate();
-            }
         }
 
         private void ControlEvents_ControllerButtonPressed(object sender, EventArgsControllerButtonPressed e)
@@ -64,18 +61,14 @@ namespace CJBCheatsMenu
             if (e.ButtonPressed.ToString().Equals(CJBCheatsMenu.Config.OpenMenuKey))
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null && Game1.player.CanMove && !Game1.dialogueUp && !Game1.eventUp)
-                {
                     CheatsMenu.Open();
-                }
                 return;
             }
 
             if (e.ButtonPressed.ToString().Equals(CJBCheatsMenu.Config.FreezeTimeKey))
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
-                {
                     CJBCheatsMenu.Config.FreezeTime = !CJBCheatsMenu.Config.FreezeTime;
-                }
                 return;
             }
 
@@ -91,14 +84,6 @@ namespace CJBCheatsMenu
         private void Events_KeyPressed(object sender, EventArgsKeyPressed e)
         {
             Cheats.OnKeyPress(e.KeyPressed);
-        }
-
-        private void TimeEvents_DayOfMonthChanged(object sender, EventArgsIntChanged e)
-        {
-            if (!Game1.hasLoadedGame)
-                return;
-
-            Cheats.OnDayOfMonthChanged();
         }
 
         private void GraphicsEvents_DrawTick(object sender, EventArgs e)

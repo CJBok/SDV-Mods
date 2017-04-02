@@ -8,17 +8,11 @@ namespace CJBCheatsMenu
     internal class CheatsOptionsSlider : OptionsElement
     {
         /*********
-        ** Accessors
+        ** Properties
         *********/
-        public static Rectangle SliderBackgroundSprite = new Rectangle(403, 383, 6, 6);
-        public static Rectangle SliderButtonSprite = new Rectangle(420, 441, 10, 6);
-        public const int Width = 48;
-        public const int Height = 6;
-        public const int SliderButtonWidth = 10;
-        public int SliderMaxValue = 100;
-        public int Value;
-
-        public string SliderLabel = "";
+        private int SliderMaxValue;
+        private int Value;
+        private string SliderLabel;
 
 
         /*********
@@ -46,7 +40,7 @@ namespace CJBCheatsMenu
                 return;
 
             base.leftClickHeld(x, y);
-            this.Value = x >= this.bounds.X ? (x <= this.bounds.Right - 10 * Game1.pixelZoom ? (int)((double)((float)(x - this.bounds.X) / (float)(this.bounds.Width - 10 * Game1.pixelZoom)) * this.SliderMaxValue) : this.SliderMaxValue) : 0;
+            this.Value = x >= this.bounds.X ? (x <= this.bounds.Right - 10 * Game1.pixelZoom ? (int)((x - this.bounds.X) / (this.bounds.Width - 10d * Game1.pixelZoom) * this.SliderMaxValue) : this.SliderMaxValue) : 0;
 
             switch (whichOption)
             {
@@ -70,7 +64,7 @@ namespace CJBCheatsMenu
 
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
         {
-            base.label = this.SliderLabel + ": " + this.Value;
+            this.label = $"{this.SliderLabel}: {this.Value}";
 
             this.greyedOut = false;
 
@@ -88,13 +82,13 @@ namespace CJBCheatsMenu
                     if (minutes.Length == 1)
                         minutes = "0" + minutes;
 
-                    base.label = this.SliderLabel + ": " + hours + ":" + minutes + " " + ampm;
+                    this.label = $"{this.SliderLabel}:{hours}:{minutes} {ampm}";
                     break;
             }
 
             base.draw(spriteBatch, slotX, slotY);
-            IClickableMenu.drawTextureBox(spriteBatch, Game1.mouseCursors, OptionsSlider.sliderBGSource, slotX + this.bounds.X, slotY + this.bounds.Y, this.bounds.Width, this.bounds.Height, Color.White, (float)Game1.pixelZoom, false);
-            spriteBatch.Draw(Game1.mouseCursors, new Vector2((float)(slotX + this.bounds.X) + (float)(this.bounds.Width - 10 * Game1.pixelZoom) * ((float)this.Value / (float)this.SliderMaxValue), (float)(slotY + this.bounds.Y)), new Rectangle?(OptionsSlider.sliderButtonRect), Color.White, 0.0f, Vector2.Zero, (float)Game1.pixelZoom, SpriteEffects.None, 0.9f);
+            IClickableMenu.drawTextureBox(spriteBatch, Game1.mouseCursors, OptionsSlider.sliderBGSource, slotX + this.bounds.X, slotY + this.bounds.Y, this.bounds.Width, this.bounds.Height, Color.White, Game1.pixelZoom, false);
+            spriteBatch.Draw(Game1.mouseCursors, new Vector2(slotX + this.bounds.X + (this.bounds.Width - 10 * Game1.pixelZoom) * (this.Value / (float)this.SliderMaxValue), slotY + this.bounds.Y), OptionsSlider.sliderButtonRect, Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 0.9f);
         }
     }
 }

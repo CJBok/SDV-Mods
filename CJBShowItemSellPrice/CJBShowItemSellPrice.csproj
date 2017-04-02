@@ -59,7 +59,6 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="CJB.cs" />
     <Compile Include="StardewCJB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

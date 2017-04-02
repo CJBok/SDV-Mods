@@ -1,4 +1,5 @@
-﻿using StardewModdingAPI;
+﻿using Microsoft.Xna.Framework.Input;
+using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 
@@ -22,12 +23,10 @@ namespace CJBItemSpawner
         *********/
         private void Events_KeyPressed(object sender, EventArgsKeyPressed e)
         {
-            if (e.KeyPressed == Microsoft.Xna.Framework.Input.Keys.I)
+            if (e.KeyPressed == Keys.I)
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null && Game1.player.CanMove && !Game1.dialogueUp && !Game1.eventUp)
-                {
                     ItemMenu.Open();
-                }
             }
         }
     }

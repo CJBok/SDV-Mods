@@ -21,37 +21,31 @@ namespace CJBItemSpawner
         ** Properties
         *********/
         private bool PlayerInventory;
-        private bool DrawSlots;
+        private List<ClickableComponent> Inventory = new List<ClickableComponent>();
+        private int Capacity;
+        private int Rows;
+        private int HorizontalGap;
+        private int VerticalGap;
 
 
         /*********
         ** Accessors
         *********/
         public string HoverText = "";
-        public string HoverTitle = "";
         public string DescriptionTitle = "";
         public string DescriptionText = "";
-        public List<ClickableComponent> Inventory = new List<ClickableComponent>();
         public List<Item> ActualInventory;
         public InventoryMenu.highlightThisItem HighlightMethod;
-        public ItemGrabMenu.behaviorOnItemSelect OnAddItem;
         public bool ShowGrayedOutSlots;
-        public int Capacity;
-        public int Rows;
-        public int HorizontalGap;
-        public int VerticalGap;
-        public static int ScrollIndex = 0;
-
-        public delegate bool HighlightThisItem(Item i);
+        public static int ScrollIndex;
 
 
         /*********
         ** Public methods
         *********/
-        public ItemInventoryMenu(int xPosition, int yPosition, bool playerInventory, List<Item> actualInventory = null, InventoryMenu.highlightThisItem highlightMethod = null, int capacity = -1, int rows = 3, int horizontalGap = 0, int verticalGap = 0, bool drawSlots = true)
-          : base(xPosition, yPosition, Game1.tileSize * ((capacity == -1 ? 36 : capacity) / rows), Game1.tileSize * rows + Game1.tileSize / 4, false)
+        public ItemInventoryMenu(int xPosition, int yPosition, bool playerInventory, List<Item> actualInventory = null, InventoryMenu.highlightThisItem highlightMethod = null, int capacity = -1, int rows = 3, int horizontalGap = 0, int verticalGap = 0)
+          : base(xPosition, yPosition, Game1.tileSize * ((capacity == -1 ? 36 : capacity) / rows), Game1.tileSize * rows + Game1.tileSize / 4)
         {
-            this.DrawSlots = drawSlots;
             this.HorizontalGap = horizontalGap;
             this.VerticalGap = verticalGap;
             this.Rows = rows;
@@ -64,21 +58,18 @@ namespace CJBItemSpawner
 
             for (int index = 0; index < Game1.player.maxItems; ++index)
             {
-                if (Game1.player.items.Count() <= index)
-                    Game1.player.items.Add((Item)null);
+                if (Game1.player.items.Count <= index)
+                    Game1.player.items.Add(null);
             }
             this.PlayerInventory = this.ActualInventory == Game1.player.items;
 
-            for (int index = 0; index < this.ActualInventory.Count() && index < this.Capacity; index++)
-            {
-                this.Inventory.Add(new ClickableComponent(new Rectangle(xPosition + index % (this.Capacity / rows) * Game1.tileSize + horizontalGap * (index % (this.Capacity / rows)), this.yPositionOnScreen + index / (this.Capacity / rows) * (Game1.tileSize + verticalGap) + (index / (this.Capacity / rows) - 1) * Game1.pixelZoom, Game1.tileSize, Game1.tileSize), string.Concat((object)index)));
-            }
-
+            for (int index = 0; index < this.ActualInventory.Count && index < this.Capacity; index++)
+                this.Inventory.Add(new ClickableComponent(new Rectangle(xPosition + index % (this.Capacity / rows) * Game1.tileSize + horizontalGap * (index % (this.Capacity / rows)), this.yPositionOnScreen + index / (this.Capacity / rows) * (Game1.tileSize + verticalGap) + (index / (this.Capacity / rows) - 1) * Game1.pixelZoom, Game1.tileSize, Game1.tileSize), index.ToString()));
 
             this.HighlightMethod = highlightMethod;
             if (highlightMethod != null)
                 return;
-            this.HighlightMethod = new InventoryMenu.highlightThisItem(InventoryMenu.highlightAllItems);
+            this.HighlightMethod = InventoryMenu.highlightAllItems;
         }
 
         public static bool HighlightAllItems(Item i)
@@ -97,48 +88,12 @@ namespace CJBItemSpawner
             }
         }
 
-        /*public Item tryToAddItem(Item toPlace, string sound = "coin") {
-            if (toPlace == null)
-                return (Item)null;
-            int stack = toPlace.Stack;
-            foreach (ClickableComponent clickableComponent in this.Inventory) {
-                int index = Convert.ToInt32(clickableComponent.name);
-                if (index < this.ActualInventory.Count && this.ActualInventory[index] != null && (this.HighlightMethod(this.ActualInventory[index]) && this.ActualInventory[index].canStackWith(toPlace))) {
-                    toPlace.Stack = this.ActualInventory[index].addToStack(toPlace.Stack);
-                    if (toPlace.Stack <= 0) {
-                        try {
-                            Game1.playSound(sound);
-                            if (this.OnAddItem != null)
-                                this.OnAddItem(toPlace, this.PlayerInventory ? Game1.player : (Farmer)null);
-                        } catch (Exception ex) {
-                        }
-                        return (Item)null;
-                    }
-                }
-            }
-            foreach (ClickableComponent clickableComponent in this.Inventory) {
-                int position = Convert.ToInt32(clickableComponent.name);
-                if (position < this.ActualInventory.Count && (this.ActualInventory[position] == null || this.HighlightMethod(this.ActualInventory[position]))) {
-                    if (this.ActualInventory[position] == null) {
-                        try {
-                            Game1.playSound(sound);
-                        } catch (Exception ex) {
-                        }
-                        return Utility.AddItemToInventory(toPlace, position, this.ActualInventory, this.OnAddItem);
-                    }
-                }
-            }
-            if (toPlace.Stack < stack)
-                Game1.playSound(sound);
-            return toPlace;
-        }*/
-
         public int GetInventoryPositionOfClick(int x, int y)
         {
-            for (int index = 0; index < Enumerable.Count<ClickableComponent>((IEnumerable<ClickableComponent>)this.Inventory); ++index)
+            foreach (ClickableComponent component in this.Inventory)
             {
-                if (this.Inventory[index] != null && this.Inventory[index].bounds.Contains(x, y))
-                    return Convert.ToInt32(this.Inventory[index].name);
+                if (component != null && component.bounds.Contains(x, y))
+                    return Convert.ToInt32(component.name);
             }
             return -1;
         }
@@ -160,7 +115,7 @@ namespace CJBItemSpawner
                             {
                                 if (playSound)
                                     Game1.playSound("stoneStep");
-                                return ItemInventoryMenu.AddItemToInventory(toPlace, index, this.ActualInventory, this.OnAddItem);
+                                return ItemInventoryMenu.AddItemToInventory(toPlace, index, this.ActualInventory);
                             }
                             if (playSound)
                                 Game1.playSound("dwop");
@@ -170,7 +125,7 @@ namespace CJBItemSpawner
                         {
                             if (playSound)
                                 Game1.playSound("stoneStep");
-                            return ItemInventoryMenu.AddItemToInventory(toPlace, index, this.ActualInventory, this.OnAddItem);
+                            return ItemInventoryMenu.AddItemToInventory(toPlace, index, this.ActualInventory);
                         }
                     }
                 }
@@ -183,9 +138,9 @@ namespace CJBItemSpawner
             foreach (ClickableComponent clickableComponent in this.Inventory)
             {
                 if (clickableComponent.containsPoint(x, y))
-                    return new Vector2((float)clickableComponent.bounds.X, (float)clickableComponent.bounds.Y);
+                    return new Vector2(clickableComponent.bounds.X, clickableComponent.bounds.Y);
             }
-            return new Vector2((float)x, (float)y);
+            return new Vector2(x, y);
         }
 
         public Item GetItemAt(int x, int y)
@@ -195,7 +150,7 @@ namespace CJBItemSpawner
                 if (c.containsPoint(x, y))
                     return this.GetItemFromClickableComponent(c);
             }
-            return (Item)null;
+            return null;
         }
 
         public Item GetItemFromClickableComponent(ClickableComponent c)
@@ -206,7 +161,7 @@ namespace CJBItemSpawner
                 if (index < this.ActualInventory.Count)
                     return this.ActualInventory[index];
             }
-            return (Item)null;
+            return null;
         }
 
         public Item RightClick(int x, int y, Item toAddTo, bool playSound = true)
@@ -218,7 +173,7 @@ namespace CJBItemSpawner
                     index = this.Capacity / this.Rows * ItemInventoryMenu.ScrollIndex + index;
                 if (clickableComponent.containsPoint(x, y) && index < this.ActualInventory.Count && this.ActualInventory[index] != null)
                 {
-                    if (this.ActualInventory[index] is Tool tool && (toAddTo == null || toAddTo is StardewValley.Object) && (this.ActualInventory[index] as Tool).canThisBeAttached((StardewValley.Object)toAddTo))
+                    if (this.ActualInventory[index] is Tool tool && (toAddTo == null || toAddTo is StardewValley.Object) && tool.canThisBeAttached((StardewValley.Object)toAddTo))
                         return tool.attach((StardewValley.Object)toAddTo);
                     if (toAddTo == null)
                     {
@@ -229,12 +184,9 @@ namespace CJBItemSpawner
                             Item one = this.ActualInventory[index].getOne();
                             if (this.ActualInventory[index].Stack > 1)
                             {
-                                if (Game1.isOneOfTheseKeysDown(Game1.oldKBState, new InputButton[1]
+                                if (Game1.isOneOfTheseKeysDown(Game1.oldKBState, new[] { new InputButton(Keys.LeftShift) }))
                                 {
-                  new InputButton(Keys.LeftShift)
-                                }))
-                                {
-                                    one.Stack = (int)Math.Ceiling((double)this.ActualInventory[index].Stack / 2.0);
+                                    one.Stack = (int)Math.Ceiling(this.ActualInventory[index].Stack / 2.0);
                                     if (this.PlayerInventory)
                                         this.ActualInventory[index].Stack = this.ActualInventory[index].Stack / 2;
                                     goto label_15;
@@ -243,14 +195,14 @@ namespace CJBItemSpawner
                             if (this.PlayerInventory)
                             {
                                 if (this.ActualInventory[index].Stack == 1)
-                                    this.ActualInventory[index] = (Item)null;
+                                    this.ActualInventory[index] = null;
                                 else
                                     --this.ActualInventory[index].Stack;
                             }
 
                             label_15:
                             if (this.PlayerInventory && this.ActualInventory[index] != null && this.ActualInventory[index].Stack <= 0)
-                                this.ActualInventory[index] = (Item)null;
+                                this.ActualInventory[index] = null;
                             if (playSound)
                                 Game1.playSound("dwop");
                             return one;
@@ -258,12 +210,9 @@ namespace CJBItemSpawner
                     }
                     else if (this.ActualInventory[index].canStackWith(toAddTo) && toAddTo.Stack < toAddTo.maximumStackSize())
                     {
-                        if (Game1.isOneOfTheseKeysDown(Game1.oldKBState, new InputButton[1]
+                        if (Game1.isOneOfTheseKeysDown(Game1.oldKBState, new[] { new InputButton(Keys.LeftShift) }))
                         {
-              new InputButton(Keys.LeftShift)
-                        }))
-                        {
-                            toAddTo.Stack += (int)Math.Ceiling((double)this.ActualInventory[index].Stack / 2.0);
+                            toAddTo.Stack += (int)Math.Ceiling(this.ActualInventory[index].Stack / 2.0);
                             this.ActualInventory[index].Stack = this.ActualInventory[index].Stack / 2;
                         }
                         else
@@ -277,7 +226,7 @@ namespace CJBItemSpawner
                         {
                             if (index == Game1.player.CurrentToolIndex)
                                 this.ActualInventory[index].actionWhenStopBeingHeld(Game1.player);
-                            this.ActualInventory[index] = (Item)null;
+                            this.ActualInventory[index] = null;
                         }
                         return toAddTo;
                     }
@@ -291,8 +240,6 @@ namespace CJBItemSpawner
             this.DescriptionText = "";
             this.DescriptionTitle = "";
             this.HoverText = "";
-            this.HoverTitle = "";
-            Item obj = (Item)null;
             foreach (ClickableComponent clickableComponent in this.Inventory)
             {
                 int index = Convert.ToInt32(clickableComponent.name);
@@ -301,24 +248,22 @@ namespace CJBItemSpawner
 
                 clickableComponent.scale = Math.Max(1f, clickableComponent.scale - 0.025f);
                 if (clickableComponent.containsPoint(x, y) && index < this.ActualInventory.Count && this.ActualInventory[index] != null)
-                {
-                    return obj = this.ActualInventory[index];
-                }
+                    return this.ActualInventory[index];
             }
-            return obj;
+            return null;
         }
 
         public override void setUpForGamePadMode()
         {
             base.setUpForGamePadMode();
-            if (this.Inventory == null || Enumerable.Count<ClickableComponent>((IEnumerable<ClickableComponent>)this.Inventory) <= 0)
+            if (this.Inventory == null || this.Inventory.Count <= 0)
                 return;
             Game1.setMousePosition(this.Inventory[0].bounds.Right - this.Inventory[0].bounds.Width / 8, this.Inventory[0].bounds.Bottom - this.Inventory[0].bounds.Height / 8);
         }
 
         public override int moveCursorInDirection(int direction)
         {
-            Rectangle rectangle = new Rectangle(this.Inventory[0].bounds.X, this.Inventory[0].bounds.Y, Enumerable.Last<ClickableComponent>((IEnumerable<ClickableComponent>)this.Inventory).bounds.X + Enumerable.Last<ClickableComponent>((IEnumerable<ClickableComponent>)this.Inventory).bounds.Width - this.Inventory[0].bounds.X, Enumerable.Last<ClickableComponent>((IEnumerable<ClickableComponent>)this.Inventory).bounds.Y + Enumerable.Last<ClickableComponent>((IEnumerable<ClickableComponent>)this.Inventory).bounds.Height - this.Inventory[0].bounds.Y);
+            Rectangle rectangle = new Rectangle(this.Inventory[0].bounds.X, this.Inventory[0].bounds.Y, this.Inventory.Last().bounds.X + this.Inventory.Last().bounds.Width - this.Inventory[0].bounds.X, this.Inventory.Last().bounds.Y + this.Inventory.Last().bounds.Height - this.Inventory[0].bounds.Y);
             if (!rectangle.Contains(Game1.getMousePosition()))
                 Game1.setMousePosition(this.Inventory[0].bounds.Right - this.Inventory[0].bounds.Width / 8, this.Inventory[0].bounds.Bottom - this.Inventory[0].bounds.Height / 8);
             Point mousePosition = Game1.getMousePosition();
@@ -352,8 +297,8 @@ namespace CJBItemSpawner
             if (direction < 0) ItemInventoryMenu.ScrollIndex++;
 
             if (ItemInventoryMenu.ScrollIndex < 0) ItemInventoryMenu.ScrollIndex = 0;
-            if (ItemInventoryMenu.ScrollIndex > (this.ActualInventory.Count() / (this.Capacity / this.Rows)))
-                ItemInventoryMenu.ScrollIndex = (this.ActualInventory.Count() / (this.Capacity / this.Rows));
+            if (ItemInventoryMenu.ScrollIndex > (this.ActualInventory.Count / (this.Capacity / this.Rows)))
+                ItemInventoryMenu.ScrollIndex = (this.ActualInventory.Count / (this.Capacity / this.Rows));
         }
 
         public override void draw(SpriteBatch spriteBatch)
@@ -365,40 +310,25 @@ namespace CJBItemSpawner
                 if (!this.PlayerInventory)
                     indexOffset = this.Capacity / this.Rows * ItemInventoryMenu.ScrollIndex + index;
 
-                Vector2 vector2 = new Vector2((float)(this.xPositionOnScreen + index % (this.Capacity / this.Rows) * Game1.tileSize + this.HorizontalGap * (index % (this.Capacity / this.Rows))), (float)(this.yPositionOnScreen + index / (this.Capacity / this.Rows) * (Game1.tileSize + this.VerticalGap) + (index / (this.Capacity / this.Rows) - 1) * Game1.pixelZoom));
-                spriteBatch.Draw(Game1.menuTexture, vector2, new Rectangle?(Game1.getSourceRectForStandardTileSheet(Game1.menuTexture, 10, -1, -1)), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.5f);
-                if (this.ActualInventory.Count() > indexOffset && this.ActualInventory[indexOffset] != null)
-                    this.ActualInventory[indexOffset].drawInMenu(spriteBatch, vector2, this.Inventory.Count() > index ? this.Inventory[index].scale : 1f, !this.HighlightMethod(this.ActualInventory[indexOffset]) ? 0.2f : 1f, 0.865f);
+                Vector2 vector2 = new Vector2(this.xPositionOnScreen + index % (this.Capacity / this.Rows) * Game1.tileSize + this.HorizontalGap * (index % (this.Capacity / this.Rows)), this.yPositionOnScreen + index / (this.Capacity / this.Rows) * (Game1.tileSize + this.VerticalGap) + (index / (this.Capacity / this.Rows) - 1) * Game1.pixelZoom);
+                spriteBatch.Draw(Game1.menuTexture, vector2, Game1.getSourceRectForStandardTileSheet(Game1.menuTexture, 10), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.5f);
+                if (this.ActualInventory.Count > indexOffset && this.ActualInventory[indexOffset] != null)
+                    this.ActualInventory[indexOffset].drawInMenu(spriteBatch, vector2, this.Inventory.Count > index ? this.Inventory[index].scale : 1f, !this.HighlightMethod(this.ActualInventory[indexOffset]) ? 0.2f : 1f, 0.865f);
             }
         }
 
-        public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)
-        {
-            base.gameWindowSizeChanged(oldBounds, newBounds);
-        }
-
-        public override void receiveLeftClick(int x, int y, bool playSound = true)
-        {
-        }
-
-        public override void receiveRightClick(int x, int y, bool playSound = true)
-        {
-        }
-
-        public override void performHoverAction(int x, int y)
-        {
-        }
+        public override void receiveLeftClick(int x, int y, bool playSound = true) { }
+        public override void receiveRightClick(int x, int y, bool playSound = true) { }
+        public override void performHoverAction(int x, int y) { }
 
         public static Item RemoveItemFromInventory(int whichItemIndex, List<Item> items)
         {
-            if (whichItemIndex >= 0 && whichItemIndex < items.Count<Item>() && items[whichItemIndex] != null)
+            if (whichItemIndex >= 0 && whichItemIndex < items.Count && items[whichItemIndex] != null)
             {
                 Item item = items[whichItemIndex].getOne();
                 item.Stack = items[whichItemIndex].Stack;
-                if (whichItemIndex == Game1.player.CurrentToolIndex && items.Equals(Game1.player.items) && item != null)
-                {
+                if (whichItemIndex == Game1.player.CurrentToolIndex && items.Equals(Game1.player.items))
                     item.actionWhenStopBeingHeld(Game1.player);
-                }
                 if (items.Equals(Game1.player.items))
                     items[whichItemIndex] = null;
                 return item;
@@ -415,20 +345,17 @@ namespace CJBItemSpawner
                 else
                     Game1.player.specialItems.Add(obj.isRecipe ? (-obj.parentSheetIndex) : obj.parentSheetIndex);
             }
-            if (position < 0 || position >= items.Count<Item>())
+            if (position < 0 || position >= items.Count)
             {
                 return item;
             }
             if (items[position] == null)
             {
                 items[position] = item;
-                if (onAddFunction != null)
-                {
-                    onAddFunction(item, null);
-                }
+                onAddFunction?.Invoke(item, null);
                 return null;
             }
-            if (items[position].maximumStackSize() == -1 || !items[position].Name.Equals(item.Name) || (item is StardewValley.Object && items[position] is StardewValley.Object && ((item as StardewValley.Object).quality != (items[position] as StardewValley.Object).quality || (item as StardewValley.Object).parentSheetIndex != (items[position] as StardewValley.Object).parentSheetIndex)) || !item.canStackWith(items[position]))
+            if (items[position].maximumStackSize() == -1 || !items[position].Name.Equals(item.Name) || (item is StardewValley.Object itemObj && items[position] is StardewValley.Object slotObj && (itemObj.quality != slotObj.quality || itemObj.parentSheetIndex != slotObj.parentSheetIndex)) || !item.canStackWith(items[position]))
             {
                 Item item2 = items[position];
                 if (position == Game1.player.CurrentToolIndex && items.Equals(Game1.player.items) && item2 != null)
@@ -437,23 +364,15 @@ namespace CJBItemSpawner
                     item.actionWhenBeingHeld(Game1.player);
                 }
                 items[position] = item;
-                if (onAddFunction != null)
-                {
-                    onAddFunction(item, null);
-                }
+                onAddFunction?.Invoke(item, null);
                 return item2;
             }
             int num = items[position].addToStack(item.getStack());
             if (num <= 0)
-            {
                 return null;
-            }
 
             item.Stack = num;
-            if (onAddFunction != null)
-            {
-                onAddFunction(item, null);
-            }
+            onAddFunction?.Invoke(item, null);
             return item;
         }
     }

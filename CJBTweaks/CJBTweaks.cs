@@ -30,7 +30,7 @@ namespace CJBTweaks
                 if (menu.portraitPerson?.name == "Clint")
                 {
                     Dictionary<Item, int[]> saleList = Utility.getBlacksmithStock();
-                    saleList.Add(new StardewValley.Object(Vector2.Zero, 386, int.MaxValue), new int[] { 1000, int.MaxValue });
+                    saleList.Add(new Object(Vector2.Zero, 386, int.MaxValue), new[] { 1000, int.MaxValue });
                     Game1.activeClickableMenu = new ShopMenu(saleList, 0, "Clint");
                 }
             }

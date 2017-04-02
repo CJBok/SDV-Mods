@@ -20,8 +20,8 @@ namespace CJBCheatsMenu
         /*********
         ** Properties
         *********/
-        public static int PreviousTime = -1;
-        public static Dictionary<string, int> PreviousFriendships;
+        private static int PreviousTime = -1;
+        private static Dictionary<string, int> PreviousFriendships;
 
 
         /*********
@@ -80,9 +80,7 @@ namespace CJBCheatsMenu
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
-                {
                     tiles.Add(new Vector2(player.getTileX() + x, player.getTileY() + y));
-                }
             }
 
             foreach (Vector2 tile in tiles)
@@ -99,73 +97,43 @@ namespace CJBCheatsMenu
         {
             GameLocation location = Game1.currentLocation;
             if (Cheats.PreviousTime == -1 || Game1.timeOfDay == 600)
-            {
                 Cheats.PreviousTime = Game1.timeOfDay;
-            }
             else
             {
-                bool inCave = (location is MineShaft || location is FarmCave);
+                bool inCave = location is MineShaft || location is FarmCave;
                 bool frozen = (CJBCheatsMenu.Config.FreezeTimeInside && !location.IsOutdoors && !inCave) || (CJBCheatsMenu.Config.FreezeTimeCaves && inCave);
-                frozen = (frozen || CJBCheatsMenu.Config.FreezeTime);
+                frozen = frozen || CJBCheatsMenu.Config.FreezeTime;
 
                 if (frozen)
-                {
                     Game1.timeOfDay = Cheats.PreviousTime;
-                }
                 else
-                {
                     Cheats.PreviousTime = Game1.timeOfDay;
-                }
             }
-        }
-
-        public static void OnDayOfMonthChanged()
-        {
-
         }
 
         public static void OnDrawTick()
         {
             GameLocation location = Game1.currentLocation;
 
-            bool inCave = (location is MineShaft || location is FarmCave);
+            bool inCave = location is MineShaft || location is FarmCave;
             bool frozen = (CJBCheatsMenu.Config.FreezeTimeInside && !location.IsOutdoors && !inCave) || (CJBCheatsMenu.Config.FreezeTimeCaves && inCave);
-            frozen = (frozen || CJBCheatsMenu.Config.FreezeTime);
+            frozen = frozen || CJBCheatsMenu.Config.FreezeTime;
             if (frozen)
-            {
                 CJB.DrawTextBox(5, inCave ? 100 : 5, Game1.smallFont, "Time Frozen");
-            }
-
-            /*
-            int xTile = (Game1.viewport.X + Game1.getOldMouseX()) / Game1.tileSize;
-            int yTile = (Game1.viewport.Y + Game1.getOldMouseY()) / Game1.tileSize;
-
-            Vector2 tile = new Vector2(xTile, yTile);
-
-            if (Game1.currentLocation.objects.ContainsKey(tile)) {
-                int time = Game1.currentLocation.objects[tile].minutesUntilReady;
-                if (time > 0)
-                    CJB.DrawTextBox(5, inCave ? 100 : 5, Game1.smallFont, "Ready in: " + time);
-            }*/
         }
 
         public static void OneSecondUpdate()
         {
-
             if (CJBCheatsMenu.Config.NoFriendshipDecay)
             {
                 if (Cheats.PreviousFriendships == null)
-                {
                     Cheats.PreviousFriendships = Game1.player.friendships.ToDictionary(p => p.Key.ToString(), p => p.Value[0]);
-                }
                 foreach (KeyValuePair<string, int[]> n in Game1.player.friendships)
                 {
                     foreach (KeyValuePair<string, int> o in Cheats.PreviousFriendships)
                     {
                         if (n.Key.Equals(o.Key) && n.Value[0] < o.Value)
-                        {
                             n.Value[0] = o.Value;
-                        }
                     }
                 }
                 Cheats.PreviousFriendships = Game1.player.friendships.ToDictionary(p => p.Key.ToString(), p => p.Value[0]);
@@ -208,11 +176,8 @@ namespace CJBCheatsMenu
                         continue;
 
                     if (CJBCheatsMenu.Config.DurableFences && pair.Value is Fence fence)
-                    {
                         fence.repair();
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastCask && pair.Value is Cask cask)
+                    else if (CJBCheatsMenu.Config.FastCask && pair.Value is Cask cask)
                     {
                         if (cask.heldObject != null)
                         {
@@ -220,101 +185,44 @@ namespace CJBCheatsMenu
                             cask.heldObject.quality = 4;
                         }
                     }
-                    if (CJBCheatsMenu.Config.FastFurnace && pair.Value.name.Equals("Furnace"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastFurnace && pair.Value.name.Equals("Furnace"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastRecyclingMachine && pair.Value.name.Equals("Recycling Machine"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastRecyclingMachine && pair.Value.name.Equals("Recycling Machine"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastCrystalarium && pair.Value.name.Equals("Crystalarium"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastCrystalarium && pair.Value.name.Equals("Crystalarium"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastIncubator && pair.Value.name.Equals("Incubator"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastIncubator && pair.Value.name.Equals("Incubator"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastSlimeIncubator && pair.Value.name.Equals("Slime Incubator"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastSlimeIncubator && pair.Value.name.Equals("Slime Incubator"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastKeg && pair.Value.name.Equals("Keg"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastKeg && pair.Value.name.Equals("Keg"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastPreservesJar && pair.Value.name.Equals("Preserves Jar"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastPreservesJar && pair.Value.name.Equals("Preserves Jar"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastCheesePress && pair.Value.name.Equals("Cheese Press"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastCheesePress && pair.Value.name.Equals("Cheese Press"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastMayonnaiseMachine && pair.Value.name.Equals("Mayonnaise Machine"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastMayonnaiseMachine && pair.Value.name.Equals("Mayonnaise Machine"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastLoom && pair.Value.name.Equals("Loom"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastLoom && pair.Value.name.Equals("Loom"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastOilMaker && pair.Value.name.Equals("Oil Maker"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastOilMaker && pair.Value.name.Equals("Oil Maker"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastSeedMaker && pair.Value.name.Equals("Seed Maker"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastSeedMaker && pair.Value.name.Equals("Seed Maker"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastCharcoalKiln && pair.Value.name.Equals("Charcoal Kiln"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastCharcoalKiln && pair.Value.name.Equals("Charcoal Kiln"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastSlimeEggPress && pair.Value.name.Equals("Slime Egg-Press"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastSlimeEggPress && pair.Value.name.Equals("Slime Egg-Press"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastBeeHouse && pair.Value.name.Equals("Bee House"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastBeeHouse && pair.Value.name.Equals("Bee House"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastMushroomBox && pair.Value.name.Equals("Mushroom Box"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastMushroomBox && pair.Value.name.Equals("Mushroom Box"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastTapper && pair.Value.name.Equals("Tapper"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastTapper && pair.Value.name.Equals("Tapper"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastLightningRod && pair.Value.name.Equals("Lightning Rod"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastLightningRod && pair.Value.name.Equals("Lightning Rod"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
-                    if (CJBCheatsMenu.Config.FastWormBin && pair.Value.name.Equals("Worm Bin"))
-                    {
+                    else if (CJBCheatsMenu.Config.FastWormBin && pair.Value.name.Equals("Worm Bin"))
                         pair.Value.minutesUntilReady = 0;
-                        continue;
-                    }
                 }
             }
             locations.Clear();
@@ -347,9 +255,9 @@ namespace CJBCheatsMenu
                                     if (hayUsed <= 0)
                                         break;
 
-                                    Vector2 tile = new Vector2((float)(tileX + i), 3f);
+                                    Vector2 tile = new Vector2(tileX + i, 3f);
                                     if (!indoors.objects.ContainsKey(tile))
-                                        indoors.objects.Add(tile, new StardewValley.Object(178, 1, false, -1, 0));
+                                        indoors.objects.Add(tile, new StardewValley.Object(178, 1));
                                     hayUsed--;
                                 }
                             }
@@ -383,17 +291,13 @@ namespace CJBCheatsMenu
             {
                 Farmer player = Game1.player;
 
-
-
                 if (CJBCheatsMenu.Config.IncreasedMovement && player.running)
                     player.addedSpeed = CJBCheatsMenu.Config.MoveSpeed;
                 else if (!CJBCheatsMenu.Config.IncreasedMovement && player.addedSpeed == CJBCheatsMenu.Config.MoveSpeed)
                     player.addedSpeed = 0;
 
                 if (player.controller != null)
-                {
                     player.addedSpeed = 0;
-                }
 
                 if (Game1.CurrentEvent == null)
                     player.movementDirections.Clear();
@@ -425,9 +329,7 @@ namespace CJBCheatsMenu
                     {
                         StardewValley.Object obj = player.currentLocation.Objects[tile];
                         if (obj != null && obj.name.Equals("Stone"))
-                        {
                             obj.minutesUntilReady = 0;
-                        }
                     }
 
                     if (player.CurrentTool is Axe && player.currentLocation.terrainFeatures.ContainsKey(tile))
@@ -473,8 +375,6 @@ namespace CJBCheatsMenu
                         {
                             friendship.Value[1] = 0;
                             friendship.Value[3] = 0;
-                            /*if (fr.Value[0] < 500)
-                                fr.Value[0] = 500;*/
                         }
                     }
                 }
@@ -516,37 +416,25 @@ namespace CJBCheatsMenu
             if (key.ToString().Equals(CJBCheatsMenu.Config.OpenMenuKey))
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
-                {
                     CheatsMenu.Open();
-                }
-                return;
             }
 
-            if (key.ToString().Equals(CJBCheatsMenu.Config.FreezeTimeKey))
+            else if (key.ToString().Equals(CJBCheatsMenu.Config.FreezeTimeKey))
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
-                {
                     CJBCheatsMenu.Config.FreezeTime = !CJBCheatsMenu.Config.FreezeTime;
-                }
-                return;
             }
 
-            if (key.ToString().Equals(CJBCheatsMenu.Config.GrowTreeKey))
+            else if (key.ToString().Equals(CJBCheatsMenu.Config.GrowTreeKey))
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
-                {
-                    GrowTree();
-                }
-                return;
+                    Cheats.GrowTree();
             }
 
-            if (key.ToString().Equals(CJBCheatsMenu.Config.GrowCropsKey))
+            else if (key.ToString().Equals(CJBCheatsMenu.Config.GrowCropsKey))
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
-                {
-                    GrowCrops();
-                }
-                return;
+                    Cheats.GrowCrops();
             }
         }
     }

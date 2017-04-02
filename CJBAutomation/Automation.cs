@@ -22,7 +22,7 @@ namespace CJBAutomation
         {
             List<Chest> chests = new List<Chest>();
 
-            if (location == null || tile == null)
+            if (location == null)
                 return chests;
 
             for (int x = -1; x <= 1; x++)
@@ -117,7 +117,6 @@ namespace CJBAutomation
                     }
                 }
             }
-            return;
         }
 
         public static Item GetItemFromChestsByName(List<Chest> chests, string name, int excludeID)
@@ -215,17 +214,12 @@ namespace CJBAutomation
                 Automation.CropData = new Dictionary<int, int>();
                 Dictionary<int, string> cropData = Game1.content.Load<Dictionary<int, string>>("Data\\Crops");
                 foreach (KeyValuePair<int, string> entry in cropData)
-                {
-                    Automation.CropData.Add(Convert.ToInt32(entry.Value.Split(new char[] { '/' })[3]), entry.Key);
-                }
+                    Automation.CropData.Add(Convert.ToInt32(entry.Value.Split('/')[3]), entry.Key);
             }
 
-            if (Automation.CropData.ContainsKey(cropID))
-            {
-                return Automation.CropData[cropID];
-            }
-
-            return -1;
+            return Automation.CropData.TryGetValue(cropID, out int seedID)
+                ? seedID
+                : -1;
         }
 
         public static int GetMinutesForCrystalarium(int gemID)

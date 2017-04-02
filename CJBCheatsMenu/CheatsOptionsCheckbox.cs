@@ -8,12 +8,9 @@ namespace CJBCheatsMenu
     internal class CheatsOptionsCheckbox : OptionsElement
     {
         /*********
-        ** Accessors
+        ** Properties
         *********/
-        public static Rectangle UncheckedSprite = new Rectangle(227, 425, 9, 9);
-        public static Rectangle CheckedSprite = new Rectangle(236, 425, 9, 9);
-        public const int Width = 9;
-        public bool IsChecked;
+        private bool IsChecked;
 
 
         /*********
@@ -297,7 +294,7 @@ namespace CJBCheatsMenu
 
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
         {
-            spriteBatch.Draw(Game1.mouseCursors, new Vector2((float)(slotX + this.bounds.X), (float)(slotY + this.bounds.Y)), new Rectangle?(this.IsChecked ? OptionsCheckbox.sourceRectChecked : OptionsCheckbox.sourceRectUnchecked), Color.White * (this.greyedOut ? 0.33f : 1f), 0.0f, Vector2.Zero, (float)Game1.pixelZoom, SpriteEffects.None, 0.4f);
+            spriteBatch.Draw(Game1.mouseCursors, new Vector2(slotX + this.bounds.X, slotY + this.bounds.Y), this.IsChecked ? OptionsCheckbox.sourceRectChecked : OptionsCheckbox.sourceRectUnchecked, Color.White * (this.greyedOut ? 0.33f : 1f), 0.0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 0.4f);
             base.draw(spriteBatch, slotX, slotY);
         }
     }

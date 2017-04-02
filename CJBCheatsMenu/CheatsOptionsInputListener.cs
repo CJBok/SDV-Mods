@@ -16,13 +16,8 @@ namespace CJBCheatsMenu
         private string ListenerMessage;
         private bool Listening;
         private Rectangle SetButtonBounds;
-
-
-        /*********
-        ** Accessors
-        *********/
-        public static Rectangle SetButtonSprite = new Rectangle(294, 428, 21, 11);
-        public List<string> ButtonNames = new List<string>();
+        private Rectangle SetButtonSprite = new Rectangle(294, 428, 21, 11);
+        private List<string> ButtonNames = new List<string>();
 
 
         /*********
@@ -52,16 +47,11 @@ namespace CJBCheatsMenu
             }
         }
 
-        public override void leftClickHeld(int x, int y)
-        {
-            int num = this.greyedOut ? 1 : 0;
-        }
-
         public override void receiveLeftClick(int x, int y)
         {
             if (this.greyedOut || this.Listening || !this.SetButtonBounds.Contains(x, y))
                 return;
-            if (this.ButtonNames.Count() == 0)
+            if (!this.ButtonNames.Any())
             {
                 switch (whichOption)
                 {
@@ -113,7 +103,6 @@ namespace CJBCheatsMenu
                         Game1.warpFarmer("FarmHouse", 9, 11, false);
                         Game1.exitActiveMenu();
                         break;
-
 
                     case 100:
                         Game1.warpFarmer("Farm", 64, 15, false);
@@ -201,52 +190,42 @@ namespace CJBCheatsMenu
                         break;
 
                     case 200:
-                        int lvl1 = Game1.player.newLevels.Count();
+                        int lvl1 = Game1.player.newLevels.Count;
                         Game1.player.gainExperience(0, CJB.GetExperiencePoints(Game1.player.farmingLevel));
-                        if (lvl1 < Game1.player.newLevels.Count())
-                        {
-                            Game1.player.newLevels.RemoveAt(Game1.player.newLevels.Count() - 1);
-                        }
+                        if (lvl1 < Game1.player.newLevels.Count)
+                            Game1.player.newLevels.RemoveAt(Game1.player.newLevels.Count - 1);
                         Game1.exitActiveMenu();
                         Game1.activeClickableMenu = new LevelUpMenu(0, Game1.player.farmingLevel);
                         break;
                     case 201:
-                        int lvl2 = Game1.player.newLevels.Count();
+                        int lvl2 = Game1.player.newLevels.Count;
                         Game1.player.gainExperience(3, CJB.GetExperiencePoints(Game1.player.miningLevel));
-                        if (lvl2 < Game1.player.newLevels.Count())
-                        {
-                            Game1.player.newLevels.RemoveAt(Game1.player.newLevels.Count() - 1);
-                        }
+                        if (lvl2 < Game1.player.newLevels.Count)
+                            Game1.player.newLevels.RemoveAt(Game1.player.newLevels.Count - 1);
                         Game1.exitActiveMenu();
                         Game1.activeClickableMenu = new LevelUpMenu(3, Game1.player.miningLevel);
                         break;
                     case 202:
-                        int lvl3 = Game1.player.newLevels.Count();
+                        int lvl3 = Game1.player.newLevels.Count;
                         Game1.player.gainExperience(2, CJB.GetExperiencePoints(Game1.player.foragingLevel));
-                        if (lvl3 < Game1.player.newLevels.Count())
-                        {
-                            Game1.player.newLevels.RemoveAt(Game1.player.newLevels.Count() - 1);
-                        }
+                        if (lvl3 < Game1.player.newLevels.Count)
+                            Game1.player.newLevels.RemoveAt(Game1.player.newLevels.Count - 1);
                         Game1.exitActiveMenu();
                         Game1.activeClickableMenu = new LevelUpMenu(2, Game1.player.foragingLevel);
                         break;
                     case 203:
-                        int lvl4 = Game1.player.newLevels.Count();
+                        int lvl4 = Game1.player.newLevels.Count;
                         Game1.player.gainExperience(1, CJB.GetExperiencePoints(Game1.player.fishingLevel));
-                        if (lvl4 < Game1.player.newLevels.Count())
-                        {
-                            Game1.player.newLevels.RemoveAt(Game1.player.newLevels.Count() - 1);
-                        }
+                        if (lvl4 < Game1.player.newLevels.Count)
+                            Game1.player.newLevels.RemoveAt(Game1.player.newLevels.Count - 1);
                         Game1.exitActiveMenu();
                         Game1.activeClickableMenu = new LevelUpMenu(1, Game1.player.fishingLevel);
                         break;
                     case 204:
-                        int lvl5 = Game1.player.newLevels.Count();
+                        int lvl5 = Game1.player.newLevels.Count;
                         Game1.player.gainExperience(4, CJB.GetExperiencePoints(Game1.player.combatLevel));
-                        if (lvl5 < Game1.player.newLevels.Count())
-                        {
-                            Game1.player.newLevels.RemoveAt(Game1.player.newLevels.Count() - 1);
-                        }
+                        if (lvl5 < Game1.player.newLevels.Count)
+                            Game1.player.newLevels.RemoveAt(Game1.player.newLevels.Count - 1);
                         Game1.exitActiveMenu();
                         Game1.activeClickableMenu = new LevelUpMenu(4, Game1.player.combatLevel);
                         break;
@@ -269,7 +248,6 @@ namespace CJBCheatsMenu
                         Game1.player.health = Game1.player.maxHealth;
                         Game1.player.professions.Clear();
                         break;
-
                 }
             }
             else
@@ -347,16 +325,16 @@ namespace CJBCheatsMenu
                     break;
             }
             if (!lvl.Equals(""))
-                Utility.drawTextWithShadow(spriteBatch, this.label + ": " + lvl, Game1.dialogueFont, new Vector2((float)(this.bounds.X + slotX), (float)(this.bounds.Y + slotY)), greyedOut ? Game1.textColor * 0.33f : Game1.textColor, 1f, 0.15f, -1, -1, 1f, 3);
-            else if (this.ButtonNames.Count() == 0)
-                Utility.drawTextWithShadow(spriteBatch, this.label, Game1.dialogueFont, new Vector2((float)(this.bounds.X + slotX), (float)(this.bounds.Y + slotY)), greyedOut ? Game1.textColor * 0.33f : Game1.textColor, 1f, 0.15f, -1, -1, 1f, 3);
+                Utility.drawTextWithShadow(spriteBatch, $"{this.label}: {lvl}", Game1.dialogueFont, new Vector2(this.bounds.X + slotX, this.bounds.Y + slotY), greyedOut ? Game1.textColor * 0.33f : Game1.textColor, 1f, 0.15f);
+            else if (this.ButtonNames.Count == 0)
+                Utility.drawTextWithShadow(spriteBatch, this.label, Game1.dialogueFont, new Vector2(this.bounds.X + slotX, this.bounds.Y + slotY), greyedOut ? Game1.textColor * 0.33f : Game1.textColor, 1f, 0.15f);
             else
-                Utility.drawTextWithShadow(spriteBatch, this.label + ": " + Enumerable.Last(this.ButtonNames) + (Enumerable.Count(this.ButtonNames) > 1 ? ", " + Enumerable.First(this.ButtonNames) : ""), Game1.dialogueFont, new Vector2(this.bounds.X + slotX, this.bounds.Y + slotY), greyedOut ? Game1.textColor * 0.33f : Game1.textColor, 1f, 0.15f, -1, -1, 1f, 3);
-            Utility.drawWithShadow(spriteBatch, Game1.mouseCursors, new Vector2(this.SetButtonBounds.X + slotX, this.SetButtonBounds.Y + slotY), CheatsOptionsInputListener.SetButtonSprite, Color.White, 0.0f, Vector2.Zero, (float)Game1.pixelZoom, false, 0.15f, -1, -1, 0.35f);
+                Utility.drawTextWithShadow(spriteBatch, this.label + ": " + this.ButtonNames.Last() + (this.ButtonNames.Count > 1 ? ", " + this.ButtonNames.First() : ""), Game1.dialogueFont, new Vector2(this.bounds.X + slotX, this.bounds.Y + slotY), greyedOut ? Game1.textColor * 0.33f : Game1.textColor, 1f, 0.15f);
+            Utility.drawWithShadow(spriteBatch, Game1.mouseCursors, new Vector2(this.SetButtonBounds.X + slotX, this.SetButtonBounds.Y + slotY), this.SetButtonSprite, Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom, false, 0.15f);
             if (!this.Listening)
                 return;
-            spriteBatch.Draw(Game1.staminaRect, new Rectangle(0, 0, Game1.graphics.GraphicsDevice.Viewport.Width, Game1.graphics.GraphicsDevice.Viewport.Height), new Rectangle?(new Rectangle(0, 0, 1, 1)), Color.Black * 0.75f, 0.0f, Vector2.Zero, SpriteEffects.None, 0.999f);
-            spriteBatch.DrawString(Game1.dialogueFont, this.ListenerMessage, Utility.getTopLeftPositionForCenteringOnScreen(Game1.tileSize * 3, Game1.tileSize, 0, 0), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9999f);
+            spriteBatch.Draw(Game1.staminaRect, new Rectangle(0, 0, Game1.graphics.GraphicsDevice.Viewport.Width, Game1.graphics.GraphicsDevice.Viewport.Height), new Rectangle(0, 0, 1, 1), Color.Black * 0.75f, 0.0f, Vector2.Zero, SpriteEffects.None, 0.999f);
+            spriteBatch.DrawString(Game1.dialogueFont, this.ListenerMessage, Utility.getTopLeftPositionForCenteringOnScreen(Game1.tileSize * 3, Game1.tileSize), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9999f);
         }
     }
 }

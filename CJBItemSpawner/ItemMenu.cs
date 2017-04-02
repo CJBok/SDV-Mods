@@ -1,10 +1,4 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: StardewValley.Menus.ItemGrabMenu
-// Assembly: Stardew Valley, Version=1.0.5912.41135, Culture=neutral, PublicKeyToken=null
-// MVID: B585F4A7-F5D4-496B-8930-4705FA185302
-// Assembly location: K:\SteamLibrary\steamapps\common\Stardew Valley\Stardew Valley.exe
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -25,40 +19,27 @@ namespace CJBItemSpawner
         *********/
         private ItemInventoryMenu ItemsToGrabMenu;
         private TemporaryAnimatedSprite Poof;
-        private bool SnappedtoBottom = true;
-        private static bool ItemsLoaded = false;
+        private static bool ItemsLoaded;
 
         private ClickableComponent Title;
         private ClickableComponent SortButton;
         private ClickableComponent QualityButton;
         private List<ClickableComponent> Tabs = new List<ClickableComponent>();
-        private static int TabIndex = 0;
-        private static int SortID = 0;
+        private static int TabIndex;
+        private static int SortID;
         private static ItemQuality Quality = ItemQuality.Normal;
 
         private TextBox Textbox;
         private Rectangle TextboxBounds;
-        private TextBoxEvent TextboxEvent;
         private List<Item> InventoryItems;
         private ClickableTextureComponent UpArrow;
         private ClickableTextureComponent DownArrow;
 
-
-        /*********
-        ** Accessors
-        *********/
-        public bool ShowReceivingMenu = true;
-        public bool DrawBackground = false;
-        public bool ReverseGrab = false;
-        public bool DestroyItemOnClick;
-        public bool CanExitOnKey = true;
-        public bool PlayRightClickSound;
-        public bool AllowRightClick;
-        public Item HoverItem;
-        public static List<Item> ItemList;
-        public static string TempText = "";
-
-        public delegate void BehaviorOnItemSelect(Item item, Farmer who);
+        private bool ShowReceivingMenu = true;
+        private bool CanExitOnKey = true;
+        private bool AllowRightClick;
+        private static List<Item> ItemList;
+        private static string TempText = "";
 
 
         /*********
@@ -68,7 +49,7 @@ namespace CJBItemSpawner
           : base(null, true, true, 0, -50)
         {
             this.InventoryItems = inventory;
-            base.MovePosition(110, Game1.viewport.Height / 2 - (650 + IClickableMenu.borderWidth * 2) / 2);
+            this.MovePosition(110, Game1.viewport.Height / 2 - (650 + IClickableMenu.borderWidth * 2) / 2);
 
             this.Textbox = new TextBox(null, null, Game1.dialogueFont, Game1.textColor);
             this.Textbox.X = Game1.viewport.Width / 2 - Game1.tileSize * 3;
@@ -78,7 +59,6 @@ namespace CJBItemSpawner
             this.Textbox.X = this.xPositionOnScreen + (width / 2) - (this.Textbox.Width / 2) - Game1.tileSize + 32;
             this.Textbox.Y = this.yPositionOnScreen + (height / 2) + Game1.tileSize * 2 + 40;
             this.Textbox.Selected = false;
-            this.Textbox.OnEnterPressed += this.TextboxEvent;
             this.Textbox.Text = ItemMenu.TempText;
             Game1.keyboardDispatcher.Subscriber = this.Textbox;
             this.TextboxBounds = new Rectangle(this.Textbox.X, this.Textbox.Y, this.Textbox.Width, this.Textbox.Height / 3);
@@ -86,14 +66,14 @@ namespace CJBItemSpawner
             this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + width - Game1.tileSize, this.yPositionOnScreen - Game1.tileSize * 2, Game1.tileSize * 4, Game1.tileSize), "CJB Item Spawner");
             this.SortButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen - Game1.tileSize * 2 + 10, Game1.tileSize * 4, Game1.tileSize), "Sort By: Name");
             this.QualityButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen + Game1.tileSize * 4, this.yPositionOnScreen - Game1.tileSize * 2 + 10, Game1.tileSize * 4, Game1.tileSize), "Quality");
-            this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(this.xPositionOnScreen + width - Game1.tileSize / 2, this.yPositionOnScreen - Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), (float)Game1.pixelZoom);
-            this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.xPositionOnScreen + width - Game1.tileSize / 2, this.yPositionOnScreen + height / 2 - Game1.tileSize * 2, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), (float)Game1.pixelZoom);
+            this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(this.xPositionOnScreen + width - Game1.tileSize / 2, this.yPositionOnScreen - Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
+            this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.xPositionOnScreen + width - Game1.tileSize / 2, this.yPositionOnScreen + height / 2 - Game1.tileSize * 2, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
 
             {
                 int i = -1;
 
                 int x = (int)(this.xPositionOnScreen - Game1.tileSize * 5.3f);
-                int y = (int)(this.yPositionOnScreen + 10);
+                int y = this.yPositionOnScreen + 10;
                 int lblHeight = (int)(Game1.tileSize * 0.9F);
 
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "All"));
@@ -106,7 +86,7 @@ namespace CJBItemSpawner
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Artisan & Cooking"));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Animal & Monster"));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Decorating"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Misc"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i, Game1.tileSize * 5, Game1.tileSize), "Misc"));
             }
 
             if (!ItemMenu.ItemsLoaded)
@@ -157,125 +137,102 @@ namespace CJBItemSpawner
                     this.InventoryItems.Add(item);
             }
 
-            this.ItemsToGrabMenu = new ItemInventoryMenu(this.xPositionOnScreen + Game1.tileSize / 2, this.yPositionOnScreen, false, this.InventoryItems, null, -1, 3, 0, 0, true);
+            this.ItemsToGrabMenu = new ItemInventoryMenu(this.xPositionOnScreen + Game1.tileSize / 2, this.yPositionOnScreen, false, this.InventoryItems);
         }
         private bool IsCategoryAllowed(Item item)
         {
-            if (ItemMenu.TabIndex == 0)
+            switch (ItemMenu.TabIndex)
             {
-                return true;
+                case 0:
+                    return true;
+                case 1:
+                    return (item is Tool || item.getCategoryName().Equals("Ring") || item is Hat || item is Boots);
+                case 2:
+                    return (item.getCategoryName().Equals("Seed") || item.getCategoryName().Equals("Vegetable") || item.getCategoryName().Equals("Fertilizer") || item.getCategoryName().Equals("Flower"));
+                case 3:
+                    return (item.getCategoryName().Equals("Fish") || item.getCategoryName().Equals("Bait") || item.getCategoryName().Equals("Trash") || item.getCategoryName().Equals("Fishing Tackle"));
+                case 4:
+                    return (item.getCategoryName().Equals("Forage") || item.getCategoryName().Equals("Fruit"));
+                case 5:
+                    return (item.getCategoryName().Equals("Artifact") || item.getCategoryName().Equals("Mineral"));
+                case 6:
+                    return (item.getCategoryName().Equals("Resource") || item.getCategoryName().Equals("Crafting") || item.category == -8 || item.category == -9);
+                case 7:
+                    return (item.getCategoryName().Equals("Artisan Goods") || item.getCategoryName().Equals("Cooking"));
+                case 8:
+                    return (item.getCategoryName().Equals("Animal Product") || item.getCategoryName().Equals("Monster Loot"));
+                case 9:
+                    return (item.getCategoryName().Equals("Furniture") || item.getCategoryName().Equals("Decor"));
+                case 10:
+                    return (item.getCategoryName().Trim().Equals(""));
+                default:
+                    return false;
             }
-            if (ItemMenu.TabIndex == 1)
-            {
-                return (item is Tool || item is MeleeWeapon || item.getCategoryName().Equals("Ring") || item is Hat || item is Boots);
-            }
-            if (ItemMenu.TabIndex == 2)
-            {
-                return (item.getCategoryName().Equals("Seed") || item.getCategoryName().Equals("Vegetable") || item.getCategoryName().Equals("Fertilizer") || item.getCategoryName().Equals("Flower"));
-            }
-            if (ItemMenu.TabIndex == 3)
-            {
-                return (item.getCategoryName().Equals("Fish") || item.getCategoryName().Equals("Bait") || item.getCategoryName().Equals("Trash") || item.getCategoryName().Equals("Fishing Tackle"));
-            }
-            if (ItemMenu.TabIndex == 4)
-            {
-                return (item.getCategoryName().Equals("Forage") || item.getCategoryName().Equals("Fruit"));
-            }
-            if (ItemMenu.TabIndex == 5)
-            {
-                return (item.getCategoryName().Equals("Artifact") || item.getCategoryName().Equals("Mineral"));
-            }
-            if (ItemMenu.TabIndex == 6)
-            {
-                return (item.getCategoryName().Equals("Resource") || item.getCategoryName().Equals("Crafting") || item.category == -8 || item.category == -9);
-            }
-            if (ItemMenu.TabIndex == 7)
-            {
-                return (item.getCategoryName().Equals("Artisan Goods") || item.getCategoryName().Equals("Cooking"));
-            }
-            if (ItemMenu.TabIndex == 8)
-            {
-                return (item.getCategoryName().Equals("Animal Product") || item.getCategoryName().Equals("Monster Loot"));
-            }
-            if (ItemMenu.TabIndex == 9)
-            {
-                return (item.getCategoryName().Equals("Furniture") || item.getCategoryName().Equals("Decor"));
-            }
-            if (ItemMenu.TabIndex == 10)
-            {
-                return (item.getCategoryName().Trim().Equals(""));
-            }
-            return false;
         }
 
         private static void LoadItems()
         {
             ItemMenu.ItemsLoaded = true;
-            ItemMenu.ItemList = new List<Item>();
-
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(0, 0));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(0, 1));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(0, 2));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(0, 3));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(0, 4));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(1, 0));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(1, 1));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(1, 2));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(1, 3));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(1, 4));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(2, 0));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(2, 1));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(2, 2));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(2, 3));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(3, 0));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(3, 1));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(3, 2));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(3, 3));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(3, 4));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(4, 0));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(4, 1));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(4, 2));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(4, 3));
-            ItemMenu.ItemList.Add(ToolFactory.getToolFromDescription(4, 4));
-            ItemMenu.ItemList.Add(new MilkPail());
-            ItemMenu.ItemList.Add(new Shears());
-            ItemMenu.ItemList.Add(new Pan());
+            ItemMenu.ItemList = new List<Item>
+            {
+                ToolFactory.getToolFromDescription(0, 0),
+                ToolFactory.getToolFromDescription(0, 1),
+                ToolFactory.getToolFromDescription(0, 2),
+                ToolFactory.getToolFromDescription(0, 3),
+                ToolFactory.getToolFromDescription(0, 4),
+                ToolFactory.getToolFromDescription(1, 0),
+                ToolFactory.getToolFromDescription(1, 1),
+                ToolFactory.getToolFromDescription(1, 2),
+                ToolFactory.getToolFromDescription(1, 3),
+                ToolFactory.getToolFromDescription(1, 4),
+                ToolFactory.getToolFromDescription(2, 0),
+                ToolFactory.getToolFromDescription(2, 1),
+                ToolFactory.getToolFromDescription(2, 2),
+                ToolFactory.getToolFromDescription(2, 3),
+                ToolFactory.getToolFromDescription(3, 0),
+                ToolFactory.getToolFromDescription(3, 1),
+                ToolFactory.getToolFromDescription(3, 2),
+                ToolFactory.getToolFromDescription(3, 3),
+                ToolFactory.getToolFromDescription(3, 4),
+                ToolFactory.getToolFromDescription(4, 0),
+                ToolFactory.getToolFromDescription(4, 1),
+                ToolFactory.getToolFromDescription(4, 2),
+                ToolFactory.getToolFromDescription(4, 3),
+                ToolFactory.getToolFromDescription(4, 4),
+                new MilkPail(),
+                new Shears(),
+                new Pan()
+            };
 
             foreach (KeyValuePair<string, string> o in CraftingRecipe.craftingRecipes)
             {
                 CraftingRecipe rec = new CraftingRecipe(o.Key, false);
                 Item item = rec.createItem();
                 if (item != null)
-                {
                     ItemMenu.ItemList.Add(item);
-                }
             }
 
             for (int i = 0; i < 112; i++)
-            {
-                ItemMenu.ItemList.Add(new Wallpaper(i, false) { category = -24 });
-            }
+                ItemMenu.ItemList.Add(new Wallpaper(i) { category = -24 });
 
             for (int i = 0; i < 40; i++)
-            {
                 ItemMenu.ItemList.Add(new Wallpaper(i, true) { category = -24 });
-            }
 
             foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\Boots"))
             {
-                Item item = (Item)new Boots(o.Key);
+                Item item = new Boots(o.Key);
                 ItemMenu.ItemList.Add(item);
             }
 
             foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\hats"))
             {
-                Item item = (Item)new Hat(o.Key);
+                Item item = new Hat(o.Key);
                 ItemMenu.ItemList.Add(item);
             }
 
             foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\Furniture"))
             {
-                Item item = (Item)new Furniture(o.Key, Vector2.Zero);
+                Item item = new Furniture(o.Key, Vector2.Zero);
 
                 if (o.Key == 1466 || o.Key == 1468)
                     item = new TV(o.Key, Vector2.Zero);
@@ -284,19 +241,17 @@ namespace CJBItemSpawner
 
             foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\weapons"))
             {
-                Item item = (Item)new MeleeWeapon(o.Key);
+                Item item = new MeleeWeapon(o.Key);
 
                 if (o.Key >= 32 && o.Key <= 34)
-                {
-                    item = (Item)new Slingshot(o.Key);
-                }
+                    item = new Slingshot(o.Key);
 
                 ItemMenu.ItemList.Add(item);
             }
 
             foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\Fish"))
             {
-                Item item = (Item)new StardewValley.Object(o.Key, 999);
+                Item item = new Object(o.Key, 999);
                 item.category = -4;
                 ItemMenu.ItemList.Add(item);
             }
@@ -306,7 +261,7 @@ namespace CJBItemSpawner
                 if (ItemMenu.HasItem(o.Key, o.Value.Split('/')[0]))
                     continue;
 
-                ItemMenu.ItemList.Add((Item)new StardewValley.Object(Vector2.Zero, o.Key));
+                ItemMenu.ItemList.Add(new Object(Vector2.Zero, o.Key));
             }
 
             foreach (KeyValuePair<int, string> o in Game1.objectInformation)
@@ -322,37 +277,41 @@ namespace CJBItemSpawner
                         ItemMenu.ItemList.Add(new Ring(o.Key));
                         continue;
                     }
-                    StardewValley.Object item = new StardewValley.Object(o.Key, 1);
+                    Object item = new Object(o.Key, 1);
                     ItemMenu.ItemList.Add(item);
 
                     if (item.category == -79)
                     {
-                        StardewValley.Object obj = new StardewValley.Object(Vector2.Zero, 348, item.Name + " Wine", false, true, false, false);
-                        obj.name = item.Name + " Wine";
-                        obj.price = item.price * 3;
-                        ItemMenu.ItemList.Add(obj);
+                        ItemMenu.ItemList.Add(new Object(Vector2.Zero, 348, item.Name + " Wine", false, true, false, false)
+                        {
+                            name = item.Name + " Wine",
+                            price = item.price * 3
+                        });
                     }
                     if (item.category == -75)
                     {
-                        StardewValley.Object obj = new StardewValley.Object(Vector2.Zero, 350, item.Name + " Juice", false, true, false, false);
-                        obj.name = item.Name + " Juice";
-                        obj.price = (int)(item.price * 2.25d);
-                        ItemMenu.ItemList.Add(obj);
+                        ItemMenu.ItemList.Add(new Object(Vector2.Zero, 350, item.Name + " Juice", false, true, false, false)
+                        {
+                            name = item.Name + " Juice",
+                            price = (int)(item.price * 2.25d)
+                        });
                     }
 
                     if (item.category == -79)
                     {
-                        StardewValley.Object obj = new StardewValley.Object(Vector2.Zero, 344, item.Name + " Jelly", false, true, false, false);
-                        obj.name = item.Name + " Jelly";
-                        obj.price = 50 + item.Price * 2;
-                        ItemMenu.ItemList.Add(obj);
+                        ItemMenu.ItemList.Add(new Object(Vector2.Zero, 344, item.Name + " Jelly", false, true, false, false)
+                        {
+                            name = item.Name + " Jelly",
+                            price = 50 + item.Price * 2
+                        });
                     }
                     if (item.category == -75)
                     {
-                        StardewValley.Object obj = new StardewValley.Object(Vector2.Zero, 342, "Pickled " + item.Name, false, true, false, false);
-                        obj.name = "Pickled " + item.Name;
-                        obj.price = 50 + item.Price * 2;
-                        ItemMenu.ItemList.Add(obj);
+                        ItemMenu.ItemList.Add(new Object(Vector2.Zero, 342, "Pickled " + item.Name, false, true, false, false)
+                        {
+                            name = "Pickled " + item.Name,
+                            price = 50 + item.Price * 2
+                        });
                     }
                 }
             }
@@ -377,7 +336,7 @@ namespace CJBItemSpawner
             }
             if (!this.AllowRightClick)
                 return;
-            base.receiveRightClick(x, y, playSound && this.PlayRightClickSound);
+            base.receiveRightClick(x, y, false);
             if (this.HeldItem == null && this.ShowReceivingMenu)
             {
                 this.HeldItem = this.ItemsToGrabMenu.RightClick(x, y, this.HeldItem, false);
@@ -385,7 +344,7 @@ namespace CJBItemSpawner
                 {
                     this.HeldItem = null;
                     Game1.player.canUnderstandDwarves = true;
-                    this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2((float)(x - x % Game1.tileSize + Game1.tileSize / 4), (float)(y - y % Game1.tileSize + Game1.tileSize / 4)), false, false);
+                    this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                     Game1.playSound("fireball");
                 }
                 else if (this.HeldItem is Object recipe && recipe.isRecipe)
@@ -397,50 +356,37 @@ namespace CJBItemSpawner
                             Game1.player.cookingRecipes.Add(key, 0);
                         else
                             Game1.player.craftingRecipes.Add(key, 0);
-                        this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2((float)(x - x % Game1.tileSize + Game1.tileSize / 4), (float)(y - y % Game1.tileSize + Game1.tileSize / 4)), false, false);
+                        this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                         Game1.playSound("newRecipe");
                     }
-                    catch (Exception ex)
-                    {
-                    }
-                    this.HeldItem = (Item)null;
+                    catch { }
+                    this.HeldItem = null;
                 }
                 else
                 {
-                    if (!Game1.player.addItemToInventoryBool(this.HeldItem, false))
+                    if (!Game1.player.addItemToInventoryBool(this.HeldItem))
                         return;
-                    this.HeldItem = (Item)null;
+                    this.HeldItem = null;
                     Game1.playSound("coin");
                 }
-            }
-            else
-            {
-                if (!this.DestroyItemOnClick)
-                    return;
-                this.HeldItem = (Item)null;
             }
         }
 
         public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)
         {
             ItemMenu.Open();
-            /*if (this.SnappedtoBottom)
-                this.MovePosition((newBounds.Width - oldBounds.Width) / 2, Game1.viewport.Height - (this.yPositionOnScreen + this.height - IClickableMenu.spaceToClearTopBorder));
-            if (this.ItemsToGrabMenu != null)
-                this.ItemsToGrabMenu.gameWindowSizeChanged(oldBounds, newBounds);*/
         }
 
         public override void receiveLeftClick(int x, int y, bool playSound = true)
         {
-            base.receiveLeftClick(x, y, !this.DestroyItemOnClick);
+            base.receiveLeftClick(x, y, playSound);
 
             if (this.HeldItem == null)
             {
-                for (int i = 0; i < this.Tabs.Count(); i++)
+                for (int i = 0; i < this.Tabs.Count; i++)
                 {
-                    ClickableComponent t = this.Tabs[i];
-                    int w = (int)Game1.smallFont.MeasureString(t.name).Y;
-                    if (t.bounds.Contains(x, y))
+                    ClickableComponent tab = this.Tabs[i];
+                    if (tab.bounds.Contains(x, y))
                     {
                         ItemMenu.TabIndex = i;
                         Game1.exitActiveMenu();
@@ -467,16 +413,10 @@ namespace CJBItemSpawner
                 }
 
                 if (this.UpArrow.bounds.Contains(x, y))
-                {
-                    if (this.ItemsToGrabMenu != null)
-                        this.ItemsToGrabMenu.receiveScrollWheelAction(1);
-                }
+                    this.ItemsToGrabMenu?.receiveScrollWheelAction(1);
 
                 if (this.DownArrow.bounds.Contains(x, y))
-                {
-                    if (this.ItemsToGrabMenu != null)
-                        this.ItemsToGrabMenu.receiveScrollWheelAction(-1);
-                }
+                    this.ItemsToGrabMenu?.receiveScrollWheelAction(-1);
             }
 
             if (this.HeldItem == null && this.ShowReceivingMenu)
@@ -486,14 +426,14 @@ namespace CJBItemSpawner
                 {
                     this.HeldItem = null;
                     Game1.player.canUnderstandDwarves = true;
-                    this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2((float)(x - x % Game1.tileSize + Game1.tileSize / 4), (float)(y - y % Game1.tileSize + Game1.tileSize / 4)), false, false);
+                    this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                     Game1.playSound("fireball");
                 }
-                else if (this.HeldItem is Object && (this.HeldItem as StardewValley.Object).parentSheetIndex == 102)
+                else if (this.HeldItem is Object && (this.HeldItem as Object).parentSheetIndex == 102)
                 {
-                    this.HeldItem = (Item)null;
+                    this.HeldItem = null;
                     Game1.player.foundArtifact(102, 1);
-                    this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2((float)(x - x % Game1.tileSize + Game1.tileSize / 4), (float)(y - y % Game1.tileSize + Game1.tileSize / 4)), false, false);
+                    this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                     Game1.playSound("fireball");
                 }
                 else if (this.HeldItem is Object recipe && recipe.isRecipe)
@@ -505,33 +445,23 @@ namespace CJBItemSpawner
                             Game1.player.cookingRecipes.Add(key, 0);
                         else
                             Game1.player.craftingRecipes.Add(key, 0);
-                        this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2((float)(x - x % Game1.tileSize + Game1.tileSize / 4), (float)(y - y % Game1.tileSize + Game1.tileSize / 4)), false, false);
+                        this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                         Game1.playSound("newRecipe");
                     }
-                    catch (Exception ex)
-                    {
-                    }
-                    this.HeldItem = (Item)null;
+                    catch { }
+                    this.HeldItem = null;
                 }
-                else if (Game1.player.addItemToInventoryBool(this.HeldItem, false))
+                else if (Game1.player.addItemToInventoryBool(this.HeldItem))
                 {
-                    this.HeldItem = (Item)null;
+                    this.HeldItem = null;
                     Game1.playSound("coin");
-                }
-            }
-            else if (this.ReverseGrab)
-            {
-                if (this.DestroyItemOnClick)
-                {
-                    this.HeldItem = (Item)null;
-                    return;
                 }
             }
             if (this.HeldItem == null || this.isWithinBounds(x, y) || !this.HeldItem.canBeTrashed())
                 return;
             Game1.playSound("throwDownITem");
             Game1.createItemDebris(this.HeldItem, Game1.player.getStandingPosition(), Game1.player.FacingDirection);
-            this.HeldItem = (Item)null;
+            this.HeldItem = null;
 
         }
 
@@ -543,24 +473,17 @@ namespace CJBItemSpawner
 
         public bool AreAllItemsTaken()
         {
-            for (int index = 0; index < Enumerable.Count<Item>((IEnumerable<Item>)this.ItemsToGrabMenu.ActualInventory); ++index)
-            {
-                if (this.ItemsToGrabMenu.ActualInventory[index] != null)
-                    return false;
-            }
-            return true;
+            return this.ItemsToGrabMenu.ActualInventory.All(t => t == null);
         }
 
         public override void receiveKeyPress(Keys key)
         {
             if (this.Textbox.Selected)
-            {
                 return;
-            }
 
             if ((this.CanExitOnKey || this.AreAllItemsTaken()) && (Game1.options.doesInputListContain(Game1.options.menuButton, key) && this.readyToClose()))
             {
-                this.exitThisMenu(true);
+                this.exitThisMenu();
                 if (Game1.currentLocation.currentEvent != null)
                     ++Game1.currentLocation.currentEvent.CurrentCommand;
             }
@@ -583,31 +506,20 @@ namespace CJBItemSpawner
                 this.LoadInventory();
             }
 
-            //this.Textbox.Update();
             base.update(time);
             if (this.Poof == null || !this.Poof.update(time))
                 return;
-            this.Poof = (TemporaryAnimatedSprite)null;
+            this.Poof = null;
         }
 
         public override void performHoverAction(int x, int y)
         {
             if (this.ItemsToGrabMenu.isWithinBounds(x, y) && this.ShowReceivingMenu)
-            {
                 this.HoveredItem = this.ItemsToGrabMenu.Hover(x, y, this.HeldItem);
-            }
             else
                 base.performHoverAction(x, y);
 
-            if (this.TextboxBounds.Contains(x, y))
-            {
-                this.Textbox.Selected = true;
-            }
-            else
-            {
-                this.Textbox.Selected = false;
-            }
-
+            this.Textbox.Selected = this.TextboxBounds.Contains(x, y);
         }
 
         public override void receiveScrollWheelAction(int direction)
@@ -624,51 +536,44 @@ namespace CJBItemSpawner
                         ? (int)((ItemQuality)obj.quality).GetNext()
                         : (int)((ItemQuality)obj.quality).GetPrevious();
                 }
-                catch (Exception) { }
-
-                return;
+                catch { }
             }
-
-            if (this.ItemsToGrabMenu != null)
-                this.ItemsToGrabMenu.receiveScrollWheelAction(direction);
+            else
+                this.ItemsToGrabMenu?.receiveScrollWheelAction(direction);
         }
 
         public override void draw(SpriteBatch spriteBatch)
         {
             if (!Game1.options.showMenuBackground)
-            {
                 spriteBatch.Draw(Game1.fadeToBlackRect, Game1.graphics.GraphicsDevice.Viewport.Bounds, Color.Black * 0.8f);
-            }
             this.Textbox.Draw(spriteBatch);
             this.Draw(spriteBatch, false, false);
             if (this.ShowReceivingMenu)
             {
-                CJB.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.borderFont, this.Title.name, true, 2, 1.0f);
-                Game1.drawDialogueBox(this.ItemsToGrabMenu.xPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearSideBorder, this.ItemsToGrabMenu.yPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearTopBorder, this.ItemsToGrabMenu.width + IClickableMenu.borderWidth * 2 + IClickableMenu.spaceToClearSideBorder * 2, this.ItemsToGrabMenu.height + IClickableMenu.spaceToClearTopBorder + IClickableMenu.borderWidth * 2, false, true, (string)null, false);
+                CJB.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.borderFont, this.Title.name, true, 2);
+                Game1.drawDialogueBox(this.ItemsToGrabMenu.xPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearSideBorder, this.ItemsToGrabMenu.yPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearTopBorder, this.ItemsToGrabMenu.width + IClickableMenu.borderWidth * 2 + IClickableMenu.spaceToClearSideBorder * 2, this.ItemsToGrabMenu.height + IClickableMenu.spaceToClearTopBorder + IClickableMenu.borderWidth * 2, false, true);
                 this.ItemsToGrabMenu.draw(spriteBatch);
-                for (int i = 0; i < this.Tabs.Count(); i++)
+                for (int i = 0; i < this.Tabs.Count; i++)
                 {
                     ClickableComponent current = this.Tabs[i];
                     CJB.DrawTextBox(current.bounds.X + current.bounds.Width, current.bounds.Y, Game1.smallFont, current.name, true, 2, ItemMenu.TabIndex == i ? 1F : 0.7F);
                 }
 
-                CJB.DrawTextBox(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name, true, 0, 1F);
-                CJB.DrawTextBox(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, Game1.smallFont, this.QualityButton.name, true, 0, 1F);
+                CJB.DrawTextBox(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name, true);
+                CJB.DrawTextBox(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, Game1.smallFont, this.QualityButton.name, true);
 
                 this.UpArrow.draw(spriteBatch);
                 this.DownArrow.draw(spriteBatch);
             }
 
-            if (this.Poof != null)
-                this.Poof.draw(spriteBatch, true, 0, 0);
-            if (this.HoverText != null && (this.HoveredItem == null || this.HoveredItem == null || this.ItemsToGrabMenu == null))
-                IClickableMenu.drawHoverText(spriteBatch, this.HoverText, Game1.smallFont, 0, 0, -1, (string)null, -1, (string[])null, (Item)null, 0, -1, -1, -1, -1, 1f, (CraftingRecipe)null);
+            this.Poof?.draw(spriteBatch, true);
+            if (this.HoverText != null && (this.HoveredItem == null || this.ItemsToGrabMenu == null))
+                IClickableMenu.drawHoverText(spriteBatch, this.HoverText, Game1.smallFont);
             if (this.HoveredItem != null)
-                IClickableMenu.drawToolTip(spriteBatch, this.HoveredItem.getDescription(), this.HoveredItem.Name, this.HoveredItem, this.HeldItem != null, -1, 0, -1, -1, (CraftingRecipe)null, -1);
+                IClickableMenu.drawToolTip(spriteBatch, this.HoveredItem.getDescription(), this.HoveredItem.Name, this.HoveredItem, this.HeldItem != null);
             else if (this.HoveredItem != null && this.ItemsToGrabMenu != null)
-                IClickableMenu.drawToolTip(spriteBatch, this.ItemsToGrabMenu.DescriptionText, this.ItemsToGrabMenu.DescriptionTitle, this.HoveredItem, this.HeldItem != null, -1, 0, -1, -1, (CraftingRecipe)null, -1);
-            if (this.HeldItem != null)
-                this.HeldItem.drawInMenu(spriteBatch, new Vector2((float)(Game1.getOldMouseX() + 8), (float)(Game1.getOldMouseY() + 8)), 1f);
+                IClickableMenu.drawToolTip(spriteBatch, this.ItemsToGrabMenu.DescriptionText, this.ItemsToGrabMenu.DescriptionTitle, this.HoveredItem, this.HeldItem != null);
+            this.HeldItem?.drawInMenu(spriteBatch, new Vector2(Game1.getOldMouseX() + 8, Game1.getOldMouseY() + 8), 1f);
 
             if (this.HoveredItem is Object obj)
             {
@@ -685,7 +590,7 @@ namespace CJBItemSpawner
                     this.DrawHoverTextBox(spriteBatch, Game1.smallFont, this.HoveredItem.salePrice());
             }
             if (!Game1.options.hardwareCursor)
-                spriteBatch.Draw(Game1.mouseCursors, new Vector2((float)Game1.getOldMouseX(), (float)Game1.getOldMouseY()), new Rectangle?(Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 0, 16, 16)), Color.White, 0.0f, Vector2.Zero, (float)Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
+                spriteBatch.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 0, 16, 16), Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
         }
 
         public static void Open()
@@ -698,23 +603,18 @@ namespace CJBItemSpawner
             if (price < 1)
                 return;
 
-            string p = price.ToString();
-            string ps = Environment.NewLine + (price * stack).ToString();
+            string priceString = price.ToString();
+            string stackPriceString = Environment.NewLine + (price * stack);
 
-            string s1 = "Single: " + price;
-            string s2 = "Stack: " + price * stack;
-
-            string message = "" + s1;
-
+            string message = "Single: " + price;
             string message1 = "Single: ";
 
             if (stack > 1)
             {
-                message += Environment.NewLine + s2;
+                message += Environment.NewLine + "Stack: " + price * stack;
                 message1 += Environment.NewLine + "Stack: ";
             }
 
-            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
             Vector2 bounds = font.MeasureString(message);
             int width = (int)bounds.X + Game1.tileSize / 2 + 40;
             int height = (int)font.MeasureString(message).Y + Game1.tileSize / 3 + 5;
@@ -722,23 +622,18 @@ namespace CJBItemSpawner
             int y = Game1.getOldMouseY() + Game1.tileSize / 2;
 
             if (x < 0)
-            {
                 x = 0;
-            }
             if (y + height > Game1.graphics.GraphicsDevice.Viewport.Height)
-            {
                 y = Game1.graphics.GraphicsDevice.Viewport.Height - height;
-            }
-            IClickableMenu.drawTextureBox(spriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), x, y, width, height, Color.White, 1f, true);
-            spriteBatch.Draw(Game1.debrisSpriteSheet, new Vector2((float)(x + Game1.tileSize / 4) + font.MeasureString(message + "   ").X, (float)(y + Game1.tileSize / 4 + 10)), new Rectangle?(Game1.getSourceRectForStandardTileSheet(Game1.debrisSpriteSheet, 8, 16, 16)), Color.White, 0.0f, new Vector2(8f, 8f), (float)Game1.pixelZoom, SpriteEffects.None, 1f);
+            IClickableMenu.drawTextureBox(spriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), x, y, width, height, Color.White);
+            spriteBatch.Draw(Game1.debrisSpriteSheet, new Vector2(x + Game1.tileSize / 4 + font.MeasureString(message + "   ").X, y + Game1.tileSize / 4 + 10), Game1.getSourceRectForStandardTileSheet(Game1.debrisSpriteSheet, 8, 16, 16), Color.White, 0.0f, new Vector2(8f, 8f), Game1.pixelZoom, SpriteEffects.None, 1f);
             if (stack > 1)
-                spriteBatch.Draw(Game1.debrisSpriteSheet, new Vector2((float)(x + Game1.tileSize / 4) + font.MeasureString(message + "   ").X, (float)(y + Game1.tileSize / 4 + 38)), new Rectangle?(Game1.getSourceRectForStandardTileSheet(Game1.debrisSpriteSheet, 8, 16, 16)), Color.White, 0.0f, new Vector2(8f, 8f), (float)Game1.pixelZoom, SpriteEffects.None, 0.95f);
-            Utility.drawTextWithShadow(spriteBatch, message1, font, new Vector2((float)(x + Game1.tileSize / 4), (float)(y + Game1.tileSize / 4)), Game1.textColor, 1f, -1f, -1, -1, 1F, 3);
+                spriteBatch.Draw(Game1.debrisSpriteSheet, new Vector2(x + Game1.tileSize / 4 + font.MeasureString(message + "   ").X, y + Game1.tileSize / 4 + 38), Game1.getSourceRectForStandardTileSheet(Game1.debrisSpriteSheet, 8, 16, 16), Color.White, 0.0f, new Vector2(8f, 8f), Game1.pixelZoom, SpriteEffects.None, 0.95f);
+            Utility.drawTextWithShadow(spriteBatch, message1, font, new Vector2(x + Game1.tileSize / 4, y + Game1.tileSize / 4), Game1.textColor);
 
-            Utility.drawTextWithShadow(spriteBatch, p, font, new Vector2((float)(x + width + Game1.tileSize / 4 - 60 - font.MeasureString(p).X), (float)(y + Game1.tileSize / 4)), Game1.textColor, 1f, -1f, -1, -1, 1F, 3);
+            Utility.drawTextWithShadow(spriteBatch, priceString, font, new Vector2(x + width + Game1.tileSize / 4 - 60 - font.MeasureString(priceString).X, y + Game1.tileSize / 4), Game1.textColor);
             if (stack > 1)
-                Utility.drawTextWithShadow(spriteBatch, ps, font, new Vector2((float)(x + width + Game1.tileSize / 4 - 60 - font.MeasureString(ps).X), (float)(y + Game1.tileSize / 4)), Game1.textColor, 1f, -1f, -1, -1, 1F, 3);
-            //spriteBatch.End();
+                Utility.drawTextWithShadow(spriteBatch, stackPriceString, font, new Vector2(x + width + Game1.tileSize / 4 - 60 - font.MeasureString(stackPriceString).X, y + Game1.tileSize / 4), Game1.textColor);
         }
     }
 }

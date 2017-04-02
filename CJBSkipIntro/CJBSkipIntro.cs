@@ -11,7 +11,7 @@ namespace CJBSkipIntro
         /*********
         ** Properties
         *********/
-        private bool LoadMenu = false;
+        private bool LoadMenu;
 
 
         /*********

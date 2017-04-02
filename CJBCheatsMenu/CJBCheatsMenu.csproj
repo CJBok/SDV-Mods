@@ -53,7 +53,6 @@
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FodyWeavers.xml" />
     <Content Include="screenshot.gif" />
   </ItemGroup>
   <ItemGroup>

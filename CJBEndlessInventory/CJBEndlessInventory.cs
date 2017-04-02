@@ -11,15 +11,14 @@ namespace CJBEndlessInventory
         /*********
         ** Properties
         *********/
-        private string storageFilePath => $"data/{Constants.SaveFolderName}/inventory.json";
-
+        private string StorageFilePath => $"data/{Constants.SaveFolderName}/inventory.json";
+        private static bool NewDay;
 
         /*********
         ** Accessors
         *********/
         internal static StorageItems StorageItems { get; set; }
         internal static ModSettings Settings { get; set; }
-        internal static bool NewDay = false;
 
 
         /*********
@@ -46,13 +45,13 @@ namespace CJBEndlessInventory
             {
                 CJBEndlessInventory.NewDay = Game1.newDay;
                 if (CJBEndlessInventory.NewDay == false)
-                    this.Helper.WriteJsonFile(this.storageFilePath, CJBEndlessInventory.StorageItems);
+                    this.Helper.WriteJsonFile(this.StorageFilePath, CJBEndlessInventory.StorageItems);
             }
         }
 
         private void ControlEvents_KeyPressed(object sender, EventArgsKeyPressed e)
         {
-            if (e.KeyPressed.ToString().Equals(CJBEndlessInventory.Settings.MenuButton.ToString()))
+            if (e.KeyPressed.ToString().Equals(CJBEndlessInventory.Settings.MenuButton))
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null && Game1.player.CanMove && !Game1.dialogueUp && !Game1.eventUp)
                 {
@@ -64,8 +63,8 @@ namespace CJBEndlessInventory
         private void PlayerEvents_LoadedGame(object sender, EventArgsLoadedGameChanged e)
         {
             CJBEndlessInventory.StorageItems = new StorageItems();
-            if (File.Exists(this.storageFilePath))
-                CJBEndlessInventory.StorageItems = this.Helper.ReadJsonFile<StorageItems>(this.storageFilePath);
+            if (File.Exists(this.StorageFilePath))
+                CJBEndlessInventory.StorageItems = this.Helper.ReadJsonFile<StorageItems>(this.StorageFilePath);
         }
     }
 }
