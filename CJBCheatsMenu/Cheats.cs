@@ -417,7 +417,7 @@ namespace CJBCheatsMenu
             if (key.ToString() == CJBCheatsMenu.Config.OpenMenuKey)
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
-                    CheatsMenu.Open();
+                    CheatsMenu.Open(0);
             }
 
             else if (key.ToString() == CJBCheatsMenu.Config.FreezeTimeKey)

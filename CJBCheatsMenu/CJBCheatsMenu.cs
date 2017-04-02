@@ -60,7 +60,7 @@ namespace CJBCheatsMenu
             if (e.ButtonPressed.ToString() == CJBCheatsMenu.Config.OpenMenuKey)
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null && Game1.player.CanMove && !Game1.dialogueUp && !Game1.eventUp)
-                    CheatsMenu.Open();
+                    CheatsMenu.Open(0);
                 return;
             }
 

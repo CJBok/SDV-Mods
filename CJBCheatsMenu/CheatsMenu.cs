@@ -36,10 +36,11 @@ namespace CJBCheatsMenu
         /*********
         ** Public methods
         *********/
-        public CheatsMenu(int x, int y, int width, int height)
+        public CheatsMenu(int x, int y, int width, int height, int tabIndex)
           : base(x, y, width, height)
         {
             this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + width / 2, this.yPositionOnScreen, Game1.tileSize * 4, Game1.tileSize), "CJB Cheats Menu");
+            this.TabIndex = tabIndex;
 
             {
                 int i = 0;
@@ -266,7 +267,7 @@ namespace CJBCheatsMenu
                 if (key == Buttons.RightShoulder) this.TabIndex++;
                 if (this.TabIndex > 7) this.TabIndex = 0;
                 if (this.TabIndex < 0) this.TabIndex = 7;
-                CheatsMenu.Open();
+                CheatsMenu.Open(this.TabIndex);
             }
         }
 
@@ -337,7 +338,7 @@ namespace CJBCheatsMenu
                     this.TabIndex = i;
                     Game1.exitActiveMenu();
                     this.CurrentItemIndex = 0;
-                    CheatsMenu.Open();
+                    CheatsMenu.Open(this.TabIndex);
                     break;
                 }
             }
@@ -395,9 +396,9 @@ namespace CJBCheatsMenu
                 spriteBatch.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, Game1.options.gamepadControls ? 44 : 0, 16, 16), Color.White, 0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
         }
 
-        public static void Open()
+        public static void Open(int tabIndex)
         {
-            Game1.activeClickableMenu = new CheatsMenu(Game1.viewport.Width / 2 - (600 + IClickableMenu.borderWidth * 2) / 2, Game1.viewport.Height / 2 - (600 + IClickableMenu.borderWidth * 2) / 2, 800 + IClickableMenu.borderWidth * 2, 600 + IClickableMenu.borderWidth * 2);
+            Game1.activeClickableMenu = new CheatsMenu(Game1.viewport.Width / 2 - (600 + IClickableMenu.borderWidth * 2) / 2, Game1.viewport.Height / 2 - (600 + IClickableMenu.borderWidth * 2) / 2, 800 + IClickableMenu.borderWidth * 2, 600 + IClickableMenu.borderWidth * 2, tabIndex);
         }
 
 
