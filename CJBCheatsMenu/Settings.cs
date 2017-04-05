@@ -1,57 +1,61 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace CJBCheatsMenu {
-    public class Settings {
-        
-        public string openMenuKey { get; set; } = Keys.P.ToString();
-        public string freezeTimeKey { get; set; } = Keys.T.ToString();
-        public string growTreeKey { get; set; } = Keys.NumPad1.ToString();
-        public string growCropsKey { get; set; } = Keys.NumPad2.ToString();
+namespace CJBCheatsMenu
+{
+    internal class Settings
+    {
+        /*********
+        ** Accessors
+        *********/
+        public string OpenMenuKey { get; set; } = Keys.P.ToString();
+        public string FreezeTimeKey { get; set; } = Keys.T.ToString();
+        public string GrowTreeKey { get; set; } = Keys.NumPad1.ToString();
+        public string GrowCropsKey { get; set; } = Keys.NumPad2.ToString();
 
-        public bool increasedMovement { get; set; }
-        public bool infiniteHealth { get; set; }
-        public bool infiniteStamina { get; set; }
-        public bool instantCatch { get; set; }
-        public bool oneHitKill { get; set; }
-        public bool infiniteWateringCan { get; set; }
-        public bool throwBobberMax { get; set; }
-        public bool maxDailyLuck { get; set; }
-        public bool alwaysGiveGift { get; set; }
-        public bool noFriendshipDecay { get; set; }
-        public bool freezeTime { get; set; }
-        public bool freezeTimeInside { get; set; }
-        public bool freezeTimeCaves { get; set; }
-        public bool alwaysTreasure { get; set; }
-        public bool durableFences { get; set; }
-        public bool oneHitBreak { get; set; }
-        public bool instantBite { get; set; }
-        public bool instantBuild { get; set; }
-        public bool autoFeed { get; set; }
-        public bool infiniteHay { get; set; }
-        public bool durableTackles { get; set; }
-        public bool harvestSickle { get; set; }
+        public bool IncreasedMovement { get; set; }
+        public bool InfiniteHealth { get; set; }
+        public bool InfiniteStamina { get; set; }
+        public bool InstantCatch { get; set; }
+        public bool OneHitKill { get; set; }
+        public bool InfiniteWateringCan { get; set; }
+        public bool ThrowBobberMax { get; set; }
+        public bool MaxDailyLuck { get; set; }
+        public bool AlwaysGiveGift { get; set; }
+        public bool NoFriendshipDecay { get; set; }
+        public bool FreezeTime { get; set; }
+        public bool FreezeTimeInside { get; set; }
+        public bool FreezeTimeCaves { get; set; }
+        public bool AlwaysTreasure { get; set; }
+        public bool DurableFences { get; set; }
+        public bool OneHitBreak { get; set; }
+        public bool InstantBite { get; set; }
+        public bool InstantBuild { get; set; }
+        public bool AutoFeed { get; set; }
+        public bool InfiniteHay { get; set; }
+        public bool DurableTackles { get; set; }
+        public bool HarvestSickle { get; set; }
 
-        public bool fastCask { get; set; }
-        public bool fastFurnace { get; set; }
-        public bool fastRecyclingMachine { get; set; }
-        public bool fastCrystalarium { get; set; }
-        public bool fastIncubator { get; set; }
-        public bool fastSlimeIncubator  { get; set; }
-        public bool fastKeg { get; set; }
-        public bool fastPreservesJar { get; set; }
-        public bool fastCheesePress { get; set; }
-        public bool fastMayonnaiseMachine  { get; set; }
-        public bool fastLoom { get; set; }
-        public bool fastOilMaker { get; set; }
-        public bool fastSeedMaker { get; set; }
-        public bool fastCharcoalKiln { get; set; }
-        public bool fastSlimeEggPress { get; set; }
-        public bool fastBeeHouse { get; set; }
-        public bool fastMushroomBox { get; set; }
-        public bool fastTapper { get; set; }
-        public bool fastLightningRod { get; set; }
-        public bool fastWormBin { get; set; }
+        public bool FastCask { get; set; }
+        public bool FastFurnace { get; set; }
+        public bool FastRecyclingMachine { get; set; }
+        public bool FastCrystalarium { get; set; }
+        public bool FastIncubator { get; set; }
+        public bool FastSlimeIncubator { get; set; }
+        public bool FastKeg { get; set; }
+        public bool FastPreservesJar { get; set; }
+        public bool FastCheesePress { get; set; }
+        public bool FastMayonnaiseMachine { get; set; }
+        public bool FastLoom { get; set; }
+        public bool FastOilMaker { get; set; }
+        public bool FastSeedMaker { get; set; }
+        public bool FastCharcoalKiln { get; set; }
+        public bool FastSlimeEggPress { get; set; }
+        public bool FastBeeHouse { get; set; }
+        public bool FastMushroomBox { get; set; }
+        public bool FastTapper { get; set; }
+        public bool FastLightningRod { get; set; }
+        public bool FastWormBin { get; set; }
 
-        public int moveSpeed { get; set; } = 1;
+        public int MoveSpeed { get; set; } = 1;
     }
 }

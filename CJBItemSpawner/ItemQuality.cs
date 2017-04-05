@@ -1,22 +1,23 @@
 ﻿using System;
-using System.Linq;
-using StardewModdingAPI;
-using Object = StardewValley.Object;
+using SObject = StardewValley.Object;
 
 namespace CJBItemSpawner
 {
     /// <summary>Indicates an item quality. (Higher-quality items are sold at a higher price.)</summary>
     internal enum ItemQuality
     {
-        Normal = Object.lowQuality,
-        Silver = Object.medQuality,
-        Gold = Object.highQuality,
-        Iridium = Object.bestQuality
+        Normal = SObject.lowQuality,
+        Silver = SObject.medQuality,
+        Gold = SObject.highQuality,
+        Iridium = SObject.bestQuality
     }
 
     /// <summary>Extension methods for <see cref="ItemQuality"/>.</summary>
     internal static class ItemQualityExtensions
     {
+        /*********
+        ** Public methods
+        *********/
         /// <summary>Get the quality name.</summary>
         /// <param name="current">The quality.</param>
         public static string GetName(this ItemQuality current)

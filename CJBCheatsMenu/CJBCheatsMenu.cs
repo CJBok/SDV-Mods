@@ -1,99 +1,159 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using StardewModdingAPI;
-using StardewValley;
-using StardewValley.Menus;
-using System.Reflection;
 using StardewModdingAPI.Events;
+using StardewValley;
+using StardewValley.Buildings;
+using StardewValley.Locations;
+using StardewValley.Menus;
 
 namespace CJBCheatsMenu
 {
-    public class CJBCheatsMenu : Mod {
+    public class CJBCheatsMenu : Mod
+    {
+        /*********
+        ** Properties
+        *********/
+        private static IModHelper Helper;
+        private static GameLocation[] Locations;
+        private static bool IsLoaded => Game1.hasLoadedGame && CJBCheatsMenu.Locations != null;
 
-        private static IModHelper helper;
-        public static Settings config;
+
+        /*********
+        ** Accessors
+        *********/
+        internal static Settings Config;
 
 
+        /*********
+        ** Public methods
+        *********/
         /// <summary>The mod entry point, called after the mod is first loaded.</summary>
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
-        public override void Entry(IModHelper helper) {
-            CJBCheatsMenu.helper = helper;
-            CJBCheatsMenu.config = helper.ReadConfig<Settings>();
+        public override void Entry(IModHelper helper)
+        {
+            CJBCheatsMenu.Helper = helper;
+            CJBCheatsMenu.Config = helper.ReadConfig<Settings>();
 
-            GameEvents.UpdateTick += Events_UpdateTick;
-            GameEvents.OneSecondTick += GameEvents_OneSecondTick;
-            TimeEvents.TimeOfDayChanged += TimeEvents_TimeOfDayChanged;
-            ControlEvents.KeyPressed += Events_KeyPressed;
-            ControlEvents.ControllerButtonPressed += ControlEvents_ControllerButtonPressed;
-            GraphicsEvents.OnPostRenderEvent += GraphicsEvents_DrawTick;
-            TimeEvents.DayOfMonthChanged += TimeEvents_DayOfMonthChanged;
+            SaveEvents.AfterLoad += this.SaveEvents_AfterLoad;
+            LocationEvents.LocationsChanged += this.LocationEvents_LocationsChanged;
+
+            GameEvents.UpdateTick += this.Events_UpdateTick;
+            GameEvents.OneSecondTick += this.GameEvents_OneSecondTick;
+            TimeEvents.TimeOfDayChanged += this.TimeEvents_TimeOfDayChanged;
+
+            ControlEvents.KeyPressed += this.Events_KeyPressed;
+            ControlEvents.ControllerButtonPressed += this.ControlEvents_ControllerButtonPressed;
+
+            GraphicsEvents.OnPostRenderEvent += this.GraphicsEvents_DrawTick;
         }
 
-        /// <summary>Update the mod's config.json file from the current <see cref="config"/>.</summary>
-        internal static void SaveConfig() {
-            CJBCheatsMenu.helper.WriteConfig(CJBCheatsMenu.config);
+        /// <summary>Update the mod's config.json file from the current <see cref="Config"/>.</summary>
+        internal static void SaveConfig()
+        {
+            CJBCheatsMenu.Helper.WriteConfig(CJBCheatsMenu.Config);
+            Cheats.OnOptionsChanged();
         }
 
-        private void GameEvents_OneSecondTick(object sender, EventArgs e) {
-            if (Game1.hasLoadedGame) {
-                Cheats.OneSecondUpdate();
-            }
-        }
+        /// <summary>Get all game locations.</summary>
+        internal static IEnumerable<GameLocation> GetAllLocations()
+        {
+            foreach (GameLocation location in Game1.locations)
+            {
+                // current location
+                yield return location;
 
-        private void ControlEvents_ControllerButtonPressed(object sender, EventArgsControllerButtonPressed e) {
-            if (e.ButtonPressed.ToString().Equals(CJBCheatsMenu.config.openMenuKey)) {
-                if (Game1.hasLoadedGame && Game1.activeClickableMenu == null && Game1.player.CanMove && !Game1.dialogueUp && !Game1.eventUp) {
-                    CheatsMenu.Open();
-                }
-                return;
-            }
-
-            if (e.ButtonPressed.ToString().Equals(CJBCheatsMenu.config.freezeTimeKey)) {
-                if (Game1.hasLoadedGame && Game1.activeClickableMenu == null) {
-                    CJBCheatsMenu.config.freezeTime = !CJBCheatsMenu.config.freezeTime;
-                }
-                return;
-            }
-
-            if (Game1.activeClickableMenu is GameMenu) {
-                GameMenu menu = (GameMenu)Game1.activeClickableMenu;
-                List<IClickableMenu> pages = (List<IClickableMenu>)typeof(GameMenu).GetField("pages", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(menu);
-
-                if (pages[menu.currentTab] is CheatsMenu) {
-                    pages[menu.currentTab].receiveGamePadButton(e.ButtonPressed);
+                // buildings
+                if (location is BuildableGameLocation buildableLocation)
+                {
+                    foreach (Building building in buildableLocation.buildings)
+                    {
+                        if (building.indoors != null)
+                            yield return building.indoors;
+                    }
                 }
             }
         }
 
-        private void Events_KeyPressed(object sender, EventArgsKeyPressed e) {
-            Cheats.onKeyPress(e.KeyPressed);
+        /*********
+        ** Private methods
+        *********/
+        private void SaveEvents_AfterLoad(object sender, EventArgs eventArgs)
+        {
+            CJBCheatsMenu.Locations = CJBCheatsMenu.GetAllLocations().ToArray();
         }
 
-        private void TimeEvents_DayOfMonthChanged(object sender, EventArgsIntChanged e) {
-            if (!Game1.hasLoadedGame)
-                return;
-
-            Cheats.onDayOfMonthChanged();
+        private void LocationEvents_LocationsChanged(object sender, EventArgsGameLocationsChanged e)
+        {
+            CJBCheatsMenu.Locations = CJBCheatsMenu.GetAllLocations().ToArray();
         }
 
-        private void GraphicsEvents_DrawTick(object sender, EventArgs e) {
-            if (!Game1.hasLoadedGame)
+        private void GameEvents_OneSecondTick(object sender, EventArgs e)
+        {
+            if (!CJBCheatsMenu.IsLoaded)
                 return;
 
-            Cheats.onDrawTick();
+            Cheats.OneSecondUpdate(CJBCheatsMenu.Locations);
         }
 
-        private void TimeEvents_TimeOfDayChanged(object sender, EventArgsIntChanged e) {
-            if (!Game1.hasLoadedGame)
+        private void ControlEvents_ControllerButtonPressed(object sender, EventArgsControllerButtonPressed e)
+        {
+            if (!CJBCheatsMenu.IsLoaded)
                 return;
 
-            Cheats.onTimeOfDayChanged();
+            if (e.ButtonPressed.ToString() == CJBCheatsMenu.Config.OpenMenuKey)
+            {
+                if (Game1.activeClickableMenu == null && Game1.player.CanMove && !Game1.dialogueUp && !Game1.eventUp)
+                    CheatsMenu.Open(0);
+                return;
+            }
+
+            if (e.ButtonPressed.ToString() == CJBCheatsMenu.Config.FreezeTimeKey)
+            {
+                if (Game1.activeClickableMenu == null)
+                    CJBCheatsMenu.Config.FreezeTime = !CJBCheatsMenu.Config.FreezeTime;
+                return;
+            }
+
+            if (Game1.activeClickableMenu is GameMenu menu)
+            {
+                IClickableMenu page = CJBCheatsMenu.Helper.Reflection.GetPrivateValue<List<IClickableMenu>>(menu, "pages")[menu.currentTab];
+                if (page is CheatsMenu)
+                    page.receiveGamePadButton(e.ButtonPressed);
+            }
         }
 
-        private void Events_UpdateTick(object sender, EventArgs e) {
-            if (!Game1.hasLoadedGame)
+        private void Events_KeyPressed(object sender, EventArgsKeyPressed e)
+        {
+            if (!CJBCheatsMenu.IsLoaded)
                 return;
-            Cheats.onUpdate();
+
+            Cheats.OnKeyPress(e.KeyPressed);
+        }
+
+        private void GraphicsEvents_DrawTick(object sender, EventArgs e)
+        {
+            if (!CJBCheatsMenu.IsLoaded)
+                return;
+
+            Cheats.OnDrawTick();
+        }
+
+        private void TimeEvents_TimeOfDayChanged(object sender, EventArgsIntChanged e)
+        {
+            if (!CJBCheatsMenu.IsLoaded)
+                return;
+
+            Cheats.OnTimeOfDayChanged();
+        }
+
+        private void Events_UpdateTick(object sender, EventArgs e)
+        {
+            if (!CJBCheatsMenu.IsLoaded)
+                return;
+
+            Cheats.OnUpdate(CJBCheatsMenu.Helper);
         }
     }
 }

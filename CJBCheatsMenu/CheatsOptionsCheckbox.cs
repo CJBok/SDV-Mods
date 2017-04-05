@@ -3,290 +3,299 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
 
-namespace CJBCheatsMenu {
-    public class CheatsOptionsCheckbox : OptionsElement {
-        public static Rectangle sourceRectUnchecked = new Rectangle(227, 425, 9, 9);
-        public static Rectangle sourceRectChecked = new Rectangle(236, 425, 9, 9);
-        public const int pixelsWide = 9;
-        public bool isChecked;
+namespace CJBCheatsMenu
+{
+    internal class CheatsOptionsCheckbox : OptionsElement
+    {
+        /*********
+        ** Properties
+        *********/
+        private bool IsChecked;
 
+
+        /*********
+        ** Public methods
+        *********/
         public CheatsOptionsCheckbox(string label, int whichOption, int x = -1, int y = -1)
-          : base(label, x, y, 9 * Game1.pixelZoom, 9 * Game1.pixelZoom, whichOption) {
-            switch (whichOption) {
+          : base(label, x, y, 9 * Game1.pixelZoom, 9 * Game1.pixelZoom, whichOption)
+        {
+            switch (whichOption)
+            {
                 case 0:
-                    isChecked = CJBCheatsMenu.config.increasedMovement;
+                    this.IsChecked = CJBCheatsMenu.Config.IncreasedMovement;
                     break;
                 case 1:
-                    isChecked = CJBCheatsMenu.config.infiniteStamina;
+                    this.IsChecked = CJBCheatsMenu.Config.InfiniteStamina;
                     break;
                 case 2:
-                    isChecked = CJBCheatsMenu.config.infiniteHealth;
+                    this.IsChecked = CJBCheatsMenu.Config.InfiniteHealth;
                     break;
                 case 3:
-                    isChecked = CJBCheatsMenu.config.infiniteWateringCan;
+                    this.IsChecked = CJBCheatsMenu.Config.InfiniteWateringCan;
                     break;
                 case 4:
-                    isChecked = CJBCheatsMenu.config.instantCatch;
+                    this.IsChecked = CJBCheatsMenu.Config.InstantCatch;
                     break;
                 case 5:
-                    isChecked = CJBCheatsMenu.config.throwBobberMax;
+                    this.IsChecked = CJBCheatsMenu.Config.ThrowBobberMax;
                     break;
                 case 6:
-                    isChecked = CJBCheatsMenu.config.oneHitKill;
+                    this.IsChecked = CJBCheatsMenu.Config.OneHitKill;
                     break;
                 case 7:
-                    isChecked = CJBCheatsMenu.config.maxDailyLuck;
+                    this.IsChecked = CJBCheatsMenu.Config.MaxDailyLuck;
                     break;
                 case 9:
-                    isChecked = CJBCheatsMenu.config.alwaysGiveGift;
+                    this.IsChecked = CJBCheatsMenu.Config.AlwaysGiveGift;
                     break;
                 case 10:
-                    isChecked = CJBCheatsMenu.config.freezeTimeInside;
+                    this.IsChecked = CJBCheatsMenu.Config.FreezeTimeInside;
                     break;
                 case 11:
-                    isChecked = CJBCheatsMenu.config.freezeTime;
+                    this.IsChecked = CJBCheatsMenu.Config.FreezeTime;
                     break;
                 case 12:
-                    isChecked = CJBCheatsMenu.config.freezeTimeCaves;
+                    this.IsChecked = CJBCheatsMenu.Config.FreezeTimeCaves;
                     break;
                 case 13:
-                    isChecked = CJBCheatsMenu.config.durableFences;
+                    this.IsChecked = CJBCheatsMenu.Config.DurableFences;
                     break;
                 case 14:
-                    isChecked = CJBCheatsMenu.config.alwaysTreasure;
+                    this.IsChecked = CJBCheatsMenu.Config.AlwaysTreasure;
                     break;
                 case 15:
-                    isChecked = CJBCheatsMenu.config.oneHitBreak;
+                    this.IsChecked = CJBCheatsMenu.Config.OneHitBreak;
                     break;
                 case 16:
-                    isChecked = CJBCheatsMenu.config.instantBite;
+                    this.IsChecked = CJBCheatsMenu.Config.InstantBite;
                     break;
                 case 17:
-                    isChecked = CJBCheatsMenu.config.noFriendshipDecay;
+                    this.IsChecked = CJBCheatsMenu.Config.NoFriendshipDecay;
                     break;
                 case 18:
-                    isChecked = CJBCheatsMenu.config.instantBuild;
+                    this.IsChecked = CJBCheatsMenu.Config.InstantBuild;
                     break;
                 case 19:
-                    isChecked = CJBCheatsMenu.config.autoFeed;
+                    this.IsChecked = CJBCheatsMenu.Config.AutoFeed;
                     break;
                 case 20:
-                    isChecked = CJBCheatsMenu.config.infiniteHay;
+                    this.IsChecked = CJBCheatsMenu.Config.InfiniteHay;
                     break;
                 case 21:
-                    isChecked = CJBCheatsMenu.config.durableTackles;
+                    this.IsChecked = CJBCheatsMenu.Config.DurableTackles;
                     break;
                 case 22:
-                    isChecked = CJBCheatsMenu.config.harvestSickle;
+                    this.IsChecked = CJBCheatsMenu.Config.HarvestSickle;
                     break;
 
                 case 100:
-                    isChecked = CJBCheatsMenu.config.fastFurnace;
+                    this.IsChecked = CJBCheatsMenu.Config.FastFurnace;
                     break;
                 case 101:
-                    isChecked = CJBCheatsMenu.config.fastRecyclingMachine;
+                    this.IsChecked = CJBCheatsMenu.Config.FastRecyclingMachine;
                     break;
                 case 102:
-                    isChecked = CJBCheatsMenu.config.fastCrystalarium;
+                    this.IsChecked = CJBCheatsMenu.Config.FastCrystalarium;
                     break;
                 case 103:
-                    isChecked = CJBCheatsMenu.config.fastIncubator;
+                    this.IsChecked = CJBCheatsMenu.Config.FastIncubator;
                     break;
                 case 104:
-                    isChecked = CJBCheatsMenu.config.fastSlimeIncubator;
+                    this.IsChecked = CJBCheatsMenu.Config.FastSlimeIncubator;
                     break;
                 case 105:
-                    isChecked = CJBCheatsMenu.config.fastKeg;
+                    this.IsChecked = CJBCheatsMenu.Config.FastKeg;
                     break;
                 case 106:
-                    isChecked = CJBCheatsMenu.config.fastPreservesJar;
+                    this.IsChecked = CJBCheatsMenu.Config.FastPreservesJar;
                     break;
                 case 107:
-                    isChecked = CJBCheatsMenu.config.fastCheesePress;
+                    this.IsChecked = CJBCheatsMenu.Config.FastCheesePress;
                     break;
                 case 108:
-                    isChecked = CJBCheatsMenu.config.fastMayonnaiseMachine;
+                    this.IsChecked = CJBCheatsMenu.Config.FastMayonnaiseMachine;
                     break;
                 case 109:
-                    isChecked = CJBCheatsMenu.config.fastLoom;
+                    this.IsChecked = CJBCheatsMenu.Config.FastLoom;
                     break;
                 case 110:
-                    isChecked = CJBCheatsMenu.config.fastOilMaker;
+                    this.IsChecked = CJBCheatsMenu.Config.FastOilMaker;
                     break;
                 case 111:
-                    isChecked = CJBCheatsMenu.config.fastSeedMaker;
+                    this.IsChecked = CJBCheatsMenu.Config.FastSeedMaker;
                     break;
                 case 112:
-                    isChecked = CJBCheatsMenu.config.fastCharcoalKiln;
+                    this.IsChecked = CJBCheatsMenu.Config.FastCharcoalKiln;
                     break;
                 case 113:
-                    isChecked = CJBCheatsMenu.config.fastSlimeEggPress;
+                    this.IsChecked = CJBCheatsMenu.Config.FastSlimeEggPress;
                     break;
                 case 114:
-                    isChecked = CJBCheatsMenu.config.fastBeeHouse;
+                    this.IsChecked = CJBCheatsMenu.Config.FastBeeHouse;
                     break;
                 case 115:
-                    isChecked = CJBCheatsMenu.config.fastMushroomBox;
+                    this.IsChecked = CJBCheatsMenu.Config.FastMushroomBox;
                     break;
                 case 116:
-                    isChecked = CJBCheatsMenu.config.fastTapper;
+                    this.IsChecked = CJBCheatsMenu.Config.FastTapper;
                     break;
                 case 117:
-                    isChecked = CJBCheatsMenu.config.fastLightningRod;
+                    this.IsChecked = CJBCheatsMenu.Config.FastLightningRod;
                     break;
                 case 118:
-                    isChecked = CJBCheatsMenu.config.fastCask;
+                    this.IsChecked = CJBCheatsMenu.Config.FastCask;
                     break;
                 case 119:
-                    isChecked = CJBCheatsMenu.config.fastWormBin;
+                    this.IsChecked = CJBCheatsMenu.Config.FastWormBin;
                     break;
-
             }
         }
 
-        public override void receiveLeftClick(int x, int y) {
+        public override void receiveLeftClick(int x, int y)
+        {
             if (this.greyedOut)
                 return;
             Game1.soundBank.PlayCue("drumkit6");
             base.receiveLeftClick(x, y);
-            this.isChecked = !this.isChecked;
-            switch (whichOption) {
+            this.IsChecked = !this.IsChecked;
+            switch (whichOption)
+            {
                 case 0:
-                    CJBCheatsMenu.config.increasedMovement = isChecked;
+                    CJBCheatsMenu.Config.IncreasedMovement = this.IsChecked;
                     break;
                 case 1:
-                    CJBCheatsMenu.config.infiniteStamina = isChecked;
+                    CJBCheatsMenu.Config.InfiniteStamina = this.IsChecked;
                     break;
                 case 2:
-                    CJBCheatsMenu.config.infiniteHealth = isChecked;
+                    CJBCheatsMenu.Config.InfiniteHealth = this.IsChecked;
                     break;
                 case 3:
-                    CJBCheatsMenu.config.infiniteWateringCan = isChecked;
+                    CJBCheatsMenu.Config.InfiniteWateringCan = this.IsChecked;
                     break;
                 case 4:
-                    CJBCheatsMenu.config.instantCatch = isChecked;
+                    CJBCheatsMenu.Config.InstantCatch = this.IsChecked;
                     break;
                 case 5:
-                    CJBCheatsMenu.config.throwBobberMax = isChecked;
+                    CJBCheatsMenu.Config.ThrowBobberMax = this.IsChecked;
                     break;
                 case 6:
-                    CJBCheatsMenu.config.oneHitKill = isChecked;
+                    CJBCheatsMenu.Config.OneHitKill = this.IsChecked;
                     break;
                 case 7:
-                    CJBCheatsMenu.config.maxDailyLuck = isChecked;
+                    CJBCheatsMenu.Config.MaxDailyLuck = this.IsChecked;
                     break;
                 case 9:
-                    CJBCheatsMenu.config.alwaysGiveGift = isChecked;
+                    CJBCheatsMenu.Config.AlwaysGiveGift = this.IsChecked;
                     break;
                 case 10:
-                    CJBCheatsMenu.config.freezeTimeInside = isChecked;
+                    CJBCheatsMenu.Config.FreezeTimeInside = this.IsChecked;
                     break;
                 case 11:
-                    CJBCheatsMenu.config.freezeTime = isChecked;
+                    CJBCheatsMenu.Config.FreezeTime = this.IsChecked;
                     break;
                 case 12:
-                    CJBCheatsMenu.config.freezeTimeCaves = isChecked;
+                    CJBCheatsMenu.Config.FreezeTimeCaves = this.IsChecked;
                     break;
                 case 13:
-                    CJBCheatsMenu.config.durableFences = isChecked;
+                    CJBCheatsMenu.Config.DurableFences = this.IsChecked;
                     break;
                 case 14:
-                    CJBCheatsMenu.config.alwaysTreasure = isChecked;
+                    CJBCheatsMenu.Config.AlwaysTreasure = this.IsChecked;
                     break;
                 case 15:
-                    CJBCheatsMenu.config.oneHitBreak = isChecked;
+                    CJBCheatsMenu.Config.OneHitBreak = this.IsChecked;
                     break;
                 case 16:
-                    CJBCheatsMenu.config.instantBite = isChecked;
+                    CJBCheatsMenu.Config.InstantBite = this.IsChecked;
                     break;
                 case 17:
-                    CJBCheatsMenu.config.noFriendshipDecay = isChecked;
+                    CJBCheatsMenu.Config.NoFriendshipDecay = this.IsChecked;
                     break;
                 case 18:
-                    CJBCheatsMenu.config.instantBuild = isChecked;
+                    CJBCheatsMenu.Config.InstantBuild = this.IsChecked;
                     break;
                 case 19:
-                    CJBCheatsMenu.config.autoFeed = isChecked;
+                    CJBCheatsMenu.Config.AutoFeed = this.IsChecked;
                     break;
                 case 20:
-                    CJBCheatsMenu.config.infiniteHay = isChecked;
+                    CJBCheatsMenu.Config.InfiniteHay = this.IsChecked;
                     break;
                 case 21:
-                    CJBCheatsMenu.config.durableTackles = isChecked;
+                    CJBCheatsMenu.Config.DurableTackles = this.IsChecked;
                     break;
                 case 22:
-                    CJBCheatsMenu.config.harvestSickle = isChecked;
+                    CJBCheatsMenu.Config.HarvestSickle = this.IsChecked;
                     break;
 
                 case 100:
-                    CJBCheatsMenu.config.fastFurnace = isChecked;
+                    CJBCheatsMenu.Config.FastFurnace = this.IsChecked;
                     break;
                 case 101:
-                    CJBCheatsMenu.config.fastRecyclingMachine = isChecked;
+                    CJBCheatsMenu.Config.FastRecyclingMachine = this.IsChecked;
                     break;
                 case 102:
-                    CJBCheatsMenu.config.fastCrystalarium = isChecked;
+                    CJBCheatsMenu.Config.FastCrystalarium = this.IsChecked;
                     break;
                 case 103:
-                    CJBCheatsMenu.config.fastIncubator = isChecked;
+                    CJBCheatsMenu.Config.FastIncubator = this.IsChecked;
                     break;
                 case 104:
-                    CJBCheatsMenu.config.fastSlimeIncubator = isChecked;
+                    CJBCheatsMenu.Config.FastSlimeIncubator = this.IsChecked;
                     break;
                 case 105:
-                    CJBCheatsMenu.config.fastKeg = isChecked;
+                    CJBCheatsMenu.Config.FastKeg = this.IsChecked;
                     break;
                 case 106:
-                    CJBCheatsMenu.config.fastPreservesJar = isChecked;
+                    CJBCheatsMenu.Config.FastPreservesJar = this.IsChecked;
                     break;
                 case 107:
-                    CJBCheatsMenu.config.fastCheesePress = isChecked;
+                    CJBCheatsMenu.Config.FastCheesePress = this.IsChecked;
                     break;
                 case 108:
-                    CJBCheatsMenu.config.fastMayonnaiseMachine = isChecked;
+                    CJBCheatsMenu.Config.FastMayonnaiseMachine = this.IsChecked;
                     break;
                 case 109:
-                    CJBCheatsMenu.config.fastLoom = isChecked;
+                    CJBCheatsMenu.Config.FastLoom = this.IsChecked;
                     break;
                 case 110:
-                    CJBCheatsMenu.config.fastOilMaker = isChecked;
+                    CJBCheatsMenu.Config.FastOilMaker = this.IsChecked;
                     break;
                 case 111:
-                    CJBCheatsMenu.config.fastSeedMaker = isChecked;
+                    CJBCheatsMenu.Config.FastSeedMaker = this.IsChecked;
                     break;
                 case 112:
-                    CJBCheatsMenu.config.fastCharcoalKiln = isChecked;
+                    CJBCheatsMenu.Config.FastCharcoalKiln = this.IsChecked;
                     break;
                 case 113:
-                    CJBCheatsMenu.config.fastSlimeEggPress = isChecked;
+                    CJBCheatsMenu.Config.FastSlimeEggPress = this.IsChecked;
                     break;
                 case 114:
-                    CJBCheatsMenu.config.fastBeeHouse = isChecked;
+                    CJBCheatsMenu.Config.FastBeeHouse = this.IsChecked;
                     break;
                 case 115:
-                    CJBCheatsMenu.config.fastMushroomBox = isChecked;
+                    CJBCheatsMenu.Config.FastMushroomBox = this.IsChecked;
                     break;
                 case 116:
-                    CJBCheatsMenu.config.fastTapper = isChecked;
+                    CJBCheatsMenu.Config.FastTapper = this.IsChecked;
                     break;
                 case 117:
-                    CJBCheatsMenu.config.fastLightningRod = isChecked;
+                    CJBCheatsMenu.Config.FastLightningRod = this.IsChecked;
                     break;
                 case 118:
-                    CJBCheatsMenu.config.fastCask = isChecked;
+                    CJBCheatsMenu.Config.FastCask = this.IsChecked;
                     break;
                 case 119:
-                    CJBCheatsMenu.config.fastWormBin = isChecked;
+                    CJBCheatsMenu.Config.FastWormBin = this.IsChecked;
                     break;
             }
-
 
             CJBCheatsMenu.SaveConfig();
         }
 
-        public override void draw(SpriteBatch b, int slotX, int slotY) {
-            b.Draw(Game1.mouseCursors, new Vector2((float)(slotX + this.bounds.X), (float)(slotY + this.bounds.Y)), new Rectangle?(this.isChecked ? OptionsCheckbox.sourceRectChecked : OptionsCheckbox.sourceRectUnchecked), Color.White * (this.greyedOut ? 0.33f : 1f), 0.0f, Vector2.Zero, (float)Game1.pixelZoom, SpriteEffects.None, 0.4f);
-            base.draw(b, slotX, slotY);
+        public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
+        {
+            spriteBatch.Draw(Game1.mouseCursors, new Vector2(slotX + this.bounds.X, slotY + this.bounds.Y), this.IsChecked ? OptionsCheckbox.sourceRectChecked : OptionsCheckbox.sourceRectUnchecked, Color.White * (this.greyedOut ? 0.33f : 1f), 0.0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 0.4f);
+            base.draw(spriteBatch, slotX, slotY);
         }
     }
 }

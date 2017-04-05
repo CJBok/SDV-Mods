@@ -20,7 +20,12 @@ setting | default | what it affects
 `diagonal` | `false` | Whether to link with chests which are diagonally adjacent to the machine.
 
 ## Versions
-1.4 (upcoming):
+1.5 (2017-04-01):
+* Updated to SMAPI 1.9.
+* Fixed refined quartz recipe not using coal.
+* Internal refactoring.
+
+1.4 (2017-01-04):
 * Updated to Stardew Valley 1.1+ and SMAPI 1.5.
 * Added compatibility with Linux and Mac.
 * Added support for casks, mushroom cave boxes, and slime egg-presses.

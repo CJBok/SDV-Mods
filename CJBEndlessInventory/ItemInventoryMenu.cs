@@ -1,110 +1,129 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using StardewModdingAPI;
-using StardewValley;
-using StardewValley.Menus;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using StardewValley;
+using StardewValley.Menus;
+using SObject = StardewValley.Object;
 
-namespace CJBEndlessInventory {
-    public class ItemInventoryMenu : IClickableMenu {
-        public string hoverText = "";
-        public string hoverTitle = "";
-        public string descriptionTitle = "";
-        public string descriptionText = "";
-        public List<ClickableComponent> inventory = new List<ClickableComponent>();
-        public List<Item> actualInventory;
-        public InventoryMenu.highlightThisItem highlightMethod;
-        public ItemGrabMenu.behaviorOnItemSelect onAddItem;
-        private bool playerInventory;
-        private bool drawSlots;
-        public bool showGrayedOutSlots;
-        public int capacity;
-        public int rows;
-        public int horizontalGap;
-        public int verticalGap;
-        public static int scrollIndex = 0;
+namespace CJBEndlessInventory
+{
+    internal class ItemInventoryMenu : IClickableMenu
+    {
+        /*********
+        ** Properties
+        *********/
+        private readonly bool PlayerInventory;
+        private readonly List<ClickableComponent> Inventory = new List<ClickableComponent>();
+        private readonly int Capacity;
+        private readonly int Rows;
+        private readonly int HorizontalGap;
+        private readonly int VerticalGap;
+        private int ScrollIndex;
 
-        public ItemInventoryMenu(int xPosition, int yPosition, bool playerInventory, List<Item> actualInventory = null, InventoryMenu.highlightThisItem highlightMethod = null, int capacity = -1, int rows = 3, int horizontalGap = 0, int verticalGap = 0, bool drawSlots = true)
-          : base(xPosition, yPosition, Game1.tileSize * 12, Game1.tileSize * 3 + Game1.tileSize / 4, false) {
-            this.drawSlots = drawSlots;
-            this.horizontalGap = horizontalGap;
-            this.verticalGap = verticalGap;
-            this.rows = rows;
-            this.capacity = capacity == -1 ? 36 : capacity;
-            this.playerInventory = playerInventory;
-            this.actualInventory = actualInventory;
 
+        /*********
+        ** Accessors
+        *********/
+        public string HoverText = "";
+        public string DescriptionTitle = "";
+        public string DescriptionText = "";
+        public List<Item> ActualInventory;
+        public InventoryMenu.highlightThisItem HighlightMethod;
+        public bool ShowGrayedOutSlots;
+
+
+        /*********
+        ** Public methods
+        *********/
+        public ItemInventoryMenu(int xPosition, int yPosition, bool playerInventory, List<Item> actualInventory = null, InventoryMenu.highlightThisItem highlightMethod = null, int capacity = -1, int rows = 3, int horizontalGap = 0, int verticalGap = 0)
+          : base(xPosition, yPosition, Game1.tileSize * 12, Game1.tileSize * 3 + Game1.tileSize / 4)
+        {
+            this.HorizontalGap = horizontalGap;
+            this.VerticalGap = verticalGap;
+            this.Rows = rows;
+            this.Capacity = capacity == -1 ? 36 : capacity;
+            this.PlayerInventory = playerInventory;
+            this.ActualInventory = actualInventory;
             if (actualInventory == null)
-                this.actualInventory = Game1.player.items;
+                this.ActualInventory = Game1.player.items;
 
-            for (int index = 0; index < Game1.player.maxItems; ++index) {
-                if (Game1.player.items.Count() <= index)
-                    Game1.player.items.Add((Item)null);
+            for (int i = 0; i < Game1.player.maxItems; ++i)
+            {
+                if (Game1.player.items.Count <= i)
+                    Game1.player.items.Add(null);
             }
-            this.playerInventory = this.actualInventory == Game1.player.items;
+            this.PlayerInventory = this.ActualInventory == Game1.player.items;
 
-            for (int index = 0; index < this.actualInventory.Count() && index < this.capacity; index++) {
-                this.inventory.Add(new ClickableComponent(new Rectangle(xPosition + index % (this.capacity / rows) * Game1.tileSize + horizontalGap * (index % (this.capacity / rows)), this.yPositionOnScreen + index / (this.capacity / rows) * (Game1.tileSize + verticalGap) + (index / (this.capacity / rows) - 1) * Game1.pixelZoom, Game1.tileSize, Game1.tileSize), string.Concat((object)index)));
-            }
-                    
+            for (int i = 0; i < this.ActualInventory.Count && i < this.Capacity; i++)
+                this.Inventory.Add(new ClickableComponent(new Rectangle(xPosition + i % (this.Capacity / rows) * Game1.tileSize + horizontalGap * (i % (this.Capacity / rows)), this.yPositionOnScreen + i / (this.Capacity / rows) * (Game1.tileSize + verticalGap) + (i / (this.Capacity / rows) - 1) * Game1.pixelZoom, Game1.tileSize, Game1.tileSize), string.Concat(i)));
 
-            this.highlightMethod = highlightMethod;
+
+            this.HighlightMethod = highlightMethod;
             if (highlightMethod != null)
                 return;
-            this.highlightMethod = new InventoryMenu.highlightThisItem(InventoryMenu.highlightAllItems);
+            this.HighlightMethod = InventoryMenu.highlightAllItems;
         }
 
-        public static bool highlightAllItems(Item i) {
+        public static bool HighlightAllItems(Item i)
+        {
             return true;
         }
 
-        public void movePosition(int x, int y) {
+        public void MovePosition(int x, int y)
+        {
             this.xPositionOnScreen += x;
             this.yPositionOnScreen += y;
-            foreach (ClickableComponent clickableComponent in this.inventory) {
+            foreach (ClickableComponent clickableComponent in this.Inventory)
+            {
                 clickableComponent.bounds.X += x;
                 clickableComponent.bounds.Y += y;
             }
         }
 
-        public int getInventoryPositionOfClick(int x, int y) {
-            for (int index = 0; index < Enumerable.Count<ClickableComponent>((IEnumerable<ClickableComponent>)this.inventory); ++index) {
-                if (this.inventory[index] != null && this.inventory[index].bounds.Contains(x, y))
-                    return Convert.ToInt32(this.inventory[index].name);
+        public int GetInventoryPositionOfClick(int x, int y)
+        {
+            foreach (ClickableComponent slot in this.Inventory)
+            {
+                if (slot != null && slot.bounds.Contains(x, y))
+                    return Convert.ToInt32(slot.name);
             }
             return -1;
         }
 
-        public Item leftClick(int x, int y, Item toPlace, bool playSound = true) {
-            foreach (ClickableComponent clickableComponent in this.inventory) {
-                if (clickableComponent.containsPoint(x, y)) {
-                    int num = Convert.ToInt32(clickableComponent.name);
-                    if (!this.playerInventory)
-                        num = capacity / rows * scrollIndex + num;
-                    if (num < this.actualInventory.Count && (this.actualInventory[num] == null || this.highlightMethod(this.actualInventory[num]) || this.actualInventory[num].canStackWith(toPlace))) {
-                        if (this.actualInventory[num] != null) {
-                            Item result;
-                            if (toPlace != null) {
-                                if (playSound) {
+        public Item LeftClick(int x, int y, Item toPlace, bool playSound = true)
+        {
+            foreach (ClickableComponent component in this.Inventory)
+            {
+                if (component.containsPoint(x, y))
+                {
+                    int index = Convert.ToInt32(component.name);
+                    if (!this.PlayerInventory)
+                        index = this.Capacity / this.Rows * this.ScrollIndex + index;
+                    if (index < this.ActualInventory.Count && (this.ActualInventory[index] == null || this.HighlightMethod(this.ActualInventory[index]) || this.ActualInventory[index].canStackWith(toPlace)))
+                    {
+                        if (this.ActualInventory[index] != null)
+                        {
+                            Item item;
+                            if (toPlace != null)
+                            {
+                                if (playSound)
                                     Game1.playSound("stoneStep");
-                                }
-                                result = Utility.addItemToInventory(toPlace, num, this.actualInventory, this.onAddItem);
-                                return result;
+                                item = Utility.addItemToInventory(toPlace, index, this.ActualInventory);
+                                return item;
                             }
-                            if (playSound) {
+                            if (playSound)
                                 Game1.playSound("dwop");
-                            }
-                            result = Utility.removeItemFromInventory(num, this.actualInventory);
-                            return result;
-                        } else if (toPlace != null) {
-                            if (playSound) {
+                            item = Utility.removeItemFromInventory(index, this.ActualInventory);
+                            return item;
+                        }
+                        else if (toPlace != null)
+                        {
+                            if (playSound)
                                 Game1.playSound("stoneStep");
-                            }
-                            Item result = Utility.addItemToInventory(toPlace, num, this.actualInventory, this.onAddItem);
-                            return result;
+                            return Utility.addItemToInventory(toPlace, index, this.ActualInventory);
                         }
                     }
                 }
@@ -112,138 +131,146 @@ namespace CJBEndlessInventory {
             return toPlace;
         }
 
-        public Vector2 snapToClickableComponent(int x, int y) {
-            foreach (ClickableComponent clickableComponent in this.inventory) {
-                if (clickableComponent.containsPoint(x, y))
-                    return new Vector2((float)clickableComponent.bounds.X, (float)clickableComponent.bounds.Y);
+        public Vector2 SnapToClickableComponent(int x, int y)
+        {
+            foreach (ClickableComponent component in this.Inventory)
+            {
+                if (component.containsPoint(x, y))
+                    return new Vector2(component.bounds.X, component.bounds.Y);
             }
-            return new Vector2((float)x, (float)y);
+            return new Vector2(x, y);
         }
 
-        public Item getItemAt(int x, int y) {
-            foreach (ClickableComponent c in this.inventory) {
+        public Item GetItemAt(int x, int y)
+        {
+            foreach (ClickableComponent c in this.Inventory)
+            {
                 if (c.containsPoint(x, y))
-                    return this.getItemFromClickableComponent(c);
+                    return this.GetItemFromClickableComponent(c);
             }
-            return (Item)null;
+            return null;
         }
 
-        public Item getItemFromClickableComponent(ClickableComponent c) {
-            if (c != null) {
+        public Item GetItemFromClickableComponent(ClickableComponent c)
+        {
+            if (c != null)
+            {
                 int index = Convert.ToInt32(c.name);
-                if (index < this.actualInventory.Count)
-                    return this.actualInventory[index];
+                if (index < this.ActualInventory.Count)
+                    return this.ActualInventory[index];
             }
-            return (Item)null;
+            return null;
         }
 
-        public Item rightClick(int x, int y, Item toAddTo, bool playSound = true) {
-            foreach (ClickableComponent clickableComponent in this.inventory) {
-                int num = Convert.ToInt32(clickableComponent.name);
-                if (!this.playerInventory)
-                    num = capacity / rows * scrollIndex + num;
-                if (clickableComponent.containsPoint(x, y) && (this.actualInventory[num] == null || this.highlightMethod(this.actualInventory[num])) && num < this.actualInventory.Count && this.actualInventory[num] != null) {
-                    if (this.actualInventory[num] is Tool && (toAddTo == null || toAddTo is StardewValley.Object) && (this.actualInventory[num] as Tool).canThisBeAttached((StardewValley.Object)toAddTo)) {
-                        Item result = (this.actualInventory[num] as Tool).attach((toAddTo == null) ? null : ((StardewValley.Object)toAddTo));
-                        return result;
-                    }
-                    if (toAddTo == null) {
-                        if (this.actualInventory[num].maximumStackSize() != -1) {
-                            if (num == Game1.player.CurrentToolIndex && this.actualInventory[num] != null && this.actualInventory[num].Stack == 1) {
-                                this.actualInventory[num].actionWhenStopBeingHeld(Game1.player);
-                            }
-                            Item one = this.actualInventory[num].getOne();
-                            if (this.actualInventory[num].Stack > 1 && Game1.isOneOfTheseKeysDown(Game1.oldKBState, new InputButton[]
-                            {
-                                new InputButton(Keys.LeftShift)
-                            })) {
-                                one.Stack = (int)Math.Ceiling((double)this.actualInventory[num].Stack / 2.0);
-                                this.actualInventory[num].Stack = this.actualInventory[num].Stack / 2;
-                            } else if (this.actualInventory[num].Stack == 1) {
-                                this.actualInventory[num] = null;
-                            } else {
-                                this.actualInventory[num].Stack--;
-                            }
-                            if (this.actualInventory[num] != null && this.actualInventory[num].Stack <= 0) {
-                                this.actualInventory[num] = null;
-                            }
-                            if (playSound) {
-                                Game1.playSound("dwop");
-                            }
-                            Item result = one;
-                            return result;
-                        }
-                    } else if (this.actualInventory[num].canStackWith(toAddTo) && toAddTo.Stack < toAddTo.maximumStackSize()) {
-                        if (Game1.isOneOfTheseKeysDown(Game1.oldKBState, new InputButton[]
+        public Item RightClick(int x, int y, Item toAddTo, bool playSound = true)
+        {
+            foreach (ClickableComponent component in this.Inventory)
+            {
+                int index = Convert.ToInt32(component.name);
+                if (!this.PlayerInventory)
+                    index = this.Capacity / this.Rows * this.ScrollIndex + index;
+                if (component.containsPoint(x, y) && (this.ActualInventory[index] == null || this.HighlightMethod(this.ActualInventory[index])) && index < this.ActualInventory.Count && this.ActualInventory[index] != null)
+                {
+                    if (this.ActualInventory[index] is Tool && (toAddTo == null || toAddTo is SObject) && (this.ActualInventory[index] as Tool).canThisBeAttached((SObject)toAddTo))
+                        return (this.ActualInventory[index] as Tool).attach((SObject)toAddTo);
+                    if (toAddTo == null)
+                    {
+                        if (this.ActualInventory[index].maximumStackSize() != -1)
                         {
-                            new InputButton(Keys.LeftShift)
-                        })) {
-                            toAddTo.Stack += (int)Math.Ceiling((double)this.actualInventory[num].Stack / 2.0);
-                            this.actualInventory[num].Stack = this.actualInventory[num].Stack / 2;
-                        } else {
-                            toAddTo.Stack++;
-                            this.actualInventory[num].Stack--;
-                        }
-                        if (playSound) {
-                            Game1.playSound("dwop");
-                        }
-                        if (this.actualInventory[num].Stack <= 0) {
-                            if (num == Game1.player.CurrentToolIndex) {
-                                this.actualInventory[num].actionWhenStopBeingHeld(Game1.player);
+                            if (index == Game1.player.CurrentToolIndex && this.ActualInventory[index] != null && this.ActualInventory[index].Stack == 1)
+                                this.ActualInventory[index].actionWhenStopBeingHeld(Game1.player);
+                            Item item = this.ActualInventory[index].getOne();
+                            if (this.ActualInventory[index].Stack > 1 && Game1.isOneOfTheseKeysDown(Game1.oldKBState, new[] { new InputButton(Keys.LeftShift) }))
+                            {
+                                item.Stack = (int)Math.Ceiling(this.ActualInventory[index].Stack / 2.0);
+                                this.ActualInventory[index].Stack = this.ActualInventory[index].Stack / 2;
                             }
-                            this.actualInventory[num] = null;
+                            else if (this.ActualInventory[index].Stack == 1)
+                                this.ActualInventory[index] = null;
+                            else
+                                this.ActualInventory[index].Stack--;
+
+                            if (this.ActualInventory[index] != null && this.ActualInventory[index].Stack <= 0)
+                                this.ActualInventory[index] = null;
+                            if (playSound)
+                                Game1.playSound("dwop");
+                            return item;
                         }
-                        Item result = toAddTo;
-                        return result;
+                    }
+                    else if (this.ActualInventory[index].canStackWith(toAddTo) && toAddTo.Stack < toAddTo.maximumStackSize())
+                    {
+                        if (Game1.isOneOfTheseKeysDown(Game1.oldKBState, new[] { new InputButton(Keys.LeftShift) }))
+                        {
+                            toAddTo.Stack += (int)Math.Ceiling(this.ActualInventory[index].Stack / 2.0);
+                            this.ActualInventory[index].Stack = this.ActualInventory[index].Stack / 2;
+                        }
+                        else
+                        {
+                            toAddTo.Stack++;
+                            this.ActualInventory[index].Stack--;
+                        }
+
+                        if (playSound)
+                            Game1.playSound("dwop");
+
+                        if (this.ActualInventory[index].Stack <= 0)
+                        {
+                            if (index == Game1.player.CurrentToolIndex)
+                                this.ActualInventory[index].actionWhenStopBeingHeld(Game1.player);
+                            this.ActualInventory[index] = null;
+                        }
+                        return toAddTo;
                     }
                 }
             }
             return toAddTo;
         }
 
-        public Item hover(int x, int y, Item heldItem) {
-            this.descriptionText = "";
-            this.descriptionTitle = "";
-            this.hoverText = "";
-            this.hoverTitle = "";
-            Item obj = (Item)null;
-            foreach (ClickableComponent clickableComponent in this.inventory) {
+        public Item Hover(int x, int y, Item heldItem)
+        {
+            this.DescriptionText = "";
+            this.DescriptionTitle = "";
+            this.HoverText = "";
+            foreach (ClickableComponent clickableComponent in this.Inventory)
+            {
                 int index = Convert.ToInt32(clickableComponent.name);
-                if (!this.playerInventory)
-                    index = capacity / rows * scrollIndex + index;
+                if (!this.PlayerInventory)
+                    index = this.Capacity / this.Rows * this.ScrollIndex + index;
 
                 clickableComponent.scale = Math.Max(1f, clickableComponent.scale - 0.025f);
-                if (clickableComponent.containsPoint(x, y) && index < this.actualInventory.Count && this.actualInventory[index] != null) {
-                    return obj = this.actualInventory[index];
-                }
+                if (clickableComponent.containsPoint(x, y) && index < this.ActualInventory.Count && this.ActualInventory[index] != null)
+                    return this.ActualInventory[index];
             }
-            return obj;
+            return null;
         }
 
-        public override void setUpForGamePadMode() {
+        public override void setUpForGamePadMode()
+        {
             base.setUpForGamePadMode();
-            if (this.inventory == null || Enumerable.Count<ClickableComponent>((IEnumerable<ClickableComponent>)this.inventory) <= 0)
+            if (this.Inventory == null || this.Inventory.Count <= 0)
                 return;
-            Game1.setMousePosition(this.inventory[0].bounds.Right - this.inventory[0].bounds.Width / 8, this.inventory[0].bounds.Bottom - this.inventory[0].bounds.Height / 8);
+            Game1.setMousePosition(this.Inventory[0].bounds.Right - this.Inventory[0].bounds.Width / 8, this.Inventory[0].bounds.Bottom - this.Inventory[0].bounds.Height / 8);
         }
 
-        public override int moveCursorInDirection(int direction) {
-            Rectangle rectangle = new Rectangle(this.inventory[0].bounds.X, this.inventory[0].bounds.Y, Enumerable.Last<ClickableComponent>((IEnumerable<ClickableComponent>)this.inventory).bounds.X + Enumerable.Last<ClickableComponent>((IEnumerable<ClickableComponent>)this.inventory).bounds.Width - this.inventory[0].bounds.X, Enumerable.Last<ClickableComponent>((IEnumerable<ClickableComponent>)this.inventory).bounds.Y + Enumerable.Last<ClickableComponent>((IEnumerable<ClickableComponent>)this.inventory).bounds.Height - this.inventory[0].bounds.Y);
+        public override int moveCursorInDirection(int direction)
+        {
+            Rectangle rectangle = new Rectangle(this.Inventory[0].bounds.X, this.Inventory[0].bounds.Y, this.Inventory.Last().bounds.X + this.Inventory.Last().bounds.Width - this.Inventory[0].bounds.X, this.Inventory.Last().bounds.Y + this.Inventory.Last().bounds.Height - this.Inventory[0].bounds.Y);
             if (!rectangle.Contains(Game1.getMousePosition()))
-                Game1.setMousePosition(this.inventory[0].bounds.Right - this.inventory[0].bounds.Width / 8, this.inventory[0].bounds.Bottom - this.inventory[0].bounds.Height / 8);
+                Game1.setMousePosition(this.Inventory[0].bounds.Right - this.Inventory[0].bounds.Width / 8, this.Inventory[0].bounds.Bottom - this.Inventory[0].bounds.Height / 8);
             Point mousePosition = Game1.getMousePosition();
-            switch (direction) {
+            switch (direction)
+            {
                 case 0:
-                    Game1.setMousePosition(mousePosition.X, mousePosition.Y - Game1.tileSize - this.verticalGap);
+                    Game1.setMousePosition(mousePosition.X, mousePosition.Y - Game1.tileSize - this.VerticalGap);
                     break;
                 case 1:
-                    Game1.setMousePosition(mousePosition.X + Game1.tileSize + this.horizontalGap, mousePosition.Y);
+                    Game1.setMousePosition(mousePosition.X + Game1.tileSize + this.HorizontalGap, mousePosition.Y);
                     break;
                 case 2:
-                    Game1.setMousePosition(mousePosition.X, mousePosition.Y + Game1.tileSize + this.verticalGap);
+                    Game1.setMousePosition(mousePosition.X, mousePosition.Y + Game1.tileSize + this.VerticalGap);
                     break;
                 case 3:
-                    Game1.setMousePosition(mousePosition.X - Game1.tileSize - this.horizontalGap, mousePosition.Y);
+                    Game1.setMousePosition(mousePosition.X - Game1.tileSize - this.HorizontalGap, mousePosition.Y);
                     break;
             }
             if (rectangle.Contains(Game1.getMousePosition()))
@@ -252,100 +279,95 @@ namespace CJBEndlessInventory {
             return direction;
         }
 
-        public override void receiveScrollWheelAction(int direction) {
+        public override void receiveScrollWheelAction(int direction)
+        {
             if (GameMenu.forcePreventClose)
                 return;
             base.receiveScrollWheelAction(direction);
-            if (direction > 0) scrollIndex--;
-            if (direction < 0) scrollIndex++;
+            if (direction > 0)
+                this.ScrollIndex--;
+            if (direction < 0)
+                this.ScrollIndex++;
 
-            if (scrollIndex < 0) scrollIndex = 0;
-            if (scrollIndex > ((this.actualInventory.Count() - 1) / (capacity / rows)))
-                scrollIndex = ((this.actualInventory.Count() - 1) / (capacity / rows));
+            if (this.ScrollIndex < 0)
+                this.ScrollIndex = 0;
+            if (this.ScrollIndex > ((this.ActualInventory.Count - 1) / (this.Capacity / this.Rows)))
+                this.ScrollIndex = ((this.ActualInventory.Count - 1) / (this.Capacity / this.Rows));
         }
 
-        public override void draw(SpriteBatch b) {
-            for (int index = 0; index < 36; ++index) {
-
+        public override void draw(SpriteBatch spriteBatch)
+        {
+            for (int index = 0; index < 36; ++index)
+            {
                 int indexOffset = index;
-                if (!this.playerInventory)
-                    indexOffset = 36 / 3 * scrollIndex + index;
+                if (!this.PlayerInventory)
+                    indexOffset = 36 / 3 * this.ScrollIndex + index;
 
-                Vector2 vector2 = new Vector2((float)(this.xPositionOnScreen + index % (36 / 3) * Game1.tileSize + this.horizontalGap * (index % (36 /3))), (float)(this.yPositionOnScreen + index / (36 / 3) * (Game1.tileSize + this.verticalGap) + (index / (36 / 3) - 1) * Game1.pixelZoom));
-                b.Draw(Game1.menuTexture, vector2, new Rectangle?(Game1.getSourceRectForStandardTileSheet(Game1.menuTexture, 10, -1, -1)), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.5f);
-                if (this.actualInventory.Count() > indexOffset && this.actualInventory[indexOffset] != null)
-                    this.actualInventory[indexOffset].drawInMenu(b, vector2, this.inventory.Count() > index ? this.inventory[index].scale : 1f, !this.highlightMethod(this.actualInventory[indexOffset]) ? 0.2f : 1f, 0.865f);
+                Vector2 slotPosition = new Vector2(this.xPositionOnScreen + index % (36 / 3) * Game1.tileSize + this.HorizontalGap * (index % (36 / 3)), this.yPositionOnScreen + index / (36 / 3) * (Game1.tileSize + this.VerticalGap) + (index / (36 / 3) - 1) * Game1.pixelZoom);
+                spriteBatch.Draw(Game1.menuTexture, slotPosition, Game1.getSourceRectForStandardTileSheet(Game1.menuTexture, 10), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.5f);
+                if (this.ActualInventory.Count > indexOffset && this.ActualInventory[indexOffset] != null)
+                    this.ActualInventory[indexOffset].drawInMenu(spriteBatch, slotPosition, this.Inventory.Count > index ? this.Inventory[index].scale : 1f, !this.HighlightMethod(this.ActualInventory[indexOffset]) ? 0.2f : 1f, 0.865f);
             }
         }
 
-        public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds) {
-            base.gameWindowSizeChanged(oldBounds, newBounds);
-        }
+        public override void receiveLeftClick(int x, int y, bool playSound = true) { }
 
-        public override void receiveLeftClick(int x, int y, bool playSound = true) {
-        }
+        public override void receiveRightClick(int x, int y, bool playSound = true) { }
 
-        public override void receiveRightClick(int x, int y, bool playSound = true) {
-        }
+        public override void performHoverAction(int x, int y) { }
 
-        public override void performHoverAction(int x, int y) {
-        }
-
-        public delegate bool highlightThisItem(Item i);
-
-        public static Item removeItemFromInventory(int whichItemIndex, List<Item> items) {
-            if (whichItemIndex >= 0 && whichItemIndex < items.Count<Item>() && items[whichItemIndex] != null) {
-                Item item = items[whichItemIndex].getOne();
-                item.Stack = items[whichItemIndex].Stack;
-                if (whichItemIndex == Game1.player.CurrentToolIndex && items.Equals(Game1.player.items) && item != null) {
+        public static Item RemoveItemFromInventory(int index, List<Item> items)
+        {
+            if (index >= 0 && index < items.Count && items[index] != null)
+            {
+                Item item = items[index].getOne();
+                item.Stack = items[index].Stack;
+                if (index == Game1.player.CurrentToolIndex && items == Game1.player.items)
                     item.actionWhenStopBeingHeld(Game1.player);
-                }
-                if (items.Equals(Game1.player.items))
-                    items[whichItemIndex] = null;
+                if (items == Game1.player.items)
+                    items[index] = null;
                 return item;
             }
             return null;
         }
 
-        public static Item addItemToInventory(Item item, int position, List<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null) {
-            if (items.Equals(Game1.player.items) && item is StardewValley.Object && (item as StardewValley.Object).specialItem) {
-                if ((item as StardewValley.Object).bigCraftable) {
-                    Game1.player.specialBigCraftables.Add((item as StardewValley.Object).isRecipe ? (-(item as StardewValley.Object).parentSheetIndex) : (item as StardewValley.Object).parentSheetIndex);
-                } else {
-                    Game1.player.specialItems.Add((item as StardewValley.Object).isRecipe ? (-(item as StardewValley.Object).parentSheetIndex) : (item as StardewValley.Object).parentSheetIndex);
-                }
+        public static Item AddItemToInventory(Item item, int position, List<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null)
+        {
+            if (items == Game1.player.items && item is SObject obj && obj.specialItem)
+            {
+                if (obj.bigCraftable)
+                    Game1.player.specialBigCraftables.Add(obj.isRecipe ? (-obj.parentSheetIndex) : obj.parentSheetIndex);
+                else
+                    Game1.player.specialItems.Add(obj.isRecipe ? (-obj.parentSheetIndex) : obj.parentSheetIndex);
             }
-            if (position < 0 || position >= items.Count<Item>()) {
+            if (position < 0 || position >= items.Count)
+            {
                 return item;
             }
-            if (items[position] == null) {
+            if (items[position] == null)
+            {
                 items[position] = item;
-                if (onAddFunction != null) {
-                    onAddFunction(item, null);
-                }
+                onAddFunction?.Invoke(item, null);
                 return null;
             }
-            if (items[position].maximumStackSize() == -1 || !items[position].Name.Equals(item.Name) || (item is StardewValley.Object && items[position] is StardewValley.Object && ((item as StardewValley.Object).quality != (items[position] as StardewValley.Object).quality || (item as StardewValley.Object).parentSheetIndex != (items[position] as StardewValley.Object).parentSheetIndex)) || !item.canStackWith(items[position])) {
-                Item item2 = items[position];
-                if (position == Game1.player.CurrentToolIndex && items.Equals(Game1.player.items) && item2 != null) {
-                    item2.actionWhenStopBeingHeld(Game1.player);
+            if (items[position].maximumStackSize() == -1 || items[position].Name != item.Name || (item is SObject addItem && items[position] is SObject slotItem && (addItem.quality != slotItem.quality || addItem.parentSheetIndex != slotItem.parentSheetIndex)) || !item.canStackWith(items[position]))
+            {
+                Item foundItem = items[position];
+                if (position == Game1.player.CurrentToolIndex && items == Game1.player.items && foundItem != null)
+                {
+                    foundItem.actionWhenStopBeingHeld(Game1.player);
                     item.actionWhenBeingHeld(Game1.player);
                 }
                 items[position] = item;
-                if (onAddFunction != null) {
-                    onAddFunction(item, null);
-                }
-                return item2;
+                onAddFunction?.Invoke(item, null);
+                return foundItem;
             }
-            int num = items[position].addToStack(item.getStack());
-            if (num <= 0) {
+            int newStack = items[position].addToStack(item.getStack());
+            if (newStack <= 0)
                 return null;
-            }
 
-            item.Stack = num;
-            if (onAddFunction != null) {
-                onAddFunction(item, null);
-            }
+            item.Stack = newStack;
+            onAddFunction?.Invoke(item, null);
             return item;
         }
     }
