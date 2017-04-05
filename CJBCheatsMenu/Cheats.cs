@@ -96,6 +96,27 @@ namespace CJBCheatsMenu
             }
         }
 
+        /// <summary>Perform any action needed after the cheat options change.</summary>
+        public static void OnOptionsChanged()
+        {
+            // disable harvest with sickle
+            if (!CJBCheatsMenu.Config.HarvestSickle)
+            {
+                IDictionary<int, int> cropHarvestMethods = Cheats.GetCropHarvestMethods();
+                foreach (GameLocation location in Game1.locations)
+                {
+                    if (!location.isFarm && !location.name.Contains("Greenhouse"))
+                        continue;
+
+                    foreach (KeyValuePair<Vector2, TerrainFeature> pair in location.terrainFeatures)
+                    {
+                        if (pair.Value is HoeDirt dirt && dirt.crop != null && cropHarvestMethods.TryGetValue(dirt.crop.indexOfHarvest, out int harvestMethod))
+                            dirt.crop.harvestMethod = harvestMethod;
+                    }
+                }
+            }
+        }
+
         public static void OnTimeOfDayChanged()
         {
             GameLocation location = Game1.currentLocation;
@@ -424,6 +445,27 @@ namespace CJBCheatsMenu
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
                     Cheats.GrowCrops();
             }
+        }
+
+
+        /*********
+        ** Private methods
+        *********/
+        /// <summary>Get a crop ID => harvest method lookup.</summary>
+        private static IDictionary<int, int> GetCropHarvestMethods()
+        {
+            IDictionary<int, int> lookup = new Dictionary<int, int>();
+
+            IDictionary<int, string> cropData = Game1.content.Load<Dictionary<int, string>>("Data\\Crops");
+            foreach (KeyValuePair<int, string> entry in cropData)
+            {
+                string[] fields = entry.Value.Split('/');
+                int cropID = Convert.ToInt32(fields[3]);
+                int harvestMethod = Convert.ToInt32(fields[5]);
+                lookup.Add(cropID, harvestMethod);
+            }
+
+            return lookup;
         }
     }
 }

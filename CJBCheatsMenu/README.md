@@ -93,6 +93,7 @@ setting | default | what it affects
 * Updated to SMAPI 1.9.
 * Fast machines now work anywhere, not only on the farm.
 * Fixed fast cask cheat not working.
+* Fixed disabling the 'harvest with sickle' option not restoring existing crops to normal.
 * Internal refactoring.
 
 1.13 (2017-01-04):

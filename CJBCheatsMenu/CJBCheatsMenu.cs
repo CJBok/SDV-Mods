@@ -53,6 +53,7 @@ namespace CJBCheatsMenu
         internal static void SaveConfig()
         {
             CJBCheatsMenu.Helper.WriteConfig(CJBCheatsMenu.Config);
+            Cheats.OnOptionsChanged();
         }
 
         /// <summary>Get all game locations.</summary>
