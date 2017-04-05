@@ -79,7 +79,7 @@ namespace CJBCheatsMenu
                     this.Options.Add(new OptionsElement("Tools:"));
                     this.Options.Add(new CheatsOptionsCheckbox("Infinite Water in Can", 3));
                     this.Options.Add(new CheatsOptionsCheckbox("One Hit Break", 15));
-                    this.Options.Add(new CheatsOptionsCheckbox("Harvest With Sickle", 22));
+                    this.Options.Add(new CheatsOptionsCheckbox("Harvest With Sickle (no XP gain)", 22));
 
                     this.Options.Add(new OptionsElement("Money:"));
                     this.Options.Add(new CheatsOptionsInputListener("Add 100g", 2, this.OptionSlots[0].bounds.Width));
