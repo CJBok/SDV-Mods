@@ -89,7 +89,7 @@ setting | default | what it affects
 `infiniteHay` | `false` | Your hay silos are always full.
 
 ## Versions
-1.14 (2017-04-01):
+1.14 (2017-04-05):
 * Updated to SMAPI 1.9.
 * Fast machines now work anywhere, not only on the farm.
 * Fixed fast cask cheat not working.
