@@ -16,6 +16,9 @@ Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
 3. Run the game using SMAPI.
 
 ## Versions
+1.8:
+* The hotkey can now be changed in `config.json`.
+
 1.7.1 (2017-04-05):
 * Fixed tab selection broken in 1.7.
 
