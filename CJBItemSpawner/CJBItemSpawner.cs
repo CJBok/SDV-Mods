@@ -26,7 +26,7 @@ namespace CJBItemSpawner
             if (e.KeyPressed == Keys.I)
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null && Game1.player.CanMove && !Game1.dialogueUp && !Game1.eventUp)
-                    ItemMenu.Open();
+                    ItemMenu.Open(0);
             }
         }
     }

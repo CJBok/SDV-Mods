@@ -31,7 +31,7 @@ namespace CJBItemSpawner
 
         private ItemInventoryMenu ItemsToGrabMenu;
         private TemporaryAnimatedSprite Poof;
-        private int TabIndex;
+        private readonly int TabIndex;
         private int SortID;
         private ItemQuality Quality = ItemQuality.Normal;
         private Rectangle TextboxBounds;
@@ -43,11 +43,12 @@ namespace CJBItemSpawner
         /*********
         ** Public methods
         *********/
-        public ItemMenu(List<Item> inventory)
+        public ItemMenu(List<Item> inventory, int tabIndex)
           : base(null, true, true, 0, -50)
         {
             this.InventoryItems = inventory;
             this.MovePosition(110, Game1.viewport.Height / 2 - (650 + IClickableMenu.borderWidth * 2) / 2);
+            this.TabIndex = tabIndex;
 
             this.Textbox = new TextBox(null, null, Game1.dialogueFont, Game1.textColor);
             this.Textbox.X = Game1.viewport.Width / 2 - Game1.tileSize * 3;
@@ -372,7 +373,7 @@ namespace CJBItemSpawner
 
         public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)
         {
-            ItemMenu.Open();
+            ItemMenu.Open(this.TabIndex);
         }
 
         public override void receiveLeftClick(int x, int y, bool playSound = true)
@@ -386,10 +387,9 @@ namespace CJBItemSpawner
                     ClickableComponent tab = this.Tabs[i];
                     if (tab.bounds.Contains(x, y))
                     {
-                        this.TabIndex = i;
                         Game1.exitActiveMenu();
                         ItemInventoryMenu.ScrollIndex = 0;
-                        ItemMenu.Open();
+                        ItemMenu.Open(i);
                         break;
                     }
                 }
@@ -399,7 +399,7 @@ namespace CJBItemSpawner
                     this.SortID++;
                     if (this.SortID > 2)
                         this.SortID = 0;
-                    ItemMenu.Open();
+                    ItemMenu.Open(this.TabIndex);
                 }
 
                 if (this.QualityButton.bounds.Contains(x, y))
@@ -407,7 +407,7 @@ namespace CJBItemSpawner
                     this.Quality = this.Quality != this.Quality.GetNext()
                         ? this.Quality.GetNext()
                         : ItemQuality.Normal;
-                    ItemMenu.Open();
+                    ItemMenu.Open(this.TabIndex);
                 }
 
                 if (this.UpArrow.bounds.Contains(x, y))
@@ -577,9 +577,9 @@ namespace CJBItemSpawner
                 spriteBatch.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 0, 16, 16), Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
         }
 
-        public static void Open()
+        public static void Open(int tabIndex)
         {
-            Game1.activeClickableMenu = new ItemMenu(new List<Item>());
+            Game1.activeClickableMenu = new ItemMenu(new List<Item>(), tabIndex);
         }
     }
 }
