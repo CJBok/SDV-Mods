@@ -16,6 +16,9 @@ namespace CJBItemSpawner
         /*********
         ** Properties
         *********/
+        private static bool ItemsLoaded;
+        private static List<Item> ItemList;
+
         private readonly ClickableComponent Title;
         private readonly ClickableComponent SortButton;
         private readonly ClickableComponent QualityButton;
@@ -23,32 +26,30 @@ namespace CJBItemSpawner
         private readonly ClickableTextureComponent DownArrow;
         private readonly List<ClickableComponent> Tabs = new List<ClickableComponent>();
         private readonly TextBox Textbox;
-        private readonly List<Item> InventoryItems;
+        private readonly List<Item> InventoryItems = new List<Item>();
         private readonly bool AllowRightClick;
-
-        private static bool ItemsLoaded;
-        private static List<Item> ItemList;
+        private readonly int TabIndex;
+        private readonly int SortID;
+        private readonly ItemQuality Quality;
+        private readonly bool ShowReceivingMenu = true;
+        private readonly bool CanExitOnKey = true;
 
         private ItemInventoryMenu ItemsToGrabMenu;
         private TemporaryAnimatedSprite Poof;
-        private readonly int TabIndex;
-        private int SortID;
-        private ItemQuality Quality = ItemQuality.Normal;
         private Rectangle TextboxBounds;
-        private bool ShowReceivingMenu = true;
-        private bool CanExitOnKey = true;
         private string TempText = "";
 
 
         /*********
         ** Public methods
         *********/
-        public ItemMenu(List<Item> inventory, int tabIndex)
+        public ItemMenu(int tabIndex, int sortID, ItemQuality quality)
           : base(null, true, true, 0, -50)
         {
-            this.InventoryItems = inventory;
             this.MovePosition(110, Game1.viewport.Height / 2 - (650 + IClickableMenu.borderWidth * 2) / 2);
             this.TabIndex = tabIndex;
+            this.SortID = sortID;
+            this.Quality = quality;
 
             this.Textbox = new TextBox(null, null, Game1.dialogueFont, Game1.textColor);
             this.Textbox.X = Game1.viewport.Width / 2 - Game1.tileSize * 3;
@@ -109,6 +110,9 @@ namespace CJBItemSpawner
 
             this.LoadInventory();
         }
+
+        public ItemMenu()
+            : this(0, 0, ItemQuality.Normal) { }
 
         private void LoadInventory()
         {
@@ -373,7 +377,7 @@ namespace CJBItemSpawner
 
         public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)
         {
-            ItemMenu.Open(this.TabIndex);
+            this.Reopen();
         }
 
         public override void receiveLeftClick(int x, int y, bool playSound = true)
@@ -389,25 +393,25 @@ namespace CJBItemSpawner
                     {
                         Game1.exitActiveMenu();
                         ItemInventoryMenu.ScrollIndex = 0;
-                        ItemMenu.Open(i);
+                        this.Reopen(tabIndex: i);
                         break;
                     }
                 }
 
                 if (this.SortButton.bounds.Contains(x, y))
                 {
-                    this.SortID++;
-                    if (this.SortID > 2)
-                        this.SortID = 0;
-                    ItemMenu.Open(this.TabIndex);
+                    int sortID = this.SortID + 1;
+                    if (sortID > 2)
+                        sortID = 0;
+                    this.Reopen(sortID: sortID);
                 }
 
                 if (this.QualityButton.bounds.Contains(x, y))
                 {
-                    this.Quality = this.Quality != this.Quality.GetNext()
+                    ItemQuality quality = this.Quality != this.Quality.GetNext()
                         ? this.Quality.GetNext()
                         : ItemQuality.Normal;
-                    ItemMenu.Open(this.TabIndex);
+                    this.Reopen(quality: quality);
                 }
 
                 if (this.UpArrow.bounds.Contains(x, y))
@@ -419,7 +423,7 @@ namespace CJBItemSpawner
 
             if (this.HeldItem == null && this.ShowReceivingMenu)
             {
-                this.HeldItem = this.ItemsToGrabMenu.LeftClick(x, y, this.HeldItem, false);
+                this.HeldItem = this.ItemsToGrabMenu?.LeftClick(x, y, this.HeldItem, false);
                 if (this.HeldItem is SObject obj && obj.parentSheetIndex == 326)
                 {
                     this.HeldItem = null;
@@ -577,9 +581,9 @@ namespace CJBItemSpawner
                 spriteBatch.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 0, 16, 16), Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
         }
 
-        public static void Open(int tabIndex)
+        public void Reopen(int? tabIndex = null, int? sortID = null, ItemQuality? quality = null)
         {
-            Game1.activeClickableMenu = new ItemMenu(new List<Item>(), tabIndex);
+            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.TabIndex, sortID ?? this.SortID, quality ?? this.Quality);
         }
     }
 }
