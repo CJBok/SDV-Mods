@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.10
+VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CJBShowItemSellPrice", "CJBShowItemSellPrice\CJBShowItemSellPrice.csproj", "{D4C790D4-10E4-431E-83AE-926AA16407DD}"
 EndProject
@@ -19,13 +19,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CJBGrindStone", "CJBGrindSt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CJBTweaks", "CJBTweaks\CJBTweaks.csproj", "{4F8D13A4-63B8-4219-8D3E-25C272E3B1A2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "metadata", "metadata", "{74124A73-75C8-4CF4-9640-B3039FBE7E1A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "~metadata", "~metadata", "{74124A73-75C8-4CF4-9640-B3039FBE7E1A}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		GlobalAssemblyInfo.cs = GlobalAssemblyInfo.cs
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Archived", "Archived", "{79424E40-99DB-4AB0-9AB3-846281238C6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,5 +104,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{50D0E80F-4CDB-4185-ABA0-5BB1EF9D3F01} = {79424E40-99DB-4AB0-9AB3-846281238C6C}
+		{36D2BAC9-8A5A-4EED-AA31-D2232B0F690F} = {79424E40-99DB-4AB0-9AB3-846281238C6C}
+		{6D746A95-8C75-4A9E-B037-FFBE6214AE23} = {79424E40-99DB-4AB0-9AB3-846281238C6C}
+		{ADA873E2-8D64-4E30-A283-8671910B4CFD} = {79424E40-99DB-4AB0-9AB3-846281238C6C}
+		{4F8D13A4-63B8-4219-8D3E-25C272E3B1A2} = {79424E40-99DB-4AB0-9AB3-846281238C6C}
 	EndGlobalSection
 EndGlobal
