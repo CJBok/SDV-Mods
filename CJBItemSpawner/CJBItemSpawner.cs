@@ -41,7 +41,7 @@ namespace CJBItemSpawner
                 return;
 
             if (e.KeyPressed == this.Config.ShowMenuKey)
-                ItemMenu.Open(0);
+                Game1.activeClickableMenu = new ItemMenu();
         }
     }
 }
