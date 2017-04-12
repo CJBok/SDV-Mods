@@ -89,6 +89,9 @@ setting | default | what it affects
 `infiniteHay` | `false` | Your hay silos are always full.
 
 ## Versions
+1.14.1 (2017-04-12):
+* Fixed error when used with any mod that adds multiple seeds producing the same crop.
+
 1.14 (2017-04-05):
 * Updated to SMAPI 1.9.
 * Fast machines now work anywhere, not only on the farm.

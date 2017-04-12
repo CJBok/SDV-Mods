@@ -462,7 +462,9 @@ namespace CJBCheatsMenu
                 string[] fields = entry.Value.Split('/');
                 int cropID = Convert.ToInt32(fields[3]);
                 int harvestMethod = Convert.ToInt32(fields[5]);
-                lookup.Add(cropID, harvestMethod);
+
+                if (!lookup.ContainsKey(cropID))
+                    lookup.Add(cropID, harvestMethod);
             }
 
             return lookup;
