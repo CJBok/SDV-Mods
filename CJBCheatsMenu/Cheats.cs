@@ -13,6 +13,7 @@ using StardewValley.Objects;
 using StardewValley.TerrainFeatures;
 using StardewValley.Tools;
 using SObject = StardewValley.Object;
+using SFarmer = StardewValley.Farmer;
 
 namespace CJBCheatsMenu
 {
@@ -51,7 +52,7 @@ namespace CJBCheatsMenu
 
         public static void GrowTree()
         {
-            Farmer player = Game1.player;
+            SFarmer player = Game1.player;
             int x = (int)player.GetToolLocation().X / Game1.tileSize;
             int y = (int)player.GetToolLocation().Y / Game1.tileSize;
             Vector2 index = new Vector2(x, y);
@@ -77,7 +78,7 @@ namespace CJBCheatsMenu
 
         public static void GrowCrops()
         {
-            Farmer player = Game1.player;
+            SFarmer player = Game1.player;
             List<Vector2> tiles = new List<Vector2>();
 
             for (int x = -1; x <= 1; x++)
@@ -298,7 +299,7 @@ namespace CJBCheatsMenu
         {
             if (Game1.player != null)
             {
-                Farmer player = Game1.player;
+                SFarmer player = Game1.player;
 
                 if (CJBCheatsMenu.Config.IncreasedMovement && player.running)
                     player.addedSpeed = CJBCheatsMenu.Config.MoveSpeed;
@@ -332,7 +333,7 @@ namespace CJBCheatsMenu
 
                 if (CJBCheatsMenu.Config.OneHitBreak && player.usingTool && (player.CurrentTool is Axe || player.CurrentTool is Pickaxe))
                 {
-                    Vector2 tile = player.GetToolLocation() / Game1.tileSize;
+                    Vector2 tile = new Vector2 ((int) player.GetToolLocation().X / Game1.tileSize, (int)player.GetToolLocation().Y / Game1.tileSize);
 
                     if (player.CurrentTool is Pickaxe && player.currentLocation.objects.ContainsKey(tile))
                     {
@@ -425,7 +426,7 @@ namespace CJBCheatsMenu
             if (key.ToString() == CJBCheatsMenu.Config.OpenMenuKey)
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
-                    CheatsMenu.Open(0);
+                    CheatsMenu.Open(CJBCheatsMenu.Config.DefaultMenuID);
             }
 
             else if (key.ToString() == CJBCheatsMenu.Config.FreezeTimeKey)

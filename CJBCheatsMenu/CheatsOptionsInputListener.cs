@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewValley;
 using StardewValley.Menus;
+using SFarmer = StardewValley.Farmer;
 
 namespace CJBCheatsMenu
 {
@@ -300,7 +301,7 @@ namespace CJBCheatsMenu
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
         {
             string lvl = "";
-            Farmer plr = Game1.player;
+            SFarmer plr = Game1.player;
             switch (whichOption)
             {
                 case 200:
