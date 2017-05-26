@@ -31,7 +31,7 @@ namespace CJBCheatsMenu
             this.Mugshot = new ClickableTextureComponent("Mugshot", this.bounds, "", "", npc.sprite.Texture, npc.getMugShotSourceRect(), 0.7f * Game1.pixelZoom);
 
             if (Game1.player.friendships.ContainsKey(npc.name))
-                this.Value = Math.Max(Game1.player.friendships[npc.name][0] / 250, 10);
+                this.Value = Game1.player.friendships[npc.name][0] / 250;
         }
 
         public override void leftClickHeld(int x, int y)
