@@ -8,6 +8,7 @@ namespace CJBCheatsMenu
         ** Accessors
         *********/
         public string OpenMenuKey { get; set; } = Keys.P.ToString();
+        public int DefaultMenuID { get; set; } = 0;
         public string FreezeTimeKey { get; set; } = Keys.T.ToString();
         public string GrowTreeKey { get; set; } = Keys.NumPad1.ToString();
         public string GrowCropsKey { get; set; } = Keys.NumPad2.ToString();
