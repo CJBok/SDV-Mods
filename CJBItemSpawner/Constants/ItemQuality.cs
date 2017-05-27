@@ -1,7 +1,7 @@
 ﻿using System;
 using SObject = StardewValley.Object;
 
-namespace CJBItemSpawner
+namespace CJBItemSpawner.Constants
 {
     /// <summary>Indicates an item quality. (Higher-quality items are sold at a higher price.)</summary>
     internal enum ItemQuality
