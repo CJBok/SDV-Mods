@@ -38,8 +38,8 @@ setting | default | what it affects
 ### Player cheats
 setting | default | what it affects
 ------- | ------- | ---------------
-`IncreasedMovement` | `false` | Whether your character moves faster. The added speed is set by the `moveSpeed` field.
-`MoveSpeed` | `1` | The player speed to add if `increasedMovement` is `true`. This is an added multiplier (e.g. `1` doubles the default speed).
+`IncreasedMovement` | `false` | Whether your character moves faster. The added speed is set by the `MoveSpeed` field.
+`MoveSpeed` | `1` | The player speed to add if `IncreasedMovement` is `true`. This is an added multiplier (e.g. `1` doubles the default speed).
 `InfiniteHealth` | `false` | Your health never decreases.
 `InfiniteStamina` | `false` | Your stamina never decreases.
 `MaxDailyLuck` | `false` | Your daily luck is always at the maximum value.
@@ -52,7 +52,7 @@ setting | default | what it affects
 setting | default | what it affects
 ------- | ------- | ---------------
 `InstantBite` | `false` | After casting the fishing line, the fishing minigame appears immediately.
-`InstantCatch` | `false` | When the fishing minigame appears, you catch the fish immediately.
+`InstantCatch` | `false` | When the fishing minigame appears, the fish is caught immediately.
 `ThrowBobberMax` | `false` | When casting the fishing line, it always reaches the maximum distance.
 `DurableTackles` | `false` | Fishing tackles never break.
 `AlwaysTreasure` | `false` | Every fishing minigame has a treasure.
@@ -71,7 +71,7 @@ setting | default | what it affects
 `FastSlimeIncubator ` | `false` | Slime incubators finish instantly.
 `FastKeg` | `false` | Kegs finish instantly.
 `FastPreservesJar` | `false` | Preserves jars finish instantly.
-`FastCheesePress` | `false` | Cheese presss finish instantly.
+`FastCheesePress` | `false` | Cheese presses finish instantly.
 `FastMayonnaiseMachine ` | `false` | Mayonnaise machines finish instantly.
 `FastLoom` | `false` | Looms finish instantly.
 `FastOilMaker` | `false` | Oil makers finish instantly.
@@ -88,11 +88,11 @@ setting | default | what it affects
 setting | default | what it affects
 ------- | ------- | ---------------
 `AlwaysGiveGift` | `false` | You can always give gifts to villagers, regardless of the daily and weekly limits.
-`NoFriendshipDecay` | `false` | A villager's friendship value no longer slowly decays if you haven't maxed it out.
+`NoFriendshipDecay` | `false` | A villager's friendship value no longer slowly decays if it isn't maxed out.
 `DurableFences` | `false` | Fences never break.
 `InstantBuild` | `false` | Building new structures on the farm completes instantly.
-`AutoFeed` | `false` | The hay troughs in your barns and coops are refilled automatically.
-`InfiniteHay` | `false` | Your hay silos are always full.
+`AutoFeed` | `false` | Feed troughs in barns and coops are refilled automatically.
+`InfiniteHay` | `false` | Hay silos are always full.
 
 ## Versions
 1.15:
