@@ -1,14 +1,14 @@
 ﻿{
-  "Name": "CJB Item Spawner",
-  "Author": "CJ Bok",
-  "Version": {
-    "MajorVersion": 1,
-    "MinorVersion": 7,
-    "PatchVersion": 2,
-    "Build": null
-  },
-  "MinimumApiVersion": "1.9",
-  "Description": "Simple in-game item spawner!",
-  "UniqueID": "CJBok.ItemSpawner",
-  "EntryDll": "CJBItemSpawner.dll"
+    "Name": "CJB Item Spawner",
+    "Author": "CJ Bok",
+    "Version": {
+        "MajorVersion": 1,
+        "MinorVersion": 7,
+        "PatchVersion": 2,
+        "Build": null
+    },
+    "MinimumApiVersion": "1.9",
+    "Description": "Simple in-game item spawner!",
+    "UniqueID": "CJBok.ItemSpawner",
+    "EntryDll": "CJBItemSpawner.dll"
 }
