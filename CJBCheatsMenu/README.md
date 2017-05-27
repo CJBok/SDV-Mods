@@ -96,8 +96,10 @@ setting | default | what it affects
 
 ## Versions
 1.15:
+* Updated for Stardew Valley 1.2 and SMAPI 1.13.
 * Added option to set the default tab when opening the menu.
 * Fixed relationship slider always set to 10 hearts.
+* Fixed 'one hit break' no longer working on stones, trees, logs, and stumps.
 * Fixed 'one hit break' not working on fruit trees.
 
 1.14.1 (2017-04-12):
