@@ -425,7 +425,7 @@ namespace CJBCheatsMenu
         {
             if (key.ToString() == CJBCheatsMenu.Config.OpenMenuKey)
             {
-                CheatsMenu.Open(CJBCheatsMenu.Config.DefaultMenuID);
+                CheatsMenu.Open(CJBCheatsMenu.Config.DefaultTab);
             }
 
             else if (key.ToString() == CJBCheatsMenu.Config.FreezeTimeKey)
