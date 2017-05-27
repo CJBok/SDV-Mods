@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using CJBCheatsMenu.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
@@ -10,6 +12,12 @@ namespace CJBCheatsMenu
         /*********
         ** Properties
         *********/
+        /// <summary>The mod settings.</summary>
+        private readonly ModConfig Config;
+
+        /// <summary>The method which saves the mod settings.</summary>
+        private readonly Action SaveConfig;
+
         private readonly string SliderLabel;
         private readonly int SliderMaxValue;
         private int Value;
@@ -18,15 +26,25 @@ namespace CJBCheatsMenu
         /*********
         ** Public methods
         *********/
-        public CheatsOptionsSlider(string label, int whichOption, int maxValue = 100, int x = -1, int y = -1, int width = 48)
-            : base(label, x, y, width * Game1.pixelZoom, 6 * Game1.pixelZoom, whichOption)
+        /// <summary>Construct an instance.</summary>
+        /// <param name="label">The field label.</param>
+        /// <param name="whichOption">The option ID.</param>
+        /// <param name="maxValue">The maximum value that can be selected using the field.</param>
+        /// <param name="config">The mod settings.</param>
+        /// <param name="saveConfig">The method which saves the mod settings.</param>
+        /// <param name="width">The field width.</param>
+        public CheatsOptionsSlider(string label, int whichOption, int maxValue, ModConfig config, Action saveConfig, int width = 48)
+            : base(label, -1, -1, width * Game1.pixelZoom, 6 * Game1.pixelZoom, whichOption)
         {
+            this.Config = config;
+            this.SaveConfig = saveConfig;
+
             this.SliderLabel = label;
             this.SliderMaxValue = maxValue;
             switch (whichOption)
             {
                 case 0:
-                    this.Value = CJBCheatsMenu.Config.MoveSpeed;
+                    this.Value = config.MoveSpeed;
                     break;
                 case 10:
                     this.Value = (Game1.timeOfDay - 600) / 100;
@@ -45,8 +63,8 @@ namespace CJBCheatsMenu
             switch (whichOption)
             {
                 case 0:
-                    CJBCheatsMenu.Config.MoveSpeed = this.Value;
-                    CJBCheatsMenu.SaveConfig();
+                    this.Config.MoveSpeed = this.Value;
+                    this.SaveConfig();
                     break;
                 case 10:
                     Game1.timeOfDay = this.Value * 100 + 600;
@@ -71,7 +89,7 @@ namespace CJBCheatsMenu
             switch (whichOption)
             {
                 case 0:
-                    this.greyedOut = !CJBCheatsMenu.Config.IncreasedMovement;
+                    this.greyedOut = !this.Config.IncreasedMovement;
                     break;
                 case 10:
                     string ampm = (Game1.timeOfDay < 1200 || Game1.timeOfDay >= 2400) ? "am" : "pm";

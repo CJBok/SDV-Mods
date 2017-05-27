@@ -1,11 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
+using StardewValley.Buildings;
+using StardewValley.Locations;
 using StardewValley.Menus;
 
 namespace CJBCheatsMenu
 {
-    internal class CJB
+    internal static class CJB
     {
         /*********
         ** Public methods
@@ -65,6 +68,26 @@ namespace CJBCheatsMenu
             int[] exp = { 100, 280, 390, 530, 850, 1150, 1500, 2100, 3100, 5000 };
 
             return exp[level];
+        }
+
+        /// <summary>Get all game locations.</summary>
+        public static IEnumerable<GameLocation> GetAllLocations()
+        {
+            foreach (GameLocation location in Game1.locations)
+            {
+                // current location
+                yield return location;
+
+                // buildings
+                if (location is BuildableGameLocation buildableLocation)
+                {
+                    foreach (Building building in buildableLocation.buildings)
+                    {
+                        if (building.indoors != null)
+                            yield return building.indoors;
+                    }
+                }
+            }
         }
     }
 }
