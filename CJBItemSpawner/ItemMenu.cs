@@ -115,219 +115,6 @@ namespace CJBItemSpawner
         public ItemMenu()
             : this(0, 0, ItemQuality.Normal) { }
 
-        private void LoadInventory()
-        {
-            List<Item> items = ItemMenu.ItemList.OrderBy(o => o.Name).ToList();
-
-            switch (this.SortID)
-            {
-                case 1:
-                    items = ItemMenu.ItemList.OrderBy(o => o.category).ToList();
-                    break;
-                case 2:
-                    items = ItemMenu.ItemList.OrderBy(o => o.parentSheetIndex).ToList();
-                    break;
-            }
-
-            this.InventoryItems.Clear();
-            LocalizedContentManager.LanguageCode temp = LocalizedContentManager.CurrentLanguageCode;
-            LocalizedContentManager.CurrentLanguageCode = LocalizedContentManager.LanguageCode.en;
-            foreach (Item item in items)
-            {
-                item.Stack = item.maximumStackSize();
-                if (item is SObject obj)
-                    obj.quality = (int)this.Quality;
-
-                if ((this.CurrentTab == MenuTab.All || this.GetRelevantTab(item) == this.CurrentTab) && item.Name.ToLower().Contains(this.Textbox.Text.ToLower()))
-                    this.InventoryItems.Add(item);
-            }
-            LocalizedContentManager.CurrentLanguageCode = temp;
-
-            this.ItemsToGrabMenu = new ItemInventoryMenu(this.xPositionOnScreen + Game1.tileSize / 2, this.yPositionOnScreen, false, this.InventoryItems);
-        }
-
-        /// <summary>Get the relevant tab for an item.</summary>
-        /// <param name="item">The item whose tab to check.</param>
-        private MenuTab GetRelevantTab(Item item)
-        {
-            if (item is Tool || item.getCategoryName() == "Ring" || item is Hat || item is Boots)
-                return MenuTab.ToolsAndEquipment;
-            if (item.getCategoryName() == "Seed" || item.getCategoryName() == "Vegetable" || item.getCategoryName() == "Fertilizer" || item.getCategoryName() == "Flower")
-                return MenuTab.SeedsAndCrops;
-            if (item.getCategoryName() == "Fish" || item.getCategoryName() == "Bait" || item.getCategoryName() == "Trash" || item.getCategoryName() == "Fishing Tackle")
-                return MenuTab.FishAndBaitAndTrash;
-            if (item.getCategoryName() == "Forage" || item.getCategoryName() == "Fruit")
-                return MenuTab.ForageAndFruits;
-            if (item.getCategoryName() == "Artifact" || item.getCategoryName() == "Mineral")
-                return MenuTab.ArtifactsAndMinerals;
-            if (item.getCategoryName() == "Resource" || item.getCategoryName() == "Crafting" || item.category == -8 || item.category == -9)
-                return MenuTab.ResourcesAndCrafting;
-            if (item.getCategoryName() == "Artisan Goods" || item.getCategoryName() == "Cooking")
-                return MenuTab.ArtisanAndCooking;
-            if (item.getCategoryName() == "Animal Product" || item.getCategoryName() == "Monster Loot")
-                return MenuTab.AnimalAndMonster;
-            if (item.getCategoryName() == "Furniture" || item.getCategoryName() == "Decor")
-                return MenuTab.Decorating;
-            return MenuTab.Misc;
-        }
-
-        private static void LoadItems()
-        {
-            ItemMenu.ItemsLoaded = true;
-            ItemMenu.ItemList = new List<Item>
-            {
-                ToolFactory.getToolFromDescription(0, 0),
-                ToolFactory.getToolFromDescription(0, 1),
-                ToolFactory.getToolFromDescription(0, 2),
-                ToolFactory.getToolFromDescription(0, 3),
-                ToolFactory.getToolFromDescription(0, 4),
-                ToolFactory.getToolFromDescription(1, 0),
-                ToolFactory.getToolFromDescription(1, 1),
-                ToolFactory.getToolFromDescription(1, 2),
-                ToolFactory.getToolFromDescription(1, 3),
-                ToolFactory.getToolFromDescription(1, 4),
-                ToolFactory.getToolFromDescription(2, 0),
-                ToolFactory.getToolFromDescription(2, 1),
-                ToolFactory.getToolFromDescription(2, 2),
-                ToolFactory.getToolFromDescription(2, 3),
-                ToolFactory.getToolFromDescription(3, 0),
-                ToolFactory.getToolFromDescription(3, 1),
-                ToolFactory.getToolFromDescription(3, 2),
-                ToolFactory.getToolFromDescription(3, 3),
-                ToolFactory.getToolFromDescription(3, 4),
-                ToolFactory.getToolFromDescription(4, 0),
-                ToolFactory.getToolFromDescription(4, 1),
-                ToolFactory.getToolFromDescription(4, 2),
-                ToolFactory.getToolFromDescription(4, 3),
-                ToolFactory.getToolFromDescription(4, 4),
-                new MilkPail(),
-                new Shears(),
-                new Pan()
-            };
-
-            foreach (KeyValuePair<string, string> o in CraftingRecipe.craftingRecipes)
-            {
-                CraftingRecipe rec = new CraftingRecipe(o.Key, false);
-                Item item = rec.createItem();
-                if (item != null)
-                    ItemMenu.ItemList.Add(item);
-            }
-
-            for (int i = 0; i < 112; i++)
-                ItemMenu.ItemList.Add(new Wallpaper(i) { category = -24 });
-
-            for (int i = 0; i < 40; i++)
-                ItemMenu.ItemList.Add(new Wallpaper(i, true) { category = -24 });
-
-            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\Boots"))
-            {
-                Item item = new Boots(o.Key);
-                ItemMenu.ItemList.Add(item);
-            }
-
-            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\hats"))
-            {
-                Item item = new Hat(o.Key);
-                ItemMenu.ItemList.Add(item);
-            }
-
-            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\Furniture"))
-            {
-                Item item = new Furniture(o.Key, Vector2.Zero);
-
-                if (o.Key == 1466 || o.Key == 1468)
-                    item = new TV(o.Key, Vector2.Zero);
-                ItemMenu.ItemList.Add(item);
-            }
-
-            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\weapons"))
-            {
-                Item item = new MeleeWeapon(o.Key);
-
-                if (o.Key >= 32 && o.Key <= 34)
-                    item = new Slingshot(o.Key);
-
-                ItemMenu.ItemList.Add(item);
-            }
-
-            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\Fish"))
-            {
-                Item item = new SObject(o.Key, 999);
-                item.category = -4;
-                ItemMenu.ItemList.Add(item);
-            }
-
-            foreach (KeyValuePair<int, string> o in Game1.bigCraftablesInformation)
-            {
-                if (ItemMenu.HasItem(o.Key, o.Value.Split('/')[0]))
-                    continue;
-
-                ItemMenu.ItemList.Add(new SObject(Vector2.Zero, o.Key));
-            }
-
-            foreach (KeyValuePair<int, string> o in Game1.objectInformation)
-            {
-                if (ItemMenu.HasItem(o.Key, o.Value.Split('/')[0]))
-                    continue;
-
-                string[] info = o.Value.Split('/');
-                if (info.Length >= 3)
-                {
-                    if (info[3].StartsWith("Ring"))
-                    {
-                        ItemMenu.ItemList.Add(new Ring(o.Key));
-                        continue;
-                    }
-                    SObject item = new SObject(o.Key, 1);
-                    ItemMenu.ItemList.Add(item);
-
-                    if (item.category == -79)
-                    {
-                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 348, item.Name + " Wine", false, true, false, false)
-                        {
-                            name = item.Name + " Wine",
-                            price = item.price * 3
-                        });
-                    }
-                    if (item.category == -75)
-                    {
-                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 350, item.Name + " Juice", false, true, false, false)
-                        {
-                            name = item.Name + " Juice",
-                            price = (int)(item.price * 2.25d)
-                        });
-                    }
-
-                    if (item.category == -79)
-                    {
-                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 344, item.Name + " Jelly", false, true, false, false)
-                        {
-                            name = item.Name + " Jelly",
-                            price = 50 + item.Price * 2
-                        });
-                    }
-                    if (item.category == -75)
-                    {
-                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 342, "Pickled " + item.Name, false, true, false, false)
-                        {
-                            name = "Pickled " + item.Name,
-                            price = 50 + item.Price * 2
-                        });
-                    }
-                }
-            }
-        }
-
-        private static bool HasItem(int itemID, string name)
-        {
-            foreach (Item item in ItemMenu.ItemList)
-            {
-                if (item.parentSheetIndex == itemID && item.Name == name)
-                    return true;
-            }
-            return false;
-        }
-
         public override void receiveRightClick(int x, int y, bool playSound = true)
         {
             if (this.TextboxBounds.Contains(x, y))
@@ -573,15 +360,15 @@ namespace CJBItemSpawner
                 spriteBatch.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 0, 16, 16), Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
         }
 
-        public void Reopen(MenuTab? tabIndex = null, int? sortID = null, ItemQuality? quality = null)
-        {
-            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortID ?? this.SortID, quality ?? this.Quality);
-        }
-
 
         /*********
         ** Private methods
         *********/
+        private void Reopen(MenuTab? tabIndex = null, int? sortID = null, ItemQuality? quality = null)
+        {
+            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortID ?? this.SortID, quality ?? this.Quality);
+        }
+
         /// <summary>Get the tab constant represented by a tab component.</summary>
         /// <param name="tab">The component to check.</param>
         private MenuTab GetTabID(ClickableComponent tab)
@@ -589,6 +376,219 @@ namespace CJBItemSpawner
             if (!Enum.TryParse(tab.name, out MenuTab tabID))
                 throw new InvalidOperationException($"Couldn't parse tab name '{tab.name}'.");
             return tabID;
+        }
+
+        private void LoadInventory()
+        {
+            List<Item> items = ItemMenu.ItemList.OrderBy(o => o.Name).ToList();
+
+            switch (this.SortID)
+            {
+                case 1:
+                    items = ItemMenu.ItemList.OrderBy(o => o.category).ToList();
+                    break;
+                case 2:
+                    items = ItemMenu.ItemList.OrderBy(o => o.parentSheetIndex).ToList();
+                    break;
+            }
+
+            this.InventoryItems.Clear();
+            LocalizedContentManager.LanguageCode temp = LocalizedContentManager.CurrentLanguageCode;
+            LocalizedContentManager.CurrentLanguageCode = LocalizedContentManager.LanguageCode.en;
+            foreach (Item item in items)
+            {
+                item.Stack = item.maximumStackSize();
+                if (item is SObject obj)
+                    obj.quality = (int)this.Quality;
+
+                if ((this.CurrentTab == MenuTab.All || this.GetRelevantTab(item) == this.CurrentTab) && item.Name.ToLower().Contains(this.Textbox.Text.ToLower()))
+                    this.InventoryItems.Add(item);
+            }
+            LocalizedContentManager.CurrentLanguageCode = temp;
+
+            this.ItemsToGrabMenu = new ItemInventoryMenu(this.xPositionOnScreen + Game1.tileSize / 2, this.yPositionOnScreen, false, this.InventoryItems);
+        }
+
+        /// <summary>Get the relevant tab for an item.</summary>
+        /// <param name="item">The item whose tab to check.</param>
+        private MenuTab GetRelevantTab(Item item)
+        {
+            if (item is Tool || item.getCategoryName() == "Ring" || item is Hat || item is Boots)
+                return MenuTab.ToolsAndEquipment;
+            if (item.getCategoryName() == "Seed" || item.getCategoryName() == "Vegetable" || item.getCategoryName() == "Fertilizer" || item.getCategoryName() == "Flower")
+                return MenuTab.SeedsAndCrops;
+            if (item.getCategoryName() == "Fish" || item.getCategoryName() == "Bait" || item.getCategoryName() == "Trash" || item.getCategoryName() == "Fishing Tackle")
+                return MenuTab.FishAndBaitAndTrash;
+            if (item.getCategoryName() == "Forage" || item.getCategoryName() == "Fruit")
+                return MenuTab.ForageAndFruits;
+            if (item.getCategoryName() == "Artifact" || item.getCategoryName() == "Mineral")
+                return MenuTab.ArtifactsAndMinerals;
+            if (item.getCategoryName() == "Resource" || item.getCategoryName() == "Crafting" || item.category == -8 || item.category == -9)
+                return MenuTab.ResourcesAndCrafting;
+            if (item.getCategoryName() == "Artisan Goods" || item.getCategoryName() == "Cooking")
+                return MenuTab.ArtisanAndCooking;
+            if (item.getCategoryName() == "Animal Product" || item.getCategoryName() == "Monster Loot")
+                return MenuTab.AnimalAndMonster;
+            if (item.getCategoryName() == "Furniture" || item.getCategoryName() == "Decor")
+                return MenuTab.Decorating;
+            return MenuTab.Misc;
+        }
+
+        private static void LoadItems()
+        {
+            ItemMenu.ItemsLoaded = true;
+            ItemMenu.ItemList = new List<Item>
+            {
+                ToolFactory.getToolFromDescription(0, 0),
+                ToolFactory.getToolFromDescription(0, 1),
+                ToolFactory.getToolFromDescription(0, 2),
+                ToolFactory.getToolFromDescription(0, 3),
+                ToolFactory.getToolFromDescription(0, 4),
+                ToolFactory.getToolFromDescription(1, 0),
+                ToolFactory.getToolFromDescription(1, 1),
+                ToolFactory.getToolFromDescription(1, 2),
+                ToolFactory.getToolFromDescription(1, 3),
+                ToolFactory.getToolFromDescription(1, 4),
+                ToolFactory.getToolFromDescription(2, 0),
+                ToolFactory.getToolFromDescription(2, 1),
+                ToolFactory.getToolFromDescription(2, 2),
+                ToolFactory.getToolFromDescription(2, 3),
+                ToolFactory.getToolFromDescription(3, 0),
+                ToolFactory.getToolFromDescription(3, 1),
+                ToolFactory.getToolFromDescription(3, 2),
+                ToolFactory.getToolFromDescription(3, 3),
+                ToolFactory.getToolFromDescription(3, 4),
+                ToolFactory.getToolFromDescription(4, 0),
+                ToolFactory.getToolFromDescription(4, 1),
+                ToolFactory.getToolFromDescription(4, 2),
+                ToolFactory.getToolFromDescription(4, 3),
+                ToolFactory.getToolFromDescription(4, 4),
+                new MilkPail(),
+                new Shears(),
+                new Pan()
+            };
+
+            foreach (KeyValuePair<string, string> o in CraftingRecipe.craftingRecipes)
+            {
+                CraftingRecipe rec = new CraftingRecipe(o.Key, false);
+                Item item = rec.createItem();
+                if (item != null)
+                    ItemMenu.ItemList.Add(item);
+            }
+
+            for (int i = 0; i < 112; i++)
+                ItemMenu.ItemList.Add(new Wallpaper(i) { category = -24 });
+
+            for (int i = 0; i < 40; i++)
+                ItemMenu.ItemList.Add(new Wallpaper(i, true) { category = -24 });
+
+            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\Boots"))
+            {
+                Item item = new Boots(o.Key);
+                ItemMenu.ItemList.Add(item);
+            }
+
+            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\hats"))
+            {
+                Item item = new Hat(o.Key);
+                ItemMenu.ItemList.Add(item);
+            }
+
+            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\Furniture"))
+            {
+                Item item = new Furniture(o.Key, Vector2.Zero);
+
+                if (o.Key == 1466 || o.Key == 1468)
+                    item = new TV(o.Key, Vector2.Zero);
+                ItemMenu.ItemList.Add(item);
+            }
+
+            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\weapons"))
+            {
+                Item item = new MeleeWeapon(o.Key);
+
+                if (o.Key >= 32 && o.Key <= 34)
+                    item = new Slingshot(o.Key);
+
+                ItemMenu.ItemList.Add(item);
+            }
+
+            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\Fish"))
+            {
+                Item item = new SObject(o.Key, 999);
+                item.category = -4;
+                ItemMenu.ItemList.Add(item);
+            }
+
+            foreach (KeyValuePair<int, string> o in Game1.bigCraftablesInformation)
+            {
+                if (ItemMenu.HasItem(o.Key, o.Value.Split('/')[0]))
+                    continue;
+
+                ItemMenu.ItemList.Add(new SObject(Vector2.Zero, o.Key));
+            }
+
+            foreach (KeyValuePair<int, string> o in Game1.objectInformation)
+            {
+                if (ItemMenu.HasItem(o.Key, o.Value.Split('/')[0]))
+                    continue;
+
+                string[] info = o.Value.Split('/');
+                if (info.Length >= 3)
+                {
+                    if (info[3].StartsWith("Ring"))
+                    {
+                        ItemMenu.ItemList.Add(new Ring(o.Key));
+                        continue;
+                    }
+                    SObject item = new SObject(o.Key, 1);
+                    ItemMenu.ItemList.Add(item);
+
+                    if (item.category == -79)
+                    {
+                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 348, item.Name + " Wine", false, true, false, false)
+                        {
+                            name = item.Name + " Wine",
+                            price = item.price * 3
+                        });
+                    }
+                    if (item.category == -75)
+                    {
+                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 350, item.Name + " Juice", false, true, false, false)
+                        {
+                            name = item.Name + " Juice",
+                            price = (int)(item.price * 2.25d)
+                        });
+                    }
+
+                    if (item.category == -79)
+                    {
+                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 344, item.Name + " Jelly", false, true, false, false)
+                        {
+                            name = item.Name + " Jelly",
+                            price = 50 + item.Price * 2
+                        });
+                    }
+                    if (item.category == -75)
+                    {
+                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 342, "Pickled " + item.Name, false, true, false, false)
+                        {
+                            name = "Pickled " + item.Name,
+                            price = 50 + item.Price * 2
+                        });
+                    }
+                }
+            }
+        }
+
+        private static bool HasItem(int itemID, string name)
+        {
+            foreach (Item item in ItemMenu.ItemList)
+            {
+                if (item.parentSheetIndex == itemID && item.Name == name)
+                    return true;
+            }
+            return false;
         }
     }
 }

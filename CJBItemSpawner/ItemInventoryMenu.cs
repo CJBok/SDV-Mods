@@ -243,22 +243,12 @@ namespace CJBItemSpawner
         }
 
         public override void receiveRightClick(int x, int y, bool playSound = true) { }
-        public static Item RemoveItemFromInventory(int whichItemIndex, List<Item> items)
-        {
-            if (whichItemIndex >= 0 && whichItemIndex < items.Count && items[whichItemIndex] != null)
-            {
-                Item item = items[whichItemIndex].getOne();
-                item.Stack = items[whichItemIndex].Stack;
-                if (whichItemIndex == Game1.player.CurrentToolIndex && items == Game1.player.items)
-                    item.actionWhenStopBeingHeld(Game1.player);
-                if (items == Game1.player.items)
-                    items[whichItemIndex] = null;
-                return item;
-            }
-            return null;
-        }
 
-        public static Item AddItemToInventory(Item item, int position, List<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null)
+
+        /*********
+        ** Private methods
+        *********/
+        private static Item AddItemToInventory(Item item, int position, List<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null)
         {
             if (items == Game1.player.items && item is SObject obj && obj.specialItem)
             {
@@ -296,6 +286,21 @@ namespace CJBItemSpawner
             item.Stack = num;
             onAddFunction?.Invoke(item, null);
             return item;
+        }
+
+        private static Item RemoveItemFromInventory(int whichItemIndex, List<Item> items)
+        {
+            if (whichItemIndex >= 0 && whichItemIndex < items.Count && items[whichItemIndex] != null)
+            {
+                Item item = items[whichItemIndex].getOne();
+                item.Stack = items[whichItemIndex].Stack;
+                if (whichItemIndex == Game1.player.CurrentToolIndex && items == Game1.player.items)
+                    item.actionWhenStopBeingHeld(Game1.player);
+                if (items == Game1.player.items)
+                    items[whichItemIndex] = null;
+                return item;
+            }
+            return null;
         }
     }
 }
