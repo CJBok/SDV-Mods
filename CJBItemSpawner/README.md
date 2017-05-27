@@ -16,6 +16,9 @@ Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
 3. Run the game using SMAPI.
 
 ## Versions
+1.8:
+* Fixed 'misc' tab duplicating some items shown in other tabs.
+
 1.7.2:
 * The hotkey can now be changed in `config.json`.
 * Fixed quality & sort buttons broken in 1.7.

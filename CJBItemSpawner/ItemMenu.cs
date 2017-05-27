@@ -136,46 +136,40 @@ namespace CJBItemSpawner
             foreach (Item item in items)
             {
                 item.Stack = item.maximumStackSize();
-
                 if (item is SObject obj)
                     obj.quality = (int)this.Quality;
 
-                if (this.IsCategoryAllowed(item) && item.Name.ToLower().Contains(this.Textbox.Text.ToLower()))
+                if ((this.CurrentTab == MenuTab.All || this.GetRelevantTab(item) == this.CurrentTab) && item.Name.ToLower().Contains(this.Textbox.Text.ToLower()))
                     this.InventoryItems.Add(item);
             }
             LocalizedContentManager.CurrentLanguageCode = temp;
 
             this.ItemsToGrabMenu = new ItemInventoryMenu(this.xPositionOnScreen + Game1.tileSize / 2, this.yPositionOnScreen, false, this.InventoryItems);
         }
-        private bool IsCategoryAllowed(Item item)
+
+        /// <summary>Get the relevant tab for an item.</summary>
+        /// <param name="item">The item whose tab to check.</param>
+        private MenuTab GetRelevantTab(Item item)
         {
-            switch (this.CurrentTab)
-            {
-                case MenuTab.All:
-                    return true;
-                case MenuTab.ToolsAndEquipment:
-                    return item is Tool || item.getCategoryName() == "Ring" || item is Hat || item is Boots;
-                case MenuTab.SeedsAndCrops:
-                    return item.getCategoryName() == "Seed" || item.getCategoryName() == "Vegetable" || item.getCategoryName() == "Fertilizer" || item.getCategoryName() == "Flower";
-                case MenuTab.FishAndBaitAndTrash:
-                    return item.getCategoryName() == "Fish" || item.getCategoryName() == "Bait" || item.getCategoryName() == "Trash" || item.getCategoryName() == "Fishing Tackle";
-                case MenuTab.ForageAndFruits:
-                    return item.getCategoryName() == "Forage" || item.getCategoryName() == "Fruit";
-                case MenuTab.ArtifactsAndMinerals:
-                    return item.getCategoryName() == "Artifact" || item.getCategoryName() == "Mineral";
-                case MenuTab.ResourcesAndCrafting:
-                    return item.getCategoryName() == "Resource" || item.getCategoryName() == "Crafting" || item.category == -8 || item.category == -9;
-                case MenuTab.ArtisanAndCooking:
-                    return item.getCategoryName() == "Artisan Goods" || item.getCategoryName() == "Cooking";
-                case MenuTab.AnimalAndMonster:
-                    return item.getCategoryName() == "Animal Product" || item.getCategoryName() == "Monster Loot";
-                case MenuTab.Decorating:
-                    return item.getCategoryName() == "Furniture" || item.getCategoryName() == "Decor";
-                case MenuTab.Misc:
-                    return item.getCategoryName().Trim() == "";
-                default:
-                    return false;
-            }
+            if (item is Tool || item.getCategoryName() == "Ring" || item is Hat || item is Boots)
+                return MenuTab.ToolsAndEquipment;
+            if (item.getCategoryName() == "Seed" || item.getCategoryName() == "Vegetable" || item.getCategoryName() == "Fertilizer" || item.getCategoryName() == "Flower")
+                return MenuTab.SeedsAndCrops;
+            if (item.getCategoryName() == "Fish" || item.getCategoryName() == "Bait" || item.getCategoryName() == "Trash" || item.getCategoryName() == "Fishing Tackle")
+                return MenuTab.FishAndBaitAndTrash;
+            if (item.getCategoryName() == "Forage" || item.getCategoryName() == "Fruit")
+                return MenuTab.ForageAndFruits;
+            if (item.getCategoryName() == "Artifact" || item.getCategoryName() == "Mineral")
+                return MenuTab.ArtifactsAndMinerals;
+            if (item.getCategoryName() == "Resource" || item.getCategoryName() == "Crafting" || item.category == -8 || item.category == -9)
+                return MenuTab.ResourcesAndCrafting;
+            if (item.getCategoryName() == "Artisan Goods" || item.getCategoryName() == "Cooking")
+                return MenuTab.ArtisanAndCooking;
+            if (item.getCategoryName() == "Animal Product" || item.getCategoryName() == "Monster Loot")
+                return MenuTab.AnimalAndMonster;
+            if (item.getCategoryName() == "Furniture" || item.getCategoryName() == "Decor")
+                return MenuTab.Decorating;
+            return MenuTab.Misc;
         }
 
         private static void LoadItems()
