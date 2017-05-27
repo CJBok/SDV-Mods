@@ -97,6 +97,7 @@ setting | default | what it affects
 ## Versions
 1.15:
 * Added option to set the default tab when opening the menu.
+* Fixed relationship slider always set to 10 hearts.
 
 1.14.1 (2017-04-12):
 * Fixed error when used with any mod that adds multiple seeds producing the same crop.
