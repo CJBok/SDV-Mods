@@ -345,11 +345,10 @@ namespace CJBCheatsMenu
                     if (player.CurrentTool is Axe && player.currentLocation.terrainFeatures.ContainsKey(tile))
                     {
                         TerrainFeature obj = player.currentLocation.terrainFeatures[tile];
-                        if (obj is Tree tree)
-                        {
-                            if (tree.health > 1)
-                                tree.health = 1;
-                        }
+                        if (obj is Tree tree && tree.health > 1)
+                            tree.health = 1;
+                        else if (obj is FruitTree fruitTree && fruitTree.health > 1)
+                            fruitTree.health = 1;
                     }
 
                     List<ResourceClump> resourceClumps = new List<ResourceClump>();
