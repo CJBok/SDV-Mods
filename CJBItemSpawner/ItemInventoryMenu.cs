@@ -177,6 +177,18 @@ namespace CJBItemSpawner
                             if (index == Game1.player.CurrentToolIndex && this.ActualInventory[index] != null && this.ActualInventory[index].Stack == 1)
                                 this.ActualInventory[index].actionWhenStopBeingHeld(Game1.player);
                             Item one = this.ActualInventory[index].getOne();
+                            
+                            if(this.ActualInventory[index] is SObject o)
+                            {
+                                one = new SObject(Vector2.Zero, o.parentSheetIndex, o.name, o.canBeSetDown, o.canBeGrabbed, o.isHoedirt, o.isSpawnedObject)
+                                {
+                                    preserve = o.preserve,
+                                    preservedParentSheetIndex = o.preservedParentSheetIndex,
+                                    price = o.price,
+                                    name = o.name
+                                };
+                            }
+
                             if (this.ActualInventory[index].Stack > 1)
                             {
                                 if (Game1.isOneOfTheseKeysDown(Game1.oldKBState, new[] { new InputButton(Keys.LeftShift) }))
@@ -255,34 +267,7 @@ namespace CJBItemSpawner
                 return;
             Game1.setMousePosition(this.Inventory[0].bounds.Right - this.Inventory[0].bounds.Width / 8, this.Inventory[0].bounds.Bottom - this.Inventory[0].bounds.Height / 8);
         }
-
-        public override int moveCursorInDirection(int direction)
-        {
-            Rectangle rectangle = new Rectangle(this.Inventory[0].bounds.X, this.Inventory[0].bounds.Y, this.Inventory.Last().bounds.X + this.Inventory.Last().bounds.Width - this.Inventory[0].bounds.X, this.Inventory.Last().bounds.Y + this.Inventory.Last().bounds.Height - this.Inventory[0].bounds.Y);
-            if (!rectangle.Contains(Game1.getMousePosition()))
-                Game1.setMousePosition(this.Inventory[0].bounds.Right - this.Inventory[0].bounds.Width / 8, this.Inventory[0].bounds.Bottom - this.Inventory[0].bounds.Height / 8);
-            Point mousePosition = Game1.getMousePosition();
-            switch (direction)
-            {
-                case 0:
-                    Game1.setMousePosition(mousePosition.X, mousePosition.Y - Game1.tileSize - this.VerticalGap);
-                    break;
-                case 1:
-                    Game1.setMousePosition(mousePosition.X + Game1.tileSize + this.HorizontalGap, mousePosition.Y);
-                    break;
-                case 2:
-                    Game1.setMousePosition(mousePosition.X, mousePosition.Y + Game1.tileSize + this.VerticalGap);
-                    break;
-                case 3:
-                    Game1.setMousePosition(mousePosition.X - Game1.tileSize - this.HorizontalGap, mousePosition.Y);
-                    break;
-            }
-            if (rectangle.Contains(Game1.getMousePosition()))
-                return -1;
-            Game1.setMousePosition(mousePosition);
-            return direction;
-        }
-
+  
         public override void receiveScrollWheelAction(int direction)
         {
             if (GameMenu.forcePreventClose)
@@ -318,17 +303,7 @@ namespace CJBItemSpawner
 
         public static Item RemoveItemFromInventory(int whichItemIndex, List<Item> items)
         {
-            if (whichItemIndex >= 0 && whichItemIndex < items.Count && items[whichItemIndex] != null)
-            {
-                Item item = items[whichItemIndex].getOne();
-                item.Stack = items[whichItemIndex].Stack;
-                if (whichItemIndex == Game1.player.CurrentToolIndex && items == Game1.player.items)
-                    item.actionWhenStopBeingHeld(Game1.player);
-                if (items == Game1.player.items)
-                    items[whichItemIndex] = null;
-                return item;
-            }
-            return null;
+            return Utility.removeItemFromInventory(whichItemIndex, items);
         }
 
         public static Item AddItemToInventory(Item item, int position, List<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null)

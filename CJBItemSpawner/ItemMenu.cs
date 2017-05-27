@@ -129,6 +129,9 @@ namespace CJBItemSpawner
             }
 
             this.InventoryItems.Clear();
+            LocalizedContentManager.LanguageCode temp = LocalizedContentManager.CurrentLanguageCode;
+            LocalizedContentManager.CurrentLanguageCode = LocalizedContentManager.LanguageCode.en;
+            List<Item> allItems = new List<Item>();
             foreach (Item item in items)
             {
                 item.Stack = item.maximumStackSize();
@@ -136,10 +139,20 @@ namespace CJBItemSpawner
                 if (item is SObject obj)
                     obj.quality = (int)this.Quality;
 
-                if (this.IsCategoryAllowed(item) && item.Name.ToLower().Contains(this.Textbox.Text.ToLower()))
-                    this.InventoryItems.Add(item);
+                if (this.IsCategoryAllowed(item))
+                    allItems.Add(item);
             }
 
+            LocalizedContentManager.CurrentLanguageCode = temp;
+
+            foreach (Item item in allItems)
+            {
+                if (item.DisplayName.ToLower().Contains(this.Textbox.Text.ToLower()))
+                {
+                    InventoryItems.Add(item);
+                }
+            }
+            
             this.ItemsToGrabMenu = new ItemInventoryMenu(this.xPositionOnScreen + Game1.tileSize / 2, this.yPositionOnScreen, false, this.InventoryItems);
         }
         private bool IsCategoryAllowed(Item item)
@@ -282,39 +295,66 @@ namespace CJBItemSpawner
                     }
                     SObject item = new SObject(o.Key, 1);
                     ItemMenu.ItemList.Add(item);
-
+                    if (item.category == -80)
+                    {
+                        SObject nextItem = new SObject(Vector2.Zero, 340, item.Name + " Honey", false, true, false, false)
+                        {
+                            name = item.Name + " Honey",
+                        };
+                        nextItem.price += item.price * 2;
+                        LocalizedContentManager.LanguageCode temp = LocalizedContentManager.CurrentLanguageCode;
+                        LocalizedContentManager.CurrentLanguageCode = LocalizedContentManager.LanguageCode.de;
+                        string loadHoneyType = nextItem.getDescription();
+                        if (nextItem.honeyType is SObject.HoneyType)
+                        {
+                            ItemMenu.ItemList.Add(nextItem);
+                        }
+                        LocalizedContentManager.CurrentLanguageCode = temp;
+                    }
                     if (item.category == -79)
                     {
-                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 348, item.Name + " Wine", false, true, false, false)
+                        SObject nextItem = new SObject(Vector2.Zero, 348, item.Name + " Wine", false, true, false, false)
                         {
                             name = item.Name + " Wine",
-                            price = item.price * 3
-                        });
+                            price = item.price * 3,
+                            preserve = SObject.PreserveType.Wine,
+                            preservedParentSheetIndex = item.parentSheetIndex
+                    };
+                        ItemMenu.ItemList.Add(nextItem);
                     }
                     if (item.category == -75)
                     {
-                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 350, item.Name + " Juice", false, true, false, false)
+                        SObject nextItem = new SObject(Vector2.Zero, 350, item.Name + " Juice", false, true, false, false)
                         {
                             name = item.Name + " Juice",
-                            price = (int)(item.price * 2.25d)
-                        });
+                            price = (int)(item.price * 2.25d),
+                            preserve = SObject.PreserveType.Juice,
+                            preservedParentSheetIndex = item.parentSheetIndex
+                        };
+                        ItemMenu.ItemList.Add(nextItem);
                     }
 
                     if (item.category == -79)
                     {
-                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 344, item.Name + " Jelly", false, true, false, false)
+                        SObject nextItem = new SObject(Vector2.Zero, 344, item.Name + " Jelly", false, true, false, false)
                         {
                             name = item.Name + " Jelly",
-                            price = 50 + item.Price * 2
-                        });
+                            price = 50 + item.Price * 2,
+                            preserve = SObject.PreserveType.Jelly,
+                            preservedParentSheetIndex = item.parentSheetIndex
+                        };
+                        ItemMenu.ItemList.Add(nextItem);
                     }
                     if (item.category == -75)
                     {
-                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 342, "Pickled " + item.Name, false, true, false, false)
+                        SObject nextItem = new SObject(Vector2.Zero, 342, "Pickled " + item.Name, false, true, false, false)
                         {
                             name = "Pickled " + item.Name,
-                            price = 50 + item.Price * 2
-                        });
+                            price = 50 + item.Price * 2,
+                            preserve = SObject.PreserveType.Pickle,
+                            preservedParentSheetIndex = item.parentSheetIndex
+                        };
+                        ItemMenu.ItemList.Add(nextItem);
                     }
                 }
             }
@@ -552,7 +592,7 @@ namespace CJBItemSpawner
             this.Draw(spriteBatch, false, false);
             if (this.ShowReceivingMenu)
             {
-                CJB.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.borderFont, this.Title.name, true, 2);
+                CJB.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.dialogueFont, this.Title.name, true, 2);
                 Game1.drawDialogueBox(this.ItemsToGrabMenu.xPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearSideBorder, this.ItemsToGrabMenu.yPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearTopBorder, this.ItemsToGrabMenu.width + IClickableMenu.borderWidth * 2 + IClickableMenu.spaceToClearSideBorder * 2, this.ItemsToGrabMenu.height + IClickableMenu.spaceToClearTopBorder + IClickableMenu.borderWidth * 2, false, true);
                 this.ItemsToGrabMenu.draw(spriteBatch);
                 for (int i = 0; i < this.Tabs.Count; i++)
@@ -572,7 +612,7 @@ namespace CJBItemSpawner
             if (this.HoverText != null && (this.HoveredItem == null || this.ItemsToGrabMenu == null))
                 IClickableMenu.drawHoverText(spriteBatch, this.HoverText, Game1.smallFont);
             if (this.HoveredItem != null)
-                IClickableMenu.drawToolTip(spriteBatch, this.HoveredItem.getDescription(), this.HoveredItem.Name, this.HoveredItem, this.HeldItem != null);
+                IClickableMenu.drawToolTip(spriteBatch, this.HoveredItem.getDescription(), this.HoveredItem.DisplayName, this.HoveredItem, this.HeldItem != null);
             else if (this.HoveredItem != null && this.ItemsToGrabMenu != null)
                 IClickableMenu.drawToolTip(spriteBatch, this.ItemsToGrabMenu.DescriptionText, this.ItemsToGrabMenu.DescriptionTitle, this.HoveredItem, this.HeldItem != null);
             this.HeldItem?.drawInMenu(spriteBatch, new Vector2(Game1.getOldMouseX() + 8, Game1.getOldMouseY() + 8), 1f);
