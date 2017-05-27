@@ -129,6 +129,8 @@ namespace CJBItemSpawner
             }
 
             this.InventoryItems.Clear();
+            LocalizedContentManager.LanguageCode temp = LocalizedContentManager.CurrentLanguageCode;
+            LocalizedContentManager.CurrentLanguageCode = LocalizedContentManager.LanguageCode.en;
             foreach (Item item in items)
             {
                 item.Stack = item.maximumStackSize();
@@ -139,6 +141,7 @@ namespace CJBItemSpawner
                 if (this.IsCategoryAllowed(item) && item.Name.ToLower().Contains(this.Textbox.Text.ToLower()))
                     this.InventoryItems.Add(item);
             }
+            LocalizedContentManager.CurrentLanguageCode = temp;
 
             this.ItemsToGrabMenu = new ItemInventoryMenu(this.xPositionOnScreen + Game1.tileSize / 2, this.yPositionOnScreen, false, this.InventoryItems);
         }
@@ -552,7 +555,7 @@ namespace CJBItemSpawner
             this.Draw(spriteBatch, false, false);
             if (this.ShowReceivingMenu)
             {
-                CJB.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.borderFont, this.Title.name, true, 2);
+                CJB.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.dialogueFont, this.Title.name, true, 2);
                 Game1.drawDialogueBox(this.ItemsToGrabMenu.xPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearSideBorder, this.ItemsToGrabMenu.yPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearTopBorder, this.ItemsToGrabMenu.width + IClickableMenu.borderWidth * 2 + IClickableMenu.spaceToClearSideBorder * 2, this.ItemsToGrabMenu.height + IClickableMenu.spaceToClearTopBorder + IClickableMenu.borderWidth * 2, false, true);
                 this.ItemsToGrabMenu.draw(spriteBatch);
                 for (int i = 0; i < this.Tabs.Count; i++)
