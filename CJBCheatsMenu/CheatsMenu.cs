@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CJBCheatsMenu.Constants;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -30,17 +31,17 @@ namespace CJBCheatsMenu
         private bool IsScrolling;
         private Rectangle ScrollbarRunner;
         private bool CanClose;
-        private int TabIndex;
+        private readonly MenuTab CurrentTab;
 
 
         /*********
         ** Public methods
         *********/
-        public CheatsMenu(int x, int y, int width, int height, int tabIndex)
+        public CheatsMenu(int x, int y, int width, int height, MenuTab tabIndex)
           : base(x, y, width, height)
         {
             this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + width / 2, this.yPositionOnScreen, Game1.tileSize * 4, Game1.tileSize), "CJB Cheats Menu");
-            this.TabIndex = tabIndex;
+            this.CurrentTab = tabIndex;
 
             {
                 int i = 0;
@@ -48,14 +49,14 @@ namespace CJBCheatsMenu
                 int labelY = (int)(this.yPositionOnScreen + Game1.tileSize * 1.5f);
                 int labelHeight = (int)(Game1.tileSize * 0.9F);
 
-                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Player & Tools"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Farm & Fishing"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Skills"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Weather"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Relationships"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Warp Locations"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Time"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i, Game1.tileSize * 5, Game1.tileSize), "Controls"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.PlayerAndTools.ToString(), "Player & Tools"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.FarmAndFishing.ToString(), "Farm & Fishing"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Skills.ToString(), "Skills"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Weather.ToString(), "Weather"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Relationships.ToString(), "Relationships"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.WarpLocations.ToString(), "Warp Locations"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Time.ToString(), "Time"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i, Game1.tileSize * 5, Game1.tileSize), MenuTab.Controls.ToString(), "Controls"));
             }
 
             this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(this.xPositionOnScreen + width + Game1.tileSize / 4, this.yPositionOnScreen + Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
@@ -65,9 +66,9 @@ namespace CJBCheatsMenu
             for (int i = 0; i < CheatsMenu.ItemsPerPage; i++)
                 this.OptionSlots.Add(new ClickableComponent(new Rectangle(this.xPositionOnScreen + Game1.tileSize / 4, this.yPositionOnScreen + Game1.tileSize * 5 / 4 + Game1.pixelZoom + i * ((height - Game1.tileSize * 2) / CheatsMenu.ItemsPerPage), width - Game1.tileSize / 2, (height - Game1.tileSize * 2) / CheatsMenu.ItemsPerPage + Game1.pixelZoom), string.Concat(i)));
 
-            switch (this.TabIndex)
+            switch (this.CurrentTab)
             {
-                case 0:
+                case MenuTab.PlayerAndTools:
                     this.Options.Add(new OptionsElement("Player:"));
                     this.Options.Add(new CheatsOptionsCheckbox("Infinite Stamina", 1));
                     this.Options.Add(new CheatsOptionsCheckbox("Infinite Health", 2));
@@ -93,7 +94,7 @@ namespace CJBCheatsMenu
                     this.Options.Add(new CheatsOptionsInputListener("Add 10000", 8, this.OptionSlots[0].bounds.Width));
                     break;
 
-                case 1:
+                case MenuTab.FarmAndFishing:
                     this.Options.Add(new OptionsElement("Farm:"));
                     this.Options.Add(new CheatsOptionsInputListener("Water All Fields", 9, this.OptionSlots[0].bounds.Width));
                     this.Options.Add(new CheatsOptionsCheckbox("Durable Fences", 13));
@@ -131,7 +132,7 @@ namespace CJBCheatsMenu
                     this.Options.Add(new CheatsOptionsCheckbox("Worm Bin", 119));
                     break;
 
-                case 2:
+                case MenuTab.Skills:
                     this.Options.Add(new OptionsElement("Skills:"));
                     this.Options.Add(new CheatsOptionsInputListener("Incr. Farming Lvl", 200, this.OptionSlots[0].bounds.Width));
                     this.Options.Add(new CheatsOptionsInputListener("Incr. Mining Lvl", 201, this.OptionSlots[0].bounds.Width));
@@ -141,7 +142,7 @@ namespace CJBCheatsMenu
                     this.Options.Add(new CheatsOptionsInputListener("RESET SKILLS!", 205, this.OptionSlots[0].bounds.Width));
                     break;
 
-                case 3:
+                case MenuTab.Weather:
                     this.Options.Add(new OptionsElement("Weather Next Day:"));
                     this.Options.Add(new CheatsOptionsElement("Current: ", 1));
                     this.Options.Add(new CheatsOptionsInputListener("Sunny", 10, this.OptionSlots[0].bounds.Width));
@@ -150,7 +151,7 @@ namespace CJBCheatsMenu
                     this.Options.Add(new CheatsOptionsInputListener("Snowing", 13, this.OptionSlots[0].bounds.Width));
                     break;
 
-                case 4:
+                case MenuTab.Relationships:
                     this.Options.Add(new OptionsElement("Relationships:"));
                     this.Options.Add(new CheatsOptionsCheckbox("Give Gift Anytime", 9));
                     this.Options.Add(new CheatsOptionsCheckbox("No Friendship Decay", 17));
@@ -166,7 +167,7 @@ namespace CJBCheatsMenu
                     }
                     break;
 
-                case 5:
+                case MenuTab.WarpLocations:
                     this.Options.Add(new OptionsElement("Warp to:"));
                     this.Options.Add(new CheatsOptionsInputListener("Farm", 100, this.OptionSlots[0].bounds.Width));
                     this.Options.Add(new CheatsOptionsInputListener("Pierre's", 101, this.OptionSlots[0].bounds.Width));
@@ -191,7 +192,7 @@ namespace CJBCheatsMenu
                     this.Options.Add(new CheatsOptionsInputListener("Bathhouse", 118, this.OptionSlots[0].bounds.Width));
                     break;
 
-                case 6:
+                case MenuTab.Time:
                     this.Options.Add(new OptionsElement("Time:"));
                     this.Options.Add(new CheatsOptionsCheckbox("Freeze Time Inside", 10));
                     this.Options.Add(new CheatsOptionsCheckbox("Freeze Time Caves", 12));
@@ -199,7 +200,7 @@ namespace CJBCheatsMenu
                     this.Options.Add(new CheatsOptionsSlider("Time", 10, 20, -1, -1, 100));
                     break;
 
-                case 7:
+                case MenuTab.Controls:
                     this.Options.Add(new OptionsElement("Controls:"));
                     this.Options.Add(new CheatsOptionsInputListener("Open Menu", 1000, this.OptionSlots[0].bounds.Width));
                     this.Options.Add(new CheatsOptionsInputListener("Freeze Time", 1001, this.OptionSlots[0].bounds.Width));
@@ -263,11 +264,21 @@ namespace CJBCheatsMenu
         {
             if (key == Buttons.LeftShoulder || key == Buttons.RightShoulder)
             {
-                if (key == Buttons.LeftShoulder) this.TabIndex--;
-                if (key == Buttons.RightShoulder) this.TabIndex++;
-                if (this.TabIndex > 7) this.TabIndex = 0;
-                if (this.TabIndex < 0) this.TabIndex = 7;
-                CheatsMenu.Open(this.TabIndex);
+                // rotate tab index
+                int index = this.Tabs.FindIndex(p => p.name == this.CurrentTab.ToString());
+                if (key == Buttons.LeftShoulder)
+                    index--;
+                if (key == Buttons.RightShoulder)
+                    index++;
+
+                if (index >= this.Tabs.Count)
+                    index = 0;
+                if (index < 0)
+                    index = this.Tabs.Count - 1;
+
+                // open menu with new index
+                MenuTab tabID = this.GetTabID(this.Tabs[index]);
+                CheatsMenu.Open(tabID);
             }
         }
 
@@ -330,15 +341,12 @@ namespace CJBCheatsMenu
                 }
             }
 
-            for (int i = 0; i < this.Tabs.Count; i++)
+            foreach (var tab in this.Tabs)
             {
-                ClickableComponent tab = this.Tabs[i];
                 if (tab.bounds.Contains(x, y))
                 {
-                    this.TabIndex = i;
-                    Game1.exitActiveMenu();
-                    this.CurrentItemIndex = 0;
-                    CheatsMenu.Open(this.TabIndex);
+                    MenuTab tabID = this.GetTabID(tab);
+                    CheatsMenu.Open(tabID);
                     break;
                 }
             }
@@ -375,10 +383,10 @@ namespace CJBCheatsMenu
             if (!GameMenu.forcePreventClose)
             {
 
-                for (int i = 0; i < this.Tabs.Count; i++)
+                foreach (ClickableComponent tab in this.Tabs)
                 {
-                    ClickableComponent tab = this.Tabs[i];
-                    CJB.DrawTextBox(tab.bounds.X + tab.bounds.Width, tab.bounds.Y, Game1.smallFont, tab.name, 2, this.TabIndex == i ? 1F : 0.7F);
+                    MenuTab tabID = this.GetTabID(tab);
+                    CJB.DrawTextBox(tab.bounds.X + tab.bounds.Width, tab.bounds.Y, Game1.smallFont, tab.label, 2, this.CurrentTab == tabID ? 1F : 0.7F);
                 }
 
                 this.UpArrow.draw(spriteBatch);
@@ -396,8 +404,10 @@ namespace CJBCheatsMenu
                 spriteBatch.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, Game1.options.gamepadControls ? 44 : 0, 16, 16), Color.White, 0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
         }
 
-        public static void Open(int tabIndex)
+        public static void Open(MenuTab tabIndex)
         {
+            if (Game1.activeClickableMenu != null)
+                Game1.exitActiveMenu();
             Game1.activeClickableMenu = new CheatsMenu(Game1.viewport.Width / 2 - (600 + IClickableMenu.borderWidth * 2) / 2, Game1.viewport.Height / 2 - (600 + IClickableMenu.borderWidth * 2) / 2, 800 + IClickableMenu.borderWidth * 2, 600 + IClickableMenu.borderWidth * 2, tabIndex);
         }
 
@@ -417,6 +427,15 @@ namespace CJBCheatsMenu
             this.UpArrow.scale = this.UpArrow.baseScale;
             --this.CurrentItemIndex;
             this.SetScrollBarToCurrentIndex();
+        }
+
+        /// <summary>Get the tab constant represented by a tab component.</summary>
+        /// <param name="tab">The component to check.</param>
+        private MenuTab GetTabID(ClickableComponent tab)
+        {
+            if (!Enum.TryParse(tab.name, out MenuTab tabID))
+                throw new InvalidOperationException($"Couldn't parse tab name '{tab.name}'.");
+            return tabID;
         }
     }
 }

@@ -51,6 +51,7 @@
     <Compile Include="CheatsOptionsSlider.cs" />
     <Compile Include="CJB.cs" />
     <Compile Include="CJBCheatsMenu.cs" />
+    <Compile Include="Constants\MenuTab.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
   </ItemGroup>

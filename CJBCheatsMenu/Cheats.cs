@@ -333,7 +333,7 @@ namespace CJBCheatsMenu
 
                 if (CJBCheatsMenu.Config.OneHitBreak && player.usingTool && (player.CurrentTool is Axe || player.CurrentTool is Pickaxe))
                 {
-                    Vector2 tile = new Vector2 ((int) player.GetToolLocation().X / Game1.tileSize, (int)player.GetToolLocation().Y / Game1.tileSize);
+                    Vector2 tile = new Vector2((int)player.GetToolLocation().X / Game1.tileSize, (int)player.GetToolLocation().Y / Game1.tileSize);
 
                     if (player.CurrentTool is Pickaxe && player.currentLocation.objects.ContainsKey(tile))
                     {
@@ -425,8 +425,7 @@ namespace CJBCheatsMenu
         {
             if (key.ToString() == CJBCheatsMenu.Config.OpenMenuKey)
             {
-                if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
-                    CheatsMenu.Open(CJBCheatsMenu.Config.DefaultMenuID);
+                CheatsMenu.Open(CJBCheatsMenu.Config.DefaultMenuID);
             }
 
             else if (key.ToString() == CJBCheatsMenu.Config.FreezeTimeKey)
