@@ -177,6 +177,18 @@ namespace CJBItemSpawner
                             if (index == Game1.player.CurrentToolIndex && this.ActualInventory[index] != null && this.ActualInventory[index].Stack == 1)
                                 this.ActualInventory[index].actionWhenStopBeingHeld(Game1.player);
                             Item one = this.ActualInventory[index].getOne();
+                            
+                            if(this.ActualInventory[index] is SObject o)
+                            {
+                                one = new SObject(Vector2.Zero, o.parentSheetIndex, o.name, o.canBeSetDown, o.canBeGrabbed, o.isHoedirt, o.isSpawnedObject)
+                                {
+                                    preserve = o.preserve,
+                                    preservedParentSheetIndex = o.preservedParentSheetIndex,
+                                    price = o.price,
+                                    name = o.name
+                                };
+                            }
+
                             if (this.ActualInventory[index].Stack > 1)
                             {
                                 if (Game1.isOneOfTheseKeysDown(Game1.oldKBState, new[] { new InputButton(Keys.LeftShift) }))
@@ -291,17 +303,7 @@ namespace CJBItemSpawner
 
         public static Item RemoveItemFromInventory(int whichItemIndex, List<Item> items)
         {
-            if (whichItemIndex >= 0 && whichItemIndex < items.Count && items[whichItemIndex] != null)
-            {
-                Item item = items[whichItemIndex].getOne();
-                item.Stack = items[whichItemIndex].Stack;
-                if (whichItemIndex == Game1.player.CurrentToolIndex && items == Game1.player.items)
-                    item.actionWhenStopBeingHeld(Game1.player);
-                if (items == Game1.player.items)
-                    items[whichItemIndex] = null;
-                return item;
-            }
-            return null;
+            return Utility.removeItemFromInventory(whichItemIndex, items);
         }
 
         public static Item AddItemToInventory(Item item, int position, List<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null)
