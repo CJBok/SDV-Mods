@@ -95,7 +95,6 @@ namespace CJBItemSpawner
                 ItemMenu.LoadItems();
 
             this.AllowRightClick = true;
-            this.Inventory.ShowGrayedOutSlots = true;
 
             switch (this.SortID)
             {
@@ -464,12 +463,6 @@ namespace CJBItemSpawner
             Game1.createItemDebris(this.HeldItem, Game1.player.getStandingPosition(), Game1.player.FacingDirection);
             this.HeldItem = null;
 
-        }
-
-        public static void OrganizeItemsInList(List<Item> items)
-        {
-            items.Sort();
-            items.Reverse();
         }
 
         public bool AreAllItemsTaken()

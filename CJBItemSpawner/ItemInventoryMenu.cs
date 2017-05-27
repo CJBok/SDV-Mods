@@ -30,7 +30,6 @@ namespace CJBItemSpawner
         public string DescriptionText = "";
         public List<Item> ActualInventory;
         public InventoryMenu.highlightThisItem HighlightMethod;
-        public bool ShowGrayedOutSlots;
         public static int ScrollIndex;
 
 
@@ -82,16 +81,6 @@ namespace CJBItemSpawner
             }
         }
 
-        public int GetInventoryPositionOfClick(int x, int y)
-        {
-            foreach (ClickableComponent component in this.Inventory)
-            {
-                if (component != null && component.bounds.Contains(x, y))
-                    return Convert.ToInt32(component.name);
-            }
-            return -1;
-        }
-
         public Item LeftClick(int x, int y, Item toPlace, bool playSound = true)
         {
             foreach (ClickableComponent clickableComponent in this.Inventory)
@@ -125,37 +114,6 @@ namespace CJBItemSpawner
                 }
             }
             return toPlace;
-        }
-
-        public Vector2 SnapToClickableComponent(int x, int y)
-        {
-            foreach (ClickableComponent clickableComponent in this.Inventory)
-            {
-                if (clickableComponent.containsPoint(x, y))
-                    return new Vector2(clickableComponent.bounds.X, clickableComponent.bounds.Y);
-            }
-            return new Vector2(x, y);
-        }
-
-        public Item GetItemAt(int x, int y)
-        {
-            foreach (ClickableComponent c in this.Inventory)
-            {
-                if (c.containsPoint(x, y))
-                    return this.GetItemFromClickableComponent(c);
-            }
-            return null;
-        }
-
-        public Item GetItemFromClickableComponent(ClickableComponent c)
-        {
-            if (c != null)
-            {
-                int index = Convert.ToInt32(c.name);
-                if (index < this.ActualInventory.Count)
-                    return this.ActualInventory[index];
-            }
-            return null;
         }
 
         public Item RightClick(int x, int y, Item toAddTo, bool playSound = true)
@@ -284,10 +242,7 @@ namespace CJBItemSpawner
             }
         }
 
-        public override void receiveLeftClick(int x, int y, bool playSound = true) { }
         public override void receiveRightClick(int x, int y, bool playSound = true) { }
-        public override void performHoverAction(int x, int y) { }
-
         public static Item RemoveItemFromInventory(int whichItemIndex, List<Item> items)
         {
             if (whichItemIndex >= 0 && whichItemIndex < items.Count && items[whichItemIndex] != null)
