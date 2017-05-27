@@ -1,6 +1,6 @@
 ﻿namespace CJBCheatsMenu.Constants
 {
-    /// <summary>A tab index in the cheat menu.</summary>
+    /// <summary>A tab in the cheat menu.</summary>
     internal enum MenuTab
     {
         /// <summary>The 'player &amp; tools' tab.</summary>

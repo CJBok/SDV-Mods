@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using CJBItemSpawner.Constants;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -28,7 +30,7 @@ namespace CJBItemSpawner
         private readonly TextBox Textbox;
         private readonly List<Item> InventoryItems = new List<Item>();
         private readonly bool AllowRightClick;
-        private readonly int TabIndex;
+        private readonly MenuTab CurrentTab;
         private readonly int SortID;
         private readonly ItemQuality Quality;
         private readonly bool ShowReceivingMenu = true;
@@ -43,11 +45,11 @@ namespace CJBItemSpawner
         /*********
         ** Public methods
         *********/
-        public ItemMenu(int tabIndex, int sortID, ItemQuality quality)
+        public ItemMenu(MenuTab currentTab, int sortID, ItemQuality quality)
           : base(null, true, true, 0, -50)
         {
             this.MovePosition(110, Game1.viewport.Height / 2 - (650 + IClickableMenu.borderWidth * 2) / 2);
-            this.TabIndex = tabIndex;
+            this.CurrentTab = currentTab;
             this.SortID = sortID;
             this.Quality = quality;
 
@@ -76,17 +78,17 @@ namespace CJBItemSpawner
                 int y = this.yPositionOnScreen + 10;
                 int lblHeight = (int)(Game1.tileSize * 0.9F);
 
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "All"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Tools & Equipment"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Seeds & Crops"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Fish & Bait & Trash"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Forage & Fruits"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Artifacts & Minerals"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Resources & Crafting"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Artisan & Cooking"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Animal & Monster"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Decorating"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i, Game1.tileSize * 5, Game1.tileSize), "Misc"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.All.ToString(), "All"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ToolsAndEquipment.ToString(), "Tools & Equipment"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.SeedsAndCrops.ToString(), "Seeds & Crops"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.FishAndBaitAndTrash.ToString(), "Fish & Bait & Trash"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ForageAndFruits.ToString(), "Forage & Fruits"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ArtifactsAndMinerals.ToString(), "Artifacts & Minerals"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ResourcesAndCrafting.ToString(), "Resources & Crafting"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ArtisanAndCooking.ToString(), "Artisan & Cooking"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.AnimalAndMonster.ToString(), "Animal & Monster"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Decorating.ToString(), "Decorating"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i, Game1.tileSize * 5, Game1.tileSize), MenuTab.Misc.ToString(), "Misc"));
             }
 
             if (!ItemMenu.ItemsLoaded)
@@ -147,29 +149,29 @@ namespace CJBItemSpawner
         }
         private bool IsCategoryAllowed(Item item)
         {
-            switch (this.TabIndex)
+            switch (this.CurrentTab)
             {
-                case 0:
+                case MenuTab.All:
                     return true;
-                case 1:
+                case MenuTab.ToolsAndEquipment:
                     return item is Tool || item.getCategoryName() == "Ring" || item is Hat || item is Boots;
-                case 2:
+                case MenuTab.SeedsAndCrops:
                     return item.getCategoryName() == "Seed" || item.getCategoryName() == "Vegetable" || item.getCategoryName() == "Fertilizer" || item.getCategoryName() == "Flower";
-                case 3:
+                case MenuTab.FishAndBaitAndTrash:
                     return item.getCategoryName() == "Fish" || item.getCategoryName() == "Bait" || item.getCategoryName() == "Trash" || item.getCategoryName() == "Fishing Tackle";
-                case 4:
+                case MenuTab.ForageAndFruits:
                     return item.getCategoryName() == "Forage" || item.getCategoryName() == "Fruit";
-                case 5:
+                case MenuTab.ArtifactsAndMinerals:
                     return item.getCategoryName() == "Artifact" || item.getCategoryName() == "Mineral";
-                case 6:
+                case MenuTab.ResourcesAndCrafting:
                     return item.getCategoryName() == "Resource" || item.getCategoryName() == "Crafting" || item.category == -8 || item.category == -9;
-                case 7:
+                case MenuTab.ArtisanAndCooking:
                     return item.getCategoryName() == "Artisan Goods" || item.getCategoryName() == "Cooking";
-                case 8:
+                case MenuTab.AnimalAndMonster:
                     return item.getCategoryName() == "Animal Product" || item.getCategoryName() == "Monster Loot";
-                case 9:
+                case MenuTab.Decorating:
                     return item.getCategoryName() == "Furniture" || item.getCategoryName() == "Decor";
-                case 10:
+                case MenuTab.Misc:
                     return item.getCategoryName().Trim() == "";
                 default:
                     return false;
@@ -389,14 +391,14 @@ namespace CJBItemSpawner
 
             if (this.HeldItem == null)
             {
-                for (int i = 0; i < this.Tabs.Count; i++)
+                foreach (ClickableComponent tab in this.Tabs)
                 {
-                    ClickableComponent tab = this.Tabs[i];
                     if (tab.bounds.Contains(x, y))
                     {
                         Game1.exitActiveMenu();
                         ItemInventoryMenu.ScrollIndex = 0;
-                        this.Reopen(tabIndex: i);
+                        MenuTab tabID = this.GetTabID(tab);
+                        this.Reopen(tabID);
                         break;
                     }
                 }
@@ -558,10 +560,10 @@ namespace CJBItemSpawner
                 CJB.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.dialogueFont, this.Title.name, true, 2);
                 Game1.drawDialogueBox(this.ItemsToGrabMenu.xPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearSideBorder, this.ItemsToGrabMenu.yPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearTopBorder, this.ItemsToGrabMenu.width + IClickableMenu.borderWidth * 2 + IClickableMenu.spaceToClearSideBorder * 2, this.ItemsToGrabMenu.height + IClickableMenu.spaceToClearTopBorder + IClickableMenu.borderWidth * 2, false, true);
                 this.ItemsToGrabMenu.draw(spriteBatch);
-                for (int i = 0; i < this.Tabs.Count; i++)
+                foreach (ClickableComponent tab in this.Tabs)
                 {
-                    ClickableComponent current = this.Tabs[i];
-                    CJB.DrawTextBox(current.bounds.X + current.bounds.Width, current.bounds.Y, Game1.smallFont, current.name, true, 2, this.TabIndex == i ? 1F : 0.7F);
+                    MenuTab tabID = this.GetTabID(tab);
+                    CJB.DrawTextBox(tab.bounds.X + tab.bounds.Width, tab.bounds.Y, Game1.smallFont, tab.label, true, 2, this.CurrentTab == tabID ? 1F : 0.7F);
                 }
 
                 CJB.DrawTextBox(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name, true);
@@ -584,9 +586,22 @@ namespace CJBItemSpawner
                 spriteBatch.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 0, 16, 16), Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
         }
 
-        public void Reopen(int? tabIndex = null, int? sortID = null, ItemQuality? quality = null)
+        public void Reopen(MenuTab? tabIndex = null, int? sortID = null, ItemQuality? quality = null)
         {
-            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.TabIndex, sortID ?? this.SortID, quality ?? this.Quality);
+            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortID ?? this.SortID, quality ?? this.Quality);
+        }
+
+
+        /*********
+        ** Private methods
+        *********/
+        /// <summary>Get the tab constant represented by a tab component.</summary>
+        /// <param name="tab">The component to check.</param>
+        private MenuTab GetTabID(ClickableComponent tab)
+        {
+            if (!Enum.TryParse(tab.name, out MenuTab tabID))
+                throw new InvalidOperationException($"Couldn't parse tab name '{tab.name}'.");
+            return tabID;
         }
     }
 }
