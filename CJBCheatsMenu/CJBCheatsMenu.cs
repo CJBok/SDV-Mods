@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CJBCheatsMenu.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -23,7 +24,7 @@ namespace CJBCheatsMenu
         /*********
         ** Accessors
         *********/
-        internal static Settings Config;
+        internal static ModConfig Config;
 
 
         /*********
@@ -34,7 +35,7 @@ namespace CJBCheatsMenu
         public override void Entry(IModHelper helper)
         {
             CJBCheatsMenu.Helper = helper;
-            CJBCheatsMenu.Config = helper.ReadConfig<Settings>();
+            CJBCheatsMenu.Config = helper.ReadConfig<ModConfig>();
 
             SaveEvents.AfterLoad += this.SaveEvents_AfterLoad;
             LocationEvents.LocationsChanged += this.LocationEvents_LocationsChanged;

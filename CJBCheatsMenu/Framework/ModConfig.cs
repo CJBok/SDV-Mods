@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Input;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace CJBCheatsMenu
+namespace CJBCheatsMenu.Framework
 {
-    internal class Settings
+    internal class ModConfig
     {
         /*********
         ** Accessors
