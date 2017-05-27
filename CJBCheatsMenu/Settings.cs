@@ -1,5 +1,7 @@
 ﻿using CJBCheatsMenu.Constants;
 using Microsoft.Xna.Framework.Input;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace CJBCheatsMenu
 {
@@ -9,6 +11,8 @@ namespace CJBCheatsMenu
         ** Accessors
         *********/
         public string OpenMenuKey { get; set; } = Keys.P.ToString();
+
+        [JsonConverter(typeof(StringEnumConverter))]
         public MenuTab DefaultTab { get; set; } = MenuTab.PlayerAndTools;
         public string FreezeTimeKey { get; set; } = Keys.T.ToString();
         public string GrowTreeKey { get; set; } = Keys.NumPad1.ToString();
