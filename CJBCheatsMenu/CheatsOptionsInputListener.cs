@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using CJBCheatsMenu.Framework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewValley;
 using StardewValley.Menus;
+using SFarmer = StardewValley.Farmer;
 
 namespace CJBCheatsMenu
 {
@@ -13,6 +16,15 @@ namespace CJBCheatsMenu
         /*********
         ** Properties
         *********/
+        /// <summary>The mod settings.</summary>
+        private readonly ModConfig Config;
+
+        /// <summary>The cheats helper.</summary>
+        private readonly Cheats Cheats;
+
+        /// <summary>The method which saves the mod settings.</summary>
+        private readonly Action SaveConfig;
+
         private readonly Rectangle SetButtonSprite = new Rectangle(294, 428, 21, 11);
         private readonly List<string> ButtonNames = new List<string>();
         private string ListenerMessage;
@@ -23,26 +35,37 @@ namespace CJBCheatsMenu
         /*********
         ** Public methods
         *********/
-        public CheatsOptionsInputListener(string label, int whichOption, int slotWidth, int x = -1, int y = -1)
-          : base(label, x, y, slotWidth - x, 11 * Game1.pixelZoom, whichOption)
+        /// <summary>Construct an instance.</summary>
+        /// <param name="label">The field label.</param>
+        /// <param name="whichOption">The option ID.</param>
+        /// <param name="slotWidth">The field width.</param>
+        /// <param name="config">The mod settings.</param>
+        /// <param name="cheats">The cheats helper.</param>
+        /// <param name="saveConfig">The method which saves the mod settings.</param>
+        public CheatsOptionsInputListener(string label, int whichOption, int slotWidth, ModConfig config, Cheats cheats, Action saveConfig)
+          : base(label, -1, -1, slotWidth + 1, 11 * Game1.pixelZoom, whichOption)
         {
-            this.SetButtonBounds = new Rectangle(slotWidth - 28 * Game1.pixelZoom, y + Game1.pixelZoom * 3, 21 * Game1.pixelZoom, 11 * Game1.pixelZoom);
+            this.Config = config;
+            this.Cheats = cheats;
+            this.SaveConfig = saveConfig;
+
+            this.SetButtonBounds = new Rectangle(slotWidth - 28 * Game1.pixelZoom, -1 + Game1.pixelZoom * 3, 21 * Game1.pixelZoom, 11 * Game1.pixelZoom);
             if (whichOption == -1)
                 return;
 
             switch (whichOption)
             {
                 case 1000:
-                    this.ButtonNames.Add(CJBCheatsMenu.Config.OpenMenuKey);
+                    this.ButtonNames.Add(this.Config.OpenMenuKey);
                     break;
                 case 1001:
-                    this.ButtonNames.Add(CJBCheatsMenu.Config.FreezeTimeKey);
+                    this.ButtonNames.Add(this.Config.FreezeTimeKey);
                     break;
                 case 1002:
-                    this.ButtonNames.Add(CJBCheatsMenu.Config.GrowTreeKey);
+                    this.ButtonNames.Add(this.Config.GrowTreeKey);
                     break;
                 case 1003:
-                    this.ButtonNames.Add(CJBCheatsMenu.Config.GrowCropsKey);
+                    this.ButtonNames.Add(this.Config.GrowCropsKey);
                     break;
             }
         }
@@ -85,19 +108,19 @@ namespace CJBCheatsMenu
                         break;
                     case 9:
                         Game1.soundBank.PlayCue("glug");
-                        Cheats.WaterAllFields(CJBCheatsMenu.GetAllLocations().ToArray());
+                        this.Cheats.WaterAllFields(CJB.GetAllLocations().ToArray());
                         break;
                     case 10:
-                        Cheats.SetWeatherForNextDay(Game1.weather_sunny);
+                        this.Cheats.SetWeatherForNextDay(Game1.weather_sunny);
                         break;
                     case 11:
-                        Cheats.SetWeatherForNextDay(Game1.weather_rain);
+                        this.Cheats.SetWeatherForNextDay(Game1.weather_rain);
                         break;
                     case 12:
-                        Cheats.SetWeatherForNextDay(Game1.weather_lightning);
+                        this.Cheats.SetWeatherForNextDay(Game1.weather_lightning);
                         break;
                     case 13:
-                        Cheats.SetWeatherForNextDay(Game1.weather_snow);
+                        this.Cheats.SetWeatherForNextDay(Game1.weather_snow);
                         break;
                     case 14:
                         Game1.warpFarmer("FarmHouse", 9, 11, false);
@@ -274,20 +297,20 @@ namespace CJBCheatsMenu
                 switch (whichOption)
                 {
                     case 1000:
-                        CJBCheatsMenu.Config.OpenMenuKey = key.ToString();
-                        CJBCheatsMenu.SaveConfig();
+                        this.Config.OpenMenuKey = key.ToString();
+                        this.SaveConfig();
                         break;
                     case 1001:
-                        CJBCheatsMenu.Config.FreezeTimeKey = key.ToString();
-                        CJBCheatsMenu.SaveConfig();
+                        this.Config.FreezeTimeKey = key.ToString();
+                        this.SaveConfig();
                         break;
                     case 1002:
-                        CJBCheatsMenu.Config.GrowTreeKey = key.ToString();
-                        CJBCheatsMenu.SaveConfig();
+                        this.Config.GrowTreeKey = key.ToString();
+                        this.SaveConfig();
                         break;
                     case 1003:
-                        CJBCheatsMenu.Config.GrowCropsKey = key.ToString();
-                        CJBCheatsMenu.SaveConfig();
+                        this.Config.GrowCropsKey = key.ToString();
+                        this.SaveConfig();
                         break;
                 }
                 this.ButtonNames[0] = key.ToString();
@@ -300,7 +323,7 @@ namespace CJBCheatsMenu
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
         {
             string lvl = "";
-            Farmer plr = Game1.player;
+            SFarmer plr = Game1.player;
             switch (whichOption)
             {
                 case 200:

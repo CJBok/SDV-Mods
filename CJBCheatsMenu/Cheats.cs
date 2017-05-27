@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CJBCheatsMenu.Framework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
@@ -12,6 +13,7 @@ using StardewValley.Monsters;
 using StardewValley.Objects;
 using StardewValley.TerrainFeatures;
 using StardewValley.Tools;
+using SFarmer = StardewValley.Farmer;
 using SObject = StardewValley.Object;
 
 namespace CJBCheatsMenu
@@ -21,20 +23,30 @@ namespace CJBCheatsMenu
         /*********
         ** Properties
         *********/
-        private static int PreviousTime = -1;
-        private static Dictionary<string, int> PreviousFriendships;
+        /// <summary>The mod settings.</summary>
+        private readonly ModConfig Config;
+
+        private int PreviousTime = -1;
+        private Dictionary<string, int> PreviousFriendships;
 
 
         /*********
         ** Public methods
         *********/
-        public static void SetWeatherForNextDay(int weatherID)
+        /// <summary>Construct an instance.</summary>
+        /// <param name="config">The mod settings.</param>
+        public Cheats(ModConfig config)
+        {
+            this.Config = config;
+        }
+
+        public void SetWeatherForNextDay(int weatherID)
         {
             Game1.weatherForTomorrow = weatherID;
             Game1.soundBank.PlayCue("thunder");
         }
 
-        public static void WaterAllFields(GameLocation[] locations)
+        public void WaterAllFields(GameLocation[] locations)
         {
             foreach (GameLocation location in locations)
             {
@@ -49,9 +61,9 @@ namespace CJBCheatsMenu
             }
         }
 
-        public static void GrowTree()
+        public void GrowTree()
         {
-            Farmer player = Game1.player;
+            SFarmer player = Game1.player;
             int x = (int)player.GetToolLocation().X / Game1.tileSize;
             int y = (int)player.GetToolLocation().Y / Game1.tileSize;
             Vector2 index = new Vector2(x, y);
@@ -75,9 +87,9 @@ namespace CJBCheatsMenu
             }
         }
 
-        public static void GrowCrops()
+        public void GrowCrops()
         {
-            Farmer player = Game1.player;
+            SFarmer player = Game1.player;
             List<Vector2> tiles = new List<Vector2>();
 
             for (int x = -1; x <= 1; x++)
@@ -97,12 +109,12 @@ namespace CJBCheatsMenu
         }
 
         /// <summary>Perform any action needed after the cheat options change.</summary>
-        public static void OnOptionsChanged()
+        public void OnOptionsChanged()
         {
             // disable harvest with sickle
-            if (!CJBCheatsMenu.Config.HarvestSickle)
+            if (!this.Config.HarvestSickle)
             {
-                IDictionary<int, int> cropHarvestMethods = Cheats.GetCropHarvestMethods();
+                IDictionary<int, int> cropHarvestMethods = this.GetCropHarvestMethods();
                 foreach (GameLocation location in Game1.locations)
                 {
                     if (!location.isFarm && !location.name.Contains("Greenhouse"))
@@ -117,55 +129,55 @@ namespace CJBCheatsMenu
             }
         }
 
-        public static void OnTimeOfDayChanged()
+        public void OnTimeOfDayChanged()
         {
             GameLocation location = Game1.currentLocation;
-            if (Cheats.PreviousTime == -1 || Game1.timeOfDay == 600)
-                Cheats.PreviousTime = Game1.timeOfDay;
+            if (this.PreviousTime == -1 || Game1.timeOfDay == 600)
+                this.PreviousTime = Game1.timeOfDay;
             else
             {
                 bool inCave = location is MineShaft || location is FarmCave;
-                bool frozen = (CJBCheatsMenu.Config.FreezeTimeInside && !location.IsOutdoors && !inCave) || (CJBCheatsMenu.Config.FreezeTimeCaves && inCave);
-                frozen = frozen || CJBCheatsMenu.Config.FreezeTime;
+                bool frozen = (this.Config.FreezeTimeInside && !location.IsOutdoors && !inCave) || (this.Config.FreezeTimeCaves && inCave);
+                frozen = frozen || this.Config.FreezeTime;
 
                 if (frozen)
-                    Game1.timeOfDay = Cheats.PreviousTime;
+                    Game1.timeOfDay = this.PreviousTime;
                 else
-                    Cheats.PreviousTime = Game1.timeOfDay;
+                    this.PreviousTime = Game1.timeOfDay;
             }
         }
 
-        public static void OnDrawTick()
+        public void OnDrawTick()
         {
             GameLocation location = Game1.currentLocation;
 
             bool inCave = location is MineShaft || location is FarmCave;
-            bool frozen = (CJBCheatsMenu.Config.FreezeTimeInside && !location.IsOutdoors && !inCave) || (CJBCheatsMenu.Config.FreezeTimeCaves && inCave);
-            frozen = frozen || CJBCheatsMenu.Config.FreezeTime;
+            bool frozen = (this.Config.FreezeTimeInside && !location.IsOutdoors && !inCave) || (this.Config.FreezeTimeCaves && inCave);
+            frozen = frozen || this.Config.FreezeTime;
             if (frozen)
                 CJB.DrawTextBox(5, inCave ? 100 : 5, Game1.smallFont, "Time Frozen");
         }
 
-        public static void OneSecondUpdate(GameLocation[] locations)
+        public void OneSecondUpdate(GameLocation[] locations)
         {
             // disable friendship decay
-            if (CJBCheatsMenu.Config.NoFriendshipDecay)
+            if (this.Config.NoFriendshipDecay)
             {
-                if (Cheats.PreviousFriendships == null)
-                    Cheats.PreviousFriendships = Game1.player.friendships.ToDictionary(p => p.Key.ToString(), p => p.Value[0]);
+                if (this.PreviousFriendships == null)
+                    this.PreviousFriendships = Game1.player.friendships.ToDictionary(p => p.Key.ToString(), p => p.Value[0]);
                 foreach (KeyValuePair<string, int[]> n in Game1.player.friendships)
                 {
-                    foreach (KeyValuePair<string, int> o in Cheats.PreviousFriendships)
+                    foreach (KeyValuePair<string, int> o in this.PreviousFriendships)
                     {
                         if (n.Key == o.Key && n.Value[0] < o.Value)
                             n.Value[0] = o.Value;
                     }
                 }
-                Cheats.PreviousFriendships = Game1.player.friendships.ToDictionary(p => p.Key.ToString(), p => p.Value[0]);
+                this.PreviousFriendships = Game1.player.friendships.ToDictionary(p => p.Key.ToString(), p => p.Value[0]);
             }
 
             // instant buildings
-            if (CJBCheatsMenu.Config.InstantBuild)
+            if (this.Config.InstantBuild)
             {
                 foreach (BuildableGameLocation location in locations.OfType<BuildableGameLocation>())
                 {
@@ -185,57 +197,57 @@ namespace CJBCheatsMenu
                     if (pair.Value == null)
                         continue;
 
-                    if (CJBCheatsMenu.Config.DurableFences && pair.Value is Fence fence)
+                    if (this.Config.DurableFences && pair.Value is Fence fence)
                         fence.repair();
-                    else if (CJBCheatsMenu.Config.FastCask && pair.Value is Cask cask && cask.heldObject != null)
+                    else if (this.Config.FastCask && pair.Value is Cask cask && cask.heldObject != null)
                     {
                         cask.daysToMature = 0;
                         cask.minutesUntilReady = 0;
                         cask.heldObject.quality = 4;
                     }
-                    else if (CJBCheatsMenu.Config.FastFurnace && pair.Value.name == "Furnace")
+                    else if (this.Config.FastFurnace && pair.Value.name == "Furnace")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastRecyclingMachine && pair.Value.name == "Recycling Machine")
+                    else if (this.Config.FastRecyclingMachine && pair.Value.name == "Recycling Machine")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastCrystalarium && pair.Value.name == "Crystalarium")
+                    else if (this.Config.FastCrystalarium && pair.Value.name == "Crystalarium")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastIncubator && pair.Value.name == "Incubator")
+                    else if (this.Config.FastIncubator && pair.Value.name == "Incubator")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastSlimeIncubator && pair.Value.name == "Slime Incubator")
+                    else if (this.Config.FastSlimeIncubator && pair.Value.name == "Slime Incubator")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastKeg && pair.Value.name == "Keg")
+                    else if (this.Config.FastKeg && pair.Value.name == "Keg")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastPreservesJar && pair.Value.name == "Preserves Jar")
+                    else if (this.Config.FastPreservesJar && pair.Value.name == "Preserves Jar")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastCheesePress && pair.Value.name == "Cheese Press")
+                    else if (this.Config.FastCheesePress && pair.Value.name == "Cheese Press")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastMayonnaiseMachine && pair.Value.name == "Mayonnaise Machine")
+                    else if (this.Config.FastMayonnaiseMachine && pair.Value.name == "Mayonnaise Machine")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastLoom && pair.Value.name == "Loom")
+                    else if (this.Config.FastLoom && pair.Value.name == "Loom")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastOilMaker && pair.Value.name == "Oil Maker")
+                    else if (this.Config.FastOilMaker && pair.Value.name == "Oil Maker")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastSeedMaker && pair.Value.name == "Seed Maker")
+                    else if (this.Config.FastSeedMaker && pair.Value.name == "Seed Maker")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastCharcoalKiln && pair.Value.name == "Charcoal Kiln")
+                    else if (this.Config.FastCharcoalKiln && pair.Value.name == "Charcoal Kiln")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastSlimeEggPress && pair.Value.name == "Slime Egg-Press")
+                    else if (this.Config.FastSlimeEggPress && pair.Value.name == "Slime Egg-Press")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastBeeHouse && pair.Value.name == "Bee House")
+                    else if (this.Config.FastBeeHouse && pair.Value.name == "Bee House")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastMushroomBox && pair.Value.name == "Mushroom Box")
+                    else if (this.Config.FastMushroomBox && pair.Value.name == "Mushroom Box")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastTapper && pair.Value.name == "Tapper")
+                    else if (this.Config.FastTapper && pair.Value.name == "Tapper")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastLightningRod && pair.Value.name == "Lightning Rod")
+                    else if (this.Config.FastLightningRod && pair.Value.name == "Lightning Rod")
                         pair.Value.minutesUntilReady = 0;
-                    else if (CJBCheatsMenu.Config.FastWormBin && pair.Value.name == "Worm Bin")
+                    else if (this.Config.FastWormBin && pair.Value.name == "Worm Bin")
                         pair.Value.minutesUntilReady = 0;
                 }
             }
 
             // autofeed animals
-            if (CJBCheatsMenu.Config.AutoFeed)
+            if (this.Config.AutoFeed)
             {
                 Farm farm = Game1.getFarm();
                 foreach (GameLocation location in locations)
@@ -275,7 +287,7 @@ namespace CJBCheatsMenu
             }
 
             // harvest with sickle
-            if (CJBCheatsMenu.Config.HarvestSickle)
+            if (this.Config.HarvestSickle)
             {
                 foreach (GameLocation location in locations)
                 {
@@ -294,15 +306,15 @@ namespace CJBCheatsMenu
             }
         }
 
-        public static void OnUpdate(IModHelper helper)
+        public void OnUpdate(IModHelper helper)
         {
             if (Game1.player != null)
             {
-                Farmer player = Game1.player;
+                SFarmer player = Game1.player;
 
-                if (CJBCheatsMenu.Config.IncreasedMovement && player.running)
-                    player.addedSpeed = CJBCheatsMenu.Config.MoveSpeed;
-                else if (!CJBCheatsMenu.Config.IncreasedMovement && player.addedSpeed == CJBCheatsMenu.Config.MoveSpeed)
+                if (this.Config.IncreasedMovement && player.running)
+                    player.addedSpeed = this.Config.MoveSpeed;
+                else if (!this.Config.IncreasedMovement && player.addedSpeed == this.Config.MoveSpeed)
                     player.addedSpeed = 0;
 
                 if (player.controller != null)
@@ -311,28 +323,28 @@ namespace CJBCheatsMenu
                 if (Game1.CurrentEvent == null)
                     player.movementDirections.Clear();
 
-                if (CJBCheatsMenu.Config.InfiniteHealth)
+                if (this.Config.InfiniteHealth)
                     player.health = player.maxHealth;
 
-                if (CJBCheatsMenu.Config.InfiniteStamina)
+                if (this.Config.InfiniteStamina)
                     player.stamina = player.maxStamina;
 
                 if (Game1.activeClickableMenu == null && player.CurrentTool is FishingRod rod)
                 {
-                    if (CJBCheatsMenu.Config.ThrowBobberMax)
+                    if (this.Config.ThrowBobberMax)
                         rod.castingPower = 1.01F;
-                    if (CJBCheatsMenu.Config.InstantBite && rod.isFishing)
+                    if (this.Config.InstantBite && rod.isFishing)
                     {
                         if (rod.timeUntilFishingBite > 0)
                             rod.timeUntilFishingBite = 0;
                     }
-                    if (CJBCheatsMenu.Config.DurableTackles && rod.attachments[1] != null)
+                    if (this.Config.DurableTackles && rod.attachments[1] != null)
                         rod.attachments[1].scale.Y = 1;
                 }
 
-                if (CJBCheatsMenu.Config.OneHitBreak && player.usingTool && (player.CurrentTool is Axe || player.CurrentTool is Pickaxe))
+                if (this.Config.OneHitBreak && player.usingTool && (player.CurrentTool is Axe || player.CurrentTool is Pickaxe))
                 {
-                    Vector2 tile = player.GetToolLocation() / Game1.tileSize;
+                    Vector2 tile = new Vector2((int)player.GetToolLocation().X / Game1.tileSize, (int)player.GetToolLocation().Y / Game1.tileSize);
 
                     if (player.CurrentTool is Pickaxe && player.currentLocation.objects.ContainsKey(tile))
                     {
@@ -344,11 +356,10 @@ namespace CJBCheatsMenu
                     if (player.CurrentTool is Axe && player.currentLocation.terrainFeatures.ContainsKey(tile))
                     {
                         TerrainFeature obj = player.currentLocation.terrainFeatures[tile];
-                        if (obj is Tree tree)
-                        {
-                            if (tree.health > 1)
-                                tree.health = 1;
-                        }
+                        if (obj is Tree tree && tree.health > 1)
+                            tree.health = 1;
+                        else if (obj is FruitTree fruitTree && fruitTree.health > 1)
+                            fruitTree.health = 1;
                     }
 
                     List<ResourceClump> resourceClumps = new List<ResourceClump>();
@@ -373,10 +384,10 @@ namespace CJBCheatsMenu
                     }
                 }
 
-                if (CJBCheatsMenu.Config.InfiniteWateringCan && player.CurrentTool is WateringCan can)
+                if (this.Config.InfiniteWateringCan && player.CurrentTool is WateringCan can)
                     helper.Reflection.GetPrivateField<int>(can, "waterLeft").SetValue(can.waterCanMax);
 
-                if (CJBCheatsMenu.Config.AlwaysGiveGift)
+                if (this.Config.AlwaysGiveGift)
                 {
                     foreach (KeyValuePair<string, int[]> friendship in player.friendships)
                     {
@@ -389,9 +400,9 @@ namespace CJBCheatsMenu
                 }
             }
 
-            if (CJBCheatsMenu.Config.MaxDailyLuck) Game1.dailyLuck = 0.115d;
+            if (this.Config.MaxDailyLuck) Game1.dailyLuck = 0.115d;
 
-            if (CJBCheatsMenu.Config.OneHitKill && Game1.currentLocation != null)
+            if (this.Config.OneHitKill && Game1.currentLocation != null)
             {
                 if (Game1.currentLocation.characters != null)
                 {
@@ -400,19 +411,19 @@ namespace CJBCheatsMenu
                 }
             }
 
-            if ((CJBCheatsMenu.Config.InstantCatch || CJBCheatsMenu.Config.AlwaysTreasure) && Game1.activeClickableMenu is BobberBar bobberMenu)
+            if ((this.Config.InstantCatch || this.Config.AlwaysTreasure) && Game1.activeClickableMenu is BobberBar bobberMenu)
             {
-                if (CJBCheatsMenu.Config.AlwaysTreasure)
+                if (this.Config.AlwaysTreasure)
                     helper.Reflection.GetPrivateField<bool>(bobberMenu, "treasure").SetValue(true);
 
-                if (CJBCheatsMenu.Config.InstantCatch)
+                if (this.Config.InstantCatch)
                     helper.Reflection.GetPrivateField<float>(bobberMenu, "distanceFromCatching").SetValue(1);
 
                 if (helper.Reflection.GetPrivateValue<bool>(bobberMenu, "treasure"))
                     helper.Reflection.GetPrivateField<bool>(bobberMenu, "treasureCaught").SetValue(true);
             }
 
-            if (CJBCheatsMenu.Config.InfiniteHay)
+            if (this.Config.InfiniteHay)
             {
                 Farm farm = Game1.getFarm();
                 if (farm != null)
@@ -420,30 +431,24 @@ namespace CJBCheatsMenu
             }
         }
 
-        public static void OnKeyPress(Keys key)
+        public void OnKeyPress(Keys key)
         {
-            if (key.ToString() == CJBCheatsMenu.Config.OpenMenuKey)
+            if (key.ToString() == this.Config.FreezeTimeKey)
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
-                    CheatsMenu.Open(0);
+                    this.Config.FreezeTime = !this.Config.FreezeTime;
             }
 
-            else if (key.ToString() == CJBCheatsMenu.Config.FreezeTimeKey)
+            else if (key.ToString() == this.Config.GrowTreeKey)
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
-                    CJBCheatsMenu.Config.FreezeTime = !CJBCheatsMenu.Config.FreezeTime;
+                    this.GrowTree();
             }
 
-            else if (key.ToString() == CJBCheatsMenu.Config.GrowTreeKey)
+            else if (key.ToString() == this.Config.GrowCropsKey)
             {
                 if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
-                    Cheats.GrowTree();
-            }
-
-            else if (key.ToString() == CJBCheatsMenu.Config.GrowCropsKey)
-            {
-                if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
-                    Cheats.GrowCrops();
+                    this.GrowCrops();
             }
         }
 
@@ -452,7 +457,7 @@ namespace CJBCheatsMenu
         ** Private methods
         *********/
         /// <summary>Get a crop ID => harvest method lookup.</summary>
-        private static IDictionary<int, int> GetCropHarvestMethods()
+        private IDictionary<int, int> GetCropHarvestMethods()
         {
             IDictionary<int, int> lookup = new Dictionary<int, int>();
 
