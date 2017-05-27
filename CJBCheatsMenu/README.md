@@ -29,6 +29,12 @@ setting | default | what it affects
 `GrowTreeKey` | `NumPad1` | The keyboard button which instantly grows the tree under the tool cursor.
 `GrowCropsKey` | `NumPad2` | The keyboard button which instantly grows crops adjacent to your character.
 
+### Menu settings
+
+setting | default | what it affects
+------- | ------- | ---------------
+`DefaultTab` | `PlayerAndTools` | The tab shown by default when you open the menu. Possible values: `PlayerAndTools`, `FarmAndFishing`, `Skills`, `Weather`, `Relationships`, `WarpLocations`, `Time`, `Controls`.
+
 ### Player cheats
 setting | default | what it affects
 ------- | ------- | ---------------
@@ -89,6 +95,9 @@ setting | default | what it affects
 `InfiniteHay` | `false` | Your hay silos are always full.
 
 ## Versions
+1.15:
+* Added option to set the default tab when opening the menu.
+
 1.14.1 (2017-04-12):
 * Fixed error when used with any mod that adds multiple seeds producing the same crop.
 

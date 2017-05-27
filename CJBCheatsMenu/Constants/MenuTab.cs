@@ -3,10 +3,10 @@
     /// <summary>A tab index in the cheat menu.</summary>
     internal enum MenuTab
     {
-        /// <summary>The 'player & tools' tab.</summary>
+        /// <summary>The 'player &amp; tools' tab.</summary>
         PlayerAndTools,
 
-        /// <summary>The 'farm & fishing' tab.</summary>
+        /// <summary>The 'farm &amp; fishing' tab.</summary>
         FarmAndFishing,
 
         /// <summary>The 'skills' tab.</summary>
