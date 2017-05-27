@@ -24,69 +24,69 @@ settings.
 
 setting | default | what it affects
 ------- | ------- | ---------------
-`openMenuKey` | `P` | The keyboard button which opens the menu.
-`freezeTimeKey` | `T` | The keyboard button which freezes the game clock.
-`growTreeKey` | `NumPad1` | The keyboard button which instantly grows the tree under the tool cursor.
-`growCropsKey` | `NumPad2` | The keyboard button which instantly grows crops adjacent to your character.
+`OpenMenuKey` | `P` | The keyboard button which opens the menu.
+`FreezeTimeKey` | `T` | The keyboard button which freezes the game clock.
+`GrowTreeKey` | `NumPad1` | The keyboard button which instantly grows the tree under the tool cursor.
+`GrowCropsKey` | `NumPad2` | The keyboard button which instantly grows crops adjacent to your character.
 
 ### Player cheats
 setting | default | what it affects
 ------- | ------- | ---------------
-`increasedMovement` | `false` | Whether your character moves faster. The added speed is set by the `moveSpeed` field.
-`moveSpeed` | `1` | The player speed to add if `increasedMovement` is `true`. This is an added multiplier (e.g. `1` doubles the default speed).
-`infiniteHealth` | `false` | Your health never decreases.
-`infiniteStamina` | `false` | Your stamina never decreases.
-`maxDailyLuck` | `false` | Your daily luck is always at the maximum value.
-`oneHitKill` | `false` | Your attacks kill any monster in one hit.
-`oneHitBreak` | `false` | Your tools break things instantly.
-`infiniteWateringCan` | `false` | Your watering can never runs dry.
-`harvestSickle` | `false` | You can harvest any crop with the sickle.
+`IncreasedMovement` | `false` | Whether your character moves faster. The added speed is set by the `moveSpeed` field.
+`MoveSpeed` | `1` | The player speed to add if `increasedMovement` is `true`. This is an added multiplier (e.g. `1` doubles the default speed).
+`InfiniteHealth` | `false` | Your health never decreases.
+`InfiniteStamina` | `false` | Your stamina never decreases.
+`MaxDailyLuck` | `false` | Your daily luck is always at the maximum value.
+`OneHitKill` | `false` | Your attacks kill any monster in one hit.
+`OneHitBreak` | `false` | Your tools break things instantly.
+`InfiniteWateringCan` | `false` | Your watering can never runs dry.
+`HarvestSickle` | `false` | You can harvest any crop with the sickle.
 
 ### Fishing cheats
 setting | default | what it affects
 ------- | ------- | ---------------
-`instantBite` | `false` | After casting the fishing line, the fishing minigame appears immediately.
-`instantCatch` | `false` | When the fishing minigame appears, you catch the fish immediately.
-`throwBobberMax` | `false` | When casting the fishing line, it always reaches the maximum distance.
-`durableTackles` | `false` | Fishing tackles never break.
-`alwaysTreasure` | `false` | Every fishing minigame has a treasure.
+`InstantBite` | `false` | After casting the fishing line, the fishing minigame appears immediately.
+`InstantCatch` | `false` | When the fishing minigame appears, you catch the fish immediately.
+`ThrowBobberMax` | `false` | When casting the fishing line, it always reaches the maximum distance.
+`DurableTackles` | `false` | Fishing tackles never break.
+`AlwaysTreasure` | `false` | Every fishing minigame has a treasure.
 
 ### Time cheats
 setting | default | what it affects
 ------- | ------- | ---------------
-`freezeTime` | `false` | The game clock never changes.
-`freezeTimeInside` | `false` | The game clock doesn't change when you're inside a building.
-`freezeTimeCaves` | `false` | The game clock doesn't change when you're inside the mines, Skull Cavern, or farm cave.
-`fastCask` | `false` | Casks finish instantly.
-`fastFurnace` | `false` | Furnaces finish instantly.
-`fastRecyclingMachine` | `false` | Recycling machines finish instantly.
-`fastCrystalarium` | `false` | Crystalariums finish instantly.
-`fastIncubator` | `false` | Incubators finish instantly.
-`fastSlimeIncubator ` | `false` | Slime incubators finish instantly.
-`fastKeg` | `false` | Kegs finish instantly.
-`fastPreservesJar` | `false` | Preserves jars finish instantly.
-`fastCheesePress` | `false` | Cheese presss finish instantly.
-`fastMayonnaiseMachine ` | `false` | Mayonnaise machines finish instantly.
-`fastLoom` | `false` | Looms finish instantly.
-`fastOilMaker` | `false` | Oil makers finish instantly.
-`fastSeedMaker` | `false` | Seed makers finish instantly.
-`fastCharcoalKiln` | `false` | Charcoal kilns finish instantly.
-`fastSlimeEggPress` | `false` | Slime egg presss finish instantly.
-`fastBeeHouse` | `false` | Beehouses finish instantly.
-`fastMushroomBox` | `false` | Mushroom boxs finish instantly.
-`fastTapper` | `false` | Tappers finish instantly.
-`fastLightningRod` | `false` | Lightning rods finish instantly.
-`fastWormBin` | `false` | Worm bins finish instantly.
+`FreezeTime` | `false` | The game clock never changes.
+`FreezeTimeInside` | `false` | The game clock doesn't change when you're inside a building.
+`FreezeTimeCaves` | `false` | The game clock doesn't change when you're inside the mines, Skull Cavern, or farm cave.
+`FastCask` | `false` | Casks finish instantly.
+`FastFurnace` | `false` | Furnaces finish instantly.
+`FastRecyclingMachine` | `false` | Recycling machines finish instantly.
+`FastCrystalarium` | `false` | Crystalariums finish instantly.
+`FastIncubator` | `false` | Incubators finish instantly.
+`FastSlimeIncubator ` | `false` | Slime incubators finish instantly.
+`FastKeg` | `false` | Kegs finish instantly.
+`FastPreservesJar` | `false` | Preserves jars finish instantly.
+`FastCheesePress` | `false` | Cheese presss finish instantly.
+`FastMayonnaiseMachine ` | `false` | Mayonnaise machines finish instantly.
+`FastLoom` | `false` | Looms finish instantly.
+`FastOilMaker` | `false` | Oil makers finish instantly.
+`FastSeedMaker` | `false` | Seed makers finish instantly.
+`FastCharcoalKiln` | `false` | Charcoal kilns finish instantly.
+`FastSlimeEggPress` | `false` | Slime egg presss finish instantly.
+`FastBeeHouse` | `false` | Beehouses finish instantly.
+`FastMushroomBox` | `false` | Mushroom boxs finish instantly.
+`FastTapper` | `false` | Tappers finish instantly.
+`FastLightningRod` | `false` | Lightning rods finish instantly.
+`FastWormBin` | `false` | Worm bins finish instantly.
 
 ### Other cheats
 setting | default | what it affects
 ------- | ------- | ---------------
-`alwaysGiveGift` | `false` | You can always give gifts to villagers, regardless of the daily and weekly limits.
-`noFriendshipDecay` | `false` | A villager's friendship value no longer slowly decays if you haven't maxed it out.
-`durableFences` | `false` | Fences never break.
-`instantBuild` | `false` | Building new structures on the farm completes instantly.
-`autoFeed` | `false` | The hay troughs in your barns and coops are refilled automatically.
-`infiniteHay` | `false` | Your hay silos are always full.
+`AlwaysGiveGift` | `false` | You can always give gifts to villagers, regardless of the daily and weekly limits.
+`NoFriendshipDecay` | `false` | A villager's friendship value no longer slowly decays if you haven't maxed it out.
+`DurableFences` | `false` | Fences never break.
+`InstantBuild` | `false` | Building new structures on the farm completes instantly.
+`AutoFeed` | `false` | The hay troughs in your barns and coops are refilled automatically.
+`InfiniteHay` | `false` | Your hay silos are always full.
 
 ## Versions
 1.14.1 (2017-04-12):
