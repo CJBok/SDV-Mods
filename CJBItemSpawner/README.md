@@ -17,6 +17,7 @@ Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
 
 ## Versions
 1.8:
+* Fixed group tabs only working in English.
 * Fixed 'misc' tab duplicating some items shown in other tabs.
 
 1.7.2:

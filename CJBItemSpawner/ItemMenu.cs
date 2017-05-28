@@ -413,24 +413,70 @@ namespace CJBItemSpawner
         /// <param name="item">The item whose tab to check.</param>
         private MenuTab GetRelevantTab(Item item)
         {
-            if (item is Tool || item.getCategoryName() == "Ring" || item is Hat || item is Boots)
-                return MenuTab.ToolsAndEquipment;
-            if (item.getCategoryName() == "Seed" || item.getCategoryName() == "Vegetable" || item.getCategoryName() == "Fertilizer" || item.getCategoryName() == "Flower")
-                return MenuTab.SeedsAndCrops;
-            if (item.getCategoryName() == "Fish" || item.getCategoryName() == "Bait" || item.getCategoryName() == "Trash" || item.getCategoryName() == "Fishing Tackle")
-                return MenuTab.FishAndBaitAndTrash;
-            if (item.getCategoryName() == "Forage" || item.getCategoryName() == "Fruit")
-                return MenuTab.ForageAndFruits;
-            if (item.getCategoryName() == "Artifact" || item.getCategoryName() == "Mineral")
+            // by type
+            switch (item)
+            {
+                case Tool _:
+                case Ring _:
+                case Hat _:
+                case Boots _:
+                    return MenuTab.ToolsAndEquipment;
+
+                case Furniture _:
+                    return MenuTab.Decorating;
+            }
+
+            // by category
+            switch (item.category)
+            {
+                case SObject.SeedsCategory:
+                case SObject.VegetableCategory:
+                case SObject.fertilizerCategory:
+                case SObject.flowersCategory:
+                    return MenuTab.SeedsAndCrops;
+
+                case SObject.FishCategory:
+                case SObject.baitCategory:
+                case SObject.junkCategory:
+                case SObject.tackleCategory:
+                    return MenuTab.FishAndBaitAndTrash;
+
+                case SObject.GreensCategory:
+                case SObject.FruitsCategory:
+                    return MenuTab.ForageAndFruits;
+
+                case SObject.mineralsCategory:
+                case SObject.GemCategory:
+                    return MenuTab.ArtifactsAndMinerals;
+
+                case SObject.metalResources:
+                case SObject.buildingResources:
+                case SObject.CraftingCategory:
+                case SObject.BigCraftableCategory:
+                    return MenuTab.ResourcesAndCrafting;
+
+                case SObject.artisanGoodsCategory:
+                case SObject.syrupCategory:
+                case SObject.CookingCategory:
+                case SObject.ingredientsCategory:
+                    return MenuTab.ArtisanAndCooking;
+
+                case SObject.sellAtPierresAndMarnies:
+                case SObject.meatCategory:
+                case SObject.EggCategory:
+                case SObject.MilkCategory:
+                case SObject.monsterLootCategory:
+                    return MenuTab.AnimalAndMonster;
+
+                case SObject.furnitureCategory:
+                    return MenuTab.Decorating;
+            }
+
+            // artifacts
+            if ((item as SObject)?.type == "Arch")
                 return MenuTab.ArtifactsAndMinerals;
-            if (item.getCategoryName() == "Resource" || item.getCategoryName() == "Crafting" || item.category == -8 || item.category == -9)
-                return MenuTab.ResourcesAndCrafting;
-            if (item.getCategoryName() == "Artisan Goods" || item.getCategoryName() == "Cooking")
-                return MenuTab.ArtisanAndCooking;
-            if (item.getCategoryName() == "Animal Product" || item.getCategoryName() == "Monster Loot")
-                return MenuTab.AnimalAndMonster;
-            if (item.getCategoryName() == "Furniture" || item.getCategoryName() == "Decor")
-                return MenuTab.Decorating;
+
+            // anything else
             return MenuTab.Misc;
         }
 
