@@ -391,7 +391,7 @@ namespace CJBAutomation
                                 {
                                     obj.heldObject = new SObject(Vector2.Zero, 344, item.Name + " Jelly", false, true, false, false);
                                     obj.heldObject.Price = 50 + item.Price * 2;
-                                    obj.heldObject.Name = item.Name + " Jelly";
+                                    obj.heldObject.name = item.Name + " Jelly";
                                     obj.minutesUntilReady = 4000;
                                     Automation.RemoveItemFromChestsCategory(chests, -79, -1);
                                 }
@@ -399,7 +399,7 @@ namespace CJBAutomation
                                 {
                                     obj.heldObject = new SObject(Vector2.Zero, 342, "Pickled " + item.Name, false, true, false, false);
                                     obj.heldObject.Price = 50 + item.Price * 2;
-                                    obj.heldObject.Name = "Pickled " + item.Name;
+                                    obj.heldObject.name = "Pickled " + item.Name;
                                     obj.minutesUntilReady = 4000;
                                     Automation.RemoveItemFromChestsCategory(chests, -75, -1);
                                 }

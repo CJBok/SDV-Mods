@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -250,33 +249,6 @@ namespace CJBEndlessInventory
             if (this.Inventory == null || this.Inventory.Count <= 0)
                 return;
             Game1.setMousePosition(this.Inventory[0].bounds.Right - this.Inventory[0].bounds.Width / 8, this.Inventory[0].bounds.Bottom - this.Inventory[0].bounds.Height / 8);
-        }
-
-        public override int moveCursorInDirection(int direction)
-        {
-            Rectangle rectangle = new Rectangle(this.Inventory[0].bounds.X, this.Inventory[0].bounds.Y, this.Inventory.Last().bounds.X + this.Inventory.Last().bounds.Width - this.Inventory[0].bounds.X, this.Inventory.Last().bounds.Y + this.Inventory.Last().bounds.Height - this.Inventory[0].bounds.Y);
-            if (!rectangle.Contains(Game1.getMousePosition()))
-                Game1.setMousePosition(this.Inventory[0].bounds.Right - this.Inventory[0].bounds.Width / 8, this.Inventory[0].bounds.Bottom - this.Inventory[0].bounds.Height / 8);
-            Point mousePosition = Game1.getMousePosition();
-            switch (direction)
-            {
-                case 0:
-                    Game1.setMousePosition(mousePosition.X, mousePosition.Y - Game1.tileSize - this.VerticalGap);
-                    break;
-                case 1:
-                    Game1.setMousePosition(mousePosition.X + Game1.tileSize + this.HorizontalGap, mousePosition.Y);
-                    break;
-                case 2:
-                    Game1.setMousePosition(mousePosition.X, mousePosition.Y + Game1.tileSize + this.VerticalGap);
-                    break;
-                case 3:
-                    Game1.setMousePosition(mousePosition.X - Game1.tileSize - this.HorizontalGap, mousePosition.Y);
-                    break;
-            }
-            if (rectangle.Contains(Game1.getMousePosition()))
-                return -1;
-            Game1.setMousePosition(mousePosition);
-            return direction;
         }
 
         public override void receiveScrollWheelAction(int direction)

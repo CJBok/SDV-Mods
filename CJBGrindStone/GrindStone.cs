@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Tools;
 using SObject = StardewValley.Object;
+using SFarmer = StardewValley.Farmer;
 
 namespace CJBGrindStone
 {
@@ -56,7 +57,7 @@ namespace CJBGrindStone
 
         public override string getDescription() => "Stone which grinds all sort of things.";
 
-        public override bool placementAction(GameLocation location, int x, int y, Farmer who = null)
+        public override bool placementAction(GameLocation location, int x, int y, SFarmer who = null)
         {
             Vector2 vector = new Vector2(x / Game1.tileSize, y / Game1.tileSize);
             if (!location.objects.ContainsKey(vector))
@@ -78,7 +79,7 @@ namespace CJBGrindStone
             return false;
         }
 
-        public override bool performObjectDropInAction(SObject dropIn, bool probe, Farmer who)
+        public override bool performObjectDropInAction(SObject dropIn, bool probe, SFarmer who)
         {
             if (dropIn == null || this.heldObject != null || this.readyForHarvest || probe)
                 return false;
@@ -105,7 +106,7 @@ namespace CJBGrindStone
             spriteBatch.Draw(CJBGrindStone.Texture, location + new Vector2(Game1.tileSize / 2, Game1.tileSize / 2), this.Sprite, Color.White * transparency, 0f, new Vector2(8f, 16f), Game1.pixelZoom * (scaleSize < 0.2 ? scaleSize : (scaleSize / 2f)), SpriteEffects.None, layerDepth);
         }
 
-        public override void drawWhenHeld(SpriteBatch spriteBatch, Vector2 objectPosition, Farmer f)
+        public override void drawWhenHeld(SpriteBatch spriteBatch, Vector2 objectPosition, SFarmer f)
         {
             spriteBatch.Draw(CJBGrindStone.Texture, objectPosition, this.Sprite, Color.White, 0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, Math.Max(0f, (f.getStandingY() + 2) / 10000f));
         }

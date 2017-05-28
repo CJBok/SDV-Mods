@@ -7,6 +7,7 @@ using StardewValley.Locations;
 using StardewValley.Menus;
 using StardewValley.Monsters;
 using StardewValley.Tools;
+using SFarmer = StardewValley.Farmer;
 using SObject = StardewValley.Object;
 
 namespace CJBEndlessInventory
@@ -24,7 +25,7 @@ namespace CJBEndlessInventory
         private int CurrentLidFrame = 501;
         private int FrameCounter = -1;
         private int Coins;
-        private Farmer Opener;
+        private SFarmer Opener;
         private string ChestType = "";
 
 
@@ -40,7 +41,7 @@ namespace CJBEndlessInventory
 
         public Storage(bool playerChest) : base(Vector2.Zero, 130)
         {
-            this.Name = "Chest";
+            this.name = "Chest";
             this.type = "Crafting";
             this.IsPlayerChest = playerChest;
             if (playerChest)
@@ -110,7 +111,7 @@ namespace CJBEndlessInventory
             this.boundingBox = new Rectangle((int)this.tileLocation.X * Game1.tileSize, (int)this.tileLocation.Y * Game1.tileSize, Game1.tileSize, Game1.tileSize);
         }
 
-        public override bool performObjectDropInAction(SObject dropIn, bool probe, Farmer who)
+        public override bool performObjectDropInAction(SObject dropIn, bool probe, SFarmer who)
         {
             return false;
         }
@@ -195,13 +196,13 @@ namespace CJBEndlessInventory
             }
         }
 
-        public void OnItemTaken(Item item, Farmer who)
+        public void OnItemTaken(Item item, SFarmer who)
         {
             if (item != null && this.Items.Count > 0 && item == this.Items[0])
                 this.Items.RemoveAt(0);
         }
 
-        public override bool checkForAction(Farmer who, bool justCheckingForActivity = false)
+        public override bool checkForAction(SFarmer who, bool justCheckingForActivity = false)
         {
             if (justCheckingForActivity)
                 return true;
@@ -241,7 +242,7 @@ namespace CJBEndlessInventory
             return true;
         }
 
-        public void GrabItemFromChest(Item item, Farmer who)
+        public void GrabItemFromChest(Item item, SFarmer who)
         {
             if (who.couldInventoryAcceptThisItem(item))
             {
@@ -270,7 +271,7 @@ namespace CJBEndlessInventory
             return item;
         }
 
-        public void GrabItemFromInventory(Item item, Farmer who)
+        public void GrabItemFromInventory(Item item, SFarmer who)
         {
             if (item.Stack == 0)
                 item.Stack = 1;
