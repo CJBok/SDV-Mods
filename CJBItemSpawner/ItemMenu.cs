@@ -351,7 +351,7 @@ namespace CJBItemSpawner
             if (this.HoverText != null && (this.HoveredItem == null || this.ItemsToGrabMenu == null))
                 IClickableMenu.drawHoverText(spriteBatch, this.HoverText, Game1.smallFont);
             if (this.HoveredItem != null)
-                IClickableMenu.drawToolTip(spriteBatch, this.HoveredItem.getDescription(), this.HoveredItem.Name, this.HoveredItem, this.HeldItem != null);
+                IClickableMenu.drawToolTip(spriteBatch, this.HoveredItem.getDescription(), this.HoveredItem.DisplayName, this.HoveredItem, this.HeldItem != null);
             else if (this.HoveredItem != null && this.ItemsToGrabMenu != null)
                 IClickableMenu.drawToolTip(spriteBatch, this.ItemsToGrabMenu.DescriptionText, this.ItemsToGrabMenu.DescriptionTitle, this.HoveredItem, this.HeldItem != null);
             this.HeldItem?.drawInMenu(spriteBatch, new Vector2(Game1.getOldMouseX() + 8, Game1.getOldMouseY() + 8), 1f);
@@ -592,35 +592,43 @@ namespace CJBItemSpawner
 
                     if (item.category == -79)
                     {
-                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 348, item.Name + " Wine", false, true, false, false)
+                        ItemMenu.ItemList.Add(new SObject(348, 1)
                         {
                             name = item.Name + " Wine",
-                            price = item.price * 3
+                            price = item.price * 3,
+                            preserve = SObject.PreserveType.Wine,
+                            preservedParentSheetIndex = item.parentSheetIndex
                         });
                     }
                     if (item.category == -75)
                     {
-                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 350, item.Name + " Juice", false, true, false, false)
+                        ItemMenu.ItemList.Add(new SObject(350, 1)
                         {
                             name = item.Name + " Juice",
-                            price = (int)(item.price * 2.25d)
+                            price = (int)(item.price * 2.25d),
+                            preserve = SObject.PreserveType.Juice,
+                            preservedParentSheetIndex = item.parentSheetIndex
                         });
                     }
 
                     if (item.category == -79)
                     {
-                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 344, item.Name + " Jelly", false, true, false, false)
+                        ItemMenu.ItemList.Add(new SObject(344, 1)
                         {
                             name = item.Name + " Jelly",
-                            price = 50 + item.Price * 2
+                            price = 50 + item.Price * 2,
+                            preserve = SObject.PreserveType.Jelly,
+                            preservedParentSheetIndex = item.parentSheetIndex
                         });
                     }
                     if (item.category == -75)
                     {
-                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 342, "Pickled " + item.Name, false, true, false, false)
+                        ItemMenu.ItemList.Add(new SObject(342, 1)
                         {
                             name = "Pickled " + item.Name,
-                            price = 50 + item.Price * 2
+                            price = 50 + item.Price * 2,
+                            preserve = SObject.PreserveType.Pickle,
+                            preservedParentSheetIndex = item.parentSheetIndex
                         });
                     }
                 }

@@ -98,17 +98,17 @@ namespace CJBItemSpawner
                             {
                                 if (playSound)
                                     Game1.playSound("stoneStep");
-                                return ItemInventoryMenu.AddItemToInventory(toPlace, index, this.ActualInventory);
+                                return this.AddItemToInventory(toPlace, index, this.ActualInventory);
                             }
                             if (playSound)
                                 Game1.playSound("dwop");
-                            return ItemInventoryMenu.RemoveItemFromInventory(index, this.ActualInventory);
+                            return this.RemoveItemFromInventory(index, this.ActualInventory);
                         }
                         if (toPlace != null)
                         {
                             if (playSound)
                                 Game1.playSound("stoneStep");
-                            return ItemInventoryMenu.AddItemToInventory(toPlace, index, this.ActualInventory);
+                            return this.AddItemToInventory(toPlace, index, this.ActualInventory);
                         }
                     }
                 }
@@ -133,7 +133,7 @@ namespace CJBItemSpawner
                         {
                             if (index == Game1.player.CurrentToolIndex && this.ActualInventory[index] != null && this.ActualInventory[index].Stack == 1)
                                 this.ActualInventory[index].actionWhenStopBeingHeld(Game1.player);
-                            Item one = this.ActualInventory[index].getOne();
+                            Item one = this.GetOne(this.ActualInventory[index]);
                             if (this.ActualInventory[index].Stack > 1)
                             {
                                 if (Game1.isOneOfTheseKeysDown(Game1.oldKBState, new[] { new InputButton(Keys.LeftShift) }))
@@ -248,7 +248,27 @@ namespace CJBItemSpawner
         /*********
         ** Private methods
         *********/
-        private static Item AddItemToInventory(Item item, int position, List<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null)
+        /// <summary>Get one instance of an item with the same metadata.</summary>
+        /// <param name="item">The item to copy.</param>
+        private Item GetOne(Item item)
+        {
+            // keep preserve data
+            if (item is SObject old && old.preserve != null)
+            {
+                return new SObject(old.tileLocation, old.parentSheetIndex, old.name, old.canBeSetDown, old.canBeGrabbed, old.isHoedirt, old.isSpawnedObject)
+                {
+                    name = old.name,
+                    price = old.price,
+                    preserve = old.preserve,
+                    preservedParentSheetIndex = old.preservedParentSheetIndex
+                };
+            }
+
+            // else use default logic
+            return item.getOne();
+        }
+
+        private Item AddItemToInventory(Item item, int position, List<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null)
         {
             if (items == Game1.player.items && item is SObject obj && obj.specialItem)
             {
@@ -288,11 +308,11 @@ namespace CJBItemSpawner
             return item;
         }
 
-        private static Item RemoveItemFromInventory(int whichItemIndex, List<Item> items)
+        private Item RemoveItemFromInventory(int whichItemIndex, List<Item> items)
         {
             if (whichItemIndex >= 0 && whichItemIndex < items.Count && items[whichItemIndex] != null)
             {
-                Item item = items[whichItemIndex].getOne();
+                Item item = this.GetOne(items[whichItemIndex]);
                 item.Stack = items[whichItemIndex].Stack;
                 if (whichItemIndex == Game1.player.CurrentToolIndex && items == Game1.player.items)
                     item.actionWhenStopBeingHeld(Game1.player);
