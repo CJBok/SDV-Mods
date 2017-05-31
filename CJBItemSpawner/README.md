@@ -16,13 +16,13 @@ Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
 3. Run the game using SMAPI.
 
 ## Versions
-1.8:
+1.8 (2017-05-30):
 * Updated for Stardew Valley 1.2.
 * Added flavored honey.
 * Fixed support for non-English players, including tab filtering & translated item names.
 * Fixed 'misc' tab duplicating some items shown in other tabs.
 
-1.7.2:
+1.7.2 (2017-04-11):
 * The hotkey can now be changed in `config.json`.
 * Fixed quality & sort buttons broken in 1.7.
 
