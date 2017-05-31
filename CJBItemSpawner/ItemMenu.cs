@@ -18,7 +18,6 @@ namespace CJBItemSpawner
         /*********
         ** Properties
         *********/
-        private static bool ItemsLoaded;
         private static List<Item> ItemList;
 
         private readonly ClickableComponent Title;
@@ -91,8 +90,8 @@ namespace CJBItemSpawner
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i, Game1.tileSize * 5, Game1.tileSize), MenuTab.Misc.ToString(), "Misc"));
             }
 
-            if (!ItemMenu.ItemsLoaded)
-                ItemMenu.LoadItems();
+            if (ItemMenu.ItemList == null)
+                ItemMenu.ItemList = this.GetSpawnableItems().ToList();
 
             this.AllowRightClick = true;
 
@@ -109,7 +108,7 @@ namespace CJBItemSpawner
                     break;
             }
 
-            this.LoadInventory();
+            this.LoadInventory(ItemMenu.ItemList);
         }
 
         public ItemMenu()
@@ -284,7 +283,7 @@ namespace CJBItemSpawner
             {
                 this.TempText = this.Textbox.Text;
                 ItemInventoryMenu.ScrollIndex = 0;
-                this.LoadInventory();
+                this.LoadInventory(ItemMenu.ItemList);
             }
 
             base.update(time);
@@ -378,24 +377,23 @@ namespace CJBItemSpawner
             return tabID;
         }
 
-        private void LoadInventory()
+        private void LoadInventory(List<Item> spawnableItems)
         {
-            List<Item> items = ItemMenu.ItemList.OrderBy(o => o.Name).ToList();
-
+            // get spawnable items in display order
+            spawnableItems = spawnableItems.OrderBy(o => o.DisplayName).ToList();
             switch (this.SortID)
             {
                 case 1:
-                    items = ItemMenu.ItemList.OrderBy(o => o.category).ToList();
+                    spawnableItems = spawnableItems.OrderBy(o => o.category).ToList();
                     break;
                 case 2:
-                    items = ItemMenu.ItemList.OrderBy(o => o.parentSheetIndex).ToList();
+                    spawnableItems = spawnableItems.OrderBy(o => o.parentSheetIndex).ToList();
                     break;
             }
 
+            // load inventory
             this.InventoryItems.Clear();
-            LocalizedContentManager.LanguageCode temp = LocalizedContentManager.CurrentLanguageCode;
-            LocalizedContentManager.CurrentLanguageCode = LocalizedContentManager.LanguageCode.en;
-            foreach (Item item in items)
+            foreach (Item item in spawnableItems)
             {
                 item.Stack = item.maximumStackSize();
                 if (item is SObject obj)
@@ -404,8 +402,8 @@ namespace CJBItemSpawner
                 if ((this.CurrentTab == MenuTab.All || this.GetRelevantTab(item) == this.CurrentTab) && item.Name.ToLower().Contains(this.Textbox.Text.ToLower()))
                     this.InventoryItems.Add(item);
             }
-            LocalizedContentManager.CurrentLanguageCode = temp;
 
+            // show menu
             this.ItemsToGrabMenu = new ItemInventoryMenu(this.xPositionOnScreen + Game1.tileSize / 2, this.yPositionOnScreen, false, this.InventoryItems);
         }
 
@@ -480,169 +478,115 @@ namespace CJBItemSpawner
             return MenuTab.Misc;
         }
 
-        private static void LoadItems()
+        private IEnumerable<Item> GetSpawnableItems()
         {
-            ItemMenu.ItemsLoaded = true;
-            ItemMenu.ItemList = new List<Item>
+            // get tools
+            for (int quality = Tool.stone; quality <= Tool.iridium; quality++)
             {
-                ToolFactory.getToolFromDescription(0, 0),
-                ToolFactory.getToolFromDescription(0, 1),
-                ToolFactory.getToolFromDescription(0, 2),
-                ToolFactory.getToolFromDescription(0, 3),
-                ToolFactory.getToolFromDescription(0, 4),
-                ToolFactory.getToolFromDescription(1, 0),
-                ToolFactory.getToolFromDescription(1, 1),
-                ToolFactory.getToolFromDescription(1, 2),
-                ToolFactory.getToolFromDescription(1, 3),
-                ToolFactory.getToolFromDescription(1, 4),
-                ToolFactory.getToolFromDescription(2, 0),
-                ToolFactory.getToolFromDescription(2, 1),
-                ToolFactory.getToolFromDescription(2, 2),
-                ToolFactory.getToolFromDescription(2, 3),
-                ToolFactory.getToolFromDescription(3, 0),
-                ToolFactory.getToolFromDescription(3, 1),
-                ToolFactory.getToolFromDescription(3, 2),
-                ToolFactory.getToolFromDescription(3, 3),
-                ToolFactory.getToolFromDescription(3, 4),
-                ToolFactory.getToolFromDescription(4, 0),
-                ToolFactory.getToolFromDescription(4, 1),
-                ToolFactory.getToolFromDescription(4, 2),
-                ToolFactory.getToolFromDescription(4, 3),
-                ToolFactory.getToolFromDescription(4, 4),
-                new MilkPail(),
-                new Shears(),
-                new Pan()
-            };
+                yield return ToolFactory.getToolFromDescription(ToolFactory.axe, quality);
+                yield return ToolFactory.getToolFromDescription(ToolFactory.hoe, quality);
+                yield return ToolFactory.getToolFromDescription(ToolFactory.pickAxe, quality);
+                yield return ToolFactory.getToolFromDescription(ToolFactory.wateringCan, quality);
+                if (quality != Tool.iridium)
+                    yield return ToolFactory.getToolFromDescription(ToolFactory.fishingRod, quality);
+            }
+            yield return new MilkPail();
+            yield return new Shears();
+            yield return new Pan();
 
-            foreach (KeyValuePair<string, string> o in CraftingRecipe.craftingRecipes)
+            // crafting recipes
+            foreach (string key in CraftingRecipe.craftingRecipes.Keys)
             {
-                CraftingRecipe rec = new CraftingRecipe(o.Key, false);
-                Item item = rec.createItem();
+                CraftingRecipe recipe = new CraftingRecipe(key, false);
+                Item item = recipe.createItem();
                 if (item != null)
-                    ItemMenu.ItemList.Add(item);
+                    yield return item;
             }
 
-            for (int i = 0; i < 112; i++)
-                ItemMenu.ItemList.Add(new Wallpaper(i) { category = -24 });
+            // wallpapers
+            for (int id = 0; id < 112; id++)
+                yield return new Wallpaper(id) { category = SObject.furnitureCategory };
 
-            for (int i = 0; i < 40; i++)
-                ItemMenu.ItemList.Add(new Wallpaper(i, true) { category = -24 });
+            // flooring
+            for (int id = 0; id < 40; id++)
+                yield return new Wallpaper(id, true) { category = SObject.furnitureCategory };
 
-            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\Boots"))
+            // equipment
+            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\Boots").Keys)
+                yield return new Boots(id);
+            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\hats").Keys)
+                yield return new Hat(id);
+
+            // weapons
+            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\weapons").Keys)
             {
-                Item item = new Boots(o.Key);
-                ItemMenu.ItemList.Add(item);
+                if (id >= 32 && id <= 34)
+                    yield return new Slingshot(id);
+                yield return new MeleeWeapon(id);
             }
 
-            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\hats"))
+            // furniture
+            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\Furniture").Keys)
             {
-                Item item = new Hat(o.Key);
-                ItemMenu.ItemList.Add(item);
+                Item item = new Furniture(id, Vector2.Zero);
+                if (id == 1466 || id == 1468)
+                    item = new TV(id, Vector2.Zero);
+                yield return item;
             }
 
-            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\Furniture"))
+            // fish
+            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\Fish").Keys)
+                yield return new SObject(id, 999) { category = SObject.FishCategory };
+
+            // objects
+            foreach (int id in Game1.objectInformation.Keys.Union(Game1.bigCraftablesInformation.Keys))
             {
-                Item item = new Furniture(o.Key, Vector2.Zero);
-
-                if (o.Key == 1466 || o.Key == 1468)
-                    item = new TV(o.Key, Vector2.Zero);
-                ItemMenu.ItemList.Add(item);
-            }
-
-            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\weapons"))
-            {
-                Item item = new MeleeWeapon(o.Key);
-
-                if (o.Key >= 32 && o.Key <= 34)
-                    item = new Slingshot(o.Key);
-
-                ItemMenu.ItemList.Add(item);
-            }
-
-            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\Fish"))
-            {
-                Item item = new SObject(o.Key, 999);
-                item.category = -4;
-                ItemMenu.ItemList.Add(item);
-            }
-
-            foreach (KeyValuePair<int, string> o in Game1.bigCraftablesInformation)
-            {
-                if (ItemMenu.HasItem(o.Key, o.Value.Split('/')[0]))
-                    continue;
-
-                ItemMenu.ItemList.Add(new SObject(Vector2.Zero, o.Key));
-            }
-
-            foreach (KeyValuePair<int, string> o in Game1.objectInformation)
-            {
-                if (ItemMenu.HasItem(o.Key, o.Value.Split('/')[0]))
-                    continue;
-
-                string[] info = o.Value.Split('/');
-                if (info.Length >= 3)
+                // ring
+                if (id >= Ring.ringLowerIndexRange && id <= Ring.ringUpperIndexRange)
                 {
-                    if (info[3].StartsWith("Ring"))
-                    {
-                        ItemMenu.ItemList.Add(new Ring(o.Key));
-                        continue;
-                    }
-                    SObject item = new SObject(o.Key, 1);
-                    ItemMenu.ItemList.Add(item);
+                    yield return new Ring(id);
+                    continue;
+                }
 
-                    if (item.category == -79)
-                    {
-                        ItemMenu.ItemList.Add(new SObject(348, 1)
-                        {
-                            name = item.Name + " Wine",
-                            price = item.price * 3,
-                            preserve = SObject.PreserveType.Wine,
-                            preservedParentSheetIndex = item.parentSheetIndex
-                        });
-                    }
-                    if (item.category == -75)
-                    {
-                        ItemMenu.ItemList.Add(new SObject(350, 1)
-                        {
-                            name = item.Name + " Juice",
-                            price = (int)(item.price * 2.25d),
-                            preserve = SObject.PreserveType.Juice,
-                            preservedParentSheetIndex = item.parentSheetIndex
-                        });
-                    }
+                // object + derivatives
+                SObject item = new SObject(id, 1);
+                yield return item;
 
-                    if (item.category == -79)
+                if (item.category == SObject.FruitsCategory)
+                {
+                    yield return new SObject(348, 1)
                     {
-                        ItemMenu.ItemList.Add(new SObject(344, 1)
-                        {
-                            name = item.Name + " Jelly",
-                            price = 50 + item.Price * 2,
-                            preserve = SObject.PreserveType.Jelly,
-                            preservedParentSheetIndex = item.parentSheetIndex
-                        });
-                    }
-                    if (item.category == -75)
+                        name = item.Name + " Wine",
+                        price = item.price * 3,
+                        preserve = SObject.PreserveType.Wine,
+                        preservedParentSheetIndex = item.parentSheetIndex
+                    };
+                    yield return new SObject(344, 1)
                     {
-                        ItemMenu.ItemList.Add(new SObject(342, 1)
-                        {
-                            name = "Pickled " + item.Name,
-                            price = 50 + item.Price * 2,
-                            preserve = SObject.PreserveType.Pickle,
-                            preservedParentSheetIndex = item.parentSheetIndex
-                        });
-                    }
+                        name = item.Name + " Jelly",
+                        price = 50 + item.Price * 2,
+                        preserve = SObject.PreserveType.Jelly,
+                        preservedParentSheetIndex = item.parentSheetIndex
+                    };
+                }
+                else if (item.category == SObject.VegetableCategory)
+                {
+                    yield return new SObject(350, 1)
+                    {
+                        name = item.Name + " Juice",
+                        price = (int)(item.price * 2.25d),
+                        preserve = SObject.PreserveType.Juice,
+                        preservedParentSheetIndex = item.parentSheetIndex
+                    };
+                    yield return new SObject(342, 1)
+                    {
+                        name = "Pickled " + item.Name,
+                        price = 50 + item.Price * 2,
+                        preserve = SObject.PreserveType.Pickle,
+                        preservedParentSheetIndex = item.parentSheetIndex
+                    };
                 }
             }
-        }
-
-        private static bool HasItem(int itemID, string name)
-        {
-            foreach (Item item in ItemMenu.ItemList)
-            {
-                if (item.parentSheetIndex == itemID && item.Name == name)
-                    return true;
-            }
-            return false;
         }
     }
 }
