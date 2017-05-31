@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using CJBItemSpawner.Constants;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -16,9 +18,7 @@ namespace CJBItemSpawner
         /*********
         ** Properties
         *********/
-        private static bool ItemsLoaded;
-        private static List<Item> ItemList;
-
+        private readonly Item[] SpawnableItems;
         private readonly ClickableComponent Title;
         private readonly ClickableComponent SortButton;
         private readonly ClickableComponent QualityButton;
@@ -26,9 +26,8 @@ namespace CJBItemSpawner
         private readonly ClickableTextureComponent DownArrow;
         private readonly List<ClickableComponent> Tabs = new List<ClickableComponent>();
         private readonly TextBox Textbox;
-        private readonly List<Item> InventoryItems = new List<Item>();
         private readonly bool AllowRightClick;
-        private readonly int TabIndex;
+        private readonly MenuTab CurrentTab;
         private readonly int SortID;
         private readonly ItemQuality Quality;
         private readonly bool ShowReceivingMenu = true;
@@ -43,32 +42,39 @@ namespace CJBItemSpawner
         /*********
         ** Public methods
         *********/
-        public ItemMenu(int tabIndex, int sortID, ItemQuality quality)
+        public ItemMenu(MenuTab currentTab, int sortID, ItemQuality quality)
           : base(null, true, true, 0, -50)
         {
+            // initialise
             this.MovePosition(110, Game1.viewport.Height / 2 - (650 + IClickableMenu.borderWidth * 2) / 2);
-            this.TabIndex = tabIndex;
+            this.CurrentTab = currentTab;
             this.SortID = sortID;
             this.Quality = quality;
+            this.SpawnableItems = this.GetSpawnableItems().ToArray();
+            this.AllowRightClick = true;
 
-            this.Textbox = new TextBox(null, null, Game1.dialogueFont, Game1.textColor);
-            this.Textbox.X = Game1.viewport.Width / 2 - Game1.tileSize * 3;
-            this.Textbox.Y = Game1.viewport.Height / 2;
-            this.Textbox.Width = Game1.tileSize * 8;
-            this.Textbox.Height = Game1.tileSize * 3;
-            this.Textbox.X = this.xPositionOnScreen + (width / 2) - (this.Textbox.Width / 2) - Game1.tileSize + 32;
-            this.Textbox.Y = this.yPositionOnScreen + (height / 2) + Game1.tileSize * 2 + 40;
-            this.Textbox.Selected = false;
-            this.Textbox.Text = this.TempText;
+            // create search box
+            int textWidth = Game1.tileSize * 8;
+            this.Textbox = new TextBox(null, null, Game1.dialogueFont, Game1.textColor)
+            {
+                X = this.xPositionOnScreen + (width / 2) - (textWidth / 2) - Game1.tileSize + 32,
+                Y = this.yPositionOnScreen + (height / 2) + Game1.tileSize * 2 + 40,
+                Width = textWidth,
+                Height = Game1.tileSize * 3,
+                Selected = false,
+                Text = this.TempText
+            };
             Game1.keyboardDispatcher.Subscriber = this.Textbox;
             this.TextboxBounds = new Rectangle(this.Textbox.X, this.Textbox.Y, this.Textbox.Width, this.Textbox.Height / 3);
 
+            // create buttons
             this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + width - Game1.tileSize, this.yPositionOnScreen - Game1.tileSize * 2, Game1.tileSize * 4, Game1.tileSize), "CJB Item Spawner");
             this.SortButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen - Game1.tileSize * 2 + 10, Game1.tileSize * 4, Game1.tileSize), "Sort By: Name");
             this.QualityButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen + Game1.tileSize * 4, this.yPositionOnScreen - Game1.tileSize * 2 + 10, Game1.tileSize * 4, Game1.tileSize), "Quality");
             this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(this.xPositionOnScreen + width - Game1.tileSize / 2, this.yPositionOnScreen - Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
             this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.xPositionOnScreen + width - Game1.tileSize / 2, this.yPositionOnScreen + height / 2 - Game1.tileSize * 2, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
 
+            // create tabs
             {
                 int i = -1;
 
@@ -76,25 +82,20 @@ namespace CJBItemSpawner
                 int y = this.yPositionOnScreen + 10;
                 int lblHeight = (int)(Game1.tileSize * 0.9F);
 
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "All"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Tools & Equipment"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Seeds & Crops"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Fish & Bait & Trash"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Forage & Fruits"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Artifacts & Minerals"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Resources & Crafting"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Artisan & Cooking"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Animal & Monster"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), "Decorating"));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i, Game1.tileSize * 5, Game1.tileSize), "Misc"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.All.ToString(), "All"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ToolsAndEquipment.ToString(), "Tools & Equipment"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.SeedsAndCrops.ToString(), "Seeds & Crops"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.FishAndBaitAndTrash.ToString(), "Fish & Bait & Trash"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ForageAndFruits.ToString(), "Forage & Fruits"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ArtifactsAndMinerals.ToString(), "Artifacts & Minerals"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ResourcesAndCrafting.ToString(), "Resources & Crafting"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ArtisanAndCooking.ToString(), "Artisan & Cooking"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.AnimalAndMonster.ToString(), "Animal & Monster"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Decorating.ToString(), "Decorating"));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i, Game1.tileSize * 5, Game1.tileSize), MenuTab.Misc.ToString(), "Misc"));
             }
 
-            if (!ItemMenu.ItemsLoaded)
-                ItemMenu.LoadItems();
-
-            this.AllowRightClick = true;
-            this.Inventory.ShowGrayedOutSlots = true;
-
+            // initialise sort UI
             switch (this.SortID)
             {
                 case 0:
@@ -108,227 +109,12 @@ namespace CJBItemSpawner
                     break;
             }
 
-            this.LoadInventory();
+            // load items
+            this.LoadInventory(this.SpawnableItems);
         }
 
         public ItemMenu()
             : this(0, 0, ItemQuality.Normal) { }
-
-        private void LoadInventory()
-        {
-            List<Item> items = ItemMenu.ItemList.OrderBy(o => o.Name).ToList();
-
-            switch (this.SortID)
-            {
-                case 1:
-                    items = ItemMenu.ItemList.OrderBy(o => o.category).ToList();
-                    break;
-                case 2:
-                    items = ItemMenu.ItemList.OrderBy(o => o.parentSheetIndex).ToList();
-                    break;
-            }
-
-            this.InventoryItems.Clear();
-            foreach (Item item in items)
-            {
-                item.Stack = item.maximumStackSize();
-
-                if (item is SObject obj)
-                    obj.quality = (int)this.Quality;
-
-                if (this.IsCategoryAllowed(item) && item.Name.ToLower().Contains(this.Textbox.Text.ToLower()))
-                    this.InventoryItems.Add(item);
-            }
-
-            this.ItemsToGrabMenu = new ItemInventoryMenu(this.xPositionOnScreen + Game1.tileSize / 2, this.yPositionOnScreen, false, this.InventoryItems);
-        }
-        private bool IsCategoryAllowed(Item item)
-        {
-            switch (this.TabIndex)
-            {
-                case 0:
-                    return true;
-                case 1:
-                    return item is Tool || item.getCategoryName() == "Ring" || item is Hat || item is Boots;
-                case 2:
-                    return item.getCategoryName() == "Seed" || item.getCategoryName() == "Vegetable" || item.getCategoryName() == "Fertilizer" || item.getCategoryName() == "Flower";
-                case 3:
-                    return item.getCategoryName() == "Fish" || item.getCategoryName() == "Bait" || item.getCategoryName() == "Trash" || item.getCategoryName() == "Fishing Tackle";
-                case 4:
-                    return item.getCategoryName() == "Forage" || item.getCategoryName() == "Fruit";
-                case 5:
-                    return item.getCategoryName() == "Artifact" || item.getCategoryName() == "Mineral";
-                case 6:
-                    return item.getCategoryName() == "Resource" || item.getCategoryName() == "Crafting" || item.category == -8 || item.category == -9;
-                case 7:
-                    return item.getCategoryName() == "Artisan Goods" || item.getCategoryName() == "Cooking";
-                case 8:
-                    return item.getCategoryName() == "Animal Product" || item.getCategoryName() == "Monster Loot";
-                case 9:
-                    return item.getCategoryName() == "Furniture" || item.getCategoryName() == "Decor";
-                case 10:
-                    return item.getCategoryName().Trim() == "";
-                default:
-                    return false;
-            }
-        }
-
-        private static void LoadItems()
-        {
-            ItemMenu.ItemsLoaded = true;
-            ItemMenu.ItemList = new List<Item>
-            {
-                ToolFactory.getToolFromDescription(0, 0),
-                ToolFactory.getToolFromDescription(0, 1),
-                ToolFactory.getToolFromDescription(0, 2),
-                ToolFactory.getToolFromDescription(0, 3),
-                ToolFactory.getToolFromDescription(0, 4),
-                ToolFactory.getToolFromDescription(1, 0),
-                ToolFactory.getToolFromDescription(1, 1),
-                ToolFactory.getToolFromDescription(1, 2),
-                ToolFactory.getToolFromDescription(1, 3),
-                ToolFactory.getToolFromDescription(1, 4),
-                ToolFactory.getToolFromDescription(2, 0),
-                ToolFactory.getToolFromDescription(2, 1),
-                ToolFactory.getToolFromDescription(2, 2),
-                ToolFactory.getToolFromDescription(2, 3),
-                ToolFactory.getToolFromDescription(3, 0),
-                ToolFactory.getToolFromDescription(3, 1),
-                ToolFactory.getToolFromDescription(3, 2),
-                ToolFactory.getToolFromDescription(3, 3),
-                ToolFactory.getToolFromDescription(3, 4),
-                ToolFactory.getToolFromDescription(4, 0),
-                ToolFactory.getToolFromDescription(4, 1),
-                ToolFactory.getToolFromDescription(4, 2),
-                ToolFactory.getToolFromDescription(4, 3),
-                ToolFactory.getToolFromDescription(4, 4),
-                new MilkPail(),
-                new Shears(),
-                new Pan()
-            };
-
-            foreach (KeyValuePair<string, string> o in CraftingRecipe.craftingRecipes)
-            {
-                CraftingRecipe rec = new CraftingRecipe(o.Key, false);
-                Item item = rec.createItem();
-                if (item != null)
-                    ItemMenu.ItemList.Add(item);
-            }
-
-            for (int i = 0; i < 112; i++)
-                ItemMenu.ItemList.Add(new Wallpaper(i) { category = -24 });
-
-            for (int i = 0; i < 40; i++)
-                ItemMenu.ItemList.Add(new Wallpaper(i, true) { category = -24 });
-
-            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\Boots"))
-            {
-                Item item = new Boots(o.Key);
-                ItemMenu.ItemList.Add(item);
-            }
-
-            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\hats"))
-            {
-                Item item = new Hat(o.Key);
-                ItemMenu.ItemList.Add(item);
-            }
-
-            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\Furniture"))
-            {
-                Item item = new Furniture(o.Key, Vector2.Zero);
-
-                if (o.Key == 1466 || o.Key == 1468)
-                    item = new TV(o.Key, Vector2.Zero);
-                ItemMenu.ItemList.Add(item);
-            }
-
-            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\weapons"))
-            {
-                Item item = new MeleeWeapon(o.Key);
-
-                if (o.Key >= 32 && o.Key <= 34)
-                    item = new Slingshot(o.Key);
-
-                ItemMenu.ItemList.Add(item);
-            }
-
-            foreach (KeyValuePair<int, string> o in Game1.content.Load<Dictionary<int, string>>("Data\\Fish"))
-            {
-                Item item = new SObject(o.Key, 999);
-                item.category = -4;
-                ItemMenu.ItemList.Add(item);
-            }
-
-            foreach (KeyValuePair<int, string> o in Game1.bigCraftablesInformation)
-            {
-                if (ItemMenu.HasItem(o.Key, o.Value.Split('/')[0]))
-                    continue;
-
-                ItemMenu.ItemList.Add(new SObject(Vector2.Zero, o.Key));
-            }
-
-            foreach (KeyValuePair<int, string> o in Game1.objectInformation)
-            {
-                if (ItemMenu.HasItem(o.Key, o.Value.Split('/')[0]))
-                    continue;
-
-                string[] info = o.Value.Split('/');
-                if (info.Length >= 3)
-                {
-                    if (info[3].StartsWith("Ring"))
-                    {
-                        ItemMenu.ItemList.Add(new Ring(o.Key));
-                        continue;
-                    }
-                    SObject item = new SObject(o.Key, 1);
-                    ItemMenu.ItemList.Add(item);
-
-                    if (item.category == -79)
-                    {
-                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 348, item.Name + " Wine", false, true, false, false)
-                        {
-                            name = item.Name + " Wine",
-                            price = item.price * 3
-                        });
-                    }
-                    if (item.category == -75)
-                    {
-                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 350, item.Name + " Juice", false, true, false, false)
-                        {
-                            name = item.Name + " Juice",
-                            price = (int)(item.price * 2.25d)
-                        });
-                    }
-
-                    if (item.category == -79)
-                    {
-                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 344, item.Name + " Jelly", false, true, false, false)
-                        {
-                            name = item.Name + " Jelly",
-                            price = 50 + item.Price * 2
-                        });
-                    }
-                    if (item.category == -75)
-                    {
-                        ItemMenu.ItemList.Add(new SObject(Vector2.Zero, 342, "Pickled " + item.Name, false, true, false, false)
-                        {
-                            name = "Pickled " + item.Name,
-                            price = 50 + item.Price * 2
-                        });
-                    }
-                }
-            }
-        }
-
-        private static bool HasItem(int itemID, string name)
-        {
-            foreach (Item item in ItemMenu.ItemList)
-            {
-                if (item.parentSheetIndex == itemID && item.Name == name)
-                    return true;
-            }
-            return false;
-        }
 
         public override void receiveRightClick(int x, int y, bool playSound = true)
         {
@@ -386,14 +172,14 @@ namespace CJBItemSpawner
 
             if (this.HeldItem == null)
             {
-                for (int i = 0; i < this.Tabs.Count; i++)
+                foreach (ClickableComponent tab in this.Tabs)
                 {
-                    ClickableComponent tab = this.Tabs[i];
                     if (tab.bounds.Contains(x, y))
                     {
                         Game1.exitActiveMenu();
                         ItemInventoryMenu.ScrollIndex = 0;
-                        this.Reopen(tabIndex: i);
+                        MenuTab tabID = this.GetTabID(tab);
+                        this.Reopen(tabID);
                         break;
                     }
                 }
@@ -467,12 +253,6 @@ namespace CJBItemSpawner
 
         }
 
-        public static void OrganizeItemsInList(List<Item> items)
-        {
-            items.Sort();
-            items.Reverse();
-        }
-
         public bool AreAllItemsTaken()
         {
             return this.ItemsToGrabMenu.ActualInventory.All(t => t == null);
@@ -505,7 +285,7 @@ namespace CJBItemSpawner
             {
                 this.TempText = this.Textbox.Text;
                 ItemInventoryMenu.ScrollIndex = 0;
-                this.LoadInventory();
+                this.LoadInventory(this.SpawnableItems);
             }
 
             base.update(time);
@@ -552,13 +332,13 @@ namespace CJBItemSpawner
             this.Draw(spriteBatch, false, false);
             if (this.ShowReceivingMenu)
             {
-                CJB.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.borderFont, this.Title.name, true, 2);
+                CJB.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.dialogueFont, this.Title.name, true, 2);
                 Game1.drawDialogueBox(this.ItemsToGrabMenu.xPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearSideBorder, this.ItemsToGrabMenu.yPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearTopBorder, this.ItemsToGrabMenu.width + IClickableMenu.borderWidth * 2 + IClickableMenu.spaceToClearSideBorder * 2, this.ItemsToGrabMenu.height + IClickableMenu.spaceToClearTopBorder + IClickableMenu.borderWidth * 2, false, true);
                 this.ItemsToGrabMenu.draw(spriteBatch);
-                for (int i = 0; i < this.Tabs.Count; i++)
+                foreach (ClickableComponent tab in this.Tabs)
                 {
-                    ClickableComponent current = this.Tabs[i];
-                    CJB.DrawTextBox(current.bounds.X + current.bounds.Width, current.bounds.Y, Game1.smallFont, current.name, true, 2, this.TabIndex == i ? 1F : 0.7F);
+                    MenuTab tabID = this.GetTabID(tab);
+                    CJB.DrawTextBox(tab.bounds.X + tab.bounds.Width, tab.bounds.Y, Game1.smallFont, tab.label, true, 2, this.CurrentTab == tabID ? 1F : 0.7F);
                 }
 
                 CJB.DrawTextBox(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name, true);
@@ -572,7 +352,7 @@ namespace CJBItemSpawner
             if (this.HoverText != null && (this.HoveredItem == null || this.ItemsToGrabMenu == null))
                 IClickableMenu.drawHoverText(spriteBatch, this.HoverText, Game1.smallFont);
             if (this.HoveredItem != null)
-                IClickableMenu.drawToolTip(spriteBatch, this.HoveredItem.getDescription(), this.HoveredItem.Name, this.HoveredItem, this.HeldItem != null);
+                IClickableMenu.drawToolTip(spriteBatch, this.HoveredItem.getDescription(), this.HoveredItem.DisplayName, this.HoveredItem, this.HeldItem != null);
             else if (this.HoveredItem != null && this.ItemsToGrabMenu != null)
                 IClickableMenu.drawToolTip(spriteBatch, this.ItemsToGrabMenu.DescriptionText, this.ItemsToGrabMenu.DescriptionTitle, this.HoveredItem, this.HeldItem != null);
             this.HeldItem?.drawInMenu(spriteBatch, new Vector2(Game1.getOldMouseX() + 8, Game1.getOldMouseY() + 8), 1f);
@@ -581,9 +361,281 @@ namespace CJBItemSpawner
                 spriteBatch.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 0, 16, 16), Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
         }
 
-        public void Reopen(int? tabIndex = null, int? sortID = null, ItemQuality? quality = null)
+
+        /*********
+        ** Private methods
+        *********/
+        private void Reopen(MenuTab? tabIndex = null, int? sortID = null, ItemQuality? quality = null)
         {
-            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.TabIndex, sortID ?? this.SortID, quality ?? this.Quality);
+            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortID ?? this.SortID, quality ?? this.Quality);
+        }
+
+        /// <summary>Get the tab constant represented by a tab component.</summary>
+        /// <param name="tab">The component to check.</param>
+        private MenuTab GetTabID(ClickableComponent tab)
+        {
+            if (!Enum.TryParse(tab.name, out MenuTab tabID))
+                throw new InvalidOperationException($"Couldn't parse tab name '{tab.name}'.");
+            return tabID;
+        }
+
+        private void LoadInventory(Item[] spawnableItems)
+        {
+            // get spawnable items in display order
+            spawnableItems = spawnableItems.OrderBy(o => o.DisplayName).ToArray();
+            switch (this.SortID)
+            {
+                case 1:
+                    spawnableItems = spawnableItems.OrderBy(o => o.category).ToArray();
+                    break;
+                case 2:
+                    spawnableItems = spawnableItems.OrderBy(o => o.parentSheetIndex).ToArray();
+                    break;
+            }
+
+            // load inventory
+            List<Item> inventoryItems = new List<Item>();
+            foreach (Item item in spawnableItems)
+            {
+                item.Stack = item.maximumStackSize();
+                if (item is SObject obj)
+                    obj.quality = (int)this.Quality;
+
+                if ((this.CurrentTab == MenuTab.All || this.GetRelevantTab(item) == this.CurrentTab) && item.Name.ToLower().Contains(this.Textbox.Text.ToLower()))
+                    inventoryItems.Add(item);
+            }
+
+            // show menu
+            this.ItemsToGrabMenu = new ItemInventoryMenu(this.xPositionOnScreen + Game1.tileSize / 2, this.yPositionOnScreen, false, inventoryItems);
+        }
+
+        /// <summary>Get the relevant tab for an item.</summary>
+        /// <param name="item">The item whose tab to check.</param>
+        private MenuTab GetRelevantTab(Item item)
+        {
+            // by type
+            switch (item)
+            {
+                case Tool _:
+                case Ring _:
+                case Hat _:
+                case Boots _:
+                    return MenuTab.ToolsAndEquipment;
+
+                case Furniture _:
+                    return MenuTab.Decorating;
+            }
+
+            // by category
+            switch (item.category)
+            {
+                case SObject.SeedsCategory:
+                case SObject.VegetableCategory:
+                case SObject.fertilizerCategory:
+                case SObject.flowersCategory:
+                    return MenuTab.SeedsAndCrops;
+
+                case SObject.FishCategory:
+                case SObject.baitCategory:
+                case SObject.junkCategory:
+                case SObject.tackleCategory:
+                    return MenuTab.FishAndBaitAndTrash;
+
+                case SObject.GreensCategory:
+                case SObject.FruitsCategory:
+                    return MenuTab.ForageAndFruits;
+
+                case SObject.mineralsCategory:
+                case SObject.GemCategory:
+                    return MenuTab.ArtifactsAndMinerals;
+
+                case SObject.metalResources:
+                case SObject.buildingResources:
+                case SObject.CraftingCategory:
+                case SObject.BigCraftableCategory:
+                    return MenuTab.ResourcesAndCrafting;
+
+                case SObject.artisanGoodsCategory:
+                case SObject.syrupCategory:
+                case SObject.CookingCategory:
+                case SObject.ingredientsCategory:
+                    return MenuTab.ArtisanAndCooking;
+
+                case SObject.sellAtPierresAndMarnies:
+                case SObject.meatCategory:
+                case SObject.EggCategory:
+                case SObject.MilkCategory:
+                case SObject.monsterLootCategory:
+                    return MenuTab.AnimalAndMonster;
+
+                case SObject.furnitureCategory:
+                    return MenuTab.Decorating;
+            }
+
+            // artifacts
+            if ((item as SObject)?.type == "Arch")
+                return MenuTab.ArtifactsAndMinerals;
+
+            // anything else
+            return MenuTab.Misc;
+        }
+
+        private IEnumerable<Item> GetSpawnableItems()
+        {
+            // get tools
+            for (int quality = Tool.stone; quality <= Tool.iridium; quality++)
+            {
+                yield return ToolFactory.getToolFromDescription(ToolFactory.axe, quality);
+                yield return ToolFactory.getToolFromDescription(ToolFactory.hoe, quality);
+                yield return ToolFactory.getToolFromDescription(ToolFactory.pickAxe, quality);
+                yield return ToolFactory.getToolFromDescription(ToolFactory.wateringCan, quality);
+                if (quality != Tool.iridium)
+                    yield return ToolFactory.getToolFromDescription(ToolFactory.fishingRod, quality);
+            }
+            yield return new MilkPail();
+            yield return new Shears();
+            yield return new Pan();
+
+            // crafting recipes
+            foreach (string key in CraftingRecipe.craftingRecipes.Keys)
+            {
+                CraftingRecipe recipe = new CraftingRecipe(key, false);
+                Item item = recipe.createItem();
+                if (item != null)
+                    yield return item;
+            }
+
+            // wallpapers
+            for (int id = 0; id < 112; id++)
+                yield return new Wallpaper(id) { category = SObject.furnitureCategory };
+
+            // flooring
+            for (int id = 0; id < 40; id++)
+                yield return new Wallpaper(id, true) { category = SObject.furnitureCategory };
+
+            // equipment
+            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\Boots").Keys)
+                yield return new Boots(id);
+            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\hats").Keys)
+                yield return new Hat(id);
+
+            // weapons
+            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\weapons").Keys)
+            {
+                if (id >= 32 && id <= 34)
+                    yield return new Slingshot(id);
+                yield return new MeleeWeapon(id);
+            }
+
+            // furniture
+            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\Furniture").Keys)
+            {
+                Item item = new Furniture(id, Vector2.Zero);
+                if (id == 1466 || id == 1468)
+                    item = new TV(id, Vector2.Zero);
+                yield return item;
+            }
+
+            // fish
+            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\Fish").Keys)
+                yield return new SObject(id, 999) { category = SObject.FishCategory };
+
+            // objects
+            foreach (int id in Game1.objectInformation.Keys.Union(Game1.bigCraftablesInformation.Keys))
+            {
+                // ring
+                if (id >= Ring.ringLowerIndexRange && id <= Ring.ringUpperIndexRange)
+                {
+                    yield return new Ring(id);
+                    continue;
+                }
+
+                // object
+                SObject item = new SObject(id, 1);
+                yield return item;
+
+                // fruit products
+                if (item.category == SObject.FruitsCategory)
+                {
+                    yield return new SObject(348, 1)
+                    {
+                        name = $"{item.Name} Wine",
+                        price = item.price * 3,
+                        preserve = SObject.PreserveType.Wine,
+                        preservedParentSheetIndex = item.parentSheetIndex
+                    };
+                    yield return new SObject(344, 1)
+                    {
+                        name = $"{item.Name} Jelly",
+                        price = 50 + item.Price * 2,
+                        preserve = SObject.PreserveType.Jelly,
+                        preservedParentSheetIndex = item.parentSheetIndex
+                    };
+                }
+
+                // vegetable products
+                else if (item.category == SObject.VegetableCategory)
+                {
+                    yield return new SObject(350, 1)
+                    {
+                        name = $"{item.Name} Juice",
+                        price = (int)(item.price * 2.25d),
+                        preserve = SObject.PreserveType.Juice,
+                        preservedParentSheetIndex = item.parentSheetIndex
+                    };
+                    yield return new SObject(342, 1)
+                    {
+                        name = $"Pickled {item.Name}",
+                        price = 50 + item.Price * 2,
+                        preserve = SObject.PreserveType.Pickle,
+                        preservedParentSheetIndex = item.parentSheetIndex
+                    };
+                }
+
+                // flower products
+                else if (item.category == SObject.flowersCategory)
+                {
+                    // get honey type
+                    SObject.HoneyType? type = null;
+                    switch (item.parentSheetIndex)
+                    {
+                        case 376:
+                            type = SObject.HoneyType.Poppy;
+                            break;
+                        case 591:
+                            type = SObject.HoneyType.Tulip;
+                            break;
+                        case 593:
+                            type = SObject.HoneyType.SummerSpangle;
+                            break;
+                        case 595:
+                            type = SObject.HoneyType.FairyRose;
+                            break;
+                        case 597:
+                            type = SObject.HoneyType.BlueJazz;
+                            break;
+                        case 421: // sunflower standing in for all other flowers
+                            type = SObject.HoneyType.Wild;
+                            break;
+                    }
+
+                    // yield honey
+                    if (type != null)
+                    {
+                        SObject honey = new SObject(Vector2.Zero, 340, item.Name + " Honey", false, true, false, false)
+                        {
+                            name = "Wild Honey",
+                            honeyType = type
+                        };
+                        if (type != SObject.HoneyType.Wild)
+                        {
+                            honey.name = $"{item.Name} Honey";
+                            honey.price += item.price * 2;
+                        }
+                        yield return honey;
+                    }
+                }
+            }
         }
     }
 }

@@ -433,23 +433,15 @@ namespace CJBCheatsMenu
 
         public void OnKeyPress(Keys key)
         {
+            if (!Context.IsWorldReady || Game1.activeClickableMenu != null)
+                return;
+
             if (key.ToString() == this.Config.FreezeTimeKey)
-            {
-                if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
-                    this.Config.FreezeTime = !this.Config.FreezeTime;
-            }
-
+                this.Config.FreezeTime = !this.Config.FreezeTime;
             else if (key.ToString() == this.Config.GrowTreeKey)
-            {
-                if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
-                    this.GrowTree();
-            }
-
+                this.GrowTree();
             else if (key.ToString() == this.Config.GrowCropsKey)
-            {
-                if (Game1.hasLoadedGame && Game1.activeClickableMenu == null)
-                    this.GrowCrops();
-            }
+                this.GrowCrops();
         }
 
 

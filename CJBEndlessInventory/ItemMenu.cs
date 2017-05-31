@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewValley;
 using StardewValley.Menus;
+using SFarmer = StardewValley.Farmer;
 
 namespace CJBEndlessInventory
 {
@@ -32,7 +33,7 @@ namespace CJBEndlessInventory
         /*********
         ** Accessors
         *********/
-        public delegate void BehaviorOnItemSelect(Item item, Farmer who);
+        public delegate void BehaviorOnItemSelect(Item item, SFarmer who);
 
 
         /*********
@@ -238,7 +239,7 @@ namespace CJBEndlessInventory
             this.Draw(spriteBatch, false, false);
             if (this.ShowReceivingMenu)
             {
-                CJB.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.borderFont, this.Title.name, true, 1);
+                CJB.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.dialogueFont, this.Title.name, true, 1);
                 Game1.drawDialogueBox(this.ItemsToGrabMenu.xPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearSideBorder, this.ItemsToGrabMenu.yPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearTopBorder, this.ItemsToGrabMenu.width + IClickableMenu.borderWidth * 2 + IClickableMenu.spaceToClearSideBorder * 2, this.ItemsToGrabMenu.height + IClickableMenu.spaceToClearTopBorder + IClickableMenu.borderWidth * 2, false, true);
                 this.ItemsToGrabMenu.draw(spriteBatch);
                 this.UpArrow.draw(spriteBatch);

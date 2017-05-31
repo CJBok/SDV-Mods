@@ -46,12 +46,6 @@ namespace CJBCheatsMenu
             GraphicsEvents.OnPostRenderEvent += this.GraphicsEvents_DrawTick;
         }
 
-        /// <summary>Update the mod's config.json file from the current <see cref="Config"/>.</summary>
-        internal void SaveConfig()
-        {
-            this.Helper.WriteConfig(this.Config);
-            this.Cheats.OnOptionsChanged();
-        }
 
         /*********
         ** Private methods
@@ -142,6 +136,13 @@ namespace CJBCheatsMenu
             if (Game1.activeClickableMenu != null)
                 Game1.exitActiveMenu();
             Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Config, this.Cheats, this.SaveConfig);
+        }
+
+        /// <summary>Update the mod's config.json file from the current <see cref="Config"/>.</summary>
+        private void SaveConfig()
+        {
+            this.Helper.WriteConfig(this.Config);
+            this.Cheats.OnOptionsChanged();
         }
     }
 }

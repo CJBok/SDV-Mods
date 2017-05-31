@@ -21,12 +21,12 @@ namespace CJBItemSpawner
         private ClickableTextureComponent OkButton;
         protected ClickableTextureComponent TrashCan;
         private float TrashCanLidRotation;
+        private ItemInventoryMenu Inventory;
 
 
         /*********
         ** Accessors
         *********/
-        public ItemInventoryMenu Inventory;
         public Item HeldItem;
 
 

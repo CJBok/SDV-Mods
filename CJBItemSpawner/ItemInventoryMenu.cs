@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -31,7 +30,6 @@ namespace CJBItemSpawner
         public string DescriptionText = "";
         public List<Item> ActualInventory;
         public InventoryMenu.highlightThisItem HighlightMethod;
-        public bool ShowGrayedOutSlots;
         public static int ScrollIndex;
 
 
@@ -83,16 +81,6 @@ namespace CJBItemSpawner
             }
         }
 
-        public int GetInventoryPositionOfClick(int x, int y)
-        {
-            foreach (ClickableComponent component in this.Inventory)
-            {
-                if (component != null && component.bounds.Contains(x, y))
-                    return Convert.ToInt32(component.name);
-            }
-            return -1;
-        }
-
         public Item LeftClick(int x, int y, Item toPlace, bool playSound = true)
         {
             foreach (ClickableComponent clickableComponent in this.Inventory)
@@ -110,53 +98,22 @@ namespace CJBItemSpawner
                             {
                                 if (playSound)
                                     Game1.playSound("stoneStep");
-                                return ItemInventoryMenu.AddItemToInventory(toPlace, index, this.ActualInventory);
+                                return this.AddItemToInventory(toPlace, index, this.ActualInventory);
                             }
                             if (playSound)
                                 Game1.playSound("dwop");
-                            return ItemInventoryMenu.RemoveItemFromInventory(index, this.ActualInventory);
+                            return this.RemoveItemFromInventory(index, this.ActualInventory);
                         }
                         if (toPlace != null)
                         {
                             if (playSound)
                                 Game1.playSound("stoneStep");
-                            return ItemInventoryMenu.AddItemToInventory(toPlace, index, this.ActualInventory);
+                            return this.AddItemToInventory(toPlace, index, this.ActualInventory);
                         }
                     }
                 }
             }
             return toPlace;
-        }
-
-        public Vector2 SnapToClickableComponent(int x, int y)
-        {
-            foreach (ClickableComponent clickableComponent in this.Inventory)
-            {
-                if (clickableComponent.containsPoint(x, y))
-                    return new Vector2(clickableComponent.bounds.X, clickableComponent.bounds.Y);
-            }
-            return new Vector2(x, y);
-        }
-
-        public Item GetItemAt(int x, int y)
-        {
-            foreach (ClickableComponent c in this.Inventory)
-            {
-                if (c.containsPoint(x, y))
-                    return this.GetItemFromClickableComponent(c);
-            }
-            return null;
-        }
-
-        public Item GetItemFromClickableComponent(ClickableComponent c)
-        {
-            if (c != null)
-            {
-                int index = Convert.ToInt32(c.name);
-                if (index < this.ActualInventory.Count)
-                    return this.ActualInventory[index];
-            }
-            return null;
         }
 
         public Item RightClick(int x, int y, Item toAddTo, bool playSound = true)
@@ -176,7 +133,7 @@ namespace CJBItemSpawner
                         {
                             if (index == Game1.player.CurrentToolIndex && this.ActualInventory[index] != null && this.ActualInventory[index].Stack == 1)
                                 this.ActualInventory[index].actionWhenStopBeingHeld(Game1.player);
-                            Item one = this.ActualInventory[index].getOne();
+                            Item one = this.GetOne(this.ActualInventory[index]);
                             if (this.ActualInventory[index].Stack > 1)
                             {
                                 if (Game1.isOneOfTheseKeysDown(Game1.oldKBState, new[] { new InputButton(Keys.LeftShift) }))
@@ -256,33 +213,6 @@ namespace CJBItemSpawner
             Game1.setMousePosition(this.Inventory[0].bounds.Right - this.Inventory[0].bounds.Width / 8, this.Inventory[0].bounds.Bottom - this.Inventory[0].bounds.Height / 8);
         }
 
-        public override int moveCursorInDirection(int direction)
-        {
-            Rectangle rectangle = new Rectangle(this.Inventory[0].bounds.X, this.Inventory[0].bounds.Y, this.Inventory.Last().bounds.X + this.Inventory.Last().bounds.Width - this.Inventory[0].bounds.X, this.Inventory.Last().bounds.Y + this.Inventory.Last().bounds.Height - this.Inventory[0].bounds.Y);
-            if (!rectangle.Contains(Game1.getMousePosition()))
-                Game1.setMousePosition(this.Inventory[0].bounds.Right - this.Inventory[0].bounds.Width / 8, this.Inventory[0].bounds.Bottom - this.Inventory[0].bounds.Height / 8);
-            Point mousePosition = Game1.getMousePosition();
-            switch (direction)
-            {
-                case 0:
-                    Game1.setMousePosition(mousePosition.X, mousePosition.Y - Game1.tileSize - this.VerticalGap);
-                    break;
-                case 1:
-                    Game1.setMousePosition(mousePosition.X + Game1.tileSize + this.HorizontalGap, mousePosition.Y);
-                    break;
-                case 2:
-                    Game1.setMousePosition(mousePosition.X, mousePosition.Y + Game1.tileSize + this.VerticalGap);
-                    break;
-                case 3:
-                    Game1.setMousePosition(mousePosition.X - Game1.tileSize - this.HorizontalGap, mousePosition.Y);
-                    break;
-            }
-            if (rectangle.Contains(Game1.getMousePosition()))
-                return -1;
-            Game1.setMousePosition(mousePosition);
-            return direction;
-        }
-
         public override void receiveScrollWheelAction(int direction)
         {
             if (GameMenu.forcePreventClose)
@@ -312,26 +242,34 @@ namespace CJBItemSpawner
             }
         }
 
-        public override void receiveLeftClick(int x, int y, bool playSound = true) { }
         public override void receiveRightClick(int x, int y, bool playSound = true) { }
-        public override void performHoverAction(int x, int y) { }
 
-        public static Item RemoveItemFromInventory(int whichItemIndex, List<Item> items)
+
+        /*********
+        ** Private methods
+        *********/
+        /// <summary>Get one instance of an item with the same metadata.</summary>
+        /// <param name="item">The item to copy.</param>
+        private Item GetOne(Item item)
         {
-            if (whichItemIndex >= 0 && whichItemIndex < items.Count && items[whichItemIndex] != null)
+            // keep preserve data
+            if (item is SObject old && (old.preserve != null || old.honeyType != null))
             {
-                Item item = items[whichItemIndex].getOne();
-                item.Stack = items[whichItemIndex].Stack;
-                if (whichItemIndex == Game1.player.CurrentToolIndex && items == Game1.player.items)
-                    item.actionWhenStopBeingHeld(Game1.player);
-                if (items == Game1.player.items)
-                    items[whichItemIndex] = null;
-                return item;
+                return new SObject(old.tileLocation, old.parentSheetIndex, old.name, old.canBeSetDown, old.canBeGrabbed, old.isHoedirt, old.isSpawnedObject)
+                {
+                    name = old.name,
+                    price = old.price,
+                    honeyType = old.honeyType,
+                    preserve = old.preserve,
+                    preservedParentSheetIndex = old.preservedParentSheetIndex
+                };
             }
-            return null;
+
+            // else use default logic
+            return item.getOne();
         }
 
-        public static Item AddItemToInventory(Item item, int position, List<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null)
+        private Item AddItemToInventory(Item item, int position, List<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null)
         {
             if (items == Game1.player.items && item is SObject obj && obj.specialItem)
             {
@@ -369,6 +307,21 @@ namespace CJBItemSpawner
             item.Stack = num;
             onAddFunction?.Invoke(item, null);
             return item;
+        }
+
+        private Item RemoveItemFromInventory(int whichItemIndex, List<Item> items)
+        {
+            if (whichItemIndex >= 0 && whichItemIndex < items.Count && items[whichItemIndex] != null)
+            {
+                Item item = this.GetOne(items[whichItemIndex]);
+                item.Stack = items[whichItemIndex].Stack;
+                if (whichItemIndex == Game1.player.CurrentToolIndex && items == Game1.player.items)
+                    item.actionWhenStopBeingHeld(Game1.player);
+                if (items == Game1.player.items)
+                    items[whichItemIndex] = null;
+                return item;
+            }
+            return null;
         }
     }
 }

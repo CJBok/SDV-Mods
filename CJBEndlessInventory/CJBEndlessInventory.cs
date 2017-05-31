@@ -47,7 +47,7 @@ namespace CJBEndlessInventory
         {
             if (e.KeyPressed.ToString() == CJBEndlessInventory.Settings.MenuButton)
             {
-                if (Game1.hasLoadedGame && Game1.activeClickableMenu == null && Game1.player.CanMove && !Game1.dialogueUp && !Game1.eventUp)
+                if (Context.IsWorldReady && Game1.activeClickableMenu == null && Game1.player.CanMove && !Game1.dialogueUp && !Game1.eventUp)
                     ItemMenu.Open();
             }
         }
