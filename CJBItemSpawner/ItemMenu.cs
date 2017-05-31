@@ -94,7 +94,7 @@ namespace CJBItemSpawner
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Decorating.ToString(), "Decorating"));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i, Game1.tileSize * 5, Game1.tileSize), MenuTab.Misc.ToString(), "Misc"));
             }
-            
+
             // initialise sort UI
             switch (this.SortID)
             {
@@ -550,43 +550,90 @@ namespace CJBItemSpawner
                     continue;
                 }
 
-                // object + derivatives
+                // object
                 SObject item = new SObject(id, 1);
                 yield return item;
 
+                // fruit products
                 if (item.category == SObject.FruitsCategory)
                 {
                     yield return new SObject(348, 1)
                     {
-                        name = item.Name + " Wine",
+                        name = $"{item.Name} Wine",
                         price = item.price * 3,
                         preserve = SObject.PreserveType.Wine,
                         preservedParentSheetIndex = item.parentSheetIndex
                     };
                     yield return new SObject(344, 1)
                     {
-                        name = item.Name + " Jelly",
+                        name = $"{item.Name} Jelly",
                         price = 50 + item.Price * 2,
                         preserve = SObject.PreserveType.Jelly,
                         preservedParentSheetIndex = item.parentSheetIndex
                     };
                 }
+
+                // vegetable products
                 else if (item.category == SObject.VegetableCategory)
                 {
                     yield return new SObject(350, 1)
                     {
-                        name = item.Name + " Juice",
+                        name = $"{item.Name} Juice",
                         price = (int)(item.price * 2.25d),
                         preserve = SObject.PreserveType.Juice,
                         preservedParentSheetIndex = item.parentSheetIndex
                     };
                     yield return new SObject(342, 1)
                     {
-                        name = "Pickled " + item.Name,
+                        name = $"Pickled {item.Name}",
                         price = 50 + item.Price * 2,
                         preserve = SObject.PreserveType.Pickle,
                         preservedParentSheetIndex = item.parentSheetIndex
                     };
+                }
+
+                // flower products
+                else if (item.category == SObject.flowersCategory)
+                {
+                    // get honey type
+                    SObject.HoneyType? type = null;
+                    switch (item.parentSheetIndex)
+                    {
+                        case 376:
+                            type = SObject.HoneyType.Poppy;
+                            break;
+                        case 591:
+                            type = SObject.HoneyType.Tulip;
+                            break;
+                        case 593:
+                            type = SObject.HoneyType.SummerSpangle;
+                            break;
+                        case 595:
+                            type = SObject.HoneyType.FairyRose;
+                            break;
+                        case 597:
+                            type = SObject.HoneyType.BlueJazz;
+                            break;
+                        case 421: // sunflower standing in for all other flowers
+                            type = SObject.HoneyType.Wild;
+                            break;
+                    }
+
+                    // yield honey
+                    if (type != null)
+                    {
+                        SObject honey = new SObject(Vector2.Zero, 340, item.Name + " Honey", false, true, false, false)
+                        {
+                            name = "Wild Honey",
+                            honeyType = type
+                        };
+                        if (type != SObject.HoneyType.Wild)
+                        {
+                            honey.name = $"{item.Name} Honey";
+                            honey.price += item.price * 2;
+                        }
+                        yield return honey;
+                    }
                 }
             }
         }

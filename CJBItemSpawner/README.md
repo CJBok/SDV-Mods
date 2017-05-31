@@ -18,6 +18,7 @@ Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
 ## Versions
 1.8:
 * Updated for Stardew Valley 1.2.
+* Added flavored honey.
 * Fixed support for non-English players, including tab filtering & translated item names.
 * Fixed 'misc' tab duplicating some items shown in other tabs.
 

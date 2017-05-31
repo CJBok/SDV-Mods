@@ -253,12 +253,13 @@ namespace CJBItemSpawner
         private Item GetOne(Item item)
         {
             // keep preserve data
-            if (item is SObject old && old.preserve != null)
+            if (item is SObject old && (old.preserve != null || old.honeyType != null))
             {
                 return new SObject(old.tileLocation, old.parentSheetIndex, old.name, old.canBeSetDown, old.canBeGrabbed, old.isHoedirt, old.isSpawnedObject)
                 {
                     name = old.name,
                     price = old.price,
+                    honeyType = old.honeyType,
                     preserve = old.preserve,
                     preservedParentSheetIndex = old.preservedParentSheetIndex
                 };
