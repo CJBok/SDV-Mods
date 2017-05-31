@@ -18,8 +18,7 @@ namespace CJBItemSpawner
         /*********
         ** Properties
         *********/
-        private static List<Item> ItemList;
-
+        private readonly Item[] SpawnableItems;
         private readonly ClickableComponent Title;
         private readonly ClickableComponent SortButton;
         private readonly ClickableComponent QualityButton;
@@ -27,7 +26,6 @@ namespace CJBItemSpawner
         private readonly ClickableTextureComponent DownArrow;
         private readonly List<ClickableComponent> Tabs = new List<ClickableComponent>();
         private readonly TextBox Textbox;
-        private readonly List<Item> InventoryItems = new List<Item>();
         private readonly bool AllowRightClick;
         private readonly MenuTab CurrentTab;
         private readonly int SortID;
@@ -47,29 +45,36 @@ namespace CJBItemSpawner
         public ItemMenu(MenuTab currentTab, int sortID, ItemQuality quality)
           : base(null, true, true, 0, -50)
         {
+            // initialise
             this.MovePosition(110, Game1.viewport.Height / 2 - (650 + IClickableMenu.borderWidth * 2) / 2);
             this.CurrentTab = currentTab;
             this.SortID = sortID;
             this.Quality = quality;
+            this.SpawnableItems = this.GetSpawnableItems().ToArray();
+            this.AllowRightClick = true;
 
-            this.Textbox = new TextBox(null, null, Game1.dialogueFont, Game1.textColor);
-            this.Textbox.X = Game1.viewport.Width / 2 - Game1.tileSize * 3;
-            this.Textbox.Y = Game1.viewport.Height / 2;
-            this.Textbox.Width = Game1.tileSize * 8;
-            this.Textbox.Height = Game1.tileSize * 3;
-            this.Textbox.X = this.xPositionOnScreen + (width / 2) - (this.Textbox.Width / 2) - Game1.tileSize + 32;
-            this.Textbox.Y = this.yPositionOnScreen + (height / 2) + Game1.tileSize * 2 + 40;
-            this.Textbox.Selected = false;
-            this.Textbox.Text = this.TempText;
+            // create search box
+            int textWidth = Game1.tileSize * 8;
+            this.Textbox = new TextBox(null, null, Game1.dialogueFont, Game1.textColor)
+            {
+                X = this.xPositionOnScreen + (width / 2) - (textWidth / 2) - Game1.tileSize + 32,
+                Y = this.yPositionOnScreen + (height / 2) + Game1.tileSize * 2 + 40,
+                Width = textWidth,
+                Height = Game1.tileSize * 3,
+                Selected = false,
+                Text = this.TempText
+            };
             Game1.keyboardDispatcher.Subscriber = this.Textbox;
             this.TextboxBounds = new Rectangle(this.Textbox.X, this.Textbox.Y, this.Textbox.Width, this.Textbox.Height / 3);
 
+            // create buttons
             this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + width - Game1.tileSize, this.yPositionOnScreen - Game1.tileSize * 2, Game1.tileSize * 4, Game1.tileSize), "CJB Item Spawner");
             this.SortButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen - Game1.tileSize * 2 + 10, Game1.tileSize * 4, Game1.tileSize), "Sort By: Name");
             this.QualityButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen + Game1.tileSize * 4, this.yPositionOnScreen - Game1.tileSize * 2 + 10, Game1.tileSize * 4, Game1.tileSize), "Quality");
             this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(this.xPositionOnScreen + width - Game1.tileSize / 2, this.yPositionOnScreen - Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
             this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.xPositionOnScreen + width - Game1.tileSize / 2, this.yPositionOnScreen + height / 2 - Game1.tileSize * 2, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
 
+            // create tabs
             {
                 int i = -1;
 
@@ -89,12 +94,8 @@ namespace CJBItemSpawner
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Decorating.ToString(), "Decorating"));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i, Game1.tileSize * 5, Game1.tileSize), MenuTab.Misc.ToString(), "Misc"));
             }
-
-            if (ItemMenu.ItemList == null)
-                ItemMenu.ItemList = this.GetSpawnableItems().ToList();
-
-            this.AllowRightClick = true;
-
+            
+            // initialise sort UI
             switch (this.SortID)
             {
                 case 0:
@@ -108,7 +109,8 @@ namespace CJBItemSpawner
                     break;
             }
 
-            this.LoadInventory(ItemMenu.ItemList);
+            // load items
+            this.LoadInventory(this.SpawnableItems);
         }
 
         public ItemMenu()
@@ -283,7 +285,7 @@ namespace CJBItemSpawner
             {
                 this.TempText = this.Textbox.Text;
                 ItemInventoryMenu.ScrollIndex = 0;
-                this.LoadInventory(ItemMenu.ItemList);
+                this.LoadInventory(this.SpawnableItems);
             }
 
             base.update(time);
@@ -377,22 +379,22 @@ namespace CJBItemSpawner
             return tabID;
         }
 
-        private void LoadInventory(List<Item> spawnableItems)
+        private void LoadInventory(Item[] spawnableItems)
         {
             // get spawnable items in display order
-            spawnableItems = spawnableItems.OrderBy(o => o.DisplayName).ToList();
+            spawnableItems = spawnableItems.OrderBy(o => o.DisplayName).ToArray();
             switch (this.SortID)
             {
                 case 1:
-                    spawnableItems = spawnableItems.OrderBy(o => o.category).ToList();
+                    spawnableItems = spawnableItems.OrderBy(o => o.category).ToArray();
                     break;
                 case 2:
-                    spawnableItems = spawnableItems.OrderBy(o => o.parentSheetIndex).ToList();
+                    spawnableItems = spawnableItems.OrderBy(o => o.parentSheetIndex).ToArray();
                     break;
             }
 
             // load inventory
-            this.InventoryItems.Clear();
+            List<Item> inventoryItems = new List<Item>();
             foreach (Item item in spawnableItems)
             {
                 item.Stack = item.maximumStackSize();
@@ -400,11 +402,11 @@ namespace CJBItemSpawner
                     obj.quality = (int)this.Quality;
 
                 if ((this.CurrentTab == MenuTab.All || this.GetRelevantTab(item) == this.CurrentTab) && item.Name.ToLower().Contains(this.Textbox.Text.ToLower()))
-                    this.InventoryItems.Add(item);
+                    inventoryItems.Add(item);
             }
 
             // show menu
-            this.ItemsToGrabMenu = new ItemInventoryMenu(this.xPositionOnScreen + Game1.tileSize / 2, this.yPositionOnScreen, false, this.InventoryItems);
+            this.ItemsToGrabMenu = new ItemInventoryMenu(this.xPositionOnScreen + Game1.tileSize / 2, this.yPositionOnScreen, false, inventoryItems);
         }
 
         /// <summary>Get the relevant tab for an item.</summary>
