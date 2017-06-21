@@ -548,7 +548,7 @@ namespace CJBItemSpawner
             }
 
             // objects
-            foreach (int id in Game1.objectInformation.Keys.Union(Game1.bigCraftablesInformation.Keys))
+            foreach (int id in Game1.objectInformation.Keys)
             {
                 // ring
                 if (id >= Ring.ringLowerIndexRange && id <= Ring.ringUpperIndexRange)
