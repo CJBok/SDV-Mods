@@ -540,6 +540,13 @@ namespace CJBItemSpawner
             foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\Fish").Keys)
                 yield return new SObject(id, 999) { category = SObject.FishCategory };
 
+            // craftables
+            foreach (int id in Game1.bigCraftablesInformation.Keys)
+            {
+                SObject item = new SObject(Vector2.Zero, id);
+                yield return item;
+            }
+
             // objects
             foreach (int id in Game1.objectInformation.Keys.Union(Game1.bigCraftablesInformation.Keys))
             {
