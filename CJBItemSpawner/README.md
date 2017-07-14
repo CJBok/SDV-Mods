@@ -17,7 +17,8 @@ Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
 
 ## Versions
 1.9:
-* Fixed craftables no longer available.
+* Fixed some craftables no longer being listed.
+* Fixed some items being listed twice.
 
 1.8 (2017-05-30):
 * Updated for Stardew Valley 1.2.

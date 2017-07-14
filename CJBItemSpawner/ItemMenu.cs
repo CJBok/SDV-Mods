@@ -496,15 +496,6 @@ namespace CJBItemSpawner
             yield return new Shears();
             yield return new Pan();
 
-            // crafting recipes
-            foreach (string key in CraftingRecipe.craftingRecipes.Keys)
-            {
-                CraftingRecipe recipe = new CraftingRecipe(key, false);
-                Item item = recipe.createItem();
-                if (item != null)
-                    yield return item;
-            }
-
             // wallpapers
             for (int id = 0; id < 112; id++)
                 yield return new Wallpaper(id) { category = SObject.furnitureCategory };
@@ -535,10 +526,6 @@ namespace CJBItemSpawner
                     item = new TV(id, Vector2.Zero);
                 yield return item;
             }
-
-            // fish
-            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\Fish").Keys)
-                yield return new SObject(id, 999) { category = SObject.FishCategory };
 
             // craftables
             foreach (int id in Game1.bigCraftablesInformation.Keys)
