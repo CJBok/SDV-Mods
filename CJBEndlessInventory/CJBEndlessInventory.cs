@@ -2,7 +2,6 @@
 using System.IO;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
-using StardewValley;
 
 namespace CJBEndlessInventory
 {
@@ -45,11 +44,8 @@ namespace CJBEndlessInventory
 
         private void ControlEvents_KeyPressed(object sender, EventArgsKeyPressed e)
         {
-            if (e.KeyPressed.ToString() == CJBEndlessInventory.Settings.MenuButton)
-            {
-                if (Context.IsWorldReady && Game1.activeClickableMenu == null && Game1.player.CanMove && !Game1.dialogueUp && !Game1.eventUp)
-                    ItemMenu.Open();
-            }
+            if (e.KeyPressed.ToString() == CJBEndlessInventory.Settings.MenuButton && Context.IsPlayerFree)
+                ItemMenu.Open();
         }
 
         private void SaveEvents_AfterLoad(object sender, EventArgs e)

@@ -37,7 +37,7 @@ namespace CJBItemSpawner
         /// <param name="e">The event data.</param>
         private void Events_KeyPressed(object sender, EventArgsKeyPressed e)
         {
-            if (!Context.IsWorldReady || Game1.activeClickableMenu != null || !Game1.player.CanMove || Game1.dialogueUp || Game1.eventUp)
+            if (!Context.IsPlayerFree)
                 return;
 
             if (e.KeyPressed == this.Config.ShowMenuKey)
