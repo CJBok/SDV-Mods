@@ -95,11 +95,11 @@ setting | default | what it affects
 `InfiniteHay` | `false` | Hay silos are always full.
 
 ## Versions
-1.16:
+1.16 (2017-07-14):
 * Fixed open-menu key working even when another menu is already open.
 * Fixed freeze-time key working during cutscenes.
 
-1.15:
+1.15 (2017-05-27):
 * Updated for Stardew Valley 1.2 and SMAPI 1.13.
 * Added option to set the default tab when opening the menu.
 * Fixed relationship slider always set to 10 hearts.

@@ -3,5 +3,5 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("CJBCheatsMenu")]
 [assembly: Guid("25358189-f40e-427d-b4e9-5f0eb707a8a1")]
-[assembly: AssemblyVersion("1.15.0.0")]
-[assembly: AssemblyFileVersion("1.15.0.0")]
+[assembly: AssemblyVersion("1.16.0.0")]
+[assembly: AssemblyFileVersion("1.16.0.0")]

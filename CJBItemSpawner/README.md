@@ -16,7 +16,7 @@ Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
 3. Run the game using SMAPI.
 
 ## Versions
-1.9:
+1.9 (2017-07-14):
 * Fixed some craftables no longer being listed.
 * Fixed some items being listed twice.
 
