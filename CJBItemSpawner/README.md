@@ -16,6 +16,9 @@ Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
 3. Run the game using SMAPI.
 
 ## Versions
+1.9:
+* Fixed craftables no longer available.
+
 1.8 (2017-05-30):
 * Updated for Stardew Valley 1.2.
 * Added flavored honey.
