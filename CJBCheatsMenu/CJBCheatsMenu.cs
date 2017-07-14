@@ -73,21 +73,14 @@ namespace CJBCheatsMenu
             if (!this.IsLoaded)
                 return;
 
-            if (e.ButtonPressed.ToString() == this.Config.OpenMenuKey)
+            if (Context.IsPlayerFree)
             {
-                if (Game1.activeClickableMenu == null && Game1.player.CanMove && !Game1.dialogueUp && !Game1.eventUp)
+                if (e.ButtonPressed.ToString() == this.Config.OpenMenuKey)
                     this.OpenMenu();
-                return;
-            }
-
-            if (e.ButtonPressed.ToString() == this.Config.FreezeTimeKey)
-            {
-                if (Game1.activeClickableMenu == null)
+                else if (e.ButtonPressed.ToString() == this.Config.FreezeTimeKey)
                     this.Config.FreezeTime = !this.Config.FreezeTime;
-                return;
             }
-
-            if (Game1.activeClickableMenu is GameMenu menu)
+            else if (Game1.activeClickableMenu is GameMenu menu)
             {
                 IClickableMenu page = this.Helper.Reflection.GetPrivateValue<List<IClickableMenu>>(menu, "pages")[menu.currentTab];
                 if (page is CheatsMenu)
@@ -97,7 +90,7 @@ namespace CJBCheatsMenu
 
         private void Events_KeyPressed(object sender, EventArgsKeyPressed e)
         {
-            if (!this.IsLoaded)
+            if (!this.IsLoaded || !Context.IsPlayerFree)
                 return;
 
             if (e.KeyPressed.ToString() == this.Config.OpenMenuKey)

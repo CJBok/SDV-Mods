@@ -433,7 +433,7 @@ namespace CJBCheatsMenu
 
         public void OnKeyPress(Keys key)
         {
-            if (!Context.IsWorldReady || Game1.activeClickableMenu != null)
+            if (!Context.IsPlayerFree)
                 return;
 
             if (key.ToString() == this.Config.FreezeTimeKey)
