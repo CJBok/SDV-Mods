@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
@@ -24,7 +22,8 @@ namespace CJBGrindStone
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
         {
-            GameEvents.LoadContent += GameEvents_LoadContent;
+            CJBGrindStone.Texture = helper.Content.Load<Texture2D>("Content/grindstone.png");
+
             ControlEvents.KeyReleased += ControlEvents_KeyReleased;
         }
 
@@ -39,12 +38,6 @@ namespace CJBGrindStone
                 this.Monitor.Log("test", LogLevel.Info);
                 Game1.player.addItemToInventory(new GrindStone(Vector2.Zero));
             }
-        }
-
-        private void GameEvents_LoadContent(object sender, EventArgs e)
-        {
-            using (FileStream filestream = new FileStream(Path.Combine(this.Helper.DirectoryPath, "Content", "grindstone.png"), FileMode.Open))
-                CJBGrindStone.Texture = Texture2D.FromStream(Game1.graphics.GraphicsDevice, filestream);
         }
     }
 }
