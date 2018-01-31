@@ -3,7 +3,7 @@ with many different cheat features:
 
 ![](screenshot.gif)
 
-Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
+Compatible with Stardew Valley 1.2+ on Linux, Mac, and Windows. Translated into English.
 
 ## Usage
 * Press `P` (configurable) to show the cheats menu.
@@ -95,6 +95,13 @@ setting | default | what it affects
 `InfiniteHay` | `false` | Hay silos are always full.
 
 ## Versions
+1.17 (2018-01-31):
+* Updated to SMAPI 2.4.
+* Added translation support.
+* Added update checks via SMAPI.
+* Added options to change player's professions.
+* Fixed issue where setting the time could leave NPCs confused (e.g. stuck in bed).
+
 1.16 (2017-07-14):
 * Fixed open-menu key working even when another menu is already open.
 * Fixed freeze-time key working during cutscenes.

@@ -3,7 +3,7 @@ with just a few clicks:
 
 ![](screenshot.png)
 
-Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
+Compatible with Stardew Valley 1.2+ on Linux, Mac, and Windows. Translated into English.
 
 ## Usage
 * Press the `i` button on your keyboard to open up the menu.
@@ -16,6 +16,12 @@ Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
 3. Run the game using SMAPI.
 
 ## Versions
+1.10 (2018-01-31):
+* Updated to SMAPI 2.4.
+* Added translation support.
+* Added update checks via SMAPI.
+* Added return scepter to spawnable items.
+
 1.9 (2017-07-14):
 * Fixed some craftables no longer being listed.
 * Fixed some items being listed twice.

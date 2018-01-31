@@ -3,7 +3,7 @@ price of items in your inventory:
 
 ![](screenshot.gif)
 
-Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
+Compatible with Stardew Valley 1.2+ on Linux, Mac, and Windows. Translated into English.
 
 ## Installation
 1. [Install the latest version of SMAPI](https://github.com/Pathoschild/SMAPI/releases).
@@ -11,6 +11,12 @@ Compatible with Stardew Valley 1.1+ on Linux, Mac, and Windows.
 3. Run the game using SMAPI.
 
 ## Versions
+1.8 (2018-01-31):
+* Updated to SMAPI 2.4.
+* Added translation support.
+* Added update checks via SMAPI.
+* Fixed equipment showing double sale price.
+
 1.7 (2017-04-05):
 * Updated to SMAPI 1.9.
 * Internal refactoring.

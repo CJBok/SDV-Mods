@@ -1,13 +1,10 @@
 ﻿{
   "Name": "CJB Skip Intro",
   "Author": "CJ Bok",
-  "Version": {
-    "MajorVersion": 1,
-    "MinorVersion": 0,
-    "PatchVersion": 0,
-    "Build": null
-  },
+  "Version": "1.0.0",
   "Description": "Starts game at loading screen.",
   "UniqueID": "CJBok.SkipIntro",
-  "EntryDll": "CJBSkipIntro.dll"
+  "EntryDll": "CJBSkipIntro.dll",
+  "MinimumApiVersion": "2.4",
+  "UpdateKeys": []
 }
