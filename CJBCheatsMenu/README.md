@@ -100,6 +100,7 @@ setting | default | what it affects
 * Added translation support.
 * Added update checks via SMAPI.
 * Added options to change player's professions.
+* Fixed issue where setting the time could leave NPCs confused (e.g. stuck in bed).
 
 1.16 (2017-07-14):
 * Fixed open-menu key working even when another menu is already open.

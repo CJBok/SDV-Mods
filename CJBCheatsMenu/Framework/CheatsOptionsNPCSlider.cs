@@ -21,8 +21,8 @@ namespace CJBCheatsMenu.Framework
         /*********
         ** Public methods
         *********/
-        public CheatsOptionsNPCSlider(NPC npc, int whichOption, int maxValue = 10, int x = 96, int y = -1, int width = 80)
-            : base(npc.getName(), x, y, width * Game1.pixelZoom, 6 * Game1.pixelZoom, whichOption)
+        public CheatsOptionsNPCSlider(NPC npc, int maxValue = 10, int x = 96, int y = -1, int width = 80)
+            : base(npc.displayName, x, y, width * Game1.pixelZoom, 6 * Game1.pixelZoom, 0)
         {
             this.Npc = npc;
             this.SliderLabel = npc.getName();

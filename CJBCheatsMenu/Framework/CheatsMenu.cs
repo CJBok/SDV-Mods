@@ -88,7 +88,7 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.infinite-stamina"), config.InfiniteStamina, value => config.InfiniteStamina = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.infinite-health"), config.InfiniteHealth, value => config.InfiniteHealth = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.increased-movement-speed"), config.IncreasedMovement, value => config.IncreasedMovement = value));
-                    this.Options.Add(new CheatsOptionsSlider(i18n.Get("player.movement-speed"), 0, 10, this.Config));
+                    this.Options.Add(new CheatsOptionsSlider(i18n.Get("player.movement-speed"), this.Config.MoveSpeed, 10, value => this.Config.MoveSpeed = value, disabled: () => this.Config.IncreasedMovement));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.one-hit-kill"), config.OneHitKill, value => config.OneHitKill = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.max-daily-luck"), config.MaxDailyLuck, value => config.MaxDailyLuck = value));
 
@@ -205,11 +205,10 @@ namespace CJBCheatsMenu.Framework
 
                     foreach (NPC npc in Utility.getAllCharacters().OrderBy(p => p.name))
                     {
-                        if ((npc.name != "Sandy" || Game1.player.mailReceived.Contains("ccVault")) && npc.name != "???" && npc.name != "Bouncer" && npc.name != "Marlon" && npc.name != "Gil" && npc.name != "Gunther" && !npc.IsMonster && !(npc is Horse) && !(npc is Pet))
-                        {
-                            if (Game1.player.friendships.ContainsKey(npc.name))
-                                this.Options.Add(new CheatsOptionsNPCSlider(npc, 9999));
-                        }
+                        if (!Game1.player.friendships.ContainsKey(npc.name) || (npc.name == "Sandy" && !Game1.player.mailReceived.Contains("ccVault")) || npc.name == "???" || npc.name == "Bouncer" || npc.name == "Marlon" || npc.name == "Gil" || npc.name == "Gunther" || npc.IsMonster || npc is Horse || npc is Pet)
+                            continue;
+
+                        this.Options.Add(new CheatsOptionsNPCSlider(npc));
                     }
                     break;
 
@@ -243,7 +242,7 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("time.freeze-inside"), config.FreezeTimeInside, value => config.FreezeTimeInside = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("time.freeze-caves"), config.FreezeTimeCaves, value => config.FreezeTimeCaves = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("time.freeze-everywhere"), config.FreezeTime, value => config.FreezeTime = value));
-                    this.Options.Add(new CheatsOptionsSlider(i18n.Get("time.time"), 10, 20, this.Config, width: 100));
+                    this.Options.Add(new CheatsOptionsSlider(i18n.Get("time.time"), (Game1.timeOfDay - 600) / 100, 19, value => this.SafelySetTime((value * 100) + 600), width: 100, format: value => Game1.getTimeOfDayString((value * 100) + 600)));
                     break;
 
                 case MenuTab.Controls:
@@ -255,6 +254,31 @@ namespace CJBCheatsMenu.Framework
                     break;
             }
             this.SetScrollBarToCurrentIndex();
+        }
+
+        /// <summary>Safely transition to the given time, allowing NPCs to update their schedule.</summary>
+        /// <param name="time">The time of day.</param>
+        private void SafelySetTime(int time)
+        {
+            // define conversion between game time and TimeSpan
+            TimeSpan ToTimeSpan(int value) => new TimeSpan(0, value / 100, value % 100, 0);
+            int FromTimeSpan(TimeSpan span) => (int)((span.Hours * 100) + span.Minutes);
+
+            // transition to new time
+            int intervals = (int)((ToTimeSpan(time) - ToTimeSpan(Game1.timeOfDay)).TotalMinutes / 10);
+            if (intervals > 0)
+            {
+                for (int i = 0; i < intervals; i++)
+                    Game1.performTenMinuteClockUpdate();
+            }
+            else if (intervals < 0)
+            {
+                for (int i = 0; i > intervals; i--)
+                {
+                    Game1.timeOfDay = FromTimeSpan(ToTimeSpan(Game1.timeOfDay).Subtract(TimeSpan.FromMinutes(20))); // offset 20 mins so game updates to next interval
+                    Game1.performTenMinuteClockUpdate();
+                }
+            }
         }
 
         /// <summary>Get whether the player has the given profession.</summary>
