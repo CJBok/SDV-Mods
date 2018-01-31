@@ -95,7 +95,7 @@ setting | default | what it affects
 `InfiniteHay` | `false` | Hay silos are always full.
 
 ## Versions
-1.16.1:
+1.17 (2018-01-31):
 * Updated to SMAPI 2.4.
 * Added translation support.
 * Added update checks via SMAPI.
