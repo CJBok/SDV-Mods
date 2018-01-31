@@ -14,14 +14,14 @@ documentation and release notes:
 Installing stable releases from Nexus Mods is recommended for most users. If you really want to
 compile the mod yourself, read on.
 
-These mods use the [crossplatform build config](https://github.com/Pathoschild/Stardew.ModBuildConfig#readme)
-so they can be built on Linux, Mac, and Windows without changes. See [the build config documentation](https://github.com/Pathoschild/Stardew.ModBuildConfig#readme)
+These mods use the [crossplatform build config](https://www.nuget.org/packages/Pathoschild.Stardew.ModBuildConfig)
+so they can be built on Linux, Mac, and Windows without changes. See [the build config documentation](https://www.nuget.org/packages/Pathoschild.Stardew.ModBuildConfig)
 for troubleshooting.
 
 ### Compiling a mod for testing
 To compile a mod and add it to your game's `Mods` directory:
 
-1. Rebuild the project in [Visual Studio](https://www.visualstudio.com/vs/community/) or [MonoDevelop](http://www.monodevelop.com/).  
+1. Rebuild the project using [Visual Studio](https://www.visualstudio.com/vs/community/) or [MonoDevelop](http://www.monodevelop.com/).  
    <small>This will compile the code and package it into the mod directory.</small>
 2. Launch the project with debugging.  
    <small>This will start the game through SMAPI and attach the Visual Studio debugger.</small>
@@ -29,17 +29,6 @@ To compile a mod and add it to your game's `Mods` directory:
 ### Compiling a mod for release
 To package a mod for release:
 
-1. Delete the mod's directory in `Mods`.  
-   <small>(This ensures the package is clean and has default configuration.)</small>
-2. Recompile the mod per the previous section.
-3. Launch the game through SMAPI to generate the default `config.json` (if any).
-2. Create a zip file of the mod's folder in the `Mods` folder. The zip name should include the
-   mod name and version. For example:
-
-   ```
-   CJBCheatsMenu-1.0.zip
-      CJBCheatsMenu/
-         CJBCheatsMenu.dll
-         CJBCheatsMenu.pdb
-         manifest.json
-   ```
+1. Rebuild the project in _Release_ mode using [Visual Studio](https://www.visualstudio.com/vs/community/) or [MonoDevelop](http://www.monodevelop.com/).
+2. Find the `bin/Release/<mod name> <version>.zip` file in the mod's project folder.
+3. Upload that file.
