@@ -498,6 +498,7 @@ namespace CJBItemSpawner.Framework
             yield return new MilkPail();
             yield return new Shears();
             yield return new Pan();
+            yield return new Wand(); // return scepter
 
             // wallpapers
             for (int id = 0; id < 112; id++)

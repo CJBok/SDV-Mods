@@ -20,6 +20,7 @@ Compatible with Stardew Valley 1.2+ on Linux, Mac, and Windows. Translated into 
 * Updated to SMAPI 2.4.
 * Added translation support.
 * Added update checks via SMAPI.
+* Added return scepter to spawnable items.
 
 1.9 (2017-07-14):
 * Fixed some craftables no longer being listed.
