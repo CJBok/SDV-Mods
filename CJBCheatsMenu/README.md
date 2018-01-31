@@ -95,6 +95,10 @@ setting | default | what it affects
 `InfiniteHay` | `false` | Hay silos are always full.
 
 ## Versions
+1.16.1:
+* Updated to SMAPI 2.4.
+* Enabled update checks via SMAPI.
+
 1.16 (2017-07-14):
 * Fixed open-menu key working even when another menu is already open.
 * Fixed freeze-time key working during cutscenes.

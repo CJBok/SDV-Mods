@@ -1,14 +1,10 @@
 ﻿{
   "Name": "CJB Automation",
   "Author": "CJ Bok",
-  "Version": {
-    "MajorVersion": 1,
-    "MinorVersion": 5,
-    "PatchVersion": 0,
-    "Build": null
-  },
-  "MinimumApiVersion": "1.9",
+  "Version": "1.5.0",
   "Description": "Automate processing of machines",
   "UniqueID": "CJBok.Automation",
-  "EntryDll": "CJBAutomation.dll"
+  "EntryDll": "CJBAutomation.dll",
+  "MinimumApiVersion": "2.4",
+  "UpdateKeys": [ "Nexus:211" ]
 }
