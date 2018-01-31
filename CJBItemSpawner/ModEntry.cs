@@ -42,7 +42,7 @@ namespace CJBItemSpawner
                 return;
 
             if (e.KeyPressed == this.Config.ShowMenuKey)
-                Game1.activeClickableMenu = new ItemMenu();
+                Game1.activeClickableMenu = new ItemMenu(this.Helper.Translation);
         }
     }
 }
