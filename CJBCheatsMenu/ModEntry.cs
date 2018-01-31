@@ -23,6 +23,7 @@ namespace CJBCheatsMenu
         /// <summary>The cheats helper.</summary>
         private Cheats Cheats;
 
+
         /*********
         ** Public methods
         *********/
@@ -44,6 +45,8 @@ namespace CJBCheatsMenu
             ControlEvents.ControllerButtonPressed += this.ControlEvents_ControllerButtonPressed;
 
             GraphicsEvents.OnPostRenderEvent += this.GraphicsEvents_DrawTick;
+
+            MenuEvents.MenuClosed += this.MenuEvents_MenuChanged;
         }
 
 
@@ -123,12 +126,18 @@ namespace CJBCheatsMenu
             this.Cheats.OnUpdate(this.Helper);
         }
 
+        private void MenuEvents_MenuChanged(object sender, EventArgsClickableMenuClosed e)
+        {
+            if (e.PriorMenu is CheatsMenu)
+                this.SaveConfig();
+        }
+
         /// <summary>Open the cheats menu.</summary>
         private void OpenMenu()
         {
             if (Game1.activeClickableMenu != null)
                 Game1.exitActiveMenu();
-            Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Config, this.Cheats, this.SaveConfig);
+            Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Config, this.Cheats);
         }
 
         /// <summary>Update the mod's config.json file from the current <see cref="Config"/>.</summary>

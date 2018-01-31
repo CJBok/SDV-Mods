@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -21,9 +20,6 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The cheats helper.</summary>
         private readonly Cheats Cheats;
 
-        /// <summary>The method which saves the mod settings.</summary>
-        private readonly Action SaveConfig;
-
         private readonly Rectangle SetButtonSprite = new Rectangle(294, 428, 21, 11);
         private readonly List<string> ButtonNames = new List<string>();
         private string ListenerMessage;
@@ -40,13 +36,11 @@ namespace CJBCheatsMenu.Framework
         /// <param name="slotWidth">The field width.</param>
         /// <param name="config">The mod settings.</param>
         /// <param name="cheats">The cheats helper.</param>
-        /// <param name="saveConfig">The method which saves the mod settings.</param>
-        public CheatsOptionsInputListener(string label, int whichOption, int slotWidth, ModConfig config, Cheats cheats, Action saveConfig)
+        public CheatsOptionsInputListener(string label, int whichOption, int slotWidth, ModConfig config, Cheats cheats)
           : base(label, -1, -1, slotWidth + 1, 11 * Game1.pixelZoom, whichOption)
         {
             this.Config = config;
             this.Cheats = cheats;
-            this.SaveConfig = saveConfig;
 
             this.SetButtonBounds = new Rectangle(slotWidth - 28 * Game1.pixelZoom, -1 + Game1.pixelZoom * 3, 21 * Game1.pixelZoom, 11 * Game1.pixelZoom);
             if (whichOption == -1)
@@ -297,19 +291,15 @@ namespace CJBCheatsMenu.Framework
                 {
                     case 1000:
                         this.Config.OpenMenuKey = key.ToString();
-                        this.SaveConfig();
                         break;
                     case 1001:
                         this.Config.FreezeTimeKey = key.ToString();
-                        this.SaveConfig();
                         break;
                     case 1002:
                         this.Config.GrowTreeKey = key.ToString();
-                        this.SaveConfig();
                         break;
                     case 1003:
                         this.Config.GrowCropsKey = key.ToString();
-                        this.SaveConfig();
                         break;
                 }
                 this.ButtonNames[0] = key.ToString();

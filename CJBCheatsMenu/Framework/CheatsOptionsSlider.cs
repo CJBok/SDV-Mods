@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
@@ -14,9 +13,6 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The mod settings.</summary>
         private readonly ModConfig Config;
 
-        /// <summary>The method which saves the mod settings.</summary>
-        private readonly Action SaveConfig;
-
         private readonly string SliderLabel;
         private readonly int SliderMaxValue;
         private int Value;
@@ -30,13 +26,11 @@ namespace CJBCheatsMenu.Framework
         /// <param name="whichOption">The option ID.</param>
         /// <param name="maxValue">The maximum value that can be selected using the field.</param>
         /// <param name="config">The mod settings.</param>
-        /// <param name="saveConfig">The method which saves the mod settings.</param>
         /// <param name="width">The field width.</param>
-        public CheatsOptionsSlider(string label, int whichOption, int maxValue, ModConfig config, Action saveConfig, int width = 48)
+        public CheatsOptionsSlider(string label, int whichOption, int maxValue, ModConfig config, int width = 48)
             : base(label, -1, -1, width * Game1.pixelZoom, 6 * Game1.pixelZoom, whichOption)
         {
             this.Config = config;
-            this.SaveConfig = saveConfig;
 
             this.SliderLabel = label;
             this.SliderMaxValue = maxValue;
@@ -63,7 +57,6 @@ namespace CJBCheatsMenu.Framework
             {
                 case 0:
                     this.Config.MoveSpeed = this.Value;
-                    this.SaveConfig();
                     break;
                 case 10:
                     Game1.timeOfDay = this.Value * 100 + 600;
