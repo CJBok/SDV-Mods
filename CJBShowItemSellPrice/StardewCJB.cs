@@ -43,9 +43,9 @@ namespace CJBShowItemSellPrice
             else
             {
                 if (item.Stack > 1)
-                    this.DrawHoverTextBox(Game1.smallFont, (item.salePrice() / 2), item.Stack);
+                    this.DrawHoverTextBox(Game1.smallFont, item.salePrice() / 2, item.Stack);
                 else
-                    this.DrawHoverTextBox(Game1.smallFont, item.salePrice());
+                    this.DrawHoverTextBox(Game1.smallFont, item.salePrice() / 2);
             }
         }
 
