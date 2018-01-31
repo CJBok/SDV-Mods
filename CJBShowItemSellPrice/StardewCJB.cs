@@ -56,11 +56,11 @@ namespace CJBShowItemSellPrice
             // game menu
             if (menu is GameMenu gameMenu)
             {
-                IClickableMenu page = this.Helper.Reflection.GetPrivateValue<List<IClickableMenu>>(gameMenu, "pages")[gameMenu.currentTab];
+                IClickableMenu page = this.Helper.Reflection.GetField<List<IClickableMenu>>(gameMenu, "pages").GetValue()[gameMenu.currentTab];
                 if (page is InventoryPage)
-                    return this.Helper.Reflection.GetPrivateValue<Item>(page, "hoveredItem");
+                    return this.Helper.Reflection.GetField<Item>(page, "hoveredItem").GetValue();
                 else if (page is CraftingPage)
-                    return this.Helper.Reflection.GetPrivateValue<Item>(page, "hoverItem");
+                    return this.Helper.Reflection.GetField<Item>(page, "hoverItem").GetValue();
             }
 
             // from inventory UI
@@ -69,7 +69,7 @@ namespace CJBShowItemSellPrice
 
             // CJB mods
             else if (menu.GetType().FullName == "CJBItemSpawner.ItemMenu")
-                return this.Helper.Reflection.GetPrivateValue<Item>(menu, "HoveredItem");
+                return this.Helper.Reflection.GetField<Item>(menu, "HoveredItem").GetValue();
 
             return null;
         }

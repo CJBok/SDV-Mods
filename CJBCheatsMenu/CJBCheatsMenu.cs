@@ -82,7 +82,7 @@ namespace CJBCheatsMenu
             }
             else if (Game1.activeClickableMenu is GameMenu menu)
             {
-                IClickableMenu page = this.Helper.Reflection.GetPrivateValue<List<IClickableMenu>>(menu, "pages")[menu.currentTab];
+                IClickableMenu page = this.Helper.Reflection.GetField<List<IClickableMenu>>(menu, "pages").GetValue()[menu.currentTab];
                 if (page is CheatsMenu)
                     page.receiveGamePadButton(e.ButtonPressed);
             }

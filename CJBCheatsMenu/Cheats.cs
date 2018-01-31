@@ -385,7 +385,7 @@ namespace CJBCheatsMenu
                 }
 
                 if (this.Config.InfiniteWateringCan && player.CurrentTool is WateringCan can)
-                    helper.Reflection.GetPrivateField<int>(can, "waterLeft").SetValue(can.waterCanMax);
+                    helper.Reflection.GetField<int>(can, "waterLeft").SetValue(can.waterCanMax);
 
                 if (this.Config.AlwaysGiveGift)
                 {
@@ -414,13 +414,13 @@ namespace CJBCheatsMenu
             if ((this.Config.InstantCatch || this.Config.AlwaysTreasure) && Game1.activeClickableMenu is BobberBar bobberMenu)
             {
                 if (this.Config.AlwaysTreasure)
-                    helper.Reflection.GetPrivateField<bool>(bobberMenu, "treasure").SetValue(true);
+                    helper.Reflection.GetField<bool>(bobberMenu, "treasure").SetValue(true);
 
                 if (this.Config.InstantCatch)
-                    helper.Reflection.GetPrivateField<float>(bobberMenu, "distanceFromCatching").SetValue(1);
+                    helper.Reflection.GetField<float>(bobberMenu, "distanceFromCatching").SetValue(1);
 
-                if (helper.Reflection.GetPrivateValue<bool>(bobberMenu, "treasure"))
-                    helper.Reflection.GetPrivateField<bool>(bobberMenu, "treasureCaught").SetValue(true);
+                if (helper.Reflection.GetField<bool>(bobberMenu, "treasure").GetValue())
+                    helper.Reflection.GetField<bool>(bobberMenu, "treasureCaught").SetValue(true);
             }
 
             if (this.Config.InfiniteHay)
