@@ -43,7 +43,7 @@
     <Compile Include="Framework\Cheats.cs" />
     <Compile Include="Framework\CheatsMenu.cs" />
     <Compile Include="Framework\CheatsOptionsCheckbox.cs" />
-    <Compile Include="Framework\CheatsOptionsElement.cs" />
+    <Compile Include="Framework\CheatsOptionsWeatherElement.cs" />
     <Compile Include="Framework\CheatsOptionsInputListener.cs" />
     <Compile Include="Framework\CheatsOptionsNPCSlider.cs" />
     <Compile Include="Framework\CheatsOptionsSlider.cs" />
