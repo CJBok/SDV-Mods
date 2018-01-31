@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 using SFarmer = StardewValley.Farmer;
@@ -20,6 +21,9 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The cheats helper.</summary>
         private readonly Cheats Cheats;
 
+        /// <summary>The translated 'press new key' label.</summary>
+        private readonly string PressNewKeyLabel;
+
         private readonly Rectangle SetButtonSprite = new Rectangle(294, 428, 21, 11);
         private readonly List<string> ButtonNames = new List<string>();
         private string ListenerMessage;
@@ -36,11 +40,12 @@ namespace CJBCheatsMenu.Framework
         /// <param name="slotWidth">The field width.</param>
         /// <param name="config">The mod settings.</param>
         /// <param name="cheats">The cheats helper.</param>
-        public CheatsOptionsInputListener(string label, int whichOption, int slotWidth, ModConfig config, Cheats cheats)
+        public CheatsOptionsInputListener(string label, int whichOption, int slotWidth, ModConfig config, Cheats cheats, ITranslationHelper i18n)
           : base(label, -1, -1, slotWidth + 1, 11 * Game1.pixelZoom, whichOption)
         {
             this.Config = config;
             this.Cheats = cheats;
+            this.PressNewKeyLabel = i18n.Get("messages.press-new-key");
 
             this.SetButtonBounds = new Rectangle(slotWidth - 28 * Game1.pixelZoom, -1 + Game1.pixelZoom * 3, 21 * Game1.pixelZoom, 11 * Game1.pixelZoom);
             if (whichOption == -1)
@@ -271,7 +276,7 @@ namespace CJBCheatsMenu.Framework
                 this.Listening = true;
                 Game1.soundBank.PlayCue("breathin");
                 GameMenu.forcePreventClose = true;
-                this.ListenerMessage = "Press new key...";
+                this.ListenerMessage = this.PressNewKeyLabel;
             }
         }
 

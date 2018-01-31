@@ -146,7 +146,7 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
-        public void OnDrawTick()
+        public void OnDrawTick(ITranslationHelper i18n)
         {
             GameLocation location = Game1.currentLocation;
 
@@ -154,7 +154,7 @@ namespace CJBCheatsMenu.Framework
             bool frozen = (this.Config.FreezeTimeInside && !location.IsOutdoors && !inCave) || (this.Config.FreezeTimeCaves && inCave);
             frozen = frozen || this.Config.FreezeTime;
             if (frozen)
-                CJB.DrawTextBox(5, inCave ? 100 : 5, Game1.smallFont, "Time Frozen");
+                CJB.DrawTextBox(5, inCave ? 100 : 5, Game1.smallFont, i18n.Get("messages.time-frozen"));
         }
 
         public void OneSecondUpdate(GameLocation[] locations)

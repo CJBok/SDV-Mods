@@ -60,6 +60,7 @@
     <Content Include="manifest.json" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="i18n\default.json" />
     <None Include="packages.config" />
     <None Include="README.md" />
   </ItemGroup>

@@ -107,7 +107,7 @@ namespace CJBCheatsMenu
             if (!this.IsLoaded)
                 return;
 
-            this.Cheats.OnDrawTick();
+            this.Cheats.OnDrawTick(this.Helper.Translation);
         }
 
         private void TimeEvents_TimeOfDayChanged(object sender, EventArgsIntChanged e)
@@ -137,7 +137,7 @@ namespace CJBCheatsMenu
         {
             if (Game1.activeClickableMenu != null)
                 Game1.exitActiveMenu();
-            Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Config, this.Cheats);
+            Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Config, this.Cheats, this.Helper.Translation);
         }
 
         /// <summary>Update the mod's config.json file from the current <see cref="Config"/>.</summary>
