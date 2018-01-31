@@ -99,6 +99,7 @@ setting | default | what it affects
 * Updated to SMAPI 2.4.
 * Added translation support.
 * Added update checks via SMAPI.
+* Added options to change player's professions.
 
 1.16 (2017-07-14):
 * Fixed open-menu key working even when another menu is already open.
