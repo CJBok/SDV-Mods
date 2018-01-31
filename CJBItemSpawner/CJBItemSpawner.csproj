@@ -37,14 +37,14 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="CJB.cs" />
-    <Compile Include="CJBItemSpawner.cs" />
-    <Compile Include="Constants\MenuTab.cs" />
-    <Compile Include="ItemInventoryMenu.cs" />
-    <Compile Include="ItemMenu.cs" />
-    <Compile Include="ItemMenuWithInventory.cs" />
-    <Compile Include="Constants\ItemQuality.cs" />
-    <Compile Include="ModConfig.cs" />
+    <Compile Include="Framework\CJB.cs" />
+    <Compile Include="ModEntry.cs" />
+    <Compile Include="Framework\Constants\MenuTab.cs" />
+    <Compile Include="Framework\ItemInventoryMenu.cs" />
+    <Compile Include="Framework\ItemMenu.cs" />
+    <Compile Include="Framework\ItemMenuWithInventory.cs" />
+    <Compile Include="Framework\Constants\ItemQuality.cs" />
+    <Compile Include="Framework\ModConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

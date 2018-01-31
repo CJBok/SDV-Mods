@@ -37,9 +37,9 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Automation.cs" />
-    <Compile Include="CJBAutomation.cs" />
-    <Compile Include="ModConfig.cs" />
+    <Compile Include="Framework\Automation.cs" />
+    <Compile Include="ModEntry.cs" />
+    <Compile Include="Framework\ModConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
