@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Buildings;
 using StardewValley.Locations;
@@ -37,26 +38,24 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
-        public static string GetWeatherNexDay()
+        public static string GetWeatherNexDay(ITranslationHelper i18n)
         {
             switch (Game1.weatherForTomorrow)
             {
                 case Game1.weather_sunny:
-                    return "Sunny";
-                case Game1.weather_rain:
-                    return "Rain";
-                case Game1.weather_lightning:
-                    return "Lightning";
-                case Game1.weather_snow:
-                    return "Snow";
                 case Game1.weather_debris:
-                    return "Windy";
                 case Game1.weather_festival:
-                    return "Festival";
                 case Game1.weather_wedding:
-                    return "Wedding";
+                    return i18n.Get("weather.sunny");
+                case Game1.weather_rain:
+                    return i18n.Get("weather.raining");
+                case Game1.weather_lightning:
+                    return i18n.Get("weather.lightning");
+                case Game1.weather_snow:
+                    return i18n.Get("weather.snowing");
+                default:
+                    return "";
             }
-            return "";
         }
 
         public static int GetExperiencePoints(int level)

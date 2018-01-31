@@ -1,33 +1,36 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
-using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework
 {
-    internal class CheatsOptionsElement : OptionsElement
+    internal class CheatsOptionsWeatherElement : OptionsElement
     {
+        /*********
+        ** Properties
+        *********/
+        /// <summary>Get the current weather name.</summary>
+        private readonly Func<string> CurrentWeather;
+
+
         /*********
         ** Public methods
         *********/
-        public CheatsOptionsElement(string label, int whichOption)
+        /// <summary>Construct an instance.</summary>
+        /// <param name="label">The field label.</param>
+        /// <param name="currentWeather">Get the current weather name.</param>
+        public CheatsOptionsWeatherElement(string label, Func<string> currentWeather)
           : base(label)
         {
-            this.whichOption = whichOption;
+            this.CurrentWeather = currentWeather;
+            this.whichOption = 0;
         }
 
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
         {
-            if (this.whichOption == -1)
-            {
-                SpriteText.drawString(spriteBatch, this.label, slotX + this.bounds.X, slotY + this.bounds.Y + Game1.pixelZoom * 3, 999, -1, 999, 1f, 0.1f);
-                return;
-            }
-
-            string info = this.whichOption == 1
-                ? CJB.GetWeatherNexDay()
-                : "";
+            string info = this.CurrentWeather();
             Utility.drawTextWithShadow(spriteBatch, $"{this.label}: {info}", Game1.dialogueFont, new Vector2(this.bounds.X + slotX, this.bounds.Y + slotY), Game1.textColor, 1f, 0.15f);
         }
     }

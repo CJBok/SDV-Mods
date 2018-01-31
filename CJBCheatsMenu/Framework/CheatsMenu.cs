@@ -190,7 +190,7 @@ namespace CJBCheatsMenu.Framework
 
                 case MenuTab.Weather:
                     this.Options.Add(new OptionsElement($"{i18n.Get("weather.title")}:"));
-                    this.Options.Add(new CheatsOptionsElement($"{i18n.Get("weather.current")}", 1));
+                    this.Options.Add(new CheatsOptionsWeatherElement($"{i18n.Get("weather.current")}", () => CJB.GetWeatherNexDay(i18n)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("weather.sunny"), 10, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("weather.raining"), 11, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("weather.lightning"), 12, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
