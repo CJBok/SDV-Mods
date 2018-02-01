@@ -6,5 +6,5 @@
   "UniqueID": "CJBok.ShowItemSellPrice",
   "EntryDll": "CJBShowItemSellPrice.dll",
   "MinimumApiVersion": "2.4",
-  "UpdateKeys": [ "Nexus:93" ]
+  "UpdateKeys": [ "Nexus:5" ]
 }
