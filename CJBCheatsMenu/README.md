@@ -100,6 +100,7 @@ setting | default | what it affects
 * Added translation support.
 * Added update checks via SMAPI.
 * Added options to change player's professions.
+* Added Portuguese translations (thanks to XxIceGladiadorxX).
 * Fixed issue where setting the time could leave NPCs confused (e.g. stuck in bed).
 
 1.16 (2017-07-14):

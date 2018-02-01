@@ -15,6 +15,7 @@ Compatible with Stardew Valley 1.2+ on Linux, Mac, and Windows. Translated into 
 * Updated to SMAPI 2.4.
 * Added translation support.
 * Added update checks via SMAPI.
+* Added Portuguese translations (thanks to XxIceGladiadorxX).
 * Fixed equipment showing double sale price.
 
 1.7 (2017-04-05):
