@@ -17,7 +17,19 @@ namespace CJBShowItemSellPrice
         ** Properties
         *********/
         /// <summary>The spritesheet source rectangle for the coin icon.</summary>
-        private readonly Rectangle CoinSourceRect = Game1.getSourceRectForStandardTileSheet(Game1.debrisSpriteSheet, 8, 16, 16);
+        private readonly Rectangle CoinSourceRect = new Rectangle(5, 69, 6, 6);
+
+        /// <summary>The spritesheet source rectangle for the tooltip box.</summary>
+        private readonly Rectangle TooltipSourceRect = new Rectangle(0, 256, 60, 60);
+
+        /// <summary>The pixel size of the tooltip box's border (i.e. the number of pixels to offset for text to appear inside the box).</summary>
+        private const int TooltipBorderSize = 12;
+
+        /// <summary>The padding between elements in the tooltip box.</summary>
+        private const int Padding = 5;
+
+        /// <summary>The pixel offset to apply to the tooltip box relative to the cursor position.</summary>
+        private readonly Vector2 TooltipOffset = new Vector2(Game1.tileSize / 2);
 
         /// <summary>The label text for the single-item price.</summary>
         private string SingleLabel;
@@ -35,8 +47,8 @@ namespace CJBShowItemSellPrice
         {
             GraphicsEvents.OnPostRenderGuiEvent += GraphicsEvents_OnPostRenderGuiEvent;
 
-            this.SingleLabel = this.Helper.Translation.Get("labels.single-price");
-            this.StackLabel = this.Helper.Translation.Get("labels.stack-price");
+            this.SingleLabel = this.Helper.Translation.Get("labels.single-price") + ":";
+            this.StackLabel = this.Helper.Translation.Get("labels.stack-price") + ":";
         }
 
 
@@ -53,16 +65,14 @@ namespace CJBShowItemSellPrice
             if (item == null)
                 return;
 
-            // show hover info
-            if (item is SObject obj)
-                this.DrawHoverTextBox(Game1.smallFont, obj.sellToStorePrice(), obj.stack);
-            else
-            {
-                if (item.Stack > 1)
-                    this.DrawHoverTextBox(Game1.smallFont, item.salePrice() / 2, item.Stack);
-                else
-                    this.DrawHoverTextBox(Game1.smallFont, item.salePrice() / 2);
-            }
+            // get info
+            int stack = item.Stack;
+            int price = (item is SObject obj)
+                ? obj.sellToStorePrice()
+                : item.salePrice() / 2;
+
+            // draw tooltip
+            this.DrawPriceTooltip(Game1.spriteBatch, Game1.smallFont, price, stack);
         }
 
         /// <summary>Get the hovered item from an arbitrary menu.</summary>
@@ -90,43 +100,59 @@ namespace CJBShowItemSellPrice
             return null;
         }
 
-        private void DrawHoverTextBox(SpriteFont font, int price, int stack = -1)
+        /// <summary>Draw a tooltip box which shows the unit and stack prices for an item.</summary>
+        /// <param name="spriteBatch">The sprite batch to update.</param>
+        /// <param name="font">The font with which to draw text.</param>
+        /// <param name="price">The price to display.</param>
+        /// <param name="stack">The stack size (if any).</param>
+        private void DrawPriceTooltip(SpriteBatch spriteBatch, SpriteFont font, int price, int stack = -1)
         {
             if (price < 1)
                 return;
 
-            string priceString = price.ToString();
-            string stackPriceString = $"\n{price * stack}";
+            // basic measurements
+            const int borderSize = ModEntry.TooltipBorderSize;
+            const int padding = ModEntry.Padding;
+            int coinSize = this.CoinSourceRect.Width * Game1.pixelZoom;
+            int lineHeight = (int)font.MeasureString("X").Y;
+            Vector2 offsetFromCursor = this.TooltipOffset;
+            bool showStack = stack > 0;
 
-            string labels = $"{this.SingleLabel}:";
-            string placeholderForSizing = $"{this.SingleLabel}: {price}";
-            if (stack > 1)
+            // prepare text
+            string unitLabel = this.SingleLabel;
+            string unitPrice = price.ToString();
+            string stackLabel = this.StackLabel;
+            string stackPrice = (price * stack).ToString();
+
+            // get dimensions
+            Vector2 unitPriceSize = font.MeasureString(unitPrice);
+            Vector2 stackPriceSize = font.MeasureString(stackPrice);
+            Vector2 labelSize = font.MeasureString(unitLabel);
+            if (showStack)
+                labelSize = new Vector2(Math.Max(labelSize.X, font.MeasureString(stackLabel).X), labelSize.Y * 2);
+            Vector2 innerSize = new Vector2(labelSize.X + padding + Math.Max(unitPriceSize.X, showStack ? stackPriceSize.X : 0) + padding + coinSize, labelSize.Y);
+            Vector2 outerSize = innerSize + new Vector2((borderSize + padding) * 2);
+
+            // get position
+            float x = (Mouse.GetState().X / Game1.options.zoomLevel) - offsetFromCursor.X - outerSize.X;
+            float y = (Mouse.GetState().Y / Game1.options.zoomLevel) + offsetFromCursor.Y + borderSize;
+
+            // draw tooltip box
+            IClickableMenu.drawTextureBox(spriteBatch, Game1.menuTexture, this.TooltipSourceRect, (int)x, (int)y, (int)outerSize.X, (int)outerSize.Y, Color.White);
+
+            // draw coins
+            spriteBatch.Draw(Game1.debrisSpriteSheet, new Vector2(x + outerSize.X - borderSize - padding - coinSize, y + borderSize + padding), this.CoinSourceRect, Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
+            if (showStack)
+                spriteBatch.Draw(Game1.debrisSpriteSheet, new Vector2(x + outerSize.X - borderSize - padding - coinSize, y + borderSize + padding + lineHeight), this.CoinSourceRect, Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
+
+            // draw text
+            Utility.drawTextWithShadow(spriteBatch, unitLabel, font, new Vector2(x + borderSize + padding, y + borderSize + padding), Game1.textColor);
+            Utility.drawTextWithShadow(spriteBatch, unitPrice, font, new Vector2(x + outerSize.X - borderSize - padding - coinSize - padding - unitPriceSize.X, y + borderSize + padding), Game1.textColor);
+            if (showStack)
             {
-                labels += $"\n{this.StackLabel}:";
-                placeholderForSizing += $"\n{this.StackLabel}: {price * stack}";
+                Utility.drawTextWithShadow(spriteBatch, stackLabel, font, new Vector2(x + borderSize + padding, y + borderSize + padding + lineHeight), Game1.textColor);
+                Utility.drawTextWithShadow(spriteBatch, stackPrice, font, new Vector2(x + outerSize.X - borderSize - padding - coinSize - padding - stackPriceSize.X, y + borderSize + padding + lineHeight), Game1.textColor);
             }
-
-            Vector2 size = font.MeasureString(placeholderForSizing) + new Vector2(Game1.tileSize / 2 + 40, Game1.tileSize / 3 + 5);
-            int width = (int)size.X;
-            int height = (int)size.Y;
-
-            int x = (int)(Mouse.GetState().X / Game1.options.zoomLevel) - Game1.tileSize / 2 - width;
-            int y = (int)(Mouse.GetState().Y / Game1.options.zoomLevel) + Game1.tileSize / 2;
-
-            if (x < 0)
-                x = 0;
-            if (y + height > Game1.graphics.GraphicsDevice.Viewport.Height)
-                y = Game1.graphics.GraphicsDevice.Viewport.Height - height;
-
-            IClickableMenu.drawTextureBox(Game1.spriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), x, y, width, height, Color.White);
-            Game1.spriteBatch.Draw(Game1.debrisSpriteSheet, new Vector2(x + Game1.tileSize / 4 + font.MeasureString(placeholderForSizing + "   ").X, y + Game1.tileSize / 4 + 10), this.CoinSourceRect, Color.White, 0.0f, new Vector2(8, 8), Game1.pixelZoom, SpriteEffects.None, 1f);
-            if (stack > 1)
-                Game1.spriteBatch.Draw(Game1.debrisSpriteSheet, new Vector2(x + Game1.tileSize / 4 + font.MeasureString(placeholderForSizing + "   ").X, y + Game1.tileSize / 4 + 38), this.CoinSourceRect, Color.White, 0.0f, new Vector2(8, 8), Game1.pixelZoom, SpriteEffects.None, 0.95f);
-            Utility.drawTextWithShadow(Game1.spriteBatch, labels, font, new Vector2(x + Game1.tileSize / 4, y + Game1.tileSize / 4), Game1.textColor);
-
-            Utility.drawTextWithShadow(Game1.spriteBatch, priceString, font, new Vector2(x + width + Game1.tileSize / 4 - 60 - font.MeasureString(priceString).X, y + Game1.tileSize / 4), Game1.textColor);
-            if (stack > 1)
-                Utility.drawTextWithShadow(Game1.spriteBatch, stackPriceString, font, new Vector2(x + width + Game1.tileSize / 4 - 60 - font.MeasureString(stackPriceString).X, y + Game1.tileSize / 4), Game1.textColor);
         }
     }
 }
