@@ -72,8 +72,8 @@ namespace CJBItemSpawner.Framework
 
             // create buttons
             this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.width - Game1.tileSize, this.yPositionOnScreen - Game1.tileSize * 2, Game1.tileSize * 4, Game1.tileSize), i18n.Get("title"));
-            this.SortButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen - Game1.tileSize * 2 + 10, Game1.tileSize * 4, Game1.tileSize), i18n.Get("labels.sort-by-name"));
-            this.QualityButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen + Game1.tileSize * 4, this.yPositionOnScreen - Game1.tileSize * 2 + 10, Game1.tileSize * 4, Game1.tileSize), i18n.Get("labels.quality"));
+            this.QualityButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen - Game1.tileSize * 2 + 10, (int)Game1.smallFont.MeasureString(i18n.Get("labels.quality")).X, Game1.tileSize), i18n.Get("labels.quality"));
+            this.SortButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.QualityButton.bounds.Width + 40, this.yPositionOnScreen - Game1.tileSize * 2 + 10, Game1.tileSize * 4, Game1.tileSize), this.GetSortLabel(sortID));
             this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(this.xPositionOnScreen + this.width - Game1.tileSize / 2, this.yPositionOnScreen - Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
             this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.xPositionOnScreen + this.width - Game1.tileSize / 2, this.yPositionOnScreen + this.height / 2 - Game1.tileSize * 2, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
 
@@ -96,20 +96,6 @@ namespace CJBItemSpawner.Framework
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.AnimalAndMonster.ToString(), i18n.Get("tabs.animal-and-monster")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Decorating.ToString(), i18n.Get("tabs.decorating")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i, Game1.tileSize * 5, Game1.tileSize), MenuTab.Misc.ToString(), i18n.Get("tabs.miscellaneous")));
-            }
-
-            // initialise sort UI
-            switch (this.SortID)
-            {
-                case 0:
-                    this.SortButton.name = i18n.Get("labels.sort-by-name");
-                    break;
-                case 1:
-                    this.SortButton.name = i18n.Get("labels.sort-by-category");
-                    break;
-                case 2:
-                    this.SortButton.name = i18n.Get("labels.sort-by-id");
-                    break;
             }
 
             // load items
@@ -371,6 +357,23 @@ namespace CJBItemSpawner.Framework
         private void Reopen(MenuTab? tabIndex = null, int? sortID = null, ItemQuality? quality = null)
         {
             Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortID ?? this.SortID, quality ?? this.Quality, this.TranslationHelper);
+        }
+
+        /// <summary>Get the translated label for a sort ID.</summary>
+        /// <param name="sortID">The sort ID.</param>
+        private string GetSortLabel(int sortID)
+        {
+            switch (sortID)
+            {
+                case 0:
+                    return this.TranslationHelper.Get("labels.sort-by-name");
+                case 1:
+                    return this.TranslationHelper.Get("labels.sort-by-category");
+                case 2:
+                    return this.TranslationHelper.Get("labels.sort-by-id");
+                default:
+                    throw new NotSupportedException($"Invalid sort ID {sortID}.");
+            }
         }
 
         /// <summary>Get the tab constant represented by a tab component.</summary>
