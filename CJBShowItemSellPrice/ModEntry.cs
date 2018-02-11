@@ -1,0 +1,158 @@
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using StardewModdingAPI;
+using StardewModdingAPI.Events;
+using StardewValley;
+using StardewValley.Menus;
+using SObject = StardewValley.Object;
+
+namespace CJBShowItemSellPrice
+{
+    internal class ModEntry : Mod
+    {
+        /*********
+        ** Properties
+        *********/
+        /// <summary>The spritesheet source rectangle for the coin icon.</summary>
+        private readonly Rectangle CoinSourceRect = new Rectangle(5, 69, 6, 6);
+
+        /// <summary>The spritesheet source rectangle for the tooltip box.</summary>
+        private readonly Rectangle TooltipSourceRect = new Rectangle(0, 256, 60, 60);
+
+        /// <summary>The pixel size of the tooltip box's border (i.e. the number of pixels to offset for text to appear inside the box).</summary>
+        private const int TooltipBorderSize = 12;
+
+        /// <summary>The padding between elements in the tooltip box.</summary>
+        private const int Padding = 5;
+
+        /// <summary>The pixel offset to apply to the tooltip box relative to the cursor position.</summary>
+        private readonly Vector2 TooltipOffset = new Vector2(Game1.tileSize / 2);
+
+        /// <summary>The label text for the single-item price.</summary>
+        private string SingleLabel;
+
+        /// <summary>The label text for the stack price.</summary>
+        private string StackLabel;
+
+
+        /*********
+        ** Public methods
+        *********/
+        /// <summary>The mod entry point, called after the mod is first loaded.</summary>
+        /// <param name="helper">Provides simplified APIs for writing mods.</param>
+        public override void Entry(IModHelper helper)
+        {
+            GraphicsEvents.OnPostRenderGuiEvent += GraphicsEvents_OnPostRenderGuiEvent;
+
+            this.SingleLabel = this.Helper.Translation.Get("labels.single-price") + ":";
+            this.StackLabel = this.Helper.Translation.Get("labels.stack-price") + ":";
+        }
+
+
+        /*********
+        ** Private methods
+        *********/
+        private void GraphicsEvents_OnPostRenderGuiEvent(object sender, EventArgs e)
+        {
+            if (Game1.activeClickableMenu == null)
+                return;
+
+            // get item
+            Item item = this.GetItemFromMenu(Game1.activeClickableMenu);
+            if (item == null)
+                return;
+
+            // get info
+            int stack = item.Stack;
+            int price = (item is SObject obj)
+                ? obj.sellToStorePrice()
+                : item.salePrice() / 2;
+
+            // draw tooltip
+            this.DrawPriceTooltip(Game1.spriteBatch, Game1.smallFont, price, stack);
+        }
+
+        /// <summary>Get the hovered item from an arbitrary menu.</summary>
+        /// <param name="menu">The menu whose hovered item to find.</param>
+        private Item GetItemFromMenu(IClickableMenu menu)
+        {
+            // game menu
+            if (menu is GameMenu gameMenu)
+            {
+                IClickableMenu page = this.Helper.Reflection.GetField<List<IClickableMenu>>(gameMenu, "pages").GetValue()[gameMenu.currentTab];
+                if (page is InventoryPage)
+                    return this.Helper.Reflection.GetField<Item>(page, "hoveredItem").GetValue();
+                else if (page is CraftingPage)
+                    return this.Helper.Reflection.GetField<Item>(page, "hoverItem").GetValue();
+            }
+
+            // from inventory UI
+            else if (menu is MenuWithInventory inventoryMenu)
+                return inventoryMenu.hoveredItem;
+
+            // CJB mods
+            else if (menu.GetType().FullName == "CJBItemSpawner.ItemMenu")
+                return this.Helper.Reflection.GetField<Item>(menu, "HoveredItem").GetValue();
+
+            return null;
+        }
+
+        /// <summary>Draw a tooltip box which shows the unit and stack prices for an item.</summary>
+        /// <param name="spriteBatch">The sprite batch to update.</param>
+        /// <param name="font">The font with which to draw text.</param>
+        /// <param name="price">The price to display.</param>
+        /// <param name="stack">The stack size (if any).</param>
+        private void DrawPriceTooltip(SpriteBatch spriteBatch, SpriteFont font, int price, int stack = -1)
+        {
+            if (price < 1)
+                return;
+
+            // basic measurements
+            const int borderSize = ModEntry.TooltipBorderSize;
+            const int padding = ModEntry.Padding;
+            int coinSize = this.CoinSourceRect.Width * Game1.pixelZoom;
+            int lineHeight = (int)font.MeasureString("X").Y;
+            Vector2 offsetFromCursor = this.TooltipOffset;
+            bool showStack = stack > 0;
+
+            // prepare text
+            string unitLabel = this.SingleLabel;
+            string unitPrice = price.ToString();
+            string stackLabel = this.StackLabel;
+            string stackPrice = (price * stack).ToString();
+
+            // get dimensions
+            Vector2 unitPriceSize = font.MeasureString(unitPrice);
+            Vector2 stackPriceSize = font.MeasureString(stackPrice);
+            Vector2 labelSize = font.MeasureString(unitLabel);
+            if (showStack)
+                labelSize = new Vector2(Math.Max(labelSize.X, font.MeasureString(stackLabel).X), labelSize.Y * 2);
+            Vector2 innerSize = new Vector2(labelSize.X + padding + Math.Max(unitPriceSize.X, showStack ? stackPriceSize.X : 0) + padding + coinSize, labelSize.Y);
+            Vector2 outerSize = innerSize + new Vector2((borderSize + padding) * 2);
+
+            // get position
+            float x = (Mouse.GetState().X / Game1.options.zoomLevel) - offsetFromCursor.X - outerSize.X;
+            float y = (Mouse.GetState().Y / Game1.options.zoomLevel) + offsetFromCursor.Y + borderSize;
+
+            // draw tooltip box
+            IClickableMenu.drawTextureBox(spriteBatch, Game1.menuTexture, this.TooltipSourceRect, (int)x, (int)y, (int)outerSize.X, (int)outerSize.Y, Color.White);
+
+            // draw coins
+            spriteBatch.Draw(Game1.debrisSpriteSheet, new Vector2(x + outerSize.X - borderSize - padding - coinSize, y + borderSize + padding), this.CoinSourceRect, Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
+            if (showStack)
+                spriteBatch.Draw(Game1.debrisSpriteSheet, new Vector2(x + outerSize.X - borderSize - padding - coinSize, y + borderSize + padding + lineHeight), this.CoinSourceRect, Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
+
+            // draw text
+            Utility.drawTextWithShadow(spriteBatch, unitLabel, font, new Vector2(x + borderSize + padding, y + borderSize + padding), Game1.textColor);
+            Utility.drawTextWithShadow(spriteBatch, unitPrice, font, new Vector2(x + outerSize.X - borderSize - padding - coinSize - padding - unitPriceSize.X, y + borderSize + padding), Game1.textColor);
+            if (showStack)
+            {
+                Utility.drawTextWithShadow(spriteBatch, stackLabel, font, new Vector2(x + borderSize + padding, y + borderSize + padding + lineHeight), Game1.textColor);
+                Utility.drawTextWithShadow(spriteBatch, stackPrice, font, new Vector2(x + outerSize.X - borderSize - padding - coinSize - padding - stackPriceSize.X, y + borderSize + padding + lineHeight), Game1.textColor);
+            }
+        }
+    }
+}

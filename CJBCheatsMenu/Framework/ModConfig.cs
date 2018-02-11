@@ -1,4 +1,4 @@
-﻿using CJBCheatsMenu.Constants;
+﻿using CJBCheatsMenu.Framework.Constants;
 using Microsoft.Xna.Framework.Input;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
