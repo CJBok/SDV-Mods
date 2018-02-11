@@ -179,3 +179,40 @@ setting | default | what it affects
 1.6 (2016-03-11):
 * Menu now contains categories (last scroll position and category will be remembered).
 * Fixed 'always treasure' cheat.
+
+1.5.3:
+* Fixed sound bug during fishing.
+* The cheats menu now remembers scroll position.
+
+1.5.2:
+* Fixed player getting stuck during events.
+* Fixed sounds stuck during fishing.
+
+1.5.1:
+* Restored `Nini.dll` in download since some users still need it.
+* Added 'instant bite' option, separate from 'instant catch' option.
+* Fixed wrong mod version shown on load.
+* Changed 'debris' weather name to 'windy'.
+
+1.5:
+* Added 'one hit break' option.
+* Fixed diagonal movement.
+* Fixed player speed effected while walking.
+* Removed `Nini.dll` (integrated into main DLL).
+
+1.4.1:
+* Fixed fish biting instantly when cheat isn't active.
+
+1.4:
+* Added fish 'always treasure' option.
+* Added instant catch also making fish bite instantly.
+* Fixed time frozen dialog overlapping mine level dialog.
+* Fixed durable fences cheat not working when not on farm.
+
+1.3.2:
+* Added many warp locations.
+* Added 'always give gift' option.
+* Added time freeze options.
+* Added shortcut key to freeze time.
+* Changed weather options to next day settings.
+* Fixed movement speed still active during events.
