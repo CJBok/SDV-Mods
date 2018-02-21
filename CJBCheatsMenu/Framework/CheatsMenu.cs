@@ -145,6 +145,7 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("fast-machines.bee-house"), config.FastBeeHouse, value => config.FastBeeHouse = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("fast-machines.mushroom-box"), config.FastMushroomBox, value => config.FastMushroomBox = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("fast-machines.worm-bin"), config.FastWormBin, value => config.FastWormBin = value));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("fast-machines.fruit-trees"), config.FastFruitTree, value => config.FastFruitTree = value));
                     break;
 
                 case MenuTab.Skills:

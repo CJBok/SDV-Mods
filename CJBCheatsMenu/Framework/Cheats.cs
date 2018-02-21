@@ -241,10 +241,17 @@ namespace CJBCheatsMenu.Framework
                     else if (this.Config.FastLightningRod && pair.Value.name == "Lightning Rod")
                         pair.Value.minutesUntilReady = 0;
                     else if (this.Config.FastWormBin && pair.Value.name == "Worm Bin")
-                        pair.Value.minutesUntilReady = 0;
+                        pair.Value.minutesUntilReady = 0;                   
+                }
+                //Fruit Trees
+                foreach(KeyValuePair<Vector2, TerrainFeature> tree in location.terrainFeatures)
+                {
+                    if (this.Config.FastFruitTree && tree.Value is FruitTree ft && ft.growthStage == 5)
+                        if (ft.fruitsOnTree < 4)
+                            ft.fruitsOnTree += 1;
                 }
             }
-
+            
             // autofeed animals
             if (this.Config.AutoFeed)
             {
