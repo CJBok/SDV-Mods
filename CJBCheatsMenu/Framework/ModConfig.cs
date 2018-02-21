@@ -152,6 +152,9 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Worm bins finish instantly.</summary>
         public bool FastWormBin { get; set; }
 
+        /// <summary>Fruit trees bear fruit instantly.</summary>
+        public bool FastFruitTree { get; set; }
+
         /****
         ** Other cheats
         ****/

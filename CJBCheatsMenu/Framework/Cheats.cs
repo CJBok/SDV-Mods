@@ -175,29 +175,30 @@ namespace CJBCheatsMenu.Framework
                 this.PreviousFriendships = Game1.player.friendships.ToDictionary(p => p.Key.ToString(), p => p.Value[0]);
             }
 
-            // instant buildings
-            if (this.Config.InstantBuild)
+            // apply location changes
+            foreach (GameLocation location in locations)
             {
-                foreach (BuildableGameLocation location in locations.OfType<BuildableGameLocation>())
+                // instant buildings
+                if (this.Config.InstantBuild && location is BuildableGameLocation buildableLocation)
                 {
-                    foreach (Building building in location.buildings)
+                    foreach (Building building in buildableLocation.buildings)
                     {
                         if (building.daysOfConstructionLeft > 0 || building.daysUntilUpgrade > 0)
                             building.dayUpdate(1);
                     }
                 }
-            }
 
-            // fast machines
-            foreach (GameLocation location in locations)
-            {
+                // durable fences + fast processing
                 foreach (KeyValuePair<Vector2, SObject> pair in location.objects)
                 {
                     if (pair.Value == null)
                         continue;
 
+                    // durable fences
                     if (this.Config.DurableFences && pair.Value is Fence fence)
                         fence.repair();
+
+                    // fast machines
                     else if (this.Config.FastCask && pair.Value is Cask cask && cask.heldObject != null)
                     {
                         cask.daysToMature = 0;
@@ -242,6 +243,16 @@ namespace CJBCheatsMenu.Framework
                         pair.Value.minutesUntilReady = 0;
                     else if (this.Config.FastWormBin && pair.Value.name == "Worm Bin")
                         pair.Value.minutesUntilReady = 0;
+                }
+
+                // fast fruit trees
+                if (this.Config.FastFruitTree)
+                {
+                    foreach (KeyValuePair<Vector2, TerrainFeature> pair in location.terrainFeatures)
+                    {
+                        if (pair.Value is FruitTree tree && tree.growthStage >= FruitTree.treeStage && tree.fruitsOnTree < FruitTree.maxFruitsOnTrees)
+                            tree.fruitsOnTree = FruitTree.maxFruitsOnTrees;
+                    }
                 }
             }
 
