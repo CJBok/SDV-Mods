@@ -64,6 +64,7 @@ setting | default | what it affects
 `FreezeTimeInside` | `false` | The game clock doesn't change when you're inside a building.
 `FreezeTimeCaves` | `false` | The game clock doesn't change when you're inside the mines, Skull Cavern, or farm cave.
 `FastCask` | `false` | Casks finish instantly.
+`FastFruitTrees` | `false` | Fruit trees produce fruit instantly.
 `FastFurnace` | `false` | Furnaces finish instantly.
 `FastRecyclingMachine` | `false` | Recycling machines finish instantly.
 `FastCrystalarium` | `false` | Crystalariums finish instantly.
@@ -95,6 +96,9 @@ setting | default | what it affects
 `InfiniteHay` | `false` | Hay silos are always full.
 
 ## Versions
+Upcoming:
+* Added option for fast fruit trees.
+
 1.17 (2018-02-11):
 * Updated to SMAPI 2.4.
 * Added translation support.

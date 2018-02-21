@@ -44,6 +44,7 @@
   "fishing.durable-tackles": "Equipamento Durável",
   "fast-machines.title": "Máquinas Rápidas",
   "fast-machines.cask": "Barril de Madeira",
+  "fast-machines.fruit-trees": "Árvores Frutiferas",
   "fast-machines.furnace": "Fornalha",
   "fast-machines.recycling-machine": "Máquina de Reciclagem",
   "fast-machines.crystalarium": "Cristalário",
@@ -63,7 +64,6 @@
   "fast-machines.bee-house": "Apiário",
   "fast-machines.mushroom-box": "Caixa de Cogumelos",
   "fast-machines.worm-bin": "Cesto de Minhocas",
-  "fast-machines.fruit-trees": "Árvores Frutiferas",
 
   // 'Skills' tab
   "skills.title": "Habilidades",
