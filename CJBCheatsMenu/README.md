@@ -98,7 +98,7 @@ setting | default | what it affects
 ## Versions
 1.18 (upcoming):
 * Added option for fast fruit trees.
-* Added Russian translations (thanks to Ryofuko!).
+* Added Japanese and Russian translations (thanks to Marity and Ryofuko!).
 
 1.17 (2018-02-11):
 * Updated to SMAPI 2.4.
