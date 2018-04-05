@@ -116,7 +116,7 @@ namespace CJBShowItemSellPrice
             int coinSize = this.CoinSourceRect.Width * Game1.pixelZoom;
             int lineHeight = (int)font.MeasureString("X").Y;
             Vector2 offsetFromCursor = this.TooltipOffset;
-            bool showStack = stack > 0;
+            bool showStack = stack > 1;
 
             // prepare text
             string unitLabel = this.SingleLabel;

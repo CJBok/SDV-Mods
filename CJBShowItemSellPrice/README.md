@@ -13,6 +13,7 @@ Compatible with Stardew Valley 1.2+ on Linux, Mac, and Windows. Translated into 
 ## Versions
 1.9 (upcoming):
 * Added Russian translations (thanks to Ryofuko!).
+* Fixed stack price shown for single items.
 
 1.8 (2018-02-11):
 * Updated to SMAPI 2.4.
