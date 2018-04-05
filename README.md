@@ -1,14 +1,9 @@
 This repository contains my SMAPI mods for Stardew Valley. See the individual mods for
 documentation and release notes:
 
-* [CJB Automation](CJBAutomation)
 * [CJB Cheats Menu](CJBCheatsMenu)
-* [CJB Endless Inventory](CJBEndlessInventory) (unreleased)
-* [CJB Grind Stone](CJBGrindStone) (unreleased)
 * [CJB Item Spawner](CJBItemSpawner)
 * [CJB Show Item Sell Price](CJBShowItemSellPrice)
-* [CJB Skip Intro](CJBSkipIntro) (unreleased)
-* [CJB Tweaks](CJBTweaks) (unreleased)
 
 ## Compiling the mods
 Installing stable releases from Nexus Mods is recommended for most users. If you really want to
