@@ -11,6 +11,9 @@ Compatible with Stardew Valley 1.2+ on Linux, Mac, and Windows. Translated into 
 3. Run the game using SMAPI.
 
 ## Versions
+1.9 (upcoming):
+* Added Russian translations (thanks to Ryofuko!).
+
 1.8 (2018-02-11):
 * Updated to SMAPI 2.4.
 * Added translation support.

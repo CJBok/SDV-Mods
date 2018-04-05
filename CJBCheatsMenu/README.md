@@ -96,8 +96,9 @@ setting | default | what it affects
 `InfiniteHay` | `false` | Hay silos are always full.
 
 ## Versions
-Upcoming:
+1.18 (upcoming):
 * Added option for fast fruit trees.
+* Added Russian translations (thanks to Ryofuko!).
 
 1.17 (2018-02-11):
 * Updated to SMAPI 2.4.
