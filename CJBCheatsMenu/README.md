@@ -99,6 +99,7 @@ setting | default | what it affects
 1.18 (upcoming):
 * Added option for fast fruit trees.
 * Added Japanese and Russian translations (thanks to Marity and Ryofuko!).
+* Fixed 'increase movement speed' checkbox disabling the speed slider.
 
 1.17 (2018-02-11):
 * Updated to SMAPI 2.4.
