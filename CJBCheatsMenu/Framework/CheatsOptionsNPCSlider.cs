@@ -28,10 +28,10 @@ namespace CJBCheatsMenu.Framework
             this.SliderLabel = npc.getName();
             this.SliderMaxValue = maxValue;
 
-            this.Mugshot = new ClickableTextureComponent("Mugshot", this.bounds, "", "", npc.sprite.Texture, npc.getMugShotSourceRect(), 0.7f * Game1.pixelZoom);
+            this.Mugshot = new ClickableTextureComponent("Mugshot", this.bounds, "", "", npc.Sprite.Texture, npc.getMugShotSourceRect(), 0.7f * Game1.pixelZoom);
 
-            if (Game1.player.friendships.ContainsKey(npc.name))
-                this.Value = Math.Max(0, Math.Min(maxValue, Game1.player.friendships[npc.name][0] / NPC.friendshipPointsPerHeartLevel));
+            if (Game1.player.friendshipData.TryGetValue(npc.Name, out Friendship friendship))
+                this.Value = Math.Max(0, Math.Min(maxValue, friendship.Points / NPC.friendshipPointsPerHeartLevel));
         }
 
         public override void leftClickHeld(int x, int y)
@@ -42,8 +42,8 @@ namespace CJBCheatsMenu.Framework
             base.leftClickHeld(x, y);
             this.Value = x >= this.bounds.X ? (x <= this.bounds.Right - 10 * Game1.pixelZoom ? (int)((x - this.bounds.X) / (this.bounds.Width - 10d * Game1.pixelZoom) * this.SliderMaxValue) : this.SliderMaxValue) : 0;
 
-            if (Game1.player.friendships.ContainsKey(this.Npc.name))
-                Game1.player.friendships[this.Npc.name][0] = this.Value * NPC.friendshipPointsPerHeartLevel;
+            if (Game1.player.friendshipData.TryGetValue(this.Npc.Name, out Friendship friendship))
+                friendship.Points = this.Value * NPC.friendshipPointsPerHeartLevel;
         }
 
         public override void receiveLeftClick(int x, int y)

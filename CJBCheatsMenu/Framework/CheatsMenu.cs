@@ -199,17 +199,20 @@ namespace CJBCheatsMenu.Framework
                     break;
 
                 case MenuTab.Relationships:
-                    this.Options.Add(new OptionsElement($"{i18n.Get("relationships.title")}:"));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("relationships.give-gifts-anytime"), config.AlwaysGiveGift, value => config.AlwaysGiveGift = value));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("relationships.no-decay"), config.NoFriendshipDecay, value => config.NoFriendshipDecay = value));
-                    this.Options.Add(new OptionsElement($"{i18n.Get("relationships.friends")}:"));
-
-                    foreach (NPC npc in Utility.getAllCharacters().OrderBy(p => p.name))
                     {
-                        if (!Game1.player.friendships.ContainsKey(npc.name) || (npc.name == "Sandy" && !Game1.player.mailReceived.Contains("ccVault")) || npc.name == "???" || npc.name == "Bouncer" || npc.name == "Marlon" || npc.name == "Gil" || npc.name == "Gunther" || npc.IsMonster || npc is Horse || npc is Pet)
-                            continue;
+                        this.Options.Add(new OptionsElement($"{i18n.Get("relationships.title")}:"));
+                        this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("relationships.give-gifts-anytime"), config.AlwaysGiveGift, value => config.AlwaysGiveGift = value));
+                        this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("relationships.no-decay"), config.NoFriendshipDecay, value => config.NoFriendshipDecay = value));
+                        this.Options.Add(new OptionsElement($"{i18n.Get("relationships.friends")}:"));
 
-                        this.Options.Add(new CheatsOptionsNPCSlider(npc));
+                        IList<OptionsElement> relationshipElements = new List<OptionsElement>();
+                        foreach (NPC npc in Utility.getAllCharacters())
+                        {
+                            if (!Game1.player.friendshipData.ContainsKey(npc.Name) || (npc.Name == "Sandy" && !Game1.player.mailReceived.Contains("ccVault")) || npc.Name == "???" || npc.Name == "Bouncer" || npc.Name == "Marlon" || npc.Name == "Gil" || npc.Name == "Gunther" || npc.IsMonster || npc is Horse || npc is Pet)
+                                continue;
+                            relationshipElements.Add(new CheatsOptionsNPCSlider(npc));
+                        }
+                        this.Options.AddRange(relationshipElements.OrderBy(p => p.label));
                     }
                     break;
 
@@ -263,7 +266,7 @@ namespace CJBCheatsMenu.Framework
         {
             // define conversion between game time and TimeSpan
             TimeSpan ToTimeSpan(int value) => new TimeSpan(0, value / 100, value % 100, 0);
-            int FromTimeSpan(TimeSpan span) => (int)((span.Hours * 100) + span.Minutes);
+            int FromTimeSpan(TimeSpan span) => (span.Hours * 100) + span.Minutes;
 
             // transition to new time
             int intervals = (int)((ToTimeSpan(time) - ToTimeSpan(Game1.timeOfDay)).TotalMinutes / 10);

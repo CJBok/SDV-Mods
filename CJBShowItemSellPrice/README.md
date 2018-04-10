@@ -12,6 +12,7 @@ Compatible with Stardew Valley 1.2+ on Linux, Mac, and Windows. Translated into 
 
 ## Versions
 1.9 (upcoming):
+* Updated for Stardew Valley 1.3.
 * Added Russian translations (thanks to Ryofuko!).
 * Fixed stack price shown for single items.
 

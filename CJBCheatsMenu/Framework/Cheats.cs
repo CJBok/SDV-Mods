@@ -49,13 +49,13 @@ namespace CJBCheatsMenu.Framework
         {
             foreach (GameLocation location in locations)
             {
-                if (!location.isFarm && !location.name.Contains("Greenhouse"))
+                if (!location.IsFarm && !location.Name.Contains("Greenhouse"))
                     continue;
 
-                foreach (KeyValuePair<Vector2, TerrainFeature> pair in location.terrainFeatures)
+                foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
                 {
-                    if (pair.Value is HoeDirt dirt)
-                        dirt.state = 1;
+                    if (terrainFeature is HoeDirt dirt)
+                        dirt.state.Value = 1;
                 }
             }
         }
@@ -73,14 +73,14 @@ namespace CJBCheatsMenu.Framework
                 if (terrainFeature is Tree tree)
                 {
                     if (!tree.stump)
-                        tree.growthStage = 5;
+                        tree.growthStage.Value = 5;
                 }
                 else if (terrainFeature is FruitTree fruitTree)
                 {
                     if (!fruitTree.stump)
                     {
-                        fruitTree.growthStage = 5;
-                        fruitTree.daysUntilMature = 0;
+                        fruitTree.growthStage.Value = 5;
+                        fruitTree.daysUntilMature.Value = 0;
                     }
                 }
             }
@@ -116,13 +116,12 @@ namespace CJBCheatsMenu.Framework
                 IDictionary<int, int> cropHarvestMethods = this.GetCropHarvestMethods();
                 foreach (GameLocation location in Game1.locations)
                 {
-                    if (!location.isFarm && !location.name.Contains("Greenhouse"))
+                    if (!location.IsFarm && !location.Name.Contains("Greenhouse"))
                         continue;
-
-                    foreach (KeyValuePair<Vector2, TerrainFeature> pair in location.terrainFeatures)
+                    foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
                     {
-                        if (pair.Value is HoeDirt dirt && dirt.crop != null && cropHarvestMethods.TryGetValue(dirt.crop.indexOfHarvest, out int harvestMethod))
-                            dirt.crop.harvestMethod = harvestMethod;
+                        if (terrainFeature is HoeDirt dirt && dirt.crop != null && cropHarvestMethods.TryGetValue(dirt.crop.indexOfHarvest, out int harvestMethod))
+                            dirt.crop.harvestMethod.Value = harvestMethod;
                     }
                 }
             }
@@ -162,17 +161,16 @@ namespace CJBCheatsMenu.Framework
             // disable friendship decay
             if (this.Config.NoFriendshipDecay)
             {
-                if (this.PreviousFriendships == null)
-                    this.PreviousFriendships = Game1.player.friendships.ToDictionary(p => p.Key.ToString(), p => p.Value[0]);
-                foreach (KeyValuePair<string, int[]> n in Game1.player.friendships)
+                if (this.PreviousFriendships != null)
                 {
-                    foreach (KeyValuePair<string, int> o in this.PreviousFriendships)
+                    foreach (string key in Game1.player.friendshipData.Keys)
                     {
-                        if (n.Key == o.Key && n.Value[0] < o.Value)
-                            n.Value[0] = o.Value;
+                        Friendship friendship = Game1.player.friendshipData[key];
+                        if (this.PreviousFriendships.TryGetValue(key, out int oldPoints) && oldPoints < friendship.Points)
+                            friendship.Points = oldPoints;
                     }
                 }
-                this.PreviousFriendships = Game1.player.friendships.ToDictionary(p => p.Key.ToString(), p => p.Value[0]);
+                this.PreviousFriendships = Game1.player.friendshipData.FieldDict.ToDictionary(p => p.Key, p => p.Value.Value.Points);
             }
 
             // apply location changes
@@ -183,75 +181,75 @@ namespace CJBCheatsMenu.Framework
                 {
                     foreach (Building building in buildableLocation.buildings)
                     {
-                        if (building.daysOfConstructionLeft > 0 || building.daysUntilUpgrade > 0)
+                        if (building.daysOfConstructionLeft.Value > 0 || building.daysUntilUpgrade.Value > 0)
                             building.dayUpdate(1);
                     }
                 }
 
                 // durable fences + fast processing
-                foreach (KeyValuePair<Vector2, SObject> pair in location.objects)
+                foreach (SObject obj in location.objects.Values)
                 {
-                    if (pair.Value == null)
+                    if (obj == null)
                         continue;
 
                     // durable fences
-                    if (this.Config.DurableFences && pair.Value is Fence fence)
+                    if (this.Config.DurableFences && obj is Fence fence)
                         fence.repair();
 
                     // fast machines
-                    else if (this.Config.FastCask && pair.Value is Cask cask && cask.heldObject != null)
+                    else if (this.Config.FastCask && obj is Cask cask && cask.heldObject.Value != null)
                     {
-                        cask.daysToMature = 0;
-                        cask.minutesUntilReady = 0;
-                        cask.heldObject.quality = 4;
+                        cask.daysToMature.Value = 0;
+                        cask.MinutesUntilReady = 0;
+                        cask.heldObject.Value.Quality = 4;
                     }
-                    else if (this.Config.FastFurnace && pair.Value.name == "Furnace")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastRecyclingMachine && pair.Value.name == "Recycling Machine")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastCrystalarium && pair.Value.name == "Crystalarium")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastIncubator && pair.Value.name == "Incubator")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastSlimeIncubator && pair.Value.name == "Slime Incubator")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastKeg && pair.Value.name == "Keg")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastPreservesJar && pair.Value.name == "Preserves Jar")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastCheesePress && pair.Value.name == "Cheese Press")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastMayonnaiseMachine && pair.Value.name == "Mayonnaise Machine")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastLoom && pair.Value.name == "Loom")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastOilMaker && pair.Value.name == "Oil Maker")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastSeedMaker && pair.Value.name == "Seed Maker")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastCharcoalKiln && pair.Value.name == "Charcoal Kiln")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastSlimeEggPress && pair.Value.name == "Slime Egg-Press")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastBeeHouse && pair.Value.name == "Bee House")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastMushroomBox && pair.Value.name == "Mushroom Box")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastTapper && pair.Value.name == "Tapper")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastLightningRod && pair.Value.name == "Lightning Rod")
-                        pair.Value.minutesUntilReady = 0;
-                    else if (this.Config.FastWormBin && pair.Value.name == "Worm Bin")
-                        pair.Value.minutesUntilReady = 0;
+                    else if (this.Config.FastFurnace && obj.name == "Furnace")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastRecyclingMachine && obj.name == "Recycling Machine")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastCrystalarium && obj.name == "Crystalarium")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastIncubator && obj.name == "Incubator")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastSlimeIncubator && obj.name == "Slime Incubator")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastKeg && obj.name == "Keg")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastPreservesJar && obj.name == "Preserves Jar")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastCheesePress && obj.name == "Cheese Press")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastMayonnaiseMachine && obj.name == "Mayonnaise Machine")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastLoom && obj.name == "Loom")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastOilMaker && obj.name == "Oil Maker")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastSeedMaker && obj.name == "Seed Maker")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastCharcoalKiln && obj.name == "Charcoal Kiln")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastSlimeEggPress && obj.name == "Slime Egg-Press")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastBeeHouse && obj.name == "Bee House")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastMushroomBox && obj.name == "Mushroom Box")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastTapper && obj.name == "Tapper")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastLightningRod && obj.name == "Lightning Rod")
+                        obj.MinutesUntilReady = 0;
+                    else if (this.Config.FastWormBin && obj.name == "Worm Bin")
+                        obj.MinutesUntilReady = 0;
                 }
 
                 // fast fruit trees
                 if (this.Config.FastFruitTree)
                 {
-                    foreach (KeyValuePair<Vector2, TerrainFeature> pair in location.terrainFeatures)
+                    foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
                     {
-                        if (pair.Value is FruitTree tree && tree.growthStage >= FruitTree.treeStage && tree.fruitsOnTree < FruitTree.maxFruitsOnTrees)
-                            tree.fruitsOnTree = FruitTree.maxFruitsOnTrees;
+                        if (terrainFeature is FruitTree tree && tree.growthStage.Value >= FruitTree.treeStage && tree.fruitsOnTree.Value < FruitTree.maxFruitsOnTrees)
+                            tree.fruitsOnTree.Value = FruitTree.maxFruitsOnTrees;
                     }
                 }
             }
@@ -262,25 +260,25 @@ namespace CJBCheatsMenu.Framework
                 Farm farm = Game1.getFarm();
                 foreach (GameLocation location in locations)
                 {
-                    if (!location.isFarm && !location.name.Contains("Greenhouse"))
+                    if (!location.IsFarm && !location.Name.Contains("Greenhouse"))
                         continue;
                     if (location is BuildableGameLocation buildableLocation)
                     {
                         foreach (Building building in buildableLocation.buildings)
                         {
-                            if (building.indoors is AnimalHouse indoors)
+                            if (building.indoors.Value is AnimalHouse indoors)
                             {
-                                int animalcount = indoors.animals.Count;
-                                building.currentOccupants = animalcount;
+                                int animalcount = indoors.animals.Values.Count();
+                                building.currentOccupants.Value = animalcount;
                                 int hayobjects = indoors.numberOfObjectsWithName("Hay");
                                 int hayUsed = Math.Min(animalcount - hayobjects, farm.piecesOfHay);
-                                farm.piecesOfHay -= hayUsed;
+                                farm.piecesOfHay.Value -= hayUsed;
 
                                 int tileX = 6;
-                                if (indoors.name.Contains("Barn"))
+                                if (indoors.Name.Contains("Barn"))
                                     tileX = 8;
 
-                                for (int i = 0; i < indoors.animalLimit; i++)
+                                for (int i = 0; i < indoors.animalLimit.Value; i++)
                                 {
                                     if (hayUsed <= 0)
                                         break;
@@ -301,15 +299,15 @@ namespace CJBCheatsMenu.Framework
             {
                 foreach (GameLocation location in locations)
                 {
-                    if (!location.isFarm && !location.name.Contains("Greenhouse"))
+                    if (!location.IsFarm && !location.Name.Contains("Greenhouse"))
                         continue;
 
-                    foreach (KeyValuePair<Vector2, TerrainFeature> pair in location.terrainFeatures)
+                    foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
                     {
-                        if (pair.Value is HoeDirt dirt)
+                        if (terrainFeature is HoeDirt dirt)
                         {
                             if (dirt.crop != null)
-                                dirt.crop.harvestMethod = 1;
+                                dirt.crop.harvestMethod.Value = 1;
                         }
                     }
                 }
@@ -349,10 +347,10 @@ namespace CJBCheatsMenu.Framework
                             rod.timeUntilFishingBite = 0;
                     }
                     if (this.Config.DurableTackles && rod.attachments[1] != null)
-                        rod.attachments[1].scale.Y = 1;
+                        rod.attachments[1].Scale = new Vector2(rod.attachments[1].Scale.X, 1);
                 }
 
-                if (this.Config.OneHitBreak && player.usingTool && (player.CurrentTool is Axe || player.CurrentTool is Pickaxe))
+                if (this.Config.OneHitBreak && player.UsingTool && (player.CurrentTool is Axe || player.CurrentTool is Pickaxe))
                 {
                     Vector2 tile = new Vector2((int)player.GetToolLocation().X / Game1.tileSize, (int)player.GetToolLocation().Y / Game1.tileSize);
 
@@ -360,16 +358,16 @@ namespace CJBCheatsMenu.Framework
                     {
                         SObject obj = player.currentLocation.Objects[tile];
                         if (obj != null && obj.name == "Stone")
-                            obj.minutesUntilReady = 0;
+                            obj.MinutesUntilReady = 0;
                     }
 
                     if (player.CurrentTool is Axe && player.currentLocation.terrainFeatures.ContainsKey(tile))
                     {
                         TerrainFeature obj = player.currentLocation.terrainFeatures[tile];
-                        if (obj is Tree tree && tree.health > 1)
-                            tree.health = 1;
-                        else if (obj is FruitTree fruitTree && fruitTree.health > 1)
-                            fruitTree.health = 1;
+                        if (obj is Tree tree && tree.health.Value > 1)
+                            tree.health.Value = 1;
+                        else if (obj is FruitTree fruitTree && fruitTree.health.Value > 1)
+                            fruitTree.health.Value = 1;
                     }
 
                     List<ResourceClump> resourceClumps = new List<ResourceClump>();
@@ -389,8 +387,8 @@ namespace CJBCheatsMenu.Framework
                     {
                         if (r == null)
                             continue;
-                        if (r.getBoundingBox(r.tile).Contains((int)player.GetToolLocation().X, (int)player.GetToolLocation().Y) && r.health > 0)
-                            r.health = 0;
+                        if (r.getBoundingBox(r.tile).Contains((int)player.GetToolLocation().X, (int)player.GetToolLocation().Y) && r.health.Value > 0)
+                            r.health.Value = 0;
                     }
                 }
 
@@ -399,13 +397,10 @@ namespace CJBCheatsMenu.Framework
 
                 if (this.Config.AlwaysGiveGift)
                 {
-                    foreach (KeyValuePair<string, int[]> friendship in player.friendships)
+                    foreach (Friendship friendship in player.friendshipData.Values)
                     {
-                        if (friendship.Value != null)
-                        {
-                            friendship.Value[1] = 0;
-                            friendship.Value[3] = 0;
-                        }
+                        friendship.GiftsThisWeek = 0;
+                        friendship.GiftsToday = 0;
                     }
                 }
             }
@@ -414,11 +409,8 @@ namespace CJBCheatsMenu.Framework
 
             if (this.Config.OneHitKill && Game1.currentLocation != null)
             {
-                if (Game1.currentLocation.characters != null)
-                {
-                    foreach (Monster monster in Game1.currentLocation.characters.OfType<Monster>())
-                        monster.health = 1;
-                }
+                foreach (Monster monster in Game1.currentLocation.characters.OfType<Monster>())
+                    monster.Health = 1;
             }
 
             if ((this.Config.InstantCatch || this.Config.AlwaysTreasure) && Game1.activeClickableMenu is BobberBar bobberMenu)
@@ -437,7 +429,7 @@ namespace CJBCheatsMenu.Framework
             {
                 Farm farm = Game1.getFarm();
                 if (farm != null)
-                    farm.piecesOfHay = Utility.numSilos() * 240;
+                    farm.piecesOfHay.Value = Utility.numSilos() * 240;
             }
         }
 

@@ -28,7 +28,7 @@ namespace CJBItemSpawner.Framework
         public string HoverText = "";
         public string DescriptionTitle = "";
         public string DescriptionText = "";
-        public List<Item> ActualInventory;
+        public IList<Item> ActualInventory;
         public InventoryMenu.highlightThisItem HighlightMethod;
         public static int ScrollIndex;
 
@@ -47,14 +47,14 @@ namespace CJBItemSpawner.Framework
             this.ActualInventory = actualInventory;
 
             if (actualInventory == null)
-                this.ActualInventory = Game1.player.items;
+                this.ActualInventory = Game1.player.Items;
 
             for (int index = 0; index < Game1.player.maxItems; ++index)
             {
-                if (Game1.player.items.Count <= index)
-                    Game1.player.items.Add(null);
+                if (Game1.player.Items.Count <= index)
+                    Game1.player.Items.Add(null);
             }
-            this.PlayerInventory = this.ActualInventory == Game1.player.items;
+            this.PlayerInventory = object.ReferenceEquals(this.ActualInventory, Game1.player.Items);
 
             for (int index = 0; index < this.ActualInventory.Count && index < this.Capacity; index++)
                 this.Inventory.Add(new ClickableComponent(new Rectangle(xPosition + index % (this.Capacity / rows) * Game1.tileSize + horizontalGap * (index % (this.Capacity / rows)), this.yPositionOnScreen + index / (this.Capacity / rows) * (Game1.tileSize + verticalGap) + (index / (this.Capacity / rows) - 1) * Game1.pixelZoom, Game1.tileSize, Game1.tileSize), index.ToString()));
@@ -253,30 +253,31 @@ namespace CJBItemSpawner.Framework
         private Item GetOne(Item item)
         {
             // keep preserve data
-            if (item is SObject old && (old.preserve != null || old.honeyType != null))
+            if (item is SObject old && (old.preserve.Value != null || old.honeyType.Value != null))
             {
-                return new SObject(old.tileLocation, old.parentSheetIndex, old.name, old.canBeSetDown, old.canBeGrabbed, old.isHoedirt, old.isSpawnedObject)
+                SObject newObj = new SObject(old.TileLocation, old.ParentSheetIndex, old.name, old.CanBeSetDown, old.CanBeGrabbed, old.IsHoeDirt, old.IsSpawnedObject)
                 {
-                    name = old.name,
-                    price = old.price,
-                    honeyType = old.honeyType,
-                    preserve = old.preserve,
-                    preservedParentSheetIndex = old.preservedParentSheetIndex
+                    Name = old.name,
+                    Price = old.Price
                 };
+                newObj.honeyType.Value = old.honeyType.Value;
+                newObj.preserve.Value = old.preserve.Value;
+                newObj.preservedParentSheetIndex.Value = old.preservedParentSheetIndex.Value;
+                return newObj;
             }
 
             // else use default logic
             return item.getOne();
         }
 
-        private Item AddItemToInventory(Item item, int position, List<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null)
+        private Item AddItemToInventory(Item item, int position, IList<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null)
         {
-            if (items == Game1.player.items && item is SObject obj && obj.specialItem)
+            if (object.ReferenceEquals(items, Game1.player.Items) && item is SObject obj && obj.specialItem)
             {
                 if (obj.bigCraftable)
-                    Game1.player.specialBigCraftables.Add(obj.isRecipe ? (-obj.parentSheetIndex) : obj.parentSheetIndex);
+                    Game1.player.specialBigCraftables.Add(obj.IsRecipe ? -obj.ParentSheetIndex : obj.ParentSheetIndex);
                 else
-                    Game1.player.specialItems.Add(obj.isRecipe ? (-obj.parentSheetIndex) : obj.parentSheetIndex);
+                    Game1.player.specialItems.Add(obj.IsRecipe ? -obj.ParentSheetIndex : obj.ParentSheetIndex);
             }
             if (position < 0 || position >= items.Count)
             {
@@ -288,10 +289,10 @@ namespace CJBItemSpawner.Framework
                 onAddFunction?.Invoke(item, null);
                 return null;
             }
-            if (items[position].maximumStackSize() == -1 || items[position].Name != item.Name || (item is SObject itemObj && items[position] is SObject slotObj && (itemObj.quality != slotObj.quality || itemObj.parentSheetIndex != slotObj.parentSheetIndex)) || !item.canStackWith(items[position]))
+            if (items[position].maximumStackSize() == -1 || items[position].Name != item.Name || (item is SObject itemObj && items[position] is SObject slotObj && (itemObj.Quality != slotObj.Quality || itemObj.ParentSheetIndex != slotObj.ParentSheetIndex)) || !item.canStackWith(items[position]))
             {
                 Item item2 = items[position];
-                if (position == Game1.player.CurrentToolIndex && items == Game1.player.items && item2 != null)
+                if (position == Game1.player.CurrentToolIndex && object.ReferenceEquals(items, Game1.player.Items) && item2 != null)
                 {
                     item2.actionWhenStopBeingHeld(Game1.player);
                     item.actionWhenBeingHeld(Game1.player);
@@ -309,15 +310,15 @@ namespace CJBItemSpawner.Framework
             return item;
         }
 
-        private Item RemoveItemFromInventory(int whichItemIndex, List<Item> items)
+        private Item RemoveItemFromInventory(int whichItemIndex, IList<Item> items)
         {
             if (whichItemIndex >= 0 && whichItemIndex < items.Count && items[whichItemIndex] != null)
             {
                 Item item = this.GetOne(items[whichItemIndex]);
                 item.Stack = items[whichItemIndex].Stack;
-                if (whichItemIndex == Game1.player.CurrentToolIndex && items == Game1.player.items)
+                if (whichItemIndex == Game1.player.CurrentToolIndex && object.ReferenceEquals(items, Game1.player.Items))
                     item.actionWhenStopBeingHeld(Game1.player);
-                if (items == Game1.player.items)
+                if (object.ReferenceEquals(items, Game1.player.Items))
                     items[whichItemIndex] = null;
                 return item;
             }

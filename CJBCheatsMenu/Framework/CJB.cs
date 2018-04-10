@@ -82,8 +82,9 @@ namespace CJBCheatsMenu.Framework
                 {
                     foreach (Building building in buildableLocation.buildings)
                     {
-                        if (building.indoors != null)
-                            yield return building.indoors;
+                        GameLocation indoors = building.indoors;
+                        if (indoors != null)
+                            yield return indoors;
                     }
                 }
             }

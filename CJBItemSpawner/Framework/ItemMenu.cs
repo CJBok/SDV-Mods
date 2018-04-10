@@ -118,23 +118,23 @@ namespace CJBItemSpawner.Framework
             if (this.HeldItem == null && this.ShowReceivingMenu)
             {
                 this.HeldItem = this.ItemsToGrabMenu.RightClick(x, y, this.HeldItem, false);
-                if (this.HeldItem is SObject obj && obj.parentSheetIndex == 326)
+                if (this.HeldItem is SObject obj && obj.ParentSheetIndex == 326)
                 {
                     this.HeldItem = null;
                     Game1.player.canUnderstandDwarves = true;
-                    this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
+                    this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % 64 + 16, y - y % 64 + 16), false, false);
                     Game1.playSound("fireball");
                 }
-                else if (this.HeldItem is SObject recipe && recipe.isRecipe)
+                else if (this.HeldItem is SObject recipe && recipe.IsRecipe)
                 {
                     string key = this.HeldItem.Name.Substring(0, recipe.Name.IndexOf("Recipe") - 1);
                     try
                     {
-                        if (recipe.category == -7)
+                        if (recipe.Category == -7)
                             Game1.player.cookingRecipes.Add(key, 0);
                         else
                             Game1.player.craftingRecipes.Add(key, 0);
-                        this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
+                        this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % 64 + 16, y - y % 64 + 16), false, false);
                         Game1.playSound("newRecipe");
                     }
                     catch { }
@@ -199,30 +199,30 @@ namespace CJBItemSpawner.Framework
             if (this.HeldItem == null && this.ShowReceivingMenu)
             {
                 this.HeldItem = this.ItemsToGrabMenu?.LeftClick(x, y, this.HeldItem, false);
-                if (this.HeldItem is SObject obj && obj.parentSheetIndex == 326)
+                if (this.HeldItem is SObject obj && obj.ParentSheetIndex == 326)
                 {
                     this.HeldItem = null;
                     Game1.player.canUnderstandDwarves = true;
-                    this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
+                    this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                     Game1.playSound("fireball");
                 }
-                else if (this.HeldItem is SObject && (this.HeldItem as SObject).parentSheetIndex == 102)
+                else if (this.HeldItem is SObject && (this.HeldItem as SObject).ParentSheetIndex == 102)
                 {
                     this.HeldItem = null;
                     Game1.player.foundArtifact(102, 1);
-                    this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
+                    this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                     Game1.playSound("fireball");
                 }
-                else if (this.HeldItem is SObject recipe && recipe.isRecipe)
+                else if (this.HeldItem is SObject recipe && recipe.IsRecipe)
                 {
                     string key = recipe.Name.Substring(0, recipe.Name.IndexOf("Recipe") - 1);
                     try
                     {
-                        if (recipe.category == -7)
+                        if (recipe.Category == -7)
                             Game1.player.cookingRecipes.Add(key, 0);
                         else
                             Game1.player.craftingRecipes.Add(key, 0);
-                        this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
+                        this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                         Game1.playSound("newRecipe");
                     }
                     catch { }
@@ -262,8 +262,8 @@ namespace CJBItemSpawner.Framework
                 Game1.setMousePosition(this.TrashCan.bounds.Center);
             if (key != Keys.Delete || this.HeldItem == null || !this.HeldItem.canBeTrashed())
                 return;
-            if (this.HeldItem is SObject obj && Game1.player.specialItems.Contains(obj.parentSheetIndex))
-                Game1.player.specialItems.Remove(obj.parentSheetIndex);
+            if (this.HeldItem is SObject obj && Game1.player.specialItems.Contains(obj.ParentSheetIndex))
+                Game1.player.specialItems.Remove(obj.ParentSheetIndex);
             this.HeldItem = null;
             Game1.playSound("trashcan");
         }
@@ -303,9 +303,9 @@ namespace CJBItemSpawner.Framework
                 try
                 {
                     SObject obj = (SObject)this.HoveredItem;
-                    obj.quality = direction > 0
-                        ? (int)((ItemQuality)obj.quality).GetNext()
-                        : (int)((ItemQuality)obj.quality).GetPrevious();
+                    obj.Quality = direction > 0
+                        ? (int)((ItemQuality)obj.Quality).GetNext()
+                        : (int)((ItemQuality)obj.Quality).GetPrevious();
                 }
                 catch { }
             }
@@ -392,10 +392,10 @@ namespace CJBItemSpawner.Framework
             switch (this.SortID)
             {
                 case 1:
-                    spawnableItems = spawnableItems.OrderBy(o => o.category).ToArray();
+                    spawnableItems = spawnableItems.OrderBy(o => o.Category).ToArray();
                     break;
                 case 2:
-                    spawnableItems = spawnableItems.OrderBy(o => o.parentSheetIndex).ToArray();
+                    spawnableItems = spawnableItems.OrderBy(o => o.ParentSheetIndex).ToArray();
                     break;
             }
 
@@ -405,7 +405,7 @@ namespace CJBItemSpawner.Framework
             {
                 item.Stack = item.maximumStackSize();
                 if (item is SObject obj)
-                    obj.quality = (int)this.Quality;
+                    obj.Quality = (int)this.Quality;
 
                 if ((this.CurrentTab == MenuTab.All || this.GetRelevantTab(item) == this.CurrentTab) && item.Name.ToLower().Contains(this.Textbox.Text.ToLower()))
                     inventoryItems.Add(item);
@@ -433,7 +433,7 @@ namespace CJBItemSpawner.Framework
             }
 
             // by category
-            switch (item.category)
+            switch (item.Category)
             {
                 case SObject.SeedsCategory:
                 case SObject.VegetableCategory:
@@ -479,7 +479,7 @@ namespace CJBItemSpawner.Framework
             }
 
             // artifacts
-            if ((item as SObject)?.type == "Arch")
+            if ((item as SObject)?.Type == "Arch")
                 return MenuTab.ArtifactsAndMinerals;
 
             // anything else
@@ -505,11 +505,11 @@ namespace CJBItemSpawner.Framework
 
             // wallpapers
             for (int id = 0; id < 112; id++)
-                yield return new Wallpaper(id) { category = SObject.furnitureCategory };
+                yield return new Wallpaper(id) { Category = SObject.furnitureCategory };
 
             // flooring
             for (int id = 0; id < 40; id++)
-                yield return new Wallpaper(id, true) { category = SObject.furnitureCategory };
+                yield return new Wallpaper(id, true) { Category = SObject.furnitureCategory };
 
             // equipment
             foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\Boots").Keys)
@@ -556,49 +556,58 @@ namespace CJBItemSpawner.Framework
                 yield return item;
 
                 // fruit products
-                if (item.category == SObject.FruitsCategory)
+                if (item.Category == SObject.FruitsCategory)
                 {
-                    yield return new SObject(348, 1)
+                    // wine
+                    SObject wine = new SObject(348, 1)
                     {
                         name = $"{item.Name} Wine",
-                        price = item.price * 3,
-                        preserve = SObject.PreserveType.Wine,
-                        preservedParentSheetIndex = item.parentSheetIndex
+                        Price = item.Price * 3
                     };
-                    yield return new SObject(344, 1)
+                    wine.preserve.Value = SObject.PreserveType.Wine;
+                    wine.preservedParentSheetIndex.Value = item.ParentSheetIndex;
+                    yield return wine;
+
+                    // jelly
+                    SObject jelly = new SObject(344, 1)
                     {
                         name = $"{item.Name} Jelly",
-                        price = 50 + item.Price * 2,
-                        preserve = SObject.PreserveType.Jelly,
-                        preservedParentSheetIndex = item.parentSheetIndex
+                        Price = 50 + item.Price * 2
                     };
+                    jelly.preserve.Value = SObject.PreserveType.Jelly;
+                    jelly.preservedParentSheetIndex.Value = item.ParentSheetIndex;
+                    yield return jelly;
                 }
 
                 // vegetable products
-                else if (item.category == SObject.VegetableCategory)
+                else if (item.Category == SObject.VegetableCategory)
                 {
-                    yield return new SObject(350, 1)
+                    // juice
+                    SObject juice = new SObject(350, 1)
                     {
                         name = $"{item.Name} Juice",
-                        price = (int)(item.price * 2.25d),
-                        preserve = SObject.PreserveType.Juice,
-                        preservedParentSheetIndex = item.parentSheetIndex
+                        Price = (int)(item.Price * 2.25d)
                     };
-                    yield return new SObject(342, 1)
+                    juice.preserve.Value = SObject.PreserveType.Juice;
+                    juice.preservedParentSheetIndex.Value = item.ParentSheetIndex;
+                    yield return juice;
+
+                    // pickled
+                    SObject pickled = new SObject(342, 1)
                     {
                         name = $"Pickled {item.Name}",
-                        price = 50 + item.Price * 2,
-                        preserve = SObject.PreserveType.Pickle,
-                        preservedParentSheetIndex = item.parentSheetIndex
+                        Price = 50 + item.Price * 2
                     };
+                    pickled.preserve.Value = SObject.PreserveType.Pickle;
+                    pickled.preservedParentSheetIndex.Value = item.ParentSheetIndex;
                 }
 
                 // flower products
-                else if (item.category == SObject.flowersCategory)
+                else if (item.Category == SObject.flowersCategory)
                 {
                     // get honey type
                     SObject.HoneyType? type = null;
-                    switch (item.parentSheetIndex)
+                    switch (item.ParentSheetIndex)
                     {
                         case 376:
                             type = SObject.HoneyType.Poppy;
@@ -625,13 +634,13 @@ namespace CJBItemSpawner.Framework
                     {
                         SObject honey = new SObject(Vector2.Zero, 340, item.Name + " Honey", false, true, false, false)
                         {
-                            name = "Wild Honey",
-                            honeyType = type
+                            name = "Wild Honey"
                         };
+                        honey.honeyType.Value = type;
                         if (type != SObject.HoneyType.Wild)
                         {
                             honey.name = $"{item.Name} Honey";
-                            honey.price += item.price * 2;
+                            honey.Price += item.Price * 2;
                         }
                         yield return honey;
                     }
