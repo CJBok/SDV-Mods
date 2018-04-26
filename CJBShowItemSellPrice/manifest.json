@@ -1,10 +1,10 @@
 ﻿{
   "Name": "CJB Show Item Sell Price",
   "Author": "CJ Bok",
-  "Version": "1.9.0",
+  "Version": "1.9.0-beta",
   "Description": "Show item sell price in your inventory!",
   "UniqueID": "CJBok.ShowItemSellPrice",
   "EntryDll": "CJBShowItemSellPrice.dll",
-  "MinimumApiVersion": "2.6-alpha",
+  "MinimumApiVersion": "2.6-beta",
   "UpdateKeys": [ "Nexus:5" ]
 }
