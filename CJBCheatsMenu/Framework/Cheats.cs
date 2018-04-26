@@ -72,12 +72,12 @@ namespace CJBCheatsMenu.Framework
                 TerrainFeature terrainFeature = player.currentLocation.terrainFeatures[index];
                 if (terrainFeature is Tree tree)
                 {
-                    if (!tree.stump)
+                    if (!tree.stump.Value)
                         tree.growthStage.Value = 5;
                 }
                 else if (terrainFeature is FruitTree fruitTree)
                 {
-                    if (!fruitTree.stump)
+                    if (!fruitTree.stump.Value)
                     {
                         fruitTree.growthStage.Value = 5;
                         fruitTree.daysUntilMature.Value = 0;
@@ -120,7 +120,7 @@ namespace CJBCheatsMenu.Framework
                         continue;
                     foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
                     {
-                        if (terrainFeature is HoeDirt dirt && dirt.crop != null && cropHarvestMethods.TryGetValue(dirt.crop.indexOfHarvest, out int harvestMethod))
+                        if (terrainFeature is HoeDirt dirt && dirt.crop != null && cropHarvestMethods.TryGetValue(dirt.crop.indexOfHarvest.Value, out int harvestMethod))
                             dirt.crop.harvestMethod.Value = harvestMethod;
                     }
                 }
@@ -271,7 +271,7 @@ namespace CJBCheatsMenu.Framework
                                 int animalcount = indoors.animals.Values.Count();
                                 building.currentOccupants.Value = animalcount;
                                 int hayobjects = indoors.numberOfObjectsWithName("Hay");
-                                int hayUsed = Math.Min(animalcount - hayobjects, farm.piecesOfHay);
+                                int hayUsed = Math.Min(animalcount - hayobjects, farm.piecesOfHay.Value);
                                 farm.piecesOfHay.Value -= hayUsed;
 
                                 int tileX = 6;
@@ -387,7 +387,7 @@ namespace CJBCheatsMenu.Framework
                     {
                         if (r == null)
                             continue;
-                        if (r.getBoundingBox(r.tile).Contains((int)player.GetToolLocation().X, (int)player.GetToolLocation().Y) && r.health.Value > 0)
+                        if (r.getBoundingBox(r.tile.Value).Contains((int)player.GetToolLocation().X, (int)player.GetToolLocation().Y) && r.health.Value > 0)
                             r.health.Value = 0;
                     }
                 }

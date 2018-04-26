@@ -274,7 +274,7 @@ namespace CJBItemSpawner.Framework
         {
             if (object.ReferenceEquals(items, Game1.player.Items) && item is SObject obj && obj.specialItem)
             {
-                if (obj.bigCraftable)
+                if (obj.bigCraftable.Value)
                     Game1.player.specialBigCraftables.Add(obj.IsRecipe ? -obj.ParentSheetIndex : obj.ParentSheetIndex);
                 else
                     Game1.player.specialItems.Add(obj.IsRecipe ? -obj.ParentSheetIndex : obj.ParentSheetIndex);
