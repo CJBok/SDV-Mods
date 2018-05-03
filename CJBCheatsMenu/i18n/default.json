@@ -10,6 +10,7 @@
   "tabs.relationships": "Relationships",
   "tabs.warp": "Warp Locations",
   "tabs.time": "Time",
+  "tabs.quests": "Quests",
   "tabs.controls": "Controls",
 
   // 'Player & Tools' tab
@@ -149,6 +150,10 @@
   "time.freeze-caves": "Freeze Time In Caves",
   "time.freeze-everywhere": "Freeze Time Everywhere",
   "time.time": "Time",
+
+  // 'Quests' tab
+  "activequests.title": "Active Quests",
+  "completedquests.title": "Completed Quests",
 
   // 'Controls' tab
   "controls.title": "Controls",
