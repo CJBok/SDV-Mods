@@ -166,7 +166,7 @@ namespace CJBCheatsMenu.Framework
                     foreach (string key in Game1.player.friendshipData.Keys)
                     {
                         Friendship friendship = Game1.player.friendshipData[key];
-                        if (this.PreviousFriendships.TryGetValue(key, out int oldPoints) && oldPoints < friendship.Points)
+                        if (this.PreviousFriendships.TryGetValue(key, out int oldPoints) && oldPoints > friendship.Points)
                             friendship.Points = oldPoints;
                     }
                 }

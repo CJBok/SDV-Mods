@@ -17,7 +17,7 @@ Compatible with Stardew Valley 1.2+ on Linux, Mac, and Windows. Translated into 
 
 ## Versions
 1.11 (upcoming):
-* Updated for Stardew Valley 1.3.
+* Updated for Stardew Valley 1.3 (including multiplayer support).
 * Added Russian translations (thanks to Ryofuko!).
 
 1.10 (2018-02-11):
