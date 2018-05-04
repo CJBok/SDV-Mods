@@ -35,10 +35,12 @@ namespace CJBCheatsMenu
             this.Cheats = new Cheats( this.Config );
 
             SaveEvents.AfterLoad += this.SaveEvents_AfterLoad;
+
             LocationEvents.LocationsChanged += this.LocationEvents_LocationsChanged;
 
             GameEvents.UpdateTick += this.Events_UpdateTick;
             GameEvents.OneSecondTick += this.GameEvents_OneSecondTick;
+
             TimeEvents.TimeOfDayChanged += this.TimeEvents_TimeOfDayChanged;
 
             ControlEvents.KeyPressed += this.Events_KeyPressed;
@@ -47,13 +49,6 @@ namespace CJBCheatsMenu
             GraphicsEvents.OnPostRenderEvent += this.GraphicsEvents_DrawTick;
 
             MenuEvents.MenuClosed += this.MenuEvents_MenuClosed;
-
-            MenuEvents.MenuChanged += this.MenuEvents_MenuChanged;
-        }
-
-        private void MenuEvents_MenuChanged( object sender, EventArgsClickableMenuChanged e )
-        {
-            this.Monitor.Log( "Menu Changed: " + e.NewMenu.ToString() );
         }
 
         /*********
