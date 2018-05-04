@@ -99,6 +99,7 @@ setting | default | what it affects
 1.18 (upcoming):
 * Updated for Stardew Valley 1.3 (including multiplayer support).
 * Added option for fast fruit trees.
+* Added Quests tab, allows to complete active quests instantly.
 * Added Japanese and Russian translations (thanks to Marity and Ryofuko!).
 * Fixed 'increase movement speed' checkbox disabling the speed slider.
 * Fixed relationship list not using translated name when sorting.
