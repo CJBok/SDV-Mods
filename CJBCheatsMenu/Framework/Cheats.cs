@@ -183,7 +183,7 @@ namespace CJBCheatsMenu.Framework
             // disable friendship decay
             if (this.Config.NoFriendshipDecay)
             {
-                if (this.PreviousFriendships != null)
+                if (this.PreviousFriendships.Any())
                 {
                     foreach (string key in Game1.player.friendshipData.Keys)
                     {
@@ -199,7 +199,8 @@ namespace CJBCheatsMenu.Framework
             }
 
             // apply location changes
-            foreach (GameLocation location in locations)
+            Farm farm = Game1.getFarm();
+            foreach (GameLocation location in CJB.GetAllLocations())
             {
                 // instant buildings
                 if (this.Config.InstantBuild && location is BuildableGameLocation buildableLocation)
@@ -277,52 +278,33 @@ namespace CJBCheatsMenu.Framework
                             tree.fruitsOnTree.Value = FruitTree.maxFruitsOnTrees;
                     }
                 }
-            }
 
-            // autofeed animals
-            if (this.Config.AutoFeed)
-            {
-                Farm farm = Game1.getFarm();
-                foreach (GameLocation location in locations)
+                // autofeed animals
+                if (this.Config.AutoFeed && location is AnimalHouse animalHouse)
                 {
-                    if (!location.IsFarm && !location.Name.Contains("Greenhouse"))
-                        continue;
-                    if (location is BuildableGameLocation buildableLocation)
+                    int animalcount = animalHouse.animals.Values.Count();
+                    int hayobjects = animalHouse.numberOfObjectsWithName("Hay");
+                    int hayUsed = Math.Min(animalcount - hayobjects, farm.piecesOfHay.Value);
+                    farm.piecesOfHay.Value -= hayUsed;
+
+                    int tileX = 6;
+                    if (animalHouse.Name.Contains("Barn"))
+                        tileX = 8;
+
+                    for (int i = 0; i < animalHouse.animalLimit.Value; i++)
                     {
-                        foreach (Building building in buildableLocation.buildings)
-                        {
-                            if (building.indoors.Value is AnimalHouse indoors)
-                            {
-                                int animalcount = indoors.animals.Values.Count();
-                                building.currentOccupants.Value = animalcount;
-                                int hayobjects = indoors.numberOfObjectsWithName("Hay");
-                                int hayUsed = Math.Min(animalcount - hayobjects, farm.piecesOfHay.Value);
-                                farm.piecesOfHay.Value -= hayUsed;
+                        if (hayUsed <= 0)
+                            break;
 
-                                int tileX = 6;
-                                if (indoors.Name.Contains("Barn"))
-                                    tileX = 8;
-
-                                for (int i = 0; i < indoors.animalLimit.Value; i++)
-                                {
-                                    if (hayUsed <= 0)
-                                        break;
-
-                                    Vector2 tile = new Vector2(tileX + i, 3f);
-                                    if (!indoors.objects.ContainsKey(tile))
-                                        indoors.objects.Add(tile, new SObject(178, 1));
-                                    hayUsed--;
-                                }
-                            }
-                        }
+                        Vector2 tile = new Vector2(tileX + i, 3f);
+                        if (!animalHouse.objects.ContainsKey(tile))
+                            animalHouse.objects.Add(tile, new SObject(178, 1));
+                        hayUsed--;
                     }
                 }
-            }
 
-            // harvest with sickle
-            if (this.Config.HarvestSickle)
-            {
-                foreach (GameLocation location in locations)
+                // harvest with sickle
+                if (this.Config.HarvestSickle)
                 {
                     if (!location.IsFarm && !location.Name.Contains("Greenhouse"))
                         continue;
