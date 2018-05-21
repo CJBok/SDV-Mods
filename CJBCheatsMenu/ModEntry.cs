@@ -51,6 +51,7 @@ namespace CJBCheatsMenu
             MenuEvents.MenuClosed += this.MenuEvents_MenuClosed;
         }
 
+
         /*********
         ** Private methods
         *********/
@@ -59,7 +60,7 @@ namespace CJBCheatsMenu
             this.Locations = CJB.GetAllLocations().ToArray();
         }
 
-        private void LocationEvents_LocationsChanged( object sender, EventArgsGameLocationsChanged e )
+        private void LocationEvents_LocationsChanged( object sender, EventArgsLocationsChanged e )
         {
             this.Locations = CJB.GetAllLocations().ToArray();
         }

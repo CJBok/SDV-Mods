@@ -213,56 +213,56 @@ namespace CJBCheatsMenu.Framework
 
                     case 200:
                         int lvl1 = Game1.player.newLevels.Count;
-                        Game1.player.gainExperience( 0, CJB.GetExperiencePoints( Game1.player.farmingLevel ) );
+                        Game1.player.gainExperience( 0, CJB.GetExperiencePoints( Game1.player.FarmingLevel ) );
                         if ( lvl1 < Game1.player.newLevels.Count )
                             Game1.player.newLevels.RemoveAt( Game1.player.newLevels.Count - 1 );
                         Game1.exitActiveMenu();
-                        Game1.activeClickableMenu = new LevelUpMenu( 0, Game1.player.farmingLevel );
+                        Game1.activeClickableMenu = new LevelUpMenu( 0, Game1.player.FarmingLevel );
                         break;
                     case 201:
                         int lvl2 = Game1.player.newLevels.Count;
-                        Game1.player.gainExperience( 3, CJB.GetExperiencePoints( Game1.player.miningLevel ) );
+                        Game1.player.gainExperience( 3, CJB.GetExperiencePoints( Game1.player.MiningLevel ) );
                         if ( lvl2 < Game1.player.newLevels.Count )
                             Game1.player.newLevels.RemoveAt( Game1.player.newLevels.Count - 1 );
                         Game1.exitActiveMenu();
-                        Game1.activeClickableMenu = new LevelUpMenu( 3, Game1.player.miningLevel );
+                        Game1.activeClickableMenu = new LevelUpMenu( 3, Game1.player.MiningLevel );
                         break;
                     case 202:
                         int lvl3 = Game1.player.newLevels.Count;
-                        Game1.player.gainExperience( 2, CJB.GetExperiencePoints( Game1.player.foragingLevel ) );
+                        Game1.player.gainExperience( 2, CJB.GetExperiencePoints( Game1.player.ForagingLevel ) );
                         if ( lvl3 < Game1.player.newLevels.Count )
                             Game1.player.newLevels.RemoveAt( Game1.player.newLevels.Count - 1 );
                         Game1.exitActiveMenu();
-                        Game1.activeClickableMenu = new LevelUpMenu( 2, Game1.player.foragingLevel );
+                        Game1.activeClickableMenu = new LevelUpMenu( 2, Game1.player.ForagingLevel );
                         break;
                     case 203:
                         int lvl4 = Game1.player.newLevels.Count;
-                        Game1.player.gainExperience( 1, CJB.GetExperiencePoints( Game1.player.fishingLevel ) );
+                        Game1.player.gainExperience( 1, CJB.GetExperiencePoints( Game1.player.FishingLevel ) );
                         if ( lvl4 < Game1.player.newLevels.Count )
                             Game1.player.newLevels.RemoveAt( Game1.player.newLevels.Count - 1 );
                         Game1.exitActiveMenu();
-                        Game1.activeClickableMenu = new LevelUpMenu( 1, Game1.player.fishingLevel );
+                        Game1.activeClickableMenu = new LevelUpMenu( 1, Game1.player.FishingLevel );
                         break;
                     case 204:
                         int lvl5 = Game1.player.newLevels.Count;
-                        Game1.player.gainExperience( 4, CJB.GetExperiencePoints( Game1.player.combatLevel ) );
+                        Game1.player.gainExperience( 4, CJB.GetExperiencePoints( Game1.player.CombatLevel ) );
                         if ( lvl5 < Game1.player.newLevels.Count )
                             Game1.player.newLevels.RemoveAt( Game1.player.newLevels.Count - 1 );
                         Game1.exitActiveMenu();
-                        Game1.activeClickableMenu = new LevelUpMenu( 4, Game1.player.combatLevel );
+                        Game1.activeClickableMenu = new LevelUpMenu( 4, Game1.player.CombatLevel );
                         break;
                     case 205:
-                        Game1.player.maxHealth -= 5 * Game1.player.combatLevel;
+                        Game1.player.maxHealth -= 5 * Game1.player.CombatLevel;
                         Game1.player.experiencePoints[ 0 ] = 0;
                         Game1.player.experiencePoints[ 1 ] = 0;
                         Game1.player.experiencePoints[ 2 ] = 0;
                         Game1.player.experiencePoints[ 3 ] = 0;
                         Game1.player.experiencePoints[ 4 ] = 0;
-                        Game1.player.farmingLevel = 0;
-                        Game1.player.miningLevel = 0;
-                        Game1.player.foragingLevel = 0;
-                        Game1.player.fishingLevel = 0;
-                        Game1.player.combatLevel = 0;
+                        Game1.player.FarmingLevel = 0;
+                        Game1.player.MiningLevel = 0;
+                        Game1.player.ForagingLevel = 0;
+                        Game1.player.FishingLevel = 0;
+                        Game1.player.CombatLevel = 0;
                         if ( Game1.player.professions.Contains( 24 ) )
                             Game1.player.maxHealth -= 15;
                         if ( Game1.player.professions.Contains( 27 ) )
@@ -334,23 +334,23 @@ namespace CJBCheatsMenu.Framework
             {
                 case 200:
                     lvl = plr.farmingLevel.ToString();
-                    this.greyedOut = plr.farmingLevel >= 10;
+                    this.greyedOut = plr.FarmingLevel >= 10;
                     break;
                 case 201:
                     lvl = plr.miningLevel.ToString();
-                    this.greyedOut = plr.miningLevel >= 10;
+                    this.greyedOut = plr.MiningLevel >= 10;
                     break;
                 case 202:
                     lvl = plr.foragingLevel.ToString();
-                    this.greyedOut = plr.foragingLevel >= 10;
+                    this.greyedOut = plr.ForagingLevel >= 10;
                     break;
                 case 203:
                     lvl = plr.fishingLevel.ToString();
-                    this.greyedOut = plr.fishingLevel >= 10;
+                    this.greyedOut = plr.FishingLevel >= 10;
                     break;
                 case 204:
                     lvl = plr.combatLevel.ToString();
-                    this.greyedOut = plr.combatLevel >= 10;
+                    this.greyedOut = plr.CombatLevel >= 10;
                     break;
             }
             if ( lvl != "" )

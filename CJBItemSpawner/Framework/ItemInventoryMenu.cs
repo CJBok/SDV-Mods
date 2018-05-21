@@ -49,7 +49,7 @@ namespace CJBItemSpawner.Framework
             if (actualInventory == null)
                 this.ActualInventory = Game1.player.Items;
 
-            for (int index = 0; index < Game1.player.maxItems; ++index)
+            for (int index = 0; index < Game1.player.MaxItems; ++index)
             {
                 if (Game1.player.Items.Count <= index)
                     Game1.player.Items.Add(null);

@@ -335,7 +335,7 @@ namespace CJBCheatsMenu.Framework
                     player.health = player.maxHealth;
 
                 if ( this.Config.InfiniteStamina )
-                    player.stamina = player.maxStamina;
+                    player.stamina = player.MaxStamina;
 
                 if ( Game1.activeClickableMenu == null && player.CurrentTool is FishingRod rod )
                 {
