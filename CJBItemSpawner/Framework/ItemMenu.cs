@@ -600,6 +600,7 @@ namespace CJBItemSpawner.Framework
                     };
                     pickled.preserve.Value = SObject.PreserveType.Pickle;
                     pickled.preservedParentSheetIndex.Value = item.ParentSheetIndex;
+                    yield return pickled;
                 }
 
                 // flower products
