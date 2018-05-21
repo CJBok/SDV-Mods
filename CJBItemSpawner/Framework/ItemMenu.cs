@@ -92,7 +92,7 @@ namespace CJBItemSpawner.Framework
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ForageAndFruits.ToString(), i18n.Get("tabs.forage")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ArtifactsAndMinerals.ToString(), i18n.Get("tabs.artifacts-and-minerals")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ResourcesAndCrafting.ToString(), i18n.Get("tabs.resources-and-crafting")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ArtisanAndCooking.ToString(), i18n.Get("tabs.artisan-and-crafting")));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ArtisanAndCooking.ToString(), i18n.Get("tabs.artisan-and-cooking")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.AnimalAndMonster.ToString(), i18n.Get("tabs.animal-and-monster")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Decorating.ToString(), i18n.Get("tabs.decorating")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i, Game1.tileSize * 5, Game1.tileSize), MenuTab.Misc.ToString(), i18n.Get("tabs.miscellaneous")));
