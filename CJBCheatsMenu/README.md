@@ -103,6 +103,7 @@ setting | default | what it affects
 * Fixed 'increase movement speed' checkbox disabling the speed slider.
 * Fixed relationship editor not letting you decrease friendships if you have "No Friendship Decay" enabled.
 * Fixed relationship list not using translated name when sorting.
+* Fixed Luremaster and Mariner options being swapped.
 
 1.17 (2018-02-11):
 * Updated to SMAPI 2.4.

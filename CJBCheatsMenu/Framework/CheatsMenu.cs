@@ -171,8 +171,8 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.fisher"), this.GetProfession(SFarmer.fisher), value => this.SetProfession(SFarmer.fisher, value)));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.trapper"), this.GetProfession(SFarmer.trapper), value => this.SetProfession(SFarmer.trapper, value)));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.angler"), this.GetProfession(SFarmer.angler), value => this.SetProfession(SFarmer.angler, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.luremaster"), this.GetProfession(SFarmer.baitmaster), value => this.SetProfession(SFarmer.baitmaster, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.mariner"), this.GetProfession(SFarmer.mariner), value => this.SetProfession(SFarmer.mariner, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.luremaster"), this.GetProfession(SFarmer.mariner), value => this.SetProfession(SFarmer.mariner, value))); // mariner = luremaster (???)
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.mariner"), this.GetProfession(SFarmer.baitmaster), value => this.SetProfession(SFarmer.baitmaster, value))); // baitmaster = mariner (???)
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.pirate"), this.GetProfession(SFarmer.pirate), value => this.SetProfession(SFarmer.pirate, value)));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.forester"), this.GetProfession(SFarmer.forester), value => this.SetProfession(SFarmer.forester, value)));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.gatherer"), this.GetProfession(SFarmer.gatherer), value => this.SetProfession(SFarmer.gatherer, value)));

@@ -17,7 +17,7 @@ namespace CJBCheatsMenu.Framework
         private readonly NPC Npc;
         private readonly ClickableTextureComponent Mugshot;
         private int Value;
-        private Action<int> OnValueChanged;
+        private readonly Action<int> OnValueChanged;
 
 
         /*********
