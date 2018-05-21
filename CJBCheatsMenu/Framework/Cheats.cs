@@ -26,7 +26,7 @@ namespace CJBCheatsMenu.Framework
         private readonly ModConfig Config;
 
         private int PreviousTime = -1;
-        private Dictionary<string, int> PreviousFriendships;
+        private readonly Dictionary<string, int> PreviousFriendships = new Dictionary<string, int>();
 
 
         /*********
@@ -37,6 +37,14 @@ namespace CJBCheatsMenu.Framework
         public Cheats(ModConfig config)
         {
             this.Config = config;
+        }
+
+        /// <summary>Update the tracked friendship points for an NPC.</summary>
+        /// <param name="npc">The NPC whose friendship to update.</param>
+        /// <param name="points">The new friendship points value.</param>
+        public void UpdateFriendship(NPC npc, int points)
+        {
+            this.PreviousFriendships[npc.Name] = points;
         }
 
         public void SetWeatherForNextDay(int weatherID)
@@ -170,7 +178,10 @@ namespace CJBCheatsMenu.Framework
                             friendship.Points = oldPoints;
                     }
                 }
-                this.PreviousFriendships = Game1.player.friendshipData.FieldDict.ToDictionary(p => p.Key, p => p.Value.Value.Points);
+
+                this.PreviousFriendships.Clear();
+                foreach (var pair in Game1.player.friendshipData.FieldDict)
+                    this.PreviousFriendships[pair.Key] = pair.Value.Value.Points;
             }
 
             // apply location changes

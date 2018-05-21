@@ -210,7 +210,7 @@ namespace CJBCheatsMenu.Framework
                         {
                             if (!Game1.player.friendshipData.ContainsKey(npc.Name) || (npc.Name == "Sandy" && !Game1.player.mailReceived.Contains("ccVault")) || npc.Name == "???" || npc.Name == "Bouncer" || npc.Name == "Marlon" || npc.Name == "Gil" || npc.Name == "Gunther" || npc.IsMonster || npc is Horse || npc is Pet)
                                 continue;
-                            relationshipElements.Add(new CheatsOptionsNPCSlider(npc));
+                            relationshipElements.Add(new CheatsOptionsNPCSlider(npc, onValueChanged: points => this.Cheats.UpdateFriendship(npc, points)));
                         }
                         this.Options.AddRange(relationshipElements.OrderBy(p => p.label));
                     }

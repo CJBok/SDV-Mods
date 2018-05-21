@@ -101,6 +101,7 @@ setting | default | what it affects
 * Added option for fast fruit trees.
 * Added Japanese and Russian translations (thanks to Marity and Ryofuko!).
 * Fixed 'increase movement speed' checkbox disabling the speed slider.
+* Fixed relationship editor not letting you decrease friendships if you have "No Friendship Decay" enabled.
 * Fixed relationship list not using translated name when sorting.
 
 1.17 (2018-02-11):
