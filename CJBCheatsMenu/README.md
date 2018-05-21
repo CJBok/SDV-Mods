@@ -99,6 +99,7 @@ setting | default | what it affects
 1.18 (upcoming):
 * Updated for Stardew Valley 1.3 (including multiplayer support).
 * Added option for fast fruit trees.
+* Added support for instantly watering or growing crops in garden pots.
 * Added Japanese and Russian translations (thanks to Marity and Ryofuko!).
 * Fixed 'increase movement speed' checkbox disabling the speed slider.
 * Fixed relationship editor not letting you decrease friendships if you have "No Friendship Decay" enabled.

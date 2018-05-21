@@ -63,7 +63,16 @@ namespace CJBCheatsMenu.Framework
                 foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
                 {
                     if (terrainFeature is HoeDirt dirt)
-                        dirt.state.Value = 1;
+                        dirt.state.Value = HoeDirt.watered;
+                }
+
+                foreach (IndoorPot pot in location.objects.Values.OfType<IndoorPot>())
+                {
+                    if (pot.hoeDirt.Value is HoeDirt dirt)
+                    {
+                        dirt.state.Value = HoeDirt.watered;
+                        pot.showNextIndex.Value = true;
+                    }
                 }
             }
         }
@@ -107,9 +116,14 @@ namespace CJBCheatsMenu.Framework
 
             foreach (Vector2 tile in tiles)
             {
-                if (player.currentLocation.terrainFeatures.ContainsKey(tile))
+                if (player.currentLocation.terrainFeatures.TryGetValue(tile, out TerrainFeature terrainFeature))
                 {
-                    if (player.currentLocation.terrainFeatures[tile] is HoeDirt dirt)
+                    if (terrainFeature is HoeDirt dirt)
+                        dirt.crop?.growCompletely();
+                }
+                else if (player.currentLocation.objects.TryGetValue(tile, out SObject obj))
+                {
+                    if (obj is IndoorPot pot && pot.hoeDirt.Value is HoeDirt dirt)
                         dirt.crop?.growCompletely();
                 }
             }

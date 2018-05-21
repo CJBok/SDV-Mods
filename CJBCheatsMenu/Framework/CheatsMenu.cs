@@ -208,7 +208,7 @@ namespace CJBCheatsMenu.Framework
                         foreach (NPC npc in Utility.getAllCharacters())
                         {
                             if (npc.CanSocialize)
-                                relationshipElements.Add(new CheatsOptionsNPCSlider(npc, onValueChanged: points => this.Cheats.UpdateFriendship(npc, points));
+                                relationshipElements.Add(new CheatsOptionsNPCSlider(npc, onValueChanged: points => this.Cheats.UpdateFriendship(npc, points)));
                         }
                         this.Options.AddRange(relationshipElements.OrderBy(p => p.label));
                     }
