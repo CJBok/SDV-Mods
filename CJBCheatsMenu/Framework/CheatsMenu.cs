@@ -278,14 +278,14 @@ namespace CJBCheatsMenu.Framework
                     int i = 0;
                     foreach ( Quest q in Game1.player.questLog )
                     {
-                        if ( !q.completed )
+                        if ( !q.completed.Value )
                             this.Options.Add( new CheatsOptionsInputListener( q.questTitle, 300 + i++, this.OptionSlots[ 0 ].bounds.Width, config, cheats, i18n ) );
                     }
                     this.Options.Add( new OptionsElement( $"{i18n.Get( "completedquests.title" )}:" ) );
                     i = 0;
                     foreach ( Quest q in Game1.player.questLog )
                     {
-                        if ( q.completed )
+                        if ( q.completed.Value )
                             this.Options.Add( new OptionsElement( q.questTitle ) { whichOption = -999 } );
                     }
                 }
