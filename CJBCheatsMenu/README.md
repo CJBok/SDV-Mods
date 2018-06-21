@@ -107,6 +107,7 @@ setting | default | what it affects
 * Fixed relationship list not using translated name when sorting.
 * Fixed Luremaster and Mariner options being swapped.
 * Fixed fast machine processing not working in constructed buildings.
+* Fixed searchbox getting cleared when you change another options like quality.
 
 1.17 (2018-02-11):
 * Updated to SMAPI 2.4.

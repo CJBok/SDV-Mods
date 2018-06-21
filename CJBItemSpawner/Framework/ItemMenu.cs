@@ -38,7 +38,7 @@ namespace CJBItemSpawner.Framework
         private ItemInventoryMenu ItemsToGrabMenu;
         private TemporaryAnimatedSprite Poof;
         private Rectangle TextboxBounds;
-        private string TempText = "";
+        private string PreviousText = "";
 
 
         /*********
@@ -48,8 +48,9 @@ namespace CJBItemSpawner.Framework
         /// <param name="currentTab">The selected tab.</param>
         /// <param name="sortBy">How to sort items.</param>
         /// <param name="quality">The item quality to display.</param>
+        /// <param name="search">The search term to prepopulate.</param>
         /// <param name="i18n">Provides translations for the mod.</param>
-        public ItemMenu(MenuTab currentTab, ItemSort sortBy, ItemQuality quality, ITranslationHelper i18n)
+        public ItemMenu(MenuTab currentTab, ItemSort sortBy, ItemQuality quality, string search, ITranslationHelper i18n)
           : base(null, true, true, 0, -50)
         {
             // initialise
@@ -70,7 +71,7 @@ namespace CJBItemSpawner.Framework
                 Width = textWidth,
                 Height = Game1.tileSize * 3,
                 Selected = false,
-                Text = this.TempText
+                Text = search
             };
             Game1.keyboardDispatcher.Subscriber = this.Textbox;
             this.TextboxBounds = new Rectangle(this.Textbox.X, this.Textbox.Y, this.Textbox.Width, this.Textbox.Height / 3);
@@ -108,7 +109,7 @@ namespace CJBItemSpawner.Framework
         }
 
         public ItemMenu(ITranslationHelper i18n)
-            : this(0, 0, ItemQuality.Normal, i18n) { }
+            : this(0, 0, ItemQuality.Normal, "", i18n) { }
 
         public override void receiveRightClick(int x, int y, bool playSound = true)
         {
@@ -279,9 +280,9 @@ namespace CJBItemSpawner.Framework
 
         public override void update(GameTime time)
         {
-            if (this.TempText != this.Textbox.Text)
+            if (this.PreviousText != this.Textbox.Text)
             {
-                this.TempText = this.Textbox.Text;
+                this.PreviousText = this.Textbox.Text;
                 ItemInventoryMenu.ScrollIndex = 0;
                 this.LoadInventory(this.SpawnableItems);
             }
@@ -366,9 +367,9 @@ namespace CJBItemSpawner.Framework
         /*********
         ** Private methods
         *********/
-        private void Reopen(MenuTab? tabIndex = null, ItemSort? sortBy = null, ItemQuality? quality = null)
+        private void Reopen(MenuTab? tabIndex = null, ItemSort? sortBy = null, ItemQuality? quality = null, string search = null)
         {
-            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortBy ?? this.SortBy, quality ?? this.Quality, this.TranslationHelper);
+            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortBy ?? this.SortBy, quality ?? this.Quality, search ?? this.PreviousText, this.TranslationHelper);
         }
 
         /// <summary>Get the translated label for a sort type.</summary>
