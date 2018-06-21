@@ -24,6 +24,7 @@ namespace CJBItemSpawner
         {
             // read config
             this.Config = helper.ReadConfig<ModConfig>();
+            this.Monitor.Log($"Started with menu key {this.Config.ShowMenuKey}.", LogLevel.Trace);
 
             // hook events
             ControlEvents.KeyPressed += this.Events_KeyPressed;

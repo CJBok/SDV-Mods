@@ -32,6 +32,8 @@ namespace CJBCheatsMenu
         public override void Entry(IModHelper helper)
         {
             this.Config = helper.ReadConfig<ModConfig>();
+            this.Monitor.Log($"Started with menu key {this.Config.OpenMenuKey}.", LogLevel.Trace);
+
             this.Cheats = new Cheats(this.Config);
 
             SaveEvents.AfterLoad += this.SaveEvents_AfterLoad;
