@@ -566,9 +566,20 @@ namespace CJBItemSpawner.Framework
                 yield return item;
             }
 
+            // secret notes
+            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\SecretNotes").Keys)
+            {
+                SObject note = new SObject(79, 1);
+                note.name = $"{note.name} #{id}";
+                yield return note;
+            }
+
             // objects
             foreach (int id in Game1.objectInformation.Keys)
             {
+                if (id == 79)
+                    continue; // secret note handled above
+
                 // ring
                 if (id >= Ring.ringLowerIndexRange && id <= Ring.ringUpperIndexRange)
                 {
