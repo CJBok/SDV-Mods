@@ -407,7 +407,7 @@ namespace CJBItemSpawner.Framework
                 if (item is SObject obj)
                     obj.Quality = (int)this.Quality;
 
-                if ((this.CurrentTab == MenuTab.All || this.GetRelevantTab(item) == this.CurrentTab) && item.Name.ToLower().Contains(this.Textbox.Text.ToLower()))
+                if ((this.CurrentTab == MenuTab.All || this.GetRelevantTab(item) == this.CurrentTab) && (item.Name.ToLower().Contains(this.Textbox.Text.ToLower()) || item.DisplayName.ToLower().Contains(this.Textbox.Text.ToLower())))
                     inventoryItems.Add(item);
             }
 
