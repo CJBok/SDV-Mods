@@ -25,7 +25,10 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The mod settings.</summary>
         private readonly ModConfig Config;
 
+        /// <summary>The time to maintain if time is frozen.</summary>
         private int PreviousTime = -1;
+
+        /// <summary>The minimum friendship points to maintain for each NPC.</summary>
         private readonly Dictionary<string, int> PreviousFriendships = new Dictionary<string, int>();
 
 
@@ -37,6 +40,12 @@ namespace CJBCheatsMenu.Framework
         public Cheats(ModConfig config)
         {
             this.Config = config;
+        }
+
+        /// <summary>Reset all tracked data.</summary>
+        public void Reset()
+        {
+            this.PreviousFriendships.Clear();
         }
 
         /// <summary>Update the tracked friendship points for an NPC.</summary>

@@ -58,6 +58,7 @@ namespace CJBCheatsMenu
         private void SaveEvents_AfterLoad(object sender, EventArgs eventArgs)
         {
             this.Locations = CJB.GetAllLocations().ToArray();
+            this.Cheats.Reset();
         }
 
         private void LocationEvents_LocationsChanged(object sender, EventArgsLocationsChanged e)

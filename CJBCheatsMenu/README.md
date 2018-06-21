@@ -103,7 +103,8 @@ setting | default | what it affects
 * Added support for instantly watering or growing crops in garden pots.
 * Added Japanese and Russian translations (thanks to Marity and Ryofuko!).
 * Fixed 'increase movement speed' checkbox disabling the speed slider.
-* Fixed relationship editor not letting you decrease friendships if you have "No Friendship Decay" enabled.
+* Fixed 'no friendship decay' preventing you from decreasing friendships through relationship editor.
+* Fixed 'no friendship decay' not recalculating points when you switch save.
 * Fixed relationship list not using translated name when sorting.
 * Fixed Luremaster and Mariner options being swapped.
 * Fixed fast machine processing not working in constructed buildings.
