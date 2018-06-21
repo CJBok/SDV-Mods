@@ -363,7 +363,7 @@ namespace CJBCheatsMenu.Framework
                             rod.timeUntilFishingBite = 0;
                     }
                     if (this.Config.DurableTackles && rod.attachments[1] != null)
-                        rod.attachments[1].Scale = new Vector2(rod.attachments[1].Scale.X, 1);
+                        rod.attachments[1].uses.Value = 0;
                 }
 
                 if (this.Config.OneHitBreak && player.UsingTool && (player.CurrentTool is Axe || player.CurrentTool is Pickaxe))
