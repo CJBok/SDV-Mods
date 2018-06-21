@@ -133,7 +133,7 @@ namespace CJBItemSpawner.Framework
                         {
                             if (index == Game1.player.CurrentToolIndex && this.ActualInventory[index] != null && this.ActualInventory[index].Stack == 1)
                                 this.ActualInventory[index].actionWhenStopBeingHeld(Game1.player);
-                            Item one = this.GetOne(this.ActualInventory[index]);
+                            Item one = this.ActualInventory[index].getOne();
                             if (this.ActualInventory[index].Stack > 1)
                             {
                                 if (Game1.isOneOfTheseKeysDown(Game1.oldKBState, new[] { new InputButton(Keys.LeftShift) }))
@@ -248,28 +248,6 @@ namespace CJBItemSpawner.Framework
         /*********
         ** Private methods
         *********/
-        /// <summary>Get one instance of an item with the same metadata.</summary>
-        /// <param name="item">The item to copy.</param>
-        private Item GetOne(Item item)
-        {
-            // keep preserve data
-            if (item is SObject old && (old.preserve.Value != null || old.honeyType.Value != null))
-            {
-                SObject newObj = new SObject(old.TileLocation, old.ParentSheetIndex, old.name, old.CanBeSetDown, old.CanBeGrabbed, old.IsHoeDirt, old.IsSpawnedObject)
-                {
-                    Name = old.name,
-                    Price = old.Price
-                };
-                newObj.honeyType.Value = old.honeyType.Value;
-                newObj.preserve.Value = old.preserve.Value;
-                newObj.preservedParentSheetIndex.Value = old.preservedParentSheetIndex.Value;
-                return newObj;
-            }
-
-            // else use default logic
-            return item.getOne();
-        }
-
         private Item AddItemToInventory(Item item, int position, IList<Item> items, ItemGrabMenu.behaviorOnItemSelect onAddFunction = null)
         {
             if (object.ReferenceEquals(items, Game1.player.Items) && item is SObject obj && obj.specialItem)
@@ -314,7 +292,7 @@ namespace CJBItemSpawner.Framework
         {
             if (whichItemIndex >= 0 && whichItemIndex < items.Count && items[whichItemIndex] != null)
             {
-                Item item = this.GetOne(items[whichItemIndex]);
+                Item item = items[whichItemIndex].getOne();
                 item.Stack = items[whichItemIndex].Stack;
                 if (whichItemIndex == Game1.player.CurrentToolIndex && object.ReferenceEquals(items, Game1.player.Items))
                     item.actionWhenStopBeingHeld(Game1.player);
