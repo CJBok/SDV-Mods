@@ -10,6 +10,7 @@
   "tabs.relationships": "Отношения",
   "tabs.warp": "Телепортация",
   "tabs.time": "Время",
+  "tabs.quests": "Quests", // TODO
   "tabs.controls": "Управление",
 
   // 'Player & Tools' tab
@@ -149,6 +150,10 @@
   "time.freeze-caves": "Остановить время в пещерах",
   "time.freeze-everywhere": "Остановить время везде",
   "time.time": "Время",
+
+  // 'Quests' tab
+  "activequests.title": "Active Quests", // TODO
+  "completedquests.title": "Completed Quests", // TODO
 
   // 'Controls' tab
   "controls.title": "Управление",
