@@ -412,7 +412,8 @@ namespace CJBCheatsMenu.Framework
                 }
             }
 
-            if (this.Config.MaxDailyLuck) Game1.dailyLuck = 0.115d;
+            if (this.Config.MaxDailyLuck)
+                Game1.dailyLuck = 0.115d;
 
             if (this.Config.OneHitKill && Game1.currentLocation != null)
             {

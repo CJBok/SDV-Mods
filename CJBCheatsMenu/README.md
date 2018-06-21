@@ -98,6 +98,7 @@ setting | default | what it affects
 ## Versions
 1.18 (upcoming):
 * Updated for Stardew Valley 1.3 (including multiplayer support).
+* Added Quests tab, allows to complete active quests instantly.
 * Added option for fast fruit trees.
 * Added support for instantly watering or growing crops in garden pots.
 * Added Japanese and Russian translations (thanks to Marity and Ryofuko!).

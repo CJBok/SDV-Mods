@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
+using StardewValley.Quests;
 using SFarmer = StardewValley.Farmer;
 
 namespace CJBCheatsMenu.Framework
@@ -70,6 +71,7 @@ namespace CJBCheatsMenu.Framework
                 this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Relationships.ToString(), i18n.Get("tabs.relationships")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.WarpLocations.ToString(), i18n.Get("tabs.warp")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Time.ToString(), i18n.Get("tabs.time")));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Quests.ToString(), i18n.Get("tabs.quests")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i, Game1.tileSize * 5, Game1.tileSize), MenuTab.Controls.ToString(), i18n.Get("tabs.controls")));
             }
 
@@ -245,6 +247,25 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("time.freeze-caves"), config.FreezeTimeCaves, value => config.FreezeTimeCaves = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("time.freeze-everywhere"), config.FreezeTime, value => config.FreezeTime = value));
                     this.Options.Add(new CheatsOptionsSlider(i18n.Get("time.time"), (Game1.timeOfDay - 600) / 100, 19, value => this.SafelySetTime((value * 100) + 600), width: 100, format: value => Game1.getTimeOfDayString((value * 100) + 600)));
+                    break;
+
+                case MenuTab.Quests:
+                    {
+                        this.Options.Add(new OptionsElement($"{i18n.Get("activequests.title")}:"));
+                        int i = 0;
+                        foreach (Quest q in Game1.player.questLog)
+                        {
+                            if (!q.completed.Value)
+                                this.Options.Add(new CheatsOptionsInputListener(q.questTitle, 300 + i++, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
+                        }
+                        this.Options.Add(new OptionsElement($"{i18n.Get("completedquests.title")}:"));
+                        i = 0;
+                        foreach (Quest q in Game1.player.questLog)
+                        {
+                            if (q.completed.Value)
+                                this.Options.Add(new OptionsElement(q.questTitle) { whichOption = -999 });
+                        }
+                    }
                     break;
 
                 case MenuTab.Controls:

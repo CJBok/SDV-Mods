@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
+using StardewValley.Quests;
 using SFarmer = StardewValley.Farmer;
 
 namespace CJBCheatsMenu.Framework
@@ -268,6 +269,17 @@ namespace CJBCheatsMenu.Framework
                             Game1.player.maxHealth -= 25;
                         Game1.player.health = Game1.player.maxHealth;
                         Game1.player.professions.Clear();
+                        break;
+                    case int n when (n >= 300 && n <= 399):
+                        for (int i = Game1.player.questLog.Count - 1; i >= 0; i--)
+                        {
+                            Quest q = Game1.player.questLog[i];
+                            if (this.label == q.questTitle)
+                            {
+                                q.questComplete();
+                            }
+                        }
+                        Game1.exitActiveMenu();
                         break;
                 }
             }
