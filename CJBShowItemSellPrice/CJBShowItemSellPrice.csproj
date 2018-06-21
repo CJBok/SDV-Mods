@@ -51,6 +51,7 @@
     <None Include="i18n\default.json" />
     <None Include="packages.config" />
     <None Include="README.md" />
+    <None Include="release-notes.md" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Pathoschild.Stardew.ModBuildConfig.2.1.0-beta\analyzers\dotnet\cs\StardewModdingAPI.ModBuildConfig.Analyzer.dll" />
