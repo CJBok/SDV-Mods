@@ -10,6 +10,7 @@
 * Fixed 'increase movement speed' checkbox disabling the speed slider.
 * Fixed 'no friendship decay' preventing you from decreasing friendships through relationship editor.
 * Fixed 'no friendship decay' not recalculating points when you switch save.
+* Fixed 'instant grow tree' making fruit trees not produce fruit.
 * Fixed relationship list not using translated name when sorting.
 * Fixed Luremaster and Mariner options being swapped.
 * Fixed fast machine processing not working in constructed buildings.

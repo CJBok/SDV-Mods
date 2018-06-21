@@ -99,13 +99,13 @@ namespace CJBCheatsMenu.Framework
                 if (terrainFeature is Tree tree)
                 {
                     if (!tree.stump.Value)
-                        tree.growthStage.Value = 5;
+                        tree.growthStage.Value = Tree.treeStage;
                 }
                 else if (terrainFeature is FruitTree fruitTree)
                 {
                     if (!fruitTree.stump.Value)
                     {
-                        fruitTree.growthStage.Value = 5;
+                        fruitTree.growthStage.Value = FruitTree.treeStage;
                         fruitTree.daysUntilMature.Value = 0;
                     }
                 }
