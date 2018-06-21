@@ -30,7 +30,7 @@ namespace CJBItemSpawner.Framework
         private readonly TextBox Textbox;
         private readonly bool AllowRightClick;
         private readonly MenuTab CurrentTab;
-        private readonly int SortID;
+        private readonly ItemSort SortBy;
         private readonly ItemQuality Quality;
         private readonly bool ShowReceivingMenu = true;
         private readonly bool CanExitOnKey = true;
@@ -44,14 +44,19 @@ namespace CJBItemSpawner.Framework
         /*********
         ** Public methods
         *********/
-        public ItemMenu(MenuTab currentTab, int sortID, ItemQuality quality, ITranslationHelper i18n)
+        /// <summary>Construct an instance.</summary>
+        /// <param name="currentTab">The selected tab.</param>
+        /// <param name="sortBy">How to sort items.</param>
+        /// <param name="quality">The item quality to display.</param>
+        /// <param name="i18n">Provides translations for the mod.</param>
+        public ItemMenu(MenuTab currentTab, ItemSort sortBy, ItemQuality quality, ITranslationHelper i18n)
           : base(null, true, true, 0, -50)
         {
             // initialise
             this.TranslationHelper = i18n;
             this.MovePosition(110, Game1.viewport.Height / 2 - (650 + IClickableMenu.borderWidth * 2) / 2);
             this.CurrentTab = currentTab;
-            this.SortID = sortID;
+            this.SortBy = sortBy;
             this.Quality = quality;
             this.SpawnableItems = this.GetSpawnableItems().ToArray();
             this.AllowRightClick = true;
@@ -73,7 +78,7 @@ namespace CJBItemSpawner.Framework
             // create buttons
             this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.width - Game1.tileSize, this.yPositionOnScreen - Game1.tileSize * 2, Game1.tileSize * 4, Game1.tileSize), i18n.Get("title"));
             this.QualityButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen - Game1.tileSize * 2 + 10, (int)Game1.smallFont.MeasureString(i18n.Get("labels.quality")).X, Game1.tileSize), i18n.Get("labels.quality"));
-            this.SortButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.QualityButton.bounds.Width + 40, this.yPositionOnScreen - Game1.tileSize * 2 + 10, Game1.tileSize * 4, Game1.tileSize), this.GetSortLabel(sortID));
+            this.SortButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.QualityButton.bounds.Width + 40, this.yPositionOnScreen - Game1.tileSize * 2 + 10, Game1.tileSize * 4, Game1.tileSize), this.GetSortLabel(sortBy));
             this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(this.xPositionOnScreen + this.width - Game1.tileSize / 2, this.yPositionOnScreen - Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
             this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.xPositionOnScreen + this.width - Game1.tileSize / 2, this.yPositionOnScreen + this.height / 2 - Game1.tileSize * 2, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
 
@@ -178,10 +183,7 @@ namespace CJBItemSpawner.Framework
 
                 if (this.SortButton.bounds.Contains(x, y))
                 {
-                    int sortID = this.SortID + 1;
-                    if (sortID > 2)
-                        sortID = 0;
-                    this.Reopen(sortID: sortID);
+                    this.Reopen(sortBy: this.SortBy.GetNext());
                 }
 
                 if (this.QualityButton.bounds.Contains(x, y))
@@ -364,25 +366,25 @@ namespace CJBItemSpawner.Framework
         /*********
         ** Private methods
         *********/
-        private void Reopen(MenuTab? tabIndex = null, int? sortID = null, ItemQuality? quality = null)
+        private void Reopen(MenuTab? tabIndex = null, ItemSort? sortBy = null, ItemQuality? quality = null)
         {
-            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortID ?? this.SortID, quality ?? this.Quality, this.TranslationHelper);
+            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortBy ?? this.SortBy, quality ?? this.Quality, this.TranslationHelper);
         }
 
-        /// <summary>Get the translated label for a sort ID.</summary>
-        /// <param name="sortID">The sort ID.</param>
-        private string GetSortLabel(int sortID)
+        /// <summary>Get the translated label for a sort type.</summary>
+        /// <param name="sort">The sort type.</param>
+        private string GetSortLabel(ItemSort sort)
         {
-            switch (sortID)
+            switch (sort)
             {
-                case 0:
+                case ItemSort.DisplayName:
                     return this.TranslationHelper.Get("labels.sort-by-name");
-                case 1:
+                case ItemSort.Category:
                     return this.TranslationHelper.Get("labels.sort-by-category");
-                case 2:
+                case ItemSort.ID:
                     return this.TranslationHelper.Get("labels.sort-by-id");
                 default:
-                    throw new NotSupportedException($"Invalid sort ID {sortID}.");
+                    throw new NotSupportedException($"Invalid sort type {sort}.");
             }
         }
 
@@ -397,15 +399,19 @@ namespace CJBItemSpawner.Framework
 
         private void LoadInventory(Item[] spawnableItems)
         {
-            // get spawnable items in display order
-            spawnableItems = spawnableItems.OrderBy(o => o.DisplayName).ToArray();
-            switch (this.SortID)
+            // sort items
+            switch (this.SortBy)
             {
-                case 1:
+                case ItemSort.Category:
                     spawnableItems = spawnableItems.OrderBy(o => o.Category).ToArray();
                     break;
-                case 2:
+
+                case ItemSort.ID:
                     spawnableItems = spawnableItems.OrderBy(o => o.ParentSheetIndex).ToArray();
+                    break;
+
+                default:
+                    spawnableItems = spawnableItems.OrderBy(o => o.DisplayName).ToArray();
                     break;
             }
 
