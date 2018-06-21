@@ -401,14 +401,22 @@ namespace CJBItemSpawner.Framework
 
             // load inventory
             List<Item> inventoryItems = new List<Item>();
+            string search = this.Textbox.Text.Trim();
             foreach (Item item in spawnableItems)
             {
+                // get item
                 item.Stack = item.maximumStackSize();
                 if (item is SObject obj)
                     obj.Quality = (int)this.Quality;
 
-                if ((this.CurrentTab == MenuTab.All || this.GetRelevantTab(item) == this.CurrentTab) && (item.Name.ToLower().Contains(this.Textbox.Text.ToLower()) || item.DisplayName.ToLower().Contains(this.Textbox.Text.ToLower())))
-                    inventoryItems.Add(item);
+                // skip if not applicable
+                if (this.CurrentTab != MenuTab.All && this.GetRelevantTab(item) != this.CurrentTab)
+                    continue;
+                if (search != "" && item.Name.IndexOf(search, StringComparison.InvariantCultureIgnoreCase) < 0 && item.DisplayName.IndexOf(search, StringComparison.InvariantCultureIgnoreCase) < 0)
+                    continue;
+
+                // add to inventory
+                inventoryItems.Add(item);
             }
 
             // show menu

@@ -20,6 +20,7 @@ Compatible with Stardew Valley 1.2+ on Linux, Mac, and Windows. Translated into 
 * Updated for Stardew Valley 1.3 (including multiplayer support).
 * Fixed pickled items not shown.
 * Fixed incorrect tab name.
+* Fixed search not matching translated display names (thanks to Roskonix!).
 * Added Russian translations (thanks to Ryofuko!).
 
 1.10 (2018-02-11):
