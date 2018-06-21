@@ -18,13 +18,6 @@ namespace CJBItemSpawner.Framework.Constants
         /*********
         ** Public methods
         *********/
-        /// <summary>Get the quality name.</summary>
-        /// <param name="current">The quality.</param>
-        public static string GetName(this ItemQuality current)
-        {
-            return current.ToString().ToLower();
-        }
-
         /// <summary>Get the previous quality.</summary>
         /// <param name="current">The current quality.</param>
         public static ItemQuality GetPrevious(this ItemQuality current)

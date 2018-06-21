@@ -127,7 +127,7 @@ namespace CJBItemSpawner.Framework
                 }
                 else if (this.HeldItem is SObject recipe && recipe.IsRecipe)
                 {
-                    string key = this.HeldItem.Name.Substring(0, recipe.Name.IndexOf("Recipe") - 1);
+                    string key = this.HeldItem.Name.Substring(0, recipe.Name.IndexOf("Recipe", StringComparison.InvariantCultureIgnoreCase) - 1);
                     try
                     {
                         if (recipe.Category == -7)
@@ -137,7 +137,10 @@ namespace CJBItemSpawner.Framework
                         this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % 64 + 16, y - y % 64 + 16), false, false);
                         Game1.playSound("newRecipe");
                     }
-                    catch { }
+                    catch
+                    {
+                        // deliberately ignore errors
+                    }
                     this.HeldItem = null;
                 }
                 else
@@ -199,33 +202,37 @@ namespace CJBItemSpawner.Framework
             if (this.HeldItem == null && this.ShowReceivingMenu)
             {
                 this.HeldItem = this.ItemsToGrabMenu?.LeftClick(x, y, this.HeldItem, false);
-                if (this.HeldItem is SObject obj && obj.ParentSheetIndex == 326)
+                SObject obj = this.HeldItem as SObject;
+                if (obj != null && obj.ParentSheetIndex == 326)
                 {
                     this.HeldItem = null;
                     Game1.player.canUnderstandDwarves = true;
                     this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                     Game1.playSound("fireball");
                 }
-                else if (this.HeldItem is SObject && (this.HeldItem as SObject).ParentSheetIndex == 102)
+                else if (obj != null && obj.ParentSheetIndex == 102)
                 {
                     this.HeldItem = null;
                     Game1.player.foundArtifact(102, 1);
                     this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                     Game1.playSound("fireball");
                 }
-                else if (this.HeldItem is SObject recipe && recipe.IsRecipe)
+                else if (obj != null && obj.IsRecipe)
                 {
-                    string key = recipe.Name.Substring(0, recipe.Name.IndexOf("Recipe") - 1);
+                    string key = obj.Name.Substring(0, obj.Name.IndexOf("Recipe", StringComparison.InvariantCultureIgnoreCase) - 1);
                     try
                     {
-                        if (recipe.Category == -7)
+                        if (obj.Category == -7)
                             Game1.player.cookingRecipes.Add(key, 0);
                         else
                             Game1.player.craftingRecipes.Add(key, 0);
                         this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                         Game1.playSound("newRecipe");
                     }
-                    catch { }
+                    catch
+                    {
+                        // deliberately ignore errors
+                    }
                     this.HeldItem = null;
                 }
                 else if (Game1.player.addItemToInventoryBool(this.HeldItem))
@@ -307,7 +314,10 @@ namespace CJBItemSpawner.Framework
                         ? (int)((ItemQuality)obj.Quality).GetNext()
                         : (int)((ItemQuality)obj.Quality).GetPrevious();
                 }
-                catch { }
+                catch
+                {
+                    // deliberately ignore errors
+                }
             }
             else
                 this.ItemsToGrabMenu?.receiveScrollWheelAction(direction);

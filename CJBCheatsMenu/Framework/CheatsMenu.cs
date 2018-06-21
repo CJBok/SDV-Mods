@@ -40,7 +40,7 @@ namespace CJBCheatsMenu.Framework
         private int OptionsSlotHeld = -1;
         private int CurrentItemIndex;
         private bool IsScrolling;
-        private Rectangle ScrollbarRunner;
+        private readonly Rectangle ScrollbarRunner;
         private bool CanClose;
         private readonly MenuTab CurrentTab;
 
@@ -210,7 +210,7 @@ namespace CJBCheatsMenu.Framework
                         foreach (NPC npc in Utility.getAllCharacters())
                         {
                             if (npc.CanSocialize)
-                                relationshipElements.Add(new CheatsOptionsNPCSlider(npc, onValueChanged: points => this.Cheats.UpdateFriendship(npc, points)));
+                                relationshipElements.Add(new CheatsOptionsNpcSlider(npc, onValueChanged: points => this.Cheats.UpdateFriendship(npc, points)));
                         }
                         this.Options.AddRange(relationshipElements.OrderBy(p => p.label));
                     }
@@ -252,18 +252,20 @@ namespace CJBCheatsMenu.Framework
                 case MenuTab.Quests:
                     {
                         this.Options.Add(new OptionsElement($"{i18n.Get("activequests.title")}:"));
-                        int i = 0;
-                        foreach (Quest q in Game1.player.questLog)
                         {
-                            if (!q.completed.Value)
-                                this.Options.Add(new CheatsOptionsInputListener(q.questTitle, 300 + i++, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
+                            int i = 0;
+                            foreach (Quest quest in Game1.player.questLog)
+                            {
+                                if (!quest.completed.Value)
+                                    this.Options.Add(new CheatsOptionsInputListener(quest.questTitle, 300 + i++, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
+                            }
                         }
                         this.Options.Add(new OptionsElement($"{i18n.Get("completedquests.title")}:"));
-                        i = 0;
-                        foreach (Quest q in Game1.player.questLog)
+
+                        foreach (Quest quest in Game1.player.questLog)
                         {
-                            if (q.completed.Value)
-                                this.Options.Add(new OptionsElement(q.questTitle) { whichOption = -999 });
+                            if (quest.completed.Value)
+                                this.Options.Add(new OptionsElement(quest.questTitle) { whichOption = -999 });
                         }
                     }
                     break;

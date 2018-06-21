@@ -41,6 +41,7 @@ namespace CJBCheatsMenu.Framework
         /// <param name="slotWidth">The field width.</param>
         /// <param name="config">The mod settings.</param>
         /// <param name="cheats">The cheats helper.</param>
+        /// <param name="i18n">Provides translations for the mod.</param>
         public CheatsOptionsInputListener(string label, int whichOption, int slotWidth, ModConfig config, Cheats cheats, ITranslationHelper i18n)
           : base(label, -1, -1, slotWidth + 1, 11 * Game1.pixelZoom, whichOption)
         {

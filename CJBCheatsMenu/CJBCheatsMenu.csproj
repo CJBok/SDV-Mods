@@ -46,7 +46,7 @@
     <Compile Include="Framework\CheatsOptionsCheckbox.cs" />
     <Compile Include="Framework\CheatsOptionsWeatherElement.cs" />
     <Compile Include="Framework\CheatsOptionsInputListener.cs" />
-    <Compile Include="Framework\CheatsOptionsNPCSlider.cs" />
+    <Compile Include="Framework\CheatsOptionsNpcSlider.cs" />
     <Compile Include="Framework\CheatsOptionsSlider.cs" />
     <Compile Include="Framework\CJB.cs" />
     <Compile Include="ModEntry.cs" />

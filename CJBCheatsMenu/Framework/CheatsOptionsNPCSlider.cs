@@ -6,7 +6,7 @@ using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework
 {
-    internal class CheatsOptionsNPCSlider : OptionsElement
+    internal class CheatsOptionsNpcSlider : OptionsElement
     {
         /*********
         ** Properties
@@ -23,12 +23,12 @@ namespace CJBCheatsMenu.Framework
         /*********
         ** Public methods
         *********/
-        public CheatsOptionsNPCSlider(NPC npc, Action<int> onValueChanged)
+        public CheatsOptionsNpcSlider(NPC npc, Action<int> onValueChanged)
             : base(npc.displayName, x: 96, y: -1, width: 80 * Game1.pixelZoom, height: 6 * Game1.pixelZoom, whichOption: 0)
         {
             this.Npc = npc;
             this.SliderLabel = npc.getName();
-            this.SliderMaxValue = CheatsOptionsNPCSlider.MaxValue;
+            this.SliderMaxValue = CheatsOptionsNpcSlider.MaxValue;
             this.OnValueChanged = onValueChanged;
 
             this.Mugshot = new ClickableTextureComponent("Mugshot", this.bounds, "", "", npc.Sprite.Texture, npc.getMugShotSourceRect(), 0.7f * Game1.pixelZoom);
