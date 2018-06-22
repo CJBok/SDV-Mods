@@ -352,17 +352,35 @@ namespace CJBCheatsMenu.Framework
                 if (this.Config.InfiniteStamina)
                     player.stamina = player.MaxStamina;
 
+                // help fishing
                 if (Game1.activeClickableMenu == null && player.CurrentTool is FishingRod rod)
                 {
-                    if (this.Config.ThrowBobberMax)
+                    if (this.Config.AlwaysTreasure)
+                        FishingRod.baseChanceForTreasure = 100;
+
+                    if (this.Config.ThrowBobberMax && rod.isCasting)
                         rod.castingPower = 1.01F;
-                    if (this.Config.InstantBite && rod.isFishing)
+
+                    if (rod.isFishing)
                     {
-                        if (rod.timeUntilFishingBite > 0)
+                        if (this.Config.InstantBite && rod.timeUntilFishingBite > 0 && rod.isFishing)
                             rod.timeUntilFishingBite = 0;
+
+                        if (this.Config.InstantCatch && rod.isNibbling && !rod.hit)
+                            Game1.pressUseToolButton();
+
+                        if (rod.isReeling && rod.fishCaught && Game1.activeClickableMenu is BobberBar bobberMenu)
+                        {
+                            if (this.Config.InstantCatch && rod.isReeling)
+                                helper.Reflection.GetField<float>(bobberMenu, "distanceFromCatching").SetValue(1);
+
+                            if (helper.Reflection.GetField<bool>(bobberMenu, "treasure").GetValue())
+                                helper.Reflection.GetField<bool>(bobberMenu, "treasureCaught").SetValue(true);
+                        }
+
+                        if (this.Config.DurableTackles && rod.attachments[1] != null)
+                            rod.attachments[1].uses.Value = 0;
                     }
-                    if (this.Config.DurableTackles && rod.attachments[1] != null)
-                        rod.attachments[1].uses.Value = 0;
                 }
 
                 if (this.Config.OneHitBreak && player.UsingTool && (player.CurrentTool is Axe || player.CurrentTool is Pickaxe))
@@ -418,28 +436,20 @@ namespace CJBCheatsMenu.Framework
                         friendship.GiftsToday = 0;
                     }
                 }
+
+                // one key kill
+                if (this.Config.OneHitKill)
+                {
+                    foreach (Monster monster in player.currentLocation.characters.OfType<Monster>())
+                    {
+                        if (monster.Health > 1)
+                            monster.Health = 1;
+                    }
+                }
             }
 
             if (this.Config.MaxDailyLuck)
                 Game1.dailyLuck = 0.115d;
-
-            if (this.Config.OneHitKill && Game1.currentLocation != null)
-            {
-                foreach (Monster monster in Game1.currentLocation.characters.OfType<Monster>())
-                    monster.Health = 1;
-            }
-
-            if ((this.Config.InstantCatch || this.Config.AlwaysTreasure) && Game1.activeClickableMenu is BobberBar bobberMenu)
-            {
-                if (this.Config.AlwaysTreasure)
-                    helper.Reflection.GetField<bool>(bobberMenu, "treasure").SetValue(true);
-
-                if (this.Config.InstantCatch)
-                    helper.Reflection.GetField<float>(bobberMenu, "distanceFromCatching").SetValue(1);
-
-                if (helper.Reflection.GetField<bool>(bobberMenu, "treasure").GetValue())
-                    helper.Reflection.GetField<bool>(bobberMenu, "treasureCaught").SetValue(true);
-            }
 
             if (this.Config.InfiniteHay)
             {
