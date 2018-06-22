@@ -208,7 +208,7 @@ namespace CJBCheatsMenu.Framework
 
             // apply location changes
             Farm farm = Game1.getFarm();
-            foreach (GameLocation location in CJB.GetAllLocations())
+            foreach (GameLocation location in locations)
             {
                 // instant buildings
                 if (this.Config.InstantBuild && location is BuildableGameLocation buildableLocation)
@@ -383,7 +383,8 @@ namespace CJBCheatsMenu.Framework
                     }
                 }
 
-                if (this.Config.OneHitBreak && player.UsingTool && (player.CurrentTool is Axe || player.CurrentTool is Pickaxe))
+                // one hit break
+                if (this.Config.OneHitBreak && player.UsingTool && player.CurrentTool is Axe || player.CurrentTool is Pickaxe)
                 {
                     Vector2 tile = new Vector2((int)player.GetToolLocation().X / Game1.tileSize, (int)player.GetToolLocation().Y / Game1.tileSize);
 
@@ -425,9 +426,11 @@ namespace CJBCheatsMenu.Framework
                     }
                 }
 
+                // infinite water can
                 if (this.Config.InfiniteWateringCan && player.CurrentTool is WateringCan can)
-                    helper.Reflection.GetField<int>(can, "waterLeft").SetValue(can.waterCanMax);
+                    can.WaterLeft = can.waterCanMax;
 
+                // give gift every time
                 if (this.Config.AlwaysGiveGift)
                 {
                     foreach (Friendship friendship in player.friendshipData.Values)
