@@ -59,9 +59,9 @@ namespace CJBCheatsMenu.Framework
             Game1.soundBank.PlayCue("thunder");
         }
 
-        public void WaterAllFields(GameLocation[] locations)
+        public void WaterAllFields()
         {
-            foreach (GameLocation location in locations)
+            foreach (GameLocation location in CJB.GetAllLocations())
             {
                 if (!location.IsFarm && !location.Name.Contains("Greenhouse"))
                     continue;

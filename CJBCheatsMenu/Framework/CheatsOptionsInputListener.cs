@@ -108,7 +108,7 @@ namespace CJBCheatsMenu.Framework
                         break;
                     case 9:
                         Game1.soundBank.PlayCue("glug");
-                        this.Cheats.WaterAllFields(CJB.GetAllLocations().ToArray());
+                        this.Cheats.WaterAllFields();
                         break;
                     case 10:
                         this.Cheats.SetWeatherForNextDay(Game1.weather_sunny);
