@@ -84,7 +84,10 @@ namespace CJBCheatsMenu.Framework
 
         public void GrowTree()
         {
-            SFarmer player = Game1.player;
+            var player = Game1.player;
+            if (player == null)
+                return;
+            
             int x = (int)player.GetToolLocation().X / Game1.tileSize;
             int y = (int)player.GetToolLocation().Y / Game1.tileSize;
             Vector2 index = new Vector2(x, y);
@@ -110,7 +113,10 @@ namespace CJBCheatsMenu.Framework
 
         public void GrowCrops()
         {
-            SFarmer player = Game1.player;
+            var player = Game1.player;
+            if (player == null)
+                return;
+
             List<Vector2> tiles = new List<Vector2>();
 
             for (int x = -1; x <= 1; x++)
@@ -175,6 +181,9 @@ namespace CJBCheatsMenu.Framework
         public void OnDrawTick(ITranslationHelper i18n)
         {
             GameLocation location = Game1.currentLocation;
+
+            if (location == null)
+                return;
 
             bool inCave = location is MineShaft || location is FarmCave;
             bool frozen = (this.Config.FreezeTimeInside && !location.IsOutdoors && !inCave) || (this.Config.FreezeTimeCaves && inCave);
@@ -285,7 +294,7 @@ namespace CJBCheatsMenu.Framework
                 }
 
                 // autofeed animals
-                if (this.Config.AutoFeed && location is AnimalHouse animalHouse)
+                if (this.Config.AutoFeed && farm != null && location is AnimalHouse animalHouse)
                 {
                     int animalcount = animalHouse.animals.Values.Count();
                     int hayobjects = animalHouse.numberOfObjectsWithName("Hay");
