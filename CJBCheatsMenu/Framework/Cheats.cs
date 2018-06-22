@@ -314,11 +314,8 @@ namespace CJBCheatsMenu.Framework
                 }
 
                 // harvest with sickle
-                if (this.Config.HarvestSickle)
+                if (this.Config.HarvestSickle && (location.IsFarm || location.Name.Contains("Greenhouse")))
                 {
-                    if (!location.IsFarm && !location.Name.Contains("Greenhouse"))
-                        continue;
-
                     foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
                     {
                         if (terrainFeature is HoeDirt dirt)
