@@ -194,22 +194,16 @@ namespace CJBCheatsMenu.Framework
 
         public void OneSecondUpdate(GameLocation[] locations)
         {
-            // disable friendship decay
-            if (this.Config.NoFriendshipDecay)
+            // apply friendship changes
+            if (Game1.player != null)
             {
-                if (this.PreviousFriendships.Any())
-                {
-                    foreach (string key in Game1.player.friendshipData.Keys)
-                    {
-                        Friendship friendship = Game1.player.friendshipData[key];
-                        if (this.PreviousFriendships.TryGetValue(key, out int oldPoints) && oldPoints > friendship.Points)
-                            friendship.Points = oldPoints;
-                    }
-                }
-
-                this.PreviousFriendships.Clear();
                 foreach (var pair in Game1.player.friendshipData.FieldDict)
-                    this.PreviousFriendships[pair.Key] = pair.Value.Value.Points;
+                {
+                    int currentPoints = pair.Value.Value.Points;
+                    int oldPoints = 0;
+                    this.PreviousFriendships.TryGetValue(pair.Key, out oldPoints);
+                    this.PreviousFriendships[pair.Key] = pair.Value.Value.Points = this.Config.NoFriendshipDecay && currentPoints < oldPoints ? oldPoints : currentPoints;
+                }
             }
 
             // apply location changes
