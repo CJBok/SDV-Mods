@@ -189,7 +189,7 @@ namespace CJBCheatsMenu.Framework
 
             // apply location changes
             Farm farm = Game1.getFarm();
-            foreach (GameLocation location in CJB.GetAllLocations())
+            foreach (GameLocation location in locations)
             {
                 // instant buildings
                 if (this.Config.InstantBuild && location is BuildableGameLocation buildableLocation)
@@ -402,7 +402,7 @@ namespace CJBCheatsMenu.Framework
 
                 // infinite watering can
                 if (this.Config.InfiniteWateringCan && player.CurrentTool is WateringCan can)
-                    helper.Reflection.GetField<int>(can, "waterLeft").SetValue(can.waterCanMax);
+                    can.WaterLeft = can.waterCanMax;
 
                 // unlimited gifts
                 if (this.Config.AlwaysGiveGift)
