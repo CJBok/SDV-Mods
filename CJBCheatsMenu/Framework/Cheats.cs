@@ -337,12 +337,9 @@ namespace CJBCheatsMenu.Framework
             {
                 SFarmer player = Game1.player;
 
-                if (this.Config.IncreasedMovement && player.running)
+                if (this.Config.IncreasedMovement && Context.IsPlayerFree && player.running)
                     player.addedSpeed = this.Config.MoveSpeed;
-                else if (!this.Config.IncreasedMovement && player.addedSpeed == this.Config.MoveSpeed)
-                    player.addedSpeed = 0;
-
-                if (player.controller != null)
+                else
                     player.addedSpeed = 0;
 
                 if (Game1.CurrentEvent == null)
