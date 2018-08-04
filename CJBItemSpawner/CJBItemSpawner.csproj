@@ -42,13 +42,15 @@
     <Compile Include="Framework\ItemData\ItemRepository.cs" />
     <Compile Include="Framework\ItemData\ItemType.cs" />
     <Compile Include="Framework\ItemData\SearchableItem.cs" />
+    <Compile Include="Framework\Models\ModData.cs" />
+    <Compile Include="Framework\Models\ModDataItem.cs" />
     <Compile Include="ModEntry.cs" />
     <Compile Include="Framework\Constants\MenuTab.cs" />
     <Compile Include="Framework\ItemInventoryMenu.cs" />
     <Compile Include="Framework\ItemMenu.cs" />
     <Compile Include="Framework\ItemMenuWithInventory.cs" />
     <Compile Include="Framework\Constants\ItemQuality.cs" />
-    <Compile Include="Framework\ModConfig.cs" />
+    <Compile Include="Framework\Models\ModConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +58,9 @@
     <Content Include="screenshot.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="data.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="i18n\ru.json" />
     <None Include="i18n\pt.json" />
     <None Include="i18n\default.json" />

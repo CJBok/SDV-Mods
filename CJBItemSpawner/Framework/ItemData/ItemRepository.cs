@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using StardewValley;
 using StardewValley.Objects;
@@ -16,10 +18,28 @@ namespace CJBItemSpawner.Framework.ItemData
         /// <summary>The custom ID offset for items don't have a unique ID in the game.</summary>
         private readonly int CustomIDOffset = 1000;
 
+        /// <summary>A filter which matches items to include.</summary>
+        private readonly Func<SearchableItem, bool> Filter;
+
 
         /*********
         ** Public methods
         *********/
+        /// <summary>Construct an instance.</summary>
+        /// <param name="filter">A filter which matches items to include.</param>
+        public ItemRepository(Func<SearchableItem, bool> filter)
+        {
+            this.Filter = filter;
+        }
+
+        /// <summary>Get all spawnable items matching the filter passed into the constructor.</summary>
+        public IEnumerable<SearchableItem> GetFiltered()
+        {
+            return this
+                .GetAll()
+                .Where(this.Filter);
+        }
+
         /// <summary>Get all spawnable items.</summary>
         public IEnumerable<SearchableItem> GetAll()
         {

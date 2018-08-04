@@ -5,6 +5,7 @@
 * Updated for Stardew Valley 1.3 (including multiplayer support).
 * Added controller support.
 * Added support for secret notes.
+* Problematic items are now hidden by default (e.g. those which can crash the game).
 * Fixed pickled items not shown.
 * Fixed incorrect tab name.
 * Fixed search not matching translated display names (thanks to Roskonix!).

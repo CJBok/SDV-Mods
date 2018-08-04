@@ -34,7 +34,9 @@ namespace CJBItemSpawner.Framework
         private readonly ItemQuality Quality;
         private readonly bool ShowReceivingMenu = true;
         private readonly bool CanExitOnKey = true;
-        private readonly ItemRepository ItemRepository = new ItemRepository();
+
+        /// <summary>Provides methods for searching and constructing items.</summary>
+        private readonly ItemRepository ItemRepository;
 
         private ItemInventoryMenu ItemsToGrabMenu;
         private TemporaryAnimatedSprite Poof;
@@ -51,16 +53,18 @@ namespace CJBItemSpawner.Framework
         /// <param name="quality">The item quality to display.</param>
         /// <param name="search">The search term to prepopulate.</param>
         /// <param name="i18n">Provides translations for the mod.</param>
-        public ItemMenu(MenuTab currentTab, ItemSort sortBy, ItemQuality quality, string search, ITranslationHelper i18n)
+        /// <param name="itemRepository">Provides methods for searching and constructing items.</param>
+        public ItemMenu(MenuTab currentTab, ItemSort sortBy, ItemQuality quality, string search, ITranslationHelper i18n, ItemRepository itemRepository)
           : base(null, true, true, 0, -50)
         {
             // initialise
             this.TranslationHelper = i18n;
+            this.ItemRepository = itemRepository;
             this.MovePosition(110, Game1.viewport.Height / 2 - (650 + IClickableMenu.borderWidth * 2) / 2);
             this.CurrentTab = currentTab;
             this.SortBy = sortBy;
             this.Quality = quality;
-            this.SpawnableItems = this.GetSpawnableItems().ToArray();
+            this.SpawnableItems = this.ItemRepository.GetFiltered().Select(p => p.Item).ToArray();
             this.AllowRightClick = true;
 
             // create search box
@@ -109,8 +113,11 @@ namespace CJBItemSpawner.Framework
             this.LoadInventory(this.SpawnableItems);
         }
 
-        public ItemMenu(ITranslationHelper i18n)
-            : this(0, 0, ItemQuality.Normal, "", i18n) { }
+        /// <summary>Construct an instance.</summary>
+        /// <param name="i18n">Provides translations for the mod.</param>
+        /// <param name="itemRepository">Provides methods for searching and constructing items.</param>
+        public ItemMenu(ITranslationHelper i18n, ItemRepository itemRepository)
+            : this(0, 0, ItemQuality.Normal, "", i18n, itemRepository) { }
 
         public override void receiveRightClick(int x, int y, bool playSound = true)
         {
@@ -370,7 +377,7 @@ namespace CJBItemSpawner.Framework
         *********/
         private void Reopen(MenuTab? tabIndex = null, ItemSort? sortBy = null, ItemQuality? quality = null, string search = null)
         {
-            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortBy ?? this.SortBy, quality ?? this.Quality, search ?? this.PreviousText, this.TranslationHelper);
+            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortBy ?? this.SortBy, quality ?? this.Quality, search ?? this.PreviousText, this.TranslationHelper, this.ItemRepository);
         }
 
         /// <summary>Get the translated label for a sort type.</summary>
@@ -510,11 +517,6 @@ namespace CJBItemSpawner.Framework
 
             // anything else
             return MenuTab.Misc;
-        }
-
-        private IEnumerable<Item> GetSpawnableItems()
-        {
-            return this.ItemRepository.GetAll().Select(p => p.Item);
         }
     }
 }
