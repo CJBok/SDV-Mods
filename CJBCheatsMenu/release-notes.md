@@ -6,6 +6,7 @@
 * Added Quests tab to complete active quests instantly.
 * Added option for fast fruit trees.
 * Added support for instantly watering or growing crops in garden pots.
+* Added support for custom greenhouse locations.
 * Added Japanese and Russian translations (thanks to Marity and Ryofuko!).
 * Fixed 'increase movement speed' checkbox disabling the speed slider.
 * Fixed 'no friendship decay' preventing you from decreasing friendships through relationship editor.

@@ -63,7 +63,7 @@ namespace CJBCheatsMenu.Framework
         {
             foreach (GameLocation location in CJB.GetAllLocations())
             {
-                if (!location.IsFarm && !location.Name.Contains("Greenhouse"))
+                if (!location.IsFarm && !location.IsGreenhouse)
                     continue;
 
                 foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
@@ -150,7 +150,7 @@ namespace CJBCheatsMenu.Framework
                 IDictionary<int, int> cropHarvestMethods = this.GetCropHarvestMethods();
                 foreach (GameLocation location in Game1.locations)
                 {
-                    if (!location.IsFarm && !location.Name.Contains("Greenhouse"))
+                    if (!location.IsFarm && !location.IsGreenhouse)
                         continue;
                     foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
                     {
@@ -295,7 +295,7 @@ namespace CJBCheatsMenu.Framework
                 }
 
                 // harvest with sickle
-                if (this.Config.HarvestSickle && (location.IsFarm || location.Name.Contains("Greenhouse")))
+                if (this.Config.HarvestSickle && (location.IsFarm || location.IsGreenhouse))
                 {
                     foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
                     {
