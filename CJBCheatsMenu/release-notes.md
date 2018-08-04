@@ -16,6 +16,8 @@
 * Fixed fast machine processing not working in constructed buildings.
 * Fixed some artisanal items not spawning with selected quality.
 * Fixed searchbox getting cleared when you change another options like quality.
+* Fixed setting time manually not working if time is frozen (thanks to Issacy!).
+* Fixed things happening repeatedly when time is frozen in some cases (thanks to Issacy!).
 
 ## 1.17
 * Updated to SMAPI 2.4.

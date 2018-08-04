@@ -24,6 +24,7 @@ namespace CJBCheatsMenu.Framework
         *********/
         /// <summary>The mod settings.</summary>
         private readonly ModConfig Config;
+
         /// <summary>The minimum friendship points to maintain for each NPC.</summary>
         private readonly Dictionary<string, int> PreviousFriendships = new Dictionary<string, int>();
 
@@ -154,33 +155,10 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
-        public void OnTimeOfDayChanged()
-        {
-        //    GameLocation location = Game1.currentLocation;
-        //    if (this.PreviousTime == -1 || Game1.timeOfDay == 600)
-        //        this.PreviousTime = Game1.timeOfDay;
-        //    else
-        //    {
-        //        bool inCave = location is MineShaft || location is FarmCave;
-        //        bool frozen = (this.Config.FreezeTimeInside && !location.IsOutdoors && !inCave) || (this.Config.FreezeTimeCaves && inCave);
-        //        frozen = frozen || this.Config.FreezeTime;
-        //
-        //        if (frozen)
-        //            Game1.timeOfDay = this.PreviousTime;
-        //        else
-        //            this.PreviousTime = Game1.timeOfDay;
-        //    }
-        }
-
         public void OnDrawTick(ITranslationHelper i18n)
         {
-            GameLocation location = Game1.currentLocation;
-
-            bool inCave = location is MineShaft || location is FarmCave;
-            bool frozen = (this.Config.FreezeTimeInside && !location.IsOutdoors && !inCave) || (this.Config.FreezeTimeCaves && inCave);
-            frozen = frozen || this.Config.FreezeTime;
-            if (frozen)
-                CJB.DrawTextBox(5, inCave ? 100 : 5, Game1.smallFont, i18n.Get("messages.time-frozen"));
+            if (this.ShouldFreezeTime(Game1.currentLocation, out bool isCave))
+                CJB.DrawTextBox(5, isCave ? 100 : 5, Game1.smallFont, i18n.Get("messages.time-frozen"));
         }
 
         public void OneSecondUpdate(GameLocation[] locations)
@@ -445,7 +423,8 @@ namespace CJBCheatsMenu.Framework
                     farm.piecesOfHay.Value = Utility.numSilos() * 240;
             }
 
-            SetTimeFreezeStatus();
+            if (this.ShouldFreezeTime(Game1.currentLocation, out bool _))
+                Game1.gameTimeInterval = 0;
         }
 
         public void OnKeyPress(Keys key)
@@ -484,20 +463,21 @@ namespace CJBCheatsMenu.Framework
             return lookup;
         }
 
-        private void SetTimeFreezeStatus()
+        /// <summary>Get whether time should be frozen in the given location.</summary>
+        /// <param name="location">The location to check.</param>
+        /// <param name="isCave">Indicates whether the given location is a cave.</param>
+        private bool ShouldFreezeTime(GameLocation location, out bool isCave)
         {
-            GameLocation location = Game1.currentLocation;
+            isCave = location is MineShaft || location is FarmCave;
 
-            bool frozen = this.Config.FreezeTime;
+            if (this.Config.FreezeTime)
+                return true;
+            if (this.Config.FreezeTimeCaves && isCave)
+                return true;
+            if (this.Config.FreezeTimeInside && location != null && !location.IsOutdoors && !isCave)
+                return true;
 
-            if (location != null)
-            {
-	            bool inCave = location is MineShaft || location is FarmCave;
-	            frozen = frozen || (this.Config.FreezeTimeInside && !location.IsOutdoors && !inCave) || (this.Config.FreezeTimeCaves && inCave);
-	        }
-
-            if (frozen)
-                Game1.gameTimeInterval = 0;
+            return false;
         }
     }
 }

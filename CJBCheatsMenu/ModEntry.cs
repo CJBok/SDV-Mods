@@ -43,8 +43,6 @@ namespace CJBCheatsMenu
             GameEvents.UpdateTick += this.Events_UpdateTick;
             GameEvents.OneSecondTick += this.GameEvents_OneSecondTick;
 
-            TimeEvents.TimeOfDayChanged += this.TimeEvents_TimeOfDayChanged;
-
             ControlEvents.KeyPressed += this.Events_KeyPressed;
             ControlEvents.ControllerButtonPressed += this.ControlEvents_ControllerButtonPressed;
 
@@ -113,14 +111,6 @@ namespace CJBCheatsMenu
                 return;
 
             this.Cheats.OnDrawTick(this.Helper.Translation);
-        }
-
-        private void TimeEvents_TimeOfDayChanged(object sender, EventArgsIntChanged e)
-        {
-            if (!this.IsLoaded)
-                return;
-
-            this.Cheats.OnTimeOfDayChanged();
         }
 
         private void Events_UpdateTick(object sender, EventArgs e)
