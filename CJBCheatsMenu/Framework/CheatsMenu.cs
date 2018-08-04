@@ -206,13 +206,8 @@ namespace CJBCheatsMenu.Framework
                         this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("relationships.no-decay"), config.NoFriendshipDecay, value => config.NoFriendshipDecay = value));
                         this.Options.Add(new OptionsElement($"{i18n.Get("relationships.friends")}:"));
 
-                        IList<OptionsElement> relationshipElements = new List<OptionsElement>();
-                        foreach (NPC npc in Utility.getAllCharacters())
-                        {
-                            if (npc.CanSocialize)
-                                relationshipElements.Add(new CheatsOptionsNpcSlider(npc, onValueChanged: points => this.Cheats.UpdateFriendship(npc, points)));
-                        }
-                        this.Options.AddRange(relationshipElements.OrderBy(p => p.label));
+                        foreach (NPC npc in this.GetSocialCharacters().Distinct().OrderBy(p => p.displayName))
+                            this.Options.Add(new CheatsOptionsNpcSlider(npc, onValueChanged: points => this.Cheats.UpdateFriendship(npc, points)));
                     }
                     break;
 
@@ -279,6 +274,17 @@ namespace CJBCheatsMenu.Framework
                     break;
             }
             this.SetScrollBarToCurrentIndex();
+        }
+
+        /// <summary>Get all NPCs which have relationship data.</summary>
+        /// <remarks>Derived from the <see cref="SocialPage"/> constructor.</remarks>
+        private IEnumerable<NPC> GetSocialCharacters()
+        {
+            foreach (NPC npc in Utility.getAllCharacters())
+            {
+                if (npc.CanSocialize || Game1.player.friendshipData.ContainsKey(npc.Name))
+                    yield return npc;
+            }
         }
 
         /// <summary>Safely transition to the given time, allowing NPCs to update their schedule.</summary>

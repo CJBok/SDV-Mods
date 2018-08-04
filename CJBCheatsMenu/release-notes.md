@@ -16,6 +16,7 @@
 * Fixed 'instant grow tree' making fruit trees not produce fruit.
 * Fixed 'one-hit kill' cheat making monsters invincible in some cases (thanks to Issacy!).
 * Fixed relationship list not using translated name when sorting.
+* Fixed relationship list not showing dwarf.
 * Fixed Luremaster and Mariner options being swapped.
 * Fixed fast machine processing not working in constructed buildings.
 * Fixed some artisanal items not spawning with selected quality.
