@@ -25,9 +25,6 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The mod settings.</summary>
         private readonly ModConfig Config;
 
-        /// <summary>The time to maintain if time is frozen.</summary>
-        private int PreviousTime = -1;
-
         /// <summary>The minimum friendship points to maintain for each NPC.</summary>
         private readonly Dictionary<string, int> PreviousFriendships = new Dictionary<string, int>();
 
@@ -62,11 +59,11 @@ namespace CJBCheatsMenu.Framework
             Game1.soundBank.PlayCue("thunder");
         }
 
-        public void WaterAllFields(GameLocation[] locations)
+        public void WaterAllFields()
         {
-            foreach (GameLocation location in locations)
+            foreach (GameLocation location in CJB.GetAllLocations())
             {
-                if (!location.IsFarm && !location.Name.Contains("Greenhouse"))
+                if (!location.IsFarm && !location.IsGreenhouse)
                     continue;
 
                 foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
@@ -88,7 +85,10 @@ namespace CJBCheatsMenu.Framework
 
         public void GrowTree()
         {
-            SFarmer player = Game1.player;
+            var player = Game1.player;
+            if (player == null)
+                return;
+
             int x = (int)player.GetToolLocation().X / Game1.tileSize;
             int y = (int)player.GetToolLocation().Y / Game1.tileSize;
             Vector2 index = new Vector2(x, y);
@@ -114,7 +114,10 @@ namespace CJBCheatsMenu.Framework
 
         public void GrowCrops()
         {
-            SFarmer player = Game1.player;
+            var player = Game1.player;
+            if (player == null)
+                return;
+
             List<Vector2> tiles = new List<Vector2>();
 
             for (int x = -1; x <= 1; x++)
@@ -147,7 +150,7 @@ namespace CJBCheatsMenu.Framework
                 IDictionary<int, int> cropHarvestMethods = this.GetCropHarvestMethods();
                 foreach (GameLocation location in Game1.locations)
                 {
-                    if (!location.IsFarm && !location.Name.Contains("Greenhouse"))
+                    if (!location.IsFarm && !location.IsGreenhouse)
                         continue;
                     foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
                     {
@@ -158,33 +161,10 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
-        public void OnTimeOfDayChanged()
-        {
-            GameLocation location = Game1.currentLocation;
-            if (this.PreviousTime == -1 || Game1.timeOfDay == 600)
-                this.PreviousTime = Game1.timeOfDay;
-            else
-            {
-                bool inCave = location is MineShaft || location is FarmCave;
-                bool frozen = (this.Config.FreezeTimeInside && !location.IsOutdoors && !inCave) || (this.Config.FreezeTimeCaves && inCave);
-                frozen = frozen || this.Config.FreezeTime;
-
-                if (frozen)
-                    Game1.timeOfDay = this.PreviousTime;
-                else
-                    this.PreviousTime = Game1.timeOfDay;
-            }
-        }
-
         public void OnDrawTick(ITranslationHelper i18n)
         {
-            GameLocation location = Game1.currentLocation;
-
-            bool inCave = location is MineShaft || location is FarmCave;
-            bool frozen = (this.Config.FreezeTimeInside && !location.IsOutdoors && !inCave) || (this.Config.FreezeTimeCaves && inCave);
-            frozen = frozen || this.Config.FreezeTime;
-            if (frozen)
-                CJB.DrawTextBox(5, inCave ? 100 : 5, Game1.smallFont, i18n.Get("messages.time-frozen"));
+            if (this.ShouldFreezeTime(Game1.currentLocation, out bool isCave))
+                CJB.DrawTextBox(5, isCave ? 100 : 5, Game1.smallFont, i18n.Get("messages.time-frozen"));
         }
 
         public void OneSecondUpdate(GameLocation[] locations)
@@ -209,15 +189,17 @@ namespace CJBCheatsMenu.Framework
 
             // apply location changes
             Farm farm = Game1.getFarm();
-            foreach (GameLocation location in CJB.GetAllLocations())
+            foreach (GameLocation location in locations)
             {
                 // instant buildings
                 if (this.Config.InstantBuild && location is BuildableGameLocation buildableLocation)
                 {
                     foreach (Building building in buildableLocation.buildings)
                     {
-                        if (building.daysOfConstructionLeft.Value > 0 || building.daysUntilUpgrade.Value > 0)
-                            building.dayUpdate(1);
+                        if (building.daysOfConstructionLeft.Value > 0)
+                            building.dayUpdate(building.daysOfConstructionLeft.Value);
+                        if (building.daysUntilUpgrade.Value > 0)
+                            building.dayUpdate(building.daysUntilUpgrade.Value);
                     }
                 }
 
@@ -289,7 +271,7 @@ namespace CJBCheatsMenu.Framework
                 }
 
                 // autofeed animals
-                if (this.Config.AutoFeed && location is AnimalHouse animalHouse)
+                if (this.Config.AutoFeed && farm != null && location is AnimalHouse animalHouse)
                 {
                     int animalcount = animalHouse.animals.Values.Count();
                     int hayobjects = animalHouse.numberOfObjectsWithName("Hay");
@@ -313,11 +295,8 @@ namespace CJBCheatsMenu.Framework
                 }
 
                 // harvest with sickle
-                if (this.Config.HarvestSickle)
+                if (this.Config.HarvestSickle && (location.IsFarm || location.IsGreenhouse))
                 {
-                    if (!location.IsFarm && !location.Name.Contains("Greenhouse"))
-                        continue;
-
                     foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
                     {
                         if (terrainFeature is HoeDirt dirt)
@@ -332,27 +311,27 @@ namespace CJBCheatsMenu.Framework
 
         public void OnUpdate(IModHelper helper)
         {
-            if (Game1.player != null)
+            if (Game1.player?.currentLocation != null)
             {
                 SFarmer player = Game1.player;
 
+                // movement speed
                 if (this.Config.IncreasedMovement && player.running)
                     player.addedSpeed = this.Config.MoveSpeed;
                 else if (!this.Config.IncreasedMovement && player.addedSpeed == this.Config.MoveSpeed)
                     player.addedSpeed = 0;
-
                 if (player.controller != null)
                     player.addedSpeed = 0;
-
                 if (Game1.CurrentEvent == null)
                     player.movementDirections.Clear();
 
+                // infinite health/stamina
                 if (this.Config.InfiniteHealth)
                     player.health = player.maxHealth;
-
                 if (this.Config.InfiniteStamina)
                     player.stamina = player.MaxStamina;
 
+                // fishing cheats
                 if (Game1.activeClickableMenu == null && player.CurrentTool is FishingRod rod)
                 {
                     if (this.Config.ThrowBobberMax)
@@ -365,7 +344,19 @@ namespace CJBCheatsMenu.Framework
                     if (this.Config.DurableTackles && rod.attachments[1] != null)
                         rod.attachments[1].uses.Value = 0;
                 }
+                if ((this.Config.InstantCatch || this.Config.AlwaysTreasure) && Game1.activeClickableMenu is BobberBar bobberMenu)
+                {
+                    if (this.Config.AlwaysTreasure)
+                        helper.Reflection.GetField<bool>(bobberMenu, "treasure").SetValue(true);
 
+                    if (this.Config.InstantCatch)
+                        helper.Reflection.GetField<float>(bobberMenu, "distanceFromCatching").SetValue(1);
+
+                    if (helper.Reflection.GetField<bool>(bobberMenu, "treasure").GetValue())
+                        helper.Reflection.GetField<bool>(bobberMenu, "treasureCaught").SetValue(true);
+                }
+
+                // one-hit break
                 if (this.Config.OneHitBreak && player.UsingTool && (player.CurrentTool is Axe || player.CurrentTool is Pickaxe))
                 {
                     Vector2 tile = new Vector2((int)player.GetToolLocation().X / Game1.tileSize, (int)player.GetToolLocation().Y / Game1.tileSize);
@@ -408,9 +399,11 @@ namespace CJBCheatsMenu.Framework
                     }
                 }
 
+                // infinite watering can
                 if (this.Config.InfiniteWateringCan && player.CurrentTool is WateringCan can)
-                    helper.Reflection.GetField<int>(can, "waterLeft").SetValue(can.waterCanMax);
+                    can.WaterLeft = can.waterCanMax;
 
+                // unlimited gifts
                 if (this.Config.AlwaysGiveGift)
                 {
                     foreach (Friendship friendship in player.friendshipData.Values)
@@ -419,28 +412,20 @@ namespace CJBCheatsMenu.Framework
                         friendship.GiftsToday = 0;
                     }
                 }
+
+                // one-hit kill
+                if (this.Config.OneHitKill)
+                {
+                    foreach (Monster monster in player.currentLocation.characters.OfType<Monster>())
+                    {
+                        if (monster.Health > 1)
+                            monster.Health = 1;
+                    }
+                }
             }
 
             if (this.Config.MaxDailyLuck)
                 Game1.dailyLuck = 0.115d;
-
-            if (this.Config.OneHitKill && Game1.currentLocation != null)
-            {
-                foreach (Monster monster in Game1.currentLocation.characters.OfType<Monster>())
-                    monster.Health = 1;
-            }
-
-            if ((this.Config.InstantCatch || this.Config.AlwaysTreasure) && Game1.activeClickableMenu is BobberBar bobberMenu)
-            {
-                if (this.Config.AlwaysTreasure)
-                    helper.Reflection.GetField<bool>(bobberMenu, "treasure").SetValue(true);
-
-                if (this.Config.InstantCatch)
-                    helper.Reflection.GetField<float>(bobberMenu, "distanceFromCatching").SetValue(1);
-
-                if (helper.Reflection.GetField<bool>(bobberMenu, "treasure").GetValue())
-                    helper.Reflection.GetField<bool>(bobberMenu, "treasureCaught").SetValue(true);
-            }
 
             if (this.Config.InfiniteHay)
             {
@@ -448,6 +433,9 @@ namespace CJBCheatsMenu.Framework
                 if (farm != null)
                     farm.piecesOfHay.Value = Utility.numSilos() * 240;
             }
+
+            if (this.ShouldFreezeTime(Game1.currentLocation, out bool _))
+                Game1.gameTimeInterval = 0;
         }
 
         public void OnKeyPress(Keys key)
@@ -484,6 +472,23 @@ namespace CJBCheatsMenu.Framework
             }
 
             return lookup;
+        }
+
+        /// <summary>Get whether time should be frozen in the given location.</summary>
+        /// <param name="location">The location to check.</param>
+        /// <param name="isCave">Indicates whether the given location is a cave.</param>
+        private bool ShouldFreezeTime(GameLocation location, out bool isCave)
+        {
+            isCave = location is MineShaft || location is FarmCave;
+
+            if (this.Config.FreezeTime)
+                return true;
+            if (this.Config.FreezeTimeCaves && isCave)
+                return true;
+            if (this.Config.FreezeTimeInside && location != null && !location.IsOutdoors && !isCave)
+                return true;
+
+            return false;
         }
     }
 }

@@ -6,16 +6,20 @@
 * Added Quests tab to complete active quests instantly.
 * Added option for fast fruit trees.
 * Added support for instantly watering or growing crops in garden pots.
-* Added Japanese and Russian translations (thanks to Marity and Ryofuko!).
+* Added support for custom greenhouse locations.
+* Improved translations. Thanks to Issacy (Chinese), Marity (added Japanese), and Ryofuko (added Russian)!
 * Fixed 'increase movement speed' checkbox disabling the speed slider.
 * Fixed 'no friendship decay' preventing you from decreasing friendships through relationship editor.
 * Fixed 'no friendship decay' not recalculating points when you switch save.
 * Fixed 'instant grow tree' making fruit trees not produce fruit.
+* Fixed 'one-hit kill' cheat making monsters invincible in some cases.
 * Fixed relationship list not using translated name when sorting.
 * Fixed Luremaster and Mariner options being swapped.
 * Fixed fast machine processing not working in constructed buildings.
 * Fixed some artisanal items not spawning with selected quality.
 * Fixed searchbox getting cleared when you change another options like quality.
+* Fixed setting time manually not working if time is frozen (thanks to Issacy!).
+* Fixed things happening repeatedly when time is frozen in some cases (thanks to Issacy!).
 
 ## 1.17
 * Updated to SMAPI 2.4.
