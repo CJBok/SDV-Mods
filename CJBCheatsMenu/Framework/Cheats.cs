@@ -197,9 +197,9 @@ namespace CJBCheatsMenu.Framework
                     foreach (Building building in buildableLocation.buildings)
                     {
                         if (building.daysOfConstructionLeft.Value > 0)
-                            building.dayUpdate(building.daysOfConstructionLeft.Value);
+                            building.dayUpdate(0);
                         if (building.daysUntilUpgrade.Value > 0)
-                            building.dayUpdate(building.daysUntilUpgrade.Value);
+                            building.dayUpdate(0);
                     }
                 }
 
