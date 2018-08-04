@@ -8,6 +8,7 @@
 * Added support for instantly watering or growing crops in garden pots.
 * Added support for custom greenhouse locations.
 * Improved translations. Thanks to Issacy (Chinese), Marity (added Japanese), and Ryofuko (added Russian)!
+* Fixed issues with fishing cheats.
 * Fixed 'increase movement speed' checkbox disabling the speed slider.
 * Fixed 'no friendship decay' preventing you from decreasing friendships through relationship editor.
 * Fixed 'no friendship decay' not recalculating points when you switch save.

@@ -332,28 +332,33 @@ namespace CJBCheatsMenu.Framework
                     player.stamina = player.MaxStamina;
 
                 // fishing cheats
-                if (Game1.activeClickableMenu == null && player.CurrentTool is FishingRod rod)
+                if (player.CurrentTool is FishingRod rod)
                 {
-                    if (this.Config.ThrowBobberMax)
-                        rod.castingPower = 1.01F;
-                    if (this.Config.InstantBite && rod.isFishing)
-                    {
-                        if (rod.timeUntilFishingBite > 0)
-                            rod.timeUntilFishingBite = 0;
-                    }
+                    BobberBar bobberMenu = Game1.activeClickableMenu as BobberBar;
+
+                    // max cast power
+                    if (this.Config.ThrowBobberMax && rod.isTimingCast)
+                        rod.castingPower = 1.01f;
+
+                    // durable tackles
                     if (this.Config.DurableTackles && rod.attachments[1] != null)
                         rod.attachments[1].uses.Value = 0;
-                }
-                if ((this.Config.InstantCatch || this.Config.AlwaysTreasure) && Game1.activeClickableMenu is BobberBar bobberMenu)
-                {
-                    if (this.Config.AlwaysTreasure)
+
+                    // instant bite
+                    if (this.Config.InstantBite && rod.isFishing && !rod.hit && rod.timeUntilFishingBite > 0)
+                        rod.timeUntilFishingBite = 0;
+
+                    // always treasure
+                    if (this.Config.AlwaysTreasure && bobberMenu != null)
                         helper.Reflection.GetField<bool>(bobberMenu, "treasure").SetValue(true);
 
-                    if (this.Config.InstantCatch)
+                    // instant catch
+                    if (this.Config.InstantCatch && bobberMenu != null)
+                    {
                         helper.Reflection.GetField<float>(bobberMenu, "distanceFromCatching").SetValue(1);
-
-                    if (helper.Reflection.GetField<bool>(bobberMenu, "treasure").GetValue())
-                        helper.Reflection.GetField<bool>(bobberMenu, "treasureCaught").SetValue(true);
+                        if (helper.Reflection.GetField<bool>(bobberMenu, "treasure").GetValue())
+                            helper.Reflection.GetField<bool>(bobberMenu, "treasureCaught").SetValue(true);
+                    }
                 }
 
                 // one-hit break
