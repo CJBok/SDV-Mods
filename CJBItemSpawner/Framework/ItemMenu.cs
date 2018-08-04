@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CJBItemSpawner.Framework.Constants;
+using CJBItemSpawner.Framework.ItemData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -9,7 +10,6 @@ using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 using StardewValley.Objects;
-using StardewValley.Tools;
 using SObject = StardewValley.Object;
 
 namespace CJBItemSpawner.Framework
@@ -34,6 +34,7 @@ namespace CJBItemSpawner.Framework
         private readonly ItemQuality Quality;
         private readonly bool ShowReceivingMenu = true;
         private readonly bool CanExitOnKey = true;
+        private readonly ItemRepository ItemRepository = new ItemRepository();
 
         private ItemInventoryMenu ItemsToGrabMenu;
         private TemporaryAnimatedSprite Poof;
@@ -513,176 +514,7 @@ namespace CJBItemSpawner.Framework
 
         private IEnumerable<Item> GetSpawnableItems()
         {
-            // get tools
-            for (int quality = Tool.stone; quality <= Tool.iridium; quality++)
-            {
-                yield return ToolFactory.getToolFromDescription(ToolFactory.axe, quality);
-                yield return ToolFactory.getToolFromDescription(ToolFactory.hoe, quality);
-                yield return ToolFactory.getToolFromDescription(ToolFactory.pickAxe, quality);
-                yield return ToolFactory.getToolFromDescription(ToolFactory.wateringCan, quality);
-                if (quality != Tool.iridium)
-                    yield return ToolFactory.getToolFromDescription(ToolFactory.fishingRod, quality);
-            }
-            yield return new MilkPail();
-            yield return new Shears();
-            yield return new Pan();
-            yield return new Wand(); // return scepter
-
-            // wallpapers
-            for (int id = 0; id < 112; id++)
-                yield return new Wallpaper(id) { Category = SObject.furnitureCategory };
-
-            // flooring
-            for (int id = 0; id < 40; id++)
-                yield return new Wallpaper(id, true) { Category = SObject.furnitureCategory };
-
-            // equipment
-            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\Boots").Keys)
-                yield return new Boots(id);
-            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\hats").Keys)
-                yield return new Hat(id);
-
-            // weapons
-            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\weapons").Keys)
-            {
-                if (id >= 32 && id <= 34)
-                    yield return new Slingshot(id);
-                yield return new MeleeWeapon(id);
-            }
-
-            // furniture
-            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\Furniture").Keys)
-            {
-                Item item = new Furniture(id, Vector2.Zero);
-                if (id == 1466 || id == 1468)
-                    item = new TV(id, Vector2.Zero);
-                yield return item;
-            }
-
-            // craftables
-            foreach (int id in Game1.bigCraftablesInformation.Keys)
-            {
-                SObject item = new SObject(Vector2.Zero, id);
-                yield return item;
-            }
-
-            // secret notes
-            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\SecretNotes").Keys)
-            {
-                SObject note = new SObject(79, 1);
-                note.name = $"{note.name} #{id}";
-                yield return note;
-            }
-
-            // objects
-            foreach (int id in Game1.objectInformation.Keys)
-            {
-                if (id == 79)
-                    continue; // secret note handled above
-
-                // ring
-                if (id >= Ring.ringLowerIndexRange && id <= Ring.ringUpperIndexRange)
-                {
-                    yield return new Ring(id);
-                    continue;
-                }
-
-                // object
-                SObject item = new SObject(id, 1);
-                yield return item;
-
-                // fruit products
-                if (item.Category == SObject.FruitsCategory)
-                {
-                    // wine
-                    SObject wine = new SObject(348, 1)
-                    {
-                        name = $"{item.Name} Wine",
-                        Price = item.Price * 3
-                    };
-                    wine.preserve.Value = SObject.PreserveType.Wine;
-                    wine.preservedParentSheetIndex.Value = item.ParentSheetIndex;
-                    yield return wine;
-
-                    // jelly
-                    SObject jelly = new SObject(344, 1)
-                    {
-                        name = $"{item.Name} Jelly",
-                        Price = 50 + item.Price * 2
-                    };
-                    jelly.preserve.Value = SObject.PreserveType.Jelly;
-                    jelly.preservedParentSheetIndex.Value = item.ParentSheetIndex;
-                    yield return jelly;
-                }
-
-                // vegetable products
-                else if (item.Category == SObject.VegetableCategory)
-                {
-                    // juice
-                    SObject juice = new SObject(350, 1)
-                    {
-                        name = $"{item.Name} Juice",
-                        Price = (int)(item.Price * 2.25d)
-                    };
-                    juice.preserve.Value = SObject.PreserveType.Juice;
-                    juice.preservedParentSheetIndex.Value = item.ParentSheetIndex;
-                    yield return juice;
-
-                    // pickled
-                    SObject pickled = new SObject(342, 1)
-                    {
-                        name = $"Pickled {item.Name}",
-                        Price = 50 + item.Price * 2
-                    };
-                    pickled.preserve.Value = SObject.PreserveType.Pickle;
-                    pickled.preservedParentSheetIndex.Value = item.ParentSheetIndex;
-                    yield return pickled;
-                }
-
-                // flower products
-                else if (item.Category == SObject.flowersCategory)
-                {
-                    // get honey type
-                    SObject.HoneyType? type = null;
-                    switch (item.ParentSheetIndex)
-                    {
-                        case 376:
-                            type = SObject.HoneyType.Poppy;
-                            break;
-                        case 591:
-                            type = SObject.HoneyType.Tulip;
-                            break;
-                        case 593:
-                            type = SObject.HoneyType.SummerSpangle;
-                            break;
-                        case 595:
-                            type = SObject.HoneyType.FairyRose;
-                            break;
-                        case 597:
-                            type = SObject.HoneyType.BlueJazz;
-                            break;
-                        case 421: // sunflower standing in for all other flowers
-                            type = SObject.HoneyType.Wild;
-                            break;
-                    }
-
-                    // yield honey
-                    if (type != null)
-                    {
-                        SObject honey = new SObject(Vector2.Zero, 340, item.Name + " Honey", false, true, false, false)
-                        {
-                            name = "Wild Honey"
-                        };
-                        honey.honeyType.Value = type;
-                        if (type != SObject.HoneyType.Wild)
-                        {
-                            honey.name = $"{item.Name} Honey";
-                            honey.Price += item.Price * 2;
-                        }
-                        yield return honey;
-                    }
-                }
-            }
+            return this.ItemRepository.GetAll().Select(p => p.Item);
         }
     }
 }

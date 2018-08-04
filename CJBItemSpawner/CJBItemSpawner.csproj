@@ -39,6 +39,9 @@
     </Compile>
     <Compile Include="Framework\CJB.cs" />
     <Compile Include="Framework\Constants\ItemSort.cs" />
+    <Compile Include="Framework\ItemData\ItemRepository.cs" />
+    <Compile Include="Framework\ItemData\ItemType.cs" />
+    <Compile Include="Framework\ItemData\SearchableItem.cs" />
     <Compile Include="ModEntry.cs" />
     <Compile Include="Framework\Constants\MenuTab.cs" />
     <Compile Include="Framework\ItemInventoryMenu.cs" />
