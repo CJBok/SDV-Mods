@@ -3,17 +3,26 @@ with just a few clicks:
 
 ![](screenshot.png)
 
-Compatible with Stardew Valley 1.2+ on Linux, Mac, and Windows. Translated into English.
+Compatible with Stardew Valley 1.3+ on Linux, Mac, and Windows. Translated into English, Portuguese,
+and Russian.
 
-## Usage
-* Press the `i` button on your keyboard to open up the menu.
+## Install
+1. [Install the latest version of SMAPI](https://smapi.io/).
+2. [Install this mod from Nexus mods](http://www.nexusmods.com/stardewvalley/mods/93).
+3. Run the game using SMAPI.
+
+## Use
+* Press `i` on your keyboard (configurable) to open up the menu.
 * Change item quality by hovering over the item, holding left-shift, then using the mouse wheel to
   increase or decrease the quality level.
 
-## Installation
-1. [Install the latest version of SMAPI](https://github.com/Pathoschild/SMAPI/releases).
-2. [Install this mod from Nexus mods](http://www.nexusmods.com/stardewvalley/mods/93).
-3. Run the game using SMAPI.
+## Configure
+The mod will work fine out of the box, but you can tweak its settings by editing the `config.json`
+file. These are the available settings.
+
+setting | default | what it affects
+------- | ------- | ---------------
+`ShowMenuKey` | `P` | The button which opens the menu (see [valid key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings)).
 
 ## See also
 * [Release notes](release-notes.md)

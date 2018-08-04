@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Buildings;
@@ -443,16 +442,16 @@ namespace CJBCheatsMenu.Framework
                 Game1.gameTimeInterval = 0;
         }
 
-        public void OnKeyPress(Keys key)
+        public void OnButtonPress(SButton key)
         {
             if (!Context.IsPlayerFree)
                 return;
 
-            if (key.ToString() == this.Config.FreezeTimeKey)
+            if (key == this.Config.FreezeTimeKey)
                 this.Config.FreezeTime = !this.Config.FreezeTime;
-            else if (key.ToString() == this.Config.GrowTreeKey)
+            else if (key == this.Config.GrowTreeKey)
                 this.GrowTree();
-            else if (key.ToString() == this.Config.GrowCropsKey)
+            else if (key == this.Config.GrowCropsKey)
                 this.GrowCrops();
         }
 

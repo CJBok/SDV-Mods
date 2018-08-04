@@ -362,7 +362,8 @@ namespace CJBCheatsMenu.Framework
 
         public override void receiveKeyPress(Keys key)
         {
-            if ((Game1.options.menuButton.Contains(new InputButton(key)) || key.ToString() == this.Config.OpenMenuKey) && this.readyToClose() && this.CanClose)
+            bool isExitKey = Game1.options.menuButton.Contains(new InputButton(key)) || (this.Config.OpenMenuKey.TryGetKeyboard(out Keys exitKey) && key == exitKey);
+            if (isExitKey && this.readyToClose() && this.CanClose)
             {
                 Game1.exitActiveMenu();
                 Game1.soundBank.PlayCue("bigDeSelect");

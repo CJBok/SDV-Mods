@@ -3,31 +3,32 @@ with many different cheat features:
 
 ![](screenshot.gif)
 
-Compatible with Stardew Valley 1.2+ on Linux, Mac, and Windows. Translated into English.
+Compatible with Stardew Valley 1.3+ on Linux, Mac, and Windows. Translated into Chinese, English,
+Japanese, Portuguese, and Russian.
 
-## Usage
-* Press `P` (configurable) to show the cheats menu.
-* You can also enable active cheats by editing the `config.json` file.
-
-## Installation
-1. [Install the latest version of SMAPI](https://github.com/Pathoschild/SMAPI/releases).
+## Install
+1. [Install the latest version of SMAPI](https://smapi.io/).
 2. [Install this mod from Nexus mods](http://www.nexusmods.com/stardewvalley/mods/4).
 3. Run the game using SMAPI.
 
-## Configuration
+## Use
+* Press `P` (configurable) to show the cheats menu.
+* You can also enable active cheats by editing the `config.json` file.
+
+## Configure
 The mod will work fine out of the box, but you can tweak its settings by editing the `config.json`
 file. You can also edit these values through the in-game settings menu. These are the available
 settings.
 
-### Keyboard buttons
-(See [valid keyboard buttons](https://msdn.microsoft.com/en-us/library/microsoft.xna.framework.input.keys.aspx).)
+### Key bindings
+(See [valid key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings).)
 
 setting | default | what it affects
 ------- | ------- | ---------------
-`OpenMenuKey` | `P` | The keyboard button which opens the menu.
-`FreezeTimeKey` | `T` | The keyboard button which freezes the game clock.
-`GrowTreeKey` | `NumPad1` | The keyboard button which instantly grows the tree under the tool cursor.
-`GrowCropsKey` | `NumPad2` | The keyboard button which instantly grows crops adjacent to your character.
+`OpenMenuKey` | `P` | The button which opens the menu.
+`FreezeTimeKey` | `T` | The button which freezes the game clock.
+`GrowTreeKey` | `NumPad1` | The button which instantly grows the tree under the tool cursor.
+`GrowCropsKey` | `NumPad2` | The button which instantly grows crops adjacent to your character.
 
 ### Menu settings
 

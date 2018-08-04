@@ -3,6 +3,7 @@
 # Release notes
 ## 1.11
 * Updated for Stardew Valley 1.3 (including multiplayer support).
+* Added controller support.
 * Added support for secret notes.
 * Fixed pickled items not shown.
 * Fixed incorrect tab name.

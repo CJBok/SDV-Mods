@@ -27,7 +27,7 @@ namespace CJBItemSpawner
             this.Monitor.Log($"Started with menu key {this.Config.ShowMenuKey}.", LogLevel.Trace);
 
             // hook events
-            ControlEvents.KeyPressed += this.Events_KeyPressed;
+            InputEvents.ButtonPressed += this.Events_ButtonPressed;
         }
 
 
@@ -37,12 +37,12 @@ namespace CJBItemSpawner
         /// <summary>The method invoked when the player presses a keyboard button.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event data.</param>
-        private void Events_KeyPressed(object sender, EventArgsKeyPressed e)
+        private void Events_ButtonPressed(object sender, EventArgsInput e)
         {
             if (!Context.IsPlayerFree)
                 return;
 
-            if (e.KeyPressed == this.Config.ShowMenuKey)
+            if (e.Button == this.Config.ShowMenuKey)
                 Game1.activeClickableMenu = new ItemMenu(this.Helper.Translation);
         }
     }

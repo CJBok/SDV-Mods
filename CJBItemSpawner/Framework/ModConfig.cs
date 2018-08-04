@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using StardewModdingAPI;
 
 namespace CJBItemSpawner.Framework
 {
@@ -6,6 +6,6 @@ namespace CJBItemSpawner.Framework
     internal class ModConfig
     {
         /// <summary>The key which opens the item spawner menu.</summary>
-        public Keys ShowMenuKey { get; set; } = Keys.I;
+        public SButton ShowMenuKey { get; set; } = SButton.I;
     }
 }

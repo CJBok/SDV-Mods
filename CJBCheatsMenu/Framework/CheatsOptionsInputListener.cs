@@ -56,16 +56,16 @@ namespace CJBCheatsMenu.Framework
             switch (whichOption)
             {
                 case 1000:
-                    this.ButtonNames.Add(this.Config.OpenMenuKey);
+                    this.ButtonNames.Add(this.Config.OpenMenuKey.ToString());
                     break;
                 case 1001:
-                    this.ButtonNames.Add(this.Config.FreezeTimeKey);
+                    this.ButtonNames.Add(this.Config.FreezeTimeKey.ToString());
                     break;
                 case 1002:
-                    this.ButtonNames.Add(this.Config.GrowTreeKey);
+                    this.ButtonNames.Add(this.Config.GrowTreeKey.ToString());
                     break;
                 case 1003:
-                    this.ButtonNames.Add(this.Config.GrowCropsKey);
+                    this.ButtonNames.Add(this.Config.GrowCropsKey.ToString());
                     break;
             }
         }
@@ -308,16 +308,16 @@ namespace CJBCheatsMenu.Framework
                 switch (this.whichOption)
                 {
                     case 1000:
-                        this.Config.OpenMenuKey = key.ToString();
+                        this.Config.OpenMenuKey = (SButton)key;
                         break;
                     case 1001:
-                        this.Config.FreezeTimeKey = key.ToString();
+                        this.Config.FreezeTimeKey = (SButton)key;
                         break;
                     case 1002:
-                        this.Config.GrowTreeKey = key.ToString();
+                        this.Config.GrowTreeKey = (SButton)key;
                         break;
                     case 1003:
-                        this.Config.GrowCropsKey = key.ToString();
+                        this.Config.GrowCropsKey = (SButton)key;
                         break;
                 }
                 this.ButtonNames[0] = key.ToString();

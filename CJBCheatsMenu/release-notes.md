@@ -7,6 +7,7 @@
 * Added option for fast fruit trees.
 * Added support for instantly watering or growing crops in garden pots.
 * Added support for custom greenhouse locations.
+* Improved controller support.
 * Improved translations. Thanks to Issacy (Chinese), Marity (added Japanese), and Ryofuko (added Russian)!
 * Fixed issues with fishing cheats.
 * Fixed 'increase movement speed' checkbox disabling the speed slider.

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using CJBCheatsMenu.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu
 {
@@ -43,8 +41,7 @@ namespace CJBCheatsMenu
             GameEvents.UpdateTick += this.Events_UpdateTick;
             GameEvents.OneSecondTick += this.GameEvents_OneSecondTick;
 
-            ControlEvents.KeyPressed += this.Events_KeyPressed;
-            ControlEvents.ControllerButtonPressed += this.ControlEvents_ControllerButtonPressed;
+            InputEvents.ButtonPressed += this.Events_ButtonPressed;
 
             GraphicsEvents.OnPostRenderEvent += this.GraphicsEvents_DrawTick;
 
@@ -74,35 +71,15 @@ namespace CJBCheatsMenu
             this.Cheats.OneSecondUpdate(this.Locations);
         }
 
-        private void ControlEvents_ControllerButtonPressed(object sender, EventArgsControllerButtonPressed e)
-        {
-            if (!this.IsLoaded)
-                return;
-
-            if (Context.IsPlayerFree)
-            {
-                if (e.ButtonPressed.ToString() == this.Config.OpenMenuKey)
-                    this.OpenMenu();
-                else if (e.ButtonPressed.ToString() == this.Config.FreezeTimeKey)
-                    this.Config.FreezeTime = !this.Config.FreezeTime;
-            }
-            else if (Game1.activeClickableMenu is GameMenu menu)
-            {
-                IClickableMenu page = this.Helper.Reflection.GetField<List<IClickableMenu>>(menu, "pages").GetValue()[menu.currentTab];
-                if (page is CheatsMenu)
-                    page.receiveGamePadButton(e.ButtonPressed);
-            }
-        }
-
-        private void Events_KeyPressed(object sender, EventArgsKeyPressed e)
+        private void Events_ButtonPressed(object sender, EventArgsInput e)
         {
             if (!this.IsLoaded || !Context.IsPlayerFree)
                 return;
 
-            if (e.KeyPressed.ToString() == this.Config.OpenMenuKey)
+            if (e.Button == this.Config.OpenMenuKey)
                 this.OpenMenu();
             else
-                this.Cheats.OnKeyPress(e.KeyPressed);
+                this.Cheats.OnButtonPress(e.Button);
         }
 
         private void GraphicsEvents_DrawTick(object sender, EventArgs e)
