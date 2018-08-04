@@ -88,7 +88,7 @@ namespace CJBCheatsMenu.Framework
             var player = Game1.player;
             if (player == null)
                 return;
-            
+
             int x = (int)player.GetToolLocation().X / Game1.tileSize;
             int y = (int)player.GetToolLocation().Y / Game1.tileSize;
             Vector2 index = new Vector2(x, y);
@@ -312,28 +312,27 @@ namespace CJBCheatsMenu.Framework
 
         public void OnUpdate(IModHelper helper)
         {
-            if (Game1.player != null)
+            if (Game1.player?.currentLocation != null)
             {
                 SFarmer player = Game1.player;
 
+                // movement speed
                 if (this.Config.IncreasedMovement && player.running)
                     player.addedSpeed = this.Config.MoveSpeed;
                 else if (!this.Config.IncreasedMovement && player.addedSpeed == this.Config.MoveSpeed)
                     player.addedSpeed = 0;
-
                 if (player.controller != null)
                     player.addedSpeed = 0;
-
                 if (Game1.CurrentEvent == null)
                     player.movementDirections.Clear();
 
+                // infinite health/stamina
                 if (this.Config.InfiniteHealth)
                     player.health = player.maxHealth;
-
                 if (this.Config.InfiniteStamina)
                     player.stamina = player.MaxStamina;
 
-                // help fishing
+                // fishing cheats
                 if (Game1.activeClickableMenu == null && player.CurrentTool is FishingRod rod)
                 {
                     if (this.Config.AlwaysTreasure)
@@ -364,6 +363,7 @@ namespace CJBCheatsMenu.Framework
                     }
                 }
 
+                // one-hit break
                 if (this.Config.OneHitBreak && player.UsingTool && (player.CurrentTool is Axe || player.CurrentTool is Pickaxe))
                 {
                     Vector2 tile = new Vector2((int)player.GetToolLocation().X / Game1.tileSize, (int)player.GetToolLocation().Y / Game1.tileSize);
@@ -406,9 +406,11 @@ namespace CJBCheatsMenu.Framework
                     }
                 }
 
+                // infinite watering can
                 if (this.Config.InfiniteWateringCan && player.CurrentTool is WateringCan can)
                     helper.Reflection.GetField<int>(can, "waterLeft").SetValue(can.waterCanMax);
 
+                // unlimited gifts
                 if (this.Config.AlwaysGiveGift)
                 {
                     foreach (Friendship friendship in player.friendshipData.Values)
@@ -418,7 +420,7 @@ namespace CJBCheatsMenu.Framework
                     }
                 }
 
-                // one key kill
+                // one-hit kill
                 if (this.Config.OneHitKill)
                 {
                     foreach (Monster monster in player.currentLocation.characters.OfType<Monster>())
