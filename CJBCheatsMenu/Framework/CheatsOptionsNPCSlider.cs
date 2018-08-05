@@ -6,32 +6,35 @@ using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework
 {
-    internal class CheatsOptionsNPCSlider : OptionsElement
+    internal class CheatsOptionsNpcSlider : OptionsElement
     {
         /*********
         ** Properties
         *********/
+        private const int MaxValue = 10;
         private readonly string SliderLabel;
         private readonly int SliderMaxValue;
         private readonly NPC Npc;
         private readonly ClickableTextureComponent Mugshot;
         private int Value;
+        private readonly Action<int> OnValueChanged;
 
 
         /*********
         ** Public methods
         *********/
-        public CheatsOptionsNPCSlider(NPC npc, int maxValue = 10, int x = 96, int y = -1, int width = 80)
-            : base(npc.displayName, x, y, width * Game1.pixelZoom, 6 * Game1.pixelZoom, 0)
+        public CheatsOptionsNpcSlider(NPC npc, Action<int> onValueChanged)
+            : base(npc.displayName, x: 96, y: -1, width: 80 * Game1.pixelZoom, height: 6 * Game1.pixelZoom, whichOption: 0)
         {
             this.Npc = npc;
             this.SliderLabel = npc.getName();
-            this.SliderMaxValue = maxValue;
+            this.SliderMaxValue = CheatsOptionsNpcSlider.MaxValue;
+            this.OnValueChanged = onValueChanged;
 
-            this.Mugshot = new ClickableTextureComponent("Mugshot", this.bounds, "", "", npc.sprite.Texture, npc.getMugShotSourceRect(), 0.7f * Game1.pixelZoom);
+            this.Mugshot = new ClickableTextureComponent("Mugshot", this.bounds, "", "", npc.Sprite.Texture, npc.getMugShotSourceRect(), 0.7f * Game1.pixelZoom);
 
-            if (Game1.player.friendships.ContainsKey(npc.name))
-                this.Value = Math.Max(0, Math.Min(maxValue, Game1.player.friendships[npc.name][0] / NPC.friendshipPointsPerHeartLevel));
+            if (Game1.player.friendshipData.TryGetValue(npc.Name, out Friendship friendship))
+                this.Value = Math.Max(0, Math.Min(this.SliderMaxValue, friendship.Points / NPC.friendshipPointsPerHeartLevel));
         }
 
         public override void leftClickHeld(int x, int y)
@@ -42,8 +45,11 @@ namespace CJBCheatsMenu.Framework
             base.leftClickHeld(x, y);
             this.Value = x >= this.bounds.X ? (x <= this.bounds.Right - 10 * Game1.pixelZoom ? (int)((x - this.bounds.X) / (this.bounds.Width - 10d * Game1.pixelZoom) * this.SliderMaxValue) : this.SliderMaxValue) : 0;
 
-            if (Game1.player.friendships.ContainsKey(this.Npc.name))
-                Game1.player.friendships[this.Npc.name][0] = this.Value * NPC.friendshipPointsPerHeartLevel;
+            if (Game1.player.friendshipData.TryGetValue(this.Npc.Name, out Friendship friendship))
+            {
+                friendship.Points = this.Value * NPC.friendshipPointsPerHeartLevel;
+                this.OnValueChanged(friendship.Points);
+            }
         }
 
         public override void receiveLeftClick(int x, int y)

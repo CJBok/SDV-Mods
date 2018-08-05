@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CJBItemSpawner.Framework.Constants;
+using CJBItemSpawner.Framework.ItemData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -9,7 +10,6 @@ using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 using StardewValley.Objects;
-using StardewValley.Tools;
 using SObject = StardewValley.Object;
 
 namespace CJBItemSpawner.Framework
@@ -30,30 +30,41 @@ namespace CJBItemSpawner.Framework
         private readonly TextBox Textbox;
         private readonly bool AllowRightClick;
         private readonly MenuTab CurrentTab;
-        private readonly int SortID;
+        private readonly ItemSort SortBy;
         private readonly ItemQuality Quality;
         private readonly bool ShowReceivingMenu = true;
         private readonly bool CanExitOnKey = true;
 
+        /// <summary>Provides methods for searching and constructing items.</summary>
+        private readonly ItemRepository ItemRepository;
+
         private ItemInventoryMenu ItemsToGrabMenu;
         private TemporaryAnimatedSprite Poof;
         private Rectangle TextboxBounds;
-        private string TempText = "";
+        private string PreviousText = "";
 
 
         /*********
         ** Public methods
         *********/
-        public ItemMenu(MenuTab currentTab, int sortID, ItemQuality quality, ITranslationHelper i18n)
+        /// <summary>Construct an instance.</summary>
+        /// <param name="currentTab">The selected tab.</param>
+        /// <param name="sortBy">How to sort items.</param>
+        /// <param name="quality">The item quality to display.</param>
+        /// <param name="search">The search term to prepopulate.</param>
+        /// <param name="i18n">Provides translations for the mod.</param>
+        /// <param name="itemRepository">Provides methods for searching and constructing items.</param>
+        public ItemMenu(MenuTab currentTab, ItemSort sortBy, ItemQuality quality, string search, ITranslationHelper i18n, ItemRepository itemRepository)
           : base(null, true, true, 0, -50)
         {
             // initialise
             this.TranslationHelper = i18n;
+            this.ItemRepository = itemRepository;
             this.MovePosition(110, Game1.viewport.Height / 2 - (650 + IClickableMenu.borderWidth * 2) / 2);
             this.CurrentTab = currentTab;
-            this.SortID = sortID;
+            this.SortBy = sortBy;
             this.Quality = quality;
-            this.SpawnableItems = this.GetSpawnableItems().ToArray();
+            this.SpawnableItems = this.ItemRepository.GetFiltered().Select(p => p.Item).ToArray();
             this.AllowRightClick = true;
 
             // create search box
@@ -65,7 +76,7 @@ namespace CJBItemSpawner.Framework
                 Width = textWidth,
                 Height = Game1.tileSize * 3,
                 Selected = false,
-                Text = this.TempText
+                Text = search
             };
             Game1.keyboardDispatcher.Subscriber = this.Textbox;
             this.TextboxBounds = new Rectangle(this.Textbox.X, this.Textbox.Y, this.Textbox.Width, this.Textbox.Height / 3);
@@ -73,7 +84,7 @@ namespace CJBItemSpawner.Framework
             // create buttons
             this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.width - Game1.tileSize, this.yPositionOnScreen - Game1.tileSize * 2, Game1.tileSize * 4, Game1.tileSize), i18n.Get("title"));
             this.QualityButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen - Game1.tileSize * 2 + 10, (int)Game1.smallFont.MeasureString(i18n.Get("labels.quality")).X, Game1.tileSize), i18n.Get("labels.quality"));
-            this.SortButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.QualityButton.bounds.Width + 40, this.yPositionOnScreen - Game1.tileSize * 2 + 10, Game1.tileSize * 4, Game1.tileSize), this.GetSortLabel(sortID));
+            this.SortButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.QualityButton.bounds.Width + 40, this.yPositionOnScreen - Game1.tileSize * 2 + 10, Game1.tileSize * 4, Game1.tileSize), this.GetSortLabel(sortBy));
             this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(this.xPositionOnScreen + this.width - Game1.tileSize / 2, this.yPositionOnScreen - Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
             this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.xPositionOnScreen + this.width - Game1.tileSize / 2, this.yPositionOnScreen + this.height / 2 - Game1.tileSize * 2, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
 
@@ -92,7 +103,7 @@ namespace CJBItemSpawner.Framework
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ForageAndFruits.ToString(), i18n.Get("tabs.forage")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ArtifactsAndMinerals.ToString(), i18n.Get("tabs.artifacts-and-minerals")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ResourcesAndCrafting.ToString(), i18n.Get("tabs.resources-and-crafting")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ArtisanAndCooking.ToString(), i18n.Get("tabs.artisan-and-crafting")));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ArtisanAndCooking.ToString(), i18n.Get("tabs.artisan-and-cooking")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.AnimalAndMonster.ToString(), i18n.Get("tabs.animal-and-monster")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Decorating.ToString(), i18n.Get("tabs.decorating")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i, Game1.tileSize * 5, Game1.tileSize), MenuTab.Misc.ToString(), i18n.Get("tabs.miscellaneous")));
@@ -102,8 +113,11 @@ namespace CJBItemSpawner.Framework
             this.LoadInventory(this.SpawnableItems);
         }
 
-        public ItemMenu(ITranslationHelper i18n)
-            : this(0, 0, ItemQuality.Normal, i18n) { }
+        /// <summary>Construct an instance.</summary>
+        /// <param name="i18n">Provides translations for the mod.</param>
+        /// <param name="itemRepository">Provides methods for searching and constructing items.</param>
+        public ItemMenu(ITranslationHelper i18n, ItemRepository itemRepository)
+            : this(0, 0, ItemQuality.Normal, "", i18n, itemRepository) { }
 
         public override void receiveRightClick(int x, int y, bool playSound = true)
         {
@@ -118,26 +132,29 @@ namespace CJBItemSpawner.Framework
             if (this.HeldItem == null && this.ShowReceivingMenu)
             {
                 this.HeldItem = this.ItemsToGrabMenu.RightClick(x, y, this.HeldItem, false);
-                if (this.HeldItem is SObject obj && obj.parentSheetIndex == 326)
+                if (this.HeldItem is SObject obj && obj.ParentSheetIndex == 326)
                 {
                     this.HeldItem = null;
                     Game1.player.canUnderstandDwarves = true;
-                    this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
+                    this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % 64 + 16, y - y % 64 + 16), false, false);
                     Game1.playSound("fireball");
                 }
-                else if (this.HeldItem is SObject recipe && recipe.isRecipe)
+                else if (this.HeldItem is SObject recipe && recipe.IsRecipe)
                 {
-                    string key = this.HeldItem.Name.Substring(0, recipe.Name.IndexOf("Recipe") - 1);
+                    string key = this.HeldItem.Name.Substring(0, recipe.Name.IndexOf("Recipe", StringComparison.InvariantCultureIgnoreCase) - 1);
                     try
                     {
-                        if (recipe.category == -7)
+                        if (recipe.Category == -7)
                             Game1.player.cookingRecipes.Add(key, 0);
                         else
                             Game1.player.craftingRecipes.Add(key, 0);
-                        this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
+                        this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % 64 + 16, y - y % 64 + 16), false, false);
                         Game1.playSound("newRecipe");
                     }
-                    catch { }
+                    catch
+                    {
+                        // deliberately ignore errors
+                    }
                     this.HeldItem = null;
                 }
                 else
@@ -175,10 +192,7 @@ namespace CJBItemSpawner.Framework
 
                 if (this.SortButton.bounds.Contains(x, y))
                 {
-                    int sortID = this.SortID + 1;
-                    if (sortID > 2)
-                        sortID = 0;
-                    this.Reopen(sortID: sortID);
+                    this.Reopen(sortBy: this.SortBy.GetNext());
                 }
 
                 if (this.QualityButton.bounds.Contains(x, y))
@@ -199,33 +213,37 @@ namespace CJBItemSpawner.Framework
             if (this.HeldItem == null && this.ShowReceivingMenu)
             {
                 this.HeldItem = this.ItemsToGrabMenu?.LeftClick(x, y, this.HeldItem, false);
-                if (this.HeldItem is SObject obj && obj.parentSheetIndex == 326)
+                SObject obj = this.HeldItem as SObject;
+                if (obj != null && obj.ParentSheetIndex == 326)
                 {
                     this.HeldItem = null;
                     Game1.player.canUnderstandDwarves = true;
-                    this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
+                    this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                     Game1.playSound("fireball");
                 }
-                else if (this.HeldItem is SObject && (this.HeldItem as SObject).parentSheetIndex == 102)
+                else if (obj != null && obj.ParentSheetIndex == 102)
                 {
                     this.HeldItem = null;
                     Game1.player.foundArtifact(102, 1);
-                    this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
+                    this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                     Game1.playSound("fireball");
                 }
-                else if (this.HeldItem is SObject recipe && recipe.isRecipe)
+                else if (obj != null && obj.IsRecipe)
                 {
-                    string key = recipe.Name.Substring(0, recipe.Name.IndexOf("Recipe") - 1);
+                    string key = obj.Name.Substring(0, obj.Name.IndexOf("Recipe", StringComparison.InvariantCultureIgnoreCase) - 1);
                     try
                     {
-                        if (recipe.category == -7)
+                        if (obj.Category == -7)
                             Game1.player.cookingRecipes.Add(key, 0);
                         else
                             Game1.player.craftingRecipes.Add(key, 0);
-                        this.Poof = new TemporaryAnimatedSprite(Game1.animations, new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
+                        this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                         Game1.playSound("newRecipe");
                     }
-                    catch { }
+                    catch
+                    {
+                        // deliberately ignore errors
+                    }
                     this.HeldItem = null;
                 }
                 else if (Game1.player.addItemToInventoryBool(this.HeldItem))
@@ -262,17 +280,17 @@ namespace CJBItemSpawner.Framework
                 Game1.setMousePosition(this.TrashCan.bounds.Center);
             if (key != Keys.Delete || this.HeldItem == null || !this.HeldItem.canBeTrashed())
                 return;
-            if (this.HeldItem is SObject obj && Game1.player.specialItems.Contains(obj.parentSheetIndex))
-                Game1.player.specialItems.Remove(obj.parentSheetIndex);
+            if (this.HeldItem is SObject obj && Game1.player.specialItems.Contains(obj.ParentSheetIndex))
+                Game1.player.specialItems.Remove(obj.ParentSheetIndex);
             this.HeldItem = null;
             Game1.playSound("trashcan");
         }
 
         public override void update(GameTime time)
         {
-            if (this.TempText != this.Textbox.Text)
+            if (this.PreviousText != this.Textbox.Text)
             {
-                this.TempText = this.Textbox.Text;
+                this.PreviousText = this.Textbox.Text;
                 ItemInventoryMenu.ScrollIndex = 0;
                 this.LoadInventory(this.SpawnableItems);
             }
@@ -303,11 +321,14 @@ namespace CJBItemSpawner.Framework
                 try
                 {
                     SObject obj = (SObject)this.HoveredItem;
-                    obj.quality = direction > 0
-                        ? (int)((ItemQuality)obj.quality).GetNext()
-                        : (int)((ItemQuality)obj.quality).GetPrevious();
+                    obj.Quality = direction > 0
+                        ? (int)((ItemQuality)obj.Quality).GetNext()
+                        : (int)((ItemQuality)obj.Quality).GetPrevious();
                 }
-                catch { }
+                catch
+                {
+                    // deliberately ignore errors
+                }
             }
             else
                 this.ItemsToGrabMenu?.receiveScrollWheelAction(direction);
@@ -354,25 +375,25 @@ namespace CJBItemSpawner.Framework
         /*********
         ** Private methods
         *********/
-        private void Reopen(MenuTab? tabIndex = null, int? sortID = null, ItemQuality? quality = null)
+        private void Reopen(MenuTab? tabIndex = null, ItemSort? sortBy = null, ItemQuality? quality = null, string search = null)
         {
-            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortID ?? this.SortID, quality ?? this.Quality, this.TranslationHelper);
+            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortBy ?? this.SortBy, quality ?? this.Quality, search ?? this.PreviousText, this.TranslationHelper, this.ItemRepository);
         }
 
-        /// <summary>Get the translated label for a sort ID.</summary>
-        /// <param name="sortID">The sort ID.</param>
-        private string GetSortLabel(int sortID)
+        /// <summary>Get the translated label for a sort type.</summary>
+        /// <param name="sort">The sort type.</param>
+        private string GetSortLabel(ItemSort sort)
         {
-            switch (sortID)
+            switch (sort)
             {
-                case 0:
+                case ItemSort.DisplayName:
                     return this.TranslationHelper.Get("labels.sort-by-name");
-                case 1:
+                case ItemSort.Category:
                     return this.TranslationHelper.Get("labels.sort-by-category");
-                case 2:
+                case ItemSort.ID:
                     return this.TranslationHelper.Get("labels.sort-by-id");
                 default:
-                    throw new NotSupportedException($"Invalid sort ID {sortID}.");
+                    throw new NotSupportedException($"Invalid sort type {sort}.");
             }
         }
 
@@ -387,28 +408,40 @@ namespace CJBItemSpawner.Framework
 
         private void LoadInventory(Item[] spawnableItems)
         {
-            // get spawnable items in display order
-            spawnableItems = spawnableItems.OrderBy(o => o.DisplayName).ToArray();
-            switch (this.SortID)
+            // sort items
+            switch (this.SortBy)
             {
-                case 1:
-                    spawnableItems = spawnableItems.OrderBy(o => o.category).ToArray();
+                case ItemSort.Category:
+                    spawnableItems = spawnableItems.OrderBy(o => o.Category).ToArray();
                     break;
-                case 2:
-                    spawnableItems = spawnableItems.OrderBy(o => o.parentSheetIndex).ToArray();
+
+                case ItemSort.ID:
+                    spawnableItems = spawnableItems.OrderBy(o => o.ParentSheetIndex).ToArray();
+                    break;
+
+                default:
+                    spawnableItems = spawnableItems.OrderBy(o => o.DisplayName).ToArray();
                     break;
             }
 
             // load inventory
             List<Item> inventoryItems = new List<Item>();
+            string search = this.Textbox.Text.Trim();
             foreach (Item item in spawnableItems)
             {
+                // get item
                 item.Stack = item.maximumStackSize();
                 if (item is SObject obj)
-                    obj.quality = (int)this.Quality;
+                    obj.Quality = (int)this.Quality;
 
-                if ((this.CurrentTab == MenuTab.All || this.GetRelevantTab(item) == this.CurrentTab) && item.Name.ToLower().Contains(this.Textbox.Text.ToLower()))
-                    inventoryItems.Add(item);
+                // skip if not applicable
+                if (this.CurrentTab != MenuTab.All && this.GetRelevantTab(item) != this.CurrentTab)
+                    continue;
+                if (search != "" && item.Name.IndexOf(search, StringComparison.InvariantCultureIgnoreCase) < 0 && item.DisplayName.IndexOf(search, StringComparison.InvariantCultureIgnoreCase) < 0)
+                    continue;
+
+                // add to inventory
+                inventoryItems.Add(item);
             }
 
             // show menu
@@ -433,7 +466,7 @@ namespace CJBItemSpawner.Framework
             }
 
             // by category
-            switch (item.category)
+            switch (item.Category)
             {
                 case SObject.SeedsCategory:
                 case SObject.VegetableCategory:
@@ -479,164 +512,11 @@ namespace CJBItemSpawner.Framework
             }
 
             // artifacts
-            if ((item as SObject)?.type == "Arch")
+            if ((item as SObject)?.Type == "Arch")
                 return MenuTab.ArtifactsAndMinerals;
 
             // anything else
             return MenuTab.Misc;
-        }
-
-        private IEnumerable<Item> GetSpawnableItems()
-        {
-            // get tools
-            for (int quality = Tool.stone; quality <= Tool.iridium; quality++)
-            {
-                yield return ToolFactory.getToolFromDescription(ToolFactory.axe, quality);
-                yield return ToolFactory.getToolFromDescription(ToolFactory.hoe, quality);
-                yield return ToolFactory.getToolFromDescription(ToolFactory.pickAxe, quality);
-                yield return ToolFactory.getToolFromDescription(ToolFactory.wateringCan, quality);
-                if (quality != Tool.iridium)
-                    yield return ToolFactory.getToolFromDescription(ToolFactory.fishingRod, quality);
-            }
-            yield return new MilkPail();
-            yield return new Shears();
-            yield return new Pan();
-            yield return new Wand(); // return scepter
-
-            // wallpapers
-            for (int id = 0; id < 112; id++)
-                yield return new Wallpaper(id) { category = SObject.furnitureCategory };
-
-            // flooring
-            for (int id = 0; id < 40; id++)
-                yield return new Wallpaper(id, true) { category = SObject.furnitureCategory };
-
-            // equipment
-            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\Boots").Keys)
-                yield return new Boots(id);
-            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\hats").Keys)
-                yield return new Hat(id);
-
-            // weapons
-            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\weapons").Keys)
-            {
-                if (id >= 32 && id <= 34)
-                    yield return new Slingshot(id);
-                yield return new MeleeWeapon(id);
-            }
-
-            // furniture
-            foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\Furniture").Keys)
-            {
-                Item item = new Furniture(id, Vector2.Zero);
-                if (id == 1466 || id == 1468)
-                    item = new TV(id, Vector2.Zero);
-                yield return item;
-            }
-
-            // craftables
-            foreach (int id in Game1.bigCraftablesInformation.Keys)
-            {
-                SObject item = new SObject(Vector2.Zero, id);
-                yield return item;
-            }
-
-            // objects
-            foreach (int id in Game1.objectInformation.Keys)
-            {
-                // ring
-                if (id >= Ring.ringLowerIndexRange && id <= Ring.ringUpperIndexRange)
-                {
-                    yield return new Ring(id);
-                    continue;
-                }
-
-                // object
-                SObject item = new SObject(id, 1);
-                yield return item;
-
-                // fruit products
-                if (item.category == SObject.FruitsCategory)
-                {
-                    yield return new SObject(348, 1)
-                    {
-                        name = $"{item.Name} Wine",
-                        price = item.price * 3,
-                        preserve = SObject.PreserveType.Wine,
-                        preservedParentSheetIndex = item.parentSheetIndex
-                    };
-                    yield return new SObject(344, 1)
-                    {
-                        name = $"{item.Name} Jelly",
-                        price = 50 + item.Price * 2,
-                        preserve = SObject.PreserveType.Jelly,
-                        preservedParentSheetIndex = item.parentSheetIndex
-                    };
-                }
-
-                // vegetable products
-                else if (item.category == SObject.VegetableCategory)
-                {
-                    yield return new SObject(350, 1)
-                    {
-                        name = $"{item.Name} Juice",
-                        price = (int)(item.price * 2.25d),
-                        preserve = SObject.PreserveType.Juice,
-                        preservedParentSheetIndex = item.parentSheetIndex
-                    };
-                    yield return new SObject(342, 1)
-                    {
-                        name = $"Pickled {item.Name}",
-                        price = 50 + item.Price * 2,
-                        preserve = SObject.PreserveType.Pickle,
-                        preservedParentSheetIndex = item.parentSheetIndex
-                    };
-                }
-
-                // flower products
-                else if (item.category == SObject.flowersCategory)
-                {
-                    // get honey type
-                    SObject.HoneyType? type = null;
-                    switch (item.parentSheetIndex)
-                    {
-                        case 376:
-                            type = SObject.HoneyType.Poppy;
-                            break;
-                        case 591:
-                            type = SObject.HoneyType.Tulip;
-                            break;
-                        case 593:
-                            type = SObject.HoneyType.SummerSpangle;
-                            break;
-                        case 595:
-                            type = SObject.HoneyType.FairyRose;
-                            break;
-                        case 597:
-                            type = SObject.HoneyType.BlueJazz;
-                            break;
-                        case 421: // sunflower standing in for all other flowers
-                            type = SObject.HoneyType.Wild;
-                            break;
-                    }
-
-                    // yield honey
-                    if (type != null)
-                    {
-                        SObject honey = new SObject(Vector2.Zero, 340, item.Name + " Honey", false, true, false, false)
-                        {
-                            name = "Wild Honey",
-                            honeyType = type
-                        };
-                        if (type != SObject.HoneyType.Wild)
-                        {
-                            honey.name = $"{item.Name} Honey";
-                            honey.price += item.price * 2;
-                        }
-                        yield return honey;
-                    }
-                }
-            }
         }
     }
 }

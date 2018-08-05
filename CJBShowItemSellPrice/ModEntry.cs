@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -37,6 +38,12 @@ namespace CJBShowItemSellPrice
         /// <summary>The label text for the stack price.</summary>
         private string StackLabel;
 
+        /// <summary>The cached toolbar instance.</summary>
+        private Toolbar Toolbar;
+
+        /// <summary>The cached toolbar slots.</summary>
+        private IList<ClickableComponent> ToolbarSlots;
+
 
         /*********
         ** Public methods
@@ -46,6 +53,8 @@ namespace CJBShowItemSellPrice
         public override void Entry(IModHelper helper)
         {
             GraphicsEvents.OnPostRenderGuiEvent += GraphicsEvents_OnPostRenderGuiEvent;
+            GraphicsEvents.OnPostRenderHudEvent += GraphicsEvents_OnPostRenderHudEvent;
+            GameEvents.OneSecondTick += GameEvents_OneSecondTick;
 
             this.SingleLabel = this.Helper.Translation.Get("labels.single-price") + ":";
             this.StackLabel = this.Helper.Translation.Get("labels.stack-price") + ":";
@@ -55,6 +64,29 @@ namespace CJBShowItemSellPrice
         /*********
         ** Private methods
         *********/
+        /// <summary>The method invoked once per second.</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void GameEvents_OneSecondTick(object sender, EventArgs e)
+        {
+            // cache the toolbar & slots
+            if (Context.IsPlayerFree)
+            {
+                this.Toolbar = Game1.onScreenMenus.OfType<Toolbar>().FirstOrDefault();
+                this.ToolbarSlots = this.Toolbar != null
+                    ? this.Helper.Reflection.GetField<List<ClickableComponent>>(this.Toolbar, "buttons").GetValue()
+                    : null;
+            }
+            else
+            {
+                this.Toolbar = null;
+                this.ToolbarSlots = null;
+            }
+        }
+
+        /// <summary>The method invoked when active menus have finished rendering.</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void GraphicsEvents_OnPostRenderGuiEvent(object sender, EventArgs e)
         {
             if (Game1.activeClickableMenu == null)
@@ -65,14 +97,25 @@ namespace CJBShowItemSellPrice
             if (item == null)
                 return;
 
-            // get info
-            int stack = item.Stack;
-            int price = (item is SObject obj)
-                ? obj.sellToStorePrice()
-                : item.salePrice() / 2;
+            // draw tooltip
+            this.DrawPriceTooltip(Game1.spriteBatch, Game1.smallFont, item);
+        }
+
+        /// <summary>The method invoked when the interface has finished rendering.</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void GraphicsEvents_OnPostRenderHudEvent(object sender, EventArgs e)
+        {
+            if (!Context.IsPlayerFree)
+                return;
+
+            // get item
+            Item item = this.GetItemFromToolbar();
+            if (item == null)
+                return;
 
             // draw tooltip
-            this.DrawPriceTooltip(Game1.spriteBatch, Game1.smallFont, price, stack);
+            this.DrawPriceTooltip(Game1.spriteBatch, Game1.smallFont, item);
         }
 
         /// <summary>Get the hovered item from an arbitrary menu.</summary>
@@ -100,6 +143,44 @@ namespace CJBShowItemSellPrice
             return null;
         }
 
+        /// <summary>Get the hovered item from the on-screen toolbar.</summary>
+        private Item GetItemFromToolbar()
+        {
+            if (!Context.IsPlayerFree || this.Toolbar == null || this.ToolbarSlots == null)
+                return null;
+
+            // find hovered slot
+            int x = Game1.getMouseX();
+            int y = Game1.getMouseY();
+            ClickableComponent hoveredSlot = this.ToolbarSlots.FirstOrDefault(slot => slot.containsPoint(x, y));
+            if (hoveredSlot == null)
+                return null;
+
+            // get inventory index
+            int index = this.ToolbarSlots.IndexOf(hoveredSlot);
+            if (index < 0 || index > Game1.player.Items.Count - 1)
+                return null;
+
+            // get hovered item
+            return Game1.player.Items[index];
+        }
+
+        /// <summary>Draw a tooltip box which shows the unit and stack prices for an item.</summary>
+        /// <param name="spriteBatch">The sprite batch to update.</param>
+        /// <param name="font">The font with which to draw text.</param>
+        /// <param name="item">The item whose price to display.</param>
+        private void DrawPriceTooltip(SpriteBatch spriteBatch, SpriteFont font, Item item)
+        {
+            // get info
+            int stack = item.Stack;
+            int price = item is SObject obj
+                ? obj.sellToStorePrice()
+                : item.salePrice() / 2;
+
+            // draw tooltip
+            this.DrawPriceTooltip(spriteBatch, font, price, stack);
+        }
+
         /// <summary>Draw a tooltip box which shows the unit and stack prices for an item.</summary>
         /// <param name="spriteBatch">The sprite batch to update.</param>
         /// <param name="font">The font with which to draw text.</param>
@@ -116,7 +197,7 @@ namespace CJBShowItemSellPrice
             int coinSize = this.CoinSourceRect.Width * Game1.pixelZoom;
             int lineHeight = (int)font.MeasureString("X").Y;
             Vector2 offsetFromCursor = this.TooltipOffset;
-            bool showStack = stack > 0;
+            bool showStack = stack > 1;
 
             // prepare text
             string unitLabel = this.SingleLabel;

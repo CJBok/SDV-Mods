@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using CJBCheatsMenu.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu
 {
@@ -32,21 +30,22 @@ namespace CJBCheatsMenu
         public override void Entry(IModHelper helper)
         {
             this.Config = helper.ReadConfig<ModConfig>();
+            this.Monitor.Log($"Started with menu key {this.Config.OpenMenuKey}.", LogLevel.Trace);
+
             this.Cheats = new Cheats(this.Config);
 
             SaveEvents.AfterLoad += this.SaveEvents_AfterLoad;
+
             LocationEvents.LocationsChanged += this.LocationEvents_LocationsChanged;
 
             GameEvents.UpdateTick += this.Events_UpdateTick;
             GameEvents.OneSecondTick += this.GameEvents_OneSecondTick;
-            TimeEvents.TimeOfDayChanged += this.TimeEvents_TimeOfDayChanged;
 
-            ControlEvents.KeyPressed += this.Events_KeyPressed;
-            ControlEvents.ControllerButtonPressed += this.ControlEvents_ControllerButtonPressed;
+            InputEvents.ButtonPressed += this.Events_ButtonPressed;
 
             GraphicsEvents.OnPostRenderEvent += this.GraphicsEvents_DrawTick;
 
-            MenuEvents.MenuClosed += this.MenuEvents_MenuChanged;
+            MenuEvents.MenuClosed += this.MenuEvents_MenuClosed;
         }
 
 
@@ -56,9 +55,10 @@ namespace CJBCheatsMenu
         private void SaveEvents_AfterLoad(object sender, EventArgs eventArgs)
         {
             this.Locations = CJB.GetAllLocations().ToArray();
+            this.Cheats.Reset();
         }
 
-        private void LocationEvents_LocationsChanged(object sender, EventArgsGameLocationsChanged e)
+        private void LocationEvents_LocationsChanged(object sender, EventArgsLocationsChanged e)
         {
             this.Locations = CJB.GetAllLocations().ToArray();
         }
@@ -71,35 +71,15 @@ namespace CJBCheatsMenu
             this.Cheats.OneSecondUpdate(this.Locations);
         }
 
-        private void ControlEvents_ControllerButtonPressed(object sender, EventArgsControllerButtonPressed e)
-        {
-            if (!this.IsLoaded)
-                return;
-
-            if (Context.IsPlayerFree)
-            {
-                if (e.ButtonPressed.ToString() == this.Config.OpenMenuKey)
-                    this.OpenMenu();
-                else if (e.ButtonPressed.ToString() == this.Config.FreezeTimeKey)
-                    this.Config.FreezeTime = !this.Config.FreezeTime;
-            }
-            else if (Game1.activeClickableMenu is GameMenu menu)
-            {
-                IClickableMenu page = this.Helper.Reflection.GetField<List<IClickableMenu>>(menu, "pages").GetValue()[menu.currentTab];
-                if (page is CheatsMenu)
-                    page.receiveGamePadButton(e.ButtonPressed);
-            }
-        }
-
-        private void Events_KeyPressed(object sender, EventArgsKeyPressed e)
+        private void Events_ButtonPressed(object sender, EventArgsInput e)
         {
             if (!this.IsLoaded || !Context.IsPlayerFree)
                 return;
 
-            if (e.KeyPressed.ToString() == this.Config.OpenMenuKey)
+            if (e.Button == this.Config.OpenMenuKey)
                 this.OpenMenu();
             else
-                this.Cheats.OnKeyPress(e.KeyPressed);
+                this.Cheats.OnButtonPress(e.Button);
         }
 
         private void GraphicsEvents_DrawTick(object sender, EventArgs e)
@@ -110,14 +90,6 @@ namespace CJBCheatsMenu
             this.Cheats.OnDrawTick(this.Helper.Translation);
         }
 
-        private void TimeEvents_TimeOfDayChanged(object sender, EventArgsIntChanged e)
-        {
-            if (!this.IsLoaded)
-                return;
-
-            this.Cheats.OnTimeOfDayChanged();
-        }
-
         private void Events_UpdateTick(object sender, EventArgs e)
         {
             if (!this.IsLoaded)
@@ -126,7 +98,7 @@ namespace CJBCheatsMenu
             this.Cheats.OnUpdate(this.Helper);
         }
 
-        private void MenuEvents_MenuChanged(object sender, EventArgsClickableMenuClosed e)
+        private void MenuEvents_MenuClosed(object sender, EventArgsClickableMenuClosed e)
         {
             if (e.PriorMenu is CheatsMenu)
                 this.SaveConfig();

@@ -10,6 +10,7 @@
   "tabs.relationships": "Relacionamentos",
   "tabs.warp": "Teletransporte",
   "tabs.time": "Horário",
+  "tabs.quests": "Quests", // TODO
   "tabs.controls": "Controles",
 
   // 'Player & Tools' tab
@@ -149,6 +150,10 @@
   "time.freeze-caves": "Parar o Tempo nas Minas",
   "time.freeze-everywhere": "Parar o Tempo em Todo Lugar",
   "time.time": "Horário",
+
+  // 'Quests' tab
+  "activequests.title": "Active Quests", // TODO
+  "completedquests.title": "Completed Quests", // TODO
 
   // 'Controls' tab
   "controls.title": "Controles",

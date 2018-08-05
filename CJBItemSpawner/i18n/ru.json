@@ -1,0 +1,20 @@
+﻿{
+  "title": "CJB Item Spawner",
+
+  "labels.sort-by-name": "Сортировать по: Имени",
+  "labels.sort-by-category": "Сортировать по: Категории",
+  "labels.sort-by-id": "Сортировать по: ID",
+  "labels.quality": "Качество",
+
+  "tabs.all": "Все",
+  "tabs.equipment": "Инструменты и обмундирование",
+  "tabs.crops": "Семена и саженцы",
+  "tabs.fishing": "Рыба, снасти, мусор",
+  "tabs.forage": "Фрукты и собирательство",
+  "tabs.artifacts-and-minerals": "Артефакты и минералы",
+  "tabs.resources-and-crafting": "Ресурсы и ремесло",
+  "tabs.artisan-and-cooking": "Ремесленные товары",
+  "tabs.animal-and-monster": "Животные и монстры",
+  "tabs.decorating": "Украшения",
+  "tabs.miscellaneous": "Разное"
+}

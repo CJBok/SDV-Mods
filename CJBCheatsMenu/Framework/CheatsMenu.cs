@@ -7,8 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewValley;
-using StardewValley.Characters;
 using StardewValley.Menus;
+using StardewValley.Quests;
 using SFarmer = StardewValley.Farmer;
 
 namespace CJBCheatsMenu.Framework
@@ -40,7 +40,7 @@ namespace CJBCheatsMenu.Framework
         private int OptionsSlotHeld = -1;
         private int CurrentItemIndex;
         private bool IsScrolling;
-        private Rectangle ScrollbarRunner;
+        private readonly Rectangle ScrollbarRunner;
         private bool CanClose;
         private readonly MenuTab CurrentTab;
 
@@ -71,6 +71,7 @@ namespace CJBCheatsMenu.Framework
                 this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Relationships.ToString(), i18n.Get("tabs.relationships")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.WarpLocations.ToString(), i18n.Get("tabs.warp")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Time.ToString(), i18n.Get("tabs.time")));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Quests.ToString(), i18n.Get("tabs.quests")));
                 this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i, Game1.tileSize * 5, Game1.tileSize), MenuTab.Controls.ToString(), i18n.Get("tabs.controls")));
             }
 
@@ -88,7 +89,7 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.infinite-stamina"), config.InfiniteStamina, value => config.InfiniteStamina = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.infinite-health"), config.InfiniteHealth, value => config.InfiniteHealth = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.increased-movement-speed"), config.IncreasedMovement, value => config.IncreasedMovement = value));
-                    this.Options.Add(new CheatsOptionsSlider(i18n.Get("player.movement-speed"), this.Config.MoveSpeed, 10, value => this.Config.MoveSpeed = value, disabled: () => this.Config.IncreasedMovement));
+                    this.Options.Add(new CheatsOptionsSlider(i18n.Get("player.movement-speed"), this.Config.MoveSpeed, 10, value => this.Config.MoveSpeed = value, disabled: () => !this.Config.IncreasedMovement));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.one-hit-kill"), config.OneHitKill, value => config.OneHitKill = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.max-daily-luck"), config.MaxDailyLuck, value => config.MaxDailyLuck = value));
 
@@ -172,8 +173,8 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.fisher"), this.GetProfession(SFarmer.fisher), value => this.SetProfession(SFarmer.fisher, value)));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.trapper"), this.GetProfession(SFarmer.trapper), value => this.SetProfession(SFarmer.trapper, value)));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.angler"), this.GetProfession(SFarmer.angler), value => this.SetProfession(SFarmer.angler, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.luremaster"), this.GetProfession(SFarmer.baitmaster), value => this.SetProfession(SFarmer.baitmaster, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.mariner"), this.GetProfession(SFarmer.mariner), value => this.SetProfession(SFarmer.mariner, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.luremaster"), this.GetProfession(SFarmer.mariner), value => this.SetProfession(SFarmer.mariner, value))); // mariner = luremaster (???)
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.mariner"), this.GetProfession(SFarmer.baitmaster), value => this.SetProfession(SFarmer.baitmaster, value))); // baitmaster = mariner (???)
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.pirate"), this.GetProfession(SFarmer.pirate), value => this.SetProfession(SFarmer.pirate, value)));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.forester"), this.GetProfession(SFarmer.forester), value => this.SetProfession(SFarmer.forester, value)));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.gatherer"), this.GetProfession(SFarmer.gatherer), value => this.SetProfession(SFarmer.gatherer, value)));
@@ -199,17 +200,14 @@ namespace CJBCheatsMenu.Framework
                     break;
 
                 case MenuTab.Relationships:
-                    this.Options.Add(new OptionsElement($"{i18n.Get("relationships.title")}:"));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("relationships.give-gifts-anytime"), config.AlwaysGiveGift, value => config.AlwaysGiveGift = value));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("relationships.no-decay"), config.NoFriendshipDecay, value => config.NoFriendshipDecay = value));
-                    this.Options.Add(new OptionsElement($"{i18n.Get("relationships.friends")}:"));
-
-                    foreach (NPC npc in Utility.getAllCharacters().OrderBy(p => p.name))
                     {
-                        if (!Game1.player.friendships.ContainsKey(npc.name) || (npc.name == "Sandy" && !Game1.player.mailReceived.Contains("ccVault")) || npc.name == "???" || npc.name == "Bouncer" || npc.name == "Marlon" || npc.name == "Gil" || npc.name == "Gunther" || npc.IsMonster || npc is Horse || npc is Pet)
-                            continue;
+                        this.Options.Add(new OptionsElement($"{i18n.Get("relationships.title")}:"));
+                        this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("relationships.give-gifts-anytime"), config.AlwaysGiveGift, value => config.AlwaysGiveGift = value));
+                        this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("relationships.no-decay"), config.NoFriendshipDecay, value => config.NoFriendshipDecay = value));
+                        this.Options.Add(new OptionsElement($"{i18n.Get("relationships.friends")}:"));
 
-                        this.Options.Add(new CheatsOptionsNPCSlider(npc));
+                        foreach (NPC npc in this.GetSocialCharacters().Distinct().OrderBy(p => p.displayName))
+                            this.Options.Add(new CheatsOptionsNpcSlider(npc, onValueChanged: points => this.Cheats.UpdateFriendship(npc, points)));
                     }
                     break;
 
@@ -246,6 +244,27 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsSlider(i18n.Get("time.time"), (Game1.timeOfDay - 600) / 100, 19, value => this.SafelySetTime((value * 100) + 600), width: 100, format: value => Game1.getTimeOfDayString((value * 100) + 600)));
                     break;
 
+                case MenuTab.Quests:
+                    {
+                        this.Options.Add(new OptionsElement($"{i18n.Get("activequests.title")}:"));
+                        {
+                            int i = 0;
+                            foreach (Quest quest in Game1.player.questLog)
+                            {
+                                if (!quest.completed.Value)
+                                    this.Options.Add(new CheatsOptionsInputListener(quest.questTitle, 300 + i++, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
+                            }
+                        }
+                        this.Options.Add(new OptionsElement($"{i18n.Get("completedquests.title")}:"));
+
+                        foreach (Quest quest in Game1.player.questLog)
+                        {
+                            if (quest.completed.Value)
+                                this.Options.Add(new OptionsElement(quest.questTitle) { whichOption = -999 });
+                        }
+                    }
+                    break;
+
                 case MenuTab.Controls:
                     this.Options.Add(new OptionsElement($"{i18n.Get("controls.title")}:"));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("controls.open-menu"), 1000, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
@@ -257,13 +276,24 @@ namespace CJBCheatsMenu.Framework
             this.SetScrollBarToCurrentIndex();
         }
 
+        /// <summary>Get all NPCs which have relationship data.</summary>
+        /// <remarks>Derived from the <see cref="SocialPage"/> constructor.</remarks>
+        private IEnumerable<NPC> GetSocialCharacters()
+        {
+            foreach (NPC npc in Utility.getAllCharacters())
+            {
+                if (npc.CanSocialize || Game1.player.friendshipData.ContainsKey(npc.Name))
+                    yield return npc;
+            }
+        }
+
         /// <summary>Safely transition to the given time, allowing NPCs to update their schedule.</summary>
         /// <param name="time">The time of day.</param>
         private void SafelySetTime(int time)
         {
             // define conversion between game time and TimeSpan
             TimeSpan ToTimeSpan(int value) => new TimeSpan(0, value / 100, value % 100, 0);
-            int FromTimeSpan(TimeSpan span) => (int)((span.Hours * 100) + span.Minutes);
+            int FromTimeSpan(TimeSpan span) => (span.Hours * 100) + span.Minutes;
 
             // transition to new time
             int intervals = (int)((ToTimeSpan(time) - ToTimeSpan(Game1.timeOfDay)).TotalMinutes / 10);
@@ -338,7 +368,8 @@ namespace CJBCheatsMenu.Framework
 
         public override void receiveKeyPress(Keys key)
         {
-            if ((Game1.options.menuButton.Contains(new InputButton(key)) || key.ToString() == this.Config.OpenMenuKey) && this.readyToClose() && this.CanClose)
+            bool isExitKey = Game1.options.menuButton.Contains(new InputButton(key)) || (this.Config.OpenMenuKey.TryGetKeyboard(out Keys exitKey) && key == exitKey);
+            if (isExitKey && this.readyToClose() && this.CanClose)
             {
                 Game1.exitActiveMenu();
                 Game1.soundBank.PlayCue("bigDeSelect");

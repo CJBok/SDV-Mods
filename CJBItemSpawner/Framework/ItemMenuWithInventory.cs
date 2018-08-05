@@ -85,8 +85,8 @@ namespace CJBItemSpawner.Framework
             }
             if (this.TrashCan == null || !this.TrashCan.containsPoint(x, y) || (this.HeldItem == null))
                 return;
-            if (this.HeldItem is SObject obj && Game1.player.specialItems.Contains(obj.parentSheetIndex))
-                Game1.player.specialItems.Remove(obj.parentSheetIndex);
+            if (this.HeldItem is SObject obj && Game1.player.specialItems.Contains(obj.ParentSheetIndex))
+                Game1.player.specialItems.Remove(obj.ParentSheetIndex);
             this.HeldItem = null;
             Game1.playSound("trashcan");
         }

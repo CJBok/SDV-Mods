@@ -1,7 +1,7 @@
 ﻿using CJBCheatsMenu.Framework.Constants;
-using Microsoft.Xna.Framework.Input;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using StardewModdingAPI;
 
 namespace CJBCheatsMenu.Framework
 {
@@ -14,16 +14,16 @@ namespace CJBCheatsMenu.Framework
         ** Keyboard buttons
         ****/
         /// <summary>The keyboard button which opens the menu.</summary>
-        public string OpenMenuKey { get; set; } = Keys.P.ToString();
+        public SButton OpenMenuKey { get; set; } = SButton.P;
 
         /// <summary>The keyboard button which freezes the game clock.</summary>
-        public string FreezeTimeKey { get; set; } = Keys.T.ToString();
+        public SButton FreezeTimeKey { get; set; } = SButton.T;
 
         /// <summary>The keyboard button which instantly grows the tree under the tool cursor.</summary>
-        public string GrowTreeKey { get; set; } = Keys.NumPad1.ToString();
+        public SButton GrowTreeKey { get; set; } = SButton.NumPad1;
 
         /// <summary>The keyboard button which instantly grows crops adjacent to your character.</summary>
-        public string GrowCropsKey { get; set; } = Keys.NumPad2.ToString();
+        public SButton GrowCropsKey { get; set; } = SButton.NumPad2;
 
         /****
         ** Menu settings
