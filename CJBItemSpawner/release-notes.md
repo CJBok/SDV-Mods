@@ -8,6 +8,7 @@
 * Problematic items are now hidden by default (e.g. those which can crash the game).
 * Fixed pickled items not shown.
 * Fixed incorrect tab name.
+* Fixed errors when another mod adds invalid item data.
 * Fixed search not matching translated display names (thanks to Roskonix!).
 * Added Russian translations (thanks to Ryofuko!).
 
