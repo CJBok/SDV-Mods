@@ -3,8 +3,8 @@
 # Release notes
 ## 1.9
 * Updated for Stardew Valley 1.3 (including multiplayer support).
-* Added Russian translations (thanks to Ryofuko!).
 * Added support for toolbar items.
+* Added Russian translations (thanks to Ryofuko!).
 * Fixed stack price shown for single items.
 
 ## 1.8

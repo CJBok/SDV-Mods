@@ -6,11 +6,11 @@
 * Added controller support.
 * Added support for secret notes.
 * Problematic items are now hidden by default (e.g. those which can crash the game).
+* Added Russian translations (thanks to Ryofuko!).
 * Fixed pickled items not shown.
 * Fixed incorrect tab name.
 * Fixed errors when another mod adds invalid item data.
 * Fixed search not matching translated display names (thanks to Roskonix!).
-* Added Russian translations (thanks to Ryofuko!).
 
 ## 1.10
 * Updated to SMAPI 2.4.

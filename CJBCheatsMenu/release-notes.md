@@ -1,7 +1,7 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## 1.18 (upcoming)
+## 1.18
 * Updated for Stardew Valley 1.3 (including multiplayer support).
 * Added Quests tab to complete active quests instantly.
 * Added option for fast fruit trees.
@@ -11,13 +11,13 @@
 * Improved translations. Thanks to Issacy (Chinese), Marity (added Japanese), and Ryofuko (added Russian)!
 * Fixed issues with fishing cheats.
 * Fixed 'increase movement speed' checkbox disabling the speed slider.
-* Fixed 'no friendship decay' preventing you from decreasing friendships through relationship editor.
-* Fixed 'no friendship decay' not recalculating points when you switch save.
+* Fixed 'no friendship decay' preventing you from decreasing friendships through the relationships tab.
+* Fixed 'no friendship decay' not resetting when you switch save.
 * Fixed 'instant grow tree' making fruit trees not produce fruit.
-* Fixed 'one-hit kill' cheat making monsters invincible in some cases (thanks to Issacy!).
+* Fixed 'one-hit kill' cheat making monsters invincible in rare cases (thanks to Issacy!).
 * Fixed relationship list not using translated name when sorting.
 * Fixed relationship list not showing dwarf.
-* Fixed Luremaster and Mariner options being swapped.
+* Fixed Luremaster and Mariner professions being swapped.
 * Fixed fast machine processing not working in constructed buildings.
 * Fixed some artisanal items not spawning with selected quality.
 * Fixed searchbox getting cleared when you change another options like quality.
