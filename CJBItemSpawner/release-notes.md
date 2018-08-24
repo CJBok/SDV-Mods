@@ -3,6 +3,7 @@
 # Release notes
 ## 1.12.1
 * Updated for Stardew Valley 1.3.29.
+* Updated list of problematic items not visible by default.
 
 ## 1.11
 * Updated for Stardew Valley 1.3 (including multiplayer support).
