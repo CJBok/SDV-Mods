@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 1.18.1
+* Updated for Stardew Valley 1.3.29.
+
 ## 1.18
 * Updated for Stardew Valley 1.3 (including multiplayer support).
 * Added Quests tab to complete active quests instantly.
