@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewValley;
 using StardewValley.Menus;
+using StardewValley.Tools;
 using SObject = StardewValley.Object;
 
 namespace CJBItemSpawner.Framework
@@ -133,7 +134,7 @@ namespace CJBItemSpawner.Framework
                         {
                             if (index == Game1.player.CurrentToolIndex && this.ActualInventory[index] != null && this.ActualInventory[index].Stack == 1)
                                 this.ActualInventory[index].actionWhenStopBeingHeld(Game1.player);
-                            Item one = this.ActualInventory[index].getOne();
+                            Item one = this.GetOne(this.ActualInventory[index]);
                             if (this.ActualInventory[index].Stack > 1)
                             {
                                 if (Game1.isOneOfTheseKeysDown(Game1.oldKBState, new[] { new InputButton(Keys.LeftShift) }))
@@ -292,7 +293,7 @@ namespace CJBItemSpawner.Framework
         {
             if (whichItemIndex >= 0 && whichItemIndex < items.Count && items[whichItemIndex] != null)
             {
-                Item item = items[whichItemIndex].getOne();
+                Item item = this.GetOne(items[whichItemIndex]);
                 item.Stack = items[whichItemIndex].Stack;
                 if (whichItemIndex == Game1.player.CurrentToolIndex && object.ReferenceEquals(items, Game1.player.Items))
                     item.actionWhenStopBeingHeld(Game1.player);
@@ -301,6 +302,20 @@ namespace CJBItemSpawner.Framework
                 return item;
             }
             return null;
+        }
+
+        /// <summary>Get a new instance of an item.</summary>
+        /// <param name="item">The item to clone.</param>
+        private Item GetOne(Item item)
+        {
+            switch (item)
+            {
+                case Slingshot slingshot:
+                    return new Slingshot(slingshot.InitialParentTileIndex); // slingshot.getOne() always returns basic slingshot
+
+                default:
+                    return item.getOne();
+            }
         }
     }
 }
