@@ -3,6 +3,7 @@
 # Release notes
 ## 1.18.1
 * Updated for Stardew Valley 1.3.29.
+* Fixed relationship slider not disabled if you haven't met the NPC yet.
 
 ## 1.18
 * Updated for Stardew Valley 1.3 (including multiplayer support).
