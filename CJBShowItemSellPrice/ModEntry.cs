@@ -137,7 +137,7 @@ namespace CJBShowItemSellPrice
                 return inventoryMenu.hoveredItem;
 
             // CJB mods
-            else if (menu.GetType().FullName == "CJBItemSpawner.ItemMenu")
+            else if (menu.GetType().FullName == "CJBItemSpawner.Framework.ItemMenu")
                 return this.Helper.Reflection.GetField<Item>(menu, "HoveredItem").GetValue();
 
             return null;
