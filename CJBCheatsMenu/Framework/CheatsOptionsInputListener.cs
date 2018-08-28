@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,6 +17,9 @@ namespace CJBCheatsMenu.Framework
         /*********
         ** Properties
         *********/
+        /// <summary>The action to perform when the button is toggled (or <c>null</c> to handle it manually).</summary>
+        private readonly Action OnToggled;
+
         /// <summary>The mod settings.</summary>
         private readonly ModConfig Config;
 
@@ -25,6 +29,7 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The translated 'press new key' label.</summary>
         private readonly string PressNewKeyLabel;
 
+        /// <summary>The source rectangle for the 'set' button sprite.</summary>
         private readonly Rectangle SetButtonSprite = new Rectangle(294, 428, 21, 11);
         private readonly List<string> ButtonNames = new List<string>();
         private string ListenerMessage;
@@ -43,7 +48,7 @@ namespace CJBCheatsMenu.Framework
         /// <param name="cheats">The cheats helper.</param>
         /// <param name="i18n">Provides translations for the mod.</param>
         public CheatsOptionsInputListener(string label, int whichOption, int slotWidth, ModConfig config, Cheats cheats, ITranslationHelper i18n)
-          : base(label, -1, -1, slotWidth + 1, 11 * Game1.pixelZoom, whichOption)
+            : base(label, -1, -1, slotWidth + 1, 11 * Game1.pixelZoom, whichOption)
         {
             this.Config = config;
             this.Cheats = cheats;
@@ -70,10 +75,30 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
+        /// <summary>Construct an instance.</summary>
+        /// <param name="label">The field label.</param>
+        /// <param name="slotWidth">The field width.</param>
+        /// <param name="onToggled">The action to perform when the button is toggled.</param>
+        public CheatsOptionsInputListener(string label, int slotWidth, Action onToggled)
+          : base(label, -1, -1, slotWidth + 1, 11 * Game1.pixelZoom)
+        {
+            this.SetButtonBounds = new Rectangle(slotWidth - 28 * Game1.pixelZoom, -1 + Game1.pixelZoom * 3, 21 * Game1.pixelZoom, 11 * Game1.pixelZoom);
+            this.OnToggled = onToggled;
+        }
+
         public override void receiveLeftClick(int x, int y)
         {
             if (this.greyedOut || this.Listening || !this.SetButtonBounds.Contains(x, y))
                 return;
+
+            // callback handler
+            if (this.OnToggled != null)
+            {
+                this.OnToggled();
+                return;
+            }
+
+            // hardcoded handling
             if (!this.ButtonNames.Any())
             {
                 switch (this.whichOption)
@@ -121,95 +146,6 @@ namespace CJBCheatsMenu.Framework
                         break;
                     case 13:
                         this.Cheats.SetWeatherForNextDay(Game1.weather_snow);
-                        break;
-                    case 14:
-                        Game1.warpFarmer("FarmHouse", 9, 11, false);
-                        Game1.exitActiveMenu();
-                        break;
-
-                    case 100:
-                        Game1.warpFarmer("Farm", 64, 15, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 101:
-                        Game1.warpFarmer("Town", 43, 57, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 102:
-                        Game1.warpFarmer("Town", 94, 82, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 103:
-                        Game1.warpFarmer("Town", 102, 90, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 104:
-                        Game1.warpFarmer("Town", 45, 71, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 105:
-                        Game1.warpFarmer("Town", 52, 20, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 106:
-                        Game1.warpFarmer("Mountain", 12, 26, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 107:
-                        Game1.warpFarmer("Mountain", 76, 9, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 108:
-                        Game1.warpFarmer("Mountain", 127, 12, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 109:
-                        Game1.warpFarmer("Mine", 13, 10, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 110:
-                        Game1.warpFarmer("Beach", 30, 34, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 111:
-                        Game1.warpFarmer("Beach", 87, 26, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 112:
-                        Game1.warpFarmer("Desert", 18, 28, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 113:
-                        Game1.warpFarmer("Forest", 90, 16, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 114:
-                        Game1.warpFarmer("Forest", 5, 27, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 115:
-                        Game1.warpFarmer("Forest", 34, 96, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 116:
-                        Game1.warpFarmer("Woods", 58, 15, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 117:
-                        Game1.warpFarmer("Sewer", 3, 48, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 118:
-                        Game1.warpFarmer("Railroad", 10, 57, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 119:
-                        Game1.warpFarmer("SandyHouse", 4, 8, false);
-                        Game1.exitActiveMenu();
-                        break;
-                    case 120:
-                        Game1.warpFarmer("Club", 8, 11, false);
-                        Game1.exitActiveMenu();
                         break;
 
                     case 200:

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
+using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Buildings;
 using StardewValley.Locations;
@@ -82,19 +83,15 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
-        public void GrowTree()
+        public void GrowTree(Vector2 origin)
         {
             var player = Game1.player;
             if (player == null)
                 return;
 
-            int x = (int)player.GetToolLocation().X / Game1.tileSize;
-            int y = (int)player.GetToolLocation().Y / Game1.tileSize;
-            Vector2 index = new Vector2(x, y);
-
-            if (player.currentLocation.terrainFeatures.ContainsKey(index))
+            if (player.currentLocation.terrainFeatures.ContainsKey(origin))
             {
-                TerrainFeature terrainFeature = player.currentLocation.terrainFeatures[index];
+                TerrainFeature terrainFeature = player.currentLocation.terrainFeatures[origin];
                 if (terrainFeature is Tree tree)
                 {
                     if (!tree.stump.Value)
@@ -111,7 +108,7 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
-        public void GrowCrops()
+        public void GrowCrops(Vector2 origin)
         {
             var player = Game1.player;
             if (player == null)
@@ -122,7 +119,7 @@ namespace CJBCheatsMenu.Framework
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
-                    tiles.Add(new Vector2(player.getTileX() + x, player.getTileY() + y));
+                    tiles.Add(new Vector2(origin.X + x, origin.Y + y));
             }
 
             foreach (Vector2 tile in tiles)
@@ -442,17 +439,17 @@ namespace CJBCheatsMenu.Framework
                 Game1.gameTimeInterval = 0;
         }
 
-        public void OnButtonPress(SButton key)
+        public void OnButtonPress(EventArgsInput input)
         {
             if (!Context.IsPlayerFree)
                 return;
 
-            if (key == this.Config.FreezeTimeKey)
+            if (input.Button == this.Config.FreezeTimeKey)
                 this.Config.FreezeTime = !this.Config.FreezeTime;
-            else if (key == this.Config.GrowTreeKey)
-                this.GrowTree();
-            else if (key == this.Config.GrowCropsKey)
-                this.GrowCrops();
+            else if (input.Button == this.Config.GrowTreeKey)
+                this.GrowTree(input.Cursor.Tile);
+            else if (input.Button == this.Config.GrowCropsKey)
+                this.GrowCrops(input.Cursor.Tile);
         }
 
 

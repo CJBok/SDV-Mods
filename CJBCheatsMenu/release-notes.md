@@ -1,6 +1,15 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 1.18.1
+* Updated for Stardew Valley 1.3.29.
+* Farmhands in multiplayer warping to the farm now land in front of their cabin, instead of the farmhouse.
+* 'Grow crop' now affects crops under the cursor (instead of around the player).
+* 'Grow tree' now affects the one under the cursor (instead of under the tool square).
+* Fixed casino warp shown when player can't access casino yet.
+* Fixed museum warp landing one tile to the right of the door.
+* Fixed relationship slider not disabled if you haven't met the NPC yet.
+
 ## 1.18
 * Updated for Stardew Valley 1.3 (including multiplayer support).
 * Added Quests tab to complete active quests instantly.

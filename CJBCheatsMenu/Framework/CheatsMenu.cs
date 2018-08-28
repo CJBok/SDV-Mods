@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewValley;
+using StardewValley.Buildings;
+using StardewValley.Locations;
 using StardewValley.Menus;
 using StardewValley.Quests;
 using SFarmer = StardewValley.Farmer;
@@ -82,6 +84,7 @@ namespace CJBCheatsMenu.Framework
             for (int i = 0; i < CheatsMenu.ItemsPerPage; i++)
                 this.OptionSlots.Add(new ClickableComponent(new Rectangle(this.xPositionOnScreen + Game1.tileSize / 4, this.yPositionOnScreen + Game1.tileSize * 5 / 4 + Game1.pixelZoom + i * ((this.height - Game1.tileSize * 2) / CheatsMenu.ItemsPerPage), this.width - Game1.tileSize / 2, (this.height - Game1.tileSize * 2) / CheatsMenu.ItemsPerPage + Game1.pixelZoom), string.Concat(i)));
 
+            int slotWidth = this.OptionSlots[0].bounds.Width;
             switch (this.CurrentTab)
             {
                 case MenuTab.PlayerAndTools:
@@ -99,20 +102,20 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("tools.harvest-with-sickle"), config.HarvestSickle, value => config.HarvestSickle = value));
 
                     this.Options.Add(new OptionsElement($"{i18n.Get("money.title")}:"));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("money.add-amount", new { amount = 100 }), 2, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("money.add-amount", new { amount = 1000 }), 3, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("money.add-amount", new { amount = 10000 }), 4, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("money.add-amount", new { amount = 100000 }), 5, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("money.add-amount", new { amount = 100 }), 2, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("money.add-amount", new { amount = 1000 }), 3, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("money.add-amount", new { amount = 10000 }), 4, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("money.add-amount", new { amount = 100000 }), 5, slotWidth, config, cheats, i18n));
 
                     this.Options.Add(new OptionsElement($"{i18n.Get("casino-coins.title")}:"));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("casino-coins.add-amount", new { amount = 100 }), 6, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("casino-coins.add-amount", new { amount = 1000 }), 7, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("casino-coins.add-amount", new { amount = 10000 }), 8, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("casino-coins.add-amount", new { amount = 100 }), 6, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("casino-coins.add-amount", new { amount = 1000 }), 7, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("casino-coins.add-amount", new { amount = 10000 }), 8, slotWidth, config, cheats, i18n));
                     break;
 
                 case MenuTab.FarmAndFishing:
                     this.Options.Add(new OptionsElement($"{i18n.Get("farm.title")}:"));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("farm.water-all-fields"), 9, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("farm.water-all-fields"), 9, slotWidth, config, cheats, i18n));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("farm.durable-fences"), config.DurableFences, value => config.DurableFences = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("farm.instant-build"), config.InstantBuild, value => config.InstantBuild = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("farm.always-auto-feed"), config.AutoFeed, value => config.AutoFeed = value));
@@ -151,12 +154,12 @@ namespace CJBCheatsMenu.Framework
 
                 case MenuTab.Skills:
                     this.Options.Add(new OptionsElement($"{i18n.Get("skills.title")}:"));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.increase-farming"), 200, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.increase-mining"), 201, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.increase-foraging"), 202, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.increase-fishing"), 203, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.increase-combat"), 204, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.reset"), 205, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.increase-farming"), 200, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.increase-mining"), 201, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.increase-foraging"), 202, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.increase-fishing"), 203, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.increase-combat"), 204, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.reset"), 205, slotWidth, config, cheats, i18n));
                     this.Options.Add(new OptionsElement($"{i18n.Get("professions.title")}:"));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.fighter"), this.GetProfession(SFarmer.fighter), value => this.SetProfession(SFarmer.fighter, value)));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.scout"), this.GetProfession(SFarmer.scout), value => this.SetProfession(SFarmer.scout, value)));
@@ -193,10 +196,10 @@ namespace CJBCheatsMenu.Framework
                 case MenuTab.Weather:
                     this.Options.Add(new OptionsElement($"{i18n.Get("weather.title")}:"));
                     this.Options.Add(new CheatsOptionsWeatherElement($"{i18n.Get("weather.current")}", () => CJB.GetWeatherNexDay(i18n)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("weather.sunny"), 10, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("weather.raining"), 11, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("weather.lightning"), 12, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("weather.snowing"), 13, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("weather.sunny"), 10, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("weather.raining"), 11, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("weather.lightning"), 12, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("weather.snowing"), 13, slotWidth, config, cheats, i18n));
                     break;
 
                 case MenuTab.Relationships:
@@ -213,27 +216,28 @@ namespace CJBCheatsMenu.Framework
 
                 case MenuTab.WarpLocations:
                     this.Options.Add(new OptionsElement($"{i18n.Get("warp.title")}:"));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.farm"), 100, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.pierre-shop"), 101, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.blacksmith"), 102, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.museum"), 103, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.saloon"), 104, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.community-center"), 105, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.carpenter"), 106, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.adventurers-guild"), 107, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.ranch"), 113, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.mines"), 109, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.willy-shop"), 110, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.wizard-tower"), 114, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.hats"), 115, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.desert"), 112, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.sandy-shop"), 119, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.casino"), 120, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.quarry"), 108, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.new-beach"), 111, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.secret-woods"), 116, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.sewer"), 117, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.bathhouse"), 118, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.farm"), slotWidth, this.WarpToFarm));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.pierre-shop"), slotWidth, () => this.Warp("Town", 43, 57)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.blacksmith"), slotWidth, () => this.Warp("Town", 94, 82)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.museum"), slotWidth, () => this.Warp("Town", 101, 90)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.saloon"), slotWidth, () => this.Warp("Town", 45, 71)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.community-center"), slotWidth, () => this.Warp("Town", 52, 20)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.carpenter"), slotWidth, () => this.Warp("Mountain", 12, 26)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.adventurers-guild"), slotWidth, () => this.Warp("Mountain", 76, 9)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.ranch"), slotWidth, () => this.Warp("Forest", 90, 16)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.mines"), slotWidth, () => this.Warp("Mine", 13, 10)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.willy-shop"), slotWidth, () => this.Warp("Beach", 30, 34)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.wizard-tower"), slotWidth, () => this.Warp("Forest", 5, 27)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.hats"), slotWidth, () => this.Warp("Forest", 34, 96)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.desert"), slotWidth, () => this.Warp("Desert", 18, 28)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.sandy-shop"), slotWidth, () => this.Warp("SandyHouse", 4, 8)));
+                    if (Game1.player.hasClubCard)
+                        this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.casino"), slotWidth, () => this.Warp("Club", 8, 11)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.quarry"), slotWidth, () => this.Warp("Mountain", 127, 12)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.new-beach"), slotWidth, () => this.Warp("Beach", 87, 26)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.secret-woods"), slotWidth, () => this.Warp("Woods", 58, 15)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.sewer"), slotWidth, () => this.Warp("Sewer", 3, 48)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.bathhouse"), slotWidth, () => this.Warp("Railroad", 10, 57)));
                     break;
 
                 case MenuTab.Time:
@@ -252,7 +256,7 @@ namespace CJBCheatsMenu.Framework
                             foreach (Quest quest in Game1.player.questLog)
                             {
                                 if (!quest.completed.Value)
-                                    this.Options.Add(new CheatsOptionsInputListener(quest.questTitle, 300 + i++, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
+                                    this.Options.Add(new CheatsOptionsInputListener(quest.questTitle, 300 + i++, slotWidth, config, cheats, i18n));
                             }
                         }
                         this.Options.Add(new OptionsElement($"{i18n.Get("completedquests.title")}:"));
@@ -267,10 +271,10 @@ namespace CJBCheatsMenu.Framework
 
                 case MenuTab.Controls:
                     this.Options.Add(new OptionsElement($"{i18n.Get("controls.title")}:"));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("controls.open-menu"), 1000, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("controls.freeze-time"), 1001, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("controls.grow-tree"), 1002, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("controls.grow-crops"), 1003, this.OptionSlots[0].bounds.Width, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("controls.open-menu"), 1000, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("controls.freeze-time"), 1001, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("controls.grow-tree"), 1002, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("controls.grow-crops"), 1003, slotWidth, config, cheats, i18n));
                     break;
             }
             this.SetScrollBarToCurrentIndex();
@@ -331,6 +335,42 @@ namespace CJBCheatsMenu.Framework
             }
             else
                 Game1.player.professions.Remove(id);
+        }
+
+        /// <summary>Warp the player to the farm.</summary>
+        private void WarpToFarm()
+        {
+            // try to drop farmhand in front of their cabin
+            string cabinName = Game1.player.homeLocation.Value;
+            if (!Context.IsMainPlayer && cabinName != null)
+            {
+                foreach (BuildableGameLocation location in Game1.locations.OfType<BuildableGameLocation>())
+                {
+                    foreach (Building building in location.buildings)
+                    {
+                        if (building.indoors.Value?.uniqueName.Value == cabinName)
+                        {
+                            int tileX = building.tileX.Value + building.humanDoor.X;
+                            int tileY = building.tileY.Value + building.humanDoor.Y + 1;
+                            this.Warp(location.Name, tileX, tileY);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            // else farmhouse
+            this.Warp("Farm", 64, 15);
+        }
+
+        /// <summary>Warp the player to the given location.</summary>
+        /// <param name="locationName">The location name.</param>
+        /// <param name="tileX">The tile X position.</param>
+        /// <param name="tileY">The tile Y position.</param>
+        private void Warp(string locationName, int tileX, int tileY)
+        {
+            Game1.warpFarmer(locationName, tileX, tileY, false);
+            Game1.exitActiveMenu();
         }
 
         private void SetScrollBarToCurrentIndex()

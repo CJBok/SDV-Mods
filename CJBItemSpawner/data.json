@@ -3,6 +3,9 @@
    * Items which are hidden by default because they cause in-game bugs or crashes.
    */
   "ProblematicItems": [
+    // Crystal Chair, unreleased version (glitches and causes crashes once rotated / picked up)
+    { "Type": "BigCraftable", "ID": 90 },
+
     // Incubator (can't be removed once placed)
     { "Type": "BigCraftable", "ID": 101 },
 
