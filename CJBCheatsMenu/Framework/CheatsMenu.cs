@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewValley;
+using StardewValley.Buildings;
+using StardewValley.Locations;
 using StardewValley.Menus;
 using StardewValley.Quests;
 using SFarmer = StardewValley.Farmer;
@@ -214,7 +216,7 @@ namespace CJBCheatsMenu.Framework
 
                 case MenuTab.WarpLocations:
                     this.Options.Add(new OptionsElement($"{i18n.Get("warp.title")}:"));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.farm"), slotWidth, () => this.Warp("Farm", 64, 15)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.farm"), slotWidth, this.WarpToFarm));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.pierre-shop"), slotWidth, () => this.Warp("Town", 43, 57)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.blacksmith"), slotWidth, () => this.Warp("Town", 94, 82)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.museum"), slotWidth, () => this.Warp("Town", 101, 90)));
@@ -333,6 +335,32 @@ namespace CJBCheatsMenu.Framework
             }
             else
                 Game1.player.professions.Remove(id);
+        }
+
+        /// <summary>Warp the player to the farm.</summary>
+        private void WarpToFarm()
+        {
+            // try to drop farmhand in front of their cabin
+            string cabinName = Game1.player.homeLocation.Value;
+            if (!Context.IsMainPlayer && cabinName != null)
+            {
+                foreach (BuildableGameLocation location in Game1.locations.OfType<BuildableGameLocation>())
+                {
+                    foreach (Building building in location.buildings)
+                    {
+                        if (building.indoors.Value?.uniqueName.Value == cabinName)
+                        {
+                            int tileX = building.tileX.Value + building.humanDoor.X;
+                            int tileY = building.tileY.Value + building.humanDoor.Y + 1;
+                            this.Warp(location.Name, tileX, tileY);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            // else farmhouse
+            this.Warp("Farm", 64, 15);
         }
 
         /// <summary>Warp the player to the given location.</summary>
