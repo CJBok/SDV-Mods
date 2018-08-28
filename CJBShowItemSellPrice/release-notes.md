@@ -3,6 +3,7 @@
 # Release notes
 ## 1.9.1 (upcoming)
 * Updated for Stardew Valley 1.3.29.
+* Fixed tooltip being drawn offscreen when cursor is near the edge.
 * Added Spanish translations (thanks to Yllelder!).
 
 ## 1.9

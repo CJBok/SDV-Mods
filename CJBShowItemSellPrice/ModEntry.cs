@@ -52,9 +52,9 @@ namespace CJBShowItemSellPrice
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
         {
-            GraphicsEvents.OnPostRenderGuiEvent += GraphicsEvents_OnPostRenderGuiEvent;
-            GraphicsEvents.OnPostRenderHudEvent += GraphicsEvents_OnPostRenderHudEvent;
-            GameEvents.OneSecondTick += GameEvents_OneSecondTick;
+            GraphicsEvents.OnPostRenderGuiEvent += this.GraphicsEvents_OnPostRenderGuiEvent;
+            GraphicsEvents.OnPostRenderHudEvent += this.GraphicsEvents_OnPostRenderHudEvent;
+            GameEvents.OneSecondTick += this.GameEvents_OneSecondTick;
 
             this.SingleLabel = this.Helper.Translation.Get("labels.single-price") + ":";
             this.StackLabel = this.Helper.Translation.Get("labels.stack-price") + ":";
@@ -217,6 +217,13 @@ namespace CJBShowItemSellPrice
             // get position
             float x = (Mouse.GetState().X / Game1.options.zoomLevel) - offsetFromCursor.X - outerSize.X;
             float y = (Mouse.GetState().Y / Game1.options.zoomLevel) + offsetFromCursor.Y + borderSize;
+
+            // adjust position to fit on screen
+            Rectangle area = new Rectangle((int)x, (int)y, (int)outerSize.X, (int)outerSize.Y);
+            if (area.Right > Game1.viewport.Width)
+                x = Game1.viewport.Width - area.Width;
+            if (area.Bottom > Game1.viewport.Height)
+                y = Game1.viewport.Height - area.Height;
 
             // draw tooltip box
             IClickableMenu.drawTextureBox(spriteBatch, Game1.menuTexture, this.TooltipSourceRect, (int)x, (int)y, (int)outerSize.X, (int)outerSize.Y, Color.White);
