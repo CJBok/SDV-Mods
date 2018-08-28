@@ -79,7 +79,7 @@ namespace CJBCheatsMenu
             if (e.Button == this.Config.OpenMenuKey)
                 this.OpenMenu();
             else
-                this.Cheats.OnButtonPress(e.Button);
+                this.Cheats.OnButtonPress(e);
         }
 
         private void GraphicsEvents_DrawTick(object sender, EventArgs e)
