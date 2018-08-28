@@ -1,7 +1,7 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## 1.9.1 (upcoming)
+## 1.9.1
 * Updated for Stardew Valley 1.3.29.
 * Fixed tooltip being drawn offscreen when cursor is near the edge.
 * Fixed tooltip no longer shown in CJB Item Spawner menu.
