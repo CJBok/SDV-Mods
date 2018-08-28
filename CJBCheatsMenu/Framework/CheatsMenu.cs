@@ -220,7 +220,7 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.museum"), slotWidth, () => this.Warp("Town", 102, 90)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.saloon"), slotWidth, () => this.Warp("Town", 45, 71)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.community-center"), slotWidth, () => this.Warp("Town", 52, 20)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.carpenter"),  slotWidth, () => this.Warp("Mountain", 12, 26)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.carpenter"), slotWidth, () => this.Warp("Mountain", 12, 26)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.adventurers-guild"), slotWidth, () => this.Warp("Mountain", 76, 9)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.ranch"), slotWidth, () => this.Warp("Forest", 90, 16)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.mines"), slotWidth, () => this.Warp("Mine", 13, 10)));
@@ -229,7 +229,8 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.hats"), slotWidth, () => this.Warp("Forest", 34, 96)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.desert"), slotWidth, () => this.Warp("Desert", 18, 28)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.sandy-shop"), slotWidth, () => this.Warp("SandyHouse", 4, 8)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.casino"), slotWidth, () => this.Warp("Club", 8, 11)));
+                    if (Game1.player.hasClubCard)
+                        this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.casino"), slotWidth, () => this.Warp("Club", 8, 11)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.quarry"), slotWidth, () => this.Warp("Mountain", 127, 12)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.new-beach"), slotWidth, () => this.Warp("Beach", 87, 26)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.secret-woods"), slotWidth, () => this.Warp("Woods", 58, 15)));
