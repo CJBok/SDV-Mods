@@ -217,7 +217,7 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.farm"), slotWidth, () => this.Warp("Farm", 64, 15)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.pierre-shop"), slotWidth, () => this.Warp("Town", 43, 57)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.blacksmith"), slotWidth, () => this.Warp("Town", 94, 82)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.museum"), slotWidth, () => this.Warp("Town", 102, 90)));
+                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.museum"), slotWidth, () => this.Warp("Town", 101, 90)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.saloon"), slotWidth, () => this.Warp("Town", 45, 71)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.community-center"), slotWidth, () => this.Warp("Town", 52, 20)));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.carpenter"), slotWidth, () => this.Warp("Mountain", 12, 26)));

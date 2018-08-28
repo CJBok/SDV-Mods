@@ -4,6 +4,7 @@
 ## 1.18.1
 * Updated for Stardew Valley 1.3.29.
 * Fixed casino warp shown when player can't access casino yet.
+* Fixed museum warp dropping player one tile to the right of the door.
 * Fixed relationship slider not disabled if you haven't met the NPC yet.
 
 ## 1.18
