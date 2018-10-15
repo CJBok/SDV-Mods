@@ -23,7 +23,7 @@
   "tools.title": "工具",
   "tools.infinite-water": "无限喷壶",
   "tools.one-hit-break": "一拳超人(对物品)",
-  "tools.harvest-with-sickle": "镰刀收获(不会增加经验值)",
+  "tools.harvest-with-sickle": "镰刀收获",
   "money.title": "金钱",
   "money.add-amount": "增加 {{amount}}g",
   "casino-coins.title": "赌场代币",
