@@ -3,7 +3,7 @@
 # Release notes
 ## 1.11.1
 * Updated for Stardew Valley 1.3.29.
-* Updated list of problematic items not visible by default.
+* Updated list of problematic items (which are hidden by default).
 * Fixed all slingshots spawned as the basic slingshot.
 
 ## 1.11
