@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 1.18.2
+* Added Spanish translations (thanks to Spa51!)
+
 ## 1.18.1
 * Updated for Stardew Valley 1.3.29.
 * Farmhands in multiplayer warping to the farm now land in front of their cabin, instead of the farmhouse.

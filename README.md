@@ -18,7 +18,7 @@ German     | ❑                                      | ❑                     
 Japanese   | [↻ partial](CJBCheatsMenu/i18n/ja.json) | ❑                                | ❑
 Portuguese | [↻ partial](CJBCheatsMenu/i18n/pt.json) | [✓](CJBItemSpawner/i18n/pt.json) | [✓](CJBShowItemSellPrice/i18n/pt.json)
 Russian    | [↻ partial](CJBCheatsMenu/i18n/ru.json) | [✓](CJBItemSpawner/i18n/ru.json) | [✓](CJBShowItemSellPrice/i18n/ru.json)
-Spanish    | ❑                                      | ❑                                | [✓](CJBShowItemSellPrice/i18n/es.json)
+Spanish    | [✓](CJBCheatsMenu/i18n/es.json)        | ❑                                | [✓](CJBShowItemSellPrice/i18n/es.json)
 
 Here's how to translate one of my mods:
 
