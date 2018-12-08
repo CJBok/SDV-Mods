@@ -1,0 +1,20 @@
+﻿{
+  "title": "CJB Item Spawner",
+
+  "labels.sort-by-name": "Nach Name sortiert",
+  "labels.sort-by-category": "Nach Kategorie sortiert",
+  "labels.sort-by-id": "Nach ID sortiert",
+  "labels.quality": "Qualität",
+
+  "tabs.all": "Alle",
+  "tabs.equipment": "Werkzeuge",
+  "tabs.crops": "Samen & Saat",
+  "tabs.fishing": "Fisch & Köder & Müll",
+  "tabs.forage": "Futter & Früchte",
+  "tabs.artifacts-and-minerals": "Artefakte & Minerale",
+  "tabs.resources-and-crafting": "Ressourcen & Herstellung",
+  "tabs.artisan-and-cooking": "Handwerk & Kochen",
+  "tabs.animal-and-monster": "Tier & Monster",
+  "tabs.decorating": "Dekoration",
+  "tabs.miscellaneous": "Verschiedenes"
+}
