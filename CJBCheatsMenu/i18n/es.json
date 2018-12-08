@@ -163,6 +163,6 @@
   "controls.grow-crops": "Cultivar Cultivos",
 
   // various messages
-  "messages.press-new-key": "Press New Key...",
-  "messages.time-frozen": "Time Frozen"
+  "messages.press-new-key": "Press New Key...", // TODO
+  "messages.time-frozen": "Time Frozen" // TODO
 }

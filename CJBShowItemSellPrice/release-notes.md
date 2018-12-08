@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Updated translations. Thanks to Redlnn (added Chinese)!
+
 ## 1.9.1
 * Updated for Stardew Valley 1.3.29.
 * Fixed tooltip being drawn offscreen when cursor is near the edge.

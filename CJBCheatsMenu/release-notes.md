@@ -1,8 +1,12 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Removed "(no XP gain)" in harvest with scythe option label, since that was fixed in Stardew Valley 1.3. (Thanks to SkpFX!)
+* Updated translations. Thanks to Redlnn (improved Chinese)!
+
 ## 1.18.2
-* Added Spanish translations (thanks to Spa51!)
+* Added Spanish translations. (Thanks to Spa51!)
 
 ## 1.18.1
 * Updated for Stardew Valley 1.3.29.
