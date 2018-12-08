@@ -2,7 +2,7 @@
 
 # Release notes
 ## Upcoming release
-* Updated translations. Thanks to Redlnn (added Chinese)!
+* Updated translations. Thanks to Redlnn and BerryConcept (added Chinese)!
 
 ## 1.11.1
 * Updated for Stardew Valley 1.3.29.
