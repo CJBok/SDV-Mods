@@ -1,6 +1,10 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 1.9.2
+* Updated for the upcoming SMAPI 3.0.
+* Updated translations. Thanks to Nanogamer7 (added German) and Redlnn (added Chinese)!
+
 ## 1.9.1
 * Updated for Stardew Valley 1.3.29.
 * Fixed tooltip being drawn offscreen when cursor is near the edge.

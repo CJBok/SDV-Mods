@@ -10,7 +10,7 @@ namespace CJBItemSpawner.Framework
     internal class ItemMenuWithInventory : IClickableMenu
     {
         /*********
-        ** Properties
+        ** Fields
         *********/
         private readonly int InventoryYOffset;
 

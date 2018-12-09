@@ -20,7 +20,7 @@ namespace CJBCheatsMenu.Framework
     internal class Cheats
     {
         /*********
-        ** Properties
+        ** Fields
         *********/
         /// <summary>The mod settings.</summary>
         private readonly ModConfig Config;
@@ -157,12 +157,16 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
-        public void OnDrawTick(ITranslationHelper i18n)
+        /// <summary>Raised after the game draws to the sprite patch in a draw tick, just before the final sprite batch is rendered to the screen.</summary>
+        /// <param name="i18n">The translation helper.</param>
+        public void OnRendered(ITranslationHelper i18n)
         {
             if (this.ShouldFreezeTime(Game1.currentLocation, out bool isCave))
                 CJB.DrawTextBox(5, isCave ? 100 : 5, Game1.smallFont, i18n.Get("messages.time-frozen"));
         }
 
+        /// <summary>Raised once per second.</summary>
+        /// <param name="locations">The known in-game locations.</param>
         public void OneSecondUpdate(GameLocation[] locations)
         {
             // disable friendship decay
@@ -305,7 +309,10 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
-        public void OnUpdate(IModHelper helper)
+        /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
+        /// <param name="e">The event arguments.</param>
+        /// <param name="reflection">Simplifies access to private game code.</param>
+        public void OnUpdateTicked(UpdateTickedEventArgs e, IReflectionHelper reflection)
         {
             if (Game1.player?.currentLocation != null)
             {
@@ -346,14 +353,14 @@ namespace CJBCheatsMenu.Framework
 
                     // always treasure
                     if (this.Config.AlwaysTreasure && bobberMenu != null)
-                        helper.Reflection.GetField<bool>(bobberMenu, "treasure").SetValue(true);
+                        reflection.GetField<bool>(bobberMenu, "treasure").SetValue(true);
 
                     // instant catch
                     if (this.Config.InstantCatch && bobberMenu != null)
                     {
-                        helper.Reflection.GetField<float>(bobberMenu, "distanceFromCatching").SetValue(1);
-                        if (helper.Reflection.GetField<bool>(bobberMenu, "treasure").GetValue())
-                            helper.Reflection.GetField<bool>(bobberMenu, "treasureCaught").SetValue(true);
+                        reflection.GetField<float>(bobberMenu, "distanceFromCatching").SetValue(1);
+                        if (reflection.GetField<bool>(bobberMenu, "treasure").GetValue())
+                            reflection.GetField<bool>(bobberMenu, "treasureCaught").SetValue(true);
                     }
                 }
 
@@ -439,7 +446,9 @@ namespace CJBCheatsMenu.Framework
                 Game1.gameTimeInterval = 0;
         }
 
-        public void OnButtonPress(EventArgsInput input)
+        /// <summary>Raised after the player presses a button on the keyboard, controller, or mouse.</summary>
+        /// <param name="input">The event arguments.</param>
+        public void OnButtonPressed(ButtonPressedEventArgs input)
         {
             if (!Context.IsPlayerFree)
                 return;

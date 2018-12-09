@@ -18,7 +18,7 @@ namespace CJBCheatsMenu.Framework
     internal class CheatsMenu : IClickableMenu
     {
         /*********
-        ** Properties
+        ** Fields
         *********/
         /// <summary>The mod settings.</summary>
         private readonly ModConfig Config;

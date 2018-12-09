@@ -14,7 +14,7 @@ namespace CJBItemSpawner
     internal class ModEntry : Mod
     {
         /*********
-        ** Public methods
+        ** Fields
         *********/
         /// <summary>The mod settings.</summary>
         private ModConfig Config;
@@ -35,21 +35,21 @@ namespace CJBItemSpawner
             this.Monitor.Log($"Started with menu key {this.Config.ShowMenuKey}.", LogLevel.Trace);
 
             // init item repository
-            ModData data = helper.ReadJsonFile<ModData>("data.json");
+            ModData data = helper.Data.ReadJsonFile<ModData>("data.json");
             this.ItemRepository = this.GetItemRepository(data, this.Config.AllowProblematicItems);
 
             // hook events
-            InputEvents.ButtonPressed += this.Events_ButtonPressed;
+            helper.Events.Input.ButtonPressed += this.OnButtonPressed;
         }
 
 
         /*********
         ** Private methods
         *********/
-        /// <summary>The method invoked when the player presses a keyboard button.</summary>
+        /// <summary>Raised after the player presses a button on the keyboard, controller, or mouse.</summary>
         /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event data.</param>
-        private void Events_ButtonPressed(object sender, EventArgsInput e)
+        /// <param name="e">The event arguments.</param>
+        private void OnButtonPressed(object sender, ButtonPressedEventArgs e)
         {
             if (!Context.IsPlayerFree)
                 return;

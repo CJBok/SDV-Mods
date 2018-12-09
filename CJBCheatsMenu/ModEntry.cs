@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using CJBCheatsMenu.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -7,13 +6,14 @@ using StardewValley;
 
 namespace CJBCheatsMenu
 {
+    /// <summary>The mod entry point.</summary>
     internal class ModEntry : Mod
     {
         /*********
-        ** Properties
+        ** Fields
         *********/
+        /// <summary>The known in-game location.</summary>
         private GameLocation[] Locations;
-        private bool IsLoaded => Context.IsWorldReady && this.Locations != null;
 
         /// <summary>The mod settings.</summary>
         private ModConfig Config;
@@ -34,89 +34,90 @@ namespace CJBCheatsMenu
 
             this.Cheats = new Cheats(this.Config);
 
-            SaveEvents.AfterLoad += this.SaveEvents_AfterLoad;
+            helper.Events.Display.Rendered += this.OnRendered;
+            helper.Events.Display.MenuChanged += this.OnMenuChanged;
 
-            LocationEvents.LocationsChanged += this.LocationEvents_LocationsChanged;
+            helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
+            helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
 
-            GameEvents.UpdateTick += this.Events_UpdateTick;
-            GameEvents.OneSecondTick += this.GameEvents_OneSecondTick;
+            helper.Events.Input.ButtonPressed += this.OnButtonPressed;
 
-            InputEvents.ButtonPressed += this.Events_ButtonPressed;
-
-            GraphicsEvents.OnPostRenderEvent += this.GraphicsEvents_DrawTick;
-
-            MenuEvents.MenuClosed += this.MenuEvents_MenuClosed;
+            helper.Events.World.LocationListChanged += this.OnLocationListChanged;
         }
 
 
         /*********
         ** Private methods
         *********/
-        private void SaveEvents_AfterLoad(object sender, EventArgs eventArgs)
+        /// <summary>Raised after the player loads a save slot.</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
             this.Locations = CJB.GetAllLocations().ToArray();
             this.Cheats.Reset();
         }
 
-        private void LocationEvents_LocationsChanged(object sender, EventArgsLocationsChanged e)
+        /// <summary>Raised after a game location is added or removed.</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnLocationListChanged(object sender, LocationListChangedEventArgs e)
         {
             this.Locations = CJB.GetAllLocations().ToArray();
         }
 
-        private void GameEvents_OneSecondTick(object sender, EventArgs e)
+        /// <summary>Raised after the player presses a button on the keyboard, controller, or mouse.</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnButtonPressed(object sender, ButtonPressedEventArgs e)
         {
-            if (!this.IsLoaded)
+            if (!Context.IsPlayerFree)
                 return;
 
-            this.Cheats.OneSecondUpdate(this.Locations);
-        }
-
-        private void Events_ButtonPressed(object sender, EventArgsInput e)
-        {
-            if (!this.IsLoaded || !Context.IsPlayerFree)
-                return;
-
+            // open menu
             if (e.Button == this.Config.OpenMenuKey)
-                this.OpenMenu();
+                Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Config, this.Cheats, this.Helper.Translation);
+
+            // handle button if applicable
             else
-                this.Cheats.OnButtonPress(e);
+                this.Cheats.OnButtonPressed(e);
         }
 
-        private void GraphicsEvents_DrawTick(object sender, EventArgs e)
+        /// <summary>Raised after the game draws to the sprite patch in a draw tick, just before the final sprite batch is rendered to the screen.</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnRendered(object sender, RenderedEventArgs e)
         {
-            if (!this.IsLoaded)
+            if (!Context.IsWorldReady)
                 return;
 
-            this.Cheats.OnDrawTick(this.Helper.Translation);
+            this.Cheats.OnRendered(this.Helper.Translation);
         }
 
-        private void Events_UpdateTick(object sender, EventArgs e)
+        /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
         {
-            if (!this.IsLoaded)
+            if (!Context.IsWorldReady)
                 return;
 
-            this.Cheats.OnUpdate(this.Helper);
+            this.Cheats.OnUpdateTicked(e, this.Helper.Reflection);
+            if (e.IsOneSecond)
+                this.Cheats.OneSecondUpdate(this.Locations);
         }
 
-        private void MenuEvents_MenuClosed(object sender, EventArgsClickableMenuClosed e)
+        /// <summary>Raised after a game menu is opened, closed, or replaced.</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnMenuChanged(object sender, MenuChangedEventArgs e)
         {
-            if (e.PriorMenu is CheatsMenu)
-                this.SaveConfig();
-        }
-
-        /// <summary>Open the cheats menu.</summary>
-        private void OpenMenu()
-        {
-            if (Game1.activeClickableMenu != null)
-                Game1.exitActiveMenu();
-            Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Config, this.Cheats, this.Helper.Translation);
-        }
-
-        /// <summary>Update the mod's config.json file from the current <see cref="Config"/>.</summary>
-        private void SaveConfig()
-        {
-            this.Helper.WriteConfig(this.Config);
-            this.Cheats.OnOptionsChanged();
+            // save config
+            if (e.OldMenu is CheatsMenu)
+            {
+                this.Helper.WriteConfig(this.Config);
+                this.Cheats.OnOptionsChanged();
+            }
         }
     }
 }

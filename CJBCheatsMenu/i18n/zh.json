@@ -10,6 +10,7 @@
   "tabs.relationships": "人际关系",
   "tabs.warp": "传送",
   "tabs.time": "时间",
+  "tabs.quests": "日志",
   "tabs.controls": "操控",
 
   // 'Player & Tools' tab
@@ -23,7 +24,7 @@
   "tools.title": "工具",
   "tools.infinite-water": "无限喷壶",
   "tools.one-hit-break": "一拳超人(对物品)",
-  "tools.harvest-with-sickle": "镰刀收获(不会增加经验值)",
+  "tools.harvest-with-sickle": "镰刀收获",
   "money.title": "金钱",
   "money.add-amount": "增加 {{amount}}g",
   "casino-coins.title": "赌场代币",
@@ -41,7 +42,7 @@
   "fishing.instant-bite": "立即咬钩",
   "fishing.always-throw-max-distance": "抛竿总是最远距离",
   "fishing.always-treasure": "必定出现宝箱",
-  "fishing.durable-tackles": "钓具不易损毁",
+  "fishing.durable-tackles": "钓具不损毁",
   "fast-machines.title": "农场工具快速生产",
   "fast-machines.cask": "酒窖",
   "fast-machines.fruit-trees": "水果树",
@@ -145,10 +146,14 @@
 
   // 'Time' tab
   "time.title": "时间",
-  "time.freeze-inside": "房屋内时冻结",
-  "time.freeze-caves": "地城内时冻结",
-  "time.freeze-everywhere": "冻结 - 无论在何处",
+  "time.freeze-inside": "在建筑内冻结时间",
+  "time.freeze-caves": "在洞穴内冻结时间",
+  "time.freeze-everywhere": "冻结 - 无论身在何处",
   "time.time": "时间",
+
+  // 'Quests' tab
+  "activequests.title": "正在进行的日志",
+  "completedquests.title": "已完成的日志",
 
   // 'Controls' tab
   "controls.title": "绑定按键",

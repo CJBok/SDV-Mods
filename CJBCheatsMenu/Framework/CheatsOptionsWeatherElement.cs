@@ -9,7 +9,7 @@ namespace CJBCheatsMenu.Framework
     internal class CheatsOptionsWeatherElement : OptionsElement
     {
         /*********
-        ** Properties
+        ** Fields
         *********/
         /// <summary>Get the current weather name.</summary>
         private readonly Func<string> CurrentWeather;

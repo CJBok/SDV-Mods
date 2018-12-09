@@ -9,7 +9,7 @@ namespace CJBCheatsMenu.Framework
     internal class CheatsOptionsSlider : OptionsElement
     {
         /*********
-        ** Properties
+        ** Fields
         *********/
         /// <summary>The field label.</summary>
         private readonly string Label;

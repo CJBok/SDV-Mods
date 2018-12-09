@@ -10,7 +10,7 @@ namespace CJBCheatsMenu.Framework
     internal class CheatsOptionsNpcSlider : OptionsElement
     {
         /*********
-        ** Properties
+        ** Fields
         *********/
         /// <summary>The maximum number of hearts allowed.</summary>
         private readonly int SliderMaxValue = 10;

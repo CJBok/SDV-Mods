@@ -24,7 +24,7 @@
   "tools.title": "ツール",
   "tools.infinite-water": "ジョウロの水無限",
   "tools.one-hit-break": "1度のアクションで目的達成",
-  "tools.harvest-with-sickle": "カマで収穫（経験値は入らない）",
+  "tools.harvest-with-sickle": "カマで収穫",
   "money.title": "お金",
   "money.add-amount": "増やす {{amount}}g",
   "casino-coins.title": "カジノのコイン",

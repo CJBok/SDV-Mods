@@ -13,7 +13,7 @@ namespace CJBItemSpawner.Framework
     internal class ItemInventoryMenu : IClickableMenu
     {
         /*********
-        ** Properties
+        ** Fields
         *********/
         private readonly bool PlayerInventory;
         private readonly List<ClickableComponent> Inventory = new List<ClickableComponent>();
@@ -293,7 +293,9 @@ namespace CJBItemSpawner.Framework
         {
             if (whichItemIndex >= 0 && whichItemIndex < items.Count && items[whichItemIndex] != null)
             {
-                Item item = this.GetOne(items[whichItemIndex]);
+                Item item = this.PlayerInventory
+                    ? items[whichItemIndex]
+                    : this.GetOne(items[whichItemIndex]);
                 item.Stack = items[whichItemIndex].Stack;
                 if (whichItemIndex == Game1.player.CurrentToolIndex && object.ReferenceEquals(items, Game1.player.Items))
                     item.actionWhenStopBeingHeld(Game1.player);

@@ -1,6 +1,11 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 1.11.2
+* Updated for the upcoming SMAPI 3.0.
+* Fixed inventory items being reset (e.g. slingshot ammo removed) when picked up in the spawner menu.
+* Updated translations. Thanks to Nanogamer7 (added German), BerryConcept and Redlnn (added Chinese)!
+
 ## 1.11.1
 * Updated for Stardew Valley 1.3.29.
 * Updated list of problematic items (which are hidden by default).

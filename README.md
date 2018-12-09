@@ -13,12 +13,12 @@ use the right translations.
 
 &nbsp;     | CJB Cheats Menu                         | CJB Item Spawner                  | CJB Show Item Sell Price
 ---------- | :-------------------------------------- | :-------------------------------- | :----------------------------------
-Chinese    | [✓](CJBCheatsMenu/i18n/zh.json)        | ❑                                | ❑
-German     | ❑                                      | ❑                                | ❑
+Chinese    | [✓](CJBCheatsMenu/i18n/zh.json)        | [✓](CJBItemSpawner/i18n/zh.json) | [✓](CJBShowItemSellPrice/i18n/zh.json)
+German     | [✓](CJBCheatsMenu/i18n/de.json)        | [✓](CJBItemSpawner/i18n/de.json) | [✓](CJBShowItemSellPrice/i18n/de.json)
 Japanese   | [↻ partial](CJBCheatsMenu/i18n/ja.json) | ❑                                | ❑
 Portuguese | [↻ partial](CJBCheatsMenu/i18n/pt.json) | [✓](CJBItemSpawner/i18n/pt.json) | [✓](CJBShowItemSellPrice/i18n/pt.json)
 Russian    | [↻ partial](CJBCheatsMenu/i18n/ru.json) | [✓](CJBItemSpawner/i18n/ru.json) | [✓](CJBShowItemSellPrice/i18n/ru.json)
-Spanish    | [✓](CJBCheatsMenu/i18n/es.json)        | ❑                                | [✓](CJBShowItemSellPrice/i18n/es.json)
+Spanish    | [↻ partial](CJBCheatsMenu/i18n/es.json) | ❑                                | [✓](CJBShowItemSellPrice/i18n/es.json)
 
 Here's how to translate one of my mods:
 

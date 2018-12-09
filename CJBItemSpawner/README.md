@@ -25,5 +25,20 @@ setting | default | what it affects
 `ShowMenuKey` | `P` | The button which opens the menu (see [valid key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings)).
 `AllowProblematicItems` | `false` | Whether to show items which may cause bugs or crashes when spawned.
 
+## FAQs
+### What are 'problematic items'?
+You can [edit `config.json`](#configure) to enable problematic items, which are normally hidden
+because they cause in-game issues, glitches, or crashes. These are the items considered problematic:
+
+item | issue
+---- | -----
+Crystal Chair | (Unreleased version.) Glitches and causes crashes once rotated / picked up.
+Incubator | Can't be removed once placed.
+Locked Door | Can't be removed once placed.
+Mushroom Box | Can't be removed once placed (unless you install the [Moveable Mushroom Boxes](https://www.nexusmods.com/stardewvalley/mods/2852) mod _before_ spawning them).
+Obelisk | Once placed, it runs a glitched animation when the player is near that eventually starts switching between the Obelisk and a chicken statue sprite. Picking it up after that point can cause an immediate game crash or result in an unremovable inventory item.
+Wicked Statue | (Lit eyes version.) Can't be removed once placed.
+Jukebox Ring | Crashes the game when you enter the mines.
+
 ## See also
 * [Release notes](release-notes.md)
