@@ -9,7 +9,7 @@ namespace CJBCheatsMenu.Framework
     internal class CheatsOptionsCheckbox : OptionsElement
     {
         /*********
-        ** Properties
+        ** Fields
         *********/
         /// <summary>A callback to invoke when the value changes.</summary>
         private readonly Action<bool> SetValue;

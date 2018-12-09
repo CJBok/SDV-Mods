@@ -12,10 +12,11 @@ using SObject = StardewValley.Object;
 
 namespace CJBShowItemSellPrice
 {
+    /// <summary>The mod entry point.</summary>
     internal class ModEntry : Mod
     {
         /*********
-        ** Properties
+        ** Fields
         *********/
         /// <summary>The spritesheet source rectangle for the coin icon.</summary>
         private readonly Rectangle CoinSourceRect = new Rectangle(5, 69, 6, 6);
@@ -52,9 +53,9 @@ namespace CJBShowItemSellPrice
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
         {
-            GraphicsEvents.OnPostRenderGuiEvent += this.GraphicsEvents_OnPostRenderGuiEvent;
-            GraphicsEvents.OnPostRenderHudEvent += this.GraphicsEvents_OnPostRenderHudEvent;
-            GameEvents.OneSecondTick += this.GameEvents_OneSecondTick;
+            helper.Events.Display.RenderedActiveMenu += this.OnRenderedActiveMenu;
+            helper.Events.Display.RenderedHud += this.OnRenderedHud;
+            helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
 
             this.SingleLabel = this.Helper.Translation.Get("labels.single-price") + ":";
             this.StackLabel = this.Helper.Translation.Get("labels.stack-price") + ":";
@@ -64,34 +65,34 @@ namespace CJBShowItemSellPrice
         /*********
         ** Private methods
         *********/
-        /// <summary>The method invoked once per second.</summary>
+        /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void GameEvents_OneSecondTick(object sender, EventArgs e)
+        private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
         {
             // cache the toolbar & slots
-            if (Context.IsPlayerFree)
+            if (e.IsOneSecond)
             {
-                this.Toolbar = Game1.onScreenMenus.OfType<Toolbar>().FirstOrDefault();
-                this.ToolbarSlots = this.Toolbar != null
-                    ? this.Helper.Reflection.GetField<List<ClickableComponent>>(this.Toolbar, "buttons").GetValue()
-                    : null;
-            }
-            else
-            {
-                this.Toolbar = null;
-                this.ToolbarSlots = null;
+                if (Context.IsPlayerFree)
+                {
+                    this.Toolbar = Game1.onScreenMenus.OfType<Toolbar>().FirstOrDefault();
+                    this.ToolbarSlots = this.Toolbar != null
+                        ? this.Helper.Reflection.GetField<List<ClickableComponent>>(this.Toolbar, "buttons").GetValue()
+                        : null;
+                }
+                else
+                {
+                    this.Toolbar = null;
+                    this.ToolbarSlots = null;
+                }
             }
         }
 
-        /// <summary>The method invoked when active menus have finished rendering.</summary>
+        /// <summary>When a menu is open (<see cref="Game1.activeClickableMenu"/> isn't null), raised after that menu is drawn to the sprite batch but before it's rendered to the screen.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void GraphicsEvents_OnPostRenderGuiEvent(object sender, EventArgs e)
+        private void OnRenderedActiveMenu(object sender, RenderedActiveMenuEventArgs e)
         {
-            if (Game1.activeClickableMenu == null)
-                return;
-
             // get item
             Item item = this.GetItemFromMenu(Game1.activeClickableMenu);
             if (item == null)
@@ -101,10 +102,10 @@ namespace CJBShowItemSellPrice
             this.DrawPriceTooltip(Game1.spriteBatch, Game1.smallFont, item);
         }
 
-        /// <summary>The method invoked when the interface has finished rendering.</summary>
+        /// <summary>Raised after drawing the HUD (item toolbar, clock, etc) to the sprite batch, but before it's rendered to the screen. The vanilla HUD may be hidden at this point (e.g. because a menu is open).</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void GraphicsEvents_OnPostRenderHudEvent(object sender, EventArgs e)
+        private void OnRenderedHud(object sender, EventArgs e)
         {
             if (!Context.IsPlayerFree)
                 return;

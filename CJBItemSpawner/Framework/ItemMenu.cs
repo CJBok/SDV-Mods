@@ -17,7 +17,7 @@ namespace CJBItemSpawner.Framework
     internal class ItemMenu : ItemMenuWithInventory
     {
         /*********
-        ** Properties
+        ** Fields
         *********/
         private readonly ITranslationHelper TranslationHelper;
         private readonly Item[] SpawnableItems;

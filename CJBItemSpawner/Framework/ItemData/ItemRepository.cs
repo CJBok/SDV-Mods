@@ -14,7 +14,7 @@ namespace CJBItemSpawner.Framework.ItemData
     internal class ItemRepository
     {
         /*********
-        ** Properties
+        ** Fields
         *********/
         /// <summary>The custom ID offset for items don't have a unique ID in the game.</summary>
         private readonly int CustomIDOffset = 1000;

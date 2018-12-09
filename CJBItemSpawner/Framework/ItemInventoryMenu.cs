@@ -13,7 +13,7 @@ namespace CJBItemSpawner.Framework
     internal class ItemInventoryMenu : IClickableMenu
     {
         /*********
-        ** Properties
+        ** Fields
         *********/
         private readonly bool PlayerInventory;
         private readonly List<ClickableComponent> Inventory = new List<ClickableComponent>();

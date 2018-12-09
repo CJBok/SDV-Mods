@@ -15,7 +15,7 @@ namespace CJBCheatsMenu.Framework
     internal class CheatsOptionsInputListener : OptionsElement
     {
         /*********
-        ** Properties
+        ** Fields
         *********/
         /// <summary>The action to perform when the button is toggled (or <c>null</c> to handle it manually).</summary>
         private readonly Action OnToggled;

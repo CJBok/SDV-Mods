@@ -49,6 +49,7 @@
     <Content Include="screenshot.gif" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="i18n\de.json" />
     <None Include="i18n\es.json" />
     <None Include="i18n\ru.json" />
     <None Include="i18n\pt.json" />
