@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Updated translations. Thanks to VincentRoth (added French)!
+
 ## 1.11.2
 * Updated for the upcoming SMAPI 3.0.
 * Fixed inventory items being reset (e.g. slingshot ammo removed) when picked up in the spawner menu.

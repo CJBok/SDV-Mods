@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Updated translations. Thanks to VincentRoth (added French)!
+
 ## 1.18.3
 * Updated for the upcoming SMAPI 3.0.
 * Fixed harvest with scythe option saying 'no XP gain', which was fixed in Stardew Valley 1.3. (Thanks to SkpFX!)
