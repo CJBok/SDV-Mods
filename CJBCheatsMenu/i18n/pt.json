@@ -10,7 +10,7 @@
   "tabs.relationships": "Relacionamentos",
   "tabs.warp": "Teletransporte",
   "tabs.time": "Horário",
-  "tabs.quests": "Quests", // TODO
+  "tabs.quests": "Missões",
   "tabs.controls": "Controles",
 
   // 'Player & Tools' tab
@@ -152,8 +152,8 @@
   "time.time": "Horário",
 
   // 'Quests' tab
-  "activequests.title": "Active Quests", // TODO
-  "completedquests.title": "Completed Quests", // TODO
+  "activequests.title": "Missões Ativas",
+  "completedquests.title": "Missões Concluídas",
 
   // 'Controls' tab
   "controls.title": "Controles",
