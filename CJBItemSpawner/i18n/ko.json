@@ -1,0 +1,20 @@
+{
+  "title": "CJB 아이템 생성기",
+
+  "labels.sort-by-name": "정렬 기준: 이름",
+  "labels.sort-by-category": "정렬 기준: 종류",
+  "labels.sort-by-id": "정렬 기준: ID",
+  "labels.quality": "품질",
+
+  "tabs.all": "전체",
+  "tabs.equipment": "도구 & 장비",
+  "tabs.crops": "씨앗 & 작물",
+  "tabs.fishing": "물고기 & 미끼 & 쓰레기",
+  "tabs.forage": "채집물 & 과일",
+  "tabs.artifacts-and-minerals": "유물 & 광물",
+  "tabs.resources-and-crafting": "자원/재료 & 제작/설치",
+  "tabs.artisan-and-cooking": "가공품 & 요리",
+  "tabs.animal-and-monster": "동물 & 몬스터",
+  "tabs.decorating": "가구 & 장식품",
+  "tabs.miscellaneous": "기타 & 퀘스트"
+}
