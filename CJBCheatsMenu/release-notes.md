@@ -2,7 +2,7 @@
 
 # Release notes
 ## Upcoming release
-* Updated translations. Thanks to VincentRoth (added French)!
+* Updated translations. Thanks to kelvindules (updated Portuguese) and VincentRoth (added French)!
 
 ## 1.18.3
 * Updated for the upcoming SMAPI 3.0.

@@ -19,8 +19,8 @@ German     | [✓](CJBCheatsMenu/i18n/de.json)        | [✓](CJBItemSpawner/i18
 Hungarian  | ❑                                      | ❑                                | ❑
 Italian    | ❑                                      | ❑                                | ❑
 Japanese   | [↻ partial](CJBCheatsMenu/i18n/ja.json) | ❑                                | ❑
-Korean     | ❑                                      | ❑                                | [✓](CJBShowItemSellPrice/i18n/ko.json)
-Portuguese | [↻ partial](CJBCheatsMenu/i18n/pt.json) | [✓](CJBItemSpawner/i18n/pt.json) | [✓](CJBShowItemSellPrice/i18n/pt.json)
+Korean     | ❑                                      | [✓](CJBItemSpawner/i18n/ko.json) | [✓](CJBShowItemSellPrice/i18n/ko.json)
+Portuguese | [✓](CJBCheatsMenu/i18n/pt.json)        | [✓](CJBItemSpawner/i18n/pt.json) | [✓](CJBShowItemSellPrice/i18n/pt.json)
 Russian    | [↻ partial](CJBCheatsMenu/i18n/ru.json) | [✓](CJBItemSpawner/i18n/ru.json) | [✓](CJBShowItemSellPrice/i18n/ru.json)
 Spanish    | [↻ partial](CJBCheatsMenu/i18n/es.json) | ❑                                | [✓](CJBShowItemSellPrice/i18n/es.json)
 
