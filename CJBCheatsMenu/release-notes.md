@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Added support for setting relationships for unmet villagers.
 * Fast machine list is now sorted by name.
 * Updated translations. Thanks to kelvindules (updated Portuguese) and VincentRoth (added French)!
 
