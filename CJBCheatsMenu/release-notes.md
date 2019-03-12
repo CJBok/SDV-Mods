@@ -6,6 +6,7 @@
 * Fast machine processing is now much faster.
 * Fast machine processing now continues working when time is paused.
 * Fast machine list is now sorted by name.
+* Fixed land swimming bug when warping out of the spa.
 * Updated translations. Thanks to kelvindules (updated Portuguese) and VincentRoth (added French)!
 
 ## 1.18.3

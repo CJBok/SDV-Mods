@@ -375,8 +375,13 @@ namespace CJBCheatsMenu.Framework
         /// <param name="tileY">The tile Y position.</param>
         private void Warp(string locationName, int tileX, int tileY)
         {
-            Game1.warpFarmer(locationName, tileX, tileY, false);
+            // reset state
             Game1.exitActiveMenu();
+            Game1.player.swimming.Value = false;
+            Game1.player.changeOutOfSwimSuit();
+
+            // warp
+            Game1.warpFarmer(locationName, tileX, tileY, false);
         }
 
         private void SetScrollBarToCurrentIndex()
