@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Fast machine list is now sorted by name.
 * Updated translations. Thanks to kelvindules (updated Portuguese) and VincentRoth (added French)!
 
 ## 1.18.3
