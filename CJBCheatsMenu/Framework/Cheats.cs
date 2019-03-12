@@ -214,50 +214,8 @@ namespace CJBCheatsMenu.Framework
                         fence.repair();
 
                     // fast machines
-                    else if (this.Config.FastCask && obj is Cask cask && cask.heldObject.Value != null)
-                    {
-                        cask.daysToMature.Value = 0;
-                        cask.MinutesUntilReady = 0;
-                        cask.heldObject.Value.Quality = 4;
-                    }
-                    else if (this.Config.FastFurnace && obj.name == "Furnace")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastRecyclingMachine && obj.name == "Recycling Machine")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastCrystalarium && obj.name == "Crystalarium")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastIncubator && obj.name == "Incubator")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastSlimeIncubator && obj.name == "Slime Incubator")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastKeg && obj.name == "Keg")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastPreservesJar && obj.name == "Preserves Jar")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastCheesePress && obj.name == "Cheese Press")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastMayonnaiseMachine && obj.name == "Mayonnaise Machine")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastLoom && obj.name == "Loom")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastOilMaker && obj.name == "Oil Maker")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastSeedMaker && obj.name == "Seed Maker")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastCharcoalKiln && obj.name == "Charcoal Kiln")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastSlimeEggPress && obj.name == "Slime Egg-Press")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastBeeHouse && obj.name == "Bee House")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastMushroomBox && obj.name == "Mushroom Box")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastTapper && obj.name == "Tapper")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastLightningRod && obj.name == "Lightning Rod")
-                        obj.MinutesUntilReady = 0;
-                    else if (this.Config.FastWormBin && obj.name == "Worm Bin")
-                        obj.MinutesUntilReady = 0;
+                    else if (this.IsFastMachine(obj))
+                        this.CompleteMachine(location, obj);
                 }
 
                 // fast fruit trees
@@ -465,6 +423,53 @@ namespace CJBCheatsMenu.Framework
         /*********
         ** Private methods
         *********/
+        /// <summary>Get whether an object is a machine with 'fast processing' enabled.</summary>
+        /// <param name="obj">The machine to check.</param>
+        private bool IsFastMachine(SObject obj)
+        {
+            return
+                (this.Config.FastCask && obj is Cask)
+                || (this.Config.FastFurnace && obj.name == "Furnace")
+                || (this.Config.FastRecyclingMachine && obj.name == "Recycling Machine")
+                || (this.Config.FastCrystalarium && obj.name == "Crystalarium")
+                || (this.Config.FastIncubator && obj.name == "Incubator")
+                || (this.Config.FastSlimeIncubator && obj.name == "Slime Incubator")
+                || (this.Config.FastKeg && obj.name == "Keg")
+                || (this.Config.FastPreservesJar && obj.name == "Preserves Jar")
+                || (this.Config.FastCheesePress && obj.name == "Cheese Press")
+                || (this.Config.FastMayonnaiseMachine && obj.name == "Mayonnaise Machine")
+                || (this.Config.FastLoom && obj.name == "Loom")
+                || (this.Config.FastOilMaker && obj.name == "Oil Maker")
+                || (this.Config.FastSeedMaker && obj.name == "Seed Maker")
+                || (this.Config.FastCharcoalKiln && obj.name == "Charcoal Kiln")
+                || (this.Config.FastSlimeEggPress && obj.name == "Slime Egg-Press")
+                || (this.Config.FastBeeHouse && obj.name == "Bee House")
+                || (this.Config.FastMushroomBox && obj.name == "Mushroom Box")
+                || (this.Config.FastTapper && obj.name == "Tapper")
+                || (this.Config.FastLightningRod && obj.name == "Lightning Rod")
+                || (this.Config.FastWormBin && obj.name == "Worm Bin");
+        }
+
+        /// <summary>Finish a machine's processing.</summary>
+        /// <param name="location">The machine's location.</param>
+        /// <param name="machine">The machine to complete.</param>
+        private void CompleteMachine(GameLocation location, SObject machine)
+        {
+            if (machine.heldObject.Value == null)
+                return;
+
+            // casks
+            if (machine is Cask cask)
+            {
+                cask.daysToMature.Value = 0;
+                cask.checkForMaturity();
+            }
+
+            // other machines
+            if (machine.MinutesUntilReady > 0)
+                machine.minutesElapsed(machine.MinutesUntilReady, location);
+        }
+
         /// <summary>Get a crop ID => harvest method lookup.</summary>
         private IDictionary<int, int> GetCropHarvestMethods()
         {
