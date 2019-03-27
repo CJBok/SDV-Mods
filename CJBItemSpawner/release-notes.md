@@ -1,7 +1,7 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.11.3
 * Updated translations. Thanks to manuqp (added Spanish), S2SKY (added Korean), and VincentRoth (added French)!
 
 ## 1.11.2

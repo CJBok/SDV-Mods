@@ -1,7 +1,7 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.19
 * Added support for setting relationships for unmet villagers.
 * Fast machine processing is now much faster.
 * Fast machine processing now continues working when time is paused.
