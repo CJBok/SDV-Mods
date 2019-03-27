@@ -3,8 +3,8 @@ price of items in your inventory:
 
 ![](screenshot.gif)
 
-Compatible with Stardew Valley 1.3+ on Linux, Mac, and Windows. Translated into English, Portuguese,
-Russian, and Spanish.
+Compatible with Stardew Valley 1.3+ on Linux, Mac, and Windows. Translated into Chinese, German,
+English, French, Korean, Portuguese, Russian, and Spanish.
 
 ## Install
 1. [Install the latest version of SMAPI](https://smapi.io/).

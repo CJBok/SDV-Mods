@@ -14,34 +14,18 @@ use the right translations.
 &nbsp;     | CJB Cheats Menu                         | CJB Item Spawner                  | CJB Show Item Sell Price
 ---------- | :-------------------------------------- | :-------------------------------- | :----------------------------------
 Chinese    | [✓](CJBCheatsMenu/i18n/zh.json)        | [✓](CJBItemSpawner/i18n/zh.json) | [✓](CJBShowItemSellPrice/i18n/zh.json)
+French     | [✓](CJBCheatsMenu/i18n/fr.json)        | [✓](CJBItemSpawner/i18n/fr.json) | [✓](CJBShowItemSellPrice/i18n/fr.json)
 German     | [✓](CJBCheatsMenu/i18n/de.json)        | [✓](CJBItemSpawner/i18n/de.json) | [✓](CJBShowItemSellPrice/i18n/de.json)
+Hungarian  | ❑                                      | ❑                                | ❑
+Italian    | ❑                                      | ❑                                | ❑
 Japanese   | [↻ partial](CJBCheatsMenu/i18n/ja.json) | ❑                                | ❑
-Portuguese | [↻ partial](CJBCheatsMenu/i18n/pt.json) | [✓](CJBItemSpawner/i18n/pt.json) | [✓](CJBShowItemSellPrice/i18n/pt.json)
+Korean     | ❑                                      | [✓](CJBItemSpawner/i18n/ko.json) | [✓](CJBShowItemSellPrice/i18n/ko.json)
+Portuguese | [✓](CJBCheatsMenu/i18n/pt.json)        | [✓](CJBItemSpawner/i18n/pt.json) | [✓](CJBShowItemSellPrice/i18n/pt.json)
 Russian    | [↻ partial](CJBCheatsMenu/i18n/ru.json) | [✓](CJBItemSpawner/i18n/ru.json) | [✓](CJBShowItemSellPrice/i18n/ru.json)
-Spanish    | [↻ partial](CJBCheatsMenu/i18n/es.json) | ❑                                | [✓](CJBShowItemSellPrice/i18n/es.json)
+Spanish    | [↻ partial](CJBCheatsMenu/i18n/es.json) | [✓](CJBItemSpawner/i18n/es.json) | [✓](CJBShowItemSellPrice/i18n/es.json)
 
-Here's how to translate one of my mods:
-
-1. Copy `default.json` into a new file with the right name:
-
-   language   | file name
-   ---------- | ---------
-   Chinese    | `zh.json`
-   German     | `de.json`
-   Japanese   | `ja.json`
-   Portuguese | `pt.json`
-   Spanish    | `es.json`
-
-2. Translate the second part on each line:
-   ```json
-   "example-key": "some text here"
-                   ^-- translate this
-   ```
-   Don't change the quote characters, and don't translate the text inside `{{these brackets}}`.
-3. Launch the game to try your translations.  
-   _You can edit translations without restarting the game; just type `reload_i18n` in the SMAPI console to reload the translation files._
-
-Create an issue or pull request here with your translations, or send them to me via Nexus or the forums. :)
+Contributions are welcome! See [Modding:Translations](https://stardewvalleywiki.com/Modding:Translations)
+on the wiki for help contributing translations.
 
 ## Compiling the mods
 Installing stable releases from Nexus Mods is recommended for most users. If you really want to

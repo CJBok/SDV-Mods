@@ -1,6 +1,14 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 1.19
+* Added support for setting relationships for unmet villagers.
+* Fast machine processing is now much faster.
+* Fast machine processing now continues working when time is paused.
+* Fast machine list is now sorted by name.
+* Fixed land swimming bug when warping out of the spa.
+* Updated translations. Thanks to kelvindules (updated Portuguese) and VincentRoth (added French)!
+
 ## 1.18.3
 * Updated for the upcoming SMAPI 3.0.
 * Fixed harvest with scythe option saying 'no XP gain', which was fixed in Stardew Valley 1.3. (Thanks to SkpFX!)

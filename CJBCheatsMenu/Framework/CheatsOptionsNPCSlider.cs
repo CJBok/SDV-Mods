@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
+using StardewValley.Quests;
 
 namespace CJBCheatsMenu.Framework
 {
@@ -37,21 +39,16 @@ namespace CJBCheatsMenu.Framework
         public CheatsOptionsNpcSlider(NPC npc, Action<int> onValueChanged)
             : base(npc.displayName, x: 96, y: -1, width: 80 * Game1.pixelZoom, height: 6 * Game1.pixelZoom, whichOption: 0)
         {
+            bool isKnown = Game1.player.friendshipData.TryGetValue(npc.Name, out Friendship friendship);
+
             this.Npc = npc;
             this.OnValueChanged = onValueChanged;
             this.Mugshot = new ClickableTextureComponent("Mugshot", this.bounds, "", "", npc.Sprite.Texture, npc.getMugShotSourceRect(), 0.7f * Game1.pixelZoom);
-
-            if (Game1.player.friendshipData.TryGetValue(npc.Name, out Friendship friendship))
-            {
-                this.label = npc.getName();
-                this.Value = Math.Max(0, Math.Min(this.SliderMaxValue, friendship.Points / NPC.friendshipPointsPerHeartLevel));
-            }
-            else
-            {
-                this.label = "???"; // not met yet, can't change friendship points
-                this.Value = 0;
-                this.greyedOut = true;
-            }
+            this.greyedOut = !isKnown;
+            this.label = npc.getName();
+            this.Value = isKnown
+                ? Math.Max(0, Math.Min(this.SliderMaxValue, friendship.Points / NPC.friendshipPointsPerHeartLevel))
+                : 0;
         }
 
         /// <summary>The method invoked each update tick while the player is holding the left mouse button.</summary>
@@ -60,17 +57,24 @@ namespace CJBCheatsMenu.Framework
         /// <returns>Whether the event has been handled and shouldn't be propagated further.</returns>
         public override void leftClickHeld(int x, int y)
         {
-            if (this.greyedOut)
-                return;
-
+            // calculate new value
             base.leftClickHeld(x, y);
             this.Value = x >= this.bounds.X ? (x <= this.bounds.Right - 10 * Game1.pixelZoom ? (int)((x - this.bounds.X) / (this.bounds.Width - 10d * Game1.pixelZoom) * this.SliderMaxValue) : this.SliderMaxValue) : 0;
 
-            if (Game1.player.friendshipData.TryGetValue(this.Npc.Name, out Friendship friendship))
+            // add friendship if needed
+            if (!Game1.player.friendshipData.TryGetValue(this.Npc.Name, out Friendship friendship))
             {
-                friendship.Points = this.Value * NPC.friendshipPointsPerHeartLevel;
-                this.OnValueChanged(friendship.Points);
+                friendship = new Friendship();
+                Game1.player.friendshipData.Add(this.Npc.Name, friendship);
+                SocializeQuest socialQuest = Game1.player.questLog.OfType<SocializeQuest>().FirstOrDefault();
+                if (socialQuest != null && !socialQuest.completed.Value)
+                    socialQuest.checkIfComplete(this.Npc);
+                this.greyedOut = false;
             }
+
+            // update friendship points
+            friendship.Points = this.Value * NPC.friendshipPointsPerHeartLevel;
+            this.OnValueChanged(friendship.Points);
         }
 
         /// <summary>The method invoked when the player clicks the left mouse button.</summary>

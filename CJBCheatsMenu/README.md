@@ -4,7 +4,7 @@ with many different cheat features:
 ![](screenshot.gif)
 
 Compatible with Stardew Valley 1.3+ on Linux, Mac, and Windows. Translated into Chinese, English,
-Japanese, Portuguese, and Russian.
+French, German, Japanese, Portuguese, Russian, and Spanish.
 
 ## Install
 1. [Install the latest version of SMAPI](https://smapi.io/).
