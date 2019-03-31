@@ -45,6 +45,7 @@
     <None Include="i18n\de.json" />
     <None Include="i18n\es.json" />
     <None Include="i18n\fr.json" />
+    <None Include="i18n\ko.json" />
     <None Include="release-notes.md" />
     <Compile Include="Framework\Cheats.cs" />
     <Compile Include="Framework\CheatsMenu.cs" />
