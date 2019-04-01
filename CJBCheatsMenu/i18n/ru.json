@@ -10,7 +10,7 @@
   "tabs.relationships": "Отношения",
   "tabs.warp": "Телепортация",
   "tabs.time": "Время",
-  "tabs.quests": "Quests", // TODO
+  "tabs.quests": "Квесты",
   "tabs.controls": "Управление",
 
   // 'Player & Tools' tab
@@ -45,7 +45,7 @@
   "fishing.durable-tackles": "Прочные снасти",
   "fast-machines.title": "Ускорение работы машин",
   "fast-machines.cask": "Бочка",
-  "fast-machines.fruit-trees": "Fruit Trees", // TODO
+  "fast-machines.fruit-trees": "Фруктовые деревья",
   "fast-machines.furnace": "Плавильная печь",
   "fast-machines.recycling-machine": "Утилизационная машина",
   "fast-machines.crystalarium": "Кристалляриум",
@@ -152,8 +152,8 @@
   "time.time": "Время",
 
   // 'Quests' tab
-  "activequests.title": "Active Quests", // TODO
-  "completedquests.title": "Completed Quests", // TODO
+  "activequests.title": "Активные квесты",
+  "completedquests.title": "Завершенные квесты",
 
   // 'Controls' tab
   "controls.title": "Управление",
