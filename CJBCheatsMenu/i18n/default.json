@@ -10,7 +10,7 @@
   "tabs.relationships": "Relationships",
   "tabs.warp": "Warp Locations",
   "tabs.time": "Time",
-  "tabs.quests": "Quests",
+  "tabs.advanced": "Advanced",
   "tabs.controls": "Controls",
 
   // 'Player & Tools' tab
@@ -151,9 +151,18 @@
   "time.freeze-everywhere": "Freeze Time Everywhere",
   "time.time": "Time",
 
-  // 'Quests' tab
-  "activequests.title": "Active Quests",
-  "completedquests.title": "Completed Quests",
+  // 'Flags' tab
+  "flags.warning": "Use this section at your own risk!\nThis may cause issues like skipped mail, events, or quests.",
+  "flags.quests": "Complete Quests",
+  "flags.wallet": "Wallet Items",
+  "flags.unlocked": "Unlocked Areas",
+  "flags.unlocked.guild": "Adventurer's Guild",
+  "flags.unlocked.room": "Room: {{name}}",
+  "flags.community-center": "Community Center",
+  "flags.community-center.door-unlocked": "Door Unlocked",
+  "flags.community-center.complete": "Community Center Completed",
+  "flags.jojamart": "JojaMart",
+  "flags.jojamart.membership": "JojaMart Membership",
 
   // 'Controls' tab
   "controls.title": "Controls",

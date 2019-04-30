@@ -2,6 +2,8 @@
 
 # Release notes
 ## Upcoming release
+* Added 'advanced' tab to set flags and wallet items.
+* Merged 'quests' tab into 'advanced'.
 * Updated translations. Thanks to S2SKY (added Korean) and TheOzonO3 (updated Russian)!
 
 ## 1.19

@@ -10,7 +10,7 @@
   "tabs.relationships": "관계",
   "tabs.warp": "워프",
   "tabs.time": "시간",
-  "tabs.quests": "퀘스트",
+  "tabs.advanced": "Advanced", // TODO
   "tabs.controls": "조작",
 
   // '플레이어 & 도구' 탭
@@ -151,9 +151,19 @@
   "time.freeze-everywhere": "모든 장소에서 시간 정지",
   "time.time": "시간",
 
-  // '퀘스트' 탭
-  "activequests.title": "활성화 된 퀘스트",
-  "completedquests.title": "완료된 퀘스트",
+  // 'Flags' tab
+  // TODO
+  "flags.warning": "Use this section at your own risk!\nThis may cause issues like skipped mail, events, or quests.",
+  "flags.quests": "Complete Quests",
+  "flags.wallet": "Wallet Items",
+  "flags.unlocked": "Unlocked Areas",
+  "flags.unlocked.guild": "Adventurer's Guild",
+  "flags.unlocked.room": "Room: {{name}}",
+  "flags.community-center": "Community Center",
+  "flags.community-center.door-unlocked": "Door Unlocked",
+  "flags.community-center.complete": "Community Center Completed",
+  "flags.jojamart": "JojaMart",
+  "flags.jojamart.membership": "JojaMart Membership",
 
   // '단축키' 탭
   "controls.title": "단축키",

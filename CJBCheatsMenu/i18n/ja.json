@@ -10,7 +10,7 @@
   "tabs.relationships": "人間関係",
   "tabs.warp": "ワープ",
   "tabs.time": "時間",
-  "tabs.quests": "Quests", // TODO
+  "tabs.advanced": "Advanced", // TODO
   "tabs.controls": "キー変更",
 
   // 'Player & Tools' tab
@@ -151,9 +151,19 @@
   "time.freeze-everywhere": "どこでも時間が止まる",
   "time.time": "時間",
 
-  // 'Quests' tab
-  "activequests.title": "Active Quests", // TODO
-  "completedquests.title": "Completed Quests", // TODO
+  // 'Flags' tab
+  // TODO
+  "flags.warning": "Use this section at your own risk!\nThis may cause issues like skipped mail, events, or quests.",
+  "flags.quests": "Complete Quests",
+  "flags.wallet": "Wallet Items",
+  "flags.unlocked": "Unlocked Areas",
+  "flags.unlocked.guild": "Adventurer's Guild",
+  "flags.unlocked.room": "Room: {{name}}",
+  "flags.community-center": "Community Center",
+  "flags.community-center.door-unlocked": "Door Unlocked",
+  "flags.community-center.complete": "Community Center Completed",
+  "flags.jojamart": "JojaMart",
+  "flags.jojamart.membership": "JojaMart Membership",
 
   // 'Controls' tab
   "controls.title": "コントロール",

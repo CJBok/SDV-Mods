@@ -24,8 +24,8 @@
         /// <summary>The 'time' tab.</summary>
         Time,
 
-        /// <summary>The 'quest' tab.</summary>
-        Quests,
+        /// <summary>The 'advanced' tab.</summary>
+        Advanced,
 
         /// <summary>The 'controls' tab.</summary>
         Controls

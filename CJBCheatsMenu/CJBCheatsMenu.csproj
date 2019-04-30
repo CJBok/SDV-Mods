@@ -55,6 +55,7 @@
     <Compile Include="Framework\CheatsOptionsNpcSlider.cs" />
     <Compile Include="Framework\CheatsOptionsSlider.cs" />
     <Compile Include="Framework\CJB.cs" />
+    <Compile Include="Framework\DescriptionElement.cs" />
     <Compile Include="ModEntry.cs" />
     <Compile Include="Framework\Constants\MenuTab.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
