@@ -1,4 +1,4 @@
-namespace CJBItemSpawner.Framework.ItemData
+﻿namespace CJBItemSpawner.Framework.ItemData
 {
     /// <summary>An item type that can be searched and added to the player through the console.</summary>
     internal enum ItemType
@@ -8,6 +8,9 @@ namespace CJBItemSpawner.Framework.ItemData
 
         /// <summary>A <see cref="StardewValley.Objects.Boots"/> item.</summary>
         Boots,
+
+        /// <summary>A <see cref="StardewValley.Objects.Clothing"/> item.</summary>
+        Clothing,
 
         /// <summary>A <see cref="StardewValley.Objects.Wallpaper"/> flooring item.</summary>
         Flooring,

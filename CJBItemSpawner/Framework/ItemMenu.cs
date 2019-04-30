@@ -459,6 +459,7 @@ namespace CJBItemSpawner.Framework
                 case Ring _:
                 case Hat _:
                 case Boots _:
+                case Clothing _:
                     return MenuTab.ToolsAndEquipment;
 
                 case Furniture _:

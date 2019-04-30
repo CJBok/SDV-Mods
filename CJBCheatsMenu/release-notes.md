@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Updated for Stardew Valley 1.4.
 * Added support for holding the grow crop/tree keys while moving the cursor, so you can easily grow larger fields.
 * Updated translations. Thanks to jahangmar (updated German), overwritten (updated Korean), Riazaia (updated Spanish), shiro2579 (updated Portuguese), and shirutan (updated Japanese)!
 
