@@ -71,7 +71,7 @@ namespace CJBCheatsMenu
         /// <param name="e">The event arguments.</param>
         private void OnButtonPressed(object sender, ButtonPressedEventArgs e)
         {
-            if (!Context.IsPlayerFree)
+            if (!Context.IsPlayerFree || Game1.currentMinigame != null)
                 return;
 
             // open menu
