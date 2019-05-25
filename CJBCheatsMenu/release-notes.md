@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Added 'advanced' tab to set flags and wallet items; merged 'quests' tab into 'advanced'.
+* Fixed max relationship meter not extended for spouse.
 * Fixed being able to open the menu when a minigame is active.
 * Updated translations. Thanks to S2SKY (added Korean) and TheOzonO3 (updated Russian)!
 
