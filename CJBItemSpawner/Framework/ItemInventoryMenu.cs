@@ -280,7 +280,7 @@ namespace CJBItemSpawner.Framework
                 onAddFunction?.Invoke(item, null);
                 return item2;
             }
-            int num = items[position].addToStack(item.getStack());
+            int num = items[position].addToStack(item);
             if (num <= 0)
                 return null;
 
