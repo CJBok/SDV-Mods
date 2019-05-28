@@ -63,6 +63,7 @@
     "fast-machines.slime-egg-press": "Пресс для яиц слаймов",
     "fast-machines.slime-incubator": "Инкубатор слаймов",
     "fast-machines.tapper": "Подсочник",
+    "fast-machines.wood-chipper": "Wood Chipper", // TODO
     "fast-machines.worm-bin": "Бак с червями",
 
     // 'Skills' tab

@@ -63,6 +63,7 @@
     "fast-machines.slime-egg-press": "Presa de Babas",
     "fast-machines.slime-incubator": "Incubadora de Babas",
     "fast-machines.tapper": "Resinera",
+    "fast-machines.wood-chipper": "Wood Chipper", // TODO
     "fast-machines.worm-bin": "Vivero de Cebo",
 
     // 'Skills' tab

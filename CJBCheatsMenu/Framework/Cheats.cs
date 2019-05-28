@@ -498,6 +498,7 @@ namespace CJBCheatsMenu.Framework
                 || (this.Config.FastSlimeEggPress && obj.name == "Slime Egg-Press")
                 || (this.Config.FastSlimeIncubator && obj.name == "Slime Incubator")
                 || (this.Config.FastTapper && obj.name == "Tapper")
+                || (this.Config.FastWoodChipper && obj is WoodChipper)
                 || (this.Config.FastWormBin && obj.name == "Worm Bin");
         }
 

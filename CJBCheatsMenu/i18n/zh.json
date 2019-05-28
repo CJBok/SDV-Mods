@@ -63,6 +63,7 @@
     "fast-machines.slime-egg-press": "史莱姆蛋压制机",
     "fast-machines.slime-incubator": "史莱姆孵化器",
     "fast-machines.tapper": "树液采集器",
+    "fast-machines.wood-chipper": "Wood Chipper", // TODO
     "fast-machines.worm-bin": "虫房",
 
     // 'Skills' tab

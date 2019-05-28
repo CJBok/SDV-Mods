@@ -63,6 +63,7 @@
     "fast-machines.slime-egg-press": " スライムエッグプレス",
     "fast-machines.slime-incubator": "スライム用ふ卵器",
     "fast-machines.tapper": "樹液採取器",
+    "fast-machines.wood-chipper": "Wood Chipper", // TODO
     "fast-machines.worm-bin": "ミミズ飼育器",
 
     // 'Skills' tab

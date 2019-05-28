@@ -63,6 +63,7 @@
     "fast-machines.slime-egg-press": "슬라임 알 압착기",
     "fast-machines.slime-incubator": "슬라임 부화기",
     "fast-machines.tapper": "수액 채취기",
+    "fast-machines.wood-chipper": "Wood Chipper", // TODO
     "fast-machines.worm-bin": "지렁이 통",
 
     // '스킬' 탭

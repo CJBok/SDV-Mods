@@ -63,6 +63,7 @@
     "fast-machines.slime-egg-press": "Schleim-Eierpresse",
     "fast-machines.slime-incubator": "Schleimbrutkasten",
     "fast-machines.tapper": "Zapfhahn",
+    "fast-machines.wood-chipper": "Wood Chipper", // TODO
     "fast-machines.worm-bin": "Wurmeimer",
 
     // 'Skills' tab

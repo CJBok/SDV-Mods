@@ -63,6 +63,7 @@
     "fast-machines.slime-egg-press": "Prensa de gosmas",
     "fast-machines.slime-incubator": "Incubador de gosmas",
     "fast-machines.tapper": "Torneirinha",
+    "fast-machines.wood-chipper": "Wood Chipper", // TODO
     "fast-machines.worm-bin": "Cesto de minhocas",
 
     // 'Skills' tab

@@ -190,6 +190,7 @@ namespace CJBCheatsMenu.Framework
                         new CheatsOptionsCheckbox(i18n.Get("fast-machines.slime-egg-press"), config.FastSlimeEggPress, value => config.FastSlimeEggPress = value),
                         new CheatsOptionsCheckbox(i18n.Get("fast-machines.slime-incubator"), config.FastSlimeIncubator, value => config.FastSlimeIncubator = value),
                         new CheatsOptionsCheckbox(i18n.Get("fast-machines.tapper"), config.FastTapper, value => config.FastTapper = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.wood-chipper"), config.FastWoodChipper, value => config.FastWoodChipper = value),
                         new CheatsOptionsCheckbox(i18n.Get("fast-machines.worm-bin"), config.FastWormBin, value => config.FastWormBin = value)
                     );
                     break;
