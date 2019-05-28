@@ -89,68 +89,68 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The game clock doesn't change when you're inside the mines, Skull Cavern, or farm cave.</summary>
         public bool FreezeTimeCaves { get; set; }
 
+        /// <summary>Beehouses finish instantly.</summary>
+        public bool FastBeeHouse { get; set; }
+
         /// <summary>Casks finish instantly.</summary>
         public bool FastCask { get; set; }
-
-        /// <summary>Furnaces finish instantly.</summary>
-        public bool FastFurnace { get; set; }
-
-        /// <summary>Recycling machines finish instantly.</summary>
-        public bool FastRecyclingMachine { get; set; }
-
-        /// <summary>Crystalariums finish instantly.</summary>
-        public bool FastCrystalarium { get; set; }
-
-        /// <summary>Incubators finish instantly.</summary>
-        public bool FastIncubator { get; set; }
-
-        /// <summary>Slime incubators finish instantly.</summary>
-        public bool FastSlimeIncubator { get; set; }
-
-        /// <summary>Kegs finish instantly.</summary>
-        public bool FastKeg { get; set; }
-
-        /// <summary>Preserves jars finish instantly.</summary>
-        public bool FastPreservesJar { get; set; }
-
-        /// <summary>Cheese presses finish instantly.</summary>
-        public bool FastCheesePress { get; set; }
-
-        /// <summary>Mayonnaise machines finish instantly.</summary>
-        public bool FastMayonnaiseMachine { get; set; }
-
-        /// <summary>Looms finish instantly.</summary>
-        public bool FastLoom { get; set; }
-
-        /// <summary>Oil makers finish instantly.</summary>
-        public bool FastOilMaker { get; set; }
-
-        /// <summary>Seed makers finish instantly.</summary>
-        public bool FastSeedMaker { get; set; }
 
         /// <summary>Charcoal kilns finish instantly.</summary>
         public bool FastCharcoalKiln { get; set; }
 
-        /// <summary>Slime egg presss finish instantly.</summary>
-        public bool FastSlimeEggPress { get; set; }
+        /// <summary>Cheese presses finish instantly.</summary>
+        public bool FastCheesePress { get; set; }
 
-        /// <summary>Beehouses finish instantly.</summary>
-        public bool FastBeeHouse { get; set; }
+        /// <summary>Crystalariums finish instantly.</summary>
+        public bool FastCrystalarium { get; set; }
 
-        /// <summary>Mushroom boxs finish instantly.</summary>
-        public bool FastMushroomBox { get; set; }
+        /// <summary>Fruit trees bear fruit instantly.</summary>
+        public bool FastFruitTree { get; set; }
 
-        /// <summary>Tappers finish instantly.</summary>
-        public bool FastTapper { get; set; }
+        /// <summary>Furnaces finish instantly.</summary>
+        public bool FastFurnace { get; set; }
+
+        /// <summary>Incubators finish instantly.</summary>
+        public bool FastIncubator { get; set; }
+
+        /// <summary>Kegs finish instantly.</summary>
+        public bool FastKeg { get; set; }
 
         /// <summary>Lightning rods finish instantly.</summary>
         public bool FastLightningRod { get; set; }
 
+        /// <summary>Looms finish instantly.</summary>
+        public bool FastLoom { get; set; }
+
+        /// <summary>Mayonnaise machines finish instantly.</summary>
+        public bool FastMayonnaiseMachine { get; set; }
+
+        /// <summary>Mushroom boxs finish instantly.</summary>
+        public bool FastMushroomBox { get; set; }
+
+        /// <summary>Oil makers finish instantly.</summary>
+        public bool FastOilMaker { get; set; }
+
+        /// <summary>Preserves jars finish instantly.</summary>
+        public bool FastPreservesJar { get; set; }
+
+        /// <summary>Recycling machines finish instantly.</summary>
+        public bool FastRecyclingMachine { get; set; }
+
+        /// <summary>Seed makers finish instantly.</summary>
+        public bool FastSeedMaker { get; set; }
+
+        /// <summary>Slime egg presss finish instantly.</summary>
+        public bool FastSlimeEggPress { get; set; }
+
+        /// <summary>Slime incubators finish instantly.</summary>
+        public bool FastSlimeIncubator { get; set; }
+
+        /// <summary>Tappers finish instantly.</summary>
+        public bool FastTapper { get; set; }
+
         /// <summary>Worm bins finish instantly.</summary>
         public bool FastWormBin { get; set; }
-
-        /// <summary>Fruit trees bear fruit instantly.</summary>
-        public bool FastFruitTree { get; set; }
 
         /****
         ** Other cheats
