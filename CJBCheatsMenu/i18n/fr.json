@@ -159,6 +159,8 @@
     "flags.unlocked": "Unlocked Areas",
     "flags.unlocked.guild": "Adventurer's Guild",
     "flags.unlocked.room": "Room: {{name}}",
+    "flags.unlocked-content": "Unlocked content",
+    "flags.unlocked-content.dyes-and-tailoring": "Dyes & tailoring",
     "flags.community-center": "Community Center",
     "flags.community-center.door-unlocked": "Door Unlocked",
     "flags.jojamart.membership": "JojaMart Membership",

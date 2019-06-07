@@ -158,6 +158,8 @@
     "flags.unlocked": "Áreas Desbloqueadas",
     "flags.unlocked.guild": "Gremio de Aventureros",
     "flags.unlocked.room": "Habitación: {{name}}",
+    "flags.unlocked-content": "Unlocked content", // TODO
+    "flags.unlocked-content.dyes-and-tailoring": "Dyes & tailoring", // TODO
     "flags.community-center": "Centro Cívico",
     "flags.community-center.door-unlocked": "Puerta Abierta",
     "flags.jojamart.membership": "Membresía de JojaMart",

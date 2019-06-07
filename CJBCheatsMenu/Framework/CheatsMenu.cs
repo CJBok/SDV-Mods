@@ -323,6 +323,12 @@ namespace CJBCheatsMenu.Framework
                                 .ToArray()
                         );
 
+                        // unlocked content
+                        this.Options.Add(new OptionsElement($"{i18n.Get("flags.unlocked-content")}:"));
+                        this.AddSortedOptions(this.Options,
+                            new CheatsOptionsCheckbox(i18n.Get("flags.unlocked-content.dyes-and-tailoring"), this.HasEvent(992559), value => this.SetEvent(992559, value))
+                        );
+
                         // community center
                         this.Options.Add(new OptionsElement($"{i18n.Get("flags.community-center")}:"));
                         this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("flags.community-center.door-unlocked"), this.HasFlag("ccDoorUnlock"), value => this.SetFlag(value, "ccDoorUnlock")));

@@ -158,6 +158,8 @@
     "flags.unlocked": "侵入可能エリア",
     "flags.unlocked.guild": "冒険者ギルド",
     "flags.unlocked.room": "寝室: {{name}}",
+    "flags.unlocked-content": "Unlocked content", // TODO
+    "flags.unlocked-content.dyes-and-tailoring": "Dyes & tailoring", // TODO
     "flags.community-center": "コミュニティ復興",
     "flags.community-center.door-unlocked": "公民館へ入館",
     "flags.jojamart.membership": "Jojaマート 会員権",

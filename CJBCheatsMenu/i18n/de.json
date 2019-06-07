@@ -158,6 +158,8 @@
     "flags.unlocked": "Freigeschaltete Gebiete",
     "flags.unlocked.guild": "Abenteurergilde",
     "flags.unlocked.room": "Raum: {{name}}",
+    "flags.unlocked-content": "Unlocked content", // TODO
+    "flags.unlocked-content.dyes-and-tailoring": "Dyes & tailoring", // TODO
     "flags.community-center": "Gemeinschaftszentrum",
     "flags.community-center.door-unlocked": "Tür aufgeschlossen",
     "flags.jojamart.membership": "Joja-Markt-Mitgliedschaft",
