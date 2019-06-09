@@ -307,12 +307,12 @@ namespace CJBCheatsMenu.Framework
                         this.Options.Add(new OptionsElement($"{i18n.Get("flags.community-center")}:"));
                         this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("flags.community-center.door-unlocked"), this.HasFlag("ccDoorUnlocked"), value => this.SetFlags(value, "ccDoorUnlocked")));
                         this.AddSortedOptions(this.Options,
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Locations:CommunityCenter_AreaName_BoilerRoom"), this.HasFlag("ccBoilerRoom"), value => this.SetFlags(value, "ccBoilerRoom")),
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Locations:CommunityCenter_AreaName_BulletinBoard"), this.HasFlag("ccBulletin"), value => this.SetFlags(value, "ccBulletin")),
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Locations:CommunityCenter_AreaName_CraftsRoom"), this.HasFlag("ccCraftsRoom"), value => this.SetFlags(value, "ccCraftsRoom")),
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Locations:CommunityCenter_AreaName_FishTank"), this.HasFlag("ccFishTank"), value => this.SetFlags(value, "ccFishTank")),
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Locations:CommunityCenter_AreaName_Pantry"), this.HasFlag("ccPantry"), value => this.SetFlags(value, "ccPantry")),
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Locations:CommunityCenter_AreaName_Vault"), this.HasFlag("ccVault"), value => this.SetFlags(value, "ccVault"))
+                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("BoilerRoom", "Boiler"), this.HasFlag("ccBoilerRoom"), value => this.SetFlags(value, "ccBoilerRoom")),
+                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("BulletinBoard", "Bulletin"), this.HasFlag("ccBulletin"), value => this.SetFlags(value, "ccBulletin")),
+                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("CraftsRoom", "Crafts"), this.HasFlag("ccCraftsRoom"), value => this.SetFlags(value, "ccCraftsRoom")),
+                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("FishTank", "FishTank"), this.HasFlag("ccFishTank"), value => this.SetFlags(value, "ccFishTank")),
+                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("Pantry", "Pantry"), this.HasFlag("ccPantry"), value => this.SetFlags(value, "ccPantry")),
+                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("Vault", "Vault"), this.HasFlag("ccVault"), value => this.SetFlags(value, "ccVault"))
                         );
                         this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("flags.community-center.complete"), this.HasFlag("ccComplete"), value => this.SetFlags(value, "ccComplete")));
 
@@ -320,11 +320,11 @@ namespace CJBCheatsMenu.Framework
                         this.Options.Add(new OptionsElement($"{i18n.Get("flags.jojamart")}:"));
                         this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("flags.jojamart.membership"), this.HasFlag("JojaMember"), value => this.SetFlags(value, "JojaMember")));
                         this.AddSortedOptions(this.Options,
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Locations:CommunityCenter_AreaName_BoilerRoom"), this.HasFlag("jojaBoilerRoom"), value => this.SetFlags(value, "jojaBoilerRoom", "ccBoilerRoom")),
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Locations:CommunityCenter_AreaName_CraftsRoom"), this.HasFlag("jojaCraftsRoom"), value => this.SetFlags(value, "jojaCraftsRoom", "ccCraftsRoom")),
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Locations:CommunityCenter_AreaName_FishTank"), this.HasFlag("jojaFishTank"), value => this.SetFlags(value, "jojaFishTank", "ccFishTank")),
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Locations:CommunityCenter_AreaName_Pantry"), this.HasFlag("jojaPantry"), value => this.SetFlags(value, "jojaPantry", "ccPantry")),
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Locations:CommunityCenter_AreaName_Vault"), this.HasFlag("jojaVault"), value => this.SetFlags(value, "jojaVault", "ccVault"))
+                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("BoilerRoom", "Boiler"), this.HasFlag("jojaBoilerRoom"), value => this.SetFlags(value, "jojaBoilerRoom", "ccBoilerRoom")),
+                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("CraftsRoom", "Crafts"), this.HasFlag("jojaCraftsRoom"), value => this.SetFlags(value, "jojaCraftsRoom", "ccCraftsRoom")),
+                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("FishTank", "FishTank"), this.HasFlag("jojaFishTank"), value => this.SetFlags(value, "jojaFishTank", "ccFishTank")),
+                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("Pantry", "Pantry"), this.HasFlag("jojaPantry"), value => this.SetFlags(value, "jojaPantry", "ccPantry")),
+                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("Vault", "Vault"), this.HasFlag("jojaVault"), value => this.SetFlags(value, "jojaVault", "ccVault"))
                         );
                     }
                     break;
@@ -373,6 +373,14 @@ namespace CJBCheatsMenu.Framework
         private void AddSortedOptions(List<OptionsElement> list, params OptionsElement[] elements)
         {
             list.AddRange(elements.OrderBy(p => p.label));
+        }
+
+        /// <summary>Get the display text for a toggle to mark a Community Center or JojaMart bundle complete.</summary>
+        /// <param name="areaName">The name used in the translation key for the bundle name.</param>
+        /// <param name="rewardName">The name used in the translation key for the reward name (or <c>null</c> to show '???').</param>
+        private string GetJunimoRewardText(string areaName, string rewardName = null)
+        {
+            return $"{Game1.content.LoadString($@"Strings\Locations:CommunityCenter_AreaName_{areaName}")} ({(rewardName != null ? Game1.content.LoadString($@"Strings\UI:JunimoNote_Reward{rewardName}") : "???")})";
         }
 
         /// <summary>Get all NPCs which have relationship data.</summary>
