@@ -1,10 +1,10 @@
-﻿{
-  "Name": "CJB Cheats Menu",
-  "Author": "CJ Bok",
-  "Version": "1.19.0",
-  "Description": "Simple in-game cheats menu!",
-  "UniqueID": "CJBok.CheatsMenu",
-  "EntryDll": "CJBCheatsMenu.dll",
-  "MinimumApiVersion": "2.11.0",
-  "UpdateKeys": [ "Nexus:4" ]
+{
+    "Name": "CJB Cheats Menu",
+    "Author": "CJ Bok",
+    "Version": "1.20.0",
+    "Description": "Simple in-game cheats menu!",
+    "UniqueID": "CJBok.CheatsMenu",
+    "EntryDll": "CJBCheatsMenu.dll",
+    "MinimumApiVersion": "2.11.1",
+    "UpdateKeys": [ "Nexus:4" ]
 }

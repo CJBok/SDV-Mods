@@ -1,4 +1,4 @@
-﻿namespace CJBItemSpawner.Framework.Constants
+namespace CJBItemSpawner.Framework.Constants
 {
     /// <summary>A tab in the item spawner menu.</summary>
     internal enum MenuTab

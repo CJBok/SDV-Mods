@@ -1,10 +1,10 @@
-﻿{
-  "Name": "CJB Item Spawner",
-  "Author": "CJ Bok",
-  "Version": "1.11.3",
-  "Description": "Simple in-game item spawner!",
-  "UniqueID": "CJBok.ItemSpawner",
-  "EntryDll": "CJBItemSpawner.dll",
-  "MinimumApiVersion": "2.11.0",
-  "UpdateKeys": [ "Nexus:93" ]
+{
+    "Name": "CJB Item Spawner",
+    "Author": "CJ Bok",
+    "Version": "1.11.4",
+    "Description": "Simple in-game item spawner!",
+    "UniqueID": "CJBok.ItemSpawner",
+    "EntryDll": "CJBItemSpawner.dll",
+    "MinimumApiVersion": "2.11.1",
+    "UpdateKeys": [ "Nexus:93" ]
 }

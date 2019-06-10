@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,7 +15,7 @@ namespace CJBCheatsMenu.Framework
         ** Fields
         *********/
         /// <summary>The maximum number of hearts allowed.</summary>
-        private readonly int SliderMaxValue = 10;
+        private readonly int SliderMaxValue;
 
         /// <summary>The villager NPC represented the slider.</summary>
         private readonly NPC Npc;
@@ -37,7 +37,7 @@ namespace CJBCheatsMenu.Framework
         /// <param name="npc">The villager NPC represented the slider.</param>
         /// <param name="onValueChanged">A callback to invoke when the value changes.</param>
         public CheatsOptionsNpcSlider(NPC npc, Action<int> onValueChanged)
-            : base(npc.displayName, x: 96, y: -1, width: 80 * Game1.pixelZoom, height: 6 * Game1.pixelZoom, whichOption: 0)
+            : base(npc.displayName, x: 96, y: -1, width: (CheatsOptionsNpcSlider.IsSpouse(npc) ? 112 : 80) * Game1.pixelZoom, height: 6 * Game1.pixelZoom, whichOption: 0)
         {
             bool isKnown = Game1.player.friendshipData.TryGetValue(npc.Name, out Friendship friendship);
 
@@ -46,6 +46,7 @@ namespace CJBCheatsMenu.Framework
             this.Mugshot = new ClickableTextureComponent("Mugshot", this.bounds, "", "", npc.Sprite.Texture, npc.getMugShotSourceRect(), 0.7f * Game1.pixelZoom);
             this.greyedOut = !isKnown;
             this.label = npc.getName();
+            this.SliderMaxValue = CheatsOptionsNpcSlider.IsSpouse(npc) ? 14 : NPC.maxFriendshipPoints / NPC.friendshipPointsPerHeartLevel;
             this.Value = isKnown
                 ? Math.Max(0, Math.Min(this.SliderMaxValue, friendship.Points / NPC.friendshipPointsPerHeartLevel))
                 : 0;
@@ -105,13 +106,24 @@ namespace CJBCheatsMenu.Framework
                 this.Mugshot.draw(spriteBatch, tint, 0.88f);
             }
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < this.SliderMaxValue; i++)
             {
                 Rectangle sourceRectangle = i < this.Value
                     ? new Rectangle(211, 428, 7, 6)
                     : new Rectangle(218, 428, 7, 6);
                 spriteBatch.Draw(Game1.mouseCursors, new Vector2(slotX + this.bounds.X + i * (8 * Game1.pixelZoom), slotY + this.bounds.Y), sourceRectangle, tint, 0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 0.88f);
             }
+        }
+
+
+        /*********
+        ** Private methods
+        *********/
+        /// <summary>Get whether the given NPC is the player's spouse.</summary>
+        /// <param name="npc">The NPC to check.</param>
+        private static bool IsSpouse(NPC npc)
+        {
+            return npc.Name == Game1.player.spouse;
         }
     }
 }

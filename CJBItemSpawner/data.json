@@ -1,28 +1,28 @@
 {
-  /**
-   * Items which are hidden by default because they cause in-game bugs or crashes.
-   */
-  "ProblematicItems": [
-    // Crystal Chair, unreleased version (glitches and causes crashes once rotated / picked up)
-    { "Type": "BigCraftable", "ID": 90 },
+    /**
+     * Items which are hidden by default because they cause in-game bugs or crashes.
+     */
+    "ProblematicItems": [
+        // Crystal Chair, unreleased version (glitches and causes crashes once rotated / picked up)
+        { "Type": "BigCraftable", "ID": 90 },
 
-    // Incubator (can't be removed once placed)
-    { "Type": "BigCraftable", "ID": 101 },
+        // Incubator (can't be removed once placed)
+        { "Type": "BigCraftable", "ID": 101 },
 
-    // Locked Door, two orientations (can't be removed once placed)
-    { "Type": "BigCraftable", "ID": 81 },
-    { "Type": "BigCraftable", "ID": 82 },
+        // Locked Door, two orientations (can't be removed once placed)
+        { "Type": "BigCraftable", "ID": 81 },
+        { "Type": "BigCraftable", "ID": 82 },
 
-    // Mushroom Box (can't be removed once placed)
-    { "Type": "BigCraftable", "ID": 128 },
+        // Mushroom Box (can't be removed once placed)
+        { "Type": "BigCraftable", "ID": 128 },
 
-    // Obelisk (once placed, it runs a glitched animation when the player is near that eventually starts switching between the Obelisk and a chicken statue sprite. Picking it up after that point can cause an immediate game crash or result in an unremovable inventory item.)
-    { "Type": "BigCraftable", "ID": 29 },
+        // Obelisk (once placed, it runs a glitched animation when the player is near that eventually starts switching between the Obelisk and a chicken statue sprite. Picking it up after that point can cause an immediate game crash or result in an unremovable inventory item.)
+        { "Type": "BigCraftable", "ID": 29 },
 
-    // Wicked Statue, lit eyes version (can't be removed once placed)
-    { "Type": "BigCraftable", "ID": 84 },
+        // Wicked Statue, lit eyes version (can't be removed once placed)
+        { "Type": "BigCraftable", "ID": 84 },
 
-    // Jukebox Ring (crashes when you enter the mines)
-    { "Type": "Ring", "ID": 528 }
-  ]
+        // Jukebox Ring (crashes when you enter the mines)
+        { "Type": "Ring", "ID": 528 }
+    ]
 }

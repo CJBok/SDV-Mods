@@ -1,4 +1,4 @@
-﻿using CJBCheatsMenu.Framework.Constants;
+using CJBCheatsMenu.Framework.Constants;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using StardewModdingAPI;

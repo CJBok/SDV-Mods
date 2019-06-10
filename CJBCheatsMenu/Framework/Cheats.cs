@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -228,12 +228,12 @@ namespace CJBCheatsMenu.Framework
                     }
                 }
 
-                // autofeed animals
+                // auto-feed animals
                 if (this.Config.AutoFeed && farm != null && location is AnimalHouse animalHouse)
                 {
-                    int animalcount = animalHouse.animals.Values.Count();
-                    int hayobjects = animalHouse.numberOfObjectsWithName("Hay");
-                    int hayUsed = Math.Min(animalcount - hayobjects, farm.piecesOfHay.Value);
+                    int animalCount = animalHouse.animals.Values.Count();
+                    int hayObjects = animalHouse.numberOfObjectsWithName("Hay");
+                    int hayUsed = Math.Min(animalCount - hayObjects, farm.piecesOfHay.Value);
                     farm.piecesOfHay.Value -= hayUsed;
 
                     int tileX = 6;

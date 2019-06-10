@@ -1,7 +1,17 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 1.20
+Released 10 June 2019 for SMAPI 2.11.1 or later. Updated by Pathoschild..
+
+* Added 'advanced' tab to set flags and wallet items; merged 'quests' tab into 'advanced'.
+* Fixed max relationship meter not extended for spouse.
+* Fixed being able to open the menu when a minigame is active.
+* Updated translations. Thanks to S2SKY (added Korean) and TheOzonO3 (updated Russian)!
+
 ## 1.19
+Released 27 March 2019 for SMAPI 2.11 or later. Updated by Pathoschild.
+
 * Added support for setting relationships for unmet villagers.
 * Fast machine processing is now much faster.
 * Fast machine processing now continues working when time is paused.
@@ -10,14 +20,20 @@
 * Updated translations. Thanks to kelvindules (updated Portuguese) and VincentRoth (added French)!
 
 ## 1.18.3
+Released 09 December 2018 for SMAPI 2.9 or later. Updated by Pathoschild.
+
 * Updated for the upcoming SMAPI 3.0.
 * Fixed harvest with scythe option saying 'no XP gain', which was fixed in Stardew Valley 1.3. (Thanks to SkpFX!)
 * Updated translations. Thanks to Nanogamer7 (added German) and Redlnn (improved Chinese)!
 
 ## 1.18.2
+Released 03 November 2018 for SMAPI 2.8 or later. Updated by Pathoschild.
+
 * Added Spanish translations. (Thanks to Spa51!)
 
 ## 1.18.1
+Released 28 August 2018 for SMAPI 2.8 or later. Updated by Pathoschild.
+
 * Updated for Stardew Valley 1.3.29.
 * Farmhands in multiplayer warping to the farm now land in front of their cabin, instead of the farmhouse.
 * 'Grow crop' now affects crops under the cursor (instead of around the player).
@@ -27,6 +43,8 @@
 * Fixed relationship slider not disabled if you haven't met the NPC yet.
 
 ## 1.18
+Released 04 August 2018 for SMAPI 2.7 or later. Updated by CJBok (quests feature) and Pathoschild.
+
 * Updated for Stardew Valley 1.3 (including multiplayer support).
 * Added Quests tab to complete active quests instantly.
 * Added option for fast fruit trees.
@@ -50,6 +68,8 @@
 * Fixed things happening repeatedly when time is frozen in some cases (thanks to Issacy!).
 
 ## 1.17
+Released 11 February 2018 for SMAPI 2.4 or later. Updated by Pathoschild.
+
 * Updated to SMAPI 2.4.
 * Added translation support.
 * Added update checks via SMAPI.
@@ -58,10 +78,14 @@
 * Fixed issue where setting the time could leave NPCs confused (e.g. stuck in bed).
 
 ## 1.16
+Released 14 July 2017 for SMAPI 1.15 or later. Updated by Pathoschild.
+
 * Fixed open-menu key working even when another menu is already open.
 * Fixed freeze-time key working during cutscenes.
 
 ## 1.15
+Released 27 May 2017 for SMAPI 1.13 or later. Updated by Pathoschild.
+
 * Updated for Stardew Valley 1.2 and SMAPI 1.13.
 * Added option to set the default tab when opening the menu.
 * Fixed relationship slider always set to 10 hearts.
@@ -69,9 +93,13 @@
 * Fixed 'one hit break' not working on fruit trees.
 
 ## 1.14.1
+Released 12 April 2017 for SMAPI 1.9 or later. Updated by Pathoschild.
+
 * Fixed error when used with any mod that adds multiple seeds producing the same crop.
 
 ## 1.14
+Released 05 April 2017 for SMAPI 1.9 or later. Updated by Pathoschild.
+
 * Updated to SMAPI 1.9.
 * Fast machines now work anywhere, not only on the farm.
 * Fixed fast cask cheat not working.
@@ -79,6 +107,8 @@
 * Internal refactoring.
 
 ## 1.13
+Released 04 January 2017 for SMAPI 1.5 or later. Updated by Pathoschild.
+
 * Updated to Stardew Valley 1.1+ and SMAPI 1.5.
 * Added compatibility with Linux and Mac.
 * Added support for casks and worm bins.
@@ -86,12 +116,16 @@
 * Fixed 'grow crops' key in settings menu not being saved.
 
 ## 1.12
+Released 09 April 2016 for SMAPI 0.40 or later.
+
 * Updated to Stardew Valley 1.07+ and SMAPI 0.40.0+.
 * Added cheats: durable tackles, harvest with sickle, grow tree, and grow crops.
 * Added changeable relationships.
 * Fixed mouse cursor showing when disabled.
 
 ## 1.11
+Released 02 April 2016 for SMAPI 0.39.6 or later.
+
 * Updated for SMAPI 0.39.6.
 * Added cheats: fast tapper, fast lightning rod, always auto-feed, and infinite hay.
 * Added casino coins cheats.
@@ -100,6 +134,8 @@
 * Fixed time frozen label.
 
 ## 1.10
+Released 30 March 2016 for SMAPI 0.39.4 or later.
+
 * Updated for SMAPI 0.39.4.
 * Added cheats: no friendship decay, instant build.
 * Fixed fast machine processing in barns and coops.

@@ -1,79 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{EC7EA9A2-AF3A-48AC-8048-024254359D5E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CJBItemSpawner</RootNamespace>
     <AssemblyName>CJBItemSpawner</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <Version>1.11.4</Version>
+    <RootNamespace>CJBItemSpawner</RootNamespace>
+    <TargetFramework>net452</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="2.2.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.XML" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\GlobalAssemblyInfo.cs">
-      <Link>Properties\GlobalAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="Framework\CJB.cs" />
-    <Compile Include="Framework\Constants\ItemSort.cs" />
-    <Compile Include="Framework\ItemData\ItemRepository.cs" />
-    <Compile Include="Framework\ItemData\ItemType.cs" />
-    <Compile Include="Framework\ItemData\SearchableItem.cs" />
-    <Compile Include="Framework\Models\ModData.cs" />
-    <Compile Include="Framework\Models\ModDataItem.cs" />
-    <Compile Include="ModEntry.cs" />
-    <Compile Include="Framework\Constants\MenuTab.cs" />
-    <Compile Include="Framework\ItemInventoryMenu.cs" />
-    <Compile Include="Framework\ItemMenu.cs" />
-    <Compile Include="Framework\ItemMenuWithInventory.cs" />
-    <Compile Include="Framework\Constants\ItemQuality.cs" />
-    <Compile Include="Framework\Models\ModConfig.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="manifest.json" />
-    <Content Include="screenshot.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="data.json">
+    <None Update="data.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="i18n\de.json" />
-    <None Include="i18n\es.json" />
-    <None Include="i18n\fr.json" />
-    <None Include="i18n\ko.json" />
-    <None Include="i18n\ru.json" />
-    <None Include="i18n\pt.json" />
-    <None Include="i18n\default.json" />
-    <None Include="i18n\zh.json" />
-    <None Include="README.md" />
-    <None Include="release-notes.md" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+  <Import Project="$(SolutionDir)\common.targets" />
+
 </Project>
