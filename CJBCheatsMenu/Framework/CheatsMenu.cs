@@ -341,6 +341,7 @@ namespace CJBCheatsMenu.Framework
                             new CheatsOptionsCheckbox(this.GetJunimoRewardText("Pantry", "Pantry"), this.HasFlag("ccPantry"), value => this.SetCommunityCenterFlags(value, "ccPantry")),
                             new CheatsOptionsCheckbox(this.GetJunimoRewardText("Vault", "Vault"), this.HasFlag("ccVault"), value => this.SetCommunityCenterFlags(value, "ccVault"))
                         );
+                        this.Options.Add(new CheatsOptionsCheckbox(this.GetJunimoRewardText("AbandonedJojaMart"), this.HasFlag("ccMovieTheater"), value => this.SetCommunityCenterFlags(value, "ccMovieTheater")));
                     }
                     break;
 
@@ -487,6 +488,8 @@ namespace CJBCheatsMenu.Framework
                             communityCenter.areasComplete[pair.Value] = this.HasFlag(pair.Key);
                     }
                 }
+                if (this.HasFlag("ccMovieTheater") && Game1.getLocationFromName(nameof(AbandonedJojaMart)) is AbandonedJojaMart mart)
+                    mart.restoreAreaCutscene();
 
                 // log flag changes
                 bool added = logFlags[true].Any();

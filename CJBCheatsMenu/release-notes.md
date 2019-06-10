@@ -6,7 +6,8 @@ Released 26 November 2019 for SMAPI 3.0 or later. Updated by Pathoschild.
 
 * Updated for Stardew Valley 1.4, including...
   * added wood chipper support for fast machines;
-  * added unlockable dyeing & tailoring.
+  * added unlockable dyeing & tailoring;
+  * added new Community Center bundle.
 * Added support for holding the grow crop/tree keys while moving the cursor, so it's easier to grow larger fields.
 * Warps are now sorted alphabetically.
 * Warps can now be customised by editing `data/warps.json`.
