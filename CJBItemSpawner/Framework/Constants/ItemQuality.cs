@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using SObject = StardewValley.Object;
 
 namespace CJBItemSpawner.Framework.Constants

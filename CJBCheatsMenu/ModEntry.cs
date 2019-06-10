@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using CJBCheatsMenu.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;

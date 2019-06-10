@@ -1,4 +1,4 @@
-﻿namespace CJBItemSpawner.Framework.ItemData
+namespace CJBItemSpawner.Framework.ItemData
 {
     /// <summary>An item type that can be searched and added to the player through the console.</summary>
     internal enum ItemType

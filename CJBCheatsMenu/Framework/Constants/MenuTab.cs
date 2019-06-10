@@ -1,4 +1,4 @@
-﻿namespace CJBCheatsMenu.Framework.Constants
+namespace CJBCheatsMenu.Framework.Constants
 {
     /// <summary>A tab in the cheat menu.</summary>
     internal enum MenuTab

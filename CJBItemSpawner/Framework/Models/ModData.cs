@@ -1,4 +1,4 @@
-﻿namespace CJBItemSpawner.Framework.Models
+namespace CJBItemSpawner.Framework.Models
 {
     /// <summary>Predefined mod data.</summary>
     internal class ModData

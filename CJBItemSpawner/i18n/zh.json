@@ -1,20 +1,20 @@
 {
-  "title": "CJB 物品生成器",
+    "title": "CJB 物品生成器",
 
-  "labels.sort-by-name": "按名称排序",
-  "labels.sort-by-category": "按类型排序",
-  "labels.sort-by-id": "按ID排序",
-  "labels.quality": "质量",
+    "labels.sort-by-name": "按名称排序",
+    "labels.sort-by-category": "按类型排序",
+    "labels.sort-by-id": "按ID排序",
+    "labels.quality": "质量",
 
-  "tabs.all": "All",
-  "tabs.equipment": "工具和装备",
-  "tabs.crops": "种子和作物",
-  "tabs.fishing": "鱼、鱼饵和垃圾",
-  "tabs.forage": "干草和水果",
-  "tabs.artifacts-and-minerals": "宝物和矿物",
-  "tabs.resources-and-crafting": "资源与制造",
-  "tabs.artisan-and-cooking": "工艺与烹饪",
-  "tabs.animal-and-monster": "动物与怪物",
-  "tabs.decorating": "装饰",
-  "tabs.miscellaneous": "杂项"
+    "tabs.all": "All",
+    "tabs.equipment": "工具和装备",
+    "tabs.crops": "种子和作物",
+    "tabs.fishing": "鱼、鱼饵和垃圾",
+    "tabs.forage": "干草和水果",
+    "tabs.artifacts-and-minerals": "宝物和矿物",
+    "tabs.resources-and-crafting": "资源与制造",
+    "tabs.artisan-and-cooking": "工艺与烹饪",
+    "tabs.animal-and-monster": "动物与怪物",
+    "tabs.decorating": "装饰",
+    "tabs.miscellaneous": "杂项"
 }

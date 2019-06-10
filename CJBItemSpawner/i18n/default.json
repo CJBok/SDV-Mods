@@ -1,20 +1,20 @@
-﻿{
-  "title": "CJB Item Spawner",
+{
+    "title": "CJB Item Spawner",
 
-  "labels.sort-by-name": "Sort By: Name",
-  "labels.sort-by-category": "Sort By: Category",
-  "labels.sort-by-id": "Sort By: ID",
-  "labels.quality": "Quality",
+    "labels.sort-by-name": "Sort By: Name",
+    "labels.sort-by-category": "Sort By: Category",
+    "labels.sort-by-id": "Sort By: ID",
+    "labels.quality": "Quality",
 
-  "tabs.all": "All",
-  "tabs.equipment": "Tools & Equipment",
-  "tabs.crops": "Seeds & Crops",
-  "tabs.fishing": "Fish & Bait & Trash",
-  "tabs.forage": "Forage & Fruits",
-  "tabs.artifacts-and-minerals": "Artifacts & Minerals",
-  "tabs.resources-and-crafting": "Resources & Crafting",
-  "tabs.artisan-and-cooking": "Artisan & Cooking",
-  "tabs.animal-and-monster": "Animal & Monster",
-  "tabs.decorating": "Decorating",
-  "tabs.miscellaneous": "Misc"
+    "tabs.all": "All",
+    "tabs.equipment": "Tools & Equipment",
+    "tabs.crops": "Seeds & Crops",
+    "tabs.fishing": "Fish & Bait & Trash",
+    "tabs.forage": "Forage & Fruits",
+    "tabs.artifacts-and-minerals": "Artifacts & Minerals",
+    "tabs.resources-and-crafting": "Resources & Crafting",
+    "tabs.artisan-and-cooking": "Artisan & Cooking",
+    "tabs.animal-and-monster": "Animal & Monster",
+    "tabs.decorating": "Decorating",
+    "tabs.miscellaneous": "Misc"
 }

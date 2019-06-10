@@ -1,4 +1,4 @@
-﻿using CJBItemSpawner.Framework.ItemData;
+using CJBItemSpawner.Framework.ItemData;
 
 namespace CJBItemSpawner.Framework.Models
 {

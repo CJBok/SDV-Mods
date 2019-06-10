@@ -1,20 +1,20 @@
-﻿{
-  "title": "CJB Item Spawner",
+{
+    "title": "CJB Item Spawner",
 
-  "labels.sort-by-name": "Trier par : Nom",
-  "labels.sort-by-category": "Trier par : Catégorie",
-  "labels.sort-by-id": "Trier par : ID",
-  "labels.quality": "Qualité",
+    "labels.sort-by-name": "Trier par : Nom",
+    "labels.sort-by-category": "Trier par : Catégorie",
+    "labels.sort-by-id": "Trier par : ID",
+    "labels.quality": "Qualité",
 
-  "tabs.all": "Tout",
-  "tabs.equipment": "Outils & Equipement",
-  "tabs.crops": "Graines & Culture",
-  "tabs.fishing": "Poisson & Appât & Déchet",
-  "tabs.forage": "Cueillete & Fruits",
-  "tabs.artifacts-and-minerals": "Artéfacts & Minerais",
-  "tabs.resources-and-crafting": "Ressources & Fabrication",
-  "tabs.artisan-and-cooking": "Artisanat & Cuisine",
-  "tabs.animal-and-monster": "Animaux & Monstres",
-  "tabs.decorating": "Décoration",
-  "tabs.miscellaneous": "Divers"
+    "tabs.all": "Tout",
+    "tabs.equipment": "Outils & Equipement",
+    "tabs.crops": "Graines & Culture",
+    "tabs.fishing": "Poisson & Appât & Déchet",
+    "tabs.forage": "Cueillete & Fruits",
+    "tabs.artifacts-and-minerals": "Artéfacts & Minerais",
+    "tabs.resources-and-crafting": "Ressources & Fabrication",
+    "tabs.artisan-and-cooking": "Artisanat & Cuisine",
+    "tabs.animal-and-monster": "Animaux & Monstres",
+    "tabs.decorating": "Décoration",
+    "tabs.miscellaneous": "Divers"
 }
