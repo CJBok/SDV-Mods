@@ -1,7 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.20
+Released 10 June 2019 for SMAPI 2.11.1 or later. Updated by Pathoschild..
+
 * Added 'advanced' tab to set flags and wallet items; merged 'quests' tab into 'advanced'.
 * Fixed max relationship meter not extended for spouse.
 * Fixed being able to open the menu when a minigame is active.

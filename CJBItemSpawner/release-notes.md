@@ -1,7 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.11.4
+Released 10 June 2019 for SMAPI 2.11.1 or later. Updated by Pathoschild.
+
 * Updated translations. Thanks to S2SKY (improved Korean)!
 
 ## 1.11.3
