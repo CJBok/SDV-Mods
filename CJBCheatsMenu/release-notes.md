@@ -5,6 +5,7 @@
 * Reworked community center flag options.
 * Fixed setting a community center flag not completing the in-game area.
 * Fixed 'unlock community center' option not working correctly.
+* Fixed instant-grow-crop not working with garden pots placed on tilled dirt or flooring.
 
 ## 1.20
 Released 10 June 2019 for SMAPI 2.11.1 or later. Updated by Pathoschild.
