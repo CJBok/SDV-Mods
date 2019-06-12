@@ -1,7 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.20.1
+Released 12 June 2019 for SMAPI 2.11.1 or later. Updated by Pathoschild.
+
 * Reworked community center flag options.
 * Fixed setting a community center flag not completing the in-game area.
 * Fixed 'unlock community center' option not working correctly.
