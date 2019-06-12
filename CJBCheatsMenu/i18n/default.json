@@ -160,8 +160,6 @@
     "flags.unlocked.room": "Room: {{name}}",
     "flags.community-center": "Community Center",
     "flags.community-center.door-unlocked": "Door Unlocked",
-    "flags.community-center.complete": "Community Center Completed",
-    "flags.jojamart": "JojaMart",
     "flags.jojamart.membership": "JojaMart Membership",
 
     // 'Controls' tab

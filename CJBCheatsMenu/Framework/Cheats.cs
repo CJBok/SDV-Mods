@@ -124,12 +124,15 @@ namespace CJBCheatsMenu.Framework
 
             foreach (Vector2 tile in tiles)
             {
+                // grow planted crop (if any)
                 if (player.currentLocation.terrainFeatures.TryGetValue(tile, out TerrainFeature terrainFeature))
                 {
                     if (terrainFeature is HoeDirt dirt)
                         dirt.crop?.growCompletely();
                 }
-                else if (player.currentLocation.objects.TryGetValue(tile, out SObject obj))
+
+                // grow garden pot (if any)
+                if (player.currentLocation.objects.TryGetValue(tile, out SObject obj))
                 {
                     if (obj is IndoorPot pot && pot.hoeDirt.Value is HoeDirt dirt)
                         dirt.crop?.growCompletely();

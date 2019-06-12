@@ -10,7 +10,7 @@
     "tabs.relationships": "人間関係",
     "tabs.warp": "ワープ",
     "tabs.time": "時間",
-    "tabs.advanced": "Advanced", // TODO
+    "tabs.advanced": "上級者向け",
     "tabs.controls": "キー変更",
 
     // 'Player & Tools' tab
@@ -45,7 +45,7 @@
     "fishing.durable-tackles": "釣り具の強化",
     "fast-machines.title": "作成時間の短縮",
     "fast-machines.cask": "熟成ダル",
-    "fast-machines.fruit-trees": "Fruit Trees", // TODO
+    "fast-machines.fruit-trees": "果樹",
     "fast-machines.furnace": "溶鉱炉",
     "fast-machines.recycling-machine": "リサイクルマシン",
     "fast-machines.crystalarium": "結晶コピーマシン",
@@ -79,8 +79,8 @@
     "professions.combat.scout": "戦闘レベル5 - 偵察者",
     "professions.combat.acrobat": "戦闘レベル10 - 軽業師",
     "professions.combat.brute": "戦闘レベル10 - 荒くれ者",
-    "professions.combat.defender": "Combat lvl 10 - 防衛者",
-    "professions.combat.desperado": "Combat lvl 10 - デスペラード",
+    "professions.combat.defender": "戦闘レベル10 - 防衛者",
+    "professions.combat.desperado": "戦闘レベル10 - デスペラード",
     "professions.farming.rancher": "農業レベル5 - 動物飼育者",
     "professions.farming.tiller": "農業レベル5 - 耕作者",
     "professions.farming.agriculturist": "農業レベル10 - 農業者",
@@ -127,7 +127,7 @@
     "warp.blacksmith": "鍛冶屋",
     "warp.museum": "博物館",
     "warp.saloon": "酒場",
-    "warp.community-center": "コミュニティセンター",
+    "warp.community-center": "公民館",
     "warp.carpenter": "大工作業場",
     "warp.adventurers-guild": "冒険者ギルド",
     "warp.ranch": "牧場商店",
@@ -152,18 +152,15 @@
     "time.time": "時間",
 
     // 'Flags' tab
-    // TODO
-    "flags.warning": "Use this section at your own risk!\nThis may cause issues like skipped mail, events, or quests.",
-    "flags.quests": "Complete Quests",
-    "flags.wallet": "Wallet Items",
-    "flags.unlocked": "Unlocked Areas",
-    "flags.unlocked.guild": "Adventurer's Guild",
-    "flags.unlocked.room": "Room: {{name}}",
-    "flags.community-center": "Community Center",
-    "flags.community-center.door-unlocked": "Door Unlocked",
-    "flags.community-center.complete": "Community Center Completed",
-    "flags.jojamart": "JojaMart",
-    "flags.jojamart.membership": "JojaMart Membership",
+    "flags.warning": "これらの設定の変更はあなたの自己責任です！\nメールが届かなかったり、イベントやクエストの進行に問題が起きる場合があります。",
+    "flags.quests": "クエストの完了",
+    "flags.wallet": "財布のアイテム",
+    "flags.unlocked": "侵入可能エリア",
+    "flags.unlocked.guild": "冒険者ギルド",
+    "flags.unlocked.room": "寝室: {{name}}",
+    "flags.community-center": "公民館",
+    "flags.community-center.door-unlocked": "ドアのアンロック",
+    "flags.jojamart.membership": "Jojaマート 会員権",
 
     // 'Controls' tab
     "controls.title": "コントロール",

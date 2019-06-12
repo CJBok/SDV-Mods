@@ -29,6 +29,9 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Provides translations for the mod.</summary>
         private readonly ITranslationHelper TranslationHelper;
 
+        /// <summary>Encapsulates monitoring and logging.</summary>
+        private readonly IMonitor Monitor;
+
         private readonly List<ClickableComponent> OptionSlots = new List<ClickableComponent>();
         private readonly List<OptionsElement> Options = new List<OptionsElement>();
         private readonly ClickableTextureComponent UpArrow;
@@ -46,16 +49,38 @@ namespace CJBCheatsMenu.Framework
         private bool CanClose;
         private readonly MenuTab CurrentTab;
 
+        /// <summary>Maps JojaMart completion flags to their Community Center equivalent.</summary>
+        private readonly IDictionary<string, string> JojaMartCompletionFlags = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
+        {
+            ["jojaBoilerRoom"] = "ccBoilerRoom",
+            ["jojaCraftsRoom"] = "ccCraftsRoom",
+            ["jojaFishTank"] = "ccFishTank",
+            ["jojaPantry"] = "ccPantry",
+            ["jojaVault"] = "ccVault"
+        };
+
+        /// <summary>Maps Community Center completion flags to their area ID.</summary>
+        private readonly Dictionary<string, int> CommunityCenterCompletionFlags = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase)
+        {
+            ["ccBoilerRoom"] = CommunityCenter.AREA_BoilerRoom,
+            ["ccBulletin"] = CommunityCenter.AREA_Bulletin,
+            ["ccCraftsRoom"] = CommunityCenter.AREA_CraftsRoom,
+            ["ccFishTank"] = CommunityCenter.AREA_FishTank,
+            ["ccPantry"] = CommunityCenter.AREA_Pantry,
+            ["ccVault"] = CommunityCenter.AREA_Vault
+        };
+
 
         /*********
         ** Public methods
         *********/
-        public CheatsMenu(MenuTab tabIndex, ModConfig config, Cheats cheats, ITranslationHelper i18n)
+        public CheatsMenu(MenuTab tabIndex, ModConfig config, Cheats cheats, ITranslationHelper i18n, IMonitor monitor)
           : base(Game1.viewport.Width / 2 - (600 + IClickableMenu.borderWidth * 2) / 2, Game1.viewport.Height / 2 - (600 + IClickableMenu.borderWidth * 2) / 2, 800 + IClickableMenu.borderWidth * 2, 600 + IClickableMenu.borderWidth * 2)
         {
             this.Config = config;
             this.Cheats = cheats;
             this.TranslationHelper = i18n;
+            this.Monitor = monitor;
 
             this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.width / 2, this.yPositionOnScreen, Game1.tileSize * 4, Game1.tileSize), i18n.Get("title"));
             this.CurrentTab = tabIndex;
@@ -296,35 +321,24 @@ namespace CJBCheatsMenu.Framework
 
                         // unlocked areas
                         this.Options.Add(new OptionsElement($"{i18n.Get("flags.unlocked")}:"));
-                        this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("flags.unlocked.guild"), this.HasFlag("guildMember"), value => this.SetFlags(value, "guildMember")));
+                        this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("flags.unlocked.guild"), this.HasFlag("guildMember"), value => this.SetFlag(value, "guildMember")));
                         this.AddSortedOptions(this.Options,
                             this.GetSocialCharacters()
-                                .Select(npc => (OptionsElement)new CheatsOptionsCheckbox(i18n.Get("flags.unlocked.room", new { name = npc.displayName }), this.HasFlag($"doorUnlock{npc.Name}"), value => this.SetFlags(value, $"doorUnlock{npc.Name}")))
+                                .Select(npc => (OptionsElement)new CheatsOptionsCheckbox(i18n.Get("flags.unlocked.room", new { name = npc.displayName }), this.HasFlag($"doorUnlock{npc.Name}"), value => this.SetFlag(value, $"doorUnlock{npc.Name}")))
                                 .ToArray()
                         );
 
                         // community center
                         this.Options.Add(new OptionsElement($"{i18n.Get("flags.community-center")}:"));
-                        this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("flags.community-center.door-unlocked"), this.HasFlag("ccDoorUnlocked"), value => this.SetFlags(value, "ccDoorUnlocked")));
+                        this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("flags.community-center.door-unlocked"), this.HasFlag("ccDoorUnlock"), value => this.SetFlag(value, "ccDoorUnlock")));
+                        this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("flags.jojamart.membership"), this.HasFlag("JojaMember"), value => this.SetCommunityCenterFlags(value, "JojaMember")));
                         this.AddSortedOptions(this.Options,
-                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("BoilerRoom", "Boiler"), this.HasFlag("ccBoilerRoom"), value => this.SetFlags(value, "ccBoilerRoom")),
-                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("BulletinBoard", "Bulletin"), this.HasFlag("ccBulletin"), value => this.SetFlags(value, "ccBulletin")),
-                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("CraftsRoom", "Crafts"), this.HasFlag("ccCraftsRoom"), value => this.SetFlags(value, "ccCraftsRoom")),
-                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("FishTank", "FishTank"), this.HasFlag("ccFishTank"), value => this.SetFlags(value, "ccFishTank")),
-                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("Pantry", "Pantry"), this.HasFlag("ccPantry"), value => this.SetFlags(value, "ccPantry")),
-                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("Vault", "Vault"), this.HasFlag("ccVault"), value => this.SetFlags(value, "ccVault"))
-                        );
-                        this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("flags.community-center.complete"), this.HasFlag("ccComplete"), value => this.SetFlags(value, "ccComplete")));
-
-                        // JojaMart
-                        this.Options.Add(new OptionsElement($"{i18n.Get("flags.jojamart")}:"));
-                        this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("flags.jojamart.membership"), this.HasFlag("JojaMember"), value => this.SetFlags(value, "JojaMember")));
-                        this.AddSortedOptions(this.Options,
-                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("BoilerRoom", "Boiler"), this.HasFlag("jojaBoilerRoom"), value => this.SetFlags(value, "jojaBoilerRoom", "ccBoilerRoom")),
-                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("CraftsRoom", "Crafts"), this.HasFlag("jojaCraftsRoom"), value => this.SetFlags(value, "jojaCraftsRoom", "ccCraftsRoom")),
-                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("FishTank", "FishTank"), this.HasFlag("jojaFishTank"), value => this.SetFlags(value, "jojaFishTank", "ccFishTank")),
-                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("Pantry", "Pantry"), this.HasFlag("jojaPantry"), value => this.SetFlags(value, "jojaPantry", "ccPantry")),
-                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("Vault", "Vault"), this.HasFlag("jojaVault"), value => this.SetFlags(value, "jojaVault", "ccVault"))
+                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("BoilerRoom", "Boiler"), this.HasFlag("ccBoilerRoom"), value => this.SetCommunityCenterFlags(value, "ccBoilerRoom")),
+                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("BulletinBoard", "Bulletin"), this.HasFlag("ccBulletin"), value => this.SetCommunityCenterFlags(value, "ccBulletin")),
+                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("CraftsRoom", "Crafts"), this.HasFlag("ccCraftsRoom"), value => this.SetCommunityCenterFlags(value, "ccCraftsRoom")),
+                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("FishTank", "FishTank"), this.HasFlag("ccFishTank"), value => this.SetCommunityCenterFlags(value, "ccFishTank")),
+                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("Pantry", "Pantry"), this.HasFlag("ccPantry"), value => this.SetCommunityCenterFlags(value, "ccPantry")),
+                            new CheatsOptionsCheckbox(this.GetJunimoRewardText("Vault", "Vault"), this.HasFlag("ccVault"), value => this.SetCommunityCenterFlags(value, "ccVault"))
                         );
                     }
                     break;
@@ -403,18 +417,94 @@ namespace CJBCheatsMenu.Framework
 
         /// <summary>Set whether the player has the given mail flag.</summary>
         /// <param name="enable">Whether to add the flag, as opposed to removing it.</param>
-        /// <param name="flags">The mail flags to set.</param>
-        public void SetFlags(bool enable, params string[] flags)
+        /// <param name="flag">The mail flag to set.</param>
+        /// <param name="log">Whether to log the flag change.</param>
+        /// <returns>Returns whether the flag changed.</returns>
+        public bool SetFlag(bool enable, string flag, bool log = true)
         {
-            foreach (string flag in flags)
+            bool changed = false;
+            if (enable)
             {
-                if (enable)
+                if (!this.HasFlag(flag))
                 {
-                    if (!this.HasFlag(flag))
-                        Game1.player.mailReceived.Add(flag);
+                    Game1.player.mailReceived.Add(flag);
+                    changed = true;
                 }
-                else
-                    Game1.player.mailReceived.Remove(flag);
+            }
+            else
+                changed = Game1.player.mailReceived.Remove(flag);
+
+            if (log && changed)
+                this.Monitor.Log($"{(enable ? "Set" : "Unset")} flag: {flag}", LogLevel.Trace);
+
+            return changed;
+        }
+
+        /// <summary>Set whether the player has the given mail flag, and automatically fix issues related to community center flag changes.</summary>
+        /// <param name="enable">Whether to add the flag, as opposed to removing it.</param>
+        /// <param name="flags">The mail flags to set.</param>
+        public void SetCommunityCenterFlags(bool enable, params string[] flags)
+        {
+            // track changes
+            IDictionary<bool, HashSet<string>> logFlags = new Dictionary<bool, HashSet<string>>
+            {
+                [true] = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase),
+                [false] = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
+            };
+            void SetAndTrackFlag(bool tryAdd, string flag)
+            {
+                if (this.SetFlag(tryAdd, flag, log: false))
+                {
+                    logFlags[tryAdd].Add(flag);
+                    logFlags[!tryAdd].Remove(flag);
+                }
+            }
+
+            // set initial flags
+            foreach (string flag in flags)
+                SetAndTrackFlag(enable, flag);
+
+            // adjust game to reflect changes
+            {
+                bool allAreasDone = this.CommunityCenterCompletionFlags.Keys.All(this.HasFlag);
+                bool isJoja = this.HasFlag("JojaMember");
+
+                // fix completion flags
+                SetAndTrackFlag(allAreasDone, "ccComplete");
+                foreach (var pair in this.JojaMartCompletionFlags)
+                {
+                    bool areaDone = isJoja && this.HasFlag(pair.Value);
+                    SetAndTrackFlag(areaDone, pair.Key);
+                }
+
+                // mark areas complete
+                if (Game1.getLocationFromName("CommunityCenter") is CommunityCenter communityCenter)
+                {
+                    foreach (var pair in this.CommunityCenterCompletionFlags)
+                    {
+                        if (communityCenter.areasComplete.Length > pair.Value)
+                            communityCenter.areasComplete[pair.Value] = this.HasFlag(pair.Key);
+                    }
+                }
+
+                // log flag changes
+                bool added = logFlags[true].Any();
+                bool removed = logFlags[false].Any();
+                if (added || removed)
+                {
+                    string summary = "";
+                    if (added)
+                        summary += $"Set flags: {string.Join(", ", logFlags[true])}";
+                    if (removed)
+                    {
+                        if (added)
+                            summary += "; unset ";
+                        else
+                            summary += "Unset ";
+                        summary += $"flags: {string.Join(", ", logFlags[false])}";
+                    }
+                    this.Monitor.Log(summary, LogLevel.Trace);
+                }
             }
         }
 
@@ -594,7 +684,7 @@ namespace CJBCheatsMenu.Framework
 
                 // open menu with new index
                 MenuTab tabID = this.GetTabID(this.Tabs[index]);
-                Game1.activeClickableMenu = new CheatsMenu(tabID, this.Config, this.Cheats, this.TranslationHelper);
+                Game1.activeClickableMenu = new CheatsMenu(tabID, this.Config, this.Cheats, this.TranslationHelper, this.Monitor);
             }
         }
 
@@ -662,7 +752,7 @@ namespace CJBCheatsMenu.Framework
                 if (tab.bounds.Contains(x, y))
                 {
                     MenuTab tabID = this.GetTabID(tab);
-                    Game1.activeClickableMenu = new CheatsMenu(tabID, this.Config, this.Cheats, this.TranslationHelper);
+                    Game1.activeClickableMenu = new CheatsMenu(tabID, this.Config, this.Cheats, this.TranslationHelper, this.Monitor);
                     break;
                 }
             }

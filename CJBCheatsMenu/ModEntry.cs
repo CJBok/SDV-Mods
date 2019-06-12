@@ -76,7 +76,7 @@ namespace CJBCheatsMenu
 
             // open menu
             if (e.Button == this.Config.OpenMenuKey)
-                Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Config, this.Cheats, this.Helper.Translation);
+                Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Config, this.Cheats, this.Helper.Translation, this.Monitor);
 
             // handle button if applicable
             else
