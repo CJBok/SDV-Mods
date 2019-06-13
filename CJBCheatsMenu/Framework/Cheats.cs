@@ -432,7 +432,7 @@ namespace CJBCheatsMenu.Framework
             }
 
             if (this.Config.MaxDailyLuck)
-                Game1.dailyLuck = 0.115d;
+                Game1.player.team.sharedDailyLuck.Value = 0.115d;
 
             if (this.Config.InfiniteHay)
             {
