@@ -1,0 +1,20 @@
+{
+    "title": "CJB Item Spawner",
+
+    "labels.sort-by-name": "ソート順: 名前",
+    "labels.sort-by-category": "ソート順: 種類",
+    "labels.sort-by-id": "ソート順: ID",
+    "labels.quality": "品質",
+
+    "tabs.all": "すべて",
+    "tabs.equipment": "道具 & 装備品",
+    "tabs.crops": "種 & 作物",
+    "tabs.fishing": "魚 & 釣り具 & ゴミ",
+    "tabs.forage": "採取 & フルーツ",
+    "tabs.artifacts-and-minerals": "発掘 & 鉱物",
+    "tabs.resources-and-crafting": "素材 & クラフト",
+    "tabs.artisan-and-cooking": "加工品 & 料理",
+    "tabs.animal-and-monster": "動物 & モンスター",
+    "tabs.decorating": "家具 & 装飾",
+    "tabs.miscellaneous": "その他"
+}
