@@ -1,6 +1,4 @@
 using CJBCheatsMenu.Framework.Constants;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using StardewModdingAPI;
 
 namespace CJBCheatsMenu.Framework
@@ -29,7 +27,6 @@ namespace CJBCheatsMenu.Framework
         ** Menu settings
         ****/
         /// <summary>The tab shown by default when you open the menu.</summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public MenuTab DefaultTab { get; set; } = MenuTab.PlayerAndTools;
 
         /****
