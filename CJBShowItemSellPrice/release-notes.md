@@ -1,6 +1,9 @@
-﻿[← back to readme](README.md)
+[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Updated translations. Thanks to shirutan (added Japanese)!
+
 ## 1.9.3
 Released 27 March 2019 for SMAPI 2.11 or later. Updated by Pathoschild.
 

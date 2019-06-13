@@ -1,10 +1,10 @@
-﻿**CJB Item Spawner** is a [Stardew Valley](http://stardewvalley.net/) mod that lets you spawn items
+**CJB Item Spawner** is a [Stardew Valley](http://stardewvalley.net/) mod that lets you spawn items
 with just a few clicks:
 
 ![](screenshot.png)
 
-Compatible with Stardew Valley 1.3+ on Linux, Mac, and Windows. Translated into Chinese, German,
-English, French, Korean, Portuguese, Russian, and Spanish.
+Compatible with Stardew Valley 1.3+ on Linux, Mac, and Windows. Translated into Chinese, English,
+French, German, Japanese, Korean, Portuguese, Russian, and Spanish.
 
 ## Install
 1. [Install the latest version of SMAPI](https://smapi.io/).
