@@ -19,7 +19,7 @@ German     | [↻ partial](CJBCheatsMenu/i18n/de.json) | [✓](CJBItemSpawner/i1
 Hungarian  | ❑                                      | ❑                                | ❑
 Italian    | ❑                                      | ❑                                | ❑
 Japanese   | [✓](CJBCheatsMenu/i18n/ja.json)        | [✓](CJBItemSpawner/i18n/ja.json) | [✓](CJBShowItemSellPrice/i18n/ja.json)
-Korean     | [↻ partial](CJBCheatsMenu/i18n/ko.json) | [✓](CJBItemSpawner/i18n/ko.json) | [✓](CJBShowItemSellPrice/i18n/ko.json)
+Korean     | [✓](CJBCheatsMenu/i18n/ko.json)        | [✓](CJBItemSpawner/i18n/ko.json) | [✓](CJBShowItemSellPrice/i18n/ko.json)
 Portuguese | [↻ partial](CJBCheatsMenu/i18n/pt.json) | [✓](CJBItemSpawner/i18n/pt.json) | [✓](CJBShowItemSellPrice/i18n/pt.json)
 Russian    | [↻ partial](CJBCheatsMenu/i18n/ru.json) | [✓](CJBItemSpawner/i18n/ru.json) | [✓](CJBShowItemSellPrice/i18n/ru.json)
 Spanish    | [↻ partial](CJBCheatsMenu/i18n/es.json) | [✓](CJBItemSpawner/i18n/es.json) | [✓](CJBShowItemSellPrice/i18n/es.json)

@@ -10,7 +10,7 @@
     "tabs.relationships": "관계",
     "tabs.warp": "워프",
     "tabs.time": "시간",
-    "tabs.advanced": "Advanced", // TODO
+    "tabs.advanced": "고급",
     "tabs.controls": "조작",
 
     // '플레이어 & 도구' 탭
@@ -152,16 +152,15 @@
     "time.time": "시간",
 
     // 'Flags' tab
-    // TODO
-    "flags.warning": "Use this section at your own risk!\nThis may cause issues like skipped mail, events, or quests.",
-    "flags.quests": "Complete Quests",
-    "flags.wallet": "Wallet Items",
-    "flags.unlocked": "Unlocked Areas",
-    "flags.unlocked.guild": "Adventurer's Guild",
-    "flags.unlocked.room": "Room: {{name}}",
-    "flags.community-center": "Community Center",
-    "flags.community-center.door-unlocked": "Door Unlocked",
-    "flags.jojamart.membership": "JojaMart Membership",
+    "flags.warning": "이 절에서는 당신 자신의 위험을 감수하고 사용하세요!\n따라서 메일 또는 이벤트나 퀘스트 생력하는데 문제가 발생할수 있어요.",
+    "flags.quests": "완료한 퀘스트",
+    "flags.wallet": "지갑 아이템들",
+    "flags.unlocked": "해금된 지역들",
+    "flags.unlocked.guild": "모험가 길드",
+    "flags.unlocked.room": "방: {{name}}",
+    "flags.community-center": "마을 회관",
+    "flags.community-center.door-unlocked": "문을 열렸기",
+    "flags.jojamart.membership": "조자마트 회원",
 
     // '단축키' 탭
     "controls.title": "단축키",
