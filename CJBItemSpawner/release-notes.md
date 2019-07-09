@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Updated for Stardew Valley 1.4.
 * Updated translations. Thanks to shirutan (added Japanese)!
 
 ## 1.11.4
