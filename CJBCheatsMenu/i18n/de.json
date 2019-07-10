@@ -159,7 +159,7 @@
     "flags.unlocked.guild": "Abenteurergilde",
     "flags.unlocked.room": "Raum: {{name}}",
     "flags.community-center": "Gemeinschaftszentrum",
-    "flags.community-center.door-unlocked": "Tür augeschlossen",
+    "flags.community-center.door-unlocked": "Tür aufgeschlossen",
     "flags.jojamart.membership": "Joja-Markt-Mitgliedschaft",
 
     // 'Controls' tab
