@@ -3,7 +3,7 @@
 # Release notes
 ## Upcoming release
 * Updated for Stardew Valley 1.4.
-* Updated translations. Thanks to shirutan (added Japanese)!
+* Updated translations. Thanks to shirutan (added Japanese) and xLPMG (added Italian)!
 
 ## 1.11.4
 Released 10 June 2019 for SMAPI 2.11.1 or later. Updated by Pathoschild.
