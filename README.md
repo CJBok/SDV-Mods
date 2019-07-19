@@ -22,7 +22,7 @@ Japanese   | [✓](CJBCheatsMenu/i18n/ja.json)        | [✓](CJBItemSpawner/i18
 Korean     | [✓](CJBCheatsMenu/i18n/ko.json)        | [✓](CJBItemSpawner/i18n/ko.json) | [✓](CJBShowItemSellPrice/i18n/ko.json)
 Portuguese | [↻ partial](CJBCheatsMenu/i18n/pt.json) | [✓](CJBItemSpawner/i18n/pt.json) | [✓](CJBShowItemSellPrice/i18n/pt.json)
 Russian    | [↻ partial](CJBCheatsMenu/i18n/ru.json) | [✓](CJBItemSpawner/i18n/ru.json) | [✓](CJBShowItemSellPrice/i18n/ru.json)
-Spanish    | [↻ partial](CJBCheatsMenu/i18n/es.json) | [✓](CJBItemSpawner/i18n/es.json) | [✓](CJBShowItemSellPrice/i18n/es.json)
+Spanish    | [✓](CJBCheatsMenu/i18n/es.json)        | [✓](CJBItemSpawner/i18n/es.json) | [✓](CJBShowItemSellPrice/i18n/es.json)
 Turkish    | ❑                                      | ❑                                | ❑
 
 Contributions are welcome! See [Modding:Translations](https://stardewvalleywiki.com/Modding:Translations)

@@ -2,7 +2,7 @@
 
 # Release notes
 ## Upcoming release
-* Updated translations. Thanks to jahangmar (updated German), overwritten (updated Korean), and shirutan (updated Japanese)!
+* Updated translations. Thanks to jahangmar (updated German), overwritten (updated Korean), Riazaia (updated Spanish), and shirutan (updated Japanese)!
 
 ## 1.20.1
 Released 12 June 2019 for SMAPI 2.11.1 or later. Updated by Pathoschild.
