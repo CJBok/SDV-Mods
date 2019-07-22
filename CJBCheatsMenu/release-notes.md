@@ -115,7 +115,7 @@ Released 05 April 2017 for SMAPI 1.9 or later. Updated by Pathoschild.
 * Updated to SMAPI 1.9.
 * Fast machines now work anywhere, not only on the farm.
 * Fixed fast cask cheat not working.
-* Fixed disabling the 'harvest with sickle' option not restoring existing crops to normal.
+* Fixed disabling the 'harvest with scythe' option not restoring existing crops to normal.
 * Internal refactoring.
 
 ## 1.13
@@ -131,7 +131,7 @@ Released 04 January 2017 for SMAPI 1.5 or later. Updated by Pathoschild.
 Released 09 April 2016 for SMAPI 0.40 or later.
 
 * Updated to Stardew Valley 1.07+ and SMAPI 0.40.0+.
-* Added cheats: durable tackles, harvest with sickle, grow tree, and grow crops.
+* Added cheats: durable tackles, harvest with scythe, grow tree, and grow crops.
 * Added changeable relationships.
 * Fixed mouse cursor showing when disabled.
 

@@ -135,7 +135,7 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new OptionsElement($"{i18n.Get("tools.title")}:"));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("tools.infinite-water"), config.InfiniteWateringCan, value => config.InfiniteWateringCan = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("tools.one-hit-break"), config.OneHitBreak, value => config.OneHitBreak = value));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("tools.harvest-with-sickle"), config.HarvestSickle, value => config.HarvestSickle = value));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("tools.harvest-with-scythe"), config.HarvestScythe, value => config.HarvestScythe = value));
 
                     this.Options.Add(new OptionsElement($"{i18n.Get("money.title")}:"));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("money.add-amount", new { amount = 100 }), 2, slotWidth, config, cheats, i18n));

@@ -47,7 +47,7 @@ setting | default | what it affects
 `OneHitKill` | `false` | Your attacks kill any monster in one hit.
 `OneHitBreak` | `false` | Your tools break things instantly.
 `InfiniteWateringCan` | `false` | Your watering can never runs dry.
-`HarvestSickle` | `false` | You can harvest any crop with the sickle.
+`HarvestScythe` | `false` | You can harvest any crop with the scythe.
 
 ### Fishing cheats
 setting | default | what it affects

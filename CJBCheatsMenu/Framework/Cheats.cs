@@ -143,8 +143,8 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Perform any action needed after the cheat options change.</summary>
         public void OnOptionsChanged()
         {
-            // disable harvest with sickle
-            if (!this.Config.HarvestSickle)
+            // disable harvest with scythe
+            if (!this.Config.HarvestScythe)
             {
                 IDictionary<int, int> cropHarvestMethods = this.GetCropHarvestMethods();
                 foreach (GameLocation location in Game1.locations)
@@ -255,8 +255,8 @@ namespace CJBCheatsMenu.Framework
                     }
                 }
 
-                // harvest with sickle
-                if (this.Config.HarvestSickle && (location.IsFarm || location.IsGreenhouse))
+                // harvest with scythe
+                if (this.Config.HarvestScythe && (location.IsFarm || location.IsGreenhouse))
                 {
                     foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
                     {

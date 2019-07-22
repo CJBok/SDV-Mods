@@ -56,8 +56,8 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The player's watering can never runs dry.</summary>
         public bool InfiniteWateringCan { get; set; }
 
-        /// <summary>The player can harvest any crop with the sickle.</summary>
-        public bool HarvestSickle { get; set; }
+        /// <summary>The player can harvest any crop with the scythe.</summary>
+        public bool HarvestScythe { get; set; }
 
         /****
         ** Fishing cheats

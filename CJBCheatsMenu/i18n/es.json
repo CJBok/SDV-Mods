@@ -10,7 +10,7 @@
     "tabs.relationships": "Relaciones",
     "tabs.warp": "Puntos de Localizaciones",
     "tabs.time": "Tiempo",
-    "tabs.advanced": "Opciones Avanzadas", 
+    "tabs.advanced": "Opciones Avanzadas",
     "tabs.controls": "Controles",
 
     // 'Player & Tools' tab
@@ -24,7 +24,7 @@
     "tools.title": "Herramientas",
     "tools.infinite-water": "Agua Infinita en la Regadera",
     "tools.one-hit-break": "Romper de Un Golpe",
-    "tools.harvest-with-sickle": "Cosechar con Guadaña (No gana XP)",
+    "tools.harvest-with-scythe": "Cosechar con Guadaña (No gana XP)",
     "money.title": "Dinero",
     "money.add-amount": "Añadir {{amount}}g",
     "casino-coins.title": "Monedas Del Casino",
