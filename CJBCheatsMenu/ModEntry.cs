@@ -41,6 +41,7 @@ namespace CJBCheatsMenu
             helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
 
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
+            helper.Events.Input.ButtonReleased += this.OnButtonReleased;
 
             helper.Events.World.LocationListChanged += this.OnLocationListChanged;
         }
@@ -83,6 +84,14 @@ namespace CJBCheatsMenu
                 this.Cheats.OnButtonPressed(e);
         }
 
+        /// <summary>Raised after the player releases a button on the keyboard, controller, or mouse.</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnButtonReleased(object sender, ButtonReleasedEventArgs e)
+        {
+            this.Cheats.OnButtonReleased(e);
+        }
+
         /// <summary>Raised after the game draws to the sprite patch in a draw tick, just before the final sprite batch is rendered to the screen.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
@@ -102,7 +111,7 @@ namespace CJBCheatsMenu
             if (!Context.IsWorldReady)
                 return;
 
-            this.Cheats.OnUpdateTicked(e, this.Helper.Reflection);
+            this.Cheats.OnUpdateTicked(e, this.Helper.Reflection, this.Helper.Input);
             if (e.IsOneSecond)
                 this.Cheats.OneSecondUpdate(this.Locations);
         }

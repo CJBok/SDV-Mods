@@ -28,6 +28,12 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The minimum friendship points to maintain for each NPC.</summary>
         private readonly Dictionary<string, int> PreviousFriendships = new Dictionary<string, int>();
 
+        /// <summary>Whether to grow crops under the cursor.</summary>
+        private bool ShouldGrowCrops;
+
+        /// <summary>Whether to grow trees under the cursor.</summary>
+        private bool ShouldGrowTrees;
+
 
         /*********
         ** Public methods
@@ -114,28 +120,25 @@ namespace CJBCheatsMenu.Framework
             if (player == null)
                 return;
 
-            List<Vector2> tiles = new List<Vector2>();
-
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
-                    tiles.Add(new Vector2(origin.X + x, origin.Y + y));
-            }
-
-            foreach (Vector2 tile in tiles)
-            {
-                // grow planted crop (if any)
-                if (player.currentLocation.terrainFeatures.TryGetValue(tile, out TerrainFeature terrainFeature))
                 {
-                    if (terrainFeature is HoeDirt dirt)
-                        dirt.crop?.growCompletely();
-                }
+                    Vector2 tile = new Vector2(origin.X + x, origin.Y + y);
 
-                // grow garden pot (if any)
-                if (player.currentLocation.objects.TryGetValue(tile, out SObject obj))
-                {
-                    if (obj is IndoorPot pot && pot.hoeDirt.Value is HoeDirt dirt)
-                        dirt.crop?.growCompletely();
+                    // grow planted crop (if any)
+                    if (player.currentLocation.terrainFeatures.TryGetValue(tile, out TerrainFeature terrainFeature))
+                    {
+                        if (terrainFeature is HoeDirt dirt)
+                            dirt.crop?.growCompletely();
+                    }
+
+                    // grow garden pot (if any)
+                    if (player.currentLocation.objects.TryGetValue(tile, out SObject obj))
+                    {
+                        if (obj is IndoorPot pot && pot.hoeDirt.Value is HoeDirt dirt)
+                            dirt.crop?.growCompletely();
+                    }
                 }
             }
         }
@@ -273,7 +276,8 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
         /// <param name="e">The event arguments.</param>
         /// <param name="reflection">Simplifies access to private game code.</param>
-        public void OnUpdateTicked(UpdateTickedEventArgs e, IReflectionHelper reflection)
+        /// <param name="input">An API for checking input state.</param>
+        public void OnUpdateTicked(UpdateTickedEventArgs e, IReflectionHelper reflection, IInputHelper input)
         {
             if (Game1.player?.currentLocation != null)
             {
@@ -391,6 +395,12 @@ namespace CJBCheatsMenu.Framework
                             monster.Health = 1;
                     }
                 }
+
+                // grow crops/trees
+                if (this.ShouldGrowCrops && e.IsMultipleOf(15))
+                    this.GrowCrops(input.GetCursorPosition().Tile);
+                if (this.ShouldGrowTrees && e.IsMultipleOf(15))
+                    this.GrowTree(input.GetCursorPosition().Tile);
             }
 
             if (this.Config.MaxDailyLuck)
@@ -417,9 +427,19 @@ namespace CJBCheatsMenu.Framework
             if (input.Button == this.Config.FreezeTimeKey)
                 this.Config.FreezeTime = !this.Config.FreezeTime;
             else if (input.Button == this.Config.GrowTreeKey)
-                this.GrowTree(input.Cursor.Tile);
+                this.ShouldGrowTrees = true;
             else if (input.Button == this.Config.GrowCropsKey)
-                this.GrowCrops(input.Cursor.Tile);
+                this.ShouldGrowCrops = true;
+        }
+
+        /// <summary>Raised after the player releases a button on the keyboard, controller, or mouse.</summary>
+        /// <param name="input">The event arguments.</param>
+        public void OnButtonReleased(ButtonReleasedEventArgs input)
+        {
+            if (input.Button == this.Config.GrowTreeKey)
+                this.ShouldGrowTrees = false;
+            else if (input.Button == this.Config.GrowCropsKey)
+                this.ShouldGrowCrops = false;
         }
 
 
