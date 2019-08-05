@@ -3,7 +3,7 @@
 # Release notes
 ## Upcoming release
 * Added support for holding the grow crop/tree keys while moving the cursor, so you can easily grow larger fields.
-* Updated translations. Thanks to jahangmar (updated German), overwritten (updated Korean), Riazaia (updated Spanish), and shirutan (updated Japanese)!
+* Updated translations. Thanks to jahangmar (updated German), overwritten (updated Korean), Riazaia (updated Spanish), shiro2579 (updated Portuguese), and shirutan (updated Japanese)!
 
 ## 1.20.1
 Released 12 June 2019 for SMAPI 2.11.1 or later. Updated by Pathoschild.
