@@ -3,6 +3,7 @@ using StardewModdingAPI;
 
 namespace CJBCheatsMenu.Framework
 {
+    /// <summary>The mod configuration model.</summary>
     internal class ModConfig
     {
         /*********
@@ -11,16 +12,16 @@ namespace CJBCheatsMenu.Framework
         /****
         ** Keyboard buttons
         ****/
-        /// <summary>The keyboard button which opens the menu.</summary>
+        /// <summary>The button which opens the menu.</summary>
         public SButton OpenMenuKey { get; set; } = SButton.P;
 
-        /// <summary>The keyboard button which freezes the game clock.</summary>
+        /// <summary>The button which freezes the game clock.</summary>
         public SButton FreezeTimeKey { get; set; } = SButton.T;
 
-        /// <summary>The keyboard button which instantly grows the tree under the tool cursor.</summary>
+        /// <summary>The button held to grow trees under the cursor.</summary>
         public SButton GrowTreeKey { get; set; } = SButton.NumPad1;
 
-        /// <summary>The keyboard button which instantly grows crops adjacent to your character.</summary>
+        /// <summary>The button held to grow crops under the cursor.</summary>
         public SButton GrowCropsKey { get; set; } = SButton.NumPad2;
 
         /****

@@ -27,8 +27,8 @@ setting | default | what it affects
 ------- | ------- | ---------------
 `OpenMenuKey` | `P` | The button which opens the menu.
 `FreezeTimeKey` | `T` | The button which freezes the game clock.
-`GrowTreeKey` | `NumPad1` | The button which instantly grows the tree under the tool cursor.
-`GrowCropsKey` | `NumPad2` | The button which instantly grows crops adjacent to your character.
+`GrowTreeKey` | `NumPad1` | The button held to grow trees under the cursor.
+`GrowCropsKey` | `NumPad2` | The button held to grow crops under the cursor.
 
 ### Menu settings
 
