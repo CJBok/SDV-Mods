@@ -11,7 +11,6 @@ using StardewValley.Buildings;
 using StardewValley.Locations;
 using StardewValley.Menus;
 using StardewValley.Quests;
-using SFarmer = StardewValley.Farmer;
 
 namespace CJBCheatsMenu.Framework
 {
@@ -199,36 +198,36 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.increase-combat"), 204, slotWidth, config, cheats, i18n));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.reset"), 205, slotWidth, config, cheats, i18n));
                     this.Options.Add(new OptionsElement($"{i18n.Get("professions.title")}:"));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.fighter"), this.GetProfession(SFarmer.fighter), value => this.SetProfession(SFarmer.fighter, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.scout"), this.GetProfession(SFarmer.scout), value => this.SetProfession(SFarmer.scout, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.acrobat"), this.GetProfession(SFarmer.acrobat), value => this.SetProfession(SFarmer.acrobat, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.brute"), this.GetProfession(SFarmer.brute), value => this.SetProfession(SFarmer.brute, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.defender"), this.GetProfession(SFarmer.defender), value => this.SetProfession(SFarmer.defender, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.desperado"), this.GetProfession(SFarmer.desperado), value => this.SetProfession(SFarmer.desperado, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.rancher"), this.GetProfession(SFarmer.rancher), value => this.SetProfession(SFarmer.rancher, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.tiller"), this.GetProfession(SFarmer.tiller), value => this.SetProfession(SFarmer.tiller, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.agriculturist"), this.GetProfession(SFarmer.agriculturist), value => this.SetProfession(SFarmer.agriculturist, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.artisan"), this.GetProfession(SFarmer.artisan), value => this.SetProfession(SFarmer.artisan, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.coopmaster"), this.GetProfession(SFarmer.butcher), value => this.SetProfession(SFarmer.butcher, value))); // butcher = coopmaster
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.shepherd"), this.GetProfession(SFarmer.shepherd), value => this.SetProfession(SFarmer.shepherd, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.fisher"), this.GetProfession(SFarmer.fisher), value => this.SetProfession(SFarmer.fisher, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.trapper"), this.GetProfession(SFarmer.trapper), value => this.SetProfession(SFarmer.trapper, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.angler"), this.GetProfession(SFarmer.angler), value => this.SetProfession(SFarmer.angler, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.luremaster"), this.GetProfession(SFarmer.mariner), value => this.SetProfession(SFarmer.mariner, value))); // mariner = luremaster (???)
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.mariner"), this.GetProfession(SFarmer.baitmaster), value => this.SetProfession(SFarmer.baitmaster, value))); // baitmaster = mariner (???)
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.pirate"), this.GetProfession(SFarmer.pirate), value => this.SetProfession(SFarmer.pirate, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.forester"), this.GetProfession(SFarmer.forester), value => this.SetProfession(SFarmer.forester, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.gatherer"), this.GetProfession(SFarmer.gatherer), value => this.SetProfession(SFarmer.gatherer, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.botanist"), this.GetProfession(SFarmer.botanist), value => this.SetProfession(SFarmer.botanist, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.lumberjack"), this.GetProfession(SFarmer.lumberjack), value => this.SetProfession(SFarmer.lumberjack, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.tapper"), this.GetProfession(SFarmer.tapper), value => this.SetProfession(SFarmer.tapper, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.tracker"), this.GetProfession(SFarmer.tracker), value => this.SetProfession(SFarmer.tracker, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.geologist"), this.GetProfession(SFarmer.geologist), value => this.SetProfession(SFarmer.geologist, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.miner"), this.GetProfession(SFarmer.miner), value => this.SetProfession(SFarmer.miner, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.blacksmith"), this.GetProfession(SFarmer.blacksmith), value => this.SetProfession(SFarmer.blacksmith, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.excavator"), this.GetProfession(SFarmer.excavator), value => this.SetProfession(SFarmer.excavator, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.gemologist"), this.GetProfession(SFarmer.gemologist), value => this.SetProfession(SFarmer.gemologist, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.prospector"), this.GetProfession(SFarmer.burrower), value => this.SetProfession(SFarmer.burrower, value))); // burrower = prospector
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.fighter"), this.GetProfession(Farmer.fighter), value => this.SetProfession(Farmer.fighter, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.scout"), this.GetProfession(Farmer.scout), value => this.SetProfession(Farmer.scout, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.acrobat"), this.GetProfession(Farmer.acrobat), value => this.SetProfession(Farmer.acrobat, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.brute"), this.GetProfession(Farmer.brute), value => this.SetProfession(Farmer.brute, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.defender"), this.GetProfession(Farmer.defender), value => this.SetProfession(Farmer.defender, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.desperado"), this.GetProfession(Farmer.desperado), value => this.SetProfession(Farmer.desperado, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.rancher"), this.GetProfession(Farmer.rancher), value => this.SetProfession(Farmer.rancher, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.tiller"), this.GetProfession(Farmer.tiller), value => this.SetProfession(Farmer.tiller, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.agriculturist"), this.GetProfession(Farmer.agriculturist), value => this.SetProfession(Farmer.agriculturist, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.artisan"), this.GetProfession(Farmer.artisan), value => this.SetProfession(Farmer.artisan, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.coopmaster"), this.GetProfession(Farmer.butcher), value => this.SetProfession(Farmer.butcher, value))); // butcher = coopmaster
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.shepherd"), this.GetProfession(Farmer.shepherd), value => this.SetProfession(Farmer.shepherd, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.fisher"), this.GetProfession(Farmer.fisher), value => this.SetProfession(Farmer.fisher, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.trapper"), this.GetProfession(Farmer.trapper), value => this.SetProfession(Farmer.trapper, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.angler"), this.GetProfession(Farmer.angler), value => this.SetProfession(Farmer.angler, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.luremaster"), this.GetProfession(Farmer.mariner), value => this.SetProfession(Farmer.mariner, value))); // mariner = luremaster (???)
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.mariner"), this.GetProfession(Farmer.baitmaster), value => this.SetProfession(Farmer.baitmaster, value))); // baitmaster = mariner (???)
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.pirate"), this.GetProfession(Farmer.pirate), value => this.SetProfession(Farmer.pirate, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.forester"), this.GetProfession(Farmer.forester), value => this.SetProfession(Farmer.forester, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.gatherer"), this.GetProfession(Farmer.gatherer), value => this.SetProfession(Farmer.gatherer, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.botanist"), this.GetProfession(Farmer.botanist), value => this.SetProfession(Farmer.botanist, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.lumberjack"), this.GetProfession(Farmer.lumberjack), value => this.SetProfession(Farmer.lumberjack, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.tapper"), this.GetProfession(Farmer.tapper), value => this.SetProfession(Farmer.tapper, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.tracker"), this.GetProfession(Farmer.tracker), value => this.SetProfession(Farmer.tracker, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.geologist"), this.GetProfession(Farmer.geologist), value => this.SetProfession(Farmer.geologist, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.miner"), this.GetProfession(Farmer.miner), value => this.SetProfession(Farmer.miner, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.blacksmith"), this.GetProfession(Farmer.blacksmith), value => this.SetProfession(Farmer.blacksmith, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.excavator"), this.GetProfession(Farmer.excavator), value => this.SetProfession(Farmer.excavator, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.gemologist"), this.GetProfession(Farmer.gemologist), value => this.SetProfession(Farmer.gemologist, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.prospector"), this.GetProfession(Farmer.burrower), value => this.SetProfession(Farmer.burrower, value))); // burrower = prospector
                     break;
 
                 case MenuTab.Weather:

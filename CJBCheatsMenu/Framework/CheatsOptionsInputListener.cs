@@ -8,7 +8,6 @@ using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 using StardewValley.Quests;
-using SFarmer = StardewValley.Farmer;
 
 namespace CJBCheatsMenu.Framework
 {
@@ -266,7 +265,7 @@ namespace CJBCheatsMenu.Framework
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
         {
             string lvl = "";
-            SFarmer plr = Game1.player;
+            Farmer plr = Game1.player;
             switch (this.whichOption)
             {
                 case 200:

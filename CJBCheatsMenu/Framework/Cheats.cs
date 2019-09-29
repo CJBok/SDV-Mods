@@ -12,7 +12,6 @@ using StardewValley.Monsters;
 using StardewValley.Objects;
 using StardewValley.TerrainFeatures;
 using StardewValley.Tools;
-using SFarmer = StardewValley.Farmer;
 using SObject = StardewValley.Object;
 
 namespace CJBCheatsMenu.Framework
@@ -281,7 +280,7 @@ namespace CJBCheatsMenu.Framework
         {
             if (Game1.player?.currentLocation != null)
             {
-                SFarmer player = Game1.player;
+                Farmer player = Game1.player;
 
                 // movement speed
                 if (this.Config.IncreasedMovement && player.running)
