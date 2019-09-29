@@ -13,6 +13,7 @@ Released 26 November 2019 for SMAPI 3.0 or later. Updated by Pathoschild.
 * Warps are now sorted alphabetically.
 * Warps can now be customised by editing `data/warps.json`.
 * Rewrote increased movement speed to fix a number of speed-related bugs.
+* Fixed sunflowers not dropping seeds when harvested with a scythe (via SDV 1.4).
 * Updated translations. Thanks to jahangmar (updated German), overwritten (updated Korean), qqkookie (updated Korean), Redlnn (updated Chinese), Riazaia (updated Spanish), shiro2579 (updated Portuguese), and shirutan (updated Japanese)!
 
 ## 1.20.1
