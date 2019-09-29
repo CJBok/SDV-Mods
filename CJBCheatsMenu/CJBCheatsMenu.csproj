@@ -11,6 +11,12 @@
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="3.0.0-beta" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="data\warps.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <Import Project="$(SolutionDir)\common.targets" />
 
 </Project>

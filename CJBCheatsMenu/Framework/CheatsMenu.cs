@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CJBCheatsMenu.Framework.Constants;
+using CJBCheatsMenu.Framework.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -21,6 +22,9 @@ namespace CJBCheatsMenu.Framework
         *********/
         /// <summary>The mod settings.</summary>
         private readonly ModConfig Config;
+
+        /// <summary>The warps to show in the menu.</summary>
+        private readonly ModDataWarp[] Warps;
 
         /// <summary>The cheats helper.</summary>
         private readonly Cheats Cheats;
@@ -73,10 +77,11 @@ namespace CJBCheatsMenu.Framework
         /*********
         ** Public methods
         *********/
-        public CheatsMenu(MenuTab tabIndex, ModConfig config, Cheats cheats, ITranslationHelper i18n, IMonitor monitor)
+        public CheatsMenu(MenuTab tabIndex, ModConfig config, ModDataWarp[] warps, Cheats cheats, ITranslationHelper i18n, IMonitor monitor)
           : base(Game1.viewport.Width / 2 - (600 + IClickableMenu.borderWidth * 2) / 2, Game1.viewport.Height / 2 - (600 + IClickableMenu.borderWidth * 2) / 2, 800 + IClickableMenu.borderWidth * 2, 600 + IClickableMenu.borderWidth * 2)
         {
             this.Config = config;
+            this.Warps = warps;
             this.Cheats = cheats;
             this.TranslationHelper = i18n;
             this.Monitor = monitor;
@@ -257,27 +262,17 @@ namespace CJBCheatsMenu.Framework
                 case MenuTab.WarpLocations:
                     this.Options.Add(new OptionsElement($"{i18n.Get("warp.title")}:"));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.farm"), slotWidth, this.WarpToFarm));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.pierre-shop"), slotWidth, () => this.Warp("Town", 43, 57)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.blacksmith"), slotWidth, () => this.Warp("Town", 94, 82)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.museum"), slotWidth, () => this.Warp("Town", 101, 90)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.saloon"), slotWidth, () => this.Warp("Town", 45, 71)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.community-center"), slotWidth, () => this.Warp("Town", 52, 20)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.carpenter"), slotWidth, () => this.Warp("Mountain", 12, 26)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.adventurers-guild"), slotWidth, () => this.Warp("Mountain", 76, 9)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.ranch"), slotWidth, () => this.Warp("Forest", 90, 16)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.mines"), slotWidth, () => this.Warp("Mine", 13, 10)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.willy-shop"), slotWidth, () => this.Warp("Beach", 30, 34)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.wizard-tower"), slotWidth, () => this.Warp("Forest", 5, 27)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.hats"), slotWidth, () => this.Warp("Forest", 34, 96)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.desert"), slotWidth, () => this.Warp("Desert", 18, 28)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.sandy-shop"), slotWidth, () => this.Warp("SandyHouse", 4, 8)));
+
+                    var sortedWarps = new List<OptionsElement>();
                     if (Game1.player.hasClubCard)
-                        this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.casino"), slotWidth, () => this.Warp("Club", 8, 11)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.quarry"), slotWidth, () => this.Warp("Mountain", 127, 12)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.new-beach"), slotWidth, () => this.Warp("Beach", 87, 26)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.secret-woods"), slotWidth, () => this.Warp("Woods", 58, 15)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.sewer"), slotWidth, () => this.Warp("Sewer", 3, 48)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.bathhouse"), slotWidth, () => this.Warp("Railroad", 10, 57)));
+                        sortedWarps.Add(new CheatsOptionsInputListener(i18n.Get("warp.casino"), slotWidth, () => this.Warp("Club", 8, 11)));
+                    foreach (ModDataWarp warp in this.Warps)
+                    {
+                        string displayText = i18n.Get(warp.DisplayText).Default(warp.DisplayText);
+                        sortedWarps.Add(new CheatsOptionsInputListener(displayText, slotWidth, () => this.Warp(warp.Location, (int)warp.Tile.X, (int)warp.Tile.Y)));
+                    }
+
+                    this.AddSortedOptions(this.Options, sortedWarps.ToArray());
                     break;
 
                 case MenuTab.Time:
@@ -683,7 +678,7 @@ namespace CJBCheatsMenu.Framework
 
                 // open menu with new index
                 MenuTab tabID = this.GetTabID(this.Tabs[index]);
-                Game1.activeClickableMenu = new CheatsMenu(tabID, this.Config, this.Cheats, this.TranslationHelper, this.Monitor);
+                Game1.activeClickableMenu = new CheatsMenu(tabID, this.Config, this.Warps, this.Cheats, this.TranslationHelper, this.Monitor);
             }
         }
 
@@ -751,7 +746,7 @@ namespace CJBCheatsMenu.Framework
                 if (tab.bounds.Contains(x, y))
                 {
                     MenuTab tabID = this.GetTabID(tab);
-                    Game1.activeClickableMenu = new CheatsMenu(tabID, this.Config, this.Cheats, this.TranslationHelper, this.Monitor);
+                    Game1.activeClickableMenu = new CheatsMenu(tabID, this.Config, this.Warps, this.Cheats, this.TranslationHelper, this.Monitor);
                     break;
                 }
             }

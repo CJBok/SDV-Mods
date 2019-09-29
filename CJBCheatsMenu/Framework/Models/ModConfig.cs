@@ -1,7 +1,7 @@
 using CJBCheatsMenu.Framework.Constants;
 using StardewModdingAPI;
 
-namespace CJBCheatsMenu.Framework
+namespace CJBCheatsMenu.Framework.Models
 {
     /// <summary>The mod configuration model.</summary>
     internal class ModConfig
