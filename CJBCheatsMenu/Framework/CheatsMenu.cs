@@ -86,7 +86,7 @@ namespace CJBCheatsMenu.Framework
             this.TranslationHelper = i18n;
             this.Monitor = monitor;
 
-            this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.width / 2, this.yPositionOnScreen, Game1.tileSize * 4, Game1.tileSize), i18n.Get("title"));
+            this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.width / 2, this.yPositionOnScreen, Game1.tileSize * 4, Game1.tileSize), i18n.Get("mod-name"));
             this.CurrentTab = tabIndex;
 
             {

@@ -1,6 +1,5 @@
 {
-    // menu title
-    "title": "CJB 치트 메뉴",
+    "mod-name": "CJB 치트 메뉴",
 
     // menu tabs
     "tabs.player-and-tools": "플레이어 & 도구",

@@ -1,6 +1,5 @@
 {
-    // menu title
-    "title": "CJB Cheats Menu",
+    "mod-name": "CJB Cheats Menu",
 
     // menu tabs
     "tabs.player-and-tools": "Jogador e Ferramentas",
@@ -151,7 +150,7 @@
     "time.freeze-everywhere": "Parar o tempo em todo lugar",
     "time.time": "Horário",
 
-   // 'Flags' tab
+    // 'Flags' tab
     "flags.warning": "Use esta seção por sua conta e risco!\nIsso pode causar problemas como mensagens ignoradas, eventos\n ou missões.",
     "flags.quests": "Completar missão",
     "flags.wallet": "Itens da carteira",

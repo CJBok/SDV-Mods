@@ -44,7 +44,7 @@ namespace CJBCheatsMenu
             this.Monitor.Log($"Started with menu key {this.Config.OpenMenuKey}.", LogLevel.Trace);
 
             // load cheats
-            this.Cheats = new Cheats(this.Config);
+            this.Cheats = new Cheats(this.Config, this.Helper.Translation);
 
             // hook events
             helper.Events.Display.Rendered += this.OnRendered;

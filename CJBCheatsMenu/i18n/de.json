@@ -1,6 +1,5 @@
 {
-    // menu title
-    "title": "CJB Cheatmenü",
+    "mod-name": "CJB Cheatmenü",
 
     // menu tabs
     "tabs.player-and-tools": "Spieler & Werkzeuge",

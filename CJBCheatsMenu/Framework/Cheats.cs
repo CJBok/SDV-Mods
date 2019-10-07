@@ -25,6 +25,9 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The mod settings.</summary>
         private readonly ModConfig Config;
 
+        /// <summary>Provides translations stored in the mod folder.</summary>
+        private readonly ITranslationHelper Translations;
+
         /// <summary>The minimum friendship points to maintain for each NPC.</summary>
         private readonly Dictionary<string, int> PreviousFriendships = new Dictionary<string, int>();
 
@@ -34,15 +37,20 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Whether to grow trees under the cursor.</summary>
         private bool ShouldGrowTrees;
 
+        /// <summary>The unique buff ID for the player speed.</summary>
+        private int BuffUniqueID => 58012398 + this.Config.MoveSpeed;
+
 
         /*********
         ** Public methods
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="config">The mod settings.</param>
-        public Cheats(ModConfig config)
+        /// <param name="translations">Provides translations stored in the mod folder.</param>
+        public Cheats(ModConfig config, ITranslationHelper translations)
         {
             this.Config = config;
+            this.Translations = translations;
         }
 
         /// <summary>Reset all tracked data.</summary>
@@ -141,6 +149,33 @@ namespace CJBCheatsMenu.Framework
                     }
                 }
             }
+        }
+
+        /// <summary>Apply the player speed buff to the current player.</summary>
+        private void UpdateBuff()
+        {
+            // ignore if disabled
+            if (!this.Config.IncreasedMovement)
+                return;
+
+            // ignore in cutscenes
+            if (Game1.eventUp)
+                return;
+
+            // ignore if walking
+            bool running = Game1.player.running;
+            bool runEnabled = running || Game1.options.autoRun != Game1.isOneOfTheseKeysDown(Game1.GetKeyboardState(), Game1.options.runButton); // auto-run enabled and not holding walk button, or disabled and holding run button
+            if (!runEnabled)
+                return;
+
+            // add or update buff
+            Buff buff = Game1.buffsDisplay.otherBuffs.FirstOrDefault(p => p.which == this.BuffUniqueID);
+            if (buff == null)
+            {
+                buff = new Buff(0, 0, 0, 0, 0, 0, 0, 0, 0, speed: this.Config.MoveSpeed, 0, 0, minutesDuration: 1, source: "CJB Cheats Menu", displaySource: this.Translations.Get("mod-name")) { which = this.BuffUniqueID };
+                Game1.buffsDisplay.addOtherBuff(buff);
+            }
+            buff.millisecondsDuration = 50;
         }
 
         /// <summary>Perform any action needed after the cheat options change.</summary>
@@ -284,14 +319,7 @@ namespace CJBCheatsMenu.Framework
                 Farmer player = Game1.player;
 
                 // movement speed
-                if (this.Config.IncreasedMovement && player.running)
-                    player.addedSpeed = this.Config.MoveSpeed;
-                else if (!this.Config.IncreasedMovement && player.addedSpeed == this.Config.MoveSpeed)
-                    player.addedSpeed = 0;
-                if (player.controller != null)
-                    player.addedSpeed = 0;
-                if (Game1.CurrentEvent == null)
-                    player.movementDirections.Clear();
+                this.UpdateBuff();
 
                 // infinite health/stamina
                 if (this.Config.InfiniteHealth)

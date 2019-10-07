@@ -3,9 +3,10 @@
 # Release notes
 ## Upcoming release
 * Updated for Stardew Valley 1.4.
-* Added support for holding the grow crop/tree keys while moving the cursor, so you can easily grow larger fields.
+* Added support for holding the grow crop/tree keys while moving the cursor, so it's easier to grow larger fields.
 * Warps are now sorted alphabetically.
 * Warps can now be customised by editing `data/warps.json`.
+* Rewrote increased movement speed to fix a number of speed-related bugs.
 * Updated translations. Thanks to jahangmar (updated German), overwritten (updated Korean), qqkookie (updated Korean), Riazaia (updated Spanish), shiro2579 (updated Portuguese), and shirutan (updated Japanese)!
 
 ## 1.20.1
