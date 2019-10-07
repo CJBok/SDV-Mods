@@ -181,46 +181,13 @@ namespace CJBItemSpawner.Framework.ItemData
                     // flower honey
                     else if (item.Category == SObject.flowersCategory)
                     {
-                        // get honey type
-                        SObject.HoneyType? type = null;
-                        switch (item.ParentSheetIndex)
+                        SObject honey = new SObject(Vector2.Zero, 340, item.Name + " Honey", false, true, false, false)
                         {
-                            case 376:
-                                type = SObject.HoneyType.Poppy;
-                                break;
-                            case 591:
-                                type = SObject.HoneyType.Tulip;
-                                break;
-                            case 593:
-                                type = SObject.HoneyType.SummerSpangle;
-                                break;
-                            case 595:
-                                type = SObject.HoneyType.FairyRose;
-                                break;
-                            case 597:
-                                type = SObject.HoneyType.BlueJazz;
-                                break;
-                            case 421: // sunflower standing in for all other flowers
-                                type = SObject.HoneyType.Wild;
-                                break;
-                        }
-
-                        // yield honey
-                        if (type != null)
-                        {
-                            SObject honey = new SObject(Vector2.Zero, 340, item.Name + " Honey", false, true, false, false)
-                            {
-                                Name = "Wild Honey"
-                            };
-                            honey.honeyType.Value = type;
-
-                            if (type != SObject.HoneyType.Wild)
-                            {
-                                honey.Name = $"{item.Name} Honey";
-                                honey.Price += item.Price * 2;
-                            }
-                            yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 5 + id, () => honey);
-                        }
+                            Name = $"{item.Name} Honey",
+                            preservedParentSheetIndex = { item.ParentSheetIndex }
+                        };
+                        honey.Price += item.Price * 2;
+                        yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 6 + id, () => honey);
                     }
 
                     // roe and aged roe (derived from FishPond.GetFishProduce)
