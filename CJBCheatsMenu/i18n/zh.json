@@ -1,6 +1,6 @@
 {
     // menu title
-    "title": "CJB Cheats Menu",
+    "title": "CJB 作弊菜单",
 
     // menu tabs
     "tabs.player-and-tools": "玩家 & 工具",
@@ -10,7 +10,7 @@
     "tabs.relationships": "人际关系",
     "tabs.warp": "传送",
     "tabs.time": "时间",
-    "tabs.advanced": "Advanced", // TODO
+    "tabs.advanced": "高级", 
     "tabs.controls": "操控",
 
     // 'Player & Tools' tab
@@ -26,9 +26,9 @@
     "tools.one-hit-break": "一拳超人(对物品)",
     "tools.harvest-with-sickle": "镰刀收获",
     "money.title": "金钱",
-    "money.add-amount": "增加 {{amount}}g",
+    "money.add-amount": "增加 {{amount}} 金",
     "casino-coins.title": "赌场代币",
-    "casino-coins.add-amount": "增加 {{amount}}",
+    "casino-coins.add-amount": "增加 {{amount}} 代币",
 
     // 'Farm & Fishing' tab
     "farm.title": "农场",
