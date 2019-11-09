@@ -9,7 +9,7 @@
     "tabs.relationships": "人际关系",
     "tabs.warp": "传送",
     "tabs.time": "时间",
-    "tabs.advanced": "高级", 
+    "tabs.advanced": "高级",
     "tabs.controls": "操控",
 
     // 'Player & Tools' tab
@@ -151,7 +151,6 @@
     "time.time": "时间",
 
     // 'Flags' tab
-    // TODO
     "flags.warning": "使用此部分内容需要您自行承担风险！\n这可能会导致诸如邮件、事件或日志被跳过之类的问题。",
     "flags.quests": "完成日志",
     "flags.wallet": "钱包物品",
