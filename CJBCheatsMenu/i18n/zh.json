@@ -1,5 +1,5 @@
 {
-    "mod-name": "CJB Cheats Menu",
+    "mod-name": "CJB 作弊菜单",
 
     // menu tabs
     "tabs.player-and-tools": "玩家 & 工具",
@@ -9,7 +9,7 @@
     "tabs.relationships": "人际关系",
     "tabs.warp": "传送",
     "tabs.time": "时间",
-    "tabs.advanced": "Advanced", // TODO
+    "tabs.advanced": "高级", 
     "tabs.controls": "操控",
 
     // 'Player & Tools' tab
@@ -25,9 +25,9 @@
     "tools.one-hit-break": "一拳超人(对物品)",
     "tools.harvest-with-scythe": "镰刀收获",
     "money.title": "金钱",
-    "money.add-amount": "增加 {{amount}}g",
+    "money.add-amount": "增加 {{amount}} 金",
     "casino-coins.title": "赌场代币",
-    "casino-coins.add-amount": "增加 {{amount}}",
+    "casino-coins.add-amount": "增加 {{amount}} 代币",
 
     // 'Farm & Fishing' tab
     "farm.title": "农场",
@@ -152,15 +152,15 @@
 
     // 'Flags' tab
     // TODO
-    "flags.warning": "Use this section at your own risk!\nThis may cause issues like skipped mail, events, or quests.",
-    "flags.quests": "Complete Quests",
-    "flags.wallet": "Wallet Items",
-    "flags.unlocked": "Unlocked Areas",
-    "flags.unlocked.guild": "Adventurer's Guild",
-    "flags.unlocked.room": "Room: {{name}}",
-    "flags.community-center": "Community Center",
-    "flags.community-center.door-unlocked": "Door Unlocked",
-    "flags.jojamart.membership": "JojaMart Membership",
+    "flags.warning": "使用此部分内容需要您自行承担风险！\n这可能会导致诸如邮件、事件或日志被跳过之类的问题。",
+    "flags.quests": "完成日志",
+    "flags.wallet": "钱包物品",
+    "flags.unlocked": "解锁区域",
+    "flags.unlocked.guild": "冒险家公会解锁",
+    "flags.unlocked.room": "{{name}} 的房间",
+    "flags.community-center": "社区中心",
+    "flags.community-center.door-unlocked": "社区中心解锁",
+    "flags.jojamart.membership": "乔家超市（JojaMart）会员资格",
 
     // 'Controls' tab
     "controls.title": "绑定按键",
