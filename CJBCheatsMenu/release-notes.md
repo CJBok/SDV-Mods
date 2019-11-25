@@ -1,7 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.21
+Released 26 November 2019 for SMAPI 3.0 or later. Updated by Pathoschild.
+
 * Updated for Stardew Valley 1.4.
 * Added support for holding the grow crop/tree keys while moving the cursor, so it's easier to grow larger fields.
 * Warps are now sorted alphabetically.
