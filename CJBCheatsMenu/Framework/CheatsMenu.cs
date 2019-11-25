@@ -190,6 +190,7 @@ namespace CJBCheatsMenu.Framework
                         new CheatsOptionsCheckbox(i18n.Get("fast-machines.slime-egg-press"), config.FastSlimeEggPress, value => config.FastSlimeEggPress = value),
                         new CheatsOptionsCheckbox(i18n.Get("fast-machines.slime-incubator"), config.FastSlimeIncubator, value => config.FastSlimeIncubator = value),
                         new CheatsOptionsCheckbox(i18n.Get("fast-machines.tapper"), config.FastTapper, value => config.FastTapper = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.wood-chipper"), config.FastWoodChipper, value => config.FastWoodChipper = value),
                         new CheatsOptionsCheckbox(i18n.Get("fast-machines.worm-bin"), config.FastWormBin, value => config.FastWormBin = value)
                     );
                     break;
@@ -322,6 +323,12 @@ namespace CJBCheatsMenu.Framework
                                 .ToArray()
                         );
 
+                        // unlocked content
+                        this.Options.Add(new OptionsElement($"{i18n.Get("flags.unlocked-content")}:"));
+                        this.AddSortedOptions(this.Options,
+                            new CheatsOptionsCheckbox(i18n.Get("flags.unlocked-content.dyes-and-tailoring"), this.HasEvent(992559), value => this.SetEvent(992559, value))
+                        );
+
                         // community center
                         this.Options.Add(new OptionsElement($"{i18n.Get("flags.community-center")}:"));
                         this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("flags.community-center.door-unlocked"), this.HasFlag("ccDoorUnlock"), value => this.SetFlag(value, "ccDoorUnlock")));
@@ -334,6 +341,7 @@ namespace CJBCheatsMenu.Framework
                             new CheatsOptionsCheckbox(this.GetJunimoRewardText("Pantry", "Pantry"), this.HasFlag("ccPantry"), value => this.SetCommunityCenterFlags(value, "ccPantry")),
                             new CheatsOptionsCheckbox(this.GetJunimoRewardText("Vault", "Vault"), this.HasFlag("ccVault"), value => this.SetCommunityCenterFlags(value, "ccVault"))
                         );
+                        this.Options.Add(new CheatsOptionsCheckbox(this.GetJunimoRewardText("AbandonedJojaMart"), this.HasFlag("ccMovieTheater"), value => this.SetCommunityCenterFlags(value, "ccMovieTheater")));
                     }
                     break;
 
@@ -480,6 +488,8 @@ namespace CJBCheatsMenu.Framework
                             communityCenter.areasComplete[pair.Value] = this.HasFlag(pair.Key);
                     }
                 }
+                if (this.HasFlag("ccMovieTheater") && Game1.getLocationFromName(nameof(AbandonedJojaMart)) is AbandonedJojaMart mart)
+                    mart.restoreAreaCutscene();
 
                 // log flag changes
                 bool added = logFlags[true].Any();

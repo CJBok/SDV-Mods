@@ -63,6 +63,7 @@
     "fast-machines.slime-egg-press": "슬라임 알 압착기",
     "fast-machines.slime-incubator": "슬라임 부화기",
     "fast-machines.tapper": "수액 채취기",
+    "fast-machines.wood-chipper": "Wood Chipper", // TODO
     "fast-machines.worm-bin": "지렁이 통",
 
     // '스킬' 탭
@@ -157,6 +158,8 @@
     "flags.unlocked": "지역 해제",
     "flags.unlocked.guild": "모험가 길드",
     "flags.unlocked.room": "방: {{name}}",
+    "flags.unlocked-content": "Unlocked content", // TODO
+    "flags.unlocked-content.dyes-and-tailoring": "Dyes & tailoring", // TODO
     "flags.community-center": "마을 회관",
     "flags.community-center.door-unlocked": "잠긴 문 열기",
     "flags.jojamart.membership": "조자마트 회원권",

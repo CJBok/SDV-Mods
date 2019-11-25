@@ -4,11 +4,16 @@
 ## 1.21
 Released 26 November 2019 for SMAPI 3.0 or later. Updated by Pathoschild.
 
-* Updated for Stardew Valley 1.4.
+* Updated for Stardew Valley 1.4, including...
+  * added wood chipper support for fast machines;
+  * added unlockable dyeing & tailoring;
+  * added new Community Center bundle;
+  * added support for instantly growing tea bushes.
 * Added support for holding the grow crop/tree keys while moving the cursor, so it's easier to grow larger fields.
 * Warps are now sorted alphabetically.
 * Warps can now be customised by editing `data/warps.json`.
 * Rewrote increased movement speed to fix a number of speed-related bugs.
+* Fixed sunflowers not dropping seeds when harvested with a scythe (via SDV 1.4).
 * Updated translations. Thanks to jahangmar (updated German), overwritten (updated Korean), qqkookie (updated Korean), Redlnn (updated Chinese), Riazaia (updated Spanish), shiro2579 (updated Portuguese), and shirutan (updated Japanese)!
 
 ## 1.20.1

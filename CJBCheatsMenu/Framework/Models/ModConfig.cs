@@ -150,6 +150,9 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Tappers finish instantly.</summary>
         public bool FastTapper { get; set; }
 
+        /// <summary>Wood Chippers finish instantly.</summary>
+        public bool FastWoodChipper { get; set; }
+
         /// <summary>Worm bins finish instantly.</summary>
         public bool FastWormBin { get; set; }
 

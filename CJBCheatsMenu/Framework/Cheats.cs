@@ -128,24 +128,46 @@ namespace CJBCheatsMenu.Framework
             if (player == null)
                 return;
 
-            for (int x = -1; x <= 1; x++)
+            const int radius = 1;
+            for (int x = -radius; x <= radius; x++)
             {
-                for (int y = -1; y <= 1; y++)
+                for (int y = -radius; y <= radius; y++)
                 {
                     Vector2 tile = new Vector2(origin.X + x, origin.Y + y);
 
-                    // grow planted crop (if any)
-                    if (player.currentLocation.terrainFeatures.TryGetValue(tile, out TerrainFeature terrainFeature))
+                    // get target
+                    object target = null;
                     {
-                        if (terrainFeature is HoeDirt dirt)
-                            dirt.crop?.growCompletely();
+                        if (player.currentLocation.terrainFeatures.TryGetValue(tile, out TerrainFeature terrainFeature))
+                        {
+                            if (terrainFeature is HoeDirt dirt)
+                                target = dirt.crop;
+                            if (terrainFeature is Bush bush)
+                                target = bush;
+                        }
+                        if (target == null && player.currentLocation.objects.TryGetValue(tile, out SObject obj) && obj is IndoorPot pot)
+                        {
+                            // crop
+                            if (pot.hoeDirt.Value is HoeDirt dirt)
+                                target = dirt.crop;
+
+                            // planted bush
+                            if (pot.bush.Value is Bush bush)
+                                target = bush;
+                        }
                     }
 
-                    // grow garden pot (if any)
-                    if (player.currentLocation.objects.TryGetValue(tile, out SObject obj))
+                    // grow target
+                    switch (target)
                     {
-                        if (obj is IndoorPot pot && pot.hoeDirt.Value is HoeDirt dirt)
-                            dirt.crop?.growCompletely();
+                        case Crop crop:
+                            crop.growCompletely();
+                            break;
+
+                        case Bush bush when bush.size.Value == Bush.greenTeaBush && bush.getAge() < Bush.daysToMatureGreenTeaBush:
+                            bush.datePlanted.Value = (int)(Game1.stats.DaysPlayed - Bush.daysToMatureGreenTeaBush);
+                            bush.dayUpdate(player.currentLocation, tile); // update source rect, grow tea leaves, etc
+                            break;
                     }
                 }
             }
@@ -432,7 +454,7 @@ namespace CJBCheatsMenu.Framework
             }
 
             if (this.Config.MaxDailyLuck)
-                Game1.dailyLuck = 0.115d;
+                Game1.player.team.sharedDailyLuck.Value = 0.115d;
 
             if (this.Config.InfiniteHay)
             {
@@ -498,6 +520,7 @@ namespace CJBCheatsMenu.Framework
                 || (this.Config.FastSlimeEggPress && obj.name == "Slime Egg-Press")
                 || (this.Config.FastSlimeIncubator && obj.name == "Slime Incubator")
                 || (this.Config.FastTapper && obj.name == "Tapper")
+                || (this.Config.FastWoodChipper && obj is WoodChipper)
                 || (this.Config.FastWormBin && obj.name == "Worm Bin");
         }
 

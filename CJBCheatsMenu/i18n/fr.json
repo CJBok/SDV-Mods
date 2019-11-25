@@ -63,6 +63,7 @@
     "fast-machines.slime-egg-press": "Presse à oeuf de Slime",
     "fast-machines.slime-incubator": "Incubateur de Slime",
     "fast-machines.tapper": "Saigneur",
+    "fast-machines.wood-chipper": "Wood Chipper", // TODO
     "fast-machines.worm-bin": "Bac à compost",
 
     // 'Skills' tab
@@ -158,6 +159,8 @@
     "flags.unlocked": "Unlocked Areas",
     "flags.unlocked.guild": "Adventurer's Guild",
     "flags.unlocked.room": "Room: {{name}}",
+    "flags.unlocked-content": "Unlocked content",
+    "flags.unlocked-content.dyes-and-tailoring": "Dyes & tailoring",
     "flags.community-center": "Community Center",
     "flags.community-center.door-unlocked": "Door Unlocked",
     "flags.jojamart.membership": "JojaMart Membership",

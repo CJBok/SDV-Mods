@@ -63,6 +63,7 @@
     "fast-machines.slime-egg-press": "Пресс для яиц слаймов",
     "fast-machines.slime-incubator": "Инкубатор слаймов",
     "fast-machines.tapper": "Подсочник",
+    "fast-machines.wood-chipper": "Wood Chipper", // TODO
     "fast-machines.worm-bin": "Бак с червями",
 
     // 'Skills' tab
@@ -158,6 +159,8 @@
     "flags.unlocked": "Unlocked Areas",
     "flags.unlocked.guild": "Adventurer's Guild",
     "flags.unlocked.room": "Room: {{name}}",
+    "flags.unlocked-content": "Unlocked content",
+    "flags.unlocked-content.dyes-and-tailoring": "Dyes & tailoring",
     "flags.community-center": "Community Center",
     "flags.community-center.door-unlocked": "Door Unlocked",
     "flags.jojamart.membership": "JojaMart Membership",
