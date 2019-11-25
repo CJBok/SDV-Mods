@@ -1,0 +1,112 @@
+/*
+ * The warps to show in the cheats menu (the special farm and casino warps are added
+ * automatically).
+ *
+ * Each warp has three fields:
+ *   - The display text to show in the menu. If this matches a translation ID in the i18n files,
+ *     the matching translation text is displayed; otherwise it's displayed as-is.
+ *   - The target location's internal name (not the translated name).
+ *   - The target tile coordinate.
+ *
+ * You can use the Debug Mode mod to see location names and tile coordinates in-game.
+ *
+ * The list order has no effect; warps are sorted alphabetically by display name (except the
+ * farm which is always first).
+ */
+[
+    {
+        "DisplayText": "warp.pierre-shop",
+        "Location": "Town",
+        "Tile": "43, 57"
+    },
+    {
+        "DisplayText": "warp.blacksmith",
+        "Location": "Town",
+        "Tile": "94, 82"
+    },
+    {
+        "DisplayText": "warp.museum",
+        "Location": "Town",
+        "Tile": "101, 90"
+    },
+    {
+        "DisplayText": "warp.saloon",
+        "Location": "Town",
+        "Tile": "45, 71"
+    },
+    {
+        "DisplayText": "warp.community-center",
+        "Location": "Town",
+        "Tile": "52, 20"
+    },
+    {
+        "DisplayText": "warp.carpenter",
+        "Location": "Mountain",
+        "Tile": "12, 26"
+    },
+    {
+        "DisplayText": "warp.adventurers-guild",
+        "Location": "Mountain",
+        "Tile": "76, 9"
+    },
+    {
+        "DisplayText": "warp.ranch",
+        "Location": "Forest",
+        "Tile": "90, 16"
+    },
+    {
+        "DisplayText": "warp.mines",
+        "Location": "Mine",
+        "Tile": "13, 10"
+    },
+    {
+        "DisplayText": "warp.willy-shop",
+        "Location": "Beach",
+        "Tile": "30, 34"
+    },
+    {
+        "DisplayText": "warp.wizard-tower",
+        "Location": "Forest",
+        "Tile": "5, 27"
+    },
+    {
+        "DisplayText": "warp.hats",
+        "Location": "Forest",
+        "Tile": "34, 96"
+    },
+    {
+        "DisplayText": "warp.desert",
+        "Location": "Desert",
+        "Tile": "18, 28"
+    },
+    {
+        "DisplayText": "warp.sandy-shop",
+        "Location": "SandyHouse",
+        "Tile": "4, 8"
+    },
+    {
+        "DisplayText": "warp.quarry",
+        "Location": "Mountain",
+        "Tile": "127, 12"
+    },
+    {
+        "DisplayText": "warp.new-beach",
+        "Location": "Beach",
+        "Tile": "87, 26"
+    },
+    {
+        "DisplayText": "warp.secret-woods",
+        "Location": "Woods",
+        "Tile": "58, 15"
+    },
+    {
+        "DisplayText": "warp.sewer",
+        "Location": "Sewer",
+        "Tile": "3, 48"
+    },
+    {
+        "DisplayText": "warp.bathhouse",
+        "Location": "Railroad",
+        "Tile": "10, 57"
+    }
+]

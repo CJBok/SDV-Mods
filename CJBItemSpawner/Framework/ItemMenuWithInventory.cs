@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
-using SObject = StardewValley.Object;
 
 namespace CJBItemSpawner.Framework
 {
@@ -16,6 +15,7 @@ namespace CJBItemSpawner.Framework
 
         private string DescriptionText = "";
         protected string HoverText = "";
+        protected int HoverAmount;
         protected Item HoveredItem; // referenced by CJB Show Item Sell Price
         private int WiggleWordsTimer;
         private ClickableTextureComponent OkButton;
@@ -47,7 +47,7 @@ namespace CJBItemSpawner.Framework
                 this.OkButton = new ClickableTextureComponent("ok-button", new Rectangle(this.xPositionOnScreen + this.width + 4, this.yPositionOnScreen + this.height - Game1.tileSize * 3 - IClickableMenu.borderWidth, Game1.tileSize, Game1.tileSize), "", "", Game1.mouseCursors, Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 46), 1f);
             if (!trashCan)
                 return;
-            this.TrashCan = new ClickableTextureComponent("trashcan", new Rectangle(this.xPositionOnScreen + this.width + 4, this.yPositionOnScreen + this.height - Game1.tileSize * 3 - Game1.tileSize / 2 - IClickableMenu.borderWidth - 104, Game1.tileSize, 104), "", "", Game1.mouseCursors, new Rectangle(669, 261, 16, 26), Game1.pixelZoom);
+            this.TrashCan = new ClickableTextureComponent("trashcan", new Rectangle(this.xPositionOnScreen + this.width + 4, this.yPositionOnScreen + this.height - Game1.tileSize * 3 - Game1.tileSize / 2 - IClickableMenu.borderWidth - 104, Game1.tileSize, 104), "", "", Game1.mouseCursors, new Rectangle(564 + Game1.player.trashCanLevel * 18, 102, 18, 26), Game1.pixelZoom);
         }
 
         public void MovePosition(int dx, int dy)
@@ -83,12 +83,12 @@ namespace CJBItemSpawner.Framework
                     ++Game1.currentLocation.currentEvent.CurrentCommand;
                 Game1.playSound("bigDeSelect");
             }
-            if (this.TrashCan == null || !this.TrashCan.containsPoint(x, y) || (this.HeldItem == null))
-                return;
-            if (this.HeldItem is SObject obj && Game1.player.specialItems.Contains(obj.ParentSheetIndex))
-                Game1.player.specialItems.Remove(obj.ParentSheetIndex);
-            this.HeldItem = null;
-            Game1.playSound("trashcan");
+
+            if (this.TrashCan != null && this.TrashCan.containsPoint(x, y) && this.HeldItem != null)
+            {
+                Utility.trashItem(this.HeldItem);
+                this.HeldItem = null;
+            }
         }
 
         public override void receiveRightClick(int x, int y, bool playSound = true)
@@ -101,22 +101,31 @@ namespace CJBItemSpawner.Framework
             this.DescriptionText = "";
             this.HoveredItem = this.Inventory.Hover(x, y, this.HeldItem);
             this.HoverText = this.Inventory.HoverText;
+            this.HoverAmount = 0;
             if (this.OkButton != null)
             {
                 this.OkButton.scale = this.OkButton.containsPoint(x, y)
                     ? Math.Min(1.1f, this.OkButton.scale + 0.05f)
                     : Math.Max(1f, this.OkButton.scale - 0.05f);
             }
-            if (this.TrashCan == null)
-                return;
-            if (this.TrashCan.containsPoint(x, y))
+
+            if (this.TrashCan != null)
             {
-                if (this.TrashCanLidRotation <= 0.0)
-                    Game1.playSound("trashcanlid");
-                this.TrashCanLidRotation = Math.Min(this.TrashCanLidRotation + 0.06544985f, 1.570796f);
+                if (this.TrashCan.containsPoint(x, y))
+                {
+                    if (this.TrashCanLidRotation <= 0.0)
+                        Game1.playSound("trashcanlid");
+                    this.TrashCanLidRotation = Math.Min(this.TrashCanLidRotation + (float)Math.PI / 48f, 1.570796f);
+
+                    if (this.HeldItem != null && Utility.getTrashReclamationPrice(this.HeldItem, Game1.player) > 0)
+                    {
+                        this.HoverText = Game1.content.LoadString("Strings\\UI:TrashCanSale");
+                        this.HoverAmount = Utility.getTrashReclamationPrice(this.HeldItem, Game1.player);
+                    }
+                }
+                else
+                    this.TrashCanLidRotation = Math.Max(this.TrashCanLidRotation - (float)Math.PI / 48f, 0.0f);
             }
-            else
-                this.TrashCanLidRotation = Math.Max(this.TrashCanLidRotation - 0.06544985f, 0.0f);
         }
 
         public override void receiveScrollWheelAction(int direction)
@@ -139,7 +148,7 @@ namespace CJBItemSpawner.Framework
             if (this.TrashCan != null)
             {
                 this.TrashCan.draw(spriteBatch);
-                spriteBatch.Draw(Game1.mouseCursors, new Vector2(this.TrashCan.bounds.X + 60, this.TrashCan.bounds.Y + 40), new Rectangle(686, 256, 18, 10), Color.White, this.TrashCanLidRotation, new Vector2(16f, 10f), Game1.pixelZoom, SpriteEffects.None, 0.86f);
+                spriteBatch.Draw(Game1.mouseCursors, new Vector2(this.TrashCan.bounds.X + 60, this.TrashCan.bounds.Y + 40), new Rectangle(564 + Game1.player.trashCanLevel * 18, 129, 18, 10), Color.White, this.TrashCanLidRotation, new Vector2(16f, 10f), Game1.pixelZoom, SpriteEffects.None, 0.86f);
             }
             if (drawUpperPortion)
             {

@@ -1,6 +1,5 @@
 {
-    // menu title
-    "title": "CJB Cheats Menu",
+    "mod-name": "CJB Cheats Menu",
 
     // menu tabs
     "tabs.player-and-tools": "プレイヤー＆ツール",
@@ -24,7 +23,7 @@
     "tools.title": "ツール",
     "tools.infinite-water": "ジョウロの水無限",
     "tools.one-hit-break": "1度のアクションで目的達成",
-    "tools.harvest-with-sickle": "カマで収穫",
+    "tools.harvest-with-scythe": "カマで収穫",
     "money.title": "お金",
     "money.add-amount": "増やす {{amount}}g",
     "casino-coins.title": "カジノのコイン",
@@ -44,26 +43,27 @@
     "fishing.always-treasure": "常に宝箱が釣れる",
     "fishing.durable-tackles": "釣り具の強化",
     "fast-machines.title": "作成時間の短縮",
+    "fast-machines.bee-house": "ハチの巣箱",
     "fast-machines.cask": "熟成ダル",
+    "fast-machines.charcoal-kiln": "炭焼き窯",
+    "fast-machines.cheese-press": "チーズプレス",
+    "fast-machines.crystalarium": "結晶コピーマシン",
     "fast-machines.fruit-trees": "果樹",
     "fast-machines.furnace": "溶鉱炉",
-    "fast-machines.recycling-machine": "リサイクルマシン",
-    "fast-machines.crystalarium": "結晶コピーマシン",
     "fast-machines.incubator": "ふ卵器",
-    "fast-machines.slime-incubator": "スライム用ふ卵器",
     "fast-machines.keg": "醸造ダル",
-    "fast-machines.preserves-jar": "保存ジャー",
-    "fast-machines.cheese-press": "チーズプレス",
-    "fast-machines.mayonnaise-machine": "マヨネーズマシン",
-    "fast-machines.loom": "織り機",
-    "fast-machines.oil-maker": "オイルメーカー",
-    "fast-machines.seed-maker": "タネ製造マシン",
-    "fast-machines.charcoal-kiln": "炭焼き窯",
-    "fast-machines.slime-egg-press": " スライムエッグプレス",
-    "fast-machines.tapper": "樹液採取器",
     "fast-machines.lightning-rod": "ひらい針",
-    "fast-machines.bee-house": "ハチの巣箱",
+    "fast-machines.loom": "織り機",
+    "fast-machines.mayonnaise-machine": "マヨネーズマシン",
     "fast-machines.mushroom-box": "マッシュルームボックス",
+    "fast-machines.oil-maker": "オイルメーカー",
+    "fast-machines.preserves-jar": "保存ジャー",
+    "fast-machines.recycling-machine": "リサイクルマシン",
+    "fast-machines.seed-maker": "タネ製造マシン",
+    "fast-machines.slime-egg-press": " スライムエッグプレス",
+    "fast-machines.slime-incubator": "スライム用ふ卵器",
+    "fast-machines.tapper": "樹液採取器",
+    "fast-machines.wood-chipper": "Wood Chipper", // TODO
     "fast-machines.worm-bin": "ミミズ飼育器",
 
     // 'Skills' tab
@@ -152,14 +152,16 @@
     "time.time": "時間",
 
     // 'Flags' tab
-    "flags.warning": "これらの設定の変更はあなたの自己責任です！\nメールが届かなかったり、イベントやクエストの進行に問題が起きる場合があります。",
+    "flags.warning": "これらの設定の変更はあなたの自己責任です！\n手紙の配達、イベントやクエストの進行に問題が起きる場合があります。",
     "flags.quests": "クエストの完了",
     "flags.wallet": "財布のアイテム",
     "flags.unlocked": "侵入可能エリア",
     "flags.unlocked.guild": "冒険者ギルド",
     "flags.unlocked.room": "寝室: {{name}}",
-    "flags.community-center": "公民館",
-    "flags.community-center.door-unlocked": "ドアのアンロック",
+    "flags.unlocked-content": "Unlocked content", // TODO
+    "flags.unlocked-content.dyes-and-tailoring": "Dyes & tailoring", // TODO
+    "flags.community-center": "コミュニティ復興",
+    "flags.community-center.door-unlocked": "公民館へ入館",
     "flags.jojamart.membership": "Jojaマート 会員権",
 
     // 'Controls' tab

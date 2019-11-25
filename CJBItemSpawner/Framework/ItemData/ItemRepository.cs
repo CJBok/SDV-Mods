@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using StardewValley;
+using StardewValley.Menus;
 using StardewValley.Objects;
 using StardewValley.Tools;
 using SObject = StardewValley.Object;
@@ -62,6 +63,10 @@ namespace CJBItemSpawner.Framework.ItemData
                 yield return this.TryCreate(ItemType.Tool, this.CustomIDOffset + 2, () => new Pan());
                 yield return this.TryCreate(ItemType.Tool, this.CustomIDOffset + 3, () => new Wand());
 
+                // clothing
+                foreach (int id in Game1.clothingInformation.Keys)
+                    yield return this.TryCreate(ItemType.Clothing, id, () => new Clothing(id));
+
                 // wallpapers
                 for (int id = 0; id < 112; id++)
                     yield return this.TryCreate(ItemType.Wallpaper, id, () => new Wallpaper(id) { Category = SObject.furnitureCategory });
@@ -119,7 +124,10 @@ namespace CJBItemSpawner.Framework.ItemData
                     if (id >= Ring.ringLowerIndexRange && id <= Ring.ringUpperIndexRange)
                         continue; // handled separated
 
-                    SObject item = new SObject(id, 1);
+                    // spawn main item
+                    SObject item = id == 812
+                        ? new ColoredObject(id, 1, Color.White)
+                        : new SObject(id, 1);
                     yield return this.TryCreate(ItemType.Object, id, () => item);
 
                     // fruit products
@@ -173,45 +181,50 @@ namespace CJBItemSpawner.Framework.ItemData
                     // flower honey
                     else if (item.Category == SObject.flowersCategory)
                     {
-                        // get honey type
-                        SObject.HoneyType? type = null;
-                        switch (item.ParentSheetIndex)
+                        SObject honey = new SObject(Vector2.Zero, 340, item.Name + " Honey", false, true, false, false)
                         {
-                            case 376:
-                                type = SObject.HoneyType.Poppy;
-                                break;
-                            case 591:
-                                type = SObject.HoneyType.Tulip;
-                                break;
-                            case 593:
-                                type = SObject.HoneyType.SummerSpangle;
-                                break;
-                            case 595:
-                                type = SObject.HoneyType.FairyRose;
-                                break;
-                            case 597:
-                                type = SObject.HoneyType.BlueJazz;
-                                break;
-                            case 421: // sunflower standing in for all other flowers
-                                type = SObject.HoneyType.Wild;
-                                break;
-                        }
+                            Name = $"{item.Name} Honey",
+                            preservedParentSheetIndex = { item.ParentSheetIndex }
+                        };
+                        honey.Price += item.Price * 2;
+                        yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 6 + id, () => honey);
+                    }
 
-                        // yield honey
-                        if (type != null)
+                    // roe and aged roe (derived from FishPond.GetFishProduce)
+                    else if (id == 812)
+                    {
+                        foreach (var pair in Game1.objectInformation)
                         {
-                            SObject honey = new SObject(Vector2.Zero, 340, item.Name + " Honey", false, true, false, false)
+                            // get input
+                            SObject input = new SObject(pair.Key, 1);
+                            if (input.Category != SObject.FishCategory)
+                                continue;
+                            Color color = TailoringMenu.GetDyeColor(input) ?? Color.Orange;
+
+                            // yield roe
+                            SObject roe = new ColoredObject(812, 1, color)
                             {
-                                Name = "Wild Honey"
+                                name = $"{input.Name} Roe",
+                                preserve = { Value = SObject.PreserveType.Roe },
+                                preservedParentSheetIndex = { Value = input.ParentSheetIndex }
                             };
-                            honey.honeyType.Value = type;
+                            roe.Price += input.Price / 2;
+                            yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 6 + 1, () => roe);
 
-                            if (type != SObject.HoneyType.Wild)
+                            // aged roe
+                            if (pair.Key != 698) // aged sturgeon roe is caviar, which is a separate item
                             {
-                                honey.Name = $"{item.Name} Honey";
-                                honey.Price += item.Price * 2;
+                                yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 6 + 1, () =>
+                                    new ColoredObject(447, 1, color)
+                                    {
+                                        name = $"Aged {input.Name} Roe",
+                                        Category = -27,
+                                        preserve = { Value = SObject.PreserveType.AgedRoe },
+                                        preservedParentSheetIndex = { Value = input.ParentSheetIndex },
+                                        Price = roe.Price * 2
+                                    }
+                                );
                             }
-                            yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 5 + id, () => honey);
                         }
                     }
                 }

@@ -1,6 +1,21 @@
 [← back to readme](README.md)
 
 # Release notes
+## 1.21
+Released 26 November 2019 for SMAPI 3.0 or later. Updated by Pathoschild.
+
+* Updated for Stardew Valley 1.4, including...
+  * added wood chipper support for fast machines;
+  * added unlockable dyeing & tailoring;
+  * added new Community Center bundle;
+  * added support for instantly growing tea bushes.
+* Added support for holding the grow crop/tree keys while moving the cursor, so it's easier to grow larger fields.
+* Warps are now sorted alphabetically.
+* Warps can now be customised by editing `data/warps.json`.
+* Rewrote increased movement speed to fix a number of speed-related bugs.
+* Fixed sunflowers not dropping seeds when harvested with a scythe (via SDV 1.4).
+* Updated translations. Thanks to jahangmar (updated German), overwritten (updated Korean), qqkookie (updated Korean), Redlnn (updated Chinese), Riazaia (updated Spanish), shiro2579 (updated Portuguese), and shirutan (updated Japanese)!
+
 ## 1.20.1
 Released 12 June 2019 for SMAPI 2.11.1 or later. Updated by Pathoschild.
 
@@ -112,7 +127,7 @@ Released 05 April 2017 for SMAPI 1.9 or later. Updated by Pathoschild.
 * Updated to SMAPI 1.9.
 * Fast machines now work anywhere, not only on the farm.
 * Fixed fast cask cheat not working.
-* Fixed disabling the 'harvest with sickle' option not restoring existing crops to normal.
+* Fixed disabling the 'harvest with scythe' option not restoring existing crops to normal.
 * Internal refactoring.
 
 ## 1.13
@@ -128,7 +143,7 @@ Released 04 January 2017 for SMAPI 1.5 or later. Updated by Pathoschild.
 Released 09 April 2016 for SMAPI 0.40 or later.
 
 * Updated to Stardew Valley 1.07+ and SMAPI 0.40.0+.
-* Added cheats: durable tackles, harvest with sickle, grow tree, and grow crops.
+* Added cheats: durable tackles, harvest with scythe, grow tree, and grow crops.
 * Added changeable relationships.
 * Fixed mouse cursor showing when disabled.
 

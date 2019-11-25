@@ -1,5 +1,6 @@
 using System.Linq;
 using CJBCheatsMenu.Framework;
+using CJBCheatsMenu.Framework.Models;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -18,6 +19,9 @@ namespace CJBCheatsMenu
         /// <summary>The mod settings.</summary>
         private ModConfig Config;
 
+        /// <summary>The warps to show in the menu.</summary>
+        private ModDataWarp[] Warps;
+
         /// <summary>The cheats helper.</summary>
         private Cheats Cheats;
 
@@ -29,11 +33,20 @@ namespace CJBCheatsMenu
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
         {
+            // load config/data
             this.Config = helper.ReadConfig<ModConfig>();
+            this.Warps = helper.Data.ReadJsonFile<ModDataWarp[]>("data/warps.json");
+            if (this.Warps == null)
+            {
+                this.Monitor.Log("Some of the mod files are missing (data/warps.json); try reinstalling this mod.", LogLevel.Error);
+                return;
+            }
             this.Monitor.Log($"Started with menu key {this.Config.OpenMenuKey}.", LogLevel.Trace);
 
-            this.Cheats = new Cheats(this.Config);
+            // load cheats
+            this.Cheats = new Cheats(this.Config, this.Helper.Translation);
 
+            // hook events
             helper.Events.Display.Rendered += this.OnRendered;
             helper.Events.Display.MenuChanged += this.OnMenuChanged;
 
@@ -41,6 +54,7 @@ namespace CJBCheatsMenu
             helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
 
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
+            helper.Events.Input.ButtonReleased += this.OnButtonReleased;
 
             helper.Events.World.LocationListChanged += this.OnLocationListChanged;
         }
@@ -76,11 +90,19 @@ namespace CJBCheatsMenu
 
             // open menu
             if (e.Button == this.Config.OpenMenuKey)
-                Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Config, this.Cheats, this.Helper.Translation, this.Monitor);
+                Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Config, this.Warps, this.Cheats, this.Helper.Translation, this.Monitor);
 
             // handle button if applicable
             else
                 this.Cheats.OnButtonPressed(e);
+        }
+
+        /// <summary>Raised after the player releases a button on the keyboard, controller, or mouse.</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnButtonReleased(object sender, ButtonReleasedEventArgs e)
+        {
+            this.Cheats.OnButtonReleased(e);
         }
 
         /// <summary>Raised after the game draws to the sprite patch in a draw tick, just before the final sprite batch is rendered to the screen.</summary>
@@ -102,7 +124,7 @@ namespace CJBCheatsMenu
             if (!Context.IsWorldReady)
                 return;
 
-            this.Cheats.OnUpdateTicked(e, this.Helper.Reflection);
+            this.Cheats.OnUpdateTicked(e, this.Helper.Reflection, this.Helper.Input);
             if (e.IsOneSecond)
                 this.Cheats.OneSecondUpdate(this.Locations);
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CJBCheatsMenu.Framework.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,7 +9,6 @@ using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 using StardewValley.Quests;
-using SFarmer = StardewValley.Farmer;
 
 namespace CJBCheatsMenu.Framework
 {
@@ -104,19 +104,19 @@ namespace CJBCheatsMenu.Framework
                 switch (this.whichOption)
                 {
                     case 2:
-                        Game1.player.money += 100;
+                        Game1.player.Money += 100;
                         Game1.soundBank.PlayCue("coin");
                         break;
                     case 3:
-                        Game1.player.money += 1000;
+                        Game1.player.Money += 1000;
                         Game1.soundBank.PlayCue("coin");
                         break;
                     case 4:
-                        Game1.player.money += 10000;
+                        Game1.player.Money += 10000;
                         Game1.soundBank.PlayCue("coin");
                         break;
                     case 5:
-                        Game1.player.money += 100000;
+                        Game1.player.Money += 100000;
                         Game1.soundBank.PlayCue("coin");
                         break;
                     case 6:
@@ -266,7 +266,7 @@ namespace CJBCheatsMenu.Framework
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
         {
             string lvl = "";
-            SFarmer plr = Game1.player;
+            Farmer plr = Game1.player;
             switch (this.whichOption)
             {
                 case 200:

@@ -1,10 +1,10 @@
-﻿**CJB Cheats Menu** is a [Stardew Valley](http://stardewvalley.net/) mod that adds an in-game menu
+**CJB Cheats Menu** is a [Stardew Valley](http://stardewvalley.net/) mod that adds an in-game menu
 with many different cheat features:
 
 ![](screenshot.gif)
 
 Compatible with Stardew Valley 1.3+ on Linux, Mac, and Windows. Translated into Chinese, English,
-French, German, Japanese, Portuguese, Russian, and Spanish.
+French, German, Japanese, Korean, Portuguese, Russian, and Spanish.
 
 ## Install
 1. [Install the latest version of SMAPI](https://smapi.io/).
@@ -27,8 +27,8 @@ setting | default | what it affects
 ------- | ------- | ---------------
 `OpenMenuKey` | `P` | The button which opens the menu.
 `FreezeTimeKey` | `T` | The button which freezes the game clock.
-`GrowTreeKey` | `NumPad1` | The button which instantly grows the tree under the tool cursor.
-`GrowCropsKey` | `NumPad2` | The button which instantly grows crops adjacent to your character.
+`GrowTreeKey` | `NumPad1` | The button held to grow trees under the cursor.
+`GrowCropsKey` | `NumPad2` | The button held to grow crops under the cursor.
 
 ### Menu settings
 
@@ -47,7 +47,7 @@ setting | default | what it affects
 `OneHitKill` | `false` | Your attacks kill any monster in one hit.
 `OneHitBreak` | `false` | Your tools break things instantly.
 `InfiniteWateringCan` | `false` | Your watering can never runs dry.
-`HarvestSickle` | `false` | You can harvest any crop with the sickle.
+`HarvestScythe` | `false` | You can harvest any crop with the scythe.
 
 ### Fishing cheats
 setting | default | what it affects

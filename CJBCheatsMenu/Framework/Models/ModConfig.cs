@@ -1,10 +1,9 @@
 using CJBCheatsMenu.Framework.Constants;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using StardewModdingAPI;
 
-namespace CJBCheatsMenu.Framework
+namespace CJBCheatsMenu.Framework.Models
 {
+    /// <summary>The mod configuration model.</summary>
     internal class ModConfig
     {
         /*********
@@ -13,23 +12,22 @@ namespace CJBCheatsMenu.Framework
         /****
         ** Keyboard buttons
         ****/
-        /// <summary>The keyboard button which opens the menu.</summary>
+        /// <summary>The button which opens the menu.</summary>
         public SButton OpenMenuKey { get; set; } = SButton.P;
 
-        /// <summary>The keyboard button which freezes the game clock.</summary>
+        /// <summary>The button which freezes the game clock.</summary>
         public SButton FreezeTimeKey { get; set; } = SButton.T;
 
-        /// <summary>The keyboard button which instantly grows the tree under the tool cursor.</summary>
+        /// <summary>The button held to grow trees under the cursor.</summary>
         public SButton GrowTreeKey { get; set; } = SButton.NumPad1;
 
-        /// <summary>The keyboard button which instantly grows crops adjacent to your character.</summary>
+        /// <summary>The button held to grow crops under the cursor.</summary>
         public SButton GrowCropsKey { get; set; } = SButton.NumPad2;
 
         /****
         ** Menu settings
         ****/
         /// <summary>The tab shown by default when you open the menu.</summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public MenuTab DefaultTab { get; set; } = MenuTab.PlayerAndTools;
 
         /****
@@ -59,8 +57,8 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The player's watering can never runs dry.</summary>
         public bool InfiniteWateringCan { get; set; }
 
-        /// <summary>The player can harvest any crop with the sickle.</summary>
-        public bool HarvestSickle { get; set; }
+        /// <summary>The player can harvest any crop with the scythe.</summary>
+        public bool HarvestScythe { get; set; }
 
         /****
         ** Fishing cheats
@@ -92,68 +90,71 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The game clock doesn't change when you're inside the mines, Skull Cavern, or farm cave.</summary>
         public bool FreezeTimeCaves { get; set; }
 
+        /// <summary>Beehouses finish instantly.</summary>
+        public bool FastBeeHouse { get; set; }
+
         /// <summary>Casks finish instantly.</summary>
         public bool FastCask { get; set; }
-
-        /// <summary>Furnaces finish instantly.</summary>
-        public bool FastFurnace { get; set; }
-
-        /// <summary>Recycling machines finish instantly.</summary>
-        public bool FastRecyclingMachine { get; set; }
-
-        /// <summary>Crystalariums finish instantly.</summary>
-        public bool FastCrystalarium { get; set; }
-
-        /// <summary>Incubators finish instantly.</summary>
-        public bool FastIncubator { get; set; }
-
-        /// <summary>Slime incubators finish instantly.</summary>
-        public bool FastSlimeIncubator { get; set; }
-
-        /// <summary>Kegs finish instantly.</summary>
-        public bool FastKeg { get; set; }
-
-        /// <summary>Preserves jars finish instantly.</summary>
-        public bool FastPreservesJar { get; set; }
-
-        /// <summary>Cheese presses finish instantly.</summary>
-        public bool FastCheesePress { get; set; }
-
-        /// <summary>Mayonnaise machines finish instantly.</summary>
-        public bool FastMayonnaiseMachine { get; set; }
-
-        /// <summary>Looms finish instantly.</summary>
-        public bool FastLoom { get; set; }
-
-        /// <summary>Oil makers finish instantly.</summary>
-        public bool FastOilMaker { get; set; }
-
-        /// <summary>Seed makers finish instantly.</summary>
-        public bool FastSeedMaker { get; set; }
 
         /// <summary>Charcoal kilns finish instantly.</summary>
         public bool FastCharcoalKiln { get; set; }
 
-        /// <summary>Slime egg presss finish instantly.</summary>
-        public bool FastSlimeEggPress { get; set; }
+        /// <summary>Cheese presses finish instantly.</summary>
+        public bool FastCheesePress { get; set; }
 
-        /// <summary>Beehouses finish instantly.</summary>
-        public bool FastBeeHouse { get; set; }
+        /// <summary>Crystalariums finish instantly.</summary>
+        public bool FastCrystalarium { get; set; }
 
-        /// <summary>Mushroom boxs finish instantly.</summary>
-        public bool FastMushroomBox { get; set; }
+        /// <summary>Fruit trees bear fruit instantly.</summary>
+        public bool FastFruitTree { get; set; }
 
-        /// <summary>Tappers finish instantly.</summary>
-        public bool FastTapper { get; set; }
+        /// <summary>Furnaces finish instantly.</summary>
+        public bool FastFurnace { get; set; }
+
+        /// <summary>Incubators finish instantly.</summary>
+        public bool FastIncubator { get; set; }
+
+        /// <summary>Kegs finish instantly.</summary>
+        public bool FastKeg { get; set; }
 
         /// <summary>Lightning rods finish instantly.</summary>
         public bool FastLightningRod { get; set; }
 
+        /// <summary>Looms finish instantly.</summary>
+        public bool FastLoom { get; set; }
+
+        /// <summary>Mayonnaise machines finish instantly.</summary>
+        public bool FastMayonnaiseMachine { get; set; }
+
+        /// <summary>Mushroom boxs finish instantly.</summary>
+        public bool FastMushroomBox { get; set; }
+
+        /// <summary>Oil makers finish instantly.</summary>
+        public bool FastOilMaker { get; set; }
+
+        /// <summary>Preserves jars finish instantly.</summary>
+        public bool FastPreservesJar { get; set; }
+
+        /// <summary>Recycling machines finish instantly.</summary>
+        public bool FastRecyclingMachine { get; set; }
+
+        /// <summary>Seed makers finish instantly.</summary>
+        public bool FastSeedMaker { get; set; }
+
+        /// <summary>Slime egg presss finish instantly.</summary>
+        public bool FastSlimeEggPress { get; set; }
+
+        /// <summary>Slime incubators finish instantly.</summary>
+        public bool FastSlimeIncubator { get; set; }
+
+        /// <summary>Tappers finish instantly.</summary>
+        public bool FastTapper { get; set; }
+
+        /// <summary>Wood Chippers finish instantly.</summary>
+        public bool FastWoodChipper { get; set; }
+
         /// <summary>Worm bins finish instantly.</summary>
         public bool FastWormBin { get; set; }
-
-        /// <summary>Fruit trees bear fruit instantly.</summary>
-        public bool FastFruitTree { get; set; }
 
         /****
         ** Other cheats

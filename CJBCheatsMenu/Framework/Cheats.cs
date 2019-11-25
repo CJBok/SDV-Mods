@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CJBCheatsMenu.Framework.Models;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -12,7 +13,6 @@ using StardewValley.Monsters;
 using StardewValley.Objects;
 using StardewValley.TerrainFeatures;
 using StardewValley.Tools;
-using SFarmer = StardewValley.Farmer;
 using SObject = StardewValley.Object;
 
 namespace CJBCheatsMenu.Framework
@@ -25,8 +25,20 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The mod settings.</summary>
         private readonly ModConfig Config;
 
+        /// <summary>Provides translations stored in the mod folder.</summary>
+        private readonly ITranslationHelper Translations;
+
         /// <summary>The minimum friendship points to maintain for each NPC.</summary>
         private readonly Dictionary<string, int> PreviousFriendships = new Dictionary<string, int>();
+
+        /// <summary>Whether to grow crops under the cursor.</summary>
+        private bool ShouldGrowCrops;
+
+        /// <summary>Whether to grow trees under the cursor.</summary>
+        private bool ShouldGrowTrees;
+
+        /// <summary>The unique buff ID for the player speed.</summary>
+        private int BuffUniqueID => 58012398 + this.Config.MoveSpeed;
 
 
         /*********
@@ -34,9 +46,11 @@ namespace CJBCheatsMenu.Framework
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="config">The mod settings.</param>
-        public Cheats(ModConfig config)
+        /// <param name="translations">Provides translations stored in the mod folder.</param>
+        public Cheats(ModConfig config, ITranslationHelper translations)
         {
             this.Config = config;
+            this.Translations = translations;
         }
 
         /// <summary>Reset all tracked data.</summary>
@@ -114,37 +128,83 @@ namespace CJBCheatsMenu.Framework
             if (player == null)
                 return;
 
-            List<Vector2> tiles = new List<Vector2>();
-
-            for (int x = -1; x <= 1; x++)
+            const int radius = 1;
+            for (int x = -radius; x <= radius; x++)
             {
-                for (int y = -1; y <= 1; y++)
-                    tiles.Add(new Vector2(origin.X + x, origin.Y + y));
-            }
+                for (int y = -radius; y <= radius; y++)
+                {
+                    Vector2 tile = new Vector2(origin.X + x, origin.Y + y);
 
-            foreach (Vector2 tile in tiles)
+                    // get target
+                    object target = null;
+                    {
+                        if (player.currentLocation.terrainFeatures.TryGetValue(tile, out TerrainFeature terrainFeature))
+                        {
+                            if (terrainFeature is HoeDirt dirt)
+                                target = dirt.crop;
+                            if (terrainFeature is Bush bush)
+                                target = bush;
+                        }
+                        if (target == null && player.currentLocation.objects.TryGetValue(tile, out SObject obj) && obj is IndoorPot pot)
+                        {
+                            // crop
+                            if (pot.hoeDirt.Value is HoeDirt dirt)
+                                target = dirt.crop;
+
+                            // planted bush
+                            if (pot.bush.Value is Bush bush)
+                                target = bush;
+                        }
+                    }
+
+                    // grow target
+                    switch (target)
+                    {
+                        case Crop crop:
+                            crop.growCompletely();
+                            break;
+
+                        case Bush bush when bush.size.Value == Bush.greenTeaBush && bush.getAge() < Bush.daysToMatureGreenTeaBush:
+                            bush.datePlanted.Value = (int)(Game1.stats.DaysPlayed - Bush.daysToMatureGreenTeaBush);
+                            bush.dayUpdate(player.currentLocation, tile); // update source rect, grow tea leaves, etc
+                            break;
+                    }
+                }
+            }
+        }
+
+        /// <summary>Apply the player speed buff to the current player.</summary>
+        private void UpdateBuff()
+        {
+            // ignore if disabled
+            if (!this.Config.IncreasedMovement)
+                return;
+
+            // ignore in cutscenes
+            if (Game1.eventUp)
+                return;
+
+            // ignore if walking
+            bool running = Game1.player.running;
+            bool runEnabled = running || Game1.options.autoRun != Game1.isOneOfTheseKeysDown(Game1.GetKeyboardState(), Game1.options.runButton); // auto-run enabled and not holding walk button, or disabled and holding run button
+            if (!runEnabled)
+                return;
+
+            // add or update buff
+            Buff buff = Game1.buffsDisplay.otherBuffs.FirstOrDefault(p => p.which == this.BuffUniqueID);
+            if (buff == null)
             {
-                // grow planted crop (if any)
-                if (player.currentLocation.terrainFeatures.TryGetValue(tile, out TerrainFeature terrainFeature))
-                {
-                    if (terrainFeature is HoeDirt dirt)
-                        dirt.crop?.growCompletely();
-                }
-
-                // grow garden pot (if any)
-                if (player.currentLocation.objects.TryGetValue(tile, out SObject obj))
-                {
-                    if (obj is IndoorPot pot && pot.hoeDirt.Value is HoeDirt dirt)
-                        dirt.crop?.growCompletely();
-                }
+                buff = new Buff(0, 0, 0, 0, 0, 0, 0, 0, 0, speed: this.Config.MoveSpeed, 0, 0, minutesDuration: 1, source: "CJB Cheats Menu", displaySource: this.Translations.Get("mod-name")) { which = this.BuffUniqueID };
+                Game1.buffsDisplay.addOtherBuff(buff);
             }
+            buff.millisecondsDuration = 50;
         }
 
         /// <summary>Perform any action needed after the cheat options change.</summary>
         public void OnOptionsChanged()
         {
-            // disable harvest with sickle
-            if (!this.Config.HarvestSickle)
+            // disable harvest with scythe
+            if (!this.Config.HarvestScythe)
             {
                 IDictionary<int, int> cropHarvestMethods = this.GetCropHarvestMethods();
                 foreach (GameLocation location in Game1.locations)
@@ -255,8 +315,8 @@ namespace CJBCheatsMenu.Framework
                     }
                 }
 
-                // harvest with sickle
-                if (this.Config.HarvestSickle && (location.IsFarm || location.IsGreenhouse))
+                // harvest with scythe
+                if (this.Config.HarvestScythe && (location.IsFarm || location.IsGreenhouse))
                 {
                     foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
                     {
@@ -273,21 +333,15 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
         /// <param name="e">The event arguments.</param>
         /// <param name="reflection">Simplifies access to private game code.</param>
-        public void OnUpdateTicked(UpdateTickedEventArgs e, IReflectionHelper reflection)
+        /// <param name="input">An API for checking input state.</param>
+        public void OnUpdateTicked(UpdateTickedEventArgs e, IReflectionHelper reflection, IInputHelper input)
         {
             if (Game1.player?.currentLocation != null)
             {
-                SFarmer player = Game1.player;
+                Farmer player = Game1.player;
 
                 // movement speed
-                if (this.Config.IncreasedMovement && player.running)
-                    player.addedSpeed = this.Config.MoveSpeed;
-                else if (!this.Config.IncreasedMovement && player.addedSpeed == this.Config.MoveSpeed)
-                    player.addedSpeed = 0;
-                if (player.controller != null)
-                    player.addedSpeed = 0;
-                if (Game1.CurrentEvent == null)
-                    player.movementDirections.Clear();
+                this.UpdateBuff();
 
                 // infinite health/stamina
                 if (this.Config.InfiniteHealth)
@@ -391,10 +445,16 @@ namespace CJBCheatsMenu.Framework
                             monster.Health = 1;
                     }
                 }
+
+                // grow crops/trees
+                if (this.ShouldGrowCrops && e.IsMultipleOf(15))
+                    this.GrowCrops(input.GetCursorPosition().Tile);
+                if (this.ShouldGrowTrees && e.IsMultipleOf(15))
+                    this.GrowTree(input.GetCursorPosition().Tile);
             }
 
             if (this.Config.MaxDailyLuck)
-                Game1.dailyLuck = 0.115d;
+                Game1.player.team.sharedDailyLuck.Value = 0.115d;
 
             if (this.Config.InfiniteHay)
             {
@@ -417,9 +477,19 @@ namespace CJBCheatsMenu.Framework
             if (input.Button == this.Config.FreezeTimeKey)
                 this.Config.FreezeTime = !this.Config.FreezeTime;
             else if (input.Button == this.Config.GrowTreeKey)
-                this.GrowTree(input.Cursor.Tile);
+                this.ShouldGrowTrees = true;
             else if (input.Button == this.Config.GrowCropsKey)
-                this.GrowCrops(input.Cursor.Tile);
+                this.ShouldGrowCrops = true;
+        }
+
+        /// <summary>Raised after the player releases a button on the keyboard, controller, or mouse.</summary>
+        /// <param name="input">The event arguments.</param>
+        public void OnButtonReleased(ButtonReleasedEventArgs input)
+        {
+            if (input.Button == this.Config.GrowTreeKey)
+                this.ShouldGrowTrees = false;
+            else if (input.Button == this.Config.GrowCropsKey)
+                this.ShouldGrowCrops = false;
         }
 
 
@@ -431,25 +501,26 @@ namespace CJBCheatsMenu.Framework
         private bool IsFastMachine(SObject obj)
         {
             return
-                (this.Config.FastCask && obj is Cask)
-                || (this.Config.FastFurnace && obj.name == "Furnace")
-                || (this.Config.FastRecyclingMachine && obj.name == "Recycling Machine")
-                || (this.Config.FastCrystalarium && obj.name == "Crystalarium")
-                || (this.Config.FastIncubator && obj.name == "Incubator")
-                || (this.Config.FastSlimeIncubator && obj.name == "Slime Incubator")
-                || (this.Config.FastKeg && obj.name == "Keg")
-                || (this.Config.FastPreservesJar && obj.name == "Preserves Jar")
-                || (this.Config.FastCheesePress && obj.name == "Cheese Press")
-                || (this.Config.FastMayonnaiseMachine && obj.name == "Mayonnaise Machine")
-                || (this.Config.FastLoom && obj.name == "Loom")
-                || (this.Config.FastOilMaker && obj.name == "Oil Maker")
-                || (this.Config.FastSeedMaker && obj.name == "Seed Maker")
+                (this.Config.FastBeeHouse && obj.name == "Bee House")
+                || (this.Config.FastCask && obj is Cask)
                 || (this.Config.FastCharcoalKiln && obj.name == "Charcoal Kiln")
-                || (this.Config.FastSlimeEggPress && obj.name == "Slime Egg-Press")
-                || (this.Config.FastBeeHouse && obj.name == "Bee House")
-                || (this.Config.FastMushroomBox && obj.name == "Mushroom Box")
-                || (this.Config.FastTapper && obj.name == "Tapper")
+                || (this.Config.FastCheesePress && obj.name == "Cheese Press")
+                || (this.Config.FastCrystalarium && obj.name == "Crystalarium")
+                || (this.Config.FastFurnace && obj.name == "Furnace")
+                || (this.Config.FastIncubator && obj.name == "Incubator")
+                || (this.Config.FastKeg && obj.name == "Keg")
                 || (this.Config.FastLightningRod && obj.name == "Lightning Rod")
+                || (this.Config.FastLoom && obj.name == "Loom")
+                || (this.Config.FastMayonnaiseMachine && obj.name == "Mayonnaise Machine")
+                || (this.Config.FastMushroomBox && obj.name == "Mushroom Box")
+                || (this.Config.FastOilMaker && obj.name == "Oil Maker")
+                || (this.Config.FastPreservesJar && obj.name == "Preserves Jar")
+                || (this.Config.FastRecyclingMachine && obj.name == "Recycling Machine")
+                || (this.Config.FastSeedMaker && obj.name == "Seed Maker")
+                || (this.Config.FastSlimeEggPress && obj.name == "Slime Egg-Press")
+                || (this.Config.FastSlimeIncubator && obj.name == "Slime Incubator")
+                || (this.Config.FastTapper && obj.name == "Tapper")
+                || (this.Config.FastWoodChipper && obj is WoodChipper)
                 || (this.Config.FastWormBin && obj.name == "Worm Bin");
         }
 

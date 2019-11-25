@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CJBCheatsMenu.Framework.Constants;
+using CJBCheatsMenu.Framework.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,7 +12,6 @@ using StardewValley.Buildings;
 using StardewValley.Locations;
 using StardewValley.Menus;
 using StardewValley.Quests;
-using SFarmer = StardewValley.Farmer;
 
 namespace CJBCheatsMenu.Framework
 {
@@ -22,6 +22,9 @@ namespace CJBCheatsMenu.Framework
         *********/
         /// <summary>The mod settings.</summary>
         private readonly ModConfig Config;
+
+        /// <summary>The warps to show in the menu.</summary>
+        private readonly ModDataWarp[] Warps;
 
         /// <summary>The cheats helper.</summary>
         private readonly Cheats Cheats;
@@ -74,15 +77,16 @@ namespace CJBCheatsMenu.Framework
         /*********
         ** Public methods
         *********/
-        public CheatsMenu(MenuTab tabIndex, ModConfig config, Cheats cheats, ITranslationHelper i18n, IMonitor monitor)
+        public CheatsMenu(MenuTab tabIndex, ModConfig config, ModDataWarp[] warps, Cheats cheats, ITranslationHelper i18n, IMonitor monitor)
           : base(Game1.viewport.Width / 2 - (600 + IClickableMenu.borderWidth * 2) / 2, Game1.viewport.Height / 2 - (600 + IClickableMenu.borderWidth * 2) / 2, 800 + IClickableMenu.borderWidth * 2, 600 + IClickableMenu.borderWidth * 2)
         {
             this.Config = config;
+            this.Warps = warps;
             this.Cheats = cheats;
             this.TranslationHelper = i18n;
             this.Monitor = monitor;
 
-            this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.width / 2, this.yPositionOnScreen, Game1.tileSize * 4, Game1.tileSize), i18n.Get("title"));
+            this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.width / 2, this.yPositionOnScreen, Game1.tileSize * 4, Game1.tileSize), i18n.Get("mod-name"));
             this.CurrentTab = tabIndex;
 
             {
@@ -135,7 +139,7 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new OptionsElement($"{i18n.Get("tools.title")}:"));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("tools.infinite-water"), config.InfiniteWateringCan, value => config.InfiniteWateringCan = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("tools.one-hit-break"), config.OneHitBreak, value => config.OneHitBreak = value));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("tools.harvest-with-sickle"), config.HarvestSickle, value => config.HarvestSickle = value));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("tools.harvest-with-scythe"), config.HarvestScythe, value => config.HarvestScythe = value));
 
                     this.Options.Add(new OptionsElement($"{i18n.Get("money.title")}:"));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("money.add-amount", new { amount = 100 }), 2, slotWidth, config, cheats, i18n));
@@ -166,27 +170,28 @@ namespace CJBCheatsMenu.Framework
 
                     this.Options.Add(new OptionsElement($"{i18n.Get("fast-machines.title")}:"));
                     this.AddSortedOptions(this.Options,
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.cask"), config.FastCask, value => config.FastCask = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.furnace"), config.FastFurnace, value => config.FastFurnace = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.recycling-machine"), config.FastRecyclingMachine, value => config.FastRecyclingMachine = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.crystalarium"), config.FastCrystalarium, value => config.FastCrystalarium = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.incubator"), config.FastIncubator, value => config.FastIncubator = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.slime-incubator"), config.FastSlimeIncubator, value => config.FastSlimeIncubator = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.keg"), config.FastKeg, value => config.FastKeg = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.preserves-jar"), config.FastPreservesJar, value => config.FastPreservesJar = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.cheese-press"), config.FastCheesePress, value => config.FastCheesePress = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.mayonnaise-machine"), config.FastMayonnaiseMachine, value => config.FastMayonnaiseMachine = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.loom"), config.FastLoom, value => config.FastLoom = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.oil-maker"), config.FastOilMaker, value => config.FastOilMaker = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.seed-maker"), config.FastSeedMaker, value => config.FastSeedMaker = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.charcoal-kiln"), config.FastCharcoalKiln, value => config.FastCharcoalKiln = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.slime-egg-press"), config.FastSlimeEggPress, value => config.FastSlimeEggPress = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.tapper"), config.FastTapper, value => config.FastTapper = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.lightning-rod"), config.FastLightningRod, value => config.FastLightningRod = value),
                         new CheatsOptionsCheckbox(i18n.Get("fast-machines.bee-house"), config.FastBeeHouse, value => config.FastBeeHouse = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.cask"), config.FastCask, value => config.FastCask = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.charcoal-kiln"), config.FastCharcoalKiln, value => config.FastCharcoalKiln = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.cheese-press"), config.FastCheesePress, value => config.FastCheesePress = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.crystalarium"), config.FastCrystalarium, value => config.FastCrystalarium = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.fruit-trees"), config.FastFruitTree, value => config.FastFruitTree = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.furnace"), config.FastFurnace, value => config.FastFurnace = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.incubator"), config.FastIncubator, value => config.FastIncubator = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.keg"), config.FastKeg, value => config.FastKeg = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.lightning-rod"), config.FastLightningRod, value => config.FastLightningRod = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.loom"), config.FastLoom, value => config.FastLoom = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.mayonnaise-machine"), config.FastMayonnaiseMachine, value => config.FastMayonnaiseMachine = value),
                         new CheatsOptionsCheckbox(i18n.Get("fast-machines.mushroom-box"), config.FastMushroomBox, value => config.FastMushroomBox = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.worm-bin"), config.FastWormBin, value => config.FastWormBin = value),
-                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.fruit-trees"), config.FastFruitTree, value => config.FastFruitTree = value)
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.oil-maker"), config.FastOilMaker, value => config.FastOilMaker = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.preserves-jar"), config.FastPreservesJar, value => config.FastPreservesJar = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.recycling-machine"), config.FastRecyclingMachine, value => config.FastRecyclingMachine = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.seed-maker"), config.FastSeedMaker, value => config.FastSeedMaker = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.slime-egg-press"), config.FastSlimeEggPress, value => config.FastSlimeEggPress = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.slime-incubator"), config.FastSlimeIncubator, value => config.FastSlimeIncubator = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.tapper"), config.FastTapper, value => config.FastTapper = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.wood-chipper"), config.FastWoodChipper, value => config.FastWoodChipper = value),
+                        new CheatsOptionsCheckbox(i18n.Get("fast-machines.worm-bin"), config.FastWormBin, value => config.FastWormBin = value)
                     );
                     break;
 
@@ -199,36 +204,36 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.increase-combat"), 204, slotWidth, config, cheats, i18n));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.reset"), 205, slotWidth, config, cheats, i18n));
                     this.Options.Add(new OptionsElement($"{i18n.Get("professions.title")}:"));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.fighter"), this.GetProfession(SFarmer.fighter), value => this.SetProfession(SFarmer.fighter, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.scout"), this.GetProfession(SFarmer.scout), value => this.SetProfession(SFarmer.scout, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.acrobat"), this.GetProfession(SFarmer.acrobat), value => this.SetProfession(SFarmer.acrobat, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.brute"), this.GetProfession(SFarmer.brute), value => this.SetProfession(SFarmer.brute, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.defender"), this.GetProfession(SFarmer.defender), value => this.SetProfession(SFarmer.defender, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.desperado"), this.GetProfession(SFarmer.desperado), value => this.SetProfession(SFarmer.desperado, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.rancher"), this.GetProfession(SFarmer.rancher), value => this.SetProfession(SFarmer.rancher, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.tiller"), this.GetProfession(SFarmer.tiller), value => this.SetProfession(SFarmer.tiller, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.agriculturist"), this.GetProfession(SFarmer.agriculturist), value => this.SetProfession(SFarmer.agriculturist, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.artisan"), this.GetProfession(SFarmer.artisan), value => this.SetProfession(SFarmer.artisan, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.coopmaster"), this.GetProfession(SFarmer.butcher), value => this.SetProfession(SFarmer.butcher, value))); // butcher = coopmaster
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.shepherd"), this.GetProfession(SFarmer.shepherd), value => this.SetProfession(SFarmer.shepherd, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.fisher"), this.GetProfession(SFarmer.fisher), value => this.SetProfession(SFarmer.fisher, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.trapper"), this.GetProfession(SFarmer.trapper), value => this.SetProfession(SFarmer.trapper, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.angler"), this.GetProfession(SFarmer.angler), value => this.SetProfession(SFarmer.angler, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.luremaster"), this.GetProfession(SFarmer.mariner), value => this.SetProfession(SFarmer.mariner, value))); // mariner = luremaster (???)
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.mariner"), this.GetProfession(SFarmer.baitmaster), value => this.SetProfession(SFarmer.baitmaster, value))); // baitmaster = mariner (???)
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.pirate"), this.GetProfession(SFarmer.pirate), value => this.SetProfession(SFarmer.pirate, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.forester"), this.GetProfession(SFarmer.forester), value => this.SetProfession(SFarmer.forester, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.gatherer"), this.GetProfession(SFarmer.gatherer), value => this.SetProfession(SFarmer.gatherer, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.botanist"), this.GetProfession(SFarmer.botanist), value => this.SetProfession(SFarmer.botanist, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.lumberjack"), this.GetProfession(SFarmer.lumberjack), value => this.SetProfession(SFarmer.lumberjack, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.tapper"), this.GetProfession(SFarmer.tapper), value => this.SetProfession(SFarmer.tapper, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.tracker"), this.GetProfession(SFarmer.tracker), value => this.SetProfession(SFarmer.tracker, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.geologist"), this.GetProfession(SFarmer.geologist), value => this.SetProfession(SFarmer.geologist, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.miner"), this.GetProfession(SFarmer.miner), value => this.SetProfession(SFarmer.miner, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.blacksmith"), this.GetProfession(SFarmer.blacksmith), value => this.SetProfession(SFarmer.blacksmith, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.excavator"), this.GetProfession(SFarmer.excavator), value => this.SetProfession(SFarmer.excavator, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.gemologist"), this.GetProfession(SFarmer.gemologist), value => this.SetProfession(SFarmer.gemologist, value)));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.prospector"), this.GetProfession(SFarmer.burrower), value => this.SetProfession(SFarmer.burrower, value))); // burrower = prospector
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.fighter"), this.GetProfession(Farmer.fighter), value => this.SetProfession(Farmer.fighter, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.scout"), this.GetProfession(Farmer.scout), value => this.SetProfession(Farmer.scout, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.acrobat"), this.GetProfession(Farmer.acrobat), value => this.SetProfession(Farmer.acrobat, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.brute"), this.GetProfession(Farmer.brute), value => this.SetProfession(Farmer.brute, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.defender"), this.GetProfession(Farmer.defender), value => this.SetProfession(Farmer.defender, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.desperado"), this.GetProfession(Farmer.desperado), value => this.SetProfession(Farmer.desperado, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.rancher"), this.GetProfession(Farmer.rancher), value => this.SetProfession(Farmer.rancher, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.tiller"), this.GetProfession(Farmer.tiller), value => this.SetProfession(Farmer.tiller, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.agriculturist"), this.GetProfession(Farmer.agriculturist), value => this.SetProfession(Farmer.agriculturist, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.artisan"), this.GetProfession(Farmer.artisan), value => this.SetProfession(Farmer.artisan, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.coopmaster"), this.GetProfession(Farmer.butcher), value => this.SetProfession(Farmer.butcher, value))); // butcher = coopmaster
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.farming.shepherd"), this.GetProfession(Farmer.shepherd), value => this.SetProfession(Farmer.shepherd, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.fisher"), this.GetProfession(Farmer.fisher), value => this.SetProfession(Farmer.fisher, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.trapper"), this.GetProfession(Farmer.trapper), value => this.SetProfession(Farmer.trapper, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.angler"), this.GetProfession(Farmer.angler), value => this.SetProfession(Farmer.angler, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.luremaster"), this.GetProfession(Farmer.mariner), value => this.SetProfession(Farmer.mariner, value))); // mariner = luremaster (???)
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.mariner"), this.GetProfession(Farmer.baitmaster), value => this.SetProfession(Farmer.baitmaster, value))); // baitmaster = mariner (???)
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.fishing.pirate"), this.GetProfession(Farmer.pirate), value => this.SetProfession(Farmer.pirate, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.forester"), this.GetProfession(Farmer.forester), value => this.SetProfession(Farmer.forester, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.gatherer"), this.GetProfession(Farmer.gatherer), value => this.SetProfession(Farmer.gatherer, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.botanist"), this.GetProfession(Farmer.botanist), value => this.SetProfession(Farmer.botanist, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.lumberjack"), this.GetProfession(Farmer.lumberjack), value => this.SetProfession(Farmer.lumberjack, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.tapper"), this.GetProfession(Farmer.tapper), value => this.SetProfession(Farmer.tapper, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.foraging.tracker"), this.GetProfession(Farmer.tracker), value => this.SetProfession(Farmer.tracker, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.geologist"), this.GetProfession(Farmer.geologist), value => this.SetProfession(Farmer.geologist, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.miner"), this.GetProfession(Farmer.miner), value => this.SetProfession(Farmer.miner, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.blacksmith"), this.GetProfession(Farmer.blacksmith), value => this.SetProfession(Farmer.blacksmith, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.excavator"), this.GetProfession(Farmer.excavator), value => this.SetProfession(Farmer.excavator, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.gemologist"), this.GetProfession(Farmer.gemologist), value => this.SetProfession(Farmer.gemologist, value)));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.mining.prospector"), this.GetProfession(Farmer.burrower), value => this.SetProfession(Farmer.burrower, value))); // burrower = prospector
                     break;
 
                 case MenuTab.Weather:
@@ -258,27 +263,17 @@ namespace CJBCheatsMenu.Framework
                 case MenuTab.WarpLocations:
                     this.Options.Add(new OptionsElement($"{i18n.Get("warp.title")}:"));
                     this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.farm"), slotWidth, this.WarpToFarm));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.pierre-shop"), slotWidth, () => this.Warp("Town", 43, 57)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.blacksmith"), slotWidth, () => this.Warp("Town", 94, 82)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.museum"), slotWidth, () => this.Warp("Town", 101, 90)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.saloon"), slotWidth, () => this.Warp("Town", 45, 71)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.community-center"), slotWidth, () => this.Warp("Town", 52, 20)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.carpenter"), slotWidth, () => this.Warp("Mountain", 12, 26)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.adventurers-guild"), slotWidth, () => this.Warp("Mountain", 76, 9)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.ranch"), slotWidth, () => this.Warp("Forest", 90, 16)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.mines"), slotWidth, () => this.Warp("Mine", 13, 10)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.willy-shop"), slotWidth, () => this.Warp("Beach", 30, 34)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.wizard-tower"), slotWidth, () => this.Warp("Forest", 5, 27)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.hats"), slotWidth, () => this.Warp("Forest", 34, 96)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.desert"), slotWidth, () => this.Warp("Desert", 18, 28)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.sandy-shop"), slotWidth, () => this.Warp("SandyHouse", 4, 8)));
+
+                    var sortedWarps = new List<OptionsElement>();
                     if (Game1.player.hasClubCard)
-                        this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.casino"), slotWidth, () => this.Warp("Club", 8, 11)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.quarry"), slotWidth, () => this.Warp("Mountain", 127, 12)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.new-beach"), slotWidth, () => this.Warp("Beach", 87, 26)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.secret-woods"), slotWidth, () => this.Warp("Woods", 58, 15)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.sewer"), slotWidth, () => this.Warp("Sewer", 3, 48)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.bathhouse"), slotWidth, () => this.Warp("Railroad", 10, 57)));
+                        sortedWarps.Add(new CheatsOptionsInputListener(i18n.Get("warp.casino"), slotWidth, () => this.Warp("Club", 8, 11)));
+                    foreach (ModDataWarp warp in this.Warps)
+                    {
+                        string displayText = i18n.Get(warp.DisplayText).Default(warp.DisplayText);
+                        sortedWarps.Add(new CheatsOptionsInputListener(displayText, slotWidth, () => this.Warp(warp.Location, (int)warp.Tile.X, (int)warp.Tile.Y)));
+                    }
+
+                    this.AddSortedOptions(this.Options, sortedWarps.ToArray());
                     break;
 
                 case MenuTab.Time:
@@ -328,6 +323,12 @@ namespace CJBCheatsMenu.Framework
                                 .ToArray()
                         );
 
+                        // unlocked content
+                        this.Options.Add(new OptionsElement($"{i18n.Get("flags.unlocked-content")}:"));
+                        this.AddSortedOptions(this.Options,
+                            new CheatsOptionsCheckbox(i18n.Get("flags.unlocked-content.dyes-and-tailoring"), this.HasEvent(992559), value => this.SetEvent(992559, value))
+                        );
+
                         // community center
                         this.Options.Add(new OptionsElement($"{i18n.Get("flags.community-center")}:"));
                         this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("flags.community-center.door-unlocked"), this.HasFlag("ccDoorUnlock"), value => this.SetFlag(value, "ccDoorUnlock")));
@@ -340,6 +341,7 @@ namespace CJBCheatsMenu.Framework
                             new CheatsOptionsCheckbox(this.GetJunimoRewardText("Pantry", "Pantry"), this.HasFlag("ccPantry"), value => this.SetCommunityCenterFlags(value, "ccPantry")),
                             new CheatsOptionsCheckbox(this.GetJunimoRewardText("Vault", "Vault"), this.HasFlag("ccVault"), value => this.SetCommunityCenterFlags(value, "ccVault"))
                         );
+                        this.Options.Add(new CheatsOptionsCheckbox(this.GetJunimoRewardText("AbandonedJojaMart"), this.HasFlag("ccMovieTheater"), value => this.SetCommunityCenterFlags(value, "ccMovieTheater")));
                     }
                     break;
 
@@ -486,6 +488,8 @@ namespace CJBCheatsMenu.Framework
                             communityCenter.areasComplete[pair.Value] = this.HasFlag(pair.Key);
                     }
                 }
+                if (this.HasFlag("ccMovieTheater") && Game1.getLocationFromName(nameof(AbandonedJojaMart)) is AbandonedJojaMart mart)
+                    mart.restoreAreaCutscene();
 
                 // log flag changes
                 bool added = logFlags[true].Any();
@@ -684,7 +688,7 @@ namespace CJBCheatsMenu.Framework
 
                 // open menu with new index
                 MenuTab tabID = this.GetTabID(this.Tabs[index]);
-                Game1.activeClickableMenu = new CheatsMenu(tabID, this.Config, this.Cheats, this.TranslationHelper, this.Monitor);
+                Game1.activeClickableMenu = new CheatsMenu(tabID, this.Config, this.Warps, this.Cheats, this.TranslationHelper, this.Monitor);
             }
         }
 
@@ -752,7 +756,7 @@ namespace CJBCheatsMenu.Framework
                 if (tab.bounds.Contains(x, y))
                 {
                     MenuTab tabID = this.GetTabID(tab);
-                    Game1.activeClickableMenu = new CheatsMenu(tabID, this.Config, this.Cheats, this.TranslationHelper, this.Monitor);
+                    Game1.activeClickableMenu = new CheatsMenu(tabID, this.Config, this.Warps, this.Cheats, this.TranslationHelper, this.Monitor);
                     break;
                 }
             }

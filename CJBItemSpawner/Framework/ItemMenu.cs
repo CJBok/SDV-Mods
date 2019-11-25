@@ -360,7 +360,13 @@ namespace CJBItemSpawner.Framework
 
             this.Poof?.draw(spriteBatch, true);
             if (this.HoverText != null && (this.HoveredItem == null || this.ItemsToGrabMenu == null))
-                IClickableMenu.drawHoverText(spriteBatch, this.HoverText, Game1.smallFont);
+            {
+                if (this.HoverAmount > 0)
+                    IClickableMenu.drawToolTip(spriteBatch, this.HoverText, "", null, true, -1, 0, -1, -1, null, this.HoverAmount);
+                else
+                    IClickableMenu.drawHoverText(spriteBatch, this.HoverText, Game1.smallFont);
+            }
+
             if (this.HoveredItem != null)
                 IClickableMenu.drawToolTip(spriteBatch, this.HoveredItem.getDescription(), this.HoveredItem.DisplayName, this.HoveredItem, this.HeldItem != null);
             else if (this.HoveredItem != null && this.ItemsToGrabMenu != null)
@@ -459,6 +465,7 @@ namespace CJBItemSpawner.Framework
                 case Ring _:
                 case Hat _:
                 case Boots _:
+                case Clothing _:
                     return MenuTab.ToolsAndEquipment;
 
                 case Furniture _:
