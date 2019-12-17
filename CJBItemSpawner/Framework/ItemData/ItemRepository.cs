@@ -72,7 +72,7 @@ namespace CJBItemSpawner.Framework.ItemData
                     yield return this.TryCreate(ItemType.Wallpaper, id, () => new Wallpaper(id) { Category = SObject.furnitureCategory });
 
                 // flooring
-                for (int id = 0; id < 40; id++)
+                for (int id = 0; id < 56; id++)
                     yield return this.TryCreate(ItemType.Flooring, id, () => new Wallpaper(id, isFloor: true) { Category = SObject.furnitureCategory });
 
                 // equipment
