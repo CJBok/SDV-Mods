@@ -82,8 +82,9 @@ namespace CJBItemSpawner.Framework.ItemData
                     yield return this.TryCreate(ItemType.Hat, id, () => new Hat(id));
                 foreach (int id in Game1.objectInformation.Keys)
                 {
-                    if (id >= Ring.ringLowerIndexRange && id <= Ring.ringUpperIndexRange)
+                    if (id >= Ring.ringLowerIndexRange && id <= Ring.ringUpperIndexRange || id == 811)
                         yield return this.TryCreate(ItemType.Ring, id, () => new Ring(id));
+                    
                 }
 
                 // weapons
@@ -121,7 +122,7 @@ namespace CJBItemSpawner.Framework.ItemData
                 {
                     if (id == 79)
                         continue; // secret note handled above
-                    if (id >= Ring.ringLowerIndexRange && id <= Ring.ringUpperIndexRange)
+                    if (id >= Ring.ringLowerIndexRange && id <= Ring.ringUpperIndexRange || id == 811)
                         continue; // handled separated
 
                     // spawn main item
