@@ -323,7 +323,7 @@ namespace CJBCheatsMenu.Framework
                         if (terrainFeature is HoeDirt dirt)
                         {
                             if (dirt.crop != null)
-                                dirt.crop.harvestMethod.Value = 1;
+                                dirt.crop.harvestMethod.Value = Crop.sickleHarvest;
                         }
                     }
                 }
