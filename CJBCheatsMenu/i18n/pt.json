@@ -63,7 +63,7 @@
     "fast-machines.slime-egg-press": "Prensa de gosmas",
     "fast-machines.slime-incubator": "Incubador de gosmas",
     "fast-machines.tapper": "Torneirinha",
-    "fast-machines.wood-chipper": "Wood Chipper", // TODO
+    "fast-machines.wood-chipper": "Picador de madeira",
     "fast-machines.worm-bin": "Cesto de minhocas",
 
     // 'Skills' tab
@@ -158,8 +158,8 @@
     "flags.unlocked": "Liberar áreas",
     "flags.unlocked.guild": "Guilda dos Aventureiros",
     "flags.unlocked.room": "Quarto: {{name}}",
-    "flags.unlocked-content": "Unlocked content", // TODO
-    "flags.unlocked-content.dyes-and-tailoring": "Dyes & tailoring", // TODO
+    "flags.unlocked-content": "Conteúdo desbloqueado",
+    "flags.unlocked-content.dyes-and-tailoring": "Corantes e alfaiataria",
     "flags.community-center": "Centro Comunitário",
     "flags.community-center.door-unlocked": "Destrancar porta",
     "flags.jojamart.membership": "Associar ao Mercado Joja",
