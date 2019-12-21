@@ -2,7 +2,7 @@
 
 # Release notes
 ## Upcoming release
-* Updated translations. Thanks to Redlnn (updated Chinese) and victrosantos (updated Portuguese and Spanish)!
+* Updated translations. Thanks to jahangmar (updated German), Redlnn (updated Chinese), and victrosantos (updated Portuguese and Spanish)!
 
 ## 1.21
 Released 26 November 2019 for SMAPI 3.0 or later. Updated by Pathoschild.
