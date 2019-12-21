@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Fixed spawning new flooring and rings (thanks to Mizzion!).
+* Fixed spawning custom rings added by mods.
 
 ## 1.11.5
 Released 26 November 2019 for SMAPI 3.0 or later. Updated by Pathoschild.
