@@ -43,7 +43,7 @@ namespace CJBItemSpawner.Framework.ItemData
         }
 
         /// <summary>Get all spawnable items.</summary>
-        [SuppressMessage("ReSharper", "AccessToModifiedClosure", Justification = "TryCreateItem invokes the lambda immediately.")]
+        [SuppressMessage("ReSharper", "AccessToModifiedClosure", Justification = "TryCreate invokes the lambda immediately.")]
         public IEnumerable<SearchableItem> GetAll()
         {
             IEnumerable<SearchableItem> GetAllRaw()
@@ -84,10 +84,10 @@ namespace CJBItemSpawner.Framework.ItemData
                 // weapons
                 foreach (int id in Game1.content.Load<Dictionary<int, string>>("Data\\weapons").Keys)
                 {
-                    Item weapon = (id >= 32 && id <= 34)
+                    yield return this.TryCreate(ItemType.Weapon, id, () => (id >= 32 && id <= 34)
                         ? (Item)new Slingshot(id)
-                        : new MeleeWeapon(id);
-                    yield return this.TryCreate(ItemType.Weapon, id, () => weapon);
+                        : new MeleeWeapon(id)
+                    );
                 }
 
                 // furniture
@@ -113,89 +113,91 @@ namespace CJBItemSpawner.Framework.ItemData
                     {
                         foreach (int secretNoteId in Game1.content.Load<Dictionary<int, string>>("Data\\SecretNotes").Keys)
                         {
-                            SObject note = new SObject(79, 1);
-                            note.name = $"{note.name} #{secretNoteId}";
-                            yield return this.TryCreate(ItemType.Object, this.CustomIDOffset + secretNoteId, () => note);
+                            yield return this.TryCreate(ItemType.Object, this.CustomIDOffset + secretNoteId, () =>
+                            {
+                                SObject note = new SObject(79, 1);
+                                note.name = $"{note.name} #{secretNoteId}";
+                                return note;
+                            });
                         }
                     }
 
                     // ring
-                    else if (id != 801 && fields?.Length >= 6 && fields[3] == "Ring")
+                    else if (id != 801 && fields?.Length >= 4 && fields[3] == "Ring") // 801 = wedding ring, which isn't an equippable ring
                         yield return this.TryCreate(ItemType.Ring, id, () => new Ring(id));
 
                     // item
                     else
                     {
-                        // main item
-                        SObject item = id == 812 // roe
-                            ? new ColoredObject(id, 1, Color.White)
-                            : new SObject(id, 1);
-                        yield return this.TryCreate(ItemType.Object, id, () => item);
+                        // spawn main item
+                        SObject item = null;
+                        yield return this.TryCreate(ItemType.Object, id, () =>
+                        {
+                            return item = (id == 812 // roe
+                                ? new ColoredObject(id, 1, Color.White)
+                                : new SObject(id, 1)
+                            );
+                        });
+                        if (item == null)
+                            continue;
 
                         // flavored items
                         switch (item.Category)
                         {
                             // fruit products
                             case SObject.FruitsCategory:
+                                // wine
+                                yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 2 + id, () => new SObject(348, 1)
                                 {
-                                    // wine
-                                    SObject wine = new SObject(348, 1)
-                                    {
-                                        Name = $"{item.Name} Wine",
-                                        Price = item.Price * 3
-                                    };
-                                    wine.preserve.Value = SObject.PreserveType.Wine;
-                                    wine.preservedParentSheetIndex.Value = item.ParentSheetIndex;
-                                    yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 2 + id, () => wine);
+                                    Name = $"{item.Name} Wine",
+                                    Price = item.Price * 3,
+                                    preserve = { SObject.PreserveType.Wine },
+                                    preservedParentSheetIndex = { item.ParentSheetIndex }
+                                });
 
-                                    // jelly
-                                    SObject jelly = new SObject(344, 1)
-                                    {
-                                        Name = $"{item.Name} Jelly",
-                                        Price = 50 + item.Price * 2
-                                    };
-                                    jelly.preserve.Value = SObject.PreserveType.Jelly;
-                                    jelly.preservedParentSheetIndex.Value = item.ParentSheetIndex;
-                                    yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 3 + id, () => jelly);
-                                }
+                                // jelly
+                                yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 3 + id, () => new SObject(344, 1)
+                                {
+                                    Name = $"{item.Name} Jelly",
+                                    Price = 50 + item.Price * 2,
+                                    preserve = { SObject.PreserveType.Jelly },
+                                    preservedParentSheetIndex = { item.ParentSheetIndex }
+                                });
                                 break;
 
                             // vegetable products
                             case SObject.VegetableCategory:
+                                // juice
+                                yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 4 + id, () => new SObject(350, 1)
                                 {
-                                    // juice
-                                    SObject juice = new SObject(350, 1)
-                                    {
-                                        Name = $"{item.Name} Juice",
-                                        Price = (int)(item.Price * 2.25d)
-                                    };
-                                    juice.preserve.Value = SObject.PreserveType.Juice;
-                                    juice.preservedParentSheetIndex.Value = item.ParentSheetIndex;
-                                    yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 4 + id, () => juice);
+                                    Name = $"{item.Name} Juice",
+                                    Price = (int)(item.Price * 2.25d),
+                                    preserve = { SObject.PreserveType.Juice },
+                                    preservedParentSheetIndex = { item.ParentSheetIndex }
+                                });
 
-                                    // pickled
-                                    SObject pickled = new SObject(342, 1)
-                                    {
-                                        Name = $"Pickled {item.Name}",
-                                        Price = 50 + item.Price * 2
-                                    };
-                                    pickled.preserve.Value = SObject.PreserveType.Pickle;
-                                    pickled.preservedParentSheetIndex.Value = item.ParentSheetIndex;
-                                    yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 5 + id, () => pickled);
-                                }
+                                // pickled
+                                yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 5 + id, () => new SObject(342, 1)
+                                {
+                                    Name = $"Pickled {item.Name}",
+                                    Price = 50 + item.Price * 2,
+                                    preserve = { SObject.PreserveType.Pickle },
+                                    preservedParentSheetIndex = { item.ParentSheetIndex }
+                                });
                                 break;
 
                             // flower honey
                             case SObject.flowersCategory:
+                                yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 5 + id, () =>
                                 {
-                                    SObject honey = new SObject(Vector2.Zero, 340, item.Name + " Honey", false, true, false, false)
+                                    SObject honey = new SObject(Vector2.Zero, 340, $"{item.Name} Honey", false, true, false, false)
                                     {
                                         Name = $"{item.Name} Honey",
                                         preservedParentSheetIndex = { item.ParentSheetIndex }
                                     };
                                     honey.Price += item.Price * 2;
-                                    yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 6 + id, () => honey);
-                                }
+                                    return honey;
+                                });
                                 break;
 
                             // roe and aged roe (derived from FishPond.GetFishProduce)
@@ -203,34 +205,36 @@ namespace CJBItemSpawner.Framework.ItemData
                                 foreach (var pair in Game1.objectInformation)
                                 {
                                     // get input
-                                    SObject input = new SObject(pair.Key, 1);
-                                    if (input.Category != SObject.FishCategory)
+                                    SObject input = this.TryCreate(ItemType.Object, -1, () => new SObject(pair.Key, 1))?.Item as SObject;
+                                    if (input == null || input.Category != SObject.FishCategory)
                                         continue;
                                     Color color = TailoringMenu.GetDyeColor(input) ?? Color.Orange;
 
                                     // yield roe
-                                    SObject roe = new ColoredObject(812, 1, color)
+                                    SObject roe = null;
+                                    yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 7 + id, () =>
                                     {
-                                        name = $"{input.Name} Roe",
-                                        preserve = { Value = SObject.PreserveType.Roe },
-                                        preservedParentSheetIndex = { Value = input.ParentSheetIndex }
-                                    };
-                                    roe.Price += input.Price / 2;
-                                    yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 6 + 1, () => roe);
+                                        roe = new ColoredObject(812, 1, color)
+                                        {
+                                            name = $"{input.Name} Roe",
+                                            preserve = { Value = SObject.PreserveType.Roe },
+                                            preservedParentSheetIndex = { Value = input.ParentSheetIndex }
+                                        };
+                                        roe.Price += input.Price / 2;
+                                        return roe;
+                                    });
 
                                     // aged roe
-                                    if (pair.Key != 698) // aged sturgeon roe is caviar, which is a separate item
+                                    if (roe != null && pair.Key != 698) // aged sturgeon roe is caviar, which is a separate item
                                     {
-                                        yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 6 + 1, () =>
-                                            new ColoredObject(447, 1, color)
-                                            {
-                                                name = $"Aged {input.Name} Roe",
-                                                Category = -27,
-                                                preserve = { Value = SObject.PreserveType.AgedRoe },
-                                                preservedParentSheetIndex = { Value = input.ParentSheetIndex },
-                                                Price = roe.Price * 2
-                                            }
-                                        );
+                                        yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 7 + id, () => new ColoredObject(447, 1, color)
+                                        {
+                                            name = $"Aged {input.Name} Roe",
+                                            Category = -27,
+                                            preserve = { Value = SObject.PreserveType.AgedRoe },
+                                            preservedParentSheetIndex = { Value = input.ParentSheetIndex },
+                                            Price = roe.Price * 2
+                                        });
                                     }
                                 }
                                 break;
@@ -258,7 +262,7 @@ namespace CJBItemSpawner.Framework.ItemData
             }
             catch
             {
-                return null; // if some item data is invalid, just don't show it in the item spawner
+                return null; // if some item data is invalid, just don't include it
             }
         }
     }
