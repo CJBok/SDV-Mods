@@ -77,18 +77,19 @@ namespace CJBCheatsMenu.Framework
         {
             foreach (GameLocation location in CJB.GetAllLocations())
             {
-                if (!location.IsFarm && !location.IsGreenhouse)
-                    continue;
-
-                foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
+                if (location.IsFarm || location.IsGreenhouse)
                 {
-                    if (terrainFeature is HoeDirt dirt)
-                        dirt.state.Value = HoeDirt.watered;
+                    foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
+                    {
+                        if (terrainFeature is HoeDirt dirt)
+                            dirt.state.Value = HoeDirt.watered;
+                    }
                 }
 
                 foreach (IndoorPot pot in location.objects.Values.OfType<IndoorPot>())
                 {
-                    if (pot.hoeDirt.Value is HoeDirt dirt)
+                    HoeDirt dirt = pot.hoeDirt.Value;
+                    if (dirt != null)
                     {
                         dirt.state.Value = HoeDirt.watered;
                         pot.showNextIndex.Value = true;

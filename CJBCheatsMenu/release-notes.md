@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* The 'water all fields' cheat now works for indoor pots in any location.
 * Updated translations. Thanks to jahangmar (updated German), Redlnn (updated Chinese), and victrosantos (updated Portuguese and Spanish)!
 
 ## 1.21
