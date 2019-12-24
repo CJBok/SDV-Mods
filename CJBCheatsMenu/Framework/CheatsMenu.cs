@@ -116,6 +116,197 @@ namespace CJBCheatsMenu.Framework
             this.SetOptions();
         }
 
+        public override void leftClickHeld(int x, int y)
+        {
+            if (GameMenu.forcePreventClose)
+                return;
+            base.leftClickHeld(x, y);
+            if (this.IsScrolling)
+            {
+                int num = this.Scrollbar.bounds.Y;
+                this.Scrollbar.bounds.Y = Math.Min(this.yPositionOnScreen + this.height - Game1.tileSize - Game1.pixelZoom * 3 - this.Scrollbar.bounds.Height, Math.Max(y, this.yPositionOnScreen + this.UpArrow.bounds.Height + Game1.pixelZoom * 5));
+                this.CurrentItemIndex = Math.Min(this.Options.Count - CheatsMenu.ItemsPerPage, Math.Max(0, (int)(this.Options.Count * (double)((y - this.ScrollbarRunner.Y) / (float)this.ScrollbarRunner.Height))));
+                this.SetScrollBarToCurrentIndex();
+                if (num == this.Scrollbar.bounds.Y)
+                    return;
+                Game1.soundBank.PlayCue("shiny4");
+            }
+            else
+            {
+                if (this.OptionsSlotHeld == -1 || this.OptionsSlotHeld + this.CurrentItemIndex >= this.Options.Count)
+                    return;
+                this.Options[this.CurrentItemIndex + this.OptionsSlotHeld].leftClickHeld(x - this.OptionSlots[this.OptionsSlotHeld].bounds.X, y - this.OptionSlots[this.OptionsSlotHeld].bounds.Y);
+            }
+        }
+
+        public override void receiveKeyPress(Keys key)
+        {
+            bool isExitKey = Game1.options.menuButton.Contains(new InputButton(key)) || (this.Config.OpenMenuKey.TryGetKeyboard(out Keys exitKey) && key == exitKey);
+            if (isExitKey && this.readyToClose() && this.CanClose && !GameMenu.forcePreventClose)
+            {
+                Game1.exitActiveMenu();
+                Game1.soundBank.PlayCue("bigDeSelect");
+                return;
+            }
+
+            this.CanClose = true;
+
+            if (this.OptionsSlotHeld == -1 || this.OptionsSlotHeld + this.CurrentItemIndex >= this.Options.Count)
+                return;
+            this.Options[this.CurrentItemIndex + this.OptionsSlotHeld].receiveKeyPress(key);
+        }
+
+        public override void receiveGamePadButton(Buttons key)
+        {
+            if (key == Buttons.LeftShoulder || key == Buttons.RightShoulder)
+            {
+                // rotate tab index
+                int index = this.Tabs.FindIndex(p => p.name == this.CurrentTab.ToString());
+                if (key == Buttons.LeftShoulder)
+                    index--;
+                if (key == Buttons.RightShoulder)
+                    index++;
+
+                if (index >= this.Tabs.Count)
+                    index = 0;
+                if (index < 0)
+                    index = this.Tabs.Count - 1;
+
+                // open menu with new index
+                MenuTab tabID = this.GetTabID(this.Tabs[index]);
+                Game1.activeClickableMenu = new CheatsMenu(tabID, this.Config, this.Warps, this.Cheats, this.TranslationHelper, this.Monitor);
+            }
+        }
+
+        public override void receiveScrollWheelAction(int direction)
+        {
+            if (GameMenu.forcePreventClose)
+                return;
+            base.receiveScrollWheelAction(direction);
+            if (direction > 0 && this.CurrentItemIndex > 0)
+                this.UpArrowPressed();
+            else
+            {
+                if (direction >= 0 || this.CurrentItemIndex >= Math.Max(0, this.Options.Count - CheatsMenu.ItemsPerPage))
+                    return;
+                this.DownArrowPressed();
+            }
+        }
+
+        public override void releaseLeftClick(int x, int y)
+        {
+            if (GameMenu.forcePreventClose)
+                return;
+            base.releaseLeftClick(x, y);
+            if (this.OptionsSlotHeld != -1 && this.OptionsSlotHeld + this.CurrentItemIndex < this.Options.Count)
+                this.Options[this.CurrentItemIndex + this.OptionsSlotHeld].leftClickReleased(x - this.OptionSlots[this.OptionsSlotHeld].bounds.X, y - this.OptionSlots[this.OptionsSlotHeld].bounds.Y);
+            this.OptionsSlotHeld = -1;
+            this.IsScrolling = false;
+        }
+
+        /// <summary>The method invoked when the player clicks the left mouse button.</summary>
+        /// <param name="x">The X-position of the cursor.</param>
+        /// <param name="y">The Y-position of the cursor.</param>
+        public override void receiveLeftClick(int x, int y, bool playSound = true)
+        {
+            if (GameMenu.forcePreventClose)
+                return;
+            if (this.DownArrow.containsPoint(x, y) && this.CurrentItemIndex < Math.Max(0, this.Options.Count - CheatsMenu.ItemsPerPage))
+            {
+                this.DownArrowPressed();
+                Game1.soundBank.PlayCue("shwip");
+            }
+            else if (this.UpArrow.containsPoint(x, y) && this.CurrentItemIndex > 0)
+            {
+                this.UpArrowPressed();
+                Game1.soundBank.PlayCue("shwip");
+            }
+            else if (this.Scrollbar.containsPoint(x, y))
+                this.IsScrolling = true;
+            else if (!this.DownArrow.containsPoint(x, y) && x > this.xPositionOnScreen + this.width && (x < this.xPositionOnScreen + this.width + Game1.tileSize * 2 && y > this.yPositionOnScreen) && y < this.yPositionOnScreen + this.height)
+            {
+                this.IsScrolling = true;
+                this.leftClickHeld(x, y);
+                this.releaseLeftClick(x, y);
+            }
+            this.CurrentItemIndex = Math.Max(0, Math.Min(this.Options.Count - CheatsMenu.ItemsPerPage, this.CurrentItemIndex));
+            for (int index = 0; index < this.OptionSlots.Count; ++index)
+            {
+                if (this.OptionSlots[index].bounds.Contains(x, y) && this.CurrentItemIndex + index < this.Options.Count && this.Options[this.CurrentItemIndex + index].bounds.Contains(x - this.OptionSlots[index].bounds.X, y - this.OptionSlots[index].bounds.Y - 5))
+                {
+                    this.Options[this.CurrentItemIndex + index].receiveLeftClick(x - this.OptionSlots[index].bounds.X, y - this.OptionSlots[index].bounds.Y + 5);
+                    this.OptionsSlotHeld = index;
+                    break;
+                }
+            }
+
+            foreach (var tab in this.Tabs)
+            {
+                if (tab.bounds.Contains(x, y))
+                {
+                    MenuTab tabID = this.GetTabID(tab);
+                    Game1.activeClickableMenu = new CheatsMenu(tabID, this.Config, this.Warps, this.Cheats, this.TranslationHelper, this.Monitor);
+                    break;
+                }
+            }
+        }
+
+        public override void performHoverAction(int x, int y)
+        {
+            if (GameMenu.forcePreventClose)
+                return;
+            this.HoverText = "";
+            this.UpArrow.tryHover(x, y);
+            this.DownArrow.tryHover(x, y);
+            this.Scrollbar.tryHover(x, y);
+        }
+
+        /// <summary>Draw the menu to the screen.</summary>
+        /// <param name="spriteBatch">The sprite batch being drawn.</param>
+        public override void draw(SpriteBatch spriteBatch)
+        {
+            if (!Game1.options.showMenuBackground)
+                spriteBatch.Draw(Game1.fadeToBlackRect, Game1.graphics.GraphicsDevice.Viewport.Bounds, Color.Black * 0.4f);
+
+            Game1.drawDialogueBox(this.xPositionOnScreen, this.yPositionOnScreen, this.width, this.height, false, true);
+            CJB.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.dialogueFont, this.Title.name, 1);
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null);
+            for (int index = 0; index < this.OptionSlots.Count; ++index)
+            {
+                if (this.CurrentItemIndex >= 0 && this.CurrentItemIndex + index < this.Options.Count)
+                    this.Options[this.CurrentItemIndex + index].draw(spriteBatch, this.OptionSlots[index].bounds.X, this.OptionSlots[index].bounds.Y + 5);
+            }
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
+            if (!GameMenu.forcePreventClose)
+            {
+
+                foreach (ClickableComponent tab in this.Tabs)
+                {
+                    MenuTab tabID = this.GetTabID(tab);
+                    CJB.DrawTextBox(tab.bounds.X + tab.bounds.Width, tab.bounds.Y, Game1.smallFont, tab.label, 2, this.CurrentTab == tabID ? 1F : 0.7F);
+                }
+
+                this.UpArrow.draw(spriteBatch);
+                this.DownArrow.draw(spriteBatch);
+                if (this.Options.Count > CheatsMenu.ItemsPerPage)
+                {
+                    IClickableMenu.drawTextureBox(spriteBatch, Game1.mouseCursors, new Rectangle(403, 383, 6, 6), this.ScrollbarRunner.X, this.ScrollbarRunner.Y, this.ScrollbarRunner.Width, this.ScrollbarRunner.Height, Color.White, Game1.pixelZoom, false);
+                    this.Scrollbar.draw(spriteBatch);
+                }
+            }
+            if (this.HoverText != "")
+                IClickableMenu.drawHoverText(spriteBatch, this.HoverText, Game1.smallFont);
+
+            if (!Game1.options.hardwareCursor)
+                spriteBatch.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, Game1.options.gamepadControls ? 44 : 0, 16, 16), Color.White, 0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
+        }
+
+
+        /*********
+        ** Private methods
+        *********/
         /// <summary>Set the options to display.</summary>
         private void SetOptions()
         {
@@ -407,7 +598,7 @@ namespace CJBCheatsMenu.Framework
 
         /// <summary>Get whether the player has the given mail flag.</summary>
         /// <param name="flag">The mail flag to check.</param>
-        public bool HasFlag(string flag)
+        private bool HasFlag(string flag)
         {
             return Game1.player.mailReceived.Contains(flag);
         }
@@ -417,7 +608,7 @@ namespace CJBCheatsMenu.Framework
         /// <param name="flag">The mail flag to set.</param>
         /// <param name="log">Whether to log the flag change.</param>
         /// <returns>Returns whether the flag changed.</returns>
-        public bool SetFlag(bool enable, string flag, bool log = true)
+        private bool SetFlag(bool enable, string flag, bool log = true)
         {
             bool changed = false;
             if (enable)
@@ -440,7 +631,7 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Set whether the player has the given mail flag, and automatically fix issues related to community center flag changes.</summary>
         /// <param name="enable">Whether to add the flag, as opposed to removing it.</param>
         /// <param name="flags">The mail flags to set.</param>
-        public void SetCommunityCenterFlags(bool enable, params string[] flags)
+        private void SetCommunityCenterFlags(bool enable, params string[] flags)
         {
             // track changes
             IDictionary<bool, HashSet<string>> logFlags = new Dictionary<bool, HashSet<string>>
@@ -509,7 +700,7 @@ namespace CJBCheatsMenu.Framework
 
         /// <summary>Get whether the player has seen the given event.</summary>
         /// <param name="id">The event ID to check.</param>
-        public bool HasEvent(int id)
+        private bool HasEvent(int id)
         {
             return Game1.player.eventsSeen.Contains(id);
         }
@@ -517,7 +708,7 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Set whether the player has seen the given event.</summary>
         /// <param name="id">The event to set.</param>
         /// <param name="enable">Whether to add the event, as opposed to removing it.</param>
-        public void SetEvent(int id, bool enable)
+        private void SetEvent(int id, bool enable)
         {
             if (enable)
             {
@@ -696,199 +887,6 @@ namespace CJBCheatsMenu.Framework
             this.Scrollbar.bounds.Y = this.DownArrow.bounds.Y - this.Scrollbar.bounds.Height - Game1.pixelZoom;
         }
 
-        public override void leftClickHeld(int x, int y)
-        {
-            if (GameMenu.forcePreventClose)
-                return;
-            base.leftClickHeld(x, y);
-            if (this.IsScrolling)
-            {
-                int num = this.Scrollbar.bounds.Y;
-                this.Scrollbar.bounds.Y = Math.Min(this.yPositionOnScreen + this.height - Game1.tileSize - Game1.pixelZoom * 3 - this.Scrollbar.bounds.Height, Math.Max(y, this.yPositionOnScreen + this.UpArrow.bounds.Height + Game1.pixelZoom * 5));
-                this.CurrentItemIndex = Math.Min(this.Options.Count - CheatsMenu.ItemsPerPage, Math.Max(0, (int)(this.Options.Count * (double)((y - this.ScrollbarRunner.Y) / (float)this.ScrollbarRunner.Height))));
-                this.SetScrollBarToCurrentIndex();
-                if (num == this.Scrollbar.bounds.Y)
-                    return;
-                Game1.soundBank.PlayCue("shiny4");
-            }
-            else
-            {
-                if (this.OptionsSlotHeld == -1 || this.OptionsSlotHeld + this.CurrentItemIndex >= this.Options.Count)
-                    return;
-                this.Options[this.CurrentItemIndex + this.OptionsSlotHeld].leftClickHeld(x - this.OptionSlots[this.OptionsSlotHeld].bounds.X, y - this.OptionSlots[this.OptionsSlotHeld].bounds.Y);
-            }
-        }
-
-        public override void receiveKeyPress(Keys key)
-        {
-            bool isExitKey = Game1.options.menuButton.Contains(new InputButton(key)) || (this.Config.OpenMenuKey.TryGetKeyboard(out Keys exitKey) && key == exitKey);
-            if (isExitKey && this.readyToClose() && this.CanClose && !GameMenu.forcePreventClose)
-            {
-                Game1.exitActiveMenu();
-                Game1.soundBank.PlayCue("bigDeSelect");
-                return;
-            }
-
-            this.CanClose = true;
-
-            if (this.OptionsSlotHeld == -1 || this.OptionsSlotHeld + this.CurrentItemIndex >= this.Options.Count)
-                return;
-            this.Options[this.CurrentItemIndex + this.OptionsSlotHeld].receiveKeyPress(key);
-        }
-
-        public override void receiveGamePadButton(Buttons key)
-        {
-            if (key == Buttons.LeftShoulder || key == Buttons.RightShoulder)
-            {
-                // rotate tab index
-                int index = this.Tabs.FindIndex(p => p.name == this.CurrentTab.ToString());
-                if (key == Buttons.LeftShoulder)
-                    index--;
-                if (key == Buttons.RightShoulder)
-                    index++;
-
-                if (index >= this.Tabs.Count)
-                    index = 0;
-                if (index < 0)
-                    index = this.Tabs.Count - 1;
-
-                // open menu with new index
-                MenuTab tabID = this.GetTabID(this.Tabs[index]);
-                Game1.activeClickableMenu = new CheatsMenu(tabID, this.Config, this.Warps, this.Cheats, this.TranslationHelper, this.Monitor);
-            }
-        }
-
-        public override void receiveScrollWheelAction(int direction)
-        {
-            if (GameMenu.forcePreventClose)
-                return;
-            base.receiveScrollWheelAction(direction);
-            if (direction > 0 && this.CurrentItemIndex > 0)
-                this.UpArrowPressed();
-            else
-            {
-                if (direction >= 0 || this.CurrentItemIndex >= Math.Max(0, this.Options.Count - CheatsMenu.ItemsPerPage))
-                    return;
-                this.DownArrowPressed();
-            }
-        }
-
-        public override void releaseLeftClick(int x, int y)
-        {
-            if (GameMenu.forcePreventClose)
-                return;
-            base.releaseLeftClick(x, y);
-            if (this.OptionsSlotHeld != -1 && this.OptionsSlotHeld + this.CurrentItemIndex < this.Options.Count)
-                this.Options[this.CurrentItemIndex + this.OptionsSlotHeld].leftClickReleased(x - this.OptionSlots[this.OptionsSlotHeld].bounds.X, y - this.OptionSlots[this.OptionsSlotHeld].bounds.Y);
-            this.OptionsSlotHeld = -1;
-            this.IsScrolling = false;
-        }
-
-        /// <summary>The method invoked when the player clicks the left mouse button.</summary>
-        /// <param name="x">The X-position of the cursor.</param>
-        /// <param name="y">The Y-position of the cursor.</param>
-        public override void receiveLeftClick(int x, int y, bool playSound = true)
-        {
-            if (GameMenu.forcePreventClose)
-                return;
-            if (this.DownArrow.containsPoint(x, y) && this.CurrentItemIndex < Math.Max(0, this.Options.Count - CheatsMenu.ItemsPerPage))
-            {
-                this.DownArrowPressed();
-                Game1.soundBank.PlayCue("shwip");
-            }
-            else if (this.UpArrow.containsPoint(x, y) && this.CurrentItemIndex > 0)
-            {
-                this.UpArrowPressed();
-                Game1.soundBank.PlayCue("shwip");
-            }
-            else if (this.Scrollbar.containsPoint(x, y))
-                this.IsScrolling = true;
-            else if (!this.DownArrow.containsPoint(x, y) && x > this.xPositionOnScreen + this.width && (x < this.xPositionOnScreen + this.width + Game1.tileSize * 2 && y > this.yPositionOnScreen) && y < this.yPositionOnScreen + this.height)
-            {
-                this.IsScrolling = true;
-                this.leftClickHeld(x, y);
-                this.releaseLeftClick(x, y);
-            }
-            this.CurrentItemIndex = Math.Max(0, Math.Min(this.Options.Count - CheatsMenu.ItemsPerPage, this.CurrentItemIndex));
-            for (int index = 0; index < this.OptionSlots.Count; ++index)
-            {
-                if (this.OptionSlots[index].bounds.Contains(x, y) && this.CurrentItemIndex + index < this.Options.Count && this.Options[this.CurrentItemIndex + index].bounds.Contains(x - this.OptionSlots[index].bounds.X, y - this.OptionSlots[index].bounds.Y - 5))
-                {
-                    this.Options[this.CurrentItemIndex + index].receiveLeftClick(x - this.OptionSlots[index].bounds.X, y - this.OptionSlots[index].bounds.Y + 5);
-                    this.OptionsSlotHeld = index;
-                    break;
-                }
-            }
-
-            foreach (var tab in this.Tabs)
-            {
-                if (tab.bounds.Contains(x, y))
-                {
-                    MenuTab tabID = this.GetTabID(tab);
-                    Game1.activeClickableMenu = new CheatsMenu(tabID, this.Config, this.Warps, this.Cheats, this.TranslationHelper, this.Monitor);
-                    break;
-                }
-            }
-        }
-
-        public override void receiveRightClick(int x, int y, bool playSound = true) { }
-
-        public override void performHoverAction(int x, int y)
-        {
-            if (GameMenu.forcePreventClose)
-                return;
-            this.HoverText = "";
-            this.UpArrow.tryHover(x, y);
-            this.DownArrow.tryHover(x, y);
-            this.Scrollbar.tryHover(x, y);
-        }
-
-        /// <summary>Draw the menu to the screen.</summary>
-        /// <param name="spriteBatch">The sprite batch being drawn.</param>
-        public override void draw(SpriteBatch spriteBatch)
-        {
-            if (!Game1.options.showMenuBackground)
-                spriteBatch.Draw(Game1.fadeToBlackRect, Game1.graphics.GraphicsDevice.Viewport.Bounds, Color.Black * 0.4f);
-
-            Game1.drawDialogueBox(this.xPositionOnScreen, this.yPositionOnScreen, this.width, this.height, false, true);
-            CJB.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.dialogueFont, this.Title.name, 1);
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null);
-            for (int index = 0; index < this.OptionSlots.Count; ++index)
-            {
-                if (this.CurrentItemIndex >= 0 && this.CurrentItemIndex + index < this.Options.Count)
-                    this.Options[this.CurrentItemIndex + index].draw(spriteBatch, this.OptionSlots[index].bounds.X, this.OptionSlots[index].bounds.Y + 5);
-            }
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
-            if (!GameMenu.forcePreventClose)
-            {
-
-                foreach (ClickableComponent tab in this.Tabs)
-                {
-                    MenuTab tabID = this.GetTabID(tab);
-                    CJB.DrawTextBox(tab.bounds.X + tab.bounds.Width, tab.bounds.Y, Game1.smallFont, tab.label, 2, this.CurrentTab == tabID ? 1F : 0.7F);
-                }
-
-                this.UpArrow.draw(spriteBatch);
-                this.DownArrow.draw(spriteBatch);
-                if (this.Options.Count > CheatsMenu.ItemsPerPage)
-                {
-                    IClickableMenu.drawTextureBox(spriteBatch, Game1.mouseCursors, new Rectangle(403, 383, 6, 6), this.ScrollbarRunner.X, this.ScrollbarRunner.Y, this.ScrollbarRunner.Width, this.ScrollbarRunner.Height, Color.White, Game1.pixelZoom, false);
-                    this.Scrollbar.draw(spriteBatch);
-                }
-            }
-            if (this.HoverText != "")
-                IClickableMenu.drawHoverText(spriteBatch, this.HoverText, Game1.smallFont);
-
-            if (!Game1.options.hardwareCursor)
-                spriteBatch.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, Game1.options.gamepadControls ? 44 : 0, 16, 16), Color.White, 0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
-        }
-
-
-        /*********
-        ** Private methods
-        *********/
         private void DownArrowPressed()
         {
             this.DownArrow.scale = this.DownArrow.baseScale;
