@@ -825,15 +825,36 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Toggle a player profession.</summary>
         /// <param name="id">The profession ID.</param>
         /// <param name="enable">Whether to enable the profession (else disable).</param>
+        /// <remarks>Derived from <see cref="LevelUpMenu.getImmediateProfessionPerk"/>.</remarks>
         private void SetProfession(int id, bool enable)
         {
+            // skip if done
+            if (enable == this.GetProfession(id))
+                return;
+
+            // get health bonus for profession
+            int healthBonus = id switch
+            {
+                Farmer.fighter => 15,
+                Farmer.defender => 25,
+                _ => 0
+            };
+
+            // apply
+            Farmer player = Game1.player;
             if (enable)
             {
-                if (!this.GetProfession(id))
-                    Game1.player.professions.Add(id);
+                player.maxHealth += healthBonus;
+                player.health += healthBonus;
+                player.professions.Add(id);
             }
             else
-                Game1.player.professions.Remove(id);
+            {
+                player.health -= healthBonus;
+                player.maxHealth -= healthBonus;
+                player.professions.Remove(id);
+            }
+            LevelUpMenu.RevalidateHealth(player);
         }
 
         /// <summary>Warp the player to the farm.</summary>

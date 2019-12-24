@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Fixed health bonuses not applied when changing professions.
 * Fixed spawning new flooring and rings (thanks to Mizzion!).
 * Fixed spawning custom rings added by mods.
 * Fixed errors when some item data is invalid.
