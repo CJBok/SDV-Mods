@@ -122,6 +122,7 @@ namespace CJBCheatsMenu.Framework
             ITranslationHelper i18n = this.TranslationHelper;
             ModConfig config = this.Config;
             Cheats cheats = this.Cheats;
+            Farmer player = Game1.player;
 
             int slotWidth = this.OptionSlots[0].bounds.Width;
             this.Options.Clear();
@@ -142,20 +143,17 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("tools.harvest-with-scythe"), config.HarvestScythe, value => config.HarvestScythe = value));
 
                     this.Options.Add(new OptionsElement($"{i18n.Get("money.title")}:"));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("money.add-amount", new { amount = 100 }), 2, slotWidth, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("money.add-amount", new { amount = 1000 }), 3, slotWidth, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("money.add-amount", new { amount = 10000 }), 4, slotWidth, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("money.add-amount", new { amount = 100000 }), 5, slotWidth, config, cheats, i18n));
+                    foreach (int amount in new[] { 100, 1000, 10000, 100000 })
+                        this.Options.Add(new CheatsOptionsButton(i18n.Get("money.add-amount", new { amount }), slotWidth, () => this.AddMoney(amount)));
 
                     this.Options.Add(new OptionsElement($"{i18n.Get("casino-coins.title")}:"));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("casino-coins.add-amount", new { amount = 100 }), 6, slotWidth, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("casino-coins.add-amount", new { amount = 1000 }), 7, slotWidth, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("casino-coins.add-amount", new { amount = 10000 }), 8, slotWidth, config, cheats, i18n));
+                    foreach (int amount in new[] { 100, 1000, 10000 })
+                        this.Options.Add(new CheatsOptionsButton(i18n.Get("casino-coins.add-amount", new { amount }), slotWidth, () => this.AddClubCoins(amount)));
                     break;
 
                 case MenuTab.FarmAndFishing:
                     this.Options.Add(new OptionsElement($"{i18n.Get("farm.title")}:"));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("farm.water-all-fields"), 9, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsButton(i18n.Get("farm.water-all-fields"), slotWidth, this.WaterAllFields));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("farm.durable-fences"), config.DurableFences, value => config.DurableFences = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("farm.instant-build"), config.InstantBuild, value => config.InstantBuild = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("farm.always-auto-feed"), config.AutoFeed, value => config.AutoFeed = value));
@@ -197,12 +195,12 @@ namespace CJBCheatsMenu.Framework
 
                 case MenuTab.Skills:
                     this.Options.Add(new OptionsElement($"{i18n.Get("skills.title")}:"));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.increase-farming"), 200, slotWidth, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.increase-mining"), 201, slotWidth, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.increase-foraging"), 202, slotWidth, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.increase-fishing"), 203, slotWidth, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.increase-combat"), 204, slotWidth, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("skills.reset"), 205, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsButton(i18n.Get("skills.increase-farming", new { currentLevel = player.FarmingLevel }), slotWidth, () => this.IncreaseSkill(Farmer.farmingSkill), disabled: player.FarmingLevel >= 10));
+                    this.Options.Add(new CheatsOptionsButton(i18n.Get("skills.increase-mining", new { currentLevel = player.MiningLevel }), slotWidth, () => this.IncreaseSkill(Farmer.miningSkill), disabled: player.MiningLevel >= 10));
+                    this.Options.Add(new CheatsOptionsButton(i18n.Get("skills.increase-foraging", new { currentLevel = player.ForagingLevel }), slotWidth, () => this.IncreaseSkill(Farmer.foragingSkill), disabled: player.ForagingLevel >= 10));
+                    this.Options.Add(new CheatsOptionsButton(i18n.Get("skills.increase-fishing", new { currentLevel = player.FishingLevel }), slotWidth, () => this.IncreaseSkill(Farmer.fishingSkill), disabled: player.FishingLevel >= 10));
+                    this.Options.Add(new CheatsOptionsButton(i18n.Get("skills.increase-combat", new { currentLevel = player.CombatLevel }), slotWidth, () => this.IncreaseSkill(Farmer.combatSkill), disabled: player.CombatLevel >= 10));
+                    this.Options.Add(new CheatsOptionsButton(i18n.Get("skills.reset"), slotWidth, this.ResetAllSkills));
                     this.Options.Add(new OptionsElement($"{i18n.Get("professions.title")}:"));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.fighter"), this.GetProfession(Farmer.fighter), value => this.SetProfession(Farmer.fighter, value)));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("professions.combat.scout"), this.GetProfession(Farmer.scout), value => this.SetProfession(Farmer.scout, value)));
@@ -239,10 +237,10 @@ namespace CJBCheatsMenu.Framework
                 case MenuTab.Weather:
                     this.Options.Add(new OptionsElement($"{i18n.Get("weather.title")}:"));
                     this.Options.Add(new CheatsOptionsWeatherElement($"{i18n.Get("weather.current")}", () => CJB.GetWeatherNexDay(i18n)));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("weather.sunny"), 10, slotWidth, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("weather.raining"), 11, slotWidth, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("weather.lightning"), 12, slotWidth, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("weather.snowing"), 13, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsButton(i18n.Get("weather.sunny"), slotWidth, () => this.Cheats.SetWeatherForNextDay(Game1.weather_sunny)));
+                    this.Options.Add(new CheatsOptionsButton(i18n.Get("weather.raining"), slotWidth, () => this.Cheats.SetWeatherForNextDay(Game1.weather_rain)));
+                    this.Options.Add(new CheatsOptionsButton(i18n.Get("weather.lightning"), slotWidth, () => this.Cheats.SetWeatherForNextDay(Game1.weather_lightning)));
+                    this.Options.Add(new CheatsOptionsButton(i18n.Get("weather.snowing"), slotWidth, () => this.Cheats.SetWeatherForNextDay(Game1.weather_snow)));
                     break;
 
                 case MenuTab.Relationships:
@@ -262,15 +260,15 @@ namespace CJBCheatsMenu.Framework
 
                 case MenuTab.WarpLocations:
                     this.Options.Add(new OptionsElement($"{i18n.Get("warp.title")}:"));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("warp.farm"), slotWidth, this.WarpToFarm));
+                    this.Options.Add(new CheatsOptionsButton(i18n.Get("warp.farm"), slotWidth, this.WarpToFarm));
 
                     var sortedWarps = new List<OptionsElement>();
-                    if (Game1.player.hasClubCard)
-                        sortedWarps.Add(new CheatsOptionsInputListener(i18n.Get("warp.casino"), slotWidth, () => this.Warp("Club", 8, 11)));
+                    if (player.hasClubCard)
+                        sortedWarps.Add(new CheatsOptionsButton(i18n.Get("warp.casino"), slotWidth, () => this.Warp("Club", 8, 11)));
                     foreach (ModDataWarp warp in this.Warps)
                     {
                         string displayText = i18n.Get(warp.DisplayText).Default(warp.DisplayText);
-                        sortedWarps.Add(new CheatsOptionsInputListener(displayText, slotWidth, () => this.Warp(warp.Location, (int)warp.Tile.X, (int)warp.Tile.Y)));
+                        sortedWarps.Add(new CheatsOptionsButton(displayText, slotWidth, () => this.Warp(warp.Location, (int)warp.Tile.X, (int)warp.Tile.Y)));
                     }
 
                     this.AddSortedOptions(this.Options, sortedWarps.ToArray());
@@ -290,26 +288,23 @@ namespace CJBCheatsMenu.Framework
 
                         // quests
                         this.Options.Add(new OptionsElement($"{i18n.Get("flags.quests")}:"));
+                        foreach (Quest quest in player.questLog)
                         {
-                            int i = 0;
-                            foreach (Quest quest in Game1.player.questLog)
-                            {
-                                if (!quest.completed.Value)
-                                    this.Options.Add(new CheatsOptionsInputListener(quest.questTitle, 300 + i++, slotWidth, config, cheats, i18n));
-                            }
+                            if (!quest.completed.Value)
+                                this.Options.Add(new CheatsOptionsButton(quest.questTitle, slotWidth, () => this.CompleteQuest(quest)));
                         }
 
                         // wallet items
                         this.Options.Add(new OptionsElement($"{i18n.Get("flags.wallet")}:"));
                         this.AddSortedOptions(this.Options,
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\StringsFromCSFiles:SkillsPage.cs.11587"), Game1.player.canUnderstandDwarves, value => Game1.player.canUnderstandDwarves = value),
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\StringsFromCSFiles:SkillsPage.cs.11588"), Game1.player.hasRustyKey, value => Game1.player.hasRustyKey = value),
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\StringsFromCSFiles:SkillsPage.cs.11589"), Game1.player.hasClubCard, value => Game1.player.hasClubCard = value),
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\StringsFromCSFiles:SkillsPage.cs.11590"), Game1.player.hasSpecialCharm, value => Game1.player.hasSpecialCharm = value),
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\StringsFromCSFiles:SkillsPage.cs.11591"), Game1.player.hasSkullKey, value => Game1.player.hasSkullKey = value),
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Objects:MagnifyingGlass"), Game1.player.hasMagnifyingGlass, value => Game1.player.hasMagnifyingGlass = value),
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Objects:DarkTalisman"), Game1.player.hasDarkTalisman, value => Game1.player.hasDarkTalisman = value),
-                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Objects:MagicInk"), Game1.player.hasMagicInk, value => Game1.player.hasMagicInk = value),
+                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\StringsFromCSFiles:SkillsPage.cs.11587"), player.canUnderstandDwarves, value => player.canUnderstandDwarves = value),
+                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\StringsFromCSFiles:SkillsPage.cs.11588"), player.hasRustyKey, value => player.hasRustyKey = value),
+                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\StringsFromCSFiles:SkillsPage.cs.11589"), player.hasClubCard, value => player.hasClubCard = value),
+                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\StringsFromCSFiles:SkillsPage.cs.11590"), player.hasSpecialCharm, value => player.hasSpecialCharm = value),
+                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\StringsFromCSFiles:SkillsPage.cs.11591"), player.hasSkullKey, value => player.hasSkullKey = value),
+                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Objects:MagnifyingGlass"), player.hasMagnifyingGlass, value => player.hasMagnifyingGlass = value),
+                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Objects:DarkTalisman"), player.hasDarkTalisman, value => player.hasDarkTalisman = value),
+                            new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Objects:MagicInk"), player.hasMagicInk, value => player.hasMagicInk = value),
                             new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Objects:BearPaw"), this.HasEvent(2120303), value => this.SetEvent(2120303, value)),
                             new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Objects:SpringOnionBugs"), this.HasEvent(3910979), value => this.SetEvent(3910979, value))
                         );
@@ -347,10 +342,10 @@ namespace CJBCheatsMenu.Framework
 
                 case MenuTab.Controls:
                     this.Options.Add(new OptionsElement($"{i18n.Get("controls.title")}:"));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("controls.open-menu"), 1000, slotWidth, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("controls.freeze-time"), 1001, slotWidth, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("controls.grow-tree"), 1002, slotWidth, config, cheats, i18n));
-                    this.Options.Add(new CheatsOptionsInputListener(i18n.Get("controls.grow-crops"), 1003, slotWidth, config, cheats, i18n));
+                    this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.open-menu"), slotWidth, this.Config.OpenMenuKey, key => this.Config.OpenMenuKey = key, i18n));
+                    this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.freeze-time"), slotWidth, this.Config.FreezeTimeKey, key => this.Config.FreezeTimeKey = key, i18n));
+                    this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.grow-tree"), slotWidth, this.Config.GrowTreeKey, key => this.Config.GrowTreeKey = key, i18n));
+                    this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.grow-crops"), slotWidth, this.Config.GrowCropsKey, key => this.Config.GrowCropsKey = key, i18n));
                     break;
             }
             this.SetScrollBarToCurrentIndex();
@@ -558,6 +553,77 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
+        /// <summary>Water all fields.</summary>
+        private void WaterAllFields()
+        {
+            Game1.soundBank.PlayCue("glug");
+            this.Cheats.WaterAllFields();
+        }
+
+        /// <summary>Complete a player quest.</summary>
+        /// <param name="quest">The quest to complete.</param>
+        private void CompleteQuest(Quest quest)
+        {
+            quest.questComplete();
+            Game1.exitActiveMenu();
+        }
+
+        /// <summary>Add an amount to the player money.</summary>
+        /// <param name="amount">The amount to add.</param>
+        private void AddMoney(int amount)
+        {
+            Game1.player.Money += amount;
+            Game1.soundBank.PlayCue("coin");
+        }
+
+        /// <summary>Add an amount to the player's club coin balance.</summary>
+        /// <param name="amount">The amount to add.</param>
+        private void AddClubCoins(int amount)
+        {
+            Game1.player.clubCoins += amount;
+            Game1.soundBank.PlayCue("coin");
+        }
+
+        /// <summary>Increase a skill level.</summary>
+        /// <param name="skillId">The skill ID.</param>
+        private void IncreaseSkill(int skillId)
+        {
+            int expToNext = CJB.GetExperiencePoints(Game1.player.GetSkillLevel(skillId));
+            IList<Point> newLevels = Game1.player.newLevels;
+
+            int wasNewLevels = newLevels.Count;
+            Game1.player.gainExperience(skillId, expToNext);
+            if (newLevels.Count > wasNewLevels)
+                newLevels.RemoveAt(newLevels.Count - 1);
+
+            Game1.exitActiveMenu();
+            Game1.activeClickableMenu = new LevelUpMenu(skillId, Game1.player.GetSkillLevel(skillId));
+        }
+
+        /// <summary>Reset all skill levels and associated bonuses.</summary>
+        private void ResetAllSkills()
+        {
+            Farmer player = Game1.player;
+
+            player.maxHealth -= 5 * player.CombatLevel;
+            player.experiencePoints[0] = 0;
+            player.experiencePoints[1] = 0;
+            player.experiencePoints[2] = 0;
+            player.experiencePoints[3] = 0;
+            player.experiencePoints[4] = 0;
+            player.FarmingLevel = 0;
+            player.MiningLevel = 0;
+            player.ForagingLevel = 0;
+            player.FishingLevel = 0;
+            player.CombatLevel = 0;
+            if (player.professions.Contains(24))
+                player.maxHealth -= 15;
+            if (player.professions.Contains(27))
+                player.maxHealth -= 25;
+            player.health = player.maxHealth;
+            player.professions.Clear();
+        }
+
         /// <summary>Get whether the player has the given profession.</summary>
         /// <param name="id">The profession ID.</param>
         private bool GetProfession(int id)
@@ -656,7 +722,7 @@ namespace CJBCheatsMenu.Framework
         public override void receiveKeyPress(Keys key)
         {
             bool isExitKey = Game1.options.menuButton.Contains(new InputButton(key)) || (this.Config.OpenMenuKey.TryGetKeyboard(out Keys exitKey) && key == exitKey);
-            if (isExitKey && this.readyToClose() && this.CanClose)
+            if (isExitKey && this.readyToClose() && this.CanClose && !GameMenu.forcePreventClose)
             {
                 Game1.exitActiveMenu();
                 Game1.soundBank.PlayCue("bigDeSelect");
@@ -718,6 +784,9 @@ namespace CJBCheatsMenu.Framework
             this.IsScrolling = false;
         }
 
+        /// <summary>The method invoked when the player clicks the left mouse button.</summary>
+        /// <param name="x">The X-position of the cursor.</param>
+        /// <param name="y">The Y-position of the cursor.</param>
         public override void receiveLeftClick(int x, int y, bool playSound = true)
         {
             if (GameMenu.forcePreventClose)
@@ -774,6 +843,8 @@ namespace CJBCheatsMenu.Framework
             this.Scrollbar.tryHover(x, y);
         }
 
+        /// <summary>Draw the menu to the screen.</summary>
+        /// <param name="spriteBatch">The sprite batch being drawn.</param>
         public override void draw(SpriteBatch spriteBatch)
         {
             if (!Game1.options.showMenuBackground)

@@ -68,11 +68,11 @@
 
     // 'Skills' tab
     "skills.title": "技能",
-    "skills.increase-farming": "提升耕种 Lv",
-    "skills.increase-mining": "提升采矿 Lv",
-    "skills.increase-foraging": "提升觅食 Lv",
-    "skills.increase-fishing": "提升钓鱼 Lv",
-    "skills.increase-combat": "提升战斗 Lv",
+    "skills.increase-farming": "提升耕种 Lv: {{currentLevel}}",
+    "skills.increase-mining": "提升采矿 Lv: {{currentLevel}}",
+    "skills.increase-foraging": "提升觅食 Lv: {{currentLevel}}",
+    "skills.increase-fishing": "提升钓鱼 Lv: {{currentLevel}}",
+    "skills.increase-combat": "提升战斗 Lv: {{currentLevel}}",
     "skills.reset": "重设技能!",
     "professions.title": "职业",
     "professions.combat.fighter": "战斗 lvl 5 - 战士",

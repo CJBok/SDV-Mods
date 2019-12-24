@@ -68,11 +68,11 @@
 
     // 'Skills' tab
     "skills.title": "Compétences ",
-    "skills.increase-farming": "Augm. Niveau d'Agriculture",
-    "skills.increase-mining": "Augm. Niveau d'Ext. Minière",
-    "skills.increase-foraging": "Augm. Niveau de Cueillette",
-    "skills.increase-fishing": "Augm. Niveau de Pêche",
-    "skills.increase-combat": "Augm. Niveau de Combat",
+    "skills.increase-farming": "Augm. Niveau d'Agriculture: {{currentLevel}}",
+    "skills.increase-mining": "Augm. Niveau d'Ext. Minière: {{currentLevel}}",
+    "skills.increase-foraging": "Augm. Niveau de Cueillette: {{currentLevel}}",
+    "skills.increase-fishing": "Augm. Niveau de Pêche: {{currentLevel}}",
+    "skills.increase-combat": "Augm. Niveau de Combat: {{currentLevel}}",
     "skills.reset": "REINITIALISER LES COMPETENCES !",
     "professions.title": "Professions ",
     "professions.combat.fighter": "Combat lvl 5 - Combattant",

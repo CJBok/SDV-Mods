@@ -68,11 +68,11 @@
 
     // 'Skills' tab
     "skills.title": "Habilidades",
-    "skills.increase-farming": "Incr. Agricultura Lvl",
-    "skills.increase-mining": "Incr. Mineria Lvl",
-    "skills.increase-foraging": "Incr. Recolección Lvl",
-    "skills.increase-fishing": "Incr. Pesca Lvl",
-    "skills.increase-combat": "Incr. Combate Lvl",
+    "skills.increase-farming": "Incr. Agricultura Lvl: {{currentLevel}}",
+    "skills.increase-mining": "Incr. Mineria Lvl: {{currentLevel}}",
+    "skills.increase-foraging": "Incr. Recolección Lvl: {{currentLevel}}",
+    "skills.increase-fishing": "Incr. Pesca Lvl: {{currentLevel}}",
+    "skills.increase-combat": "Incr. Combate Lvl: {{currentLevel}}",
     "skills.reset": "RESTABLECER HABILIADES!",
     "professions.title": "Profesiones",
     "professions.combat.fighter": "Combate lvl 5 - Luchador",

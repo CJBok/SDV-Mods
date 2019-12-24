@@ -68,11 +68,11 @@
 
     // 'Skills' tab
     "skills.title": "Fähigkeiten",
-    "skills.increase-farming": "Erhöhe Hofarbeit Lvl",
-    "skills.increase-mining": "Erhöhe Minenarbeit Lvl",
-    "skills.increase-foraging": "Erhöhe Sammeln Lvl",
-    "skills.increase-fishing": "Erhöhe Fischen Lvl",
-    "skills.increase-combat": "Erhöhe Kampf Lvl",
+    "skills.increase-farming": "Erhöhe Hofarbeit Lvl: {{currentLevel}}",
+    "skills.increase-mining": "Erhöhe Minenarbeit Lvl: {{currentLevel}}",
+    "skills.increase-foraging": "Erhöhe Sammeln Lvl: {{currentLevel}}",
+    "skills.increase-fishing": "Erhöhe Fischen Lvl: {{currentLevel}}",
+    "skills.increase-combat": "Erhöhe Kampf Lvl: {{currentLevel}}",
     "skills.reset": "FÄHIGKEITEN ZURÜCKSETZEN!",
     "professions.title": "Berufe",
     "professions.combat.fighter": "Kampf lvl 5 - Kämpfer",

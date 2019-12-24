@@ -68,11 +68,11 @@
 
     // '스킬' 탭
     "skills.title": "스킬",
-    "skills.increase-farming": "농사 레벨 UP",
-    "skills.increase-mining": "채광 레벨 UP",
-    "skills.increase-foraging": "채집 레벨 UP",
-    "skills.increase-fishing": "낚시 레벨 UP",
-    "skills.increase-combat": "전투 레벨 UP",
+    "skills.increase-farming": "농사 레벨 UP: {{currentLevel}}",
+    "skills.increase-mining": "채광 레벨 UP: {{currentLevel}}",
+    "skills.increase-foraging": "채집 레벨 UP: {{currentLevel}}",
+    "skills.increase-fishing": "낚시 레벨 UP: {{currentLevel}}",
+    "skills.increase-combat": "전투 레벨 UP: {{currentLevel}}",
     "skills.reset": "스킬 초기화하기!",
     "professions.title": "직업 변경",
     "professions.combat.fighter": "전투 레벨 5 - 싸움꾼",

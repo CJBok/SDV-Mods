@@ -68,11 +68,11 @@
 
     // 'Skills' tab
     "skills.title": "Навыки",
-    "skills.increase-farming": "Увеличить ур. Фермерства",
-    "skills.increase-mining": "Увеличить ур. Горного дела",
-    "skills.increase-foraging": "Увеличить ур. Собирательства",
-    "skills.increase-fishing": "Увеличить ур. Рыбалки",
-    "skills.increase-combat": "Увеличить ур. Боевых навыков",
+    "skills.increase-farming": "Увеличить ур. Фермерства: {{currentLevel}}",
+    "skills.increase-mining": "Увеличить ур. Горного дела: {{currentLevel}}",
+    "skills.increase-foraging": "Увеличить ур. Собирательства: {{currentLevel}}",
+    "skills.increase-fishing": "Увеличить ур. Рыбалки: {{currentLevel}}",
+    "skills.increase-combat": "Увеличить ур. Боевых навыков: {{currentLevel}}",
     "skills.reset": "СБРОСИТЬ НАВЫКИ!",
     "professions.title": "Профессии",
     "professions.combat.fighter": "Боевые навыки ур. 5 - Боец",

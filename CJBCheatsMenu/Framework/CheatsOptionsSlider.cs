@@ -64,6 +64,9 @@ namespace CJBCheatsMenu.Framework
 
         }
 
+        /// <summary>The method invoked when the player clicks the left mouse button.</summary>
+        /// <param name="x">The X-position of the cursor.</param>
+        /// <param name="y">The Y-position of the cursor.</param>
         public override void receiveLeftClick(int x, int y)
         {
             if (this.greyedOut)

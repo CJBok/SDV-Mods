@@ -68,11 +68,11 @@
 
     // 'Skills' tab
     "skills.title": "スキル",
-    "skills.increase-farming": "農業レベル",
-    "skills.increase-mining": "採鉱レベル",
-    "skills.increase-foraging": " 採取レベル",
-    "skills.increase-fishing": "釣りレベル",
-    "skills.increase-combat": "戦闘レベル",
+    "skills.increase-farming": "農業レベル: {{currentLevel}}",
+    "skills.increase-mining": "採鉱レベル: {{currentLevel}}",
+    "skills.increase-foraging": " 採取レベル: {{currentLevel}}",
+    "skills.increase-fishing": "釣りレベル: {{currentLevel}}",
+    "skills.increase-combat": "戦闘レベル: {{currentLevel}}",
     "skills.reset": "スキルリセット",
     "professions.title": "職業",
     "professions.combat.fighter": "戦闘レベル5 - 戦士",
