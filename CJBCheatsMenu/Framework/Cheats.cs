@@ -293,26 +293,24 @@ namespace CJBCheatsMenu.Framework
                 }
 
                 // auto-feed animals
-                if (this.Config.AutoFeed && farm != null && location is AnimalHouse animalHouse)
+                if (this.Config.AutoFeed && farm?.piecesOfHay.Value > 0 && location is AnimalHouse animalHouse)
                 {
-                    int animalCount = animalHouse.animals.Values.Count();
-                    int hayObjects = animalHouse.numberOfObjectsWithName("Hay");
-                    int hayUsed = Math.Min(animalCount - hayObjects, farm.piecesOfHay.Value);
-                    farm.piecesOfHay.Value -= hayUsed;
+                    int animalCount = Math.Min(animalHouse.animalsThatLiveHere.Count, animalHouse.animalLimit.Value);
+                    if (animalHouse.numberOfObjectsWithName("Hay") >= animalCount)
+                        continue;
 
-                    int tileX = 6;
-                    if (animalHouse.Name.Contains("Barn"))
-                        tileX = 8;
+                    int tileX = animalHouse.Name.Contains("Barn")
+                        ? 8
+                        : 6;
 
-                    for (int i = 0; i < animalHouse.animalLimit.Value; i++)
+                    for (int i = 0; i < animalCount && farm.piecesOfHay.Value > 0; i++)
                     {
-                        if (hayUsed <= 0)
-                            break;
-
-                        Vector2 tile = new Vector2(tileX + i, 3f);
+                        Vector2 tile = new Vector2(tileX + i, 3);
                         if (!animalHouse.objects.ContainsKey(tile))
+                        {
                             animalHouse.objects.Add(tile, new SObject(178, 1));
-                        hayUsed--;
+                            farm.piecesOfHay.Value--;
+                        }
                     }
                 }
 

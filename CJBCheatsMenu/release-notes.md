@@ -3,6 +3,8 @@
 # Release notes
 ## Upcoming release
 * The 'water all fields' cheat now works for indoor pots in any location.
+* Fixed 'always auto-feed' cheat changing total hay incorrectly in some cases.
+* Fixed 'always auto-feed' cheat not counting animals who aren't in their home building if it's enabled after the day already started.
 * Updated translations. Thanks to jahangmar (updated German), Redlnn (updated Chinese), and victrosantos (updated Portuguese and Spanish)!
 
 ## 1.21
