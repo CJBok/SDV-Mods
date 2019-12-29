@@ -208,7 +208,7 @@ namespace CJBItemSpawner.Framework.ItemData
                                     SObject input = this.TryCreate(ItemType.Object, -1, () => new SObject(pair.Key, 1))?.Item as SObject;
                                     if (input == null || input.Category != SObject.FishCategory)
                                         continue;
-                                    Color color = TailoringMenu.GetDyeColor(input) ?? Color.Orange;
+                                    Color color = this.GetRoeColor(input);
 
                                     // yield roe
                                     SObject roe = null;
@@ -264,6 +264,16 @@ namespace CJBItemSpawner.Framework.ItemData
             {
                 return null; // if some item data is invalid, just don't include it
             }
+        }
+
+        /// <summary>Get the color to use a given fish's roe.</summary>
+        /// <param name="fish">The fish whose roe to color.</param>
+        /// <remarks>Derived from <see cref="StardewValley.Buildings.FishPond.GetFishProduce"/>.</remarks>
+        private Color GetRoeColor(SObject fish)
+        {
+            return fish.ParentSheetIndex == 698 // sturgeon
+                ? new Color(61, 55, 42)
+                : (TailoringMenu.GetDyeColor(fish) ?? Color.Orange);
         }
     }
 }
