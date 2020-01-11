@@ -451,15 +451,31 @@ namespace CJBCheatsMenu.Framework
 
                 case MenuTab.WarpLocations:
                     this.Options.Add(new OptionsElement($"{i18n.Get("warp.title")}:"));
-                    this.Options.Add(new CheatsOptionsButton(i18n.Get("warp.farm"), slotWidth, this.WarpToFarm));
-
                     var sortedWarps = new List<OptionsElement>();
+
+                    // add farm warp
+                    {
+                        ModDataWarp warp = this.Warps.FirstOrDefault(p => p.HasId("warp.farm"));
+                        this.Options.Add(warp != null
+                            ? new CheatsOptionsButton(i18n.Get(warp.DisplayText).Default(warp.DisplayText), slotWidth, () => this.Warp(warp))
+                            : new CheatsOptionsButton(i18n.Get("warp.farm"), slotWidth, this.WarpToFarm)
+                        );
+                    }
+
+                    // add casino
                     if (player.hasClubCard)
-                        sortedWarps.Add(new CheatsOptionsButton(i18n.Get("warp.casino"), slotWidth, () => this.Warp("Club", 8, 11)));
+                    {
+                        ModDataWarp warp =
+                            this.Warps.FirstOrDefault(p => p.HasId("warp.casino"))
+                            ?? new ModDataWarp("warp.casino", "Club", new Vector2(8, 11));
+                        sortedWarps.Add(new CheatsOptionsButton(i18n.Get(warp.DisplayText).Default(warp.DisplayText), slotWidth, () => this.Warp(warp)));
+                    }
+
+                    // add data warps
                     foreach (ModDataWarp warp in this.Warps)
                     {
                         string displayText = i18n.Get(warp.DisplayText).Default(warp.DisplayText);
-                        sortedWarps.Add(new CheatsOptionsButton(displayText, slotWidth, () => this.Warp(warp.Location, (int)warp.Tile.X, (int)warp.Tile.Y)));
+                        sortedWarps.Add(new CheatsOptionsButton(displayText, slotWidth, () => this.Warp(warp)));
                     }
 
                     this.AddSortedOptions(this.Options, sortedWarps.ToArray());
@@ -881,6 +897,13 @@ namespace CJBCheatsMenu.Framework
 
             // else farmhouse
             this.Warp("Farm", 64, 15);
+        }
+
+        /// <summary>Warp the player to the given location.</summary>
+        /// <param name="warp">The warp info.</param>
+        private void Warp(ModDataWarp warp)
+        {
+            this.Warp(warp.Location, (int)warp.Tile.X, (int)warp.Tile.Y);
         }
 
         /// <summary>Warp the player to the given location.</summary>
