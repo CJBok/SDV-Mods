@@ -176,6 +176,7 @@ namespace CJBItemSpawner.Framework
         {
             base.receiveLeftClick(x, y, playSound);
 
+            // handle general UI
             if (this.HeldItem == null)
             {
                 foreach (ClickableComponent tab in this.Tabs)
@@ -210,10 +211,13 @@ namespace CJBItemSpawner.Framework
                     this.ItemsToGrabMenu?.receiveScrollWheelAction(-1);
             }
 
+            // take item from menu
             if (this.HeldItem == null && this.ShowReceivingMenu)
             {
                 this.HeldItem = this.ItemsToGrabMenu?.LeftClick(x, y, this.HeldItem, false);
                 SObject obj = this.HeldItem as SObject;
+
+                // read Dwarvish Translation Guide
                 if (obj != null && obj.ParentSheetIndex == 326)
                 {
                     this.HeldItem = null;
@@ -221,6 +225,8 @@ namespace CJBItemSpawner.Framework
                     this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                     Game1.playSound("fireball");
                 }
+
+                // read Lost Book
                 else if (obj != null && obj.ParentSheetIndex == 102)
                 {
                     this.HeldItem = null;
@@ -228,6 +234,8 @@ namespace CJBItemSpawner.Framework
                     this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                     Game1.playSound("fireball");
                 }
+
+                // learn recipe
                 else if (obj != null && obj.IsRecipe)
                 {
                     string key = obj.Name.Substring(0, obj.Name.IndexOf("Recipe", StringComparison.InvariantCultureIgnoreCase) - 1);
@@ -246,18 +254,22 @@ namespace CJBItemSpawner.Framework
                     }
                     this.HeldItem = null;
                 }
-                else if (Game1.player.addItemToInventoryBool(this.HeldItem))
+
+                // take normal item
+                else if (this.HeldItem != null && Game1.player.addItemToInventoryBool(this.HeldItem))
                 {
                     this.HeldItem = null;
                     Game1.playSound("coin");
                 }
             }
-            if (this.HeldItem == null || this.isWithinBounds(x, y) || !this.HeldItem.canBeTrashed())
-                return;
-            Game1.playSound("throwDownITem");
-            Game1.createItemDebris(this.HeldItem, Game1.player.getStandingPosition(), Game1.player.FacingDirection);
-            this.HeldItem = null;
 
+            // drop item
+            if (this.HeldItem != null && !this.isWithinBounds(x, y) && this.HeldItem.canBeTrashed())
+            {
+                Game1.playSound("throwDownITem");
+                Game1.createItemDebris(this.HeldItem, Game1.player.getStandingPosition(), Game1.player.FacingDirection);
+                this.HeldItem = null;
+            }
         }
 
         public bool AreAllItemsTaken()

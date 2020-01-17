@@ -5,6 +5,7 @@
 * Fixed spawning new flooring and rings (thanks to Mizzion!).
 * Fixed spawning custom rings added by mods.
 * Fixed errors when some item data is invalid.
+* Fixed errors on Android.
 * Fixed incorrect color for sturgeon roe.
 
 ## 1.11.5
