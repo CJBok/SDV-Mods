@@ -43,6 +43,9 @@ namespace CJBItemSpawner.Framework
         private Rectangle TextboxBounds;
         private string PreviousText = "";
 
+        /// <summary>Whether the user explicitly selected the textbox by clicking on it, so the selection should be maintained.</summary>
+        private bool TextboxExplicitlySelected;
+
 
         /*********
         ** Public methods
@@ -176,6 +179,11 @@ namespace CJBItemSpawner.Framework
         {
             base.receiveLeftClick(x, y, playSound);
 
+            // deselect textbox
+            bool justDeselectedSearch = this.Textbox.Selected && !this.TextboxBounds.Contains(x, y);
+            if (justDeselectedSearch)
+                this.DeselectSearchBox();
+
             // handle general UI
             if (this.HeldItem == null)
             {
@@ -192,9 +200,7 @@ namespace CJBItemSpawner.Framework
                 }
 
                 if (this.SortButton.bounds.Contains(x, y))
-                {
                     this.Reopen(sortBy: this.SortBy.GetNext());
-                }
 
                 if (this.QualityButton.bounds.Contains(x, y))
                 {
@@ -209,6 +215,9 @@ namespace CJBItemSpawner.Framework
 
                 if (this.DownArrow.bounds.Contains(x, y))
                     this.ItemsToGrabMenu?.receiveScrollWheelAction(-1);
+
+                if (!justDeselectedSearch && (!this.Textbox.Selected || !this.TextboxExplicitlySelected) && this.TextboxBounds.Contains(x, y))
+                    this.SelectSearchBox(explicitly: true);
             }
 
             // take item from menu
@@ -300,6 +309,9 @@ namespace CJBItemSpawner.Framework
 
         public override void update(GameTime time)
         {
+            if (this.TextboxExplicitlySelected && !this.Textbox.Selected)
+                this.DeselectSearchBox();
+
             if (this.PreviousText != this.Textbox.Text)
             {
                 this.PreviousText = this.Textbox.Text;
@@ -315,12 +327,25 @@ namespace CJBItemSpawner.Framework
 
         public override void performHoverAction(int x, int y)
         {
+            // handle search box selected
+            if (!this.TextboxExplicitlySelected)
+            {
+                bool overSearchBox = this.TextboxBounds.Contains(x, y);
+                if (this.Textbox.Selected != overSearchBox)
+                {
+                    if (overSearchBox)
+                        this.SelectSearchBox(explicitly: false);
+                    else
+                        this.DeselectSearchBox();
+                    return;
+                }
+            }
+
+            // hover item/menu
             if (this.ItemsToGrabMenu.isWithinBounds(x, y) && this.ShowReceivingMenu)
                 this.HoveredItem = this.ItemsToGrabMenu.Hover(x, y, this.HeldItem);
             else
                 base.performHoverAction(x, y);
-
-            this.Textbox.Selected = this.TextboxBounds.Contains(x, y);
         }
 
         public override void receiveScrollWheelAction(int direction)
@@ -396,6 +421,21 @@ namespace CJBItemSpawner.Framework
         private void Reopen(MenuTab? tabIndex = null, ItemSort? sortBy = null, ItemQuality? quality = null, string search = null)
         {
             Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortBy ?? this.SortBy, quality ?? this.Quality, search ?? this.PreviousText, this.TranslationHelper, this.ItemRepository);
+        }
+
+        /// <summary>Set the search texbox selected.</summary>
+        /// <param name="explicitly">Whether the textbox was selected explicitly by the user (rather than automatically by hovering), so the selection should be maintained.</param>
+        private void SelectSearchBox(bool explicitly)
+        {
+            this.Textbox.Selected = true;
+            this.TextboxExplicitlySelected = explicitly;
+        }
+
+        /// <summary>Set the search texbox non-selected.</summary>
+        private void DeselectSearchBox()
+        {
+            this.Textbox.Selected = false;
+            this.TextboxExplicitlySelected = false;
         }
 
         /// <summary>Get the translated label for a sort type.</summary>

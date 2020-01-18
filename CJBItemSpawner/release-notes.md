@@ -2,6 +2,8 @@
 
 # Release notes
 ## Upcoming release
+* Clicking the search box now keeps it selected until you click elsewhere.
+* Added support for searching on Android.
 * Fixed spawning new flooring and rings (thanks to Mizzion!).
 * Fixed spawning custom rings added by mods.
 * Fixed errors when some item data is invalid.
