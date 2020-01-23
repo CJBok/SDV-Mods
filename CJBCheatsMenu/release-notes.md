@@ -3,6 +3,8 @@
 # Release notes
 ## Upcoming release
 * The 'water all fields' cheat now works for indoor pots in any location.
+* Grow crops/trees now affects those around the player (instead of under the cursor), to avoid confusion and for Android compatibility.
+* Growing crops/trees while ~~moving the cursor~~ walking quickly no long skips some.
 * You can now now override the farm and casino warps via `data/warp.json`.
 * Fixed health bonuses not applied when changing professions.
 * Fixed 'always auto-feed' cheat changing total hay incorrectly in some cases.

@@ -31,6 +31,9 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The minimum friendship points to maintain for each NPC.</summary>
         private readonly Dictionary<string, int> PreviousFriendships = new Dictionary<string, int>();
 
+        /// <summary>The last tile position around which crops and trees were grown.</summary>
+        private Vector2 LastGrowOrigin;
+
         /// <summary>Whether to grow crops under the cursor.</summary>
         private bool ShouldGrowCrops;
 
@@ -446,10 +449,19 @@ namespace CJBCheatsMenu.Framework
                 }
 
                 // grow crops/trees
-                if (this.ShouldGrowCrops && e.IsMultipleOf(15))
-                    this.GrowCrops(input.GetCursorPosition().Tile);
-                if (this.ShouldGrowTrees && e.IsMultipleOf(15))
-                    this.GrowTree(input.GetCursorPosition().Tile);
+                if (this.ShouldGrowCrops || this.ShouldGrowTrees)
+                {
+                    Vector2 playerTile = Game1.player.getTileLocation();
+                    if (playerTile != this.LastGrowOrigin || e.IsMultipleOf(30))
+                    {
+                        if (this.ShouldGrowCrops)
+                            this.GrowCrops(playerTile);
+                        if (this.ShouldGrowTrees)
+                            this.GrowTree(playerTile);
+
+                        this.LastGrowOrigin = playerTile;
+                    }
+                }
             }
 
             if (this.Config.MaxDailyLuck)
