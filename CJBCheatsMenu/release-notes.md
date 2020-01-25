@@ -9,7 +9,7 @@
 * Fixed health bonuses not applied when changing professions.
 * Fixed 'always auto-feed' cheat changing total hay incorrectly in some cases.
 * Fixed 'always auto-feed' cheat not counting animals who aren't in their home building if it's enabled after the day already started.
-* Updated translations. Thanks to jahangmar (updated German), Redlnn (updated Chinese), shirutan (updated Japanese), and victrosantos (updated Portuguese and Spanish)!
+* Updated translations. Thanks to jahangmar (updated German), Redlnn (updated Chinese), shirutan (updated Japanese), VengelmBjorn (updated Russian), and victrosantos (updated Portuguese and Spanish)!
 
 ## 1.21
 Released 26 November 2019 for SMAPI 3.0 or later. Updated by Pathoschild.
