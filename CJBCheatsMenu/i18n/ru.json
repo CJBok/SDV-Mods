@@ -9,7 +9,7 @@
     "tabs.relationships": "Отношения",
     "tabs.warp": "Телепортация",
     "tabs.time": "Время",
-    "tabs.advanced": "Advanced", // TODO
+    "tabs.advanced": "Прочее",
     "tabs.controls": "Управление",
 
     // 'Player & Tools' tab
@@ -63,7 +63,7 @@
     "fast-machines.slime-egg-press": "Пресс для яиц слаймов",
     "fast-machines.slime-incubator": "Инкубатор слаймов",
     "fast-machines.tapper": "Подсочник",
-    "fast-machines.wood-chipper": "Wood Chipper", // TODO
+    "fast-machines.wood-chipper": "Дробилка",
     "fast-machines.worm-bin": "Бак с червями",
 
     // 'Skills' tab
@@ -152,18 +152,17 @@
     "time.time": "Время",
 
     // 'Flags' tab
-    // TODO
-    "flags.warning": "Use this section at your own risk!\nThis may cause issues like skipped mail, events, or quests.",
-    "flags.quests": "Complete Quests",
-    "flags.wallet": "Wallet Items",
-    "flags.unlocked": "Unlocked Areas",
-    "flags.unlocked.guild": "Adventurer's Guild",
-    "flags.unlocked.room": "Room: {{name}}",
-    "flags.unlocked-content": "Unlocked content",
-    "flags.unlocked-content.dyes-and-tailoring": "Dyes & tailoring",
-    "flags.community-center": "Community Center",
-    "flags.community-center.door-unlocked": "Door Unlocked",
-    "flags.jojamart.membership": "JojaMart Membership",
+    "flags.warning": "Используйте данный раздел на свой страх и риск!\nМогут возникнуть проблемы по типу пропущенных писем, событий и заданий.",
+    "flags.quests": "Завершить задание",
+    "flags.wallet": "Бумажник",
+    "flags.unlocked": "Открыть помещение",
+    "flags.unlocked.guild": "Гильдия искателей приключений",
+    "flags.unlocked.room": "Комната: {{name}}",
+    "flags.unlocked-content": "Разблокировать контент",
+    "flags.unlocked-content.dyes-and-tailoring": "Перекраска и шитьё",
+    "flags.community-center": "Клуб",
+    "flags.community-center.door-unlocked": "Открыть дверь",
+    "flags.jojamart.membership": "Членство в ДжоджаМарте",
 
     // 'Controls' tab
     "controls.title": "Управление",
