@@ -211,15 +211,10 @@ namespace CJBCheatsMenu.Framework
             if (!this.Config.HarvestScythe)
             {
                 IDictionary<int, int> cropHarvestMethods = this.GetCropHarvestMethods();
-                foreach (GameLocation location in Game1.locations)
+                foreach (Crop crop in CJB.GetAllLocations().SelectMany(this.GetCropsIn))
                 {
-                    if (!location.IsFarm && !location.IsGreenhouse)
-                        continue;
-                    foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
-                    {
-                        if (terrainFeature is HoeDirt dirt && dirt.crop != null && cropHarvestMethods.TryGetValue(dirt.crop.indexOfHarvest.Value, out int harvestMethod))
-                            dirt.crop.harvestMethod.Value = harvestMethod;
-                    }
+                    if (cropHarvestMethods.TryGetValue(crop.indexOfHarvest.Value, out int harvestMethod))
+                        crop.harvestMethod.Value = harvestMethod;
                 }
             }
         }
@@ -318,16 +313,10 @@ namespace CJBCheatsMenu.Framework
                 }
 
                 // harvest with scythe
-                if (this.Config.HarvestScythe && (location.IsFarm || location.IsGreenhouse))
+                if (this.Config.HarvestScythe)
                 {
-                    foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
-                    {
-                        if (terrainFeature is HoeDirt dirt)
-                        {
-                            if (dirt.crop != null)
-                                dirt.crop.harvestMethod.Value = Crop.sickleHarvest;
-                        }
-                    }
+                    foreach (Crop crop in this.GetCropsIn(location))
+                        crop.harvestMethod.Value = Crop.sickleHarvest;
                 }
             }
         }
@@ -553,6 +542,29 @@ namespace CJBCheatsMenu.Framework
             // other machines
             if (machine.MinutesUntilReady > 0)
                 machine.minutesElapsed(machine.MinutesUntilReady, location);
+        }
+
+        /// <summary>Get all crops in a location.</summary>
+        /// <param name="location">The location to scan.</param>
+        private IEnumerable<Crop> GetCropsIn(GameLocation location)
+        {
+            // planted crops
+            if (location.IsFarm || location.IsGreenhouse)
+            {
+                foreach (HoeDirt dirt in location.terrainFeatures.Values.OfType<HoeDirt>())
+                {
+                    if (dirt.crop != null)
+                        yield return dirt.crop;
+                }
+            }
+
+            // garden pots
+            foreach (IndoorPot pot in location.objects.Values.OfType<IndoorPot>())
+            {
+                var crop = pot.hoeDirt.Value?.crop;
+                if (crop != null)
+                    yield return crop;
+            }
         }
 
         /// <summary>Get a crop ID => harvest method lookup.</summary>

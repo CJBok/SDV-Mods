@@ -6,6 +6,7 @@
 * Grow crops/trees now affects those around the player (instead of under the cursor), to avoid confusion and for Android compatibility.
 * Growing crops/trees while ~~moving the cursor~~ walking quickly no long skips some.
 * You can now now override the farm and casino warps via `data/warp.json`.
+* Harvest with scythe now works on garden pots.
 * Fixed health bonuses not applied when changing professions.
 * Fixed 'always auto-feed' cheat changing total hay incorrectly in some cases.
 * Fixed 'always auto-feed' cheat not counting animals who aren't in their home building if it's enabled after the day already started.
