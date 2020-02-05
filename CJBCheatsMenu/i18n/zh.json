@@ -63,7 +63,7 @@
     "fast-machines.slime-egg-press": "史莱姆蛋压制机",
     "fast-machines.slime-incubator": "史莱姆孵化器",
     "fast-machines.tapper": "树液采集器",
-    "fast-machines.wood-chipper": "Wood Chipper", // TODO
+    "fast-machines.wood-chipper": "碎木机",
     "fast-machines.worm-bin": "虫房",
 
     // 'Skills' tab
@@ -158,8 +158,8 @@
     "flags.unlocked": "解锁区域",
     "flags.unlocked.guild": "冒险家公会解锁",
     "flags.unlocked.room": "{{name}} 的房间",
-    "flags.unlocked-content": "Unlocked content", // TODO
-    "flags.unlocked-content.dyes-and-tailoring": "Dyes & tailoring", // TODO
+    "flags.unlocked-content": "解锁内容",
+    "flags.unlocked-content.dyes-and-tailoring": "染料 & 裁缝",
     "flags.community-center": "社区中心",
     "flags.community-center.door-unlocked": "社区中心解锁",
     "flags.jojamart.membership": "乔家超市（JojaMart）会员资格",
