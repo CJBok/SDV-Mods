@@ -1,6 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Updated translations. Thanks to xCarloC (added Italian)!
+
 ## 1.9.4
 Released 26 November 2019 for SMAPI 3.0 or later. Updated by Pathoschild.
 
