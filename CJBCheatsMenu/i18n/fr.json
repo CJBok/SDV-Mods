@@ -9,7 +9,7 @@
     "tabs.relationships": "Social",
     "tabs.warp": "Téléportation",
     "tabs.time": "Temps",
-    "tabs.advanced": "Advanced", // TODO
+    "tabs.advanced": "Avancé",
     "tabs.controls": "Contrôles",
 
     // 'Player & Tools' tab
@@ -63,7 +63,7 @@
     "fast-machines.slime-egg-press": "Presse à oeuf de Slime",
     "fast-machines.slime-incubator": "Incubateur de Slime",
     "fast-machines.tapper": "Saigneur",
-    "fast-machines.wood-chipper": "Wood Chipper", // TODO
+    "fast-machines.wood-chipper": "Déchiqueteuse de bois",
     "fast-machines.worm-bin": "Bac à compost",
 
     // 'Skills' tab
@@ -152,18 +152,17 @@
     "time.time": "Heure ",
 
     // 'Flags' tab
-    // TODO
-    "flags.warning": "Use this section at your own risk!\nThis may cause issues like skipped mail, events, or quests.",
+    "flags.warning": "Utilisez cette section à vos risques et périls !\nCela peut causer des problèmes tels que des mails, événements ou quêtes non déclenchés.",
     "flags.quests": "Complete Quests",
-    "flags.wallet": "Wallet Items",
-    "flags.unlocked": "Unlocked Areas",
-    "flags.unlocked.guild": "Adventurer's Guild",
-    "flags.unlocked.room": "Room: {{name}}",
-    "flags.unlocked-content": "Unlocked content",
-    "flags.unlocked-content.dyes-and-tailoring": "Dyes & tailoring",
-    "flags.community-center": "Community Center",
-    "flags.community-center.door-unlocked": "Door Unlocked",
-    "flags.jojamart.membership": "JojaMart Membership",
+    "flags.wallet": "Objets du portefeuille",
+    "flags.unlocked": "Zone débloquées",
+    "flags.unlocked.guild": "Guilde des aventuriers",
+    "flags.unlocked.room": "Chambre : {{name}}",
+    "flags.unlocked-content": "Contenu débloqué",
+    "flags.unlocked-content.dyes-and-tailoring": "Teinture & couture",
+    "flags.community-center": "Centre communautaire",
+    "flags.community-center.door-unlocked": "Porte déverrouillé",
+    "flags.jojamart.membership": "Adhérent au Marché Joja",
 
     // 'Controls' tab
     "controls.title": "Contrôles ",
