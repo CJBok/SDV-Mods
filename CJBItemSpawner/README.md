@@ -3,8 +3,7 @@ with just a few clicks:
 
 ![](screenshot.png)
 
-Compatible with Stardew Valley 1.3+ on Linux, Mac, and Windows. Translated into Chinese, English,
-French, German, Japanese, Korean, Portuguese, Russian, and Spanish.
+Compatible with Stardew Valley 1.4+ on Linux, Mac, and Windows.
 
 ## Install
 1. [Install the latest version of SMAPI](https://smapi.io/).
