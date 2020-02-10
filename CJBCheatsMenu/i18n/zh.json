@@ -10,14 +10,14 @@
     "tabs.warp": "传送",
     "tabs.time": "时间",
     "tabs.advanced": "高级",
-    "tabs.controls": "操控",
+    "tabs.controls": "控制",
 
     // 'Player & Tools' tab
     "player.title": "玩家",
     "player.infinite-stamina": "耐力不减",
     "player.infinite-health": "生命不减",
     "player.increased-movement-speed": "提升移动速度",
-    "player.movement-speed": "移动速度",
+    "player.movement-speed": "移动速度增加",
     "player.one-hit-kill": "一拳超人(对怪物)",
     "player.max-daily-luck": "每日运气最大",
     "tools.title": "工具",
@@ -32,12 +32,12 @@
     // 'Farm & Fishing' tab
     "farm.title": "农场",
     "farm.water-all-fields": "打湿所有耕地",
-    "farm.durable-fences": "围栏不易损毁",
+    "farm.durable-fences": "围栏不损毁",
     "farm.instant-build": "农场建筑立即完成",
     "farm.always-auto-feed": "自动喂食",
     "farm.infinite-hay": "无限干草",
     "fishing.title": "钓鱼",
-    "fishing.instant-catch": "立即捕抓",
+    "fishing.instant-catch": "立即抓住",
     "fishing.instant-bite": "立即咬钩",
     "fishing.always-throw-max-distance": "抛竿总是最远距离",
     "fishing.always-treasure": "必定出现宝箱",
@@ -63,16 +63,16 @@
     "fast-machines.slime-egg-press": "史莱姆蛋压制机",
     "fast-machines.slime-incubator": "史莱姆孵化器",
     "fast-machines.tapper": "树液采集器",
-    "fast-machines.wood-chipper": "Wood Chipper", // TODO
+    "fast-machines.wood-chipper": "碎木机",
     "fast-machines.worm-bin": "虫房",
 
     // 'Skills' tab
     "skills.title": "技能",
-    "skills.increase-farming": "提升耕种 Lv",
-    "skills.increase-mining": "提升采矿 Lv",
-    "skills.increase-foraging": "提升觅食 Lv",
-    "skills.increase-fishing": "提升钓鱼 Lv",
-    "skills.increase-combat": "提升战斗 Lv",
+    "skills.increase-farming": "提升耕种 Lv: {{currentLevel}}",
+    "skills.increase-mining": "提升采矿 Lv: {{currentLevel}}",
+    "skills.increase-foraging": "提升觅食 Lv: {{currentLevel}}",
+    "skills.increase-fishing": "提升钓鱼 Lv: {{currentLevel}}",
+    "skills.increase-combat": "提升战斗 Lv: {{currentLevel}}",
     "skills.reset": "重设技能!",
     "professions.title": "职业",
     "professions.combat.fighter": "战斗 lvl 5 - 战士",
@@ -116,7 +116,7 @@
 
     // 'Relationships' tab
     "relationships.title": "人际关系",
-    "relationships.give-gifts-anytime": "随时给予礼物",
+    "relationships.give-gifts-anytime": "随时可以给予礼物",
     "relationships.no-decay": "友情不会下降",
     "relationships.friends": "朋友",
 
@@ -148,27 +148,27 @@
     "time.title": "时间",
     "time.freeze-inside": "在建筑内冻结时间",
     "time.freeze-caves": "在洞穴内冻结时间",
-    "time.freeze-everywhere": "冻结 - 无论身在何处",
+    "time.freeze-everywhere": "无论身在何处都冻结",
     "time.time": "时间",
 
     // 'Flags' tab
     "flags.warning": "使用此部分内容需要您自行承担风险！\n这可能会导致诸如邮件、事件或日志被跳过之类的问题。",
     "flags.quests": "完成日志",
     "flags.wallet": "钱包物品",
-    "flags.unlocked": "解锁区域",
+    "flags.unlocked": "区域解锁",
     "flags.unlocked.guild": "冒险家公会解锁",
     "flags.unlocked.room": "{{name}} 的房间",
-    "flags.unlocked-content": "Unlocked content", // TODO
-    "flags.unlocked-content.dyes-and-tailoring": "Dyes & tailoring", // TODO
+    "flags.unlocked-content": "解锁内容",
+    "flags.unlocked-content.dyes-and-tailoring": "染色 & 裁剪",
     "flags.community-center": "社区中心",
     "flags.community-center.door-unlocked": "社区中心解锁",
     "flags.jojamart.membership": "乔家超市（JojaMart）会员资格",
 
     // 'Controls' tab
-    "controls.title": "绑定按键",
-    "controls.open-menu": "打开选单",
+    "controls.title": "按键绑定",
+    "controls.open-menu": "打开菜单",
     "controls.freeze-time": "冻结时间",
-    "controls.grow-tree": "树木立即成熟",
+    "controls.grow-tree": "树木立即长大",
     "controls.grow-crops": "作物立即成熟",
 
     // various messages

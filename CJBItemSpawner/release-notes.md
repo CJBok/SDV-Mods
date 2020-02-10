@@ -1,6 +1,18 @@
 [← back to readme](README.md)
 
 # Release notes
+## 1.12
+Released 09 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
+
+* Clicking the search box now keeps it selected until you click elsewhere.
+* Added support for searching on Android.
+* Fixed spawning new flooring and rings (thanks to Mizzion!).
+* Fixed spawning custom rings added by mods.
+* Fixed errors when some item data is invalid.
+* Fixed errors on Android.
+* Fixed incorrect color for sturgeon roe.
+* Fixed menu not usable with a controller when the 'controller-style menus' option is enabled.
+
 ## 1.11.5
 Released 26 November 2019 for SMAPI 3.0 or later. Updated by Pathoschild.
 

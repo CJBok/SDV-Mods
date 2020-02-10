@@ -63,16 +63,16 @@
     "fast-machines.slime-egg-press": " スライムエッグプレス",
     "fast-machines.slime-incubator": "スライム用ふ卵器",
     "fast-machines.tapper": "樹液採取器",
-    "fast-machines.wood-chipper": "Wood Chipper", // TODO
+    "fast-machines.wood-chipper": "ウッドチッパー",
     "fast-machines.worm-bin": "ミミズ飼育器",
 
     // 'Skills' tab
     "skills.title": "スキル",
-    "skills.increase-farming": "農業レベル",
-    "skills.increase-mining": "採鉱レベル",
-    "skills.increase-foraging": " 採取レベル",
-    "skills.increase-fishing": "釣りレベル",
-    "skills.increase-combat": "戦闘レベル",
+    "skills.increase-farming": "農業レベル: {{currentLevel}}",
+    "skills.increase-mining": "採鉱レベル: {{currentLevel}}",
+    "skills.increase-foraging": " 採取レベル: {{currentLevel}}",
+    "skills.increase-fishing": "釣りレベル: {{currentLevel}}",
+    "skills.increase-combat": "戦闘レベル: {{currentLevel}}",
     "skills.reset": "スキルリセット",
     "professions.title": "職業",
     "professions.combat.fighter": "戦闘レベル5 - 戦士",
@@ -158,8 +158,8 @@
     "flags.unlocked": "侵入可能エリア",
     "flags.unlocked.guild": "冒険者ギルド",
     "flags.unlocked.room": "寝室: {{name}}",
-    "flags.unlocked-content": "Unlocked content", // TODO
-    "flags.unlocked-content.dyes-and-tailoring": "Dyes & tailoring", // TODO
+    "flags.unlocked-content": "ロック解除されたコンテンツ",
+    "flags.unlocked-content.dyes-and-tailoring": "染色と仕立て",
     "flags.community-center": "コミュニティ復興",
     "flags.community-center.door-unlocked": "公民館へ入館",
     "flags.jojamart.membership": "Jojaマート 会員権",

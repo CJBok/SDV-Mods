@@ -1,17 +1,35 @@
 /*
- * The warps to show in the cheats menu (the special farm and casino warps are added
- * automatically).
- *
- * Each warp has three fields:
- *   - The display text to show in the menu. If this matches a translation ID in the i18n files,
- *     the matching translation text is displayed; otherwise it's displayed as-is.
- *   - The target location's internal name (not the translated name).
- *   - The target tile coordinate.
- *
- * You can use the Debug Mode mod to see location names and tile coordinates in-game.
- *
- * The list order has no effect; warps are sorted alphabetically by display name (except the
- * farm which is always first).
+   The warps to show in the cheats menu (the special farm and casino warps are added automatically).
+  
+
+   Normal warps
+   ==============================================
+   Each warp has three fields:
+     - The display text to show in the menu. If this matches a translation ID in the i18n files,
+       that translation text is displayed; otherwise it's displayed as-is.
+     - The target location's internal name (not the translated name).
+     - The target tile coordinate.
+  
+   You can use the Debug Mode mod to see location names and tile coordinates in-game.
+  
+   The list order has no effect; warps are sorted alphabetically by display name (except the
+   farm which is always first).
+
+
+   Override farm and casino warps
+   ==============================================
+   Two warps are added automatically by CJB Cheats Menu:
+     - A warp to the farm, placing the player in front of their cabin/farmhouse.
+     - A warp to the casino (if the player has the club card).
+
+   You can replace the automatic warps by adding them below using the display text "warp.farm" or
+   "warp.casino":
+
+     {
+        "DisplayText": "warp.farm",
+        "Location": "Farm",
+        "Tile": "10, 10"
+     }
  */
 [
     {

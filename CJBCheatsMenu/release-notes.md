@@ -1,6 +1,20 @@
 [← back to readme](README.md)
 
 # Release notes
+## 1.22
+Released 09 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
+
+* Water all fields now works for indoor pots in any location.
+* Grow crops/trees now affects those around the player (instead of under the cursor), to avoid confusion and for Android compatibility.
+* Grow crops/trees no longer skips some in some cases.
+* Harvest with scythe now works on garden pots.
+* The farm/casino warps can now be overridden via `data/warp.json`.
+* Fixed health bonuses not applied when changing professions.
+* Fixed 'always auto-feed' changing total hay incorrectly in some cases.
+* Fixed 'always auto-feed' not counting animals who aren't in their home building if it's enabled after the day already started.
+* Fixed menu not usable with a controller when the 'controller-style menus' option is enabled.
+* Updated translations. Thanks to ba0109 (updated Korean), jahangmar (updated German), mael-belval (updated French), Redlnn (updated Chinese), shirutan (updated Japanese), VengelmBjorn (updated Russian), and victrosantos (updated Portuguese and Spanish)!
+
 ## 1.21
 Released 26 November 2019 for SMAPI 3.0 or later. Updated by Pathoschild.
 

@@ -68,11 +68,11 @@
 
     // 'Skills' tab
     "skills.title": "Skills",
-    "skills.increase-farming": "Incr. Farming Lvl",
-    "skills.increase-mining": "Incr. Mining Lvl",
-    "skills.increase-foraging": "Incr. Foraging Lvl",
-    "skills.increase-fishing": "Incr. Fishing Lvl",
-    "skills.increase-combat": "Incr. Combat Lvl",
+    "skills.increase-farming": "Incr. Farming Lvl: {{currentLevel}}",
+    "skills.increase-mining": "Incr. Mining Lvl: {{currentLevel}}",
+    "skills.increase-foraging": "Incr. Foraging Lvl: {{currentLevel}}",
+    "skills.increase-fishing": "Incr. Fishing Lvl: {{currentLevel}}",
+    "skills.increase-combat": "Incr. Combat Lvl: {{currentLevel}}",
     "skills.reset": "RESET SKILLS!",
     "professions.title": "Professions",
     "professions.combat.fighter": "Combat lvl 5 - Fighter",

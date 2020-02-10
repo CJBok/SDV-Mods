@@ -43,6 +43,9 @@ namespace CJBItemSpawner.Framework
         private Rectangle TextboxBounds;
         private string PreviousText = "";
 
+        /// <summary>Whether the user explicitly selected the textbox by clicking on it, so the selection should be maintained.</summary>
+        private bool TextboxExplicitlySelected;
+
 
         /*********
         ** Public methods
@@ -119,6 +122,12 @@ namespace CJBItemSpawner.Framework
         public ItemMenu(ITranslationHelper i18n, ItemRepository itemRepository)
             : this(0, 0, ItemQuality.Normal, "", i18n, itemRepository) { }
 
+        /// <summary>Whether controller-style menus should be disabled for this menu.</summary>
+        public override bool overrideSnappyMenuCursorMovementBan()
+        {
+            return true;
+        }
+
         public override void receiveRightClick(int x, int y, bool playSound = true)
         {
             if (this.TextboxBounds.Contains(x, y))
@@ -176,6 +185,12 @@ namespace CJBItemSpawner.Framework
         {
             base.receiveLeftClick(x, y, playSound);
 
+            // deselect textbox
+            bool justDeselectedSearch = this.Textbox.Selected && !this.TextboxBounds.Contains(x, y);
+            if (justDeselectedSearch)
+                this.DeselectSearchBox();
+
+            // handle general UI
             if (this.HeldItem == null)
             {
                 foreach (ClickableComponent tab in this.Tabs)
@@ -191,9 +206,7 @@ namespace CJBItemSpawner.Framework
                 }
 
                 if (this.SortButton.bounds.Contains(x, y))
-                {
                     this.Reopen(sortBy: this.SortBy.GetNext());
-                }
 
                 if (this.QualityButton.bounds.Contains(x, y))
                 {
@@ -208,12 +221,18 @@ namespace CJBItemSpawner.Framework
 
                 if (this.DownArrow.bounds.Contains(x, y))
                     this.ItemsToGrabMenu?.receiveScrollWheelAction(-1);
+
+                if (!justDeselectedSearch && (!this.Textbox.Selected || !this.TextboxExplicitlySelected) && this.TextboxBounds.Contains(x, y))
+                    this.SelectSearchBox(explicitly: true);
             }
 
+            // take item from menu
             if (this.HeldItem == null && this.ShowReceivingMenu)
             {
                 this.HeldItem = this.ItemsToGrabMenu?.LeftClick(x, y, this.HeldItem, false);
                 SObject obj = this.HeldItem as SObject;
+
+                // read Dwarvish Translation Guide
                 if (obj != null && obj.ParentSheetIndex == 326)
                 {
                     this.HeldItem = null;
@@ -221,6 +240,8 @@ namespace CJBItemSpawner.Framework
                     this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                     Game1.playSound("fireball");
                 }
+
+                // read Lost Book
                 else if (obj != null && obj.ParentSheetIndex == 102)
                 {
                     this.HeldItem = null;
@@ -228,6 +249,8 @@ namespace CJBItemSpawner.Framework
                     this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
                     Game1.playSound("fireball");
                 }
+
+                // learn recipe
                 else if (obj != null && obj.IsRecipe)
                 {
                     string key = obj.Name.Substring(0, obj.Name.IndexOf("Recipe", StringComparison.InvariantCultureIgnoreCase) - 1);
@@ -246,18 +269,22 @@ namespace CJBItemSpawner.Framework
                     }
                     this.HeldItem = null;
                 }
-                else if (Game1.player.addItemToInventoryBool(this.HeldItem))
+
+                // take normal item
+                else if (this.HeldItem != null && Game1.player.addItemToInventoryBool(this.HeldItem))
                 {
                     this.HeldItem = null;
                     Game1.playSound("coin");
                 }
             }
-            if (this.HeldItem == null || this.isWithinBounds(x, y) || !this.HeldItem.canBeTrashed())
-                return;
-            Game1.playSound("throwDownITem");
-            Game1.createItemDebris(this.HeldItem, Game1.player.getStandingPosition(), Game1.player.FacingDirection);
-            this.HeldItem = null;
 
+            // drop item
+            if (this.HeldItem != null && !this.isWithinBounds(x, y) && this.HeldItem.canBeTrashed())
+            {
+                Game1.playSound("throwDownITem");
+                Game1.createItemDebris(this.HeldItem, Game1.player.getStandingPosition(), Game1.player.FacingDirection);
+                this.HeldItem = null;
+            }
         }
 
         public bool AreAllItemsTaken()
@@ -288,6 +315,9 @@ namespace CJBItemSpawner.Framework
 
         public override void update(GameTime time)
         {
+            if (this.TextboxExplicitlySelected && !this.Textbox.Selected)
+                this.DeselectSearchBox();
+
             if (this.PreviousText != this.Textbox.Text)
             {
                 this.PreviousText = this.Textbox.Text;
@@ -303,12 +333,25 @@ namespace CJBItemSpawner.Framework
 
         public override void performHoverAction(int x, int y)
         {
+            // handle search box selected
+            if (!this.TextboxExplicitlySelected)
+            {
+                bool overSearchBox = this.TextboxBounds.Contains(x, y);
+                if (this.Textbox.Selected != overSearchBox)
+                {
+                    if (overSearchBox)
+                        this.SelectSearchBox(explicitly: false);
+                    else
+                        this.DeselectSearchBox();
+                    return;
+                }
+            }
+
+            // hover item/menu
             if (this.ItemsToGrabMenu.isWithinBounds(x, y) && this.ShowReceivingMenu)
                 this.HoveredItem = this.ItemsToGrabMenu.Hover(x, y, this.HeldItem);
             else
                 base.performHoverAction(x, y);
-
-            this.Textbox.Selected = this.TextboxBounds.Contains(x, y);
         }
 
         public override void receiveScrollWheelAction(int direction)
@@ -384,6 +427,21 @@ namespace CJBItemSpawner.Framework
         private void Reopen(MenuTab? tabIndex = null, ItemSort? sortBy = null, ItemQuality? quality = null, string search = null)
         {
             Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortBy ?? this.SortBy, quality ?? this.Quality, search ?? this.PreviousText, this.TranslationHelper, this.ItemRepository);
+        }
+
+        /// <summary>Set the search texbox selected.</summary>
+        /// <param name="explicitly">Whether the textbox was selected explicitly by the user (rather than automatically by hovering), so the selection should be maintained.</param>
+        private void SelectSearchBox(bool explicitly)
+        {
+            this.Textbox.Selected = true;
+            this.TextboxExplicitlySelected = explicitly;
+        }
+
+        /// <summary>Set the search texbox non-selected.</summary>
+        private void DeselectSearchBox()
+        {
+            this.Textbox.Selected = false;
+            this.TextboxExplicitlySelected = false;
         }
 
         /// <summary>Get the translated label for a sort type.</summary>

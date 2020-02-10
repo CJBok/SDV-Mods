@@ -63,16 +63,16 @@
     "fast-machines.slime-egg-press": "Prensa de gosmas",
     "fast-machines.slime-incubator": "Incubador de gosmas",
     "fast-machines.tapper": "Torneirinha",
-    "fast-machines.wood-chipper": "Wood Chipper", // TODO
+    "fast-machines.wood-chipper": "Picador de madeira",
     "fast-machines.worm-bin": "Cesto de minhocas",
 
     // 'Skills' tab
     "skills.title": "Habilidades",
-    "skills.increase-farming": "Aumentar Nível de Cultivo",
-    "skills.increase-mining": "Aumentar Nível de Mineração",
-    "skills.increase-foraging": "Aumentar Nível de Coleta",
-    "skills.increase-fishing": "Aumentar Nível de Pesca",
-    "skills.increase-combat": "Aumentar Nível de Combate",
+    "skills.increase-farming": "Aumentar Nível de Cultivo: {{currentLevel}}",
+    "skills.increase-mining": "Aumentar Nível de Mineração: {{currentLevel}}",
+    "skills.increase-foraging": "Aumentar Nível de Coleta: {{currentLevel}}",
+    "skills.increase-fishing": "Aumentar Nível de Pesca: {{currentLevel}}",
+    "skills.increase-combat": "Aumentar Nível de Combate: {{currentLevel}}",
     "skills.reset": "REDEFINIR HABILIDADES!",
     "professions.title": "Profissões",
     "professions.combat.fighter": "Combate Nível 5 - Lutador",
@@ -158,8 +158,8 @@
     "flags.unlocked": "Liberar áreas",
     "flags.unlocked.guild": "Guilda dos Aventureiros",
     "flags.unlocked.room": "Quarto: {{name}}",
-    "flags.unlocked-content": "Unlocked content", // TODO
-    "flags.unlocked-content.dyes-and-tailoring": "Dyes & tailoring", // TODO
+    "flags.unlocked-content": "Conteúdo desbloqueado",
+    "flags.unlocked-content.dyes-and-tailoring": "Corantes e alfaiataria",
     "flags.community-center": "Centro Comunitário",
     "flags.community-center.door-unlocked": "Destrancar porta",
     "flags.jojamart.membership": "Associar ao Mercado Joja",

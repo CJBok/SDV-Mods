@@ -31,6 +31,9 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The minimum friendship points to maintain for each NPC.</summary>
         private readonly Dictionary<string, int> PreviousFriendships = new Dictionary<string, int>();
 
+        /// <summary>The last tile position around which crops and trees were grown.</summary>
+        private Vector2 LastGrowOrigin;
+
         /// <summary>Whether to grow crops under the cursor.</summary>
         private bool ShouldGrowCrops;
 
@@ -77,18 +80,19 @@ namespace CJBCheatsMenu.Framework
         {
             foreach (GameLocation location in CJB.GetAllLocations())
             {
-                if (!location.IsFarm && !location.IsGreenhouse)
-                    continue;
-
-                foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
+                if (location.IsFarm || location.IsGreenhouse)
                 {
-                    if (terrainFeature is HoeDirt dirt)
-                        dirt.state.Value = HoeDirt.watered;
+                    foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
+                    {
+                        if (terrainFeature is HoeDirt dirt)
+                            dirt.state.Value = HoeDirt.watered;
+                    }
                 }
 
                 foreach (IndoorPot pot in location.objects.Values.OfType<IndoorPot>())
                 {
-                    if (pot.hoeDirt.Value is HoeDirt dirt)
+                    HoeDirt dirt = pot.hoeDirt.Value;
+                    if (dirt != null)
                     {
                         dirt.state.Value = HoeDirt.watered;
                         pot.showNextIndex.Value = true;
@@ -207,15 +211,10 @@ namespace CJBCheatsMenu.Framework
             if (!this.Config.HarvestScythe)
             {
                 IDictionary<int, int> cropHarvestMethods = this.GetCropHarvestMethods();
-                foreach (GameLocation location in Game1.locations)
+                foreach (Crop crop in CJB.GetAllLocations().SelectMany(this.GetCropsIn))
                 {
-                    if (!location.IsFarm && !location.IsGreenhouse)
-                        continue;
-                    foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
-                    {
-                        if (terrainFeature is HoeDirt dirt && dirt.crop != null && cropHarvestMethods.TryGetValue(dirt.crop.indexOfHarvest.Value, out int harvestMethod))
-                            dirt.crop.harvestMethod.Value = harvestMethod;
-                    }
+                    if (cropHarvestMethods.TryGetValue(crop.indexOfHarvest.Value, out int harvestMethod))
+                        crop.harvestMethod.Value = harvestMethod;
                 }
             }
         }
@@ -292,40 +291,32 @@ namespace CJBCheatsMenu.Framework
                 }
 
                 // auto-feed animals
-                if (this.Config.AutoFeed && farm != null && location is AnimalHouse animalHouse)
+                if (this.Config.AutoFeed && farm?.piecesOfHay.Value > 0 && location is AnimalHouse animalHouse)
                 {
-                    int animalCount = animalHouse.animals.Values.Count();
-                    int hayObjects = animalHouse.numberOfObjectsWithName("Hay");
-                    int hayUsed = Math.Min(animalCount - hayObjects, farm.piecesOfHay.Value);
-                    farm.piecesOfHay.Value -= hayUsed;
+                    int animalCount = Math.Min(animalHouse.animalsThatLiveHere.Count, animalHouse.animalLimit.Value);
+                    if (animalHouse.numberOfObjectsWithName("Hay") >= animalCount)
+                        continue;
 
-                    int tileX = 6;
-                    if (animalHouse.Name.Contains("Barn"))
-                        tileX = 8;
+                    int tileX = animalHouse.Name.Contains("Barn")
+                        ? 8
+                        : 6;
 
-                    for (int i = 0; i < animalHouse.animalLimit.Value; i++)
+                    for (int i = 0; i < animalCount && farm.piecesOfHay.Value > 0; i++)
                     {
-                        if (hayUsed <= 0)
-                            break;
-
-                        Vector2 tile = new Vector2(tileX + i, 3f);
+                        Vector2 tile = new Vector2(tileX + i, 3);
                         if (!animalHouse.objects.ContainsKey(tile))
+                        {
                             animalHouse.objects.Add(tile, new SObject(178, 1));
-                        hayUsed--;
+                            farm.piecesOfHay.Value--;
+                        }
                     }
                 }
 
                 // harvest with scythe
-                if (this.Config.HarvestScythe && (location.IsFarm || location.IsGreenhouse))
+                if (this.Config.HarvestScythe)
                 {
-                    foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
-                    {
-                        if (terrainFeature is HoeDirt dirt)
-                        {
-                            if (dirt.crop != null)
-                                dirt.crop.harvestMethod.Value = 1;
-                        }
-                    }
+                    foreach (Crop crop in this.GetCropsIn(location))
+                        crop.harvestMethod.Value = Crop.sickleHarvest;
                 }
             }
         }
@@ -447,10 +438,19 @@ namespace CJBCheatsMenu.Framework
                 }
 
                 // grow crops/trees
-                if (this.ShouldGrowCrops && e.IsMultipleOf(15))
-                    this.GrowCrops(input.GetCursorPosition().Tile);
-                if (this.ShouldGrowTrees && e.IsMultipleOf(15))
-                    this.GrowTree(input.GetCursorPosition().Tile);
+                if (this.ShouldGrowCrops || this.ShouldGrowTrees)
+                {
+                    Vector2 playerTile = Game1.player.getTileLocation();
+                    if (playerTile != this.LastGrowOrigin || e.IsMultipleOf(30))
+                    {
+                        if (this.ShouldGrowCrops)
+                            this.GrowCrops(playerTile);
+                        if (this.ShouldGrowTrees)
+                            this.GrowTree(playerTile);
+
+                        this.LastGrowOrigin = playerTile;
+                    }
+                }
             }
 
             if (this.Config.MaxDailyLuck)
@@ -542,6 +542,29 @@ namespace CJBCheatsMenu.Framework
             // other machines
             if (machine.MinutesUntilReady > 0)
                 machine.minutesElapsed(machine.MinutesUntilReady, location);
+        }
+
+        /// <summary>Get all crops in a location.</summary>
+        /// <param name="location">The location to scan.</param>
+        private IEnumerable<Crop> GetCropsIn(GameLocation location)
+        {
+            // planted crops
+            if (location.IsFarm || location.IsGreenhouse)
+            {
+                foreach (HoeDirt dirt in location.terrainFeatures.Values.OfType<HoeDirt>())
+                {
+                    if (dirt.crop != null)
+                        yield return dirt.crop;
+                }
+            }
+
+            // garden pots
+            foreach (IndoorPot pot in location.objects.Values.OfType<IndoorPot>())
+            {
+                var crop = pot.hoeDirt.Value?.crop;
+                if (crop != null)
+                    yield return crop;
+            }
         }
 
         /// <summary>Get a crop ID => harvest method lookup.</summary>
