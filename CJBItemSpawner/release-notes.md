@@ -1,7 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.12
+Released 09 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
+
 * Clicking the search box now keeps it selected until you click elsewhere.
 * Added support for searching on Android.
 * Fixed spawning new flooring and rings (thanks to Mizzion!).

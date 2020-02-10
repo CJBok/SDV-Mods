@@ -1,7 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.9.5
+Released 09 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
+
 * Updated translations. Thanks to xCarloC (added Italian)!
 
 ## 1.9.4
