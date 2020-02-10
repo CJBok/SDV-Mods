@@ -9,6 +9,7 @@
 * Fixed errors when some item data is invalid.
 * Fixed errors on Android.
 * Fixed incorrect color for sturgeon roe.
+* Fixed menu not usable with a controller when the 'controller-style menus' option is enabled.
 
 ## 1.11.5
 Released 26 November 2019 for SMAPI 3.0 or later. Updated by Pathoschild.

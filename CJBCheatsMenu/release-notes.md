@@ -10,6 +10,7 @@
 * Fixed health bonuses not applied when changing professions.
 * Fixed 'always auto-feed' cheat changing total hay incorrectly in some cases.
 * Fixed 'always auto-feed' cheat not counting animals who aren't in their home building if it's enabled after the day already started.
+* Fixed menu not usable with a controller when the 'controller-style menus' option is enabled.
 * Updated translations. Thanks to ba0109 (updated Korean), jahangmar (updated German), mael-belval (updated French), Redlnn (updated Chinese), shirutan (updated Japanese), VengelmBjorn (updated Russian), and victrosantos (updated Portuguese and Spanish)!
 
 ## 1.21

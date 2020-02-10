@@ -122,6 +122,12 @@ namespace CJBItemSpawner.Framework
         public ItemMenu(ITranslationHelper i18n, ItemRepository itemRepository)
             : this(0, 0, ItemQuality.Normal, "", i18n, itemRepository) { }
 
+        /// <summary>Whether controller-style menus should be disabled for this menu.</summary>
+        public override bool overrideSnappyMenuCursorMovementBan()
+        {
+            return true;
+        }
+
         public override void receiveRightClick(int x, int y, bool playSound = true)
         {
             if (this.TextboxBounds.Contains(x, y))

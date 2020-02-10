@@ -116,6 +116,12 @@ namespace CJBCheatsMenu.Framework
             this.SetOptions();
         }
 
+        /// <summary>Whether controller-style menus should be disabled for this menu.</summary>
+        public override bool overrideSnappyMenuCursorMovementBan()
+        {
+            return true;
+        }
+
         public override void leftClickHeld(int x, int y)
         {
             if (GameMenu.forcePreventClose)
