@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Added warp to the Skull Cavern.
 * Fixed grow trees not working consistently after 1.22.
 * Fixed fast egg incubator not working.
 * Clarified how fast slime egg incubator works.
