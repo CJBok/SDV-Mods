@@ -26,8 +26,8 @@ setting | default | what it affects
 ------- | ------- | ---------------
 `OpenMenuKey` | `P` | The button which opens the menu.
 `FreezeTimeKey` | `T` | The button which freezes the game clock.
-`GrowTreeKey` | `NumPad1` | The button held to grow trees under the cursor.
-`GrowCropsKey` | `NumPad2` | The button held to grow crops under the cursor.
+`GrowTreeKey` | `NumPad1` | The button held to grow trees around the player.
+`GrowCropsKey` | `NumPad2` | The button held to grow crops around the player.
 
 ### Menu settings
 
@@ -68,7 +68,7 @@ setting | default | what it affects
 `FastFurnace` | `false` | Furnaces finish instantly.
 `FastRecyclingMachine` | `false` | Recycling machines finish instantly.
 `FastCrystalarium` | `false` | Crystalariums finish instantly.
-`FastIncubator` | `false` | Incubators finish instantly.
+`FastIncubator` | `false` | Egg incubators finish overnight.
 `FastSlimeIncubator ` | `false` | Slime incubators finish instantly.
 `FastKeg` | `false` | Kegs finish instantly.
 `FastPreservesJar` | `false` | Preserves jars finish instantly.

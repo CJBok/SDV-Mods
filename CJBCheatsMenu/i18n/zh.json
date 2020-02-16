@@ -50,7 +50,7 @@
     "fast-machines.crystalarium": "宝石复制机",
     "fast-machines.fruit-trees": "水果树",
     "fast-machines.furnace": "熔炉",
-    "fast-machines.incubator": "孵化器",
+    "fast-machines.incubator": "孵化器（鸡蛋会孵化一整夜）", // TODO review (auto-translated)
     "fast-machines.keg": "小桶",
     "fast-machines.lightning-rod": "避雷针",
     "fast-machines.loom": "织布机",

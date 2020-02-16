@@ -524,8 +524,13 @@ namespace CJBCheatsMenu.Framework
                 cask.checkForMaturity();
             }
 
+            // egg incubator
+            // (animalHouse.incubatingEgg.X is the number of days until the egg hatches; Y is the egg ID.)
+            else if (location is AnimalHouse animalHouse && machine.bigCraftable.Value && machine.ParentSheetIndex == 101 && animalHouse.incubatingEgg.X > 0)
+                animalHouse.incubatingEgg.X = 1;
+
             // other machines
-            if (machine.MinutesUntilReady > 0)
+            else if (machine.MinutesUntilReady > 0)
                 machine.minutesElapsed(machine.MinutesUntilReady, location);
         }
 

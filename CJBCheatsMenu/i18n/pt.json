@@ -50,7 +50,7 @@
     "fast-machines.crystalarium": "Cristalário",
     "fast-machines.fruit-trees": "Árvores frutiferas",
     "fast-machines.furnace": "Fornalha",
-    "fast-machines.incubator": "Chocadeira",
+    "fast-machines.incubator": "Chocadeira (o ovo eclodirá durante a noite)", // TODO review (auto-translated)
     "fast-machines.keg": "Barril",
     "fast-machines.lightning-rod": "Para-raios",
     "fast-machines.loom": "Tear",

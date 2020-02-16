@@ -50,7 +50,7 @@
     "fast-machines.crystalarium": "結晶コピーマシン",
     "fast-machines.fruit-trees": "果樹",
     "fast-machines.furnace": "溶鉱炉",
-    "fast-machines.incubator": "ふ卵器",
+    "fast-machines.incubator": "ふ卵器（卵は一晩でhatch化します）", // TODO review (auto-translated)
     "fast-machines.keg": "醸造ダル",
     "fast-machines.lightning-rod": "ひらい針",
     "fast-machines.loom": "織り機",

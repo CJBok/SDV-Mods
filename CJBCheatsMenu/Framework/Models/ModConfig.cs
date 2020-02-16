@@ -18,10 +18,10 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>The button which freezes the game clock.</summary>
         public SButton FreezeTimeKey { get; set; } = SButton.T;
 
-        /// <summary>The button held to grow trees under the cursor.</summary>
+        /// <summary>The button held to grow trees around the player.</summary>
         public SButton GrowTreeKey { get; set; } = SButton.NumPad1;
 
-        /// <summary>The button held to grow crops under the cursor.</summary>
+        /// <summary>The button held to grow crops around the player.</summary>
         public SButton GrowCropsKey { get; set; } = SButton.NumPad2;
 
         /****
@@ -111,7 +111,7 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Furnaces finish instantly.</summary>
         public bool FastFurnace { get; set; }
 
-        /// <summary>Incubators finish instantly.</summary>
+        /// <summary>Egg incubators finish overnight.</summary>
         public bool FastIncubator { get; set; }
 
         /// <summary>Kegs finish instantly.</summary>
