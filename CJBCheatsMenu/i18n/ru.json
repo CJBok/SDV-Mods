@@ -171,6 +171,7 @@
     "controls.freeze-time": "Остановить время",
     "controls.grow-tree": "Вырастить деревья",
     "controls.grow-crops": "Вырастить растения",
+    "controls.reset-controls": "Reset", // TODO
 
     // various messages
     "messages.press-new-key": "Нажмите новую клавишу...",

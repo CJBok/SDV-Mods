@@ -171,6 +171,7 @@
     "controls.freeze-time": "Freeze Time",
     "controls.grow-tree": "Grow Tree",
     "controls.grow-crops": "Grow Crops",
+    "controls.reset-controls": "Reset",
 
     // various messages
     "messages.press-new-key": "Press New Key...",

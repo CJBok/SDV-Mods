@@ -9,7 +9,7 @@ using StardewValley.Menus;
 namespace CJB.Common
 {
     /// <summary>Provides common helpers for the mods.</summary>
-    public static class CommonHelper
+    internal static class CommonHelper
     {
         /*********
         ** Public methods

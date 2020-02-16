@@ -560,6 +560,8 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.freeze-time"), slotWidth, this.Config.FreezeTimeKey, key => this.Config.FreezeTimeKey = key, i18n));
                     this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.grow-tree"), slotWidth, this.Config.GrowTreeKey, key => this.Config.GrowTreeKey = key, i18n));
                     this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.grow-crops"), slotWidth, this.Config.GrowCropsKey, key => this.Config.GrowCropsKey = key, i18n));
+                    this.Options.Add(new OptionsElement(string.Empty)); // blank line
+                    this.Options.Add(new CheatsOptionsButton(i18n.Get("controls.reset-controls"), slotWidth, this.ResetControls));
                     break;
             }
             this.SetScrollBarToCurrentIndex();
@@ -937,6 +939,19 @@ namespace CJBCheatsMenu.Framework
 
             // warp
             Game1.warpFarmer(locationName, tileX, tileY, false);
+        }
+
+        /// <summary>Reset all controls to their default value.</summary>
+        private void ResetControls()
+        {
+            this.Config.FreezeTimeKey = ModConfig.Defaults.FreezeTimeKey;
+            this.Config.GrowCropsKey = ModConfig.Defaults.GrowCropsKey;
+            this.Config.GrowTreeKey = ModConfig.Defaults.GrowTreeKey;
+            this.Config.OpenMenuKey = ModConfig.Defaults.OpenMenuKey;
+
+            Game1.soundBank.PlayCue("bigDeSelect");
+
+            this.SetOptions();
         }
 
         private void SetScrollBarToCurrentIndex()

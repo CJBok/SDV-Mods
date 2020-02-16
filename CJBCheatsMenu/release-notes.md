@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Added warp to the Skull Cavern.
+* Added button to reset controls to default.
 * Fixed grow trees not working consistently after 1.22.
 * Fixed fast egg incubator not working.
 * Clarified how fast slime egg incubator works.

@@ -171,6 +171,7 @@
     "controls.freeze-time": "冻结时间",
     "controls.grow-tree": "树木立即长大",
     "controls.grow-crops": "作物立即成熟",
+    "controls.reset-controls": "Reset", // TODO
 
     // various messages
     "messages.press-new-key": "绑定新按键...",

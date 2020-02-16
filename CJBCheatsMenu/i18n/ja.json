@@ -171,6 +171,7 @@
     "controls.freeze-time": "時間を止める",
     "controls.grow-tree": "果樹が生長する",
     "controls.grow-crops": "周りの作物が収穫できるようになる",
+    "controls.reset-controls": "Reset", // TODO
 
     // various messages
     "messages.press-new-key": "新しいキーを押してね",

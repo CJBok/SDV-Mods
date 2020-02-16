@@ -13,30 +13,30 @@
     "tabs.controls": "Contrôles",
 
     // 'Player & Tools' tab
-    "player.title": "Joueur ",
+    "player.title": "Joueur",
     "player.infinite-stamina": "Endurance infinie",
     "player.infinite-health": "Santé infinie",
     "player.increased-movement-speed": "Augmentation de la vitesse de déplacement",
     "player.movement-speed": "Vitesse de déplacement",
     "player.one-hit-kill": "Tue en un coup",
     "player.max-daily-luck": "Chance quotidienne maximale",
-    "tools.title": "Outils ",
+    "tools.title": "Outils",
     "tools.infinite-water": "Arrosoir - Eau infinie pour l'arrosoir",
     "tools.one-hit-break": "Casse en un coup",
     "tools.harvest-with-scythe": "Récolter avec la faux",
-    "money.title": "Argent ",
+    "money.title": "Argent",
     "money.add-amount": "Ajouter {{amount}}po",
-    "casino-coins.title": "Pièce de casino ",
+    "casino-coins.title": "Pièce de casino",
     "casino-coins.add-amount": "Ajouter {{amount}}",
 
     // 'Farm & Fishing' tab
-    "farm.title": "Ferme ",
+    "farm.title": "Ferme",
     "farm.water-all-fields": "Arroser tout les champs",
     "farm.durable-fences": "Clôture durable",
     "farm.instant-build": "Construction instantanée",
     "farm.always-auto-feed": "Toujours nourrir automatiquement",
     "farm.infinite-hay": "Foin infini",
-    "fishing.title": "Pêche ",
+    "fishing.title": "Pêche",
     "fishing.instant-catch": "Capture instantanée",
     "fishing.instant-bite": "Prise instantanée",
     "fishing.always-throw-max-distance": "Toujours jeter à la distance maximale",
@@ -67,14 +67,14 @@
     "fast-machines.worm-bin": "Bac à compost",
 
     // 'Skills' tab
-    "skills.title": "Compétences ",
+    "skills.title": "Compétences",
     "skills.increase-farming": "Augm. Niveau d'Agriculture: {{currentLevel}}",
     "skills.increase-mining": "Augm. Niveau d'Ext. Minière: {{currentLevel}}",
     "skills.increase-foraging": "Augm. Niveau de Cueillette: {{currentLevel}}",
     "skills.increase-fishing": "Augm. Niveau de Pêche: {{currentLevel}}",
     "skills.increase-combat": "Augm. Niveau de Combat: {{currentLevel}}",
     "skills.reset": "REINITIALISER LES COMPETENCES !",
-    "professions.title": "Professions ",
+    "professions.title": "Professions",
     "professions.combat.fighter": "Combat lvl 5 - Combattant",
     "professions.combat.scout": "Combat lvl 5 - Eclaireur",
     "professions.combat.acrobat": "Combat lvl 10 - Acrobate",
@@ -107,21 +107,21 @@
     "professions.mining.prospector": "Ext. Minière lvl 10 - Prospecteur",
 
     // 'Weather' tab
-    "weather.title": "Météo de demain ",
-    "weather.current": "Actuelle ",
+    "weather.title": "Météo de demain",
+    "weather.current": "Actuelle",
     "weather.sunny": "Soleil",
     "weather.raining": "Pluie",
     "weather.lightning": "Orage",
     "weather.snowing": "Neige",
 
     // 'Relationships' tab
-    "relationships.title": "Social ",
+    "relationships.title": "Social",
     "relationships.give-gifts-anytime": "Donner un cadeau n'importe quand",
     "relationships.no-decay": "Pas de déclin de l'amitié",
-    "relationships.friends": "Amis ",
+    "relationships.friends": "Amis",
 
     // 'Warp Locations' tab
-    "warp.title": "Se téléporter à ",
+    "warp.title": "Se téléporter à",
     "warp.farm": "Ferme",
     "warp.pierre-shop": "Magasin de Pierre",
     "warp.blacksmith": "Forgeron",
@@ -146,11 +146,11 @@
     "warp.bathhouse": "Spa",
 
     // 'Time' tab
-    "time.title": "Temps ",
+    "time.title": "Temps",
     "time.freeze-inside": "Arrêter le temps à l'intérieur",
     "time.freeze-caves": "Arrêter le temps dans les grottes",
     "time.freeze-everywhere": "Arrêter le temps partout",
-    "time.time": "Heure ",
+    "time.time": "Heure",
 
     // 'Flags' tab
     "flags.warning": "Utilisez cette section à vos risques et périls !\nCela peut causer des problèmes tels que des mails, événements ou quêtes non déclenchés.",
@@ -166,11 +166,12 @@
     "flags.jojamart.membership": "Adhérent au Marché Joja",
 
     // 'Controls' tab
-    "controls.title": "Contrôles ",
-    "controls.open-menu": "Ouvrir ce menu ",
-    "controls.freeze-time": "Arrêter le temps ",
-    "controls.grow-tree": "Faire pousser les arbres ",
-    "controls.grow-crops": "Faire pousser les culture ",
+    "controls.title": "Contrôles",
+    "controls.open-menu": "Ouvrir ce menu",
+    "controls.freeze-time": "Arrêter le temps",
+    "controls.grow-tree": "Faire pousser les arbres",
+    "controls.grow-crops": "Faire pousser les culture",
+    "controls.reset-controls": "Reset", // TODO
 
     // various messages
     "messages.press-new-key": "Appuyer sur la nouvelle touche...",

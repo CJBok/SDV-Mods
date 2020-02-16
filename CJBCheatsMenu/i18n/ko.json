@@ -171,6 +171,7 @@
     "controls.freeze-time": "시간 정지",
     "controls.grow-tree": "나무 자라게하기",
     "controls.grow-crops": "작물 자라게하기",
+    "controls.reset-controls": "Reset", // TODO
 
     // various messages
     "messages.press-new-key": "새로운 단축키를 입력하세요...",

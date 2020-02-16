@@ -9,6 +9,9 @@ namespace CJBCheatsMenu.Framework.Models
         /*********
         ** Accessors
         *********/
+        /// <summary>The default values.</summary>
+        public static ModConfig Defaults { get; } = new ModConfig();
+
         /****
         ** Keyboard buttons
         ****/
