@@ -171,6 +171,7 @@
     "controls.freeze-time": "Freeze Time",
     "controls.grow-tree": "Grow Tree",
     "controls.grow-crops": "Grow Crops",
+    "controls.grow-radius": "Grow distance around player",
     "controls.reset-controls": "Reset",
 
     // various messages

@@ -27,6 +27,9 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>The button held to grow crops around the player.</summary>
         public SButton GrowCropsKey { get; set; } = SButton.NumPad2;
 
+        /// <summary>The number of tiles in each direction around the player to cover when pressing <see cref="GrowCropsKey"/> or <see cref="GrowTreeKey"/>.</summary>
+        public int GrowRadius { get; set; } = 1;
+
         /****
         ** Menu settings
         ****/

@@ -28,6 +28,7 @@ setting | default | what it affects
 `FreezeTimeKey` | `T` | The button which freezes the game clock.
 `GrowTreeKey` | `NumPad1` | The button held to grow trees around the player.
 `GrowCropsKey` | `NumPad2` | The button held to grow crops around the player.
+`GrowRadius` | `1` | The number of tiles in each direction around the player to cover when pressing the `GrowCropsKey` or `GrowTreeKey`.
 
 ### Menu settings
 

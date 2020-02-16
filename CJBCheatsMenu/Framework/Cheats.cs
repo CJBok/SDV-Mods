@@ -453,7 +453,7 @@ namespace CJBCheatsMenu.Framework
                     Vector2 playerTile = Game1.player.getTileLocation();
                     if (playerTile != this.LastGrowOrigin || e.IsMultipleOf(30))
                     {
-                        this.Grow(playerTile, growCrops: this.ShouldGrowCrops, growTrees: this.ShouldGrowTrees, radius: 1);
+                        this.Grow(playerTile, growCrops: this.ShouldGrowCrops, growTrees: this.ShouldGrowTrees, radius: this.Config.GrowRadius);
                         this.LastGrowOrigin = playerTile;
                     }
                 }
