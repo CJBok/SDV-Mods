@@ -1,6 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed grow trees not working consistently after 1.22.
+
 ## 1.22
 Released 09 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
 

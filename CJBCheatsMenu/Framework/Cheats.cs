@@ -101,78 +101,67 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
-        public void GrowTree(Vector2 origin)
+        /// <summary>Grow crops and trees around the given position.</summary>
+        /// <param name="origin">The origin around which to grow crops and trees.</param>
+        /// <param name="growCrops">Whether to grow crops.</param>
+        /// <param name="growTrees">Whether to grow trees.</param>
+        /// <param name="radius">The number of tiles in each direction to include, not counting the origin.</param>
+        public void Grow(Vector2 origin, bool growCrops, bool growTrees, int radius)
         {
-            var player = Game1.player;
-            if (player == null)
+            if (!growCrops && !growTrees)
                 return;
 
-            if (player.currentLocation.terrainFeatures.ContainsKey(origin))
+            // get location
+            GameLocation location = Game1.player?.currentLocation;
+            if (location == null)
+                return;
+
+            // check tile area
+            foreach (Vector2 tile in CJB.GetTileArea(origin, radius))
             {
-                TerrainFeature terrainFeature = player.currentLocation.terrainFeatures[origin];
-                if (terrainFeature is Tree tree)
+                // get target
+                object target = null;
                 {
-                    if (!tree.stump.Value)
-                        tree.growthStage.Value = Tree.treeStage;
-                }
-                else if (terrainFeature is FruitTree fruitTree)
-                {
-                    if (!fruitTree.stump.Value)
+                    // terrain feature
+                    if (location.terrainFeatures.TryGetValue(tile, out TerrainFeature terrainFeature))
                     {
-                        fruitTree.growthStage.Value = FruitTree.treeStage;
+                        if (terrainFeature is HoeDirt dirt)
+                            target = dirt.crop;
+                        else if (terrainFeature is Bush || terrainFeature is FruitTree || terrainFeature is Tree)
+                            target = terrainFeature;
+                    }
+
+                    // indoor pot
+                    if (target == null && location.objects.TryGetValue(tile, out SObject obj) && obj is IndoorPot pot)
+                    {
+                        if (pot.hoeDirt.Value is HoeDirt dirt)
+                            target = dirt.crop;
+
+                        if (pot.bush.Value is Bush bush)
+                            target = bush;
+                    }
+                }
+
+                // grow target
+                switch (target)
+                {
+                    case Crop crop when growCrops:
+                        crop.growCompletely();
+                        break;
+
+                    case Bush bush when growCrops && bush.size.Value == Bush.greenTeaBush && bush.getAge() < Bush.daysToMatureGreenTeaBush:
+                        bush.datePlanted.Value = (int)(Game1.stats.DaysPlayed - Bush.daysToMatureGreenTeaBush);
+                        bush.dayUpdate(location, tile); // update source rect, grow tea leaves, etc
+                        break;
+
+                    case FruitTree fruitTree when growTrees && !fruitTree.stump.Value && fruitTree.growthStage.Value < FruitTree.treeStage:
+                        fruitTree.growthStage.Value = Tree.treeStage;
                         fruitTree.daysUntilMature.Value = 0;
-                    }
-                }
-            }
-        }
+                        break;
 
-        public void GrowCrops(Vector2 origin)
-        {
-            var player = Game1.player;
-            if (player == null)
-                return;
-
-            const int radius = 1;
-            for (int x = -radius; x <= radius; x++)
-            {
-                for (int y = -radius; y <= radius; y++)
-                {
-                    Vector2 tile = new Vector2(origin.X + x, origin.Y + y);
-
-                    // get target
-                    object target = null;
-                    {
-                        if (player.currentLocation.terrainFeatures.TryGetValue(tile, out TerrainFeature terrainFeature))
-                        {
-                            if (terrainFeature is HoeDirt dirt)
-                                target = dirt.crop;
-                            if (terrainFeature is Bush bush)
-                                target = bush;
-                        }
-                        if (target == null && player.currentLocation.objects.TryGetValue(tile, out SObject obj) && obj is IndoorPot pot)
-                        {
-                            // crop
-                            if (pot.hoeDirt.Value is HoeDirt dirt)
-                                target = dirt.crop;
-
-                            // planted bush
-                            if (pot.bush.Value is Bush bush)
-                                target = bush;
-                        }
-                    }
-
-                    // grow target
-                    switch (target)
-                    {
-                        case Crop crop:
-                            crop.growCompletely();
-                            break;
-
-                        case Bush bush when bush.size.Value == Bush.greenTeaBush && bush.getAge() < Bush.daysToMatureGreenTeaBush:
-                            bush.datePlanted.Value = (int)(Game1.stats.DaysPlayed - Bush.daysToMatureGreenTeaBush);
-                            bush.dayUpdate(player.currentLocation, tile); // update source rect, grow tea leaves, etc
-                            break;
-                    }
+                    case Tree tree when growTrees && !tree.stump.Value && tree.growthStage.Value < Tree.treeStage:
+                        tree.growthStage.Value = Tree.treeStage;
+                        break;
                 }
             }
         }
@@ -443,11 +432,7 @@ namespace CJBCheatsMenu.Framework
                     Vector2 playerTile = Game1.player.getTileLocation();
                     if (playerTile != this.LastGrowOrigin || e.IsMultipleOf(30))
                     {
-                        if (this.ShouldGrowCrops)
-                            this.GrowCrops(playerTile);
-                        if (this.ShouldGrowTrees)
-                            this.GrowTree(playerTile);
-
+                        this.Grow(playerTile, growCrops: this.ShouldGrowCrops, growTrees: this.ShouldGrowTrees, radius: 1);
                         this.LastGrowOrigin = playerTile;
                     }
                 }

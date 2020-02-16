@@ -89,5 +89,17 @@ namespace CJBCheatsMenu.Framework
                 }
             }
         }
+
+        /// <summary>Get the tile coordinates in a map area.</summary>
+        /// <param name="origin">The center tile coordinate.</param>
+        /// <param name="radius">The number of tiles in each direction to include, not counting the origin.</param>
+        public static IEnumerable<Vector2> GetTileArea(Vector2 origin, int radius)
+        {
+            for (int x = -radius; x <= radius; x++)
+            {
+                for (int y = -radius; y <= radius; y++)
+                    yield return new Vector2(origin.X + x, origin.Y + y);
+            }
+        }
     }
 }
