@@ -77,6 +77,11 @@
         "Location": "Mine",
         "Tile": "13, 10"
     },
+	{
+        "DisplayText": "warp.skull",
+        "Location": "UndergroundMine121",
+        "Tile": "18, 4"
+    },
     {
         "DisplayText": "warp.willy-shop",
         "Location": "Beach",
