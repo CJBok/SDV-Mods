@@ -556,7 +556,7 @@ namespace CJBCheatsMenu.Framework
 
                 case MenuTab.Controls:
                     this.Options.Add(new OptionsElement($"{i18n.Get("controls.title")}:"));
-                    this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.open-menu"), slotWidth, this.Config.OpenMenuKey, key => this.Config.OpenMenuKey = key, i18n));
+                    this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.open-menu"), slotWidth, this.Config.OpenMenuKey, key => this.Config.OpenMenuKey = key, i18n, clearToButton: ModConfig.Defaults.OpenMenuKey));
                     this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.freeze-time"), slotWidth, this.Config.FreezeTimeKey, key => this.Config.FreezeTimeKey = key, i18n));
                     this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.grow-tree"), slotWidth, this.Config.GrowTreeKey, key => this.Config.GrowTreeKey = key, i18n));
                     this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.grow-crops"), slotWidth, this.Config.GrowCropsKey, key => this.Config.GrowCropsKey = key, i18n));

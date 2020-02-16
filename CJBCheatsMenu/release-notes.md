@@ -2,11 +2,13 @@
 
 # Release notes
 ## Upcoming release
-* Added warp to the Skull Cavern.
+* Added warp to the Skull Cavern (thanks to Enaium!).
 * Added button to reset controls to default.
+* You can now disable a control by pressing escape when 'Press New Key' is shown. (The open-menu key will reset to default instead, so you can't accidentally lock yourself out of the menu.)
 * Fixed grow trees not working consistently after 1.22.
 * Fixed fast egg incubator not working.
 * Clarified how fast slime egg incubator works.
+* Updated translations. Thanks to Enaium (updated Chinese)!
 
 ## 1.22
 Released 09 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
