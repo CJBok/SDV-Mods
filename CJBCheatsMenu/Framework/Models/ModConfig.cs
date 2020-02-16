@@ -19,7 +19,7 @@ namespace CJBCheatsMenu.Framework.Models
         public SButton OpenMenuKey { get; set; } = SButton.P;
 
         /// <summary>The button which freezes the game clock.</summary>
-        public SButton FreezeTimeKey { get; set; } = SButton.T;
+        public SButton FreezeTimeKey { get; set; } = SButton.None;
 
         /// <summary>The button held to grow trees around the player.</summary>
         public SButton GrowTreeKey { get; set; } = SButton.NumPad1;
