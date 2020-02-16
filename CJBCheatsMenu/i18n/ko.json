@@ -50,7 +50,7 @@
     "fast-machines.crystalarium": "보석 화수분",
     "fast-machines.fruit-trees": "과일나무",
     "fast-machines.furnace": "용광로",
-    "fast-machines.incubator": "부화기 (계란은 밤새 부화합니다)", // TODO review (auto-translated)
+    "fast-machines.incubator": "부화기 (아침에 준비)", // TODO review (auto-translated)
     "fast-machines.keg": "양조통",
     "fast-machines.lightning-rod": "피뢰침",
     "fast-machines.loom": "베틀",
@@ -61,7 +61,7 @@
     "fast-machines.recycling-machine": "재활용 기계",
     "fast-machines.seed-maker": "씨앗 생산기",
     "fast-machines.slime-egg-press": "슬라임 알 압착기",
-    "fast-machines.slime-incubator": "슬라임 부화기",
+    "fast-machines.slime-incubator": "슬라임 부화기 (아침에 준비)", // TODO review (auto-translated)
     "fast-machines.tapper": "수액 채취기",
     "fast-machines.wood-chipper": "나무 분쇄기",
     "fast-machines.worm-bin": "지렁이 통",

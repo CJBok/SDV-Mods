@@ -50,7 +50,7 @@
     "fast-machines.crystalarium": "Kristallarium",
     "fast-machines.fruit-trees": "Fruchtbäume",
     "fast-machines.furnace": "Ofen",
-    "fast-machines.incubator": "Brutkasten (Ei schlüpft über Nacht)", // TODO review (auto-translated)
+    "fast-machines.incubator": "Brutkasten (morgens fertig)", // TODO review (auto-translated)
     "fast-machines.keg": "Fass",
     "fast-machines.lightning-rod": "Blitzableiter",
     "fast-machines.loom": "Webstuhl",
@@ -61,7 +61,7 @@
     "fast-machines.recycling-machine": "Recyclingmaschine",
     "fast-machines.seed-maker": "Saatguterzeuger",
     "fast-machines.slime-egg-press": "Schleim-Eierpresse",
-    "fast-machines.slime-incubator": "Schleimbrutkasten",
+    "fast-machines.slime-incubator": "Schleimbrutkasten (morgens fertig)", // TODO review (auto-translated)
     "fast-machines.tapper": "Zapfhahn",
     "fast-machines.wood-chipper": "Holzhackmaschine",
     "fast-machines.worm-bin": "Wurmeimer",

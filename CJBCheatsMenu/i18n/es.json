@@ -50,7 +50,7 @@
     "fast-machines.crystalarium": "Cristalario",
     "fast-machines.fruit-trees": "Árboles Frutales",
     "fast-machines.furnace": "Horno",
-    "fast-machines.incubator": "Incubadora (el huevo eclosionará durante la noche)", // TODO review (auto-translated)
+    "fast-machines.incubator": "Incubadora (lista por la mañana)", // TODO review (auto-translated)
     "fast-machines.keg": "Barril",
     "fast-machines.lightning-rod": "Pararrayos",
     "fast-machines.loom": "Telar",
@@ -61,7 +61,7 @@
     "fast-machines.recycling-machine": "Máquina de Reciclaje",
     "fast-machines.seed-maker": "Semilladora",
     "fast-machines.slime-egg-press": "Presa de Babas",
-    "fast-machines.slime-incubator": "Incubadora de Babas",
+    "fast-machines.slime-incubator": "Incubadora de Babas (lista por la mañana)", // TODO review (auto-translated)
     "fast-machines.tapper": "Resinera",
     "fast-machines.wood-chipper": "Astilladora de madera",
     "fast-machines.worm-bin": "Vivero de Cebo",

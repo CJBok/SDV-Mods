@@ -485,6 +485,9 @@ namespace CJBCheatsMenu.Framework
         /// <param name="obj">The machine to check.</param>
         private bool IsFastMachine(SObject obj)
         {
+            if (obj == null || !obj.bigCraftable.Value)
+                return false;
+
             return
                 (this.Config.FastBeeHouse && obj.name == "Bee House")
                 || (this.Config.FastCask && obj is Cask)
