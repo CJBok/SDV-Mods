@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CJB.Common;
 using CJBCheatsMenu.Framework.Models;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
@@ -70,6 +71,26 @@ namespace CJBCheatsMenu.Framework
             this.PreviousFriendships[npc.Name] = points;
         }
 
+        public string GetWeatherForNextDay(ITranslationHelper i18n)
+        {
+            switch (Game1.weatherForTomorrow)
+            {
+                case Game1.weather_sunny:
+                case Game1.weather_debris:
+                case Game1.weather_festival:
+                case Game1.weather_wedding:
+                    return i18n.Get("weather.sunny");
+                case Game1.weather_rain:
+                    return i18n.Get("weather.raining");
+                case Game1.weather_lightning:
+                    return i18n.Get("weather.lightning");
+                case Game1.weather_snow:
+                    return i18n.Get("weather.snowing");
+                default:
+                    return "";
+            }
+        }
+
         public void SetWeatherForNextDay(int weatherID)
         {
             Game1.weatherForTomorrow = weatherID;
@@ -78,7 +99,7 @@ namespace CJBCheatsMenu.Framework
 
         public void WaterAllFields()
         {
-            foreach (GameLocation location in CJB.GetAllLocations())
+            foreach (GameLocation location in CommonHelper.GetAllLocations())
             {
                 if (location.IsFarm || location.IsGreenhouse)
                 {
@@ -117,7 +138,7 @@ namespace CJBCheatsMenu.Framework
                 return;
 
             // check tile area
-            foreach (Vector2 tile in CJB.GetTileArea(origin, radius))
+            foreach (Vector2 tile in CommonHelper.GetTileArea(origin, radius))
             {
                 // get target
                 object target = null;
@@ -200,7 +221,7 @@ namespace CJBCheatsMenu.Framework
             if (!this.Config.HarvestScythe)
             {
                 IDictionary<int, int> cropHarvestMethods = this.GetCropHarvestMethods();
-                foreach (Crop crop in CJB.GetAllLocations().SelectMany(this.GetCropsIn))
+                foreach (Crop crop in CommonHelper.GetAllLocations().SelectMany(this.GetCropsIn))
                 {
                     if (cropHarvestMethods.TryGetValue(crop.indexOfHarvest.Value, out int harvestMethod))
                         crop.harvestMethod.Value = harvestMethod;
@@ -213,7 +234,7 @@ namespace CJBCheatsMenu.Framework
         public void OnRendered(ITranslationHelper i18n)
         {
             if (this.ShouldFreezeTime(Game1.currentLocation, out bool isCave))
-                CJB.DrawTextBox(5, isCave ? 100 : 5, Game1.smallFont, i18n.Get("messages.time-frozen"));
+                CommonHelper.DrawTextBox(5, isCave ? 100 : 5, Game1.smallFont, i18n.Get("messages.time-frozen"));
         }
 
         /// <summary>Raised once per second.</summary>

@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Buildings;
 using StardewValley.Locations;
 using StardewValley.Menus;
 
-namespace CJBCheatsMenu.Framework
+namespace CJB.Common
 {
-    internal static class CJB
+    /// <summary>Provides common helpers for the mods.</summary>
+    public static class CommonHelper
     {
         /*********
         ** Public methods
@@ -36,37 +36,6 @@ namespace CJBCheatsMenu.Framework
                     Utility.drawTextWithShadow(spriteBatch, message, font, new Vector2(x + Game1.tileSize / 4 - width, y + Game1.tileSize / 4), Game1.textColor);
                     break;
             }
-        }
-
-        public static string GetWeatherNexDay(ITranslationHelper i18n)
-        {
-            switch (Game1.weatherForTomorrow)
-            {
-                case Game1.weather_sunny:
-                case Game1.weather_debris:
-                case Game1.weather_festival:
-                case Game1.weather_wedding:
-                    return i18n.Get("weather.sunny");
-                case Game1.weather_rain:
-                    return i18n.Get("weather.raining");
-                case Game1.weather_lightning:
-                    return i18n.Get("weather.lightning");
-                case Game1.weather_snow:
-                    return i18n.Get("weather.snowing");
-                default:
-                    return "";
-            }
-        }
-
-        public static int GetExperiencePoints(int level)
-        {
-
-            if (level < 0 || level > 9)
-                return 0;
-
-            int[] exp = { 100, 280, 390, 530, 850, 1150, 1500, 2100, 3100, 5000 };
-
-            return exp[level];
         }
 
         /// <summary>Get all game locations.</summary>

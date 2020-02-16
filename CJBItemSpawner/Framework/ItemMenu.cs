@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CJB.Common;
 using CJBItemSpawner.Framework.Constants;
 using CJBItemSpawner.Framework.ItemData;
 using Microsoft.Xna.Framework;
@@ -385,17 +386,17 @@ namespace CJBItemSpawner.Framework
             this.Draw(spriteBatch, false, false);
             if (this.ShowReceivingMenu)
             {
-                CJB.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.dialogueFont, this.Title.name, true, 2);
+                CommonHelper.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.dialogueFont, this.Title.name, 2);
                 Game1.drawDialogueBox(this.ItemsToGrabMenu.xPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearSideBorder, this.ItemsToGrabMenu.yPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearTopBorder, this.ItemsToGrabMenu.width + IClickableMenu.borderWidth * 2 + IClickableMenu.spaceToClearSideBorder * 2, this.ItemsToGrabMenu.height + IClickableMenu.spaceToClearTopBorder + IClickableMenu.borderWidth * 2, false, true);
                 this.ItemsToGrabMenu.draw(spriteBatch);
                 foreach (ClickableComponent tab in this.Tabs)
                 {
                     MenuTab tabID = this.GetTabID(tab);
-                    CJB.DrawTextBox(tab.bounds.X + tab.bounds.Width, tab.bounds.Y, Game1.smallFont, tab.label, true, 2, this.CurrentTab == tabID ? 1F : 0.7F);
+                    CommonHelper.DrawTextBox(tab.bounds.X + tab.bounds.Width, tab.bounds.Y, Game1.smallFont, tab.label, 2, this.CurrentTab == tabID ? 1F : 0.7F);
                 }
 
-                CJB.DrawTextBox(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name, true);
-                CJB.DrawTextBox(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, Game1.smallFont, this.QualityButton.name, true);
+                CommonHelper.DrawTextBox(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name);
+                CommonHelper.DrawTextBox(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, Game1.smallFont, this.QualityButton.name);
 
                 this.UpArrow.draw(spriteBatch);
                 this.DownArrow.draw(spriteBatch);
