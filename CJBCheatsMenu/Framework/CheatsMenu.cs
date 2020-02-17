@@ -560,7 +560,7 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.freeze-time"), slotWidth, this.Config.FreezeTimeKey, key => this.Config.FreezeTimeKey = key, i18n));
                     this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.grow-tree"), slotWidth, this.Config.GrowTreeKey, key => this.Config.GrowTreeKey = key, i18n));
                     this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.grow-crops"), slotWidth, this.Config.GrowCropsKey, key => this.Config.GrowCropsKey = key, i18n));
-                    this.Options.Add(new CheatsOptionsSlider(i18n.Get("controls.grow-radius"), this.Config.GrowRadius, 10, value => this.Config.GrowRadius = value, disabled: () => this.Config.GrowTreeKey == SButton.None || this.Config.GrowCropsKey == SButton.None));
+                    this.Options.Add(new CheatsOptionsSlider(i18n.Get("controls.grow-radius"), this.Config.GrowRadius, 10, value => this.Config.GrowRadius = value, disabled: () => this.Config.GrowTreeKey == SButton.None && this.Config.GrowCropsKey == SButton.None));
                     this.Options.Add(new OptionsElement(string.Empty)); // blank line
                     this.Options.Add(new CheatsOptionsButton(i18n.Get("controls.reset-controls"), slotWidth, this.ResetControls));
                     break;
