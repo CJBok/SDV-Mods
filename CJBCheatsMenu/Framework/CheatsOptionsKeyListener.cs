@@ -29,6 +29,9 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The button area in screen pixels.</summary>
         private Rectangle SetButtonBounds;
 
+        /// <summary>The button to set when the player clears it.</summary>
+        private readonly SButton ClearToButton;
+
         private string ListenerMessage;
         private bool Listening;
 
@@ -42,13 +45,15 @@ namespace CJBCheatsMenu.Framework
         /// <param name="currentValue">The current key binding.</param>
         /// <param name="onSet">The action to perform when the button is toggled.</param>
         /// <param name="i18n">Provides translations for the mod.</param>
-        public CheatsOptionsKeyListener(string label, int slotWidth, SButton currentValue, Action<SButton> onSet, ITranslationHelper i18n)
+        /// <param name="clearToButton">The button to set when the player clears it.</param>
+        public CheatsOptionsKeyListener(string label, int slotWidth, SButton currentValue, Action<SButton> onSet, ITranslationHelper i18n, SButton clearToButton = SButton.None)
           : base(label, -1, -1, slotWidth + 1, 11 * Game1.pixelZoom)
         {
             this.CurrentValue = currentValue;
             this.PressNewKeyLabel = i18n.Get("messages.press-new-key");
             this.OnSet = onSet;
             this.SetButtonBounds = new Rectangle(slotWidth - 28 * Game1.pixelZoom, -1 + Game1.pixelZoom * 3, 21 * Game1.pixelZoom, 11 * Game1.pixelZoom);
+            this.ClearToButton = clearToButton;
         }
 
         /// <summary>The method invoked when the player clicks the left mouse button.</summary>
@@ -71,20 +76,21 @@ namespace CJBCheatsMenu.Framework
         {
             if (this.greyedOut || !this.Listening)
                 return;
+
             if (key == Keys.Escape)
             {
+                this.CurrentValue = this.ClearToButton;
                 Game1.soundBank.PlayCue("bigDeSelect");
-                this.Listening = false;
-                GameMenu.forcePreventClose = false;
             }
             else
             {
                 this.CurrentValue = key.ToSButton();
-                this.OnSet(this.CurrentValue);
                 Game1.soundBank.PlayCue("coin");
-                this.Listening = false;
-                GameMenu.forcePreventClose = false;
             }
+
+            this.OnSet(this.CurrentValue);
+            this.Listening = false;
+            GameMenu.forcePreventClose = false;
         }
 
         /// <summary>Draw the menu to the screen.</summary>

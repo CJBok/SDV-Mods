@@ -1,4 +1,5 @@
 using System.Linq;
+using CJB.Common;
 using CJBCheatsMenu.Framework;
 using CJBCheatsMenu.Framework.Models;
 using StardewModdingAPI;
@@ -68,7 +69,7 @@ namespace CJBCheatsMenu
         /// <param name="e">The event arguments.</param>
         private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
-            this.Locations = CJB.GetAllLocations().ToArray();
+            this.Locations = CommonHelper.GetAllLocations().ToArray();
             this.Cheats.Reset();
         }
 
@@ -77,7 +78,7 @@ namespace CJBCheatsMenu
         /// <param name="e">The event arguments.</param>
         private void OnLocationListChanged(object sender, LocationListChangedEventArgs e)
         {
-            this.Locations = CJB.GetAllLocations().ToArray();
+            this.Locations = CommonHelper.GetAllLocations().ToArray();
         }
 
         /// <summary>Raised after the player presses a button on the keyboard, controller, or mouse.</summary>

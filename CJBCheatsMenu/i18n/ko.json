@@ -50,7 +50,7 @@
     "fast-machines.crystalarium": "보석 화수분",
     "fast-machines.fruit-trees": "과일나무",
     "fast-machines.furnace": "용광로",
-    "fast-machines.incubator": "부화기",
+    "fast-machines.incubator": "부화기 (아침에 준비)", // TODO review (auto-translated)
     "fast-machines.keg": "양조통",
     "fast-machines.lightning-rod": "피뢰침",
     "fast-machines.loom": "베틀",
@@ -61,7 +61,7 @@
     "fast-machines.recycling-machine": "재활용 기계",
     "fast-machines.seed-maker": "씨앗 생산기",
     "fast-machines.slime-egg-press": "슬라임 알 압착기",
-    "fast-machines.slime-incubator": "슬라임 부화기",
+    "fast-machines.slime-incubator": "슬라임 부화기 (아침에 준비)", // TODO review (auto-translated)
     "fast-machines.tapper": "수액 채취기",
     "fast-machines.wood-chipper": "나무 분쇄기",
     "fast-machines.worm-bin": "지렁이 통",
@@ -132,6 +132,7 @@
     "warp.adventurers-guild": "모험가 길드",
     "warp.ranch": "마니의 목장",
     "warp.mines": "광산",
+    "warp.skull-cavern": "해골 동굴",
     "warp.willy-shop": "윌리의 낚시가게",
     "warp.wizard-tower": "마법사의 탑",
     "warp.hats": "모자쥐 상점",
@@ -170,6 +171,8 @@
     "controls.freeze-time": "시간 정지",
     "controls.grow-tree": "나무 자라게하기",
     "controls.grow-crops": "작물 자라게하기",
+    "controls.grow-radius": "Grow distance around player", // TODO
+    "controls.reset-controls": "Reset", // TODO
 
     // various messages
     "messages.press-new-key": "새로운 단축키를 입력하세요...",

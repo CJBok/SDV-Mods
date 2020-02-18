@@ -1,6 +1,19 @@
 [← back to readme](README.md)
 
 # Release notes
+## 1.23
+Released 17 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
+
+* Added option to increase the grow crop/tree radius.
+* Added option to reset controls.
+* Added support for disabling a control by pressing escape when 'Press New Key' is shown (except for the open-menu key, so you can't get locked out of the menu.)
+* Added Skull Cavern warp (thanks to Enaium!).
+* The 'freeze time' control is now unbound by default. (Current players aren't affected unless they reset controls.)
+* Fixed grow trees not working consistently after 1.22.
+* Fixed fast egg incubator not working.
+* Clarified how fast slime egg incubator works.
+* Updated translations. Thanks to Enaium (updated Chinese)!
+
 ## 1.22
 Released 09 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CJB.Common;
 using CJBCheatsMenu.Framework.Constants;
 using CJBCheatsMenu.Framework.Models;
 using Microsoft.Xna.Framework;
@@ -275,7 +276,7 @@ namespace CJBCheatsMenu.Framework
                 spriteBatch.Draw(Game1.fadeToBlackRect, Game1.graphics.GraphicsDevice.Viewport.Bounds, Color.Black * 0.4f);
 
             Game1.drawDialogueBox(this.xPositionOnScreen, this.yPositionOnScreen, this.width, this.height, false, true);
-            CJB.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.dialogueFont, this.Title.name, 1);
+            CommonHelper.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.dialogueFont, this.Title.name, 1);
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null);
             for (int index = 0; index < this.OptionSlots.Count; ++index)
@@ -291,7 +292,7 @@ namespace CJBCheatsMenu.Framework
                 foreach (ClickableComponent tab in this.Tabs)
                 {
                     MenuTab tabID = this.GetTabID(tab);
-                    CJB.DrawTextBox(tab.bounds.X + tab.bounds.Width, tab.bounds.Y, Game1.smallFont, tab.label, 2, this.CurrentTab == tabID ? 1F : 0.7F);
+                    CommonHelper.DrawTextBox(tab.bounds.X + tab.bounds.Width, tab.bounds.Y, Game1.smallFont, tab.label, 2, this.CurrentTab == tabID ? 1F : 0.7F);
                 }
 
                 this.UpArrow.draw(spriteBatch);
@@ -433,7 +434,7 @@ namespace CJBCheatsMenu.Framework
 
                 case MenuTab.Weather:
                     this.Options.Add(new OptionsElement($"{i18n.Get("weather.title")}:"));
-                    this.Options.Add(new CheatsOptionsWeatherElement($"{i18n.Get("weather.current")}", () => CJB.GetWeatherNexDay(i18n)));
+                    this.Options.Add(new CheatsOptionsWeatherElement($"{i18n.Get("weather.current")}", () => this.Cheats.GetWeatherForNextDay(i18n)));
                     this.Options.Add(new CheatsOptionsButton(i18n.Get("weather.sunny"), slotWidth, () => this.Cheats.SetWeatherForNextDay(Game1.weather_sunny)));
                     this.Options.Add(new CheatsOptionsButton(i18n.Get("weather.raining"), slotWidth, () => this.Cheats.SetWeatherForNextDay(Game1.weather_rain)));
                     this.Options.Add(new CheatsOptionsButton(i18n.Get("weather.lightning"), slotWidth, () => this.Cheats.SetWeatherForNextDay(Game1.weather_lightning)));
@@ -555,10 +556,13 @@ namespace CJBCheatsMenu.Framework
 
                 case MenuTab.Controls:
                     this.Options.Add(new OptionsElement($"{i18n.Get("controls.title")}:"));
-                    this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.open-menu"), slotWidth, this.Config.OpenMenuKey, key => this.Config.OpenMenuKey = key, i18n));
+                    this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.open-menu"), slotWidth, this.Config.OpenMenuKey, key => this.Config.OpenMenuKey = key, i18n, clearToButton: ModConfig.Defaults.OpenMenuKey));
                     this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.freeze-time"), slotWidth, this.Config.FreezeTimeKey, key => this.Config.FreezeTimeKey = key, i18n));
                     this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.grow-tree"), slotWidth, this.Config.GrowTreeKey, key => this.Config.GrowTreeKey = key, i18n));
                     this.Options.Add(new CheatsOptionsKeyListener(i18n.Get("controls.grow-crops"), slotWidth, this.Config.GrowCropsKey, key => this.Config.GrowCropsKey = key, i18n));
+                    this.Options.Add(new CheatsOptionsSlider(i18n.Get("controls.grow-radius"), this.Config.GrowRadius, 10, value => this.Config.GrowRadius = value, disabled: () => this.Config.GrowTreeKey == SButton.None && this.Config.GrowCropsKey == SButton.None));
+                    this.Options.Add(new OptionsElement(string.Empty)); // blank line
+                    this.Options.Add(new CheatsOptionsButton(i18n.Get("controls.reset-controls"), slotWidth, this.ResetControls));
                     break;
             }
             this.SetScrollBarToCurrentIndex();
@@ -801,7 +805,7 @@ namespace CJBCheatsMenu.Framework
         /// <param name="skillId">The skill ID.</param>
         private void IncreaseSkill(int skillId)
         {
-            int expToNext = CJB.GetExperiencePoints(Game1.player.GetSkillLevel(skillId));
+            int expToNext = this.GetExperiencePoints(Game1.player.GetSkillLevel(skillId));
             IList<Point> newLevels = Game1.player.newLevels;
 
             int wasNewLevels = newLevels.Count;
@@ -811,6 +815,17 @@ namespace CJBCheatsMenu.Framework
 
             Game1.exitActiveMenu();
             Game1.activeClickableMenu = new LevelUpMenu(skillId, Game1.player.GetSkillLevel(skillId));
+        }
+
+        private int GetExperiencePoints(int level)
+        {
+
+            if (level < 0 || level > 9)
+                return 0;
+
+            int[] exp = { 100, 280, 390, 530, 850, 1150, 1500, 2100, 3100, 5000 };
+
+            return exp[level];
         }
 
         /// <summary>Reset all skill levels and associated bonuses.</summary>
@@ -925,6 +940,20 @@ namespace CJBCheatsMenu.Framework
 
             // warp
             Game1.warpFarmer(locationName, tileX, tileY, false);
+        }
+
+        /// <summary>Reset all controls to their default value.</summary>
+        private void ResetControls()
+        {
+            this.Config.FreezeTimeKey = ModConfig.Defaults.FreezeTimeKey;
+            this.Config.GrowCropsKey = ModConfig.Defaults.GrowCropsKey;
+            this.Config.GrowTreeKey = ModConfig.Defaults.GrowTreeKey;
+            this.Config.OpenMenuKey = ModConfig.Defaults.OpenMenuKey;
+            this.Config.GrowRadius = ModConfig.Defaults.GrowRadius;
+
+            Game1.soundBank.PlayCue("bigDeSelect");
+
+            this.SetOptions();
         }
 
         private void SetScrollBarToCurrentIndex()

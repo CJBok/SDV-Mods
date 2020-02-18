@@ -50,7 +50,7 @@
     "fast-machines.crystalarium": "Cristalario",
     "fast-machines.fruit-trees": "Árboles Frutales",
     "fast-machines.furnace": "Horno",
-    "fast-machines.incubator": "Incubadora",
+    "fast-machines.incubator": "Incubadora (lista por la mañana)", // TODO review (auto-translated)
     "fast-machines.keg": "Barril",
     "fast-machines.lightning-rod": "Pararrayos",
     "fast-machines.loom": "Telar",
@@ -61,7 +61,7 @@
     "fast-machines.recycling-machine": "Máquina de Reciclaje",
     "fast-machines.seed-maker": "Semilladora",
     "fast-machines.slime-egg-press": "Presa de Babas",
-    "fast-machines.slime-incubator": "Incubadora de Babas",
+    "fast-machines.slime-incubator": "Incubadora de Babas (lista por la mañana)", // TODO review (auto-translated)
     "fast-machines.tapper": "Resinera",
     "fast-machines.wood-chipper": "Astilladora de madera",
     "fast-machines.worm-bin": "Vivero de Cebo",
@@ -132,6 +132,7 @@
     "warp.adventurers-guild": "Gremio de Aventureros",
     "warp.ranch": "Rancho de Marnie",
     "warp.mines": "Minas",
+    "warp.skull-cavern": "Caverna Calavera",
     "warp.willy-shop": "Tienda de Pesca",
     "warp.wizard-tower": "Torre del Mago",
     "warp.hats": "Sombreros",
@@ -170,6 +171,8 @@
     "controls.freeze-time": "Congelar Tiempo",
     "controls.grow-tree": "Cultivar Árbol",
     "controls.grow-crops": "Cultivar Cultivos",
+    "controls.grow-radius": "Grow distance around player", // TODO
+    "controls.reset-controls": "Reset", // TODO
 
     // various messages
     "messages.press-new-key": "Presione Nueva Tecla...",

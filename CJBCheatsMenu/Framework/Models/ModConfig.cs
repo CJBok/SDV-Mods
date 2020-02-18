@@ -9,6 +9,9 @@ namespace CJBCheatsMenu.Framework.Models
         /*********
         ** Accessors
         *********/
+        /// <summary>The default values.</summary>
+        public static ModConfig Defaults { get; } = new ModConfig();
+
         /****
         ** Keyboard buttons
         ****/
@@ -16,13 +19,16 @@ namespace CJBCheatsMenu.Framework.Models
         public SButton OpenMenuKey { get; set; } = SButton.P;
 
         /// <summary>The button which freezes the game clock.</summary>
-        public SButton FreezeTimeKey { get; set; } = SButton.T;
+        public SButton FreezeTimeKey { get; set; } = SButton.None;
 
-        /// <summary>The button held to grow trees under the cursor.</summary>
+        /// <summary>The button held to grow trees around the player.</summary>
         public SButton GrowTreeKey { get; set; } = SButton.NumPad1;
 
-        /// <summary>The button held to grow crops under the cursor.</summary>
+        /// <summary>The button held to grow crops around the player.</summary>
         public SButton GrowCropsKey { get; set; } = SButton.NumPad2;
+
+        /// <summary>The number of tiles in each direction around the player to cover when pressing <see cref="GrowCropsKey"/> or <see cref="GrowTreeKey"/>.</summary>
+        public int GrowRadius { get; set; } = 1;
 
         /****
         ** Menu settings
@@ -111,7 +117,7 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Furnaces finish instantly.</summary>
         public bool FastFurnace { get; set; }
 
-        /// <summary>Incubators finish instantly.</summary>
+        /// <summary>Egg incubators finish overnight.</summary>
         public bool FastIncubator { get; set; }
 
         /// <summary>Kegs finish instantly.</summary>

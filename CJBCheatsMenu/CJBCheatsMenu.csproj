@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <AssemblyName>CJBCheatsMenu</AssemblyName>
-    <Version>1.22.0</Version>
+    <Version>1.23.0</Version>
     <RootNamespace>CJBCheatsMenu</RootNamespace>
     <TargetFramework>net452</TargetFramework>
   </PropertyGroup>
@@ -16,6 +16,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <Import Project="..\Common\Common.projitems" Label="Shared" />
 
   <Import Project="$(SolutionDir)\common.targets" />
 

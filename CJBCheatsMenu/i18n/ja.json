@@ -50,7 +50,7 @@
     "fast-machines.crystalarium": "結晶コピーマシン",
     "fast-machines.fruit-trees": "果樹",
     "fast-machines.furnace": "溶鉱炉",
-    "fast-machines.incubator": "ふ卵器",
+    "fast-machines.incubator": "ふ卵器（午前中に準備完了）", // TODO review (auto-translated)
     "fast-machines.keg": "醸造ダル",
     "fast-machines.lightning-rod": "ひらい針",
     "fast-machines.loom": "織り機",
@@ -61,7 +61,7 @@
     "fast-machines.recycling-machine": "リサイクルマシン",
     "fast-machines.seed-maker": "タネ製造マシン",
     "fast-machines.slime-egg-press": " スライムエッグプレス",
-    "fast-machines.slime-incubator": "スライム用ふ卵器",
+    "fast-machines.slime-incubator": "スライム用ふ卵器（午前中に準備完了）", // TODO review (auto-translated)
     "fast-machines.tapper": "樹液採取器",
     "fast-machines.wood-chipper": "ウッドチッパー",
     "fast-machines.worm-bin": "ミミズ飼育器",
@@ -132,6 +132,7 @@
     "warp.adventurers-guild": "冒険者ギルド",
     "warp.ranch": "牧場商店",
     "warp.mines": "鉱山",
+    "warp.skull-cavern": "ドクロの洞窟",
     "warp.willy-shop": "釣具店",
     "warp.wizard-tower": "魔術師の塔",
     "warp.hats": "ぼうしや",
@@ -170,6 +171,8 @@
     "controls.freeze-time": "時間を止める",
     "controls.grow-tree": "果樹が生長する",
     "controls.grow-crops": "周りの作物が収穫できるようになる",
+    "controls.grow-radius": "Grow distance around player", // TODO
+    "controls.reset-controls": "Reset", // TODO
 
     // various messages
     "messages.press-new-key": "新しいキーを押してね",

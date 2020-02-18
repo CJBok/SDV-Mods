@@ -18,7 +18,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{74124A73-7
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = ".Common", "Common\.Common.shproj", "{5C29420A-91D8-4598-8A08-60CA5D563FC2}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Common\Common.projitems*{5c29420a-91d8-4598-8a08-60ca5d563fc2}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86

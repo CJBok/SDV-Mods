@@ -50,7 +50,7 @@
     "fast-machines.crystalarium": "Кристалляриум",
     "fast-machines.fruit-trees": "Фруктовые деревья",
     "fast-machines.furnace": "Плавильная печь",
-    "fast-machines.incubator": "Инкубатор",
+    "fast-machines.incubator": "Инкубатор (готов утром)", // TODO review (auto-translated)
     "fast-machines.keg": "Бочонок",
     "fast-machines.lightning-rod": "Громоотвод",
     "fast-machines.loom": "Прялка",
@@ -61,7 +61,7 @@
     "fast-machines.recycling-machine": "Утилизационная машина",
     "fast-machines.seed-maker": "Экстрактор семян",
     "fast-machines.slime-egg-press": "Пресс для яиц слаймов",
-    "fast-machines.slime-incubator": "Инкубатор слаймов",
+    "fast-machines.slime-incubator": "Инкубатор слаймов (готов утром)", // TODO review (auto-translated)
     "fast-machines.tapper": "Подсочник",
     "fast-machines.wood-chipper": "Дробилка",
     "fast-machines.worm-bin": "Бак с червями",
@@ -132,6 +132,7 @@
     "warp.adventurers-guild": "Гильдия искателей приключений",
     "warp.ranch": "Ранчо Марни",
     "warp.mines": "Шахта",
+    "warp.skull-cavern": "Пещера Черепа",
     "warp.willy-shop": "Странствующий торговец",
     "warp.wizard-tower": "Башня волшебника",
     "warp.hats": "Разрушенный дом",
@@ -170,6 +171,8 @@
     "controls.freeze-time": "Остановить время",
     "controls.grow-tree": "Вырастить деревья",
     "controls.grow-crops": "Вырастить растения",
+    "controls.grow-radius": "Grow distance around player", // TODO
+    "controls.reset-controls": "Reset", // TODO
 
     // various messages
     "messages.press-new-key": "Нажмите новую клавишу...",

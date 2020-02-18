@@ -78,6 +78,11 @@
         "Tile": "13, 10"
     },
     {
+        "DisplayText": "warp.skull-cavern",
+        "Location": "UndergroundMine121",
+        "Tile": "0, 0" // player is placed next to the ladder automatically
+    },
+    {
         "DisplayText": "warp.willy-shop",
         "Location": "Beach",
         "Tile": "30, 34"
