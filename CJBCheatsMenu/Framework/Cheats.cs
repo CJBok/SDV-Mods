@@ -541,21 +541,21 @@ namespace CJBCheatsMenu.Framework
             if (machine.heldObject.Value == null)
                 return;
 
-            // casks
-            if (machine is Cask cask)
-            {
-                cask.daysToMature.Value = 0;
-                cask.checkForMaturity();
-            }
-
             // egg incubator
             // (animalHouse.incubatingEgg.X is the number of days until the egg hatches; Y is the egg ID.)
-            else if (location is AnimalHouse animalHouse && machine.bigCraftable.Value && machine.ParentSheetIndex == 101 && animalHouse.incubatingEgg.X > 0)
+            if (location is AnimalHouse animalHouse && machine.bigCraftable.Value && machine.ParentSheetIndex == 101 && animalHouse.incubatingEgg.X > 0)
                 animalHouse.incubatingEgg.X = 1;
 
             // other machines
             else if (machine.MinutesUntilReady > 0)
+            {
+                if (machine is Cask cask)
+                {
+                    cask.daysToMature.Value = 0;
+                    cask.checkForMaturity();
+                }
                 machine.minutesElapsed(machine.MinutesUntilReady, location);
+            }
         }
 
         /// <summary>Get all crops in a location.</summary>

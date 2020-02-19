@@ -1,6 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed 'fast casks' not completing until in-game clock change after 1.23.
+
 ## 1.23
 Released 17 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
 
