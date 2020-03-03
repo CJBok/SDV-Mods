@@ -153,7 +153,7 @@ namespace CJBItemSpawner.Framework
                                     --this.ActualInventory[index].Stack;
                             }
 
-                            label_15:
+                        label_15:
                             if (this.PlayerInventory && this.ActualInventory[index] != null && this.ActualInventory[index].Stack <= 0)
                                 this.ActualInventory[index] = null;
                             if (playSound)
@@ -231,15 +231,17 @@ namespace CJBItemSpawner.Framework
         {
             for (int index = 0; index < this.Capacity; ++index)
             {
-
                 int indexOffset = index;
                 if (!this.PlayerInventory)
                     indexOffset = this.Capacity / this.Rows * ItemInventoryMenu.ScrollIndex + index;
 
-                Vector2 vector2 = new Vector2(this.xPositionOnScreen + index % (this.Capacity / this.Rows) * Game1.tileSize + this.HorizontalGap * (index % (this.Capacity / this.Rows)), this.yPositionOnScreen + index / (this.Capacity / this.Rows) * (Game1.tileSize + this.VerticalGap) + (index / (this.Capacity / this.Rows) - 1) * Game1.pixelZoom);
-                spriteBatch.Draw(Game1.menuTexture, vector2, Game1.getSourceRectForStandardTileSheet(Game1.menuTexture, 10), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.5f);
+                Vector2 position = new Vector2(this.xPositionOnScreen + index % (this.Capacity / this.Rows) * Game1.tileSize + this.HorizontalGap * (index % (this.Capacity / this.Rows)), this.yPositionOnScreen + index / (this.Capacity / this.Rows) * (Game1.tileSize + this.VerticalGap) + (index / (this.Capacity / this.Rows) - 1) * Game1.pixelZoom);
+                spriteBatch.Draw(Game1.menuTexture, position, Game1.getSourceRectForStandardTileSheet(Game1.menuTexture, 10), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.5f);
+                if (this.PlayerInventory && index >= Game1.player.MaxItems)
+                    spriteBatch.Draw(Game1.menuTexture, position, Game1.getSourceRectForStandardTileSheet(Game1.menuTexture, 57), Color.White * 0.5f, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.5f);
+
                 if (this.ActualInventory.Count > indexOffset && this.ActualInventory[indexOffset] != null)
-                    this.ActualInventory[indexOffset].drawInMenu(spriteBatch, vector2, this.Inventory.Count > index ? this.Inventory[index].scale : 1f, !this.HighlightMethod(this.ActualInventory[indexOffset]) ? 0.2f : 1f, 0.865f);
+                    this.ActualInventory[indexOffset].drawInMenu(spriteBatch, position, this.Inventory.Count > index ? this.Inventory[index].scale : 1f, !this.HighlightMethod(this.ActualInventory[indexOffset]) ? 0.2f : 1f, 0.865f);
             }
         }
 

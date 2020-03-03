@@ -1,6 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed item slots not grayed out in spawner menu if you don't have the backpack upgrades.
+
 ## 1.12
 Released 09 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
 
