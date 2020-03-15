@@ -5,6 +5,8 @@
 Released 18 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
 
 * Fixed 'fast casks' not completing until in-game clock change after 1.23.
+* Fixed instantly-grown wild seeds different from naturally-grown wild seeds (e.g. not applying botanist bonus, not randomized, etc).
+* Fixed instantly-grown crops not generating giant crops.
 
 ## 1.23
 Released 17 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.

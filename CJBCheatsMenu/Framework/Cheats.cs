@@ -167,7 +167,13 @@ namespace CJBCheatsMenu.Framework
                 switch (target)
                 {
                     case Crop crop when growCrops:
-                        crop.growCompletely();
+                        // grow crop using newDay to apply full logic like giant crops, wild seed randomization, etc
+                        for (int i = 0; i < 100 && !crop.fullyGrown.Value; i++)
+                            crop.newDay(HoeDirt.watered, HoeDirt.fertilizerHighQuality, (int)tile.X, (int)tile.Y, location);
+
+                        // if something went wrong, just make it grow directly
+                        if (!crop.fullyGrown.Value)
+                            crop.growCompletely();
                         break;
 
                     case Bush bush when growCrops && bush.size.Value == Bush.greenTeaBush && bush.getAge() < Bush.daysToMatureGreenTeaBush:
