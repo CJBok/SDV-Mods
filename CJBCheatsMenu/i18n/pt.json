@@ -17,6 +17,7 @@
     "player.infinite-stamina": "Energia infinita",
     "player.infinite-health": "Vida infinita",
     "player.increased-movement-speed": "Alterar velocidade de movimento",
+    "player.instant-cooldowns": "Instant Cooldowns", // TODO
     "player.movement-speed": "Velocidade de movimento",
     "player.one-hit-kill": "Matar monstros com um golpe",
     "player.max-daily-luck": "Sorte diária máxima",

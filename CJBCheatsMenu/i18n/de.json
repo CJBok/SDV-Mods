@@ -17,6 +17,7 @@
     "player.infinite-stamina": "Unendliche Ausdauer",
     "player.infinite-health": "Unendlich Leben",
     "player.increased-movement-speed": "Erhöhte Bewegungsgeschwindigkeit",
+    "player.instant-cooldowns": "Instant Cooldowns", // TODO
     "player.movement-speed": "Bewegungsgeschwindigkeit",
     "player.one-hit-kill": "Mit einem Schlag töten",
     "player.max-daily-luck": "Maximales tägliches Glück",

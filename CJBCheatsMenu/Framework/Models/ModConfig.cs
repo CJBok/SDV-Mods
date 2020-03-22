@@ -51,6 +51,9 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>The player's stamina never decreases.</summary>
         public bool InfiniteStamina { get; set; }
 
+        /// <summary>Tool and weapon cooldowns are instant.</summary>
+        public bool InstantCooldowns { get; set; }
+
         /// <summary>The player's daily luck is always at the maximum value.</summary>
         public bool MaxDailyLuck { get; set; }
 

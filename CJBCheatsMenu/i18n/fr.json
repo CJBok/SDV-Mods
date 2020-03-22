@@ -17,6 +17,7 @@
     "player.infinite-stamina": "Endurance infinie",
     "player.infinite-health": "Santé infinie",
     "player.increased-movement-speed": "Augmentation de la vitesse de déplacement",
+    "player.instant-cooldowns": "Instant Cooldowns", // TODO
     "player.movement-speed": "Vitesse de déplacement",
     "player.one-hit-kill": "Tue en un coup",
     "player.max-daily-luck": "Chance quotidienne maximale",

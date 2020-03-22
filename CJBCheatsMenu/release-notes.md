@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Added 'instant cooldowns' cheat which removes tool/weapon cooldowns.
 * Fixed instantly-grown wild seeds different from naturally-grown wild seeds (e.g. not applying botanist bonus, not randomized, etc).
 * Fixed instantly-grown crops not generating giant crops.
 

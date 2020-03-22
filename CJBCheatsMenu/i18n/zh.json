@@ -17,6 +17,7 @@
     "player.infinite-stamina": "耐力不减",
     "player.infinite-health": "生命不减",
     "player.increased-movement-speed": "提升移动速度",
+    "player.instant-cooldowns": "Instant Cooldowns", // TODO
     "player.movement-speed": "移动速度增加",
     "player.one-hit-kill": "一拳超人(对怪物)",
     "player.max-daily-luck": "每日运气最大",

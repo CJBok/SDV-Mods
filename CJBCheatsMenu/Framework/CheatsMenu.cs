@@ -51,6 +51,8 @@ namespace CJBCheatsMenu.Framework
         private bool IsScrolling;
         private readonly Rectangle ScrollbarRunner;
         private bool CanClose;
+
+        /// <summary>The currently open tab.</summary>
         private readonly MenuTab CurrentTab;
 
         /// <summary>Maps JojaMart completion flags to their Community Center equivalent.</summary>
@@ -78,7 +80,14 @@ namespace CJBCheatsMenu.Framework
         /*********
         ** Public methods
         *********/
-        public CheatsMenu(MenuTab tabIndex, ModConfig config, ModDataWarp[] warps, Cheats cheats, ITranslationHelper i18n, IMonitor monitor)
+        /// <summary>Construct an instance.</summary>
+        /// <param name="initialTab">The tab to display by default.</param>
+        /// <param name="config">The mod settings.</param>
+        /// <param name="warps">The warps to show in the menu.</param>
+        /// <param name="cheats">The cheats helper.</param>
+        /// <param name="i18n">Provides translations for the mod.</param>
+        /// <param name="monitor">Encapsulates monitoring and logging.</param>
+        public CheatsMenu(MenuTab initialTab, ModConfig config, ModDataWarp[] warps, Cheats cheats, ITranslationHelper i18n, IMonitor monitor)
           : base(Game1.viewport.Width / 2 - (600 + IClickableMenu.borderWidth * 2) / 2, Game1.viewport.Height / 2 - (600 + IClickableMenu.borderWidth * 2) / 2, 800 + IClickableMenu.borderWidth * 2, 600 + IClickableMenu.borderWidth * 2)
         {
             this.Config = config;
@@ -88,7 +97,7 @@ namespace CJBCheatsMenu.Framework
             this.Monitor = monitor;
 
             this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.width / 2, this.yPositionOnScreen, Game1.tileSize * 4, Game1.tileSize), i18n.Get("mod-name"));
-            this.CurrentTab = tabIndex;
+            this.CurrentTab = initialTab;
 
             {
                 int i = 0;
@@ -123,6 +132,9 @@ namespace CJBCheatsMenu.Framework
             return true;
         }
 
+        /// <summary>Handle the player holding down the left mouse button.</summary>
+        /// <param name="x">The X pixel position of the cursor.</param>
+        /// <param name="y">The Y pixel position of the cursor.</param>
         public override void leftClickHeld(int x, int y)
         {
             if (GameMenu.forcePreventClose)
@@ -146,6 +158,8 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
+        /// <summary>Handle the player pressing a key.</summary>
+        /// <param name="key">The key that was pressed.</param>
         public override void receiveKeyPress(Keys key)
         {
             bool isExitKey = Game1.options.menuButton.Contains(new InputButton(key)) || (this.Config.OpenMenuKey.TryGetKeyboard(out Keys exitKey) && key == exitKey);
@@ -163,6 +177,8 @@ namespace CJBCheatsMenu.Framework
             this.Options[this.CurrentItemIndex + this.OptionsSlotHeld].receiveKeyPress(key);
         }
 
+        /// <summary>Handle the player pressing a controller button.</summary>
+        /// <param name="key">The key that was pressed.</param>
         public override void receiveGamePadButton(Buttons key)
         {
             if (key == Buttons.LeftShoulder || key == Buttons.RightShoulder)
@@ -185,6 +201,8 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
+        /// <summary>Handle the player scrolling the mouse wheel.</summary>
+        /// <param name="direction">The scroll direction.</param>
         public override void receiveScrollWheelAction(int direction)
         {
             if (GameMenu.forcePreventClose)
@@ -200,6 +218,9 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
+        /// <summary>Handle the player releasing down the left mouse button.</summary>
+        /// <param name="x">The X pixel position of the cursor.</param>
+        /// <param name="y">The Y pixel position of the cursor.</param>
         public override void releaseLeftClick(int x, int y)
         {
             if (GameMenu.forcePreventClose)
@@ -258,6 +279,9 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
+        /// <summary>Handle the player hovering the cursor over the menu.</summary>
+        /// <param name="x">The X pixel position of the cursor.</param>
+        /// <param name="y">The Y pixel position of the cursor.</param>
         public override void performHoverAction(int x, int y)
         {
             if (GameMenu.forcePreventClose)
@@ -332,6 +356,7 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.infinite-health"), config.InfiniteHealth, value => config.InfiniteHealth = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.increased-movement-speed"), config.IncreasedMovement, value => config.IncreasedMovement = value));
                     this.Options.Add(new CheatsOptionsSlider(i18n.Get("player.movement-speed"), this.Config.MoveSpeed, 10, value => this.Config.MoveSpeed = value, disabled: () => !this.Config.IncreasedMovement));
+                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.instant-cooldowns"), config.InstantCooldowns, value => config.InstantCooldowns = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.one-hit-kill"), config.OneHitKill, value => config.OneHitKill = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.max-daily-luck"), config.MaxDailyLuck, value => config.MaxDailyLuck = value));
 

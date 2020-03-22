@@ -17,6 +17,7 @@
     "player.infinite-stamina": "Бесконечная выносливость",
     "player.infinite-health": "Бесконечное здоровье",
     "player.increased-movement-speed": "Увеличенная скорость движения",
+    "player.instant-cooldowns": "Instant Cooldowns", // TODO
     "player.movement-speed": "Скорость перемещения",
     "player.one-hit-kill": "Убийство с одного удара",
     "player.max-daily-luck": "Масимальная удача",

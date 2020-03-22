@@ -356,6 +356,15 @@ namespace CJBCheatsMenu.Framework
                 if (this.Config.InfiniteStamina)
                     player.stamina = player.MaxStamina;
 
+                // disable cooldowns
+                if (this.Config.InstantCooldowns)
+                {
+                    MeleeWeapon.attackSwordCooldown = 0;
+                    MeleeWeapon.clubCooldown = 0;
+                    MeleeWeapon.daggerCooldown = 0;
+                    MeleeWeapon.defenseCooldown = 0;
+                }
+
                 // fishing cheats
                 if (player.CurrentTool is FishingRod rod)
                 {
