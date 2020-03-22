@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Fixed item slots not grayed out in spawner menu if you don't have the backpack upgrades.
+* Fixed error opening menu if you have broken XNB mods.
 * Updated translations. Thanks to therealmate (added Hungarian)!
 
 ## 1.12
