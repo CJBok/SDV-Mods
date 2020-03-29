@@ -17,7 +17,7 @@
     "player.infinite-stamina": "Бесконечная выносливость",
     "player.infinite-health": "Бесконечное здоровье",
     "player.increased-movement-speed": "Увеличенная скорость движения",
-    "player.instant-cooldowns": "Instant Cooldowns", // TODO
+    "player.instant-cooldowns": "Убрать задержку при использовании оружия / инструмента",
     "player.movement-speed": "Скорость перемещения",
     "player.one-hit-kill": "Убийство с одного удара",
     "player.max-daily-luck": "Максимальная удача",
@@ -171,7 +171,7 @@
     "controls.open-menu": "Открыть меню",
     "controls.freeze-time": "Остановить время",
     "controls.grow-tree": "Вырастить деревья",
-    "controls.grow-crops": "Вырастить растения",
+    "controls.grow-crops": "Вырастить посевные культуры",
     "controls.grow-radius": "Радиус произрастания флоры от игрока",
     "controls.reset-controls": "Сбросить настройки управления данной модификации",
 
