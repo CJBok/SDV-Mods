@@ -1,0 +1,20 @@
+{
+    "title": "CJB Item Spawner",
+
+    "labels.sort-by-name": "isime göre",
+    "labels.sort-by-category": "Kategoriye göre",
+    "labels.sort-by-id": "L'e uygun",
+    "labels.quality": "kalite",
+
+    "tabs.all": "tüm",
+    "tabs.equipment": "Araçlar ve Ekipmanlar",
+    "tabs.crops": "Tohum ve Sebzeler",
+    "tabs.fishing": "Balık Yemi ve Çöp Kutusu",
+    "tabs.forage": "Koleksiyon ve Meyveler",
+    "tabs.artifacts-and-minerals": "madenler ve minaraller",
+    "tabs.resources-and-crafting": "Hammaddeler ve DIY",
+    "tabs.artisan-and-cooking": "Zanaat ve Yemek Pişirme",
+    "tabs.animal-and-monster": "Hayvan ve Canavar",
+    "tabs.decorating": "dekorasyonlar",
+    "tabs.miscellaneous": "Diğerleri"
+}

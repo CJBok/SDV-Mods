@@ -4,7 +4,7 @@
 ## Upcoming release
 * Fixed item slots not grayed out in spawner menu if you don't have the backpack upgrades.
 * Fixed error opening menu if you have broken XNB mods.
-* Improved translations. Thanks to therealmate (added Hungarian)!
+* Improved translations. Thanks to BURAKMESE (added Turkish) and therealmate (added Hungarian)!
 
 ## 1.12
 Released 09 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.

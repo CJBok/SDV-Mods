@@ -2,7 +2,7 @@
 
 # Release notes
 ## Upcoming release
-* Improved translations. Thanks to Annosz (added Hungarian)!
+* Improved translations. Thanks to Annosz (added Hungarian) and BURAKMESE (added Turkish)!
 
 ## 1.9.5
 Released 09 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
