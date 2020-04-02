@@ -1,7 +1,7 @@
 {
     "mod-name": "CJB Cheats Menu",
 
-    // menu tabs
+    // Onglets du menu
     "tabs.player-and-tools": "Joueur & Outils",
     "tabs.farm-and-fishing": "Ferme & Pêche",
     "tabs.skills": "Compétences",
@@ -12,9 +12,9 @@
     "tabs.advanced": "Avancé",
     "tabs.controls": "Contrôles",
 
-    // 'Player & Tools' tab
+    // Onglet 'Joueur' & Outils'
     "player.title": "Joueur",
-    "player.infinite-stamina": "Endurance infinie",
+    "player.infinite-stamina": "Énergie infinie",
     "player.infinite-health": "Santé infinie",
     "player.increased-movement-speed": "Augmentation de la vitesse de déplacement",
     "player.movement-speed": "Vitesse de déplacement",
@@ -29,9 +29,9 @@
     "casino-coins.title": "Pièce de casino",
     "casino-coins.add-amount": "Ajouter {{amount}}",
 
-    // 'Farm & Fishing' tab
+    // Onglet 'Ferme & Pêche'
     "farm.title": "Ferme",
-    "farm.water-all-fields": "Arroser tout les champs",
+    "farm.water-all-fields": "Arroser tous les champs",
     "farm.durable-fences": "Clôture durable",
     "farm.instant-build": "Construction instantanée",
     "farm.always-auto-feed": "Toujours nourrir automatiquement",
@@ -42,17 +42,17 @@
     "fishing.always-throw-max-distance": "Toujours jeter à la distance maximale",
     "fishing.always-treasure": "Toujours un trésor",
     "fishing.durable-tackles": "Matériel de pêche durable",
-    "fast-machines.title": "Trasnformation rapide",
+    "fast-machines.title": "Transformation rapide",
     "fast-machines.bee-house": "Ruche",
     "fast-machines.cask": "Fût",
     "fast-machines.charcoal-kiln": "Fourneau à charbon",
     "fast-machines.cheese-press": "Presse à fromage",
     "fast-machines.crystalarium": "Cristalarium",
-    "fast-machines.fruit-trees": "Arbres fruitiés",
+    "fast-machines.fruit-trees": "Arbres fruitier",
     "fast-machines.furnace": "Fournaise",
     "fast-machines.incubator": "Incubateur (prêt le matin)",
     "fast-machines.keg": "Tonneau",
-    "fast-machines.lightning-rod": "Paratonnere",
+    "fast-machines.lightning-rod": "Para-tonnerre",
     "fast-machines.loom": "Métier à tisser",
     "fast-machines.mayonnaise-machine": "Machine à mayonnaise",
     "fast-machines.mushroom-box": "Boîte à champignon",
@@ -60,28 +60,28 @@
     "fast-machines.preserves-jar": "Bocal",
     "fast-machines.recycling-machine": "Machine de recyclage",
     "fast-machines.seed-maker": "Machine à graines",
-    "fast-machines.slime-egg-press": "Presse à oeuf de Slime",
+    "fast-machines.slime-egg-press": "Presse-œuf de Slime",
     "fast-machines.slime-incubator": "Incubateur de Slime (prêt le matin)",
     "fast-machines.tapper": "Saigneur",
     "fast-machines.wood-chipper": "Déchiqueteuse de bois",
     "fast-machines.worm-bin": "Bac à compost",
 
-    // 'Skills' tab
+    // Onglet 'Compétences'
     "skills.title": "Compétences",
     "skills.increase-farming": "Augm. Niveau d'Agriculture: {{currentLevel}}",
     "skills.increase-mining": "Augm. Niveau d'Ext. Minière: {{currentLevel}}",
     "skills.increase-foraging": "Augm. Niveau de Cueillette: {{currentLevel}}",
     "skills.increase-fishing": "Augm. Niveau de Pêche: {{currentLevel}}",
     "skills.increase-combat": "Augm. Niveau de Combat: {{currentLevel}}",
-    "skills.reset": "REINITIALISER LES COMPETENCES !",
+    "skills.reset": "RÉINITIALISER LES COMPÉTENCES !",
     "professions.title": "Professions",
     "professions.combat.fighter": "Combat lvl 5 - Combattant",
-    "professions.combat.scout": "Combat lvl 5 - Eclaireur",
+    "professions.combat.scout": "Combat lvl 5 - Éclaireur",
     "professions.combat.acrobat": "Combat lvl 10 - Acrobate",
     "professions.combat.brute": "Combat lvl 10 - Brute",
-    "professions.combat.defender": "Combat lvl 10 - Defenseur",
+    "professions.combat.defender": "Combat lvl 10 - Défenseur",
     "professions.combat.desperado": "Combat lvl 10 - Desperado",
-    "professions.farming.rancher": "Agriculture lvl 5 - Eleveur de bétail",
+    "professions.farming.rancher": "Agriculture lvl 5 - Éleveur de bétail",
     "professions.farming.tiller": "Agriculture lvl 5 - Cultivateur",
     "professions.farming.agriculturist": "Agriculture lvl 10 - Agriculteur",
     "professions.farming.artisan": "Agriculture lvl 10 - Artisan",
@@ -91,7 +91,7 @@
     "professions.fishing.trapper": "Pêche lvl 5 - Trappeur",
     "professions.fishing.angler": "Pêche lvl 10 - Pêcheur",
     "professions.fishing.luremaster": "Pêche lvl 10 - Maître des leurres",
-    "professions.fishing.mariner": "Pêche lvl 10 - Lour de mer",
+    "professions.fishing.mariner": "Pêche lvl 10 - Loup de mer",
     "professions.fishing.pirate": "Pêche lvl 10 - Pirate",
     "professions.foraging.forester": "Cueillette lvl 5 - Forestier",
     "professions.foraging.gatherer": "Cueillette lvl 5 - Chasseur-cueilleur",
@@ -106,7 +106,7 @@
     "professions.mining.gemologist": "Ext. Minière lvl 10 - Gemmologue",
     "professions.mining.prospector": "Ext. Minière lvl 10 - Prospecteur",
 
-    // 'Weather' tab
+    // Onglet 'Météo'
     "weather.title": "Météo de demain",
     "weather.current": "Actuelle",
     "weather.sunny": "Soleil",
@@ -114,13 +114,13 @@
     "weather.lightning": "Orage",
     "weather.snowing": "Neige",
 
-    // 'Relationships' tab
+    // Onglet 'Relation'
     "relationships.title": "Social",
     "relationships.give-gifts-anytime": "Donner un cadeau n'importe quand",
-    "relationships.no-decay": "Pas de déclin de l'amitié",
+    "relationships.no-decay": "Pas de dégradation de l'amitié",
     "relationships.friends": "Amis",
 
-    // 'Warp Locations' tab
+    // Onglet 'Lieux de téléportation'
     "warp.title": "Se téléporter à",
     "warp.farm": "Ferme",
     "warp.pierre-shop": "Magasin de Pierre",
@@ -142,39 +142,39 @@
     "warp.quarry": "Carrière",
     "warp.new-beach": "Nouvelle plage",
     "warp.secret-woods": "Forêt secrète",
-    "warp.sewer": "Egout",
+    "warp.sewer": "Égout",
     "warp.bathhouse": "Spa",
 
-    // 'Time' tab
+    // Onglet 'Temps'
     "time.title": "Temps",
     "time.freeze-inside": "Arrêter le temps à l'intérieur",
     "time.freeze-caves": "Arrêter le temps dans les grottes",
     "time.freeze-everywhere": "Arrêter le temps partout",
     "time.time": "Heure",
 
-    // 'Flags' tab
-    "flags.warning": "Utilisez cette section à vos risques et périls !\nCela peut causer des problèmes tels que des mails, événements ou quêtes non déclenchés.",
-    "flags.quests": "Complete Quests",
-    "flags.wallet": "Objets du portefeuille",
+    // Onglet 'Drapeaux'
+    "flags.warning": "Utiliser cette section à vos risques et périls !\nCela peut causer des problèmes tels que des mails, événements ou quêtes non déclenchées.",
+    "flags.quests": "Quêtes complétées",
+    "flags.wallet": "Objets du porte-feuille",
     "flags.unlocked": "Zone débloquées",
     "flags.unlocked.guild": "Guilde des aventuriers",
     "flags.unlocked.room": "Chambre : {{name}}",
     "flags.unlocked-content": "Contenu débloqué",
-    "flags.unlocked-content.dyes-and-tailoring": "Teinture & couture",
+    "flags.unlocked-content.dyes-and-tailoring": "Teintures & couture",
     "flags.community-center": "Centre communautaire",
-    "flags.community-center.door-unlocked": "Porte déverrouillé",
-    "flags.jojamart.membership": "Adhérent au Marché Joja",
+    "flags.community-center.door-unlocked": "Porte déverrouillée",
+    "flags.jojamart.membership": "Adhérant au Marché Joja",
 
-    // 'Controls' tab
+    // Onglet 'Contrôles'
     "controls.title": "Contrôles",
     "controls.open-menu": "Ouvrir ce menu",
     "controls.freeze-time": "Arrêter le temps",
     "controls.grow-tree": "Faire pousser les arbres",
     "controls.grow-crops": "Faire pousser les culture",
-    "controls.grow-radius": "Grow distance around player", // TODO
-    "controls.reset-controls": "Reset", // TODO
+    "controls.grow-radius": "Augmenter la distance autour du joueur", // À venir
+    "controls.reset-controls": "Réinitialisation", // À venir
 
-    // various messages
+    // Divers messages
     "messages.press-new-key": "Appuyer sur la nouvelle touche...",
-    "messages.time-frozen": "Temps arrété"
+    "messages.time-frozen": "Temps figé"
 }
