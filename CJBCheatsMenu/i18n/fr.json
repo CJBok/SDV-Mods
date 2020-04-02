@@ -1,5 +1,5 @@
 {
-    "mod-name": "CJB Cheats Menu",
+    "mod-name": "CJB Menu de triche",
 
     // Onglets du menu
     "tabs.player-and-tools": "Joueur & Outils",
@@ -120,7 +120,7 @@
     "relationships.no-decay": "Pas de dégradation de l'amitié",
     "relationships.friends": "Amis",
 
-    // Onglet 'Lieux de téléportation'
+    // Onglet 'Téléportation'
     "warp.title": "Se téléporter à",
     "warp.farm": "Ferme",
     "warp.pierre-shop": "Magasin de Pierre",
@@ -152,7 +152,7 @@
     "time.freeze-everywhere": "Arrêter le temps partout",
     "time.time": "Heure",
 
-    // Onglet 'Drapeaux'
+    // Onglet 'Avancé'
     "flags.warning": "Utiliser cette section à vos risques et périls !\nCela peut causer des problèmes tels que des mails, événements ou quêtes non déclenchées.",
     "flags.quests": "Quêtes complétées",
     "flags.wallet": "Objets du porte-feuille",
