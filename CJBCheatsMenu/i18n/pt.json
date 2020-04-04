@@ -1,4 +1,5 @@
 {
+    // mod name shown in the menu
     "mod-name": "CJB Cheats Menu",
 
     // menu tabs
@@ -16,9 +17,9 @@
     "player.title": "Jogador",
     "player.infinite-stamina": "Energia infinita",
     "player.infinite-health": "Vida infinita",
-    "player.increased-movement-speed": "Alterar velocidade de movimento",
     "player.instant-cooldowns": "Instant Cooldowns", // TODO
     "player.movement-speed": "Velocidade de movimento",
+    "player.movement-speed.default": "normal", // TODO
     "player.one-hit-kill": "Matar monstros com um golpe",
     "player.max-daily-luck": "Sorte diária máxima",
     "tools.title": "Ferramentas",

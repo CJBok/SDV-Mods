@@ -1,4 +1,5 @@
 {
+    // mod name shown in the menu
     "mod-name": "CJB Cheats Menu",
 
     // menu tabs
@@ -16,9 +17,9 @@
     "player.title": "Игрок",
     "player.infinite-stamina": "Бесконечная выносливость",
     "player.infinite-health": "Бесконечное здоровье",
-    "player.increased-movement-speed": "Увеличенная скорость движения",
     "player.instant-cooldowns": "Убрать задержку при использовании оружия / инструмента",
     "player.movement-speed": "Скорость перемещения",
+    "player.movement-speed.default": "normal", // TODO
     "player.one-hit-kill": "Убийство с одного удара",
     "player.max-daily-luck": "Максимальная удача",
     "tools.title": "Инструменты",

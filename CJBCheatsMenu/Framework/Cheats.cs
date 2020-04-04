@@ -197,7 +197,7 @@ namespace CJBCheatsMenu.Framework
         private void UpdateBuff()
         {
             // ignore if disabled
-            if (!this.Config.IncreasedMovement)
+            if (this.Config.MoveSpeed < 1)
                 return;
 
             // ignore in cutscenes

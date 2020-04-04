@@ -344,7 +344,6 @@ namespace CJBCheatsMenu.Framework
         {
             ITranslationHelper i18n = this.TranslationHelper;
             ModConfig config = this.Config;
-            Cheats cheats = this.Cheats;
             Farmer player = Game1.player;
 
             int slotWidth = this.OptionSlots[0].bounds.Width;
@@ -355,11 +354,10 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new OptionsElement($"{i18n.Get("player.title")}:"));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.infinite-stamina"), config.InfiniteStamina, value => config.InfiniteStamina = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.infinite-health"), config.InfiniteHealth, value => config.InfiniteHealth = value));
-                    this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.increased-movement-speed"), config.IncreasedMovement, value => config.IncreasedMovement = value));
-                    this.Options.Add(new CheatsOptionsSlider(i18n.Get("player.movement-speed"), this.Config.MoveSpeed, 10, value => this.Config.MoveSpeed = value, disabled: () => !this.Config.IncreasedMovement));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.instant-cooldowns"), config.InstantCooldowns, value => config.InstantCooldowns = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.one-hit-kill"), config.OneHitKill, value => config.OneHitKill = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.max-daily-luck"), config.MaxDailyLuck, value => config.MaxDailyLuck = value));
+                    this.Options.Add(new CheatsOptionsSlider(i18n.Get("player.movement-speed"), this.Config.MoveSpeed, 10, value => this.Config.MoveSpeed = value, format: val => val == 0 ? i18n.Get("player.movement-speed.default") : val.ToString()));
 
                     this.Options.Add(new OptionsElement($"{i18n.Get("tools.title")}:"));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("tools.infinite-water"), config.InfiniteWateringCan, value => config.InfiniteWateringCan = value));

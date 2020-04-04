@@ -39,8 +39,7 @@ setting | default | what it affects
 ### Player cheats
 setting | default | what it affects
 ------- | ------- | ---------------
-`IncreasedMovement` | `false` | Whether your character moves faster. The added speed is set by the `MoveSpeed` field.
-`MoveSpeed` | `1` | The player speed to add if `IncreasedMovement` is `true`. This is an added multiplier (e.g. `1` doubles the default speed).
+`MoveSpeed` | `1` | The player speed buff to add.
 `InfiniteHealth` | `false` | Your health never decreases.
 `InfiniteStamina` | `false` | Your stamina never decreases.
 `MaxDailyLuck` | `false` | Your daily luck is always at the maximum value.

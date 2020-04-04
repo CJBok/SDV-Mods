@@ -1,4 +1,5 @@
 {
+    // mod name shown in the menu
     "mod-name": "CJB Menu de triche",
 
     // Onglets du menu
@@ -16,9 +17,9 @@
     "player.title": "Joueur",
     "player.infinite-stamina": "Énergie infinie",
     "player.infinite-health": "Santé infinie",
-    "player.increased-movement-speed": "Augmentation de la vitesse de déplacement",
     "player.instant-cooldowns": "Temps de recharge instantané pour les armes et outils",
     "player.movement-speed": "Vitesse de déplacement",
+    "player.movement-speed.default": "normale",
     "player.one-hit-kill": "Tue en un coup",
     "player.max-daily-luck": "Chance quotidienne maximale",
     "tools.title": "Outils",

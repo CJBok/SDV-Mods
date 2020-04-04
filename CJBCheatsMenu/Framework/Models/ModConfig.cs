@@ -39,10 +39,7 @@ namespace CJBCheatsMenu.Framework.Models
         /****
         ** Player cheats
         ****/
-        /// <summary>Whether your character moves faster. The added speed is set by the <see cref="MoveSpeed"/> field.</summary>
-        public bool IncreasedMovement { get; set; }
-
-        /// <summary>The player speed to add if <see cref="IncreasedMovement"/> is <c>true</c>. This is an added multiplier (e.g. 1 doubles the default speed).</summary>
+        /// <summary>The player speed buff to add.</summary>
         public int MoveSpeed { get; set; } = 1;
 
         /// <summary>The player's health never decreases.</summary>

@@ -1,4 +1,5 @@
 {
+    // mod name shown in the menu
     "mod-name": "CJB Cheats Menu",
 
     // menu tabs
@@ -16,9 +17,9 @@
     "player.title": "Player",
     "player.infinite-stamina": "Infinite Stamina",
     "player.infinite-health": "Infinite Health",
-    "player.increased-movement-speed": "Increased Movement Speed",
     "player.instant-cooldowns": "Instant Cooldowns",
     "player.movement-speed": "Move Speed",
+    "player.movement-speed.default": "normal",
     "player.one-hit-kill": "One Hit Kill",
     "player.max-daily-luck": "Max Daily Luck",
     "tools.title": "Tools",

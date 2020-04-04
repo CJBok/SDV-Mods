@@ -1,4 +1,5 @@
 {
+    // mod name shown in the menu
     "mod-name": "CJB Csalások Menü",
 
     // menu tabs
@@ -16,9 +17,9 @@
     "player.title": "Játékos",
     "player.infinite-stamina": "Végtelen Energia",
     "player.infinite-health": "Végtelen Életerő",
-    "player.increased-movement-speed": "Megnövelt Mozgási Sebesség",
     "player.instant-cooldowns": "Azonnali Képesség Újratöltés",
     "player.movement-speed": "Mozgási Sebesség",
+    "player.movement-speed.default": "normal", // TODO
     "player.one-hit-kill": "Egy Ütéses Gyilkosság",
     "player.max-daily-luck": "Maximális Napi Szerencse",
     "tools.title": "Eszközök",
