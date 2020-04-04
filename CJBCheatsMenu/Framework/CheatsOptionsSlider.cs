@@ -95,6 +95,7 @@ namespace CJBCheatsMenu.Framework
         /// <param name="y">The cursor's Y pixel position.</param>
         public override void leftClickReleased(int x, int y)
         {
+            this.ValuePosition = this.GetRangePosition(); // snap to value position
             this.SetValue(this.Value);
         }
 
