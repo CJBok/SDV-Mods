@@ -5,7 +5,7 @@
 * Added 'instant cooldowns' cheat which removes tool/weapon cooldowns.
 * Fixed instantly-grown wild seeds different from naturally-grown wild seeds (e.g. not applying botanist bonus, not randomized, etc).
 * Fixed instantly-grown crops not generating giant crops.
-* Improved translations. Thanks to Annosz (added Hungarian) and D0n-A (updated Russian)!
+* Improved translations. Thanks to Akir0 (updated French), Annosz (added Hungarian), and D0n-A (updated Russian)!
 
 ## 1.23.1
 Released 18 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.

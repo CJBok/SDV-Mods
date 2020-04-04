@@ -17,7 +17,7 @@
     "player.infinite-stamina": "Énergie infinie",
     "player.infinite-health": "Santé infinie",
     "player.increased-movement-speed": "Augmentation de la vitesse de déplacement",
-    "player.instant-cooldowns": "Instant Cooldowns", // TODO
+    "player.instant-cooldowns": "Temps de recharge instantané pour les armes et outils",
     "player.movement-speed": "Vitesse de déplacement",
     "player.one-hit-kill": "Tue en un coup",
     "player.max-daily-luck": "Chance quotidienne maximale",
@@ -49,11 +49,11 @@
     "fast-machines.charcoal-kiln": "Fourneau à charbon",
     "fast-machines.cheese-press": "Presse à fromage",
     "fast-machines.crystalarium": "Cristalarium",
-    "fast-machines.fruit-trees": "Arbres fruitier",
+    "fast-machines.fruit-trees": "Arbres fruitiers",
     "fast-machines.furnace": "Fournaise",
     "fast-machines.incubator": "Incubateur (prêt le matin)",
     "fast-machines.keg": "Tonneau",
-    "fast-machines.lightning-rod": "Para-tonnerre",
+    "fast-machines.lightning-rod": "Paratonnerre",
     "fast-machines.loom": "Métier à tisser",
     "fast-machines.mayonnaise-machine": "Machine à mayonnaise",
     "fast-machines.mushroom-box": "Boîte à champignon",
@@ -61,7 +61,7 @@
     "fast-machines.preserves-jar": "Bocal",
     "fast-machines.recycling-machine": "Machine de recyclage",
     "fast-machines.seed-maker": "Machine à graines",
-    "fast-machines.slime-egg-press": "Presse-œuf de Slime",
+    "fast-machines.slime-egg-press": "Presse à oeufs de Slimes",
     "fast-machines.slime-incubator": "Incubateur de Slime (prêt le matin)",
     "fast-machines.tapper": "Saigneur",
     "fast-machines.wood-chipper": "Déchiqueteuse de bois",
@@ -172,8 +172,8 @@
     "controls.freeze-time": "Arrêter le temps",
     "controls.grow-tree": "Faire pousser les arbres",
     "controls.grow-crops": "Faire pousser les culture",
-    "controls.grow-radius": "Augmenter la distance autour du joueur", // À venir
-    "controls.reset-controls": "Réinitialisation", // À venir
+    "controls.grow-radius": "Distance de croissance autour du joueur",
+    "controls.reset-controls": "Réinitialiser",
 
     // Divers messages
     "messages.press-new-key": "Appuyer sur la nouvelle touche...",
