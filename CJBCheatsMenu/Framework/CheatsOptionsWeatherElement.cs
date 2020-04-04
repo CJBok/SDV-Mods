@@ -28,6 +28,10 @@ namespace CJBCheatsMenu.Framework
             this.whichOption = 0;
         }
 
+        /// <summary>Draw the component to the screen.</summary>
+        /// <param name="spriteBatch">The sprite batch being drawn.</param>
+        /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
+        /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
         {
             string info = this.CurrentWeather();

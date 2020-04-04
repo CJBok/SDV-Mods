@@ -52,10 +52,9 @@ namespace CJBCheatsMenu.Framework
                 : 0;
         }
 
-        /// <summary>The method invoked each update tick while the player is holding the left mouse button.</summary>
-        /// <param name="x">The X-position of the cursor.</param>
-        /// <param name="y">The Y-position of the cursor.</param>
-        /// <returns>Whether the event has been handled and shouldn't be propagated further.</returns>
+        /// <summary>Handle the player holding the left mouse button.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
         public override void leftClickHeld(int x, int y)
         {
             // calculate new value
@@ -78,9 +77,9 @@ namespace CJBCheatsMenu.Framework
             this.OnValueChanged(friendship.Points);
         }
 
-        /// <summary>The method invoked when the player clicks the left mouse button.</summary>
-        /// <param name="x">The X-position of the cursor.</param>
-        /// <param name="y">The Y-position of the cursor.</param>
+        /// <summary>Handle the player clicking the left mouse button.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
         public override void receiveLeftClick(int x, int y)
         {
             if (this.greyedOut)
@@ -89,10 +88,10 @@ namespace CJBCheatsMenu.Framework
             this.leftClickHeld(x, y);
         }
 
-        /// <summary>Draw the UI element to the screen.</summary>
+        /// <summary>Draw the component to the screen.</summary>
         /// <param name="spriteBatch">The sprite batch being drawn.</param>
-        /// <param name="slotX">The X position at which to draw the element.</param>
-        /// <param name="slotY">The Y position at which to draw the element.</param>
+        /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
+        /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
         {
             base.draw(spriteBatch, slotX, slotY);

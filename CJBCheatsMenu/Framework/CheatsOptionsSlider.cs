@@ -52,6 +52,9 @@ namespace CJBCheatsMenu.Framework
             this.Format = format ?? (value => value.ToString());
         }
 
+        /// <summary>Handle the player holding the left mouse button.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
         public override void leftClickHeld(int x, int y)
         {
             if (this.greyedOut)
@@ -61,12 +64,11 @@ namespace CJBCheatsMenu.Framework
             this.Value = x >= this.bounds.X
                 ? (x <= this.bounds.Right - 10 * Game1.pixelZoom ? (int)((x - this.bounds.X) / (this.bounds.Width - 10d * Game1.pixelZoom) * this.MaxValue) : this.MaxValue)
                 : 0;
-
         }
 
-        /// <summary>The method invoked when the player clicks the left mouse button.</summary>
-        /// <param name="x">The X-position of the cursor.</param>
-        /// <param name="y">The Y-position of the cursor.</param>
+        /// <summary>Handle the player clicking the left mouse button.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
         public override void receiveLeftClick(int x, int y)
         {
             if (this.greyedOut)
@@ -75,11 +77,18 @@ namespace CJBCheatsMenu.Framework
             this.leftClickHeld(x, y);
         }
 
+        /// <summary>Handle the player releasing the left mouse button.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
         public override void leftClickReleased(int x, int y)
         {
             this.SetValue(this.Value);
         }
 
+        /// <summary>Draw the component to the screen.</summary>
+        /// <param name="spriteBatch">The sprite batch being drawn.</param>
+        /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
+        /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
         {
             this.label = $"{this.Label}: {this.Format(this.Value)}";

@@ -56,9 +56,9 @@ namespace CJBCheatsMenu.Framework
             this.ClearToButton = clearToButton;
         }
 
-        /// <summary>The method invoked when the player clicks the left mouse button.</summary>
-        /// <param name="x">The X-position of the cursor.</param>
-        /// <param name="y">The Y-position of the cursor.</param>
+        /// <summary>Handle the player clicking the left mouse button.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
         public override void receiveLeftClick(int x, int y)
         {
             if (this.greyedOut || this.Listening || !this.SetButtonBounds.Contains(x, y))
@@ -70,7 +70,7 @@ namespace CJBCheatsMenu.Framework
             this.ListenerMessage = this.PressNewKeyLabel;
         }
 
-        /// <summary>The method invoked when the player presses a key.</summary>
+        /// <summary>Handle the player pressing a keyboard button.</summary>
         /// <param name="key">The key that was pressed.</param>
         public override void receiveKeyPress(Keys key)
         {
@@ -93,10 +93,10 @@ namespace CJBCheatsMenu.Framework
             GameMenu.forcePreventClose = false;
         }
 
-        /// <summary>Draw the menu to the screen.</summary>
+        /// <summary>Draw the component to the screen.</summary>
         /// <param name="spriteBatch">The sprite batch being drawn.</param>
-        /// <param name="slotX">The X position at which to draw relative to the bounds.</param>
-        /// <param name="slotY">The Y position at which to draw relative to the bounds.</param>
+        /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
+        /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
         {
             Utility.drawTextWithShadow(spriteBatch, $"{this.label}: {this.CurrentValue}", Game1.dialogueFont, new Vector2(this.bounds.X + slotX, this.bounds.Y + slotY), this.greyedOut ? Game1.textColor * 0.33f : Game1.textColor, 1f, 0.15f);

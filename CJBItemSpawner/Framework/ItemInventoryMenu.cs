@@ -214,6 +214,8 @@ namespace CJBItemSpawner.Framework
             Game1.setMousePosition(this.Inventory[0].bounds.Right - this.Inventory[0].bounds.Width / 8, this.Inventory[0].bounds.Bottom - this.Inventory[0].bounds.Height / 8);
         }
 
+        /// <summary>Handle the player scrolling the mouse wheel.</summary>
+        /// <param name="direction">The scroll direction.</param>
         public override void receiveScrollWheelAction(int direction)
         {
             if (GameMenu.forcePreventClose)
@@ -227,6 +229,8 @@ namespace CJBItemSpawner.Framework
                 ItemInventoryMenu.ScrollIndex = (this.ActualInventory.Count / (this.Capacity / this.Rows));
         }
 
+        /// <summary>Draw the menu to the screen.</summary>
+        /// <param name="spriteBatch">The sprite batch being drawn.</param>
         public override void draw(SpriteBatch spriteBatch)
         {
             for (int index = 0; index < this.Capacity; ++index)
@@ -244,8 +248,6 @@ namespace CJBItemSpawner.Framework
                     this.ActualInventory[indexOffset].drawInMenu(spriteBatch, position, this.Inventory.Count > index ? this.Inventory[index].scale : 1f, !this.HighlightMethod(this.ActualInventory[indexOffset]) ? 0.2f : 1f, 0.865f);
             }
         }
-
-        public override void receiveRightClick(int x, int y, bool playSound = true) { }
 
 
         /*********

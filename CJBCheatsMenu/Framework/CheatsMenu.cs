@@ -132,9 +132,9 @@ namespace CJBCheatsMenu.Framework
             return true;
         }
 
-        /// <summary>Handle the player holding down the left mouse button.</summary>
-        /// <param name="x">The X pixel position of the cursor.</param>
-        /// <param name="y">The Y pixel position of the cursor.</param>
+        /// <summary>Handle the player holding the left mouse button.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
         public override void leftClickHeld(int x, int y)
         {
             if (GameMenu.forcePreventClose)
@@ -158,7 +158,7 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
-        /// <summary>Handle the player pressing a key.</summary>
+        /// <summary>Handle the player pressing a keyboard button.</summary>
         /// <param name="key">The key that was pressed.</param>
         public override void receiveKeyPress(Keys key)
         {
@@ -218,9 +218,9 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
-        /// <summary>Handle the player releasing down the left mouse button.</summary>
-        /// <param name="x">The X pixel position of the cursor.</param>
-        /// <param name="y">The Y pixel position of the cursor.</param>
+        /// <summary>Handle the player releasing the left mouse button.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
         public override void releaseLeftClick(int x, int y)
         {
             if (GameMenu.forcePreventClose)
@@ -232,9 +232,10 @@ namespace CJBCheatsMenu.Framework
             this.IsScrolling = false;
         }
 
-        /// <summary>The method invoked when the player clicks the left mouse button.</summary>
-        /// <param name="x">The X-position of the cursor.</param>
-        /// <param name="y">The Y-position of the cursor.</param>
+        /// <summary>Handle the player clicking the left mouse button.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <param name="playSound">Whether to play a sound if needed.</param>
         public override void receiveLeftClick(int x, int y, bool playSound = true)
         {
             if (GameMenu.forcePreventClose)
@@ -280,8 +281,8 @@ namespace CJBCheatsMenu.Framework
         }
 
         /// <summary>Handle the player hovering the cursor over the menu.</summary>
-        /// <param name="x">The X pixel position of the cursor.</param>
-        /// <param name="y">The Y pixel position of the cursor.</param>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
         public override void performHoverAction(int x, int y)
         {
             if (GameMenu.forcePreventClose)

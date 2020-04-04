@@ -32,9 +32,9 @@ namespace CJBCheatsMenu.Framework
             this.SetValue = setValue;
         }
 
-        /// <summary>The method invoked when the player clicks the left mouse button.</summary>
-        /// <param name="x">The X-position of the cursor.</param>
-        /// <param name="y">The Y-position of the cursor.</param>
+        /// <summary>Handle the player clicking the left mouse button.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
         public override void receiveLeftClick(int x, int y)
         {
             if (this.greyedOut)
@@ -45,6 +45,10 @@ namespace CJBCheatsMenu.Framework
             this.SetValue(this.IsChecked);
         }
 
+        /// <summary>Draw the component to the screen.</summary>
+        /// <param name="spriteBatch">The sprite batch being drawn.</param>
+        /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
+        /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
         {
             spriteBatch.Draw(Game1.mouseCursors, new Vector2(slotX + this.bounds.X, slotY + this.bounds.Y), this.IsChecked ? OptionsCheckbox.sourceRectChecked : OptionsCheckbox.sourceRectUnchecked, Color.White * (this.greyedOut ? 0.33f : 1f), 0.0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 0.4f);
