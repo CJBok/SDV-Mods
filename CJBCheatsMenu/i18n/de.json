@@ -17,7 +17,7 @@
     "player.title": "Spieler",
     "player.infinite-stamina": "Unendliche Ausdauer",
     "player.infinite-health": "Unendlich Leben",
-    "player.instant-cooldowns": "Instant Cooldowns", // TODO
+    "player.instant-cooldowns": "Instant Weapon Cooldowns", // TODO
     "player.inventory-size": "Inventory Size", // TODO
     "player.movement-speed": "Bewegungsgeschwindigkeit",
     "player.movement-speed.default": "normal", // TODO

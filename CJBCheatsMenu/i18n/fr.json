@@ -17,7 +17,7 @@
     "player.title": "Joueur",
     "player.infinite-stamina": "Énergie infinie",
     "player.infinite-health": "Santé infinie",
-    "player.instant-cooldowns": "Temps de recharge instantané pour les armes et outils",
+    "player.instant-cooldowns": "Temps de recharge instantané pour les armes",
     "player.inventory-size": "Taille de l'inventaire",
     "player.movement-speed": "Vitesse de déplacement",
     "player.movement-speed.default": "normale",
