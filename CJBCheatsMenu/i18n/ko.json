@@ -18,6 +18,7 @@
     "player.infinite-stamina": "기력 무한",
     "player.infinite-health": "체력 무한",
     "player.instant-cooldowns": "Instant Cooldowns", // TODO
+    "player.inventory-size": "Inventory Size", // TODO
     "player.movement-speed": "이동속도",
     "player.movement-speed.default": "normal", // TODO
     "player.one-hit-kill": "한방에 처치",

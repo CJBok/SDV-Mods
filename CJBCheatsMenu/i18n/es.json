@@ -18,6 +18,7 @@
     "player.infinite-stamina": "Energía Infinita",
     "player.infinite-health": "Salud Infinita",
     "player.instant-cooldowns": "Instant Cooldowns", // TODO
+    "player.inventory-size": "Inventory Size", // TODO
     "player.movement-speed": "Velocidad de Movimiento",
     "player.movement-speed.default": "normal", // TODO
     "player.one-hit-kill": "Matar de Un Golpe",

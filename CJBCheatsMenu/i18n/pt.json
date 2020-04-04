@@ -18,6 +18,7 @@
     "player.infinite-stamina": "Energia infinita",
     "player.infinite-health": "Vida infinita",
     "player.instant-cooldowns": "Instant Cooldowns", // TODO
+    "player.inventory-size": "Inventory Size", // TODO
     "player.movement-speed": "Velocidade de movimento",
     "player.movement-speed.default": "normal", // TODO
     "player.one-hit-kill": "Matar monstros com um golpe",

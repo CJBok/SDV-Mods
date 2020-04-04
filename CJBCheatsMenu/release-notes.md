@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Added 'instant cooldowns' cheat which removes tool/weapon cooldowns.
+* Added 'inventory size' cheat to upgrade (or downgrade) the backpack.
 * Merged 'increase movement speed' and 'move speed' options.
 * Fixed instantly-grown wild seeds different from naturally-grown wild seeds (e.g. not applying botanist bonus, not randomized, etc).
 * Fixed instantly-grown crops not generating giant crops.

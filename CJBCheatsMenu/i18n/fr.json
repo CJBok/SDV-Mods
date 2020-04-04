@@ -18,6 +18,7 @@
     "player.infinite-stamina": "Énergie infinie",
     "player.infinite-health": "Santé infinie",
     "player.instant-cooldowns": "Temps de recharge instantané pour les armes et outils",
+    "player.inventory-size": "Taille de l'inventaire",
     "player.movement-speed": "Vitesse de déplacement",
     "player.movement-speed.default": "normale",
     "player.one-hit-kill": "Tue en un coup",

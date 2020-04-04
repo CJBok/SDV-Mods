@@ -21,6 +21,9 @@ namespace CJBCheatsMenu.Framework
         /*********
         ** Fields
         *********/
+        /// <summary>The number of items unlocked by each backpack upgrade.</summary>
+        private readonly int ItemsPerBackpackUpgrade = 12;
+
         /// <summary>The mod settings.</summary>
         private readonly ModConfig Config;
 
@@ -358,6 +361,7 @@ namespace CJBCheatsMenu.Framework
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.one-hit-kill"), config.OneHitKill, value => config.OneHitKill = value));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("player.max-daily-luck"), config.MaxDailyLuck, value => config.MaxDailyLuck = value));
                     this.Options.Add(new CheatsOptionsSlider(i18n.Get("player.movement-speed"), this.Config.MoveSpeed, 10, value => this.Config.MoveSpeed = value, format: val => val == 0 ? i18n.Get("player.movement-speed.default") : val.ToString()));
+                    this.Options.Add(new CheatsOptionsSlider(i18n.Get("player.inventory-size"), player.MaxItems / this.ItemsPerBackpackUpgrade, Farmer.maxInventorySpace / this.ItemsPerBackpackUpgrade, this.SetBackpackSize, minValue: 1, format: value => (value * this.ItemsPerBackpackUpgrade).ToString()));
 
                     this.Options.Add(new OptionsElement($"{i18n.Get("tools.title")}:"));
                     this.Options.Add(new CheatsOptionsCheckbox(i18n.Get("tools.infinite-water"), config.InfiniteWateringCan, value => config.InfiniteWateringCan = value));
@@ -815,6 +819,36 @@ namespace CJBCheatsMenu.Framework
         {
             Game1.player.Money += amount;
             Game1.soundBank.PlayCue("coin");
+        }
+
+        /// <summary>Set the player's backpack upgrade level.</summary>
+        /// <param name="level">The backpack upgrade level, starting at 1 for the starter inventory size.</param>
+        /// <remarks>Derived from <see cref="Farmer.increaseBackpackSize"/>.</remarks>
+        private void SetBackpackSize(int level)
+        {
+            var player = Game1.player;
+            int size = level * this.ItemsPerBackpackUpgrade;
+            int difference = size - player.Items.Count;
+
+            // set max size
+            player.MaxItems = size;
+
+            // remove extra slots
+            for (int slot = player.Items.Count - 1; slot >= 0 && difference < 0; slot--)
+            {
+                if (player.Items[slot] == null)
+                {
+                    player.Items.RemoveAt(slot);
+                    difference++;
+                }
+            }
+
+            // add missing slots
+            while (difference > 0)
+            {
+                player.Items.Add(null);
+                difference--;
+            }
         }
 
         /// <summary>Add an amount to the player's club coin balance.</summary>

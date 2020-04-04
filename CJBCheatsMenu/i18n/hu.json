@@ -18,6 +18,7 @@
     "player.infinite-stamina": "Végtelen Energia",
     "player.infinite-health": "Végtelen Életerő",
     "player.instant-cooldowns": "Azonnali Képesség Újratöltés",
+    "player.inventory-size": "Inventory Size", // TODO
     "player.movement-speed": "Mozgási Sebesség",
     "player.movement-speed.default": "normal", // TODO
     "player.one-hit-kill": "Egy Ütéses Gyilkosság",

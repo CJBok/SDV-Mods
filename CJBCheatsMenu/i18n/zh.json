@@ -18,6 +18,7 @@
     "player.infinite-stamina": "耐力不减",
     "player.infinite-health": "生命不减",
     "player.instant-cooldowns": "Instant Cooldowns", // TODO
+    "player.inventory-size": "Inventory Size", // TODO
     "player.movement-speed": "移动速度增加",
     "player.movement-speed.default": "normal", // TODO
     "player.one-hit-kill": "一拳超人(对怪物)",

@@ -18,6 +18,7 @@
     "player.infinite-stamina": "エネルギー無限",
     "player.infinite-health": "体力無限",
     "player.instant-cooldowns": "Instant Cooldowns", // TODO
+    "player.inventory-size": "Inventory Size", // TODO
     "player.movement-speed": "移動スピード",
     "player.movement-speed.default": "normal", // TODO
     "player.one-hit-kill": "一撃で敵を倒す",
