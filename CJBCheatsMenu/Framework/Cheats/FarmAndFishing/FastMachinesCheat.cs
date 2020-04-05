@@ -190,28 +190,34 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                 return false;
 
             ModConfig config = context.Config;
-            return
-                config.FastBeeHouse && obj.name == "Bee House"
-                || config.FastCask && obj is Cask
-                || config.FastCharcoalKiln && obj.name == "Charcoal Kiln"
-                || config.FastCheesePress && obj.name == "Cheese Press"
-                || config.FastCrystalarium && obj.name == "Crystalarium"
-                || config.FastFurnace && obj.name == "Furnace"
-                || config.FastIncubator && obj.name == "Incubator"
-                || config.FastKeg && obj.name == "Keg"
-                || config.FastLightningRod && obj.name == "Lightning Rod"
-                || config.FastLoom && obj.name == "Loom"
-                || config.FastMayonnaiseMachine && obj.name == "Mayonnaise Machine"
-                || config.FastMushroomBox && obj.name == "Mushroom Box"
-                || config.FastOilMaker && obj.name == "Oil Maker"
-                || config.FastPreservesJar && obj.name == "Preserves Jar"
-                || config.FastRecyclingMachine && obj.name == "Recycling Machine"
-                || config.FastSeedMaker && obj.name == "Seed Maker"
-                || config.FastSlimeEggPress && obj.name == "Slime Egg-Press"
-                || config.FastSlimeIncubator && obj.name == "Slime Incubator"
-                || config.FastTapper && obj.name == "Tapper"
-                || config.FastWoodChipper && obj is WoodChipper
-                || config.FastWormBin && obj.name == "Worm Bin";
+            return obj switch
+            {
+                Cask _ => config.FastCask,
+                WoodChipper _ => config.FastWoodChipper,
+                _ => obj.name switch
+                {
+                    "Bee House" => config.FastBeeHouse,
+                    "Charcoal Kiln" => config.FastCharcoalKiln,
+                    "Cheese Press" => config.FastCheesePress,
+                    "Crystalarium" => config.FastCrystalarium,
+                    "Furnace" => config.FastFurnace,
+                    "Incubator" => config.FastIncubator,
+                    "Keg" => config.FastKeg,
+                    "Lightning Rod" => config.FastLightningRod,
+                    "Loom" => config.FastLoom,
+                    "Mayonnaise Machine" => config.FastMayonnaiseMachine,
+                    "Mushroom Box" => config.FastMushroomBox,
+                    "Oil Maker" => config.FastOilMaker,
+                    "Preserves Jar" => config.FastPreservesJar,
+                    "Recycling Machine" => config.FastRecyclingMachine,
+                    "Seed Maker" => config.FastSeedMaker,
+                    "Slime Egg-Press" => config.FastSlimeEggPress,
+                    "Slime Incubator" => config.FastSlimeIncubator,
+                    "Tapper" => config.FastTapper,
+                    "Worm Bin" => config.FastWormBin,
+                    _ => false
+                }
+            };
         }
 
         /// <summary>Finish a machine's processing.</summary>

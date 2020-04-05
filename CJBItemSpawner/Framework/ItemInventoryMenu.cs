@@ -314,14 +314,11 @@ namespace CJBItemSpawner.Framework
         /// <param name="item">The item to clone.</param>
         private Item GetOne(Item item)
         {
-            switch (item)
+            return item switch
             {
-                case Slingshot slingshot:
-                    return new Slingshot(slingshot.InitialParentTileIndex); // slingshot.getOne() always returns basic slingshot
-
-                default:
-                    return item.getOne();
-            }
+                Slingshot slingshot => new Slingshot(slingshot.InitialParentTileIndex), // slingshot.getOne() always returns basic slingshot
+                _ => item.getOne()
+            };
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -88,23 +89,14 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         /// <param name="location">The location to check.</param>
         private IEnumerable<ResourceClump> GetResourceClumps(GameLocation location)
         {
-            switch (location)
+            return location switch
             {
-                case MineShaft mineShaft:
-                    return mineShaft.resourceClumps;
-
-                case Farm farm:
-                    return farm.resourceClumps;
-
-                case Forest forest:
-                    return new[] { forest.log };
-
-                case Woods woods:
-                    return woods.stumps;
-
-                default:
-                    return new ResourceClump[0];
-            }
+                MineShaft mineShaft => mineShaft.resourceClumps,
+                Farm farm => farm.resourceClumps,
+                Forest forest => new[] { forest.log },
+                Woods woods => woods.stumps,
+                _ => Enumerable.Empty<ResourceClump>()
+            };
         }
     }
 }

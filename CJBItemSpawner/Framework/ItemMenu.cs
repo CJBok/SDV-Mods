@@ -471,17 +471,13 @@ namespace CJBItemSpawner.Framework
         /// <param name="sort">The sort type.</param>
         private string GetSortLabel(ItemSort sort)
         {
-            switch (sort)
+            return sort switch
             {
-                case ItemSort.DisplayName:
-                    return this.TranslationHelper.Get("labels.sort-by-name");
-                case ItemSort.Category:
-                    return this.TranslationHelper.Get("labels.sort-by-category");
-                case ItemSort.ID:
-                    return this.TranslationHelper.Get("labels.sort-by-id");
-                default:
-                    throw new NotSupportedException($"Invalid sort type {sort}.");
-            }
+                ItemSort.DisplayName => this.TranslationHelper.Get("labels.sort-by-name"),
+                ItemSort.Category => this.TranslationHelper.Get("labels.sort-by-category"),
+                ItemSort.ID => this.TranslationHelper.Get("labels.sort-by-id"),
+                _ => throw new NotSupportedException($"Invalid sort type {sort}.")
+            };
         }
 
         /// <summary>Get the tab constant represented by a tab component.</summary>
@@ -496,20 +492,14 @@ namespace CJBItemSpawner.Framework
         private void LoadInventory(Item[] spawnableItems)
         {
             // sort items
-            switch (this.SortBy)
-            {
-                case ItemSort.Category:
-                    spawnableItems = spawnableItems.OrderBy(o => o.Category).ToArray();
-                    break;
-
-                case ItemSort.ID:
-                    spawnableItems = spawnableItems.OrderBy(o => o.ParentSheetIndex).ToArray();
-                    break;
-
-                default:
-                    spawnableItems = spawnableItems.OrderBy(o => o.DisplayName).ToArray();
-                    break;
-            }
+            spawnableItems =
+                (this.SortBy switch
+                {
+                    ItemSort.Category => spawnableItems.OrderBy(o => o.Category),
+                    ItemSort.ID => spawnableItems.OrderBy(o => o.ParentSheetIndex),
+                    _ => spawnableItems.OrderBy(o => o.DisplayName)
+                })
+                .ToArray();
 
             // load inventory
             List<Item> inventoryItems = new List<Item>();

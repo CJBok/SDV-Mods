@@ -22,36 +22,28 @@ namespace CJBItemSpawner.Framework.Constants
         /// <param name="current">The current quality.</param>
         public static ItemQuality GetPrevious(this ItemQuality current)
         {
-            switch (current)
+            return current switch
             {
-                case ItemQuality.Normal:
-                case ItemQuality.Silver:
-                    return ItemQuality.Normal;
-                case ItemQuality.Gold:
-                    return ItemQuality.Silver;
-                case ItemQuality.Iridium:
-                    return ItemQuality.Gold;
-                default:
-                    throw new NotSupportedException($"Unknown quality '{current}'.");
-            }
+                ItemQuality.Normal => ItemQuality.Normal,
+                ItemQuality.Silver => ItemQuality.Normal,
+                ItemQuality.Gold => ItemQuality.Silver,
+                ItemQuality.Iridium => ItemQuality.Gold,
+                _ => throw new NotSupportedException($"Unknown quality '{current}'.")
+            };
         }
 
         /// <summary>Get the next better quality.</summary>
         /// <param name="current">The current quality.</param>
         public static ItemQuality GetNext(this ItemQuality current)
         {
-            switch (current)
+            return current switch
             {
-                case ItemQuality.Normal:
-                    return ItemQuality.Silver;
-                case ItemQuality.Silver:
-                    return ItemQuality.Gold;
-                case ItemQuality.Gold:
-                case ItemQuality.Iridium:
-                    return ItemQuality.Iridium;
-                default:
-                    throw new NotSupportedException($"Unknown quality '{current}'.");
-            }
+                ItemQuality.Normal => ItemQuality.Silver,
+                ItemQuality.Silver => ItemQuality.Gold,
+                ItemQuality.Gold => ItemQuality.Iridium,
+                ItemQuality.Iridium => ItemQuality.Iridium,
+                _ => throw new NotSupportedException($"Unknown quality '{current}'.")
+            };
         }
     }
 }
