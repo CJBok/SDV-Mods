@@ -6,6 +6,7 @@ using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework
 {
+    /// <summary>A UI slider for selecting from a range of values.</summary>
     internal class CheatsOptionsSlider : OptionsElement
     {
         /*********
@@ -44,23 +45,23 @@ namespace CJBCheatsMenu.Framework
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="label">The field label.</param>
-        /// <param name="initialValue">The initial value.</param>
+        /// <param name="value">The initial value.</param>
         /// <param name="maxValue">The maximum value that can be selected using the field.</param>
         /// <param name="setValue">The callback to invoke when the value changes.</param>
         /// <param name="minValue">The minimum value that can be selected using the field.</param>
         /// <param name="disabled">Whether the slider should be disabled.</param>
         /// <param name="format">Format the display label.</param>
         /// <param name="width">The field width.</param>
-        public CheatsOptionsSlider(string label, int initialValue, int maxValue, Action<int> setValue, int minValue = 0, Func<bool> disabled = null, Func<int, string> format = null, int width = 48)
+        public CheatsOptionsSlider(string label, int value, int maxValue, Action<int> setValue, int minValue = 0, Func<bool> disabled = null, Func<int, string> format = null, int width = 48)
             : base(label, -1, -1, width * Game1.pixelZoom, 6 * Game1.pixelZoom, 0)
         {
             this.Label = label;
-            this.Value = initialValue;
+            this.Value = value;
             this.MinValue = minValue;
             this.MaxValue = maxValue;
             this.SetValue = setValue;
             this.IsDisabled = disabled ?? (() => false);
-            this.Format = format ?? (value => value.ToString());
+            this.Format = format ?? (v => v.ToString());
 
             this.ValuePosition = this.GetRangePosition();
         }

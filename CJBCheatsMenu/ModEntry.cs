@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using CJB.Common;
 using CJBCheatsMenu.Framework;
@@ -15,7 +16,7 @@ namespace CJBCheatsMenu
         ** Fields
         *********/
         /// <summary>The known in-game location.</summary>
-        private GameLocation[] Locations;
+        private Lazy<GameLocation[]> Locations;
 
         /// <summary>The mod settings.</summary>
         private ModConfig Config;
@@ -23,8 +24,8 @@ namespace CJBCheatsMenu
         /// <summary>The warps to show in the menu.</summary>
         private ModDataWarp[] Warps;
 
-        /// <summary>The cheats helper.</summary>
-        private Cheats Cheats;
+        /// <summary>Manages the cheat implementations.</summary>
+        private CheatManager Cheats;
 
 
         /*********
@@ -45,7 +46,7 @@ namespace CJBCheatsMenu
             this.Monitor.Log($"Started with menu key {this.Config.OpenMenuKey}.", LogLevel.Trace);
 
             // load cheats
-            this.Cheats = new Cheats(this.Config, this.Helper.Translation);
+            this.Cheats = new CheatManager(this.Config, this.Helper.Reflection, this.Helper.Translation, () => this.Locations.Value, this.Warps);
 
             // hook events
             helper.Events.Display.Rendered += this.OnRendered;
@@ -69,8 +70,8 @@ namespace CJBCheatsMenu
         /// <param name="e">The event arguments.</param>
         private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
-            this.Locations = CommonHelper.GetAllLocations().ToArray();
-            this.Cheats.Reset();
+            this.ResetLocationCache();
+            this.Cheats.OnSaveLoaded();
         }
 
         /// <summary>Raised after a game location is added or removed.</summary>
@@ -78,7 +79,14 @@ namespace CJBCheatsMenu
         /// <param name="e">The event arguments.</param>
         private void OnLocationListChanged(object sender, LocationListChangedEventArgs e)
         {
-            this.Locations = CommonHelper.GetAllLocations().ToArray();
+            this.ResetLocationCache();
+        }
+
+        /// <summary>Reset the cached location list.</summary>
+        private void ResetLocationCache()
+        {
+            if (this.Locations == null || !this.Locations.IsValueCreated)
+                this.Locations = new Lazy<GameLocation[]>(() => CommonHelper.GetAllLocations().ToArray());
         }
 
         /// <summary>Raised after the player presses a button on the keyboard, controller, or mouse.</summary>
@@ -91,7 +99,7 @@ namespace CJBCheatsMenu
 
             // open menu
             if (e.Button == this.Config.OpenMenuKey)
-                Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Config, this.Warps, this.Cheats, this.Helper.Translation, this.Monitor);
+                Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Cheats, this.Monitor);
 
             // handle button if applicable
             else
@@ -114,7 +122,7 @@ namespace CJBCheatsMenu
             if (!Context.IsWorldReady)
                 return;
 
-            this.Cheats.OnRendered(this.Helper.Translation);
+            this.Cheats.OnRendered();
         }
 
         /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
@@ -125,9 +133,7 @@ namespace CJBCheatsMenu
             if (!Context.IsWorldReady)
                 return;
 
-            this.Cheats.OnUpdateTicked(e, this.Helper.Reflection, this.Helper.Input);
-            if (e.IsOneSecond)
-                this.Cheats.OneSecondUpdate(this.Locations);
+            this.Cheats.OnUpdateTicked(e);
         }
 
         /// <summary>Raised after a game menu is opened, closed, or replaced.</summary>

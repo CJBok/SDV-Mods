@@ -14,8 +14,12 @@ namespace CJBCheatsMenu.Framework
         /// <summary>A callback to invoke when the value changes.</summary>
         private readonly Action<bool> SetValue;
 
+
+        /*********
+        ** Accessors
+        *********/
         /// <summary>Whether the checkbox is currently checked.</summary>
-        private bool IsChecked;
+        public bool IsChecked { get; private set; }
 
 
         /*********
@@ -23,12 +27,12 @@ namespace CJBCheatsMenu.Framework
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="label">The checkbox label.</param>
-        /// <param name="initialValue">The initial value to set.</param>
+        /// <param name="value">The initial value to set.</param>
         /// <param name="setValue">A callback to invoke when the value changes.</param>
-        public CheatsOptionsCheckbox(string label, bool initialValue, Action<bool> setValue)
+        public CheatsOptionsCheckbox(string label, bool value, Action<bool> setValue)
           : base(label, -1, -1, 9 * Game1.pixelZoom, 9 * Game1.pixelZoom, 0)
         {
-            this.IsChecked = initialValue;
+            this.IsChecked = value;
             this.SetValue = setValue;
         }
 

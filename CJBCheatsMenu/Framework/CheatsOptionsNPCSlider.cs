@@ -1,10 +1,8 @@
 using System;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
-using StardewValley.Quests;
 
 namespace CJBCheatsMenu.Framework
 {
@@ -26,8 +24,8 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The current value.</summary>
         private int Value;
 
-        /// <summary>A callback to invoke when the value changes.</summary>
-        private readonly Action<int> OnValueChanged;
+        /// <summary>The callback to invoke when the value changes.</summary>
+        private readonly Action<int> SetValue;
 
 
         /*********
@@ -35,14 +33,14 @@ namespace CJBCheatsMenu.Framework
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="npc">The villager NPC represented the slider.</param>
-        /// <param name="onValueChanged">A callback to invoke when the value changes.</param>
-        public CheatsOptionsNpcSlider(NPC npc, Action<int> onValueChanged)
+        /// <param name="setValue">The callback to invoke when the value changes.</param>
+        public CheatsOptionsNpcSlider(NPC npc, Action<int> setValue)
             : base(npc.displayName, x: 96, y: -1, width: (CheatsOptionsNpcSlider.IsSpouse(npc) ? 112 : 80) * Game1.pixelZoom, height: 6 * Game1.pixelZoom, whichOption: 0)
         {
             bool isKnown = Game1.player.friendshipData.TryGetValue(npc.Name, out Friendship friendship);
 
             this.Npc = npc;
-            this.OnValueChanged = onValueChanged;
+            this.SetValue = setValue;
             this.Mugshot = new ClickableTextureComponent("Mugshot", this.bounds, "", "", npc.Sprite.Texture, npc.getMugShotSourceRect(), 0.7f * Game1.pixelZoom);
             this.greyedOut = !isKnown;
             this.label = npc.getName();
@@ -59,22 +57,13 @@ namespace CJBCheatsMenu.Framework
         {
             // calculate new value
             base.leftClickHeld(x, y);
-            this.Value = x >= this.bounds.X ? (x <= this.bounds.Right - 10 * Game1.pixelZoom ? (int)((x - this.bounds.X) / (this.bounds.Width - 10d * Game1.pixelZoom) * this.SliderMaxValue) : this.SliderMaxValue) : 0;
 
-            // add friendship if needed
-            if (!Game1.player.friendshipData.TryGetValue(this.Npc.Name, out Friendship friendship))
-            {
-                friendship = new Friendship();
-                Game1.player.friendshipData.Add(this.Npc.Name, friendship);
-                SocializeQuest socialQuest = Game1.player.questLog.OfType<SocializeQuest>().FirstOrDefault();
-                if (socialQuest != null && !socialQuest.completed.Value)
-                    socialQuest.checkIfComplete(this.Npc);
-                this.greyedOut = false;
-            }
+            int hearts = x >= this.bounds.X ? (x <= this.bounds.Right - 10 * Game1.pixelZoom ? (int)((x - this.bounds.X) / (this.bounds.Width - 10d * Game1.pixelZoom) * this.SliderMaxValue) : this.SliderMaxValue) : 0;
+            int points = this.Value * NPC.friendshipPointsPerHeartLevel;
 
-            // update friendship points
-            friendship.Points = this.Value * NPC.friendshipPointsPerHeartLevel;
-            this.OnValueChanged(friendship.Points);
+            this.Value = hearts;
+            this.greyedOut = false;
+            this.SetValue(points);
         }
 
         /// <summary>Handle the player clicking the left mouse button.</summary>

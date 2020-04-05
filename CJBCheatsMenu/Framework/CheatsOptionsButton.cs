@@ -13,7 +13,7 @@ namespace CJBCheatsMenu.Framework
         ** Fields
         *********/
         /// <summary>The action to perform when the button is toggled (or <c>null</c> to handle it manually).</summary>
-        private readonly Action OnToggled;
+        private readonly Action Toggle;
 
         /// <summary>The source rectangle for the 'set' button sprite.</summary>
         private readonly Rectangle SetButtonSprite = new Rectangle(294, 428, 21, 11);
@@ -28,13 +28,13 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Construct an instance.</summary>
         /// <param name="label">The field label.</param>
         /// <param name="slotWidth">The field width.</param>
-        /// <param name="onToggled">The action to perform when the button is toggled.</param>
+        /// <param name="toggle">The action to perform when the button is toggled.</param>
         /// <param name="disabled">Whether the button should be disabled.</param>
-        public CheatsOptionsButton(string label, int slotWidth, Action onToggled, bool disabled = false)
+        public CheatsOptionsButton(string label, int slotWidth, Action toggle, bool disabled = false)
           : base(label, -1, -1, slotWidth + 1, 11 * Game1.pixelZoom)
         {
             this.SetButtonBounds = new Rectangle(slotWidth - 28 * Game1.pixelZoom, -1 + Game1.pixelZoom * 3, 21 * Game1.pixelZoom, 11 * Game1.pixelZoom);
-            this.OnToggled = onToggled;
+            this.Toggle = toggle;
             this.greyedOut = disabled;
         }
 
@@ -47,7 +47,7 @@ namespace CJBCheatsMenu.Framework
                 return;
 
             // callback handler
-            this.OnToggled();
+            this.Toggle();
         }
 
         /// <summary>Draw the component to the screen.</summary>
