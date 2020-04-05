@@ -1,4 +1,3 @@
-using CJBCheatsMenu.Framework.Constants;
 using StardewModdingAPI;
 
 namespace CJBCheatsMenu.Framework.Models

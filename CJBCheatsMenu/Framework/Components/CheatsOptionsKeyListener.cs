@@ -6,7 +6,7 @@ using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 
-namespace CJBCheatsMenu.Framework
+namespace CJBCheatsMenu.Framework.Components
 {
     /// <summary>A button which lets the user choose a key binding.</summary>
     internal class CheatsOptionsKeyListener : OptionsElement

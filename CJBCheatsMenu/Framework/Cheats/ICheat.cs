@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI.Events;
 using StardewValley.Menus;
 
-namespace CJBCheatsMenu.Framework
+namespace CJBCheatsMenu.Framework.Cheats
 {
     /// <summary>A cheat that can be configured and applied through CJB Cheats Menu.</summary>
     internal interface ICheat

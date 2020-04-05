@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CJBCheatsMenu.Framework.Components;
 using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Advanced

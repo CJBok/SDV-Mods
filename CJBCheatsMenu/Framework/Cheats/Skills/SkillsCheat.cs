@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CJBCheatsMenu.Framework.Components;
 using Microsoft.Xna.Framework;
 using StardewValley;
 using StardewValley.Menus;

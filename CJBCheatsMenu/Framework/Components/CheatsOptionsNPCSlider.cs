@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
 
-namespace CJBCheatsMenu.Framework
+namespace CJBCheatsMenu.Framework.Components
 {
     /// <summary>A UI slider for setting a villager's friendship level.</summary>
     internal class CheatsOptionsNpcSlider : OptionsElement

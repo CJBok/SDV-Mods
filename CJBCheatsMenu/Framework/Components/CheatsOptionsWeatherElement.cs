@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
 
-namespace CJBCheatsMenu.Framework
+namespace CJBCheatsMenu.Framework.Components
 {
     internal class CheatsOptionsWeatherElement : OptionsElement
     {

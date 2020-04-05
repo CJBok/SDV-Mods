@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
 
-namespace CJBCheatsMenu.Framework
+namespace CJBCheatsMenu.Framework.Components
 {
     /// <summary>A UI slider for selecting from a range of values.</summary>
     internal class CheatsOptionsSlider : OptionsElement

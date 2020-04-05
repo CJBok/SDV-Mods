@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
 
-namespace CJBCheatsMenu.Framework
+namespace CJBCheatsMenu.Framework.Components
 {
     /// <summary>An options element which contains descriptive text.</summary>
     internal class DescriptionElement : OptionsElement

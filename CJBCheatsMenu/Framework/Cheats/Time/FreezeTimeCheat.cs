@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CJB.Common;
+using CJBCheatsMenu.Framework.Components;
 using CJBCheatsMenu.Framework.Models;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;

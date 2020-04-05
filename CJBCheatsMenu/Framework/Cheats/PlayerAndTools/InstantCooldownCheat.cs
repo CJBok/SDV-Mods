@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CJBCheatsMenu.Framework.Components;
 using StardewModdingAPI.Events;
 using StardewValley.Menus;
 using StardewValley.Tools;

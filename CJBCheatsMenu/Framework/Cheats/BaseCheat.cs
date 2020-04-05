@@ -5,7 +5,7 @@ using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Menus;
 
-namespace CJBCheatsMenu.Framework
+namespace CJBCheatsMenu.Framework.Cheats
 {
     /// <summary>The base implementation for a cheat that can be configured and applied through CJB Cheats Menu.</summary>
     internal abstract class BaseCheat : ICheat

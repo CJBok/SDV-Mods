@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using CJBCheatsMenu.Framework.Components;
 using CJBCheatsMenu.Framework.Models;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
