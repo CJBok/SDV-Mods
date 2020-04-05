@@ -93,6 +93,7 @@ setting | default | what it affects
 `DurableFences` | `false` | Fences never break.
 `InstantBuild` | `false` | Building new structures on the farm completes instantly.
 `AutoFeed` | `false` | Feed troughs in barns and coops are refilled automatically.
+`AutoWater` | `false` | Crops are watered automatically.
 `InfiniteHay` | `false` | Hay silos are always full.
 
 ## See also

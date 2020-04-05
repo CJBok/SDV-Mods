@@ -34,7 +34,7 @@
 
     // 'Farm & Fishing' tab
     "farm.title": "Farm",
-    "farm.water-all-fields": "Gieße alle Felder",
+    "farm.auto-water": "Auto-Water Crops", // TODO
     "farm.durable-fences": "Widerstandsfähige Zäune",
     "farm.instant-build": "Sofortiger Bau",
     "farm.always-auto-feed": "Immer automatisch füttern",

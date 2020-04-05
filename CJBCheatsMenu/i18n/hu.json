@@ -34,7 +34,7 @@
 
     // 'Farm & Fishing' tab
     "farm.title": "Farm",
-    "farm.water-all-fields": "Minden Megöntözése",
+    "farm.auto-water": "Auto-Water Crops", // TODO
     "farm.durable-fences": "Tartós Kerítések",
     "farm.instant-build": "Azonnali Építés",
     "farm.always-auto-feed": "Mindig Automata Etetés",

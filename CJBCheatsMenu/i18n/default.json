@@ -34,7 +34,7 @@
 
     // 'Farm & Fishing' tab
     "farm.title": "Farm",
-    "farm.water-all-fields": "Water All Fields",
+    "farm.auto-water": "Auto-Water Crops",
     "farm.durable-fences": "Durable Fences",
     "farm.instant-build": "Instant Build",
     "farm.always-auto-feed": "Always Auto-Feed",

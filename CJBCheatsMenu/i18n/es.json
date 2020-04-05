@@ -34,7 +34,7 @@
 
     // 'Farm & Fishing' tab
     "farm.title": "Granja",
-    "farm.water-all-fields": "Regar Todos Los Campos",
+    "farm.auto-water": "Auto-Water Crops", // TODO
     "farm.durable-fences": "Vallas Duraderas",
     "farm.instant-build": "Construcciones Instantáneas",
     "farm.always-auto-feed": "Siempre Auto Alimentar",

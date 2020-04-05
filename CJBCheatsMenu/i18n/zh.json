@@ -34,7 +34,7 @@
 
     // 'Farm & Fishing' tab
     "farm.title": "农场",
-    "farm.water-all-fields": "打湿所有耕地",
+    "farm.auto-water": "Auto-Water Crops", // TODO
     "farm.durable-fences": "围栏不损毁",
     "farm.instant-build": "农场建筑立即完成",
     "farm.always-auto-feed": "自动喂食",

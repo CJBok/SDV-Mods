@@ -34,7 +34,7 @@
 
     // 'Farm & Fishing' tab
     "farm.title": "農場",
-    "farm.water-all-fields": "自動で水撒き",
+    "farm.auto-water": "Auto-Water Crops", // TODO
     "farm.durable-fences": "柵を強化",
     "farm.instant-build": "建設がすぐに終わる",
     "farm.always-auto-feed": "エサやり自動化",

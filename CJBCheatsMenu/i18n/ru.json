@@ -34,7 +34,7 @@
 
     // 'Farm & Fishing' tab
     "farm.title": "Ферма",
-    "farm.water-all-fields": "Полить все грядки",
+    "farm.auto-water": "Auto-Water Crops", // TODO
     "farm.durable-fences": "Прочные ограждения",
     "farm.instant-build": "Мгновенное строительство",
     "farm.always-auto-feed": "Автоматически подкармливать животных",

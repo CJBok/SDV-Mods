@@ -356,7 +356,7 @@ namespace CJBCheatsMenu.Framework
                     // farming
                     this.AddOptions(
                         $"{text.Get("farm.title")}:",
-                        cheats.WaterAllFields,
+                        cheats.AutoWater,
                         cheats.DurableFences,
                         cheats.InstantBuild,
                         cheats.AlwaysAutoFeed,

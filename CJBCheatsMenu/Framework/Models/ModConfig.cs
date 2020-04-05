@@ -179,6 +179,9 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Feed troughs in your barns and coops are refilled automatically.</summary>
         public bool AutoFeed { get; set; }
 
+        /// <summary>Crops are watered automatically.</summary>
+        public bool AutoWater { get; set; }
+
         /// <summary>Hay silos are always full.</summary>
         public bool InfiniteHay { get; set; }
     }

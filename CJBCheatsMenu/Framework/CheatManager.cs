@@ -88,8 +88,8 @@ namespace CJBCheatsMenu.Framework
         /****
         ** Farming & fishing
         ****/
-        /// <summary>Waters all current fields.</summary>
-        public ICheat WaterAllFields { get; } = new WaterAllFieldsCheat();
+        /// <summary>Automatically waters all crops.</summary>
+        public ICheat AutoWater { get; } = new AutoWaterCheat();
 
         /// <summary>Gives fences infinite health.</summary>
         public ICheat DurableFences { get; } = new DurableFencesCheat();

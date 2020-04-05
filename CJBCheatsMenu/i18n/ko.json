@@ -34,7 +34,7 @@
 
     // '농장 & 낚시' 탭
     "farm.title": "농장",
-    "farm.water-all-fields": "모든 경작지에 물주기",
+    "farm.auto-water": "Auto-Water Crops", // TODO
     "farm.durable-fences": "울타리 유실 방지",
     "farm.instant-build": "농장 건물 건설 즉시 완성",
     "farm.always-auto-feed": "사료 자동 급식",

@@ -34,7 +34,7 @@
 
     // Onglet 'Ferme & Pêche'
     "farm.title": "Ferme",
-    "farm.water-all-fields": "Arroser tous les champs",
+    "farm.auto-water": "Arroser les champs automatiquement",
     "farm.durable-fences": "Clôture durable",
     "farm.instant-build": "Construction instantanée",
     "farm.always-auto-feed": "Toujours nourrir automatiquement",

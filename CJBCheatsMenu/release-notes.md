@@ -2,8 +2,10 @@
 
 # Release notes
 ## Upcoming release
-* Added instant weapon cooldowns option.
-* Added inventory size option (i.e. backpack upgrades).
+* Added cheats:
+  * instant weapon cooldowns;
+  * inventory size (i.e. backpack upgrades);
+  * auto-water crops (replaces the former 'water all fields' button).
 * Simplified move speed option.
 * 'Grow crops' and 'grow trees' can now be bound to the same button to grow both at once.
 * Fixed instantly-grown wild seeds different from naturally-grown wild seeds (e.g. not applying botanist bonus, not randomized, etc).

@@ -34,7 +34,7 @@
 
     // 'Farm & Fishing' tab
     "farm.title": "Fazenda",
-    "farm.water-all-fields": "Regar todas as plantações",
+    "farm.auto-water": "Auto-Water Crops", // TODO
     "farm.durable-fences": "Cercas duráveis",
     "farm.instant-build": "Construções instantâneas",
     "farm.always-auto-feed": "Alimentação automática para animais",
