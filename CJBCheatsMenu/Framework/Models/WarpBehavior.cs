@@ -6,10 +6,10 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>No special behavior.</summary>
         Default,
 
-        /// <summary>A special warp to the casino.</summary>
+        /// <summary>Apply special logic for the casino warp.</summary>
         Casino,
 
-        /// <summary>A special warp to the farm.</summary>
+        /// <summary>Apply special logic for the farm warp.</summary>
         Farm
     }
 }

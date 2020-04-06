@@ -19,7 +19,7 @@
             {
                 "DisplayText": "warp.farm",
                 "Order": -1,
-                "SpecialBehavior": "farm"
+                "SpecialBehavior": "Farm"
             },
             {
                 "DisplayText": "warp.carpenter",
@@ -119,7 +119,9 @@
         "warp-section.desert": [
             {
                 "DisplayText": "warp.casino",
-                "SpecialBehavior": "casino"
+                "Location": "Club",
+                "Tile": "8, 11",
+                "SpecialBehavior": "Casino"
             },
             {
                 "DisplayText": "warp.sandy-shop",

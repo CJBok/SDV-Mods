@@ -69,7 +69,6 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
                         toggle: warp.SpecialBehavior switch
                         {
                             WarpBehavior.Farm => this.WarpToFarm,
-                            WarpBehavior.Casino => () => this.Warp("Club", 8, 11),
                             _ => () => this.Warp(warp.Location ?? "Farm", (int)warp.Tile.X, (int)warp.Tile.Y)
                         }
                     );

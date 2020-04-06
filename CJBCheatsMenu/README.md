@@ -107,23 +107,26 @@ they'll be sorted alphabetically by section and display name.
 Warps are grouped by the section under which to list the warp in the menu. This can match a
 translation ID in the i18n files, else it'll be shown as-is. See also [_section order_](#section-order).
 
-Each warp has four fields:
+Each warp has four main fields:
 
 field | purpose
 ----- | -------
 `DisplayText` | The text to show in the menu. This can match a translation ID in the i18n files, else it'll be shown as-is.
-`Location` | The internal name of the target location (not the translated name).
-`Tile` | The target tile coordinate.
+`Location` | The internal name of the target location (not the translated name). You can use the [Debug Mode](https://www.nexusmods.com/stardewvalley/mods/679) mod to see location names in-game.
+`Tile` | The target tile coordinate. You can use the [Debug Mode](https://www.nexusmods.com/stardewvalley/mods/679) mod to see tile coordinates in-game.
 `Order` | The relative order in which to list it in the warp menu (default 0). Lower values are listed first. Warps with the same order are sorted alphabetically.
-`SpecialBehavior` | Indicates special behavior to apply. The valid `SpecialBehavior` codes are: <ul><li><code>farm</code>: Warp to the farm in front of the current player's cabin or farmhouse.</li><li><code>casino</code>: Warp to the casino club, but only if the player has the club card.</li></ul>
-
-You can use the [Debug Mode](https://www.nexusmods.com/stardewvalley/mods/679) mod to see location
-names and tile coordinates in-game.
 
 ### Section order
 Warps are grouped into UI sections for easier navigation (see [_warps_](#warps)). The `SectionOrder`
 field lists sections that should be listed at the top in the listed order. Any other sections will
 be listed alphabetically after these sections.
 
+### Special warp behavior
+Warps can set the `SpecialBehavior` field to enable special warp logic. The valid values are:
+
+value             | effect
+----------------- | ------
+`Casino`          | Hide warp if the player doesn't have the club card.
+`Farm`            | Warp to the current player's cabin or farmhouse. The `Location` and `Tile` fields are ignored.
 ## See also
 * [Release notes](release-notes.md)
