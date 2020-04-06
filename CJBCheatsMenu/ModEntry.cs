@@ -42,16 +42,16 @@ namespace CJBCheatsMenu
             // load warps
             try
             {
-                this.Warps = helper.Data.ReadJsonFile<ModData>("data/warps.json");
+                this.Warps = helper.Data.ReadJsonFile<ModData>("assets/warps.json");
                 if (this.Warps == null)
                 {
-                    this.Monitor.Log("Some of the mod files are missing (data/warps.json); try reinstalling this mod.", LogLevel.Error);
+                    this.Monitor.Log("Some of the mod files are missing (assets/warps.json); try reinstalling this mod.", LogLevel.Error);
                     return;
                 }
             }
             catch (Exception ex)
             {
-                this.Monitor.Log($"Some of the mod files are broken or corrupted (data/warps.json); try reinstalling this mod.\n{ex}", LogLevel.Error);
+                this.Monitor.Log($"Some of the mod files are broken or corrupted (assets/warps.json); try reinstalling this mod.\n{ex}", LogLevel.Error);
             }
 
             // load cheats

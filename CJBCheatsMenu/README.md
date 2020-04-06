@@ -97,7 +97,7 @@ setting | default | what it affects
 `InfiniteHay` | `false` | Hay silos are always full.
 
 ## Warp format
-The Warps tab is populated based on the `data/warps.json` file. This isn't generally meant to be
+The Warps tab is populated based on the `assets/warps.json` file. This isn't generally meant to be
 edited by players, but you can edit it to customize the warps shown in the menu.
 
 ### Warps
