@@ -9,13 +9,14 @@
 * Overhauled warps:
   * Warps are now grouped into sections for easier navigation.
   * Added JojaMart and Movie Theater warps.
-  * Merged Sandy's Shop and Desert warps.
-  * Renamed New Beach to Tide Pools.
   * Community Center warp is now hidden if it was demolished.
+  * Desert warp no longer triggers bus scene.
+  * Desert and Sandy's Shop warps combined.
+  * New Beach warp renamed to Tide Pools.
 * Simplified move speed option.
 * 'Grow crops' and 'grow trees' can now be bound to the same button to grow both at once.
-* Fixed instantly-grown wild seeds different from naturally-grown wild seeds (e.g. not applying botanist bonus, not randomized, etc).
-* Fixed instantly-grown crops not generating giant crops.
+* Fixed instant-grown wild seeds being different from slow-grown ones (e.g. not applying botanist bonus, not randomized, etc).
+* Fixed instant-grown crops not generating giant crops.
 * Internal refactoring and optimizations.
 * Improved translations. Thanks to Akir0 (updated French), Annosz (added Hungarian), and D0n-A (updated Russian)!
 
