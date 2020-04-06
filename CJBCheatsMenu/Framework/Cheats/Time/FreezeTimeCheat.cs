@@ -71,7 +71,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         public override void OnRendered(CheatContext context, SpriteBatch spriteBatch)
         {
             if (this.ShouldFreezeTime(context.Config, Game1.currentLocation, out bool isCave))
-                CommonHelper.DrawTextBox(5, isCave ? 100 : 5, Game1.smallFont, context.Text.Get("messages.time-frozen"));
+                CommonHelper.DrawTextBox(5, isCave ? 100 : 5, Game1.smallFont, context.Text.Get("time.time-frozen-message"));
         }
 
 

@@ -50,7 +50,7 @@ namespace CJBCheatsMenu.Framework.Components
           : base(label, -1, -1, slotWidth + 1, 11 * Game1.pixelZoom)
         {
             this.CurrentValue = currentValue;
-            this.PressNewKeyLabel = i18n.Get("messages.press-new-key");
+            this.PressNewKeyLabel = i18n.Get("controls.press-new-key");
             this.OnSet = onSet;
             this.SetButtonBounds = new Rectangle(slotWidth - 28 * Game1.pixelZoom, -1 + Game1.pixelZoom * 3, 21 * Game1.pixelZoom, 11 * Game1.pixelZoom);
             this.ClearToButton = clearToButton;

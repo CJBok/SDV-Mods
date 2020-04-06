@@ -17,74 +17,99 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
         /*********
         ** Fields
         *********/
-        /// <summary>The available warps.</summary>
-        private readonly ModDataWarp[] Warps;
+        /// <summary>The defined section order.</summary>
+        private readonly IDictionary<string, int> SectionOrder;
 
-        /// <summary>A lookup of mod data warps by ID.</summary>
-        private readonly IDictionary<string, ModDataWarp> WarpsById;
+        /// <summary>Get the available warps indexed by section.</summary>
+        private readonly IDictionary<string, ModDataWarp[]> WarpsBySection;
 
 
         /*********
         ** Public methods
         *********/
         /// <summary>Construct an instance.</summary>
-        /// <param name="warps">The available warps.</param>
-        public WarpCheat(ModDataWarp[] warps)
+        /// <param name="warpData">The available warps.</param>
+        public WarpCheat(ModData warpData)
         {
-            this.Warps = warps;
-            this.WarpsById = warps
-                .Where(warp => !string.IsNullOrWhiteSpace(warp.DisplayText))
-                .GroupBy(warp => warp.DisplayText?.Trim(), StringComparer.InvariantCultureIgnoreCase)
-                .ToDictionary(
-                    p => p.Key,
-                    p => p.First(),
-                    StringComparer.InvariantCultureIgnoreCase
-                );
+            // get defined section order
+            this.SectionOrder = warpData.SectionOrder
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .Select((section, index) => new { section, index })
+                .ToDictionary(p => p.section, p => p.index, StringComparer.OrdinalIgnoreCase);
+
+            // get warps by section
+            this.WarpsBySection = warpData.Warps
+                .GroupBy(p => p.Key, p => p.Value, StringComparer.OrdinalIgnoreCase)
+                .ToDictionary(p => p.Key, p => p.SelectMany(x => x).ToArray(), StringComparer.OrdinalIgnoreCase);
         }
 
         /// <summary>Get the config UI fields to show in the cheats menu.</summary>
         /// <param name="context">The cheat context.</param>
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
-            // farm
-            yield return this.GetField(context, "warp.farm", this.WarpToFarm);
+            foreach (var section in this.GetSections(context))
+            {
+                // section title
+                yield return new OptionsElement(section.Value + ":");
 
-            // casino
-            if (Game1.player.hasClubCard)
-                yield return this.GetField(context, "warp.casino", this.WarpToCasino);
+                // warps
+                foreach (var pair in this.GetWarps(context, section.Key))
+                {
+                    ModDataWarp warp = pair.Item1;
+                    string label = pair.Item2;
 
-            // data warps
-            var warpFields = this.Warps
-                .Where(warp => !warp.HasId("warp.farm") && !warp.HasId("warp.casino"))
-                .Select(warp => this.GetField(context, warp))
-                .OrderBy(field => field.label);
-            foreach (var field in warpFields)
-                yield return field;
+                    // apply special checks
+                    if (warp.SpecialBehavior == WarpBehavior.Casino && !Game1.player.hasClubCard)
+                        continue;
+
+                    // get warp button
+                    yield return new CheatsOptionsButton(
+                        label: label,
+                        slotWidth: context.SlotWidth,
+                        toggle: warp.SpecialBehavior switch
+                        {
+                            WarpBehavior.Farm => this.WarpToFarm,
+                            WarpBehavior.Casino => () => this.Warp("Club", 8, 11),
+                            _ => () => this.Warp(warp.Location ?? "Farm", (int)warp.Tile.X, (int)warp.Tile.Y)
+                        }
+                    );
+                }
+            }
         }
 
 
         /*********
         ** Private methods
         *********/
-        /// <summary>Get a warp field.</summary>
+        /// <summary>Get the section IDs and display names in sorted order.</summary>
         /// <param name="context">The cheat context.</param>
-        /// <param name="translationKey">The warp translation key or display text.</param>
-        /// <param name="warp">The warp action.</param>
-        private CheatsOptionsButton GetField(CheatContext context, string translationKey, Action warp)
+        private IEnumerable<KeyValuePair<string, string>> GetSections(CheatContext context)
         {
-            return new CheatsOptionsButton(
-                label: context.Text.Get(translationKey).Default(translationKey),
-                slotWidth: context.SlotWidth,
-                toggle: warp
-            );
+            return
+                (
+                    from key in this.WarpsBySection.Keys
+                    let label = context.Text.Get(key).Default(key)
+                    let order = this.SectionOrder.TryGetValue(key, out int order) ? order : int.MaxValue
+                    orderby order, label
+                    select new KeyValuePair<string, string>(key, label)
+                );
         }
 
-        /// <summary>Get a warp field.</summary>
+        /// <summary>Get the warps and display names in sorted order.</summary>
         /// <param name="context">The cheat context.</param>
-        /// <param name="warp">The warp.</param>
-        private CheatsOptionsButton GetField(CheatContext context, ModDataWarp warp)
+        /// <param name="section">The section whose warps to get.</param>
+        private IEnumerable<Tuple<ModDataWarp, string>> GetWarps(CheatContext context, string section)
         {
-            return this.GetField(context, warp.DisplayText, () => this.Warp(warp));
+            if (!this.WarpsBySection.TryGetValue(section, out ModDataWarp[] warps))
+                return Enumerable.Empty<Tuple<ModDataWarp, string>>();
+
+            return
+                (
+                    from warp in warps
+                    let label = context.Text.Get(warp.DisplayText).Default(warp.DisplayText ?? "???").ToString()
+                    orderby warp.Order, label
+                    select Tuple.Create(warp, label)
+                );
         }
 
         /// <summary>Warp the player to the given location.</summary>
@@ -102,33 +127,10 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
             Game1.warpFarmer(locationName, tileX, tileY, false);
         }
 
-        /// <summary>Warp the player to the given location.</summary>
-        /// <param name="warp">The warp info.</param>
-        private void Warp(ModDataWarp warp)
-        {
-            this.Warp(warp.Location, (int)warp.Tile.X, (int)warp.Tile.Y);
-        }
-
-        /// <summary>Warp the player to the casino.</summary>
-        private void WarpToCasino()
-        {
-            if (this.WarpsById.TryGetValue("warp.casino", out ModDataWarp warp))
-                this.Warp(warp);
-            else
-                this.Warp("Club", 8, 11);
-        }
-
         /// <summary>Warp the player to the farm.</summary>
         private void WarpToFarm()
         {
-            // apply override
-            if (this.WarpsById.TryGetValue("warp.farm", out ModDataWarp warpOverride))
-            {
-                this.Warp(warpOverride);
-                return;
-            }
-
-            // else try to drop farmhand in front of their cabin
+            // try to drop farmhand in front of their cabin
             string cabinName = Game1.player.homeLocation.Value;
             if (!Context.IsMainPlayer && cabinName != null)
             {

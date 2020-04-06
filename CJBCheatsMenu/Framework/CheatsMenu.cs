@@ -418,8 +418,7 @@ namespace CJBCheatsMenu.Framework
 
                 case MenuTab.WarpLocations:
                     this.AddOptions(
-                        $"{text.Get("warp.title")}:",
-                        cheats.Warps
+                        cheats.Warps // grouped into sections, no need for a tab title
                     );
                     break;
 

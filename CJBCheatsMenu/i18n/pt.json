@@ -1,8 +1,11 @@
 {
+    /*********
+    ** Main translations
+    *********/
     // mod name shown in the menu
     "mod-name": "CJB Cheats Menu",
 
-    // menu tabs
+    // tab names
     "tabs.player-and-tools": "Jogador e Ferramentas",
     "tabs.farm-and-fishing": "Cultivo e Pesca",
     "tabs.skills": "Habilidades",
@@ -13,7 +16,11 @@
     "tabs.advanced": "Avançado",
     "tabs.controls": "Controles",
 
-    // 'Player & Tools' tab
+
+    /*********
+    ** Player & Tools tab
+    *********/
+    // player
     "player.title": "Jogador",
     "player.infinite-stamina": "Energia infinita",
     "player.infinite-health": "Vida infinita",
@@ -23,28 +30,40 @@
     "player.movement-speed.default": "normal", // TODO
     "player.one-hit-kill": "Matar monstros com um golpe",
     "player.max-daily-luck": "Sorte diária máxima",
+
+    // tools
     "tools.title": "Ferramentas",
     "tools.infinite-water": "Água infinita no regador",
     "tools.one-hit-break": "Quebrar tudo com um golpe",
     "tools.harvest-with-scythe": "Colher com a foice",
+
+    // money
     "money.title": "Dinheiro",
     "money.add-amount": "Adicionar {{amount}}g",
     "casino-coins.title": "Moedas do Cassino",
     "casino-coins.add-amount": "Adicionar {{amount}}",
 
-    // 'Farm & Fishing' tab
+
+    /*********
+    ** Farm & Fishing tab
+    *********/
+    // farm
     "farm.title": "Fazenda",
     "farm.auto-water": "Auto-Water Crops", // TODO
     "farm.durable-fences": "Cercas duráveis",
     "farm.instant-build": "Construções instantâneas",
     "farm.always-auto-feed": "Alimentação automática para animais",
     "farm.infinite-hay": "Palha infinita",
+
+    // fishing
     "fishing.title": "Pesca",
     "fishing.instant-catch": "Pesca instantânea",
     "fishing.instant-bite": "Fisgada instantânea",
     "fishing.always-throw-max-distance": "Sempre jogar na distância máxima",
     "fishing.always-treasure": "Sempre pescar tesouros",
     "fishing.durable-tackles": "Anzóis duráveis",
+
+    // fast machines
     "fast-machines.title": "Máquinas rápidas",
     "fast-machines.bee-house": "Apiário",
     "fast-machines.cask": "Barril de madeira",
@@ -69,7 +88,11 @@
     "fast-machines.wood-chipper": "Picador de madeira",
     "fast-machines.worm-bin": "Cesto de minhocas",
 
-    // 'Skills' tab
+
+    /*********
+    ** Skills tab
+    *********/
+    // skills
     "skills.title": "Habilidades",
     "skills.increase-farming": "Aumentar Nível de Cultivo: {{currentLevel}}",
     "skills.increase-mining": "Aumentar Nível de Mineração: {{currentLevel}}",
@@ -77,6 +100,8 @@
     "skills.increase-fishing": "Aumentar Nível de Pesca: {{currentLevel}}",
     "skills.increase-combat": "Aumentar Nível de Combate: {{currentLevel}}",
     "skills.reset": "REDEFINIR HABILIDADES!",
+
+    // professions
     "professions.title": "Profissões",
     "professions.combat.fighter": "Combate Nível 5 - Lutador",
     "professions.combat.scout": "Combate Nível 5 - Escoteiro",
@@ -109,7 +134,10 @@
     "professions.mining.gemologist": "Mineração Nível 10 - Gemólogo",
     "professions.mining.prospector": "Mineração Nível 10 - Garimpeiro",
 
-    // 'Weather' tab
+
+    /*********
+    ** Weather tab
+    *********/
     "weather.title": "Tempo Amanhã",
     "weather.current": "Atual",
     "weather.sunny": "Ensolarado",
@@ -117,45 +145,74 @@
     "weather.lightning": "Tempestade",
     "weather.snowing": "Neve",
 
-    // 'Relationships' tab
+
+    /*********
+    ** Relationships tab
+    *********/
     "relationships.title": "Relacionamentos",
     "relationships.give-gifts-anytime": "Dar presentes a qualquer hora",
     "relationships.no-decay": "Sem decaímento de amizade",
     "relationships.friends": "Amigos",
 
-    // 'Warp Locations' tab
-    "warp.title": "Teleportar para",
+
+    /*********
+    ** Warps tab
+    *********/
+    // main areas
+    "warp-section.main": "Main Areas", // TODO
     "warp.farm": "Fazenda",
+    "warp.carpenter": "Carpintaria",
+    "warp.desert": "Deserto",
+    "warp.mines": "Minas",
     "warp.pierre-shop": "Armazém do Pierre",
+
+    // town
+    "warp-section.town": "Town", // TODO
     "warp.blacksmith": "Ferreiro",
+    "warp.community-center": "Centro Comunitário",
     "warp.museum": "Museu",
     "warp.saloon": "Saloon",
-    "warp.community-center": "Centro Comunitário",
-    "warp.carpenter": "Carpintaria",
-    "warp.adventurers-guild": "Guilda dos Aventureiros",
-    "warp.ranch": "Rancho da Marnie",
-    "warp.mines": "Minas",
-    "warp.skull-cavern": "Caverna da Caveira",
-    "warp.willy-shop": "Peixaria",
-    "warp.wizard-tower": "Torre do Mago",
-    "warp.hats": "Chapéus",
-    "warp.desert": "Deserto",
-    "warp.sandy-shop": "Loja Oásis",
-    "warp.casino": "Cassino",
-    "warp.quarry": "Pedreira",
-    "warp.new-beach": "Praia",
-    "warp.secret-woods": "Bosque Secreto",
     "warp.sewer": "Esgotos",
-    "warp.bathhouse": "Spa",
 
-    // 'Time' tab
+    // forest
+    "warp-section.forest": "Forest", // TODO
+    "warp.hats": "Chapéus",
+    "warp.ranch": "Rancho da Marnie",
+    "warp.secret-woods": "Bosque Secreto",
+    "warp.wizard-tower": "Torre do Mago",
+
+    // mountain
+    "warp-section.mountain": "Mountain", // TODO
+    "warp.adventurers-guild": "Guilda dos Aventureiros",
+    "warp.bathhouse": "Spa",
+    "warp.quarry": "Pedreira",
+
+    // beach
+    "warp-section.beach": "Praia",
+    "warp.tide-pools": "Poças de maré",
+    "warp.willy-shop": "Peixaria",
+
+    // desert
+    "warp-section.desert": "Desert", // TODO
+    "warp.casino": "Cassino",
+    "warp.sandy-shop": "Loja Oásis",
+    "warp.skull-cavern": "Caverna da Caveira",
+
+
+    /*********
+    ** Time tab
+    *********/
     "time.title": "Horário",
     "time.freeze-inside": "Parar o tempo dentro das construções",
     "time.freeze-caves": "Parar o tempo nas cavernas",
     "time.freeze-everywhere": "Parar o tempo em todo lugar",
     "time.time": "Horário",
+    "time.time-frozen-message": "Tempo parado",
 
-    // 'Flags' tab
+
+    /*********
+    ** Advanced tab
+    *********/
     "flags.warning": "Use esta seção por sua conta e risco!\nIsso pode causar problemas como mensagens ignoradas, eventos\n ou missões.",
     "flags.quests": "Completar missão",
     "flags.wallet": "Itens da carteira",
@@ -168,7 +225,10 @@
     "flags.community-center.door-unlocked": "Destrancar porta",
     "flags.jojamart.membership": "Associar ao Mercado Joja",
 
-    // 'Controls' tab
+
+    /*********
+    ** Controls tab
+    *********/
     "controls.title": "Controles",
     "controls.open-menu": "Abrir menu",
     "controls.freeze-time": "Parar o tempo",
@@ -176,8 +236,5 @@
     "controls.grow-crops": "Crescer plantações",
     "controls.grow-radius": "Grow distance around player", // TODO
     "controls.reset-controls": "Reset", // TODO
-
-    // various messages
-    "messages.press-new-key": "Pressione uma nova tecla...",
-    "messages.time-frozen": "Tempo parado"
+    "controls.press-new-key": "Pressione uma nova tecla..."
 }

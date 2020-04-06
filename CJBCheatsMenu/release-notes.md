@@ -6,6 +6,10 @@
   * instant weapon cooldowns;
   * inventory size (i.e. backpack upgrades);
   * auto-water crops (replaces the former 'water all fields' button).
+* Overhauled warps:
+  * Now grouped into sections, so it's easier to find the one you want.
+  * Merged _Sandy's Shop_ and _Desert_ warps.
+  * Renamed _New Beach_ warp to _Tide Pools_.
 * Simplified move speed option.
 * 'Grow crops' and 'grow trees' can now be bound to the same button to grow both at once.
 * Fixed instantly-grown wild seeds different from naturally-grown wild seeds (e.g. not applying botanist bonus, not randomized, etc).

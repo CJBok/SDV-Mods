@@ -22,7 +22,7 @@ namespace CJBCheatsMenu
         private ModConfig Config;
 
         /// <summary>The warps to show in the menu.</summary>
-        private ModDataWarp[] Warps;
+        private ModData Warps;
 
         /// <summary>Manages the cheat implementations.</summary>
         private CheatManager Cheats;
@@ -35,15 +35,24 @@ namespace CJBCheatsMenu
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
         {
-            // load config/data
+            // load config
             this.Config = helper.ReadConfig<ModConfig>();
-            this.Warps = helper.Data.ReadJsonFile<ModDataWarp[]>("data/warps.json");
-            if (this.Warps == null)
+            this.Monitor.Log($"Started with menu key {this.Config.OpenMenuKey}.");
+
+            // load warps
+            try
             {
-                this.Monitor.Log("Some of the mod files are missing (data/warps.json); try reinstalling this mod.", LogLevel.Error);
-                return;
+                this.Warps = helper.Data.ReadJsonFile<ModData>("data/warps.json");
+                if (this.Warps == null)
+                {
+                    this.Monitor.Log("Some of the mod files are missing (data/warps.json); try reinstalling this mod.", LogLevel.Error);
+                    return;
+                }
             }
-            this.Monitor.Log($"Started with menu key {this.Config.OpenMenuKey}.", LogLevel.Trace);
+            catch (Exception ex)
+            {
+                this.Monitor.Log($"Some of the mod files are broken or corrupted (data/warps.json); try reinstalling this mod.\n{ex}", LogLevel.Error);
+            }
 
             // load cheats
             this.Cheats = new CheatManager(this.Config, this.Helper.Reflection, this.Helper.Translation, () => this.Locations.Value, this.Warps);

@@ -1,8 +1,11 @@
 {
+    /*********
+    ** Main translations
+    *********/
     // mod name shown in the menu
     "mod-name": "CJB Menu de triche",
 
-    // Onglets du menu
+    // tab names
     "tabs.player-and-tools": "Joueur & Outils",
     "tabs.farm-and-fishing": "Ferme & Pêche",
     "tabs.skills": "Compétences",
@@ -13,7 +16,11 @@
     "tabs.advanced": "Avancé",
     "tabs.controls": "Contrôles",
 
-    // Onglet 'Joueur' & Outils'
+
+    /*********
+    ** Player & Tools tab
+    *********/
+    // player
     "player.title": "Joueur",
     "player.infinite-stamina": "Énergie infinie",
     "player.infinite-health": "Santé infinie",
@@ -23,28 +30,40 @@
     "player.movement-speed.default": "normale",
     "player.one-hit-kill": "Tue en un coup",
     "player.max-daily-luck": "Chance quotidienne maximale",
+
+    // tools
     "tools.title": "Outils",
     "tools.infinite-water": "Arrosoir - Eau infinie pour l'arrosoir",
     "tools.one-hit-break": "Casse en un coup",
     "tools.harvest-with-scythe": "Récolter avec la faux",
+
+    // money
     "money.title": "Argent",
     "money.add-amount": "Ajouter {{amount}}po",
     "casino-coins.title": "Pièce de casino",
     "casino-coins.add-amount": "Ajouter {{amount}}",
 
-    // Onglet 'Ferme & Pêche'
+
+    /*********
+    ** Farm & Fishing tab
+    *********/
+    // farm
     "farm.title": "Ferme",
     "farm.auto-water": "Arroser les champs automatiquement",
     "farm.durable-fences": "Clôture durable",
     "farm.instant-build": "Construction instantanée",
     "farm.always-auto-feed": "Toujours nourrir automatiquement",
     "farm.infinite-hay": "Foin infini",
+
+    // fishing
     "fishing.title": "Pêche",
     "fishing.instant-catch": "Capture instantanée",
     "fishing.instant-bite": "Prise instantanée",
     "fishing.always-throw-max-distance": "Toujours jeter à la distance maximale",
     "fishing.always-treasure": "Toujours un trésor",
     "fishing.durable-tackles": "Matériel de pêche durable",
+
+    // fast machine
     "fast-machines.title": "Transformation rapide",
     "fast-machines.bee-house": "Ruche",
     "fast-machines.cask": "Fût",
@@ -69,7 +88,11 @@
     "fast-machines.wood-chipper": "Déchiqueteuse de bois",
     "fast-machines.worm-bin": "Bac à compost",
 
-    // Onglet 'Compétences'
+
+    /*********
+    ** Skills tab
+    *********/
+    // skills
     "skills.title": "Compétences",
     "skills.increase-farming": "Augm. Niveau d'Agriculture: {{currentLevel}}",
     "skills.increase-mining": "Augm. Niveau d'Ext. Minière: {{currentLevel}}",
@@ -77,6 +100,8 @@
     "skills.increase-fishing": "Augm. Niveau de Pêche: {{currentLevel}}",
     "skills.increase-combat": "Augm. Niveau de Combat: {{currentLevel}}",
     "skills.reset": "RÉINITIALISER LES COMPÉTENCES !",
+
+    // professions
     "professions.title": "Professions",
     "professions.combat.fighter": "Combat lvl 5 - Combattant",
     "professions.combat.scout": "Combat lvl 5 - Éclaireur",
@@ -109,7 +134,10 @@
     "professions.mining.gemologist": "Ext. Minière lvl 10 - Gemmologue",
     "professions.mining.prospector": "Ext. Minière lvl 10 - Prospecteur",
 
-    // Onglet 'Météo'
+
+    /*********
+    ** Weather tab
+    *********/
     "weather.title": "Météo de demain",
     "weather.current": "Actuelle",
     "weather.sunny": "Soleil",
@@ -117,45 +145,74 @@
     "weather.lightning": "Orage",
     "weather.snowing": "Neige",
 
-    // Onglet 'Relation'
+
+    /*********
+    ** Relationships tab
+    *********/
     "relationships.title": "Social",
     "relationships.give-gifts-anytime": "Donner un cadeau n'importe quand",
     "relationships.no-decay": "Pas de dégradation de l'amitié",
     "relationships.friends": "Amis",
 
-    // Onglet 'Téléportation'
-    "warp.title": "Se téléporter à",
+
+    /*********
+    ** Warps tab
+    *********/
+    // main areas
+    "warp-section.main": "Zones principales",
     "warp.farm": "Ferme",
+    "warp.carpenter": "Scierie",
+    "warp.desert": "Désert",
+    "warp.mines": "Mines",
     "warp.pierre-shop": "Magasin de Pierre",
+
+    // town
+    "warp-section.town": "En ville",
     "warp.blacksmith": "Forgeron",
+    "warp.community-center": "Centre communautaire",
     "warp.museum": "Musée",
     "warp.saloon": "Saloon",
-    "warp.community-center": "Centre communautaire",
-    "warp.carpenter": "Scierie",
-    "warp.adventurers-guild": "Guilde des Aventuriers",
-    "warp.ranch": "Ferme de Marnie",
-    "warp.mines": "Mines",
-    "warp.skull-cavern": "Caverne du Crâne",
-    "warp.willy-shop": "Poissonnerie",
-    "warp.wizard-tower": "Tour du sorcier",
-    "warp.hats": "Chapeaux",
-    "warp.desert": "Désert",
-    "warp.sandy-shop": "Magasin de Sandy",
-    "warp.casino": "Casino",
-    "warp.quarry": "Carrière",
-    "warp.new-beach": "Nouvelle plage",
-    "warp.secret-woods": "Forêt secrète",
     "warp.sewer": "Égout",
-    "warp.bathhouse": "Spa",
 
-    // Onglet 'Temps'
+    // forest
+    "warp-section.forest": "En forêt",
+    "warp.hats": "Chapeaux",
+    "warp.ranch": "Ferme de Marnie",
+    "warp.secret-woods": "Forêt secrète",
+    "warp.wizard-tower": "Tour du sorcier",
+
+    // mountain
+    "warp-section.mountain": "En montagne",
+    "warp.adventurers-guild": "Guilde des Aventuriers",
+    "warp.bathhouse": "Spa",
+    "warp.quarry": "Carrière",
+
+    // beach
+    "warp-section.beach": "À la plage",
+    "warp.tide-pools": "Cuvettes de marée",
+    "warp.willy-shop": "Poissonnerie",
+
+    // desert
+    "warp-section.desert": "Désert",
+    "warp.casino": "Casino",
+    "warp.sandy-shop": "Magasin de Sandy",
+    "warp.skull-cavern": "Caverne du Crâne",
+
+
+    /*********
+    ** Time tab
+    *********/
     "time.title": "Temps",
     "time.freeze-inside": "Arrêter le temps à l'intérieur",
     "time.freeze-caves": "Arrêter le temps dans les grottes",
     "time.freeze-everywhere": "Arrêter le temps partout",
     "time.time": "Heure",
+    "time.time-frozen-message": "Temps figé",
 
-    // Onglet 'Avancé'
+
+    /*********
+    ** Advanced tab
+    *********/
     "flags.warning": "Utiliser cette section à vos risques et périls !\nCela peut causer des problèmes tels que des mails, événements ou quêtes non déclenchées.",
     "flags.quests": "Quêtes complétées",
     "flags.wallet": "Objets du porte-feuille",
@@ -168,7 +225,10 @@
     "flags.community-center.door-unlocked": "Porte déverrouillée",
     "flags.jojamart.membership": "Adhérant au Marché Joja",
 
-    // Onglet 'Contrôles'
+
+    /*********
+    ** Controls tab
+    *********/
     "controls.title": "Contrôles",
     "controls.open-menu": "Ouvrir ce menu",
     "controls.freeze-time": "Arrêter le temps",
@@ -176,8 +236,5 @@
     "controls.grow-crops": "Faire pousser les culture",
     "controls.grow-radius": "Distance de croissance autour du joueur",
     "controls.reset-controls": "Réinitialiser",
-
-    // Divers messages
-    "messages.press-new-key": "Appuyer sur la nouvelle touche...",
-    "messages.time-frozen": "Temps figé"
+    "controls.press-new-key": "Appuyer sur la nouvelle touche..."
 }

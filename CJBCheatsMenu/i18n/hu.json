@@ -1,8 +1,11 @@
 {
+    /*********
+    ** Main translations
+    *********/
     // mod name shown in the menu
     "mod-name": "CJB Csalások Menü",
 
-    // menu tabs
+    // tab names
     "tabs.player-and-tools": "Játékos és Eszközök",
     "tabs.farm-and-fishing": "Farm & Horgászás",
     "tabs.skills": "Képességek",
@@ -13,7 +16,11 @@
     "tabs.advanced": "Haladó",
     "tabs.controls": "Irányítás",
 
-    // 'Player & Tools' tab
+
+    /*********
+    ** Player & Tools tab
+    *********/
+    // player
     "player.title": "Játékos",
     "player.infinite-stamina": "Végtelen Energia",
     "player.infinite-health": "Végtelen Életerő",
@@ -23,28 +30,40 @@
     "player.movement-speed.default": "normal", // TODO
     "player.one-hit-kill": "Egy Ütéses Gyilkosság",
     "player.max-daily-luck": "Maximális Napi Szerencse",
+
+    // tools
     "tools.title": "Eszközök",
     "tools.infinite-water": "Végtelen Víz az Öntözőkannában",
     "tools.one-hit-break": "Egy Ütéses Bányászás",
     "tools.harvest-with-scythe": "Betakarítás Kaszával",
+
+    // money
     "money.title": "Pénz",
     "money.add-amount": "{{amount}} Arany Adása",
     "casino-coins.title": "Klub Érme",
     "casino-coins.add-amount": "{{amount}} Klub Érme Adása",
 
-    // 'Farm & Fishing' tab
+
+    /*********
+    ** Farm & Fishing tab
+    *********/
+    // farm
     "farm.title": "Farm",
     "farm.auto-water": "Auto-Water Crops", // TODO
     "farm.durable-fences": "Tartós Kerítések",
     "farm.instant-build": "Azonnali Építés",
     "farm.always-auto-feed": "Mindig Automata Etetés",
     "farm.infinite-hay": "Végtelen Széna",
+
+    // fishing
     "fishing.title": "Horgászás",
     "fishing.instant-catch": "Azonnali Kifogás",
     "fishing.instant-bite": "Azonnali Kapás",
     "fishing.always-throw-max-distance": "Mindig Maximális Távolságra Dobás",
     "fishing.always-treasure": "Mindig Kincs",
     "fishing.durable-tackles": "Tartós Horgászcsali",
+
+    // fast machines
     "fast-machines.title": "Gyors Gépi Feldolgozás",
     "fast-machines.bee-house": "Méhkaptár",
     "fast-machines.cask": "Fahordó",
@@ -69,7 +88,11 @@
     "fast-machines.wood-chipper": "Fadaráló",
     "fast-machines.worm-bin": "Kukacos Láda",
 
-    // 'Skills' tab
+
+    /*********
+    ** Skills tab
+    *********/
+    // skills
     "skills.title": "Képességek",
     "skills.increase-farming": "Kertészkedés Szint Növelése: {{currentLevel}}",
     "skills.increase-mining": "Bányászás Szint Növelése: {{currentLevel}}",
@@ -77,6 +100,8 @@
     "skills.increase-fishing": "Horgászás Szint Növelése: {{currentLevel}}",
     "skills.increase-combat": "Harc Szint Növelése: {{currentLevel}}",
     "skills.reset": "KÉPESSÉGEK LENULLÁZÁSA!",
+
+    // professions
     "professions.title": "Szakmák",
     "professions.combat.fighter": "Harc 5. szint - Harcos",
     "professions.combat.scout": "Harc 5. szint - Cserkész",
@@ -109,7 +134,10 @@
     "professions.mining.gemologist": "Bányászás 10. szint - Gemológus",
     "professions.mining.prospector": "Bányászás 10. szint - Talajkutató",
 
-    // 'Weather' tab
+
+    /*********
+    ** Weather tab
+    *********/
     "weather.title": "Holnapi Időjárás",
     "weather.current": "Jelenlegi",
     "weather.sunny": "Napos",
@@ -117,45 +145,74 @@
     "weather.lightning": "Vihar",
     "weather.snowing": "Havazás",
 
-    // 'Relationships' tab
+
+    /*********
+    ** Relationships tab
+    *********/
     "relationships.title": "Kapcsolatok",
     "relationships.give-gifts-anytime": "Bármikor Adható Ajándék",
     "relationships.no-decay": "Nincs Barátság Csökkenés",
     "relationships.friends": "Barátok",
 
-    // 'Warp Locations' tab
-    "warp.title": "Teleportálj ide...",
+
+    /*********
+    ** Warps tab
+    *********/
+    // main areas
+    "warp-section.main": "Main Areas", // TODO
     "warp.farm": "Farm",
+    "warp.carpenter": "Ács Műhely",
+    "warp.desert": "Sivatag",
+    "warp.mines": "Bányák",
     "warp.pierre-shop": "Pierre Boltja",
+
+    // town
+    "warp-section.town": "Town", // TODO
     "warp.blacksmith": "Kovács",
+    "warp.community-center": "Közösségi Központ",
     "warp.museum": "Múzeum",
     "warp.saloon": "Szalon",
-    "warp.community-center": "Közösségi Központ",
-    "warp.carpenter": "Ács Műhely",
-    "warp.adventurers-guild": "Kalandorok Céhe",
-    "warp.ranch": "Marnie Tanyája",
-    "warp.mines": "Bányák",
-    "warp.skull-cavern": "Koponya Barlang",
-    "warp.willy-shop": "Hal Bolt",
-    "warp.wizard-tower": "Varázsló Torony",
-    "warp.hats": "Romos Ház",
-    "warp.desert": "Sivatag",
-    "warp.sandy-shop": "Sandy Boltja",
-    "warp.casino": "Kaszinó",
-    "warp.quarry": "Kőbánya",
-    "warp.new-beach": "Új Part",
-    "warp.secret-woods": "Titkos Erdő",
     "warp.sewer": "Csatorna",
-    "warp.bathhouse": "Fürdő",
 
-    // 'Time' tab
+    // forest
+    "warp-section.forest": "Forest", // TODO
+    "warp.hats": "Romos Ház",
+    "warp.ranch": "Marnie Tanyája",
+    "warp.secret-woods": "Titkos Erdő",
+    "warp.wizard-tower": "Varázsló Torony",
+
+    // mountain
+    "warp-section.mountain": "Mountain", // TODO
+    "warp.adventurers-guild": "Kalandorok Céhe",
+    "warp.bathhouse": "Fürdő",
+    "warp.quarry": "Kőbánya",
+
+    // beach
+    "warp-section.beach": "Strand",
+    "warp.tide-pools": "Árapály Medencék",
+    "warp.willy-shop": "Hal Bolt",
+
+    // desert
+    "warp-section.desert": "Desert", // TODO
+    "warp.casino": "Kaszinó",
+    "warp.sandy-shop": "Sandy Boltja",
+    "warp.skull-cavern": "Koponya Barlang",
+
+
+    /*********
+    ** Time tab
+    *********/
     "time.title": "Idő",
     "time.freeze-inside": "Idő Megállítása Beltéren",
     "time.freeze-caves": "Idő Megállítása Barlangokban",
     "time.freeze-everywhere": "Idő Megállítása Mindenhol",
     "time.time": "Idő",
+    "time.time-frozen-message": "Idő Megállítva",
 
-    // 'Flags' tab
+
+    /*********
+    ** Advanced tab
+    *********/
     "flags.warning": "Ezt a részt csak saját felelősségre használd!\nLevelek, események, küldetések kimaradása és egyéb problémákat előfordulhatnak.",
     "flags.quests": "Küldetés Teljesítése",
     "flags.wallet": "Pénztárca Tárgyai",
@@ -168,7 +225,10 @@
     "flags.community-center.door-unlocked": "Ajtó Kinyitva",
     "flags.jojamart.membership": "JojaMart Tagság",
 
-    // 'Controls' tab
+
+    /*********
+    ** Controls tab
+    *********/
     "controls.title": "Irányítás",
     "controls.open-menu": "Menu Megnyitása",
     "controls.freeze-time": "Idő Megállítása",
@@ -176,8 +236,5 @@
     "controls.grow-crops": "Termények megnövesztése",
     "controls.grow-radius": "Növesztési Távolság a Játékos Körül",
     "controls.reset-controls": "Visszaállítás",
-
-    // various messages
-    "messages.press-new-key": "Nyomj meg egy gombot...",
-    "messages.time-frozen": "Idő Megállítva"
+    "controls.press-new-key": "Nyomj meg egy gombot..."
 }
