@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CJB.Common;
 using CJBCheatsMenu.Framework.Components;
 using CJBCheatsMenu.Framework.Models;
 using StardewModdingAPI;
@@ -47,6 +48,8 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
         /// <param name="context">The cheat context.</param>
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
+            bool isJojaMember = this.HasFlag("JojaMember");
+
             foreach (var section in this.GetSections(context))
             {
                 // section title
@@ -58,9 +61,16 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
                     ModDataWarp warp = pair.Item1;
                     string label = pair.Item2;
 
-                    // apply special checks
-                    if (warp.SpecialBehavior == WarpBehavior.Casino && !Game1.player.hasClubCard)
-                        continue;
+                    // skip warps that don't apply
+                    switch (warp.SpecialBehavior)
+                    {
+                        case WarpBehavior.Casino when !Game1.player.hasClubCard:
+                        case WarpBehavior.CommunityCenter when isJojaMember:
+                        case WarpBehavior.JojaMart when !isJojaMember && CommonHelper.GetIsCommunityCenterComplete():
+                        case WarpBehavior.MovieTheaterCommunity when isJojaMember || !this.HasFlag("ccMovieTheater"):
+                        case WarpBehavior.MovieTheaterJoja when !isJojaMember || !this.HasFlag("ccMovieTheater"):
+                            continue;
+                    }
 
                     // get warp button
                     yield return new CheatsOptionsButton(

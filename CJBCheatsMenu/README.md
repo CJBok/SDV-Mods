@@ -127,6 +127,11 @@ Warps can set the `SpecialBehavior` field to enable special warp logic. The vali
 value             | effect
 ----------------- | ------
 `Casino`          | Hide warp if the player doesn't have the club card.
+`CommunityCenter` | Hide warp if the community center is demolished.
 `Farm`            | Warp to the current player's cabin or farmhouse. The `Location` and `Tile` fields are ignored.
+`JojaMart`        | Hide warp if the JojaMart is demolished.
+`MovieTheaterCommunity` | Hide warp if the movie theater isn't built, or was built through the Joja route.
+`MovieTheaterJoja`      | Hide warp if the movie theater isn't built, or was built through the community route.
+
 ## See also
 * [Release notes](release-notes.md)

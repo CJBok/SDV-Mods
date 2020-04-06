@@ -70,5 +70,12 @@ namespace CJB.Common
                     yield return new Vector2(origin.X + x, origin.Y + y);
             }
         }
+
+        /// <summary>Get whether the community center is complete.</summary>
+        /// <remarks>See game logic in <see cref="Town.resetLocalState"/>.</remarks>
+        public static bool GetIsCommunityCenterComplete()
+        {
+            return Game1.MasterPlayer.mailReceived.Contains("ccIsComplete") || Game1.MasterPlayer.hasCompletedCommunityCenter();
+        }
     }
 }
