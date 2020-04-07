@@ -76,7 +76,7 @@ namespace CJBCheatsMenu.Framework.Cheats
         /// <param name="e">The update event arguments.</param>
         public override void OnUpdated(CheatContext context, UpdateTickedEventArgs e)
         {
-            if (Context.IsPlayerFree)
+            if (!Context.IsPlayerFree || (!this.ShouldGrowCrops && !this.ShouldGrowTrees))
                 return;
 
             Vector2 playerTile = Game1.player.getTileLocation();
@@ -97,7 +97,7 @@ namespace CJBCheatsMenu.Framework.Cheats
         public void Grow(Vector2 origin, int radius)
         {
             // get location
-            GameLocation location = Game1.player?.currentLocation;
+            GameLocation location = Game1.currentLocation;
             if (location == null)
                 return;
 
@@ -135,9 +135,8 @@ namespace CJBCheatsMenu.Framework.Cheats
                         for (int i = 0; i < 100 && !crop.fullyGrown.Value; i++)
                             crop.newDay(HoeDirt.watered, HoeDirt.fertilizerHighQuality, (int)tile.X, (int)tile.Y, location);
 
-                        // if something went wrong, just make it grow directly
-                        if (!crop.fullyGrown.Value)
-                            crop.growCompletely();
+                        // trigger regrowth logic for multi-harvest crops
+                        crop.growCompletely();
                         break;
 
                     case Bush bush when this.ShouldGrowCrops && bush.size.Value == Bush.greenTeaBush && bush.getAge() < Bush.daysToMatureGreenTeaBush:

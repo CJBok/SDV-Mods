@@ -501,6 +501,7 @@ namespace CJBCheatsMenu.Framework
                         new CheatsOptionsSlider(
                             label: text.Get("controls.grow-radius"),
                             value: config.GrowRadius,
+                            minValue: 1,
                             maxValue: 10,
                             setValue: value => config.GrowRadius = value,
                             disabled: () => config.GrowTreeKey == SButton.None && config.GrowCropsKey == SButton.None
