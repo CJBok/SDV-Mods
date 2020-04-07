@@ -55,12 +55,14 @@ namespace CJBCheatsMenu
             }
 
             // load cheats
+            this.ResetLocationCache();
             this.Cheats = new CheatManager(this.Config, this.Helper.Reflection, this.Helper.Translation, () => this.Locations.Value, this.Warps);
 
             // hook events
             helper.Events.Display.Rendered += this.OnRendered;
             helper.Events.Display.MenuChanged += this.OnMenuChanged;
 
+            helper.Events.GameLoop.ReturnedToTitle += this.OnReturnedToTitle;
             helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
             helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
 
@@ -83,19 +85,20 @@ namespace CJBCheatsMenu
             this.Cheats.OnSaveLoaded();
         }
 
+        /// <summary>Raised after the player returns to the title screen.</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnReturnedToTitle(object sender, ReturnedToTitleEventArgs e)
+        {
+            this.ResetLocationCache();
+        }
+
         /// <summary>Raised after a game location is added or removed.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
         private void OnLocationListChanged(object sender, LocationListChangedEventArgs e)
         {
             this.ResetLocationCache();
-        }
-
-        /// <summary>Reset the cached location list.</summary>
-        private void ResetLocationCache()
-        {
-            if (this.Locations == null || !this.Locations.IsValueCreated)
-                this.Locations = new Lazy<GameLocation[]>(() => CommonHelper.GetAllLocations().ToArray());
         }
 
         /// <summary>Raised after the player presses a button on the keyboard, controller, or mouse.</summary>
@@ -156,6 +159,19 @@ namespace CJBCheatsMenu
                 this.Helper.WriteConfig(this.Config);
                 this.Cheats.OnOptionsChanged();
             }
+        }
+
+        /// <summary>Reset the cached location list.</summary>
+        private void ResetLocationCache()
+        {
+            if (this.Locations?.IsValueCreated == false)
+                return;
+
+            this.Locations = new Lazy<GameLocation[]>(
+                () => Context.IsWorldReady
+                    ? CommonHelper.GetAllLocations().ToArray()
+                    : new GameLocation[0]
+            );
         }
     }
 }
