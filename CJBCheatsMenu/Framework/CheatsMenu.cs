@@ -467,14 +467,51 @@ namespace CJBCheatsMenu.Framework
                     break;
 
                 case MenuTab.Controls:
-                    this.Options.Add(new OptionsElement($"{text.Get("controls.title")}:"));
-                    this.Options.Add(new CheatsOptionsKeyListener(text.Get("controls.open-menu"), context.SlotWidth, config.OpenMenuKey, key => config.OpenMenuKey = key, text, clearToButton: ModConfig.Defaults.OpenMenuKey));
-                    this.Options.Add(new CheatsOptionsKeyListener(text.Get("controls.freeze-time"), context.SlotWidth, config.FreezeTimeKey, key => config.FreezeTimeKey = key, text));
-                    this.Options.Add(new CheatsOptionsKeyListener(text.Get("controls.grow-tree"), context.SlotWidth, config.GrowTreeKey, key => config.GrowTreeKey = key, text));
-                    this.Options.Add(new CheatsOptionsKeyListener(text.Get("controls.grow-crops"), context.SlotWidth, config.GrowCropsKey, key => config.GrowCropsKey = key, text));
-                    this.Options.Add(new CheatsOptionsSlider(text.Get("controls.grow-radius"), config.GrowRadius, 10, value => config.GrowRadius = value, disabled: () => config.GrowTreeKey == SButton.None && config.GrowCropsKey == SButton.None));
-                    this.Options.Add(new OptionsElement(string.Empty)); // blank line
-                    this.Options.Add(new CheatsOptionsButton(text.Get("controls.reset-controls"), context.SlotWidth, this.ResetControls));
+                    this.AddTitle($"{text.Get("controls.title")}:");
+                    this.AddOptions(
+                        new CheatsOptionsKeyListener(
+                            label: text.Get("controls.open-menu"),
+                            value: config.OpenMenuKey,
+                            setValue: key => config.OpenMenuKey = key,
+                            slotWidth: context.SlotWidth,
+                            i18n: text,
+                            clearToButton: ModConfig.Defaults.OpenMenuKey
+                        ),
+                        new CheatsOptionsKeyListener(
+                            label: text.Get("controls.freeze-time"),
+                            value: config.FreezeTimeKey,
+                            setValue: key => config.FreezeTimeKey = key,
+                            slotWidth: context.SlotWidth,
+                            i18n: text
+                        ),
+                        new CheatsOptionsKeyListener(
+                            label: text.Get("controls.grow-tree"),
+                            value: config.GrowTreeKey,
+                            setValue: key => config.GrowTreeKey = key,
+                            slotWidth: context.SlotWidth,
+                            i18n: text
+                        ),
+                        new CheatsOptionsKeyListener(
+                            label: text.Get("controls.grow-crops"),
+                            value: config.GrowCropsKey,
+                            setValue: key => config.GrowCropsKey = key,
+                            slotWidth: context.SlotWidth,
+                            i18n: text
+                        ),
+                        new CheatsOptionsSlider(
+                            label: text.Get("controls.grow-radius"),
+                            value: config.GrowRadius,
+                            maxValue: 10,
+                            setValue: value => config.GrowRadius = value,
+                            disabled: () => config.GrowTreeKey == SButton.None && config.GrowCropsKey == SButton.None
+                        ),
+                        new OptionsElement(string.Empty), // blank line
+                        new CheatsOptionsButton(
+                            label: text.Get("controls.reset-controls"),
+                            toggle: this.ResetControls,
+                            slotWidth: context.SlotWidth
+                        )
+                    );
                     break;
             }
             this.SetScrollBarToCurrentIndex();
@@ -512,6 +549,13 @@ namespace CJBCheatsMenu.Framework
         private void AddTitle(string title)
         {
             this.Options.Add(new OptionsElement(title));
+        }
+
+        /// <summary>Add fields to the options list.</summary>
+        /// <param name="fields">The fields to add.</param>
+        private void AddOptions(params OptionsElement[] fields)
+        {
+            this.Options.AddRange(fields);
         }
 
         /// <summary>Add cheats to the options list.</summary>

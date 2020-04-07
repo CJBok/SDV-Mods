@@ -15,10 +15,10 @@ namespace CJBCheatsMenu.Framework.Components
         ** Fields
         *********/
         /// <summary>The current key binding.</summary>
-        private SButton CurrentValue;
+        private SButton Value;
 
         /// <summary>The action to perform when the key binding is chosen.</summary>
-        private readonly Action<SButton> OnSet;
+        private readonly Action<SButton> SetValue;
 
         /// <summary>The translated 'press new key' label.</summary>
         private readonly string PressNewKeyLabel;
@@ -42,16 +42,16 @@ namespace CJBCheatsMenu.Framework.Components
         /// <summary>Construct an instance.</summary>
         /// <param name="label">The field label.</param>
         /// <param name="slotWidth">The field width.</param>
-        /// <param name="currentValue">The current key binding.</param>
-        /// <param name="onSet">The action to perform when the button is toggled.</param>
+        /// <param name="value">The current key binding.</param>
+        /// <param name="setValue">The action to perform when the button is toggled.</param>
         /// <param name="i18n">Provides translations for the mod.</param>
         /// <param name="clearToButton">The button to set when the player clears it.</param>
-        public CheatsOptionsKeyListener(string label, int slotWidth, SButton currentValue, Action<SButton> onSet, ITranslationHelper i18n, SButton clearToButton = SButton.None)
+        public CheatsOptionsKeyListener(string label, int slotWidth, SButton value, Action<SButton> setValue, ITranslationHelper i18n, SButton clearToButton = SButton.None)
           : base(label, -1, -1, slotWidth + 1, 11 * Game1.pixelZoom)
         {
-            this.CurrentValue = currentValue;
+            this.Value = value;
             this.PressNewKeyLabel = i18n.Get("controls.press-new-key");
-            this.OnSet = onSet;
+            this.SetValue = setValue;
             this.SetButtonBounds = new Rectangle(slotWidth - 28 * Game1.pixelZoom, -1 + Game1.pixelZoom * 3, 21 * Game1.pixelZoom, 11 * Game1.pixelZoom);
             this.ClearToButton = clearToButton;
         }
@@ -79,16 +79,16 @@ namespace CJBCheatsMenu.Framework.Components
 
             if (key == Keys.Escape)
             {
-                this.CurrentValue = this.ClearToButton;
+                this.Value = this.ClearToButton;
                 Game1.soundBank.PlayCue("bigDeSelect");
             }
             else
             {
-                this.CurrentValue = key.ToSButton();
+                this.Value = key.ToSButton();
                 Game1.soundBank.PlayCue("coin");
             }
 
-            this.OnSet(this.CurrentValue);
+            this.SetValue(this.Value);
             this.Listening = false;
             GameMenu.forcePreventClose = false;
         }
@@ -99,7 +99,7 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
         {
-            Utility.drawTextWithShadow(spriteBatch, $"{this.label}: {this.CurrentValue}", Game1.dialogueFont, new Vector2(this.bounds.X + slotX, this.bounds.Y + slotY), this.greyedOut ? Game1.textColor * 0.33f : Game1.textColor, 1f, 0.15f);
+            Utility.drawTextWithShadow(spriteBatch, $"{this.label}: {this.Value}", Game1.dialogueFont, new Vector2(this.bounds.X + slotX, this.bounds.Y + slotY), this.greyedOut ? Game1.textColor * 0.33f : Game1.textColor, 1f, 0.15f);
             Utility.drawWithShadow(spriteBatch, Game1.mouseCursors, new Vector2(this.SetButtonBounds.X + slotX, this.SetButtonBounds.Y + slotY), this.SetButtonSprite, Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom, false, 0.15f);
 
             if (this.Listening)
