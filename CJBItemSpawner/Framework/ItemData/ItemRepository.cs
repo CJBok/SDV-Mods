@@ -94,7 +94,7 @@ namespace CJBItemSpawner.Framework.ItemData
                 // furniture
                 foreach (int id in this.TryLoad<int, string>("Data\\Furniture").Keys)
                 {
-                    if (id == 1466 || id == 1468)
+                    if (id == 1466 || id == 1468 || id == 1680)
                         yield return this.TryCreate(ItemType.Furniture, id, () => new TV(id, Vector2.Zero));
                     else
                         yield return this.TryCreate(ItemType.Furniture, id, () => new Furniture(id, Vector2.Zero));
