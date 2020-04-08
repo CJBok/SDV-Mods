@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Fixed item slots not grayed out in spawner menu if you don't have the backpack upgrades.
+* Fixed spawned Floor TV not functional as a TV (thanks to Platonymous!).
 * Fixed error opening menu if you have broken XNB mods.
 * Improved translations. Thanks to BURAKMESE (added Turkish) and therealmate (added Hungarian)!
 
