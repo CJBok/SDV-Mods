@@ -1,4 +1,5 @@
 using System;
+using CJB.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -76,8 +77,8 @@ namespace CJBCheatsMenu.Framework.Components
 
             base.leftClickHeld(x, y);
 
-            this.ValuePosition = this.GetRangePosition(x, this.bounds.X, this.bounds.X + this.PixelWidth);
-            this.Value = this.GetValueAtPosition(this.ValuePosition, this.MinValue, this.MaxValue);
+            this.ValuePosition = CommonHelper.GetRangePosition(x, this.bounds.X, this.bounds.X + this.PixelWidth);
+            this.Value = CommonHelper.GetValueAtPosition(this.ValuePosition, this.MinValue, this.MaxValue);
         }
 
         /// <summary>Handle the player clicking the left mouse button.</summary>
@@ -111,7 +112,7 @@ namespace CJBCheatsMenu.Framework.Components
 
             base.draw(spriteBatch, slotX, slotY);
 
-            int sliderOffsetX = this.GetValueAtPosition(this.ValuePosition, 0, this.PixelWidth);
+            int sliderOffsetX = CommonHelper.GetValueAtPosition(this.ValuePosition, 0, this.PixelWidth);
             IClickableMenu.drawTextureBox(spriteBatch, Game1.mouseCursors, OptionsSlider.sliderBGSource, slotX + this.bounds.X, slotY + this.bounds.Y, this.bounds.Width, this.bounds.Height, Color.White, Game1.pixelZoom, false);
             spriteBatch.Draw(Game1.mouseCursors, new Vector2(slotX + this.bounds.X + sliderOffsetX, slotY + this.bounds.Y), OptionsSlider.sliderButtonRect, Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 0.9f);
         }
@@ -123,27 +124,7 @@ namespace CJBCheatsMenu.Framework.Components
         /// <summary>Get the <see cref="Value"/>'s fractional position, as a value between 0 (<see cref="MinValue"/>) and 1 (<see cref="MaxValue"/>).</summary>
         private float GetRangePosition()
         {
-            return this.GetRangePosition(this.Value, this.MinValue, this.MaxValue);
-        }
-
-        /// <summary>Get a value's fractional position within a range, as a value between 0 (<paramref name="minValue"/>) and 1 (<paramref name="maxValue"/>).</summary>
-        /// <param name="value">The value within the range.</param>
-        /// <param name="minValue">The minimum value.</param>
-        /// <param name="maxValue">The maximum value.</param>
-        private float GetRangePosition(int value, int minValue, int maxValue)
-        {
-            float position = (value - minValue) / (float)(maxValue - minValue);
-            return MathHelper.Clamp(position, 0, 1);
-        }
-
-        /// <summary>Get the value from a position within a range.</summary>
-        /// <param name="position">The position within the range, where 0 is the minimum value and 1 is the maximum value.</param>
-        /// <param name="minValue">The minimum value.</param>
-        /// <param name="maxValue">The maximum value.</param>
-        private int GetValueAtPosition(float position, int minValue, int maxValue)
-        {
-            float value = position * (maxValue - minValue) + minValue;
-            return (int)MathHelper.Clamp(value, minValue, maxValue);
+            return CommonHelper.GetRangePosition(this.Value, this.MinValue, this.MaxValue);
         }
     }
 }

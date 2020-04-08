@@ -14,6 +14,9 @@ namespace CJB.Common
         /*********
         ** Public methods
         *********/
+        /****
+        ** UI
+        ****/
         public static void DrawTextBox(int x, int y, SpriteFont font, string message, int align = 0, float colorIntensity = 1F)
         {
             SpriteBatch spriteBatch = Game1.spriteBatch;
@@ -38,6 +41,10 @@ namespace CJB.Common
             }
         }
 
+
+        /****
+        ** Game helpers
+        ****/
         /// <summary>Get all game locations.</summary>
         public static IEnumerable<GameLocation> GetAllLocations()
         {
@@ -76,6 +83,30 @@ namespace CJB.Common
         public static bool GetIsCommunityCenterComplete()
         {
             return Game1.MasterPlayer.mailReceived.Contains("ccIsComplete") || Game1.MasterPlayer.hasCompletedCommunityCenter();
+        }
+
+
+        /****
+        ** Math helpers
+        ****/
+        /// <summary>Get a value's fractional position within a range, as a value between 0 (<paramref name="minValue"/>) and 1 (<paramref name="maxValue"/>).</summary>
+        /// <param name="value">The value within the range.</param>
+        /// <param name="minValue">The minimum value.</param>
+        /// <param name="maxValue">The maximum value.</param>
+        public static float GetRangePosition(int value, int minValue, int maxValue)
+        {
+            float position = (value - minValue) / (float)(maxValue - minValue);
+            return MathHelper.Clamp(position, 0, 1);
+        }
+
+        /// <summary>Get the value from a position within a range.</summary>
+        /// <param name="position">The position within the range, where 0 is the minimum value and 1 is the maximum value.</param>
+        /// <param name="minValue">The minimum value.</param>
+        /// <param name="maxValue">The maximum value.</param>
+        public static int GetValueAtPosition(float position, int minValue, int maxValue)
+        {
+            float value = position * (maxValue - minValue) + minValue;
+            return (int)MathHelper.Clamp(value, minValue, maxValue);
         }
     }
 }

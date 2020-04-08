@@ -17,6 +17,7 @@
 * 'Grow crops' and 'grow trees' can now be bound to the same button to grow both at once.
 * Fixed instant-grown wild seeds being different from slow-grown ones (e.g. not applying botanist bonus, not randomized, etc).
 * Fixed instant-grown crops not generating giant crops.
+* Fixed relationship sliders being slightly off on the right side.
 * Internal refactoring and optimizations.
 * Improved translations. Thanks to Akir0 (updated French), Annosz (added Hungarian), and D0n-A (updated Russian)!
 

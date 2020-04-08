@@ -35,7 +35,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Relationships
             return this.SortFields(
                 this.GetSocialCharacters()
                     .Distinct()
-                    .Select(npc => (OptionsElement)new CheatsOptionsNpcSlider(npc, setValue: points => this.SetFriendshipPoints(npc, points)))
+                    .Select(this.GetField)
                     .ToArray()
             );
         }
@@ -56,10 +56,29 @@ namespace CJBCheatsMenu.Framework.Cheats.Relationships
         /*********
         ** Private methods
         *********/
-        /// <summary>Set the friendship points for an NPC.</summary>
+        /// <summary>Get the unsorted fields to display.</summary>
+        private OptionsElement GetField(NPC npc)
+        {
+            // get friendship info
+            Game1.player.friendshipData.TryGetValue(npc.Name, out Friendship friendship);
+            bool isSpouse = friendship?.IsMarried() ?? false;
+            int curHearts = (friendship?.Points ?? 0) / NPC.friendshipPointsPerHeartLevel;
+            int maxHearts = isSpouse ? 14 : NPC.maxFriendshipPoints / NPC.friendshipPointsPerHeartLevel;
+
+            // get field
+            return new CheatsOptionsNpcSlider(
+                npc: npc,
+                isMet: friendship != null,
+                value: curHearts,
+                maxValue: maxHearts,
+                setValue: hearts => this.SetFriendshipHearts(npc, hearts)
+            );
+        }
+
+        /// <summary>Set the friendship hearts for an NPC.</summary>
         /// <param name="npc">The NPC to change.</param>
         /// <param name="hearts">The friendship hearts to set.</param>
-        private void SetFriendshipPoints(NPC npc, int hearts)
+        private void SetFriendshipHearts(NPC npc, int hearts)
         {
             // add friendship if needed
             if (!Game1.player.friendshipData.TryGetValue(npc.Name, out Friendship friendship))
@@ -73,7 +92,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Relationships
 
             // update friendship points
             friendship.Points = hearts * NPC.friendshipPointsPerHeartLevel;
-            this.OnPointsChanged(npc, friendship.Points);
+            this.OnPointsChanged(npc, hearts * NPC.friendshipPointsPerHeartLevel);
         }
     }
 }

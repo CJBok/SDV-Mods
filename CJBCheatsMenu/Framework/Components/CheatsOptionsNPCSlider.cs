@@ -1,4 +1,5 @@
 using System;
+using CJB.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -12,20 +13,26 @@ namespace CJBCheatsMenu.Framework.Components
         /*********
         ** Fields
         *********/
-        /// <summary>The maximum number of hearts allowed.</summary>
-        private readonly int SliderMaxValue;
+        /// <summary>The current number of hearts.</summary>
+        private int Value;
 
-        /// <summary>The villager NPC represented the slider.</summary>
-        private readonly NPC Npc;
+        /// <summary>The maximum number of hearts allowed.</summary>
+        private readonly int MaxValue;
 
         /// <summary>The portrait to display next to the slider.</summary>
         private readonly ClickableTextureComponent Mugshot;
 
-        /// <summary>The current value.</summary>
-        private int Value;
-
         /// <summary>The callback to invoke when the value changes.</summary>
         private readonly Action<int> SetValue;
+
+        /// <summary>The spritesheet position for a filled heart.</summary>
+        private readonly Rectangle FilledHeart = new Rectangle(211, 428, 7, 6);
+
+        /// <summary>The spritesheet position for an empty heart.</summary>
+        private readonly Rectangle EmptyHeart = new Rectangle(218, 428, 7, 6);
+
+        /// <summary>The size of one rendered heart, accounting for zoom.</summary>
+        private const int HeartSize = 8 * Game1.pixelZoom;
 
 
         /*********
@@ -33,21 +40,19 @@ namespace CJBCheatsMenu.Framework.Components
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="npc">The villager NPC represented the slider.</param>
+        /// <param name="value">The current number of hearts.</param>
+        /// <param name="maxValue">The maximum number of hearts.</param>
+        /// <param name="isMet">Whether the player has met the NPC.</param>
         /// <param name="setValue">The callback to invoke when the value changes.</param>
-        public CheatsOptionsNpcSlider(NPC npc, Action<int> setValue)
-            : base(npc.displayName, x: 96, y: -1, width: (CheatsOptionsNpcSlider.IsSpouse(npc) ? 112 : 80) * Game1.pixelZoom, height: 6 * Game1.pixelZoom, whichOption: 0)
+        public CheatsOptionsNpcSlider(NPC npc, int value, int maxValue, bool isMet, Action<int> setValue)
+            : base(label: npc.displayName, x: 96, y: -1, width: maxValue * HeartSize, height: 6 * Game1.pixelZoom, whichOption: 0)
         {
-            bool isKnown = Game1.player.friendshipData.TryGetValue(npc.Name, out Friendship friendship);
-
-            this.Npc = npc;
             this.SetValue = setValue;
             this.Mugshot = new ClickableTextureComponent("Mugshot", this.bounds, "", "", npc.Sprite.Texture, npc.getMugShotSourceRect(), 0.7f * Game1.pixelZoom);
-            this.greyedOut = !isKnown;
+            this.greyedOut = !isMet;
             this.label = npc.getName();
-            this.SliderMaxValue = CheatsOptionsNpcSlider.IsSpouse(npc) ? 14 : NPC.maxFriendshipPoints / NPC.friendshipPointsPerHeartLevel;
-            this.Value = isKnown
-                ? Math.Max(0, Math.Min(this.SliderMaxValue, friendship.Points / NPC.friendshipPointsPerHeartLevel))
-                : 0;
+            this.Value = value;
+            this.MaxValue = maxValue;
         }
 
         /// <summary>Handle the player holding the left mouse button.</summary>
@@ -55,15 +60,14 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="y">The cursor's Y pixel position.</param>
         public override void leftClickHeld(int x, int y)
         {
-            // calculate new value
             base.leftClickHeld(x, y);
 
-            int hearts = x >= this.bounds.X ? (x <= this.bounds.Right - 10 * Game1.pixelZoom ? (int)((x - this.bounds.X) / (this.bounds.Width - 10d * Game1.pixelZoom) * this.SliderMaxValue) : this.SliderMaxValue) : 0;
-            int points = this.Value * NPC.friendshipPointsPerHeartLevel;
+            int width = this.bounds.Width - 5;
+            float valuePosition = CommonHelper.GetRangePosition(x + (HeartSize / 2), this.bounds.X, this.bounds.X + width); // offset by half a heart, so clicking the middle of a heart selects it
 
-            this.Value = hearts;
             this.greyedOut = false;
-            this.SetValue(points);
+            this.Value = CommonHelper.GetValueAtPosition(valuePosition, 0, this.MaxValue);
+            this.SetValue(this.Value);
         }
 
         /// <summary>Handle the player clicking the left mouse button.</summary>
@@ -87,30 +91,23 @@ namespace CJBCheatsMenu.Framework.Components
 
             Color tint = this.greyedOut ? (Color.White * 0.5f) : Color.White;
 
+            // draw mugshot
             if (this.Mugshot != null)
             {
                 this.Mugshot.bounds = new Rectangle(slotX + 32, slotY, Game1.tileSize, Game1.tileSize);
                 this.Mugshot.draw(spriteBatch, tint, 0.88f);
             }
 
-            for (int i = 0; i < this.SliderMaxValue; i++)
+
+            // draw hearts
+            for (int i = 0; i < this.MaxValue; i++)
             {
-                Rectangle sourceRectangle = i < this.Value
-                    ? new Rectangle(211, 428, 7, 6)
-                    : new Rectangle(218, 428, 7, 6);
-                spriteBatch.Draw(Game1.mouseCursors, new Vector2(slotX + this.bounds.X + i * (8 * Game1.pixelZoom), slotY + this.bounds.Y), sourceRectangle, tint, 0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 0.88f);
+                Rectangle heartSourceRect = i < this.Value
+                    ? this.FilledHeart
+                    : this.EmptyHeart;
+
+                spriteBatch.Draw(Game1.mouseCursors, new Vector2(slotX + this.bounds.X + (i * HeartSize), slotY + this.bounds.Y), heartSourceRect, tint, 0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 0.88f);
             }
-        }
-
-
-        /*********
-        ** Private methods
-        *********/
-        /// <summary>Get whether the given NPC is the player's spouse.</summary>
-        /// <param name="npc">The NPC to check.</param>
-        private static bool IsSpouse(NPC npc)
-        {
-            return npc.Name == Game1.player.spouse;
         }
     }
 }
