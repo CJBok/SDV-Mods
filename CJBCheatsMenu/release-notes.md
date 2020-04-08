@@ -4,7 +4,7 @@
 ## Upcoming release
 * Added cheats:
   * instant weapon cooldowns;
-  * inventory size (i.e. backpack upgrades);
+  * unlock backpack upgrades;
   * auto-water crops (replaces the former 'water all fields' button).
 * Overhauled warps:
   * Warps are now grouped into sections for easier navigation.
