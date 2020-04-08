@@ -25,9 +25,9 @@
     "player.infinite-stamina": "Бесконечная выносливость",
     "player.infinite-health": "Бесконечное здоровье",
     "player.instant-cooldowns": "Убрать задержку при использовании оружия",
-    "player.inventory-size": "Inventory Size", // TODO
+    "player.inventory-size": "Объём инвентаря",
     "player.movement-speed": "Скорость перемещения",
-    "player.movement-speed.default": "normal", // TODO
+    "player.movement-speed.default": "обычная",
     "player.one-hit-kill": "Убийство с одного удара",
     "player.max-daily-luck": "Максимальная удача",
 
@@ -35,7 +35,7 @@
     "tools.title": "Инструменты",
     "tools.infinite-water": "Бесконечная вода в лейке",
     "tools.one-hit-break": "Разрушение с одного удара",
-    "tools.harvest-with-scythe": "Сбор урожая серпом",
+    "tools.harvest-with-scythe": "Сбор культур серпом",
 
     // money
     "money.title": "Деньги",
@@ -49,10 +49,10 @@
     *********/
     // farm
     "farm.title": "Ферма",
-    "farm.auto-water": "Auto-Water Crops", // TODO
+    "farm.auto-water": "Автополиваемые культуры",
     "farm.durable-fences": "Прочные ограждения",
     "farm.instant-build": "Мгновенное строительство",
-    "farm.always-auto-feed": "Автоматически подкармливать животных",
+    "farm.always-auto-feed": "Автоматическая подкормка животных",
     "farm.infinite-hay": "Бесконечное сено",
 
     // fishing
@@ -159,7 +159,7 @@
     ** Warps tab
     *********/
     // main areas
-    "warp-section.main": "Main Areas", // TODO
+    "warp-section.main": "Главные локации",
     "warp.farm": "Ферма",
     "warp.carpenter": "Столярная мастерская",
     "warp.desert": "Пустыня",
@@ -167,24 +167,24 @@
     "warp.pierre-shop": "Магазин Пьера",
 
     // town
-    "warp-section.town": "Town", // TODO
+    "warp-section.town": "Город",
     "warp.blacksmith": "Кузнец",
     "warp.community-center": "Клуб",
     "warp.jojamart": "ДжоджаМарт",
     "warp.movie-theater": "Кинотеатр",
     "warp.museum": "Музей",
-    "warp.saloon": "Салун «Звёздная капля»",
+    "warp.saloon": "Салун \"Звёздная капля\"",
     "warp.sewer": "Канализация",
 
     // forest
-    "warp-section.forest": "Forest", // TODO
+    "warp-section.forest": "Лес",
     "warp.hats": "Разрушенный дом",
     "warp.ranch": "Ранчо Марни",
     "warp.secret-woods": "Тайный лес",
     "warp.wizard-tower": "Башня волшебника",
 
     // mountain
-    "warp-section.mountain": "Mountain", // TODO
+    "warp-section.mountain": "Горы",
     "warp.adventurers-guild": "Гильдия искателей приключений",
     "warp.bathhouse": "Баня",
     "warp.quarry": "Карьер",
@@ -195,7 +195,7 @@
     "warp.willy-shop": "Странствующий торговец",
 
     // desert
-    "warp-section.desert": "Desert", // TODO
+    "warp-section.desert": "Пустыня",
     "warp.casino": "Казино",
     "warp.sandy-shop": "Оазис",
     "warp.skull-cavern": "Пещера Черепа",
@@ -225,7 +225,7 @@
     "flags.unlocked-content.dyes-and-tailoring": "Перекраска и шитьё",
     "flags.community-center": "Клуб",
     "flags.community-center.door-unlocked": "Открыть дверь",
-    "flags.jojamart.membership": "Членство в корпорации «ДжоджаМарт»",
+    "flags.jojamart.membership": "Членство в корпорации \"ДжоджаМарт\"",
 
 
     /*********
