@@ -164,7 +164,10 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                 foreach (SObject obj in location.objects.Values)
                 {
                     if (this.IsFastMachine(context, obj))
+                    {
                         this.CompleteMachine(location, obj);
+                        this.PostCompleteMachine(location, obj);
+                    }
                 }
 
                 if (context.Config.FastFruitTree)
@@ -226,16 +229,12 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         /// <param name="machine">The machine to complete.</param>
         private void CompleteMachine(GameLocation location, SObject machine)
         {
-            if (machine.heldObject.Value == null)
-                return;
-
             // egg incubator
-            // (animalHouse.incubatingEgg.X is the number of days until the egg hatches; Y is the egg ID.)
-            if (location is AnimalHouse animalHouse && machine.bigCraftable.Value && machine.ParentSheetIndex == 101 && animalHouse.incubatingEgg.X > 0)
-                animalHouse.incubatingEgg.X = 1;
+            if (location is AnimalHouse animalHouse && machine.Name == "Incubator")
+                animalHouse.incubatingEgg.X = 0;
 
             // other machines
-            else if (machine.MinutesUntilReady > 0)
+            else if (machine.heldObject.Value != null && machine.MinutesUntilReady > 0)
             {
                 if (machine is Cask cask)
                 {
@@ -243,6 +242,21 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                     cask.checkForMaturity();
                 }
                 machine.minutesElapsed(machine.MinutesUntilReady, location);
+            }
+        }
+
+        /// <summary>Update the machine after it's completed, if needed.</summary>
+        /// <param name="location">The machine's location.</param>
+        /// <param name="machine">The machine to complete.</param>
+        private void PostCompleteMachine(GameLocation location, SObject machine)
+        {
+            bool hasItem = machine.heldObject.Value != null;
+            switch (machine.Name)
+            {
+                case "Mushroom Box" when !hasItem:
+                case "Slime Incubator" when hasItem:
+                    machine.DayUpdate(location);
+                    break;
             }
         }
     }

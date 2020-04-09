@@ -146,7 +146,7 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Seed makers finish instantly.</summary>
         public bool FastSeedMaker { get; set; }
 
-        /// <summary>Slime egg presss finish instantly.</summary>
+        /// <summary>Slime egg press finish instantly.</summary>
         public bool FastSlimeEggPress { get; set; }
 
         /// <summary>Slime incubators finish instantly.</summary>
