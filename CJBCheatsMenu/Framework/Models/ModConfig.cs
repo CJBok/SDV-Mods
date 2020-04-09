@@ -107,6 +107,9 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Cheese presses finish instantly.</summary>
         public bool FastCheesePress { get; set; }
 
+        /// <summary>Crab pots finish instantly.</summary>
+        public bool FastCrabPot { get; set; }
+
         /// <summary>Crystalariums finish instantly.</summary>
         public bool FastCrystalarium { get; set; }
 

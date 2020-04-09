@@ -14,6 +14,7 @@
   * Desert and Sandy's Shop warps combined.
   * New Beach warp renamed to Tide Pools.
 * Improved fast machine options:
+  * Added fast crab pots.
   * Mushroom boxes now refill immediately.
   * Slime incubators now hatch slimes immediately.
 * Simplified move speed option.

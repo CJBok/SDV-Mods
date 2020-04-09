@@ -44,6 +44,11 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                     setValue: value => context.Config.FastCheesePress = value
                 ),
                 new CheatsOptionsCheckbox(
+                    label: context.Text.Get("fast-machines.crabpot"),
+                    value: context.Config.FastCrabPot,
+                    setValue: value => context.Config.FastCrabPot = value
+                ),
+                new CheatsOptionsCheckbox(
                     label: context.Text.Get("fast-machines.crystalarium"),
                     value: context.Config.FastCrystalarium,
                     setValue: value => context.Config.FastCrystalarium = value
@@ -190,13 +195,14 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         /// <param name="obj">The machine to check.</param>
         private bool IsFastMachine(CheatContext context, SObject obj)
         {
-            if (obj == null || !obj.bigCraftable.Value)
+            if (obj == null || !(obj is CrabPot || obj.bigCraftable.Value))
                 return false;
 
             ModConfig config = context.Config;
             return obj switch
             {
                 Cask _ => config.FastCask,
+                CrabPot _ => config.FastCrabPot,
                 WoodChipper _ => config.FastWoodChipper,
                 _ => obj.name switch
                 {
@@ -229,12 +235,18 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         /// <param name="machine">The machine to complete.</param>
         private void CompleteMachine(GameLocation location, SObject machine)
         {
+            bool hasItem = machine.heldObject.Value != null;
+
             // egg incubator
-            if (location is AnimalHouse animalHouse && machine.Name == "Incubator")
+            if (machine.Name == "Incubator" && location is AnimalHouse animalHouse)
                 animalHouse.incubatingEgg.X = 0;
 
+            // crab pot
+            else if (!hasItem && machine is CrabPot pot)
+                pot.DayUpdate(location);
+
             // other machines
-            else if (machine.heldObject.Value != null && machine.MinutesUntilReady > 0)
+            else if (hasItem && machine.MinutesUntilReady > 0)
             {
                 if (machine is Cask cask)
                 {
