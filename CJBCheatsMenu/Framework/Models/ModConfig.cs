@@ -155,6 +155,15 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Slime incubators finish instantly.</summary>
         public bool FastSlimeIncubator { get; set; }
 
+        /// <summary>Soda machines finish instantly.</summary>
+        public bool FastSodaMachine { get; set; }
+
+        /// <summary>Statues of endless fortune finish instantly.</summary>
+        public bool FastStatueOfEndlessFortune { get; set; }
+
+        /// <summary>Statues of perfection finish instantly.</summary>
+        public bool FastStatueOfPerfection { get; set; }
+
         /// <summary>Tappers finish instantly.</summary>
         public bool FastTapper { get; set; }
 

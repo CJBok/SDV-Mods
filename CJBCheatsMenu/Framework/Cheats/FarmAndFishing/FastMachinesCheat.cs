@@ -44,7 +44,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                     setValue: value => context.Config.FastCheesePress = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.crabpot"),
+                    label: context.Text.Get("fast-machines.crab-pot"),
                     value: context.Config.FastCrabPot,
                     setValue: value => context.Config.FastCrabPot = value
                 ),
@@ -124,6 +124,21 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                     setValue: value => context.Config.FastSlimeIncubator = value
                 ),
                 new CheatsOptionsCheckbox(
+                    label: context.Text.Get("fast-machines.soda-machine"),
+                    value: context.Config.FastSodaMachine,
+                    setValue: value => context.Config.FastSodaMachine = value
+                ),
+                new CheatsOptionsCheckbox(
+                    label: context.Text.Get("fast-machines.statue-of-endless-fortune"),
+                    value: context.Config.FastStatueOfEndlessFortune,
+                    setValue: value => context.Config.FastStatueOfEndlessFortune = value
+                ),
+                new CheatsOptionsCheckbox(
+                    label: context.Text.Get("fast-machines.statue-of-perfection"),
+                    value: context.Config.FastStatueOfPerfection,
+                    setValue: value => context.Config.FastStatueOfPerfection = value
+                ),
+                new CheatsOptionsCheckbox(
                     label: context.Text.Get("fast-machines.tapper"),
                     value: context.Config.FastTapper,
                     setValue: value => context.Config.FastTapper = value
@@ -169,10 +184,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                 foreach (SObject obj in location.objects.Values)
                 {
                     if (this.IsFastMachine(context, obj))
-                    {
                         this.CompleteMachine(location, obj);
-                        this.PostCompleteMachine(location, obj);
-                    }
                 }
 
                 if (context.Config.FastFruitTree)
@@ -195,9 +207,12 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         /// <param name="obj">The machine to check.</param>
         private bool IsFastMachine(CheatContext context, SObject obj)
         {
-            if (obj == null || !(obj is CrabPot || obj.bigCraftable.Value))
+            // quick initial check
+            bool mayBeMachine = obj != null && (obj.bigCraftable.Value || obj is CrabPot);
+            if (!mayBeMachine)
                 return false;
 
+            // specific check
             ModConfig config = context.Config;
             return obj switch
             {
@@ -223,6 +238,9 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                     "Seed Maker" => config.FastSeedMaker,
                     "Slime Egg-Press" => config.FastSlimeEggPress,
                     "Slime Incubator" => config.FastSlimeIncubator,
+                    "Soda Machine" => config.FastSodaMachine,
+                    "Statue Of Endless Fortune" => config.FastStatueOfEndlessFortune,
+                    "Statue Of Perfection" => config.FastStatueOfPerfection,
                     "Tapper" => config.FastTapper,
                     "Worm Bin" => config.FastWormBin,
                     _ => false
@@ -236,33 +254,49 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         private void CompleteMachine(GameLocation location, SObject machine)
         {
             bool hasItem = machine.heldObject.Value != null;
+            bool processing = machine.MinutesUntilReady > 0;
 
-            // egg incubator
-            if (machine.Name == "Incubator" && location is AnimalHouse animalHouse)
-                animalHouse.incubatingEgg.X = 0;
-
-            // crab pot
-            else if (!hasItem && machine is CrabPot pot)
-                pot.DayUpdate(location);
-
-            // other machines
-            else if (hasItem && machine.MinutesUntilReady > 0)
+            // mark complete
+            switch (machine)
             {
-                if (machine is Cask cask)
-                {
+                // cask
+                case Cask cask when hasItem && processing:
                     cask.daysToMature.Value = 0;
                     cask.checkForMaturity();
-                }
-                machine.minutesElapsed(machine.MinutesUntilReady, location);
-            }
-        }
+                    break;
 
-        /// <summary>Update the machine after it's completed, if needed.</summary>
-        /// <param name="location">The machine's location.</param>
-        /// <param name="machine">The machine to complete.</param>
-        private void PostCompleteMachine(GameLocation location, SObject machine)
-        {
-            bool hasItem = machine.heldObject.Value != null;
+                // crab pot
+                case CrabPot pot when !hasItem:
+                    pot.DayUpdate(location);
+                    break;
+
+                // by name
+                default:
+                    switch (machine.Name)
+                    {
+                        // egg incubator
+                        case "Incubator" when location is AnimalHouse animalHouse:
+                            animalHouse.incubatingEgg.X = 0;
+                            break;
+
+                        // daily machines
+                        case "Soda Machine" when !hasItem:
+                        case "Statue Of Endless Fortune" when !hasItem:
+                        case "Statue Of Perfection" when !hasItem:
+                            machine.DayUpdate(location);
+                            machine.minutesElapsed(1, location);
+                            break;
+
+                        // other
+                        default:
+                            if (hasItem && processing)
+                                machine.minutesElapsed(machine.MinutesUntilReady, location);
+                            break;
+                    }
+                    break;
+            }
+
+            // run post-completion logic
             switch (machine.Name)
             {
                 case "Mushroom Box" when !hasItem:
