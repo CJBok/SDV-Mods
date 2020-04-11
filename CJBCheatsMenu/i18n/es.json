@@ -236,6 +236,7 @@
     ** Controls tab
     *********/
     "controls.title": "Controles",
+    "controls.android": "The virtual keys can be chosen by editing this mod's config file.", // TODO
     "controls.open-menu": "Abrir Menu",
     "controls.freeze-time": "Congelar Tiempo",
     "controls.grow-tree": "Cultivar Árbol",
