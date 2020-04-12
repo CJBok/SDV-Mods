@@ -27,11 +27,11 @@ namespace CJBCheatsMenu.Framework
 
         private readonly List<ClickableComponent> OptionSlots = new List<ClickableComponent>();
         private readonly List<OptionsElement> Options = new List<OptionsElement>();
-        private readonly ClickableTextureComponent UpArrow;
-        private readonly ClickableTextureComponent DownArrow;
-        private readonly ClickableTextureComponent Scrollbar;
+        private ClickableTextureComponent UpArrow;
+        private ClickableTextureComponent DownArrow;
+        private ClickableTextureComponent Scrollbar;
         private readonly List<ClickableComponent> Tabs = new List<ClickableComponent>();
-        private readonly ClickableComponent Title;
+        private ClickableComponent Title;
         private const int ItemsPerPage = 10;
 
         private static readonly bool IsAndroid = Constants.TargetPlatform == GamePlatform.Android;
@@ -42,7 +42,7 @@ namespace CJBCheatsMenu.Framework
         private int OptionsSlotHeld = -1;
         private int CurrentItemIndex;
         private bool IsScrolling;
-        private readonly Rectangle ScrollbarRunner;
+        private Rectangle ScrollbarRunner;
         private bool CanClose;
         private bool JustOpened;
 
@@ -53,58 +53,59 @@ namespace CJBCheatsMenu.Framework
         /*********
         ** Public methods
         *********/
-        /// <summary>Construct an instance when no CheatsMenu was previously open.</summary>
-        /// <param name="initialTab">The tab to display by default.</param>
-        /// <param name="cheats">The cheats helper.</param>
-        /// <param name="monitor">Encapsulates monitoring and logging.</param>
-        public CheatsMenu(MenuTab initialTab, CheatManager cheats, IMonitor monitor)
-          : this(initialTab, cheats, monitor, justOpened: true)
-        {}
-
         /// <summary>Construct an instance.</summary>
         /// <param name="initialTab">The tab to display by default.</param>
         /// <param name="cheats">The cheats helper.</param>
         /// <param name="monitor">Encapsulates monitoring and logging.</param>
         /// <param name="justOpened">Whether no CheatsMenu was previously open.</param>
-        protected CheatsMenu(MenuTab initialTab, CheatManager cheats, IMonitor monitor, bool justOpened)
-          : base(Game1.viewport.Width / 2 - (InnerWidth + IClickableMenu.borderWidth * 2 - (int) (Game1.tileSize * 2.4f)) / 2, Game1.viewport.Height / 2 - (InnerHeight + IClickableMenu.borderWidth * 2) / 2, InnerWidth + IClickableMenu.borderWidth * 2, InnerHeight + IClickableMenu.borderWidth * 2, showUpperRightCloseButton: IsAndroid)
+        public CheatsMenu(MenuTab initialTab, CheatManager cheats, IMonitor monitor, bool justOpened = true)
+          : base(0, 0, InnerWidth + IClickableMenu.borderWidth * 2, InnerHeight + IClickableMenu.borderWidth * 2, showUpperRightCloseButton: IsAndroid)
         {
             this.Cheats = cheats;
             this.Monitor = monitor;
             this.JustOpened = justOpened;
-
-            // init UI
-            {
-                var text = cheats.Context.Text;
-                this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.width / 2, this.yPositionOnScreen, Game1.tileSize * 4, Game1.tileSize), text.Get("mod-name"));
-                this.CurrentTab = initialTab;
-                {
-                    int i = 0;
-                    int labelX = (int)(this.xPositionOnScreen - Game1.tileSize * 4.8f);
-                    int labelY = (int)(this.yPositionOnScreen + Game1.tileSize * (IsAndroid ? 1.25f : 1.5f));
-                    int labelHeight = (int)(Game1.tileSize * 0.9F);
-
-                    this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.PlayerAndTools.ToString(), text.Get("tabs.player-and-tools")));
-                    this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.FarmAndFishing.ToString(), text.Get("tabs.farm-and-fishing")));
-                    this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Skills.ToString(), text.Get("tabs.skills")));
-                    this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Weather.ToString(), text.Get("tabs.weather")));
-                    this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Relationships.ToString(), text.Get("tabs.relationships")));
-                    this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.WarpLocations.ToString(), text.Get("tabs.warp")));
-                    this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Time.ToString(), text.Get("tabs.time")));
-                    this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Advanced.ToString(), text.Get("tabs.advanced")));
-                    this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i, Game1.tileSize * 5, Game1.tileSize), MenuTab.Controls.ToString(), text.Get("tabs.controls")));
-                }
-
-                int scrollbarOffset = Game1.tileSize * (IsAndroid ? 1 : 4) / 16;
-                this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(this.xPositionOnScreen + this.width + scrollbarOffset, this.yPositionOnScreen + Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
-                this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.xPositionOnScreen + this.width + scrollbarOffset, this.yPositionOnScreen + this.height - Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
-                this.Scrollbar = new ClickableTextureComponent("scrollbar", new Rectangle(this.UpArrow.bounds.X + Game1.pixelZoom * 3, this.UpArrow.bounds.Y + this.UpArrow.bounds.Height + Game1.pixelZoom, 6 * Game1.pixelZoom, 10 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(435, 463, 6, 10), Game1.pixelZoom);
-                this.ScrollbarRunner = new Rectangle(this.Scrollbar.bounds.X, this.UpArrow.bounds.Y + this.UpArrow.bounds.Height + Game1.pixelZoom, this.Scrollbar.bounds.Width, this.height - Game1.tileSize * 2 - this.UpArrow.bounds.Height - Game1.pixelZoom * 2);
-
-                for (int i = 0; i < CheatsMenu.ItemsPerPage; i++)
-                    this.OptionSlots.Add(new ClickableComponent(new Rectangle(this.xPositionOnScreen + Game1.tileSize / 4, this.yPositionOnScreen + Game1.tileSize * 5 / 4 + Game1.pixelZoom + i * ((this.height - Game1.tileSize * 2) / CheatsMenu.ItemsPerPage), this.width - Game1.tileSize / 2, (this.height - Game1.tileSize * 2) / CheatsMenu.ItemsPerPage + Game1.pixelZoom), string.Concat(i)));
-            }
+            this.CurrentTab = initialTab;
+            this.ResetComponents();
             this.SetOptions();
+        }
+
+        /// <summary>Initialize or reinitialize the UI components.</summary>
+        private void ResetComponents()
+        {
+            this.xPositionOnScreen = Game1.viewport.Width / 2 - (InnerWidth + IClickableMenu.borderWidth * 2 - (int) (Game1.tileSize * 2.4f)) / 2;
+            this.yPositionOnScreen = Game1.viewport.Height / 2 - (InnerHeight + IClickableMenu.borderWidth * 2) / 2;
+            if (IsAndroid)
+                initializeUpperRightCloseButton();
+
+            var text = this.Cheats.Context.Text;
+            this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.width / 2, this.yPositionOnScreen, Game1.tileSize * 4, Game1.tileSize), text.Get("mod-name"));
+            this.Tabs.Clear();
+            {
+                int i = 0;
+                int labelX = (int)(this.xPositionOnScreen - Game1.tileSize * 4.8f);
+                int labelY = (int)(this.yPositionOnScreen + Game1.tileSize * (IsAndroid ? 1.25f : 1.5f));
+                int labelHeight = (int)(Game1.tileSize * 0.9F);
+
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.PlayerAndTools.ToString(), text.Get("tabs.player-and-tools")));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.FarmAndFishing.ToString(), text.Get("tabs.farm-and-fishing")));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Skills.ToString(), text.Get("tabs.skills")));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Weather.ToString(), text.Get("tabs.weather")));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Relationships.ToString(), text.Get("tabs.relationships")));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.WarpLocations.ToString(), text.Get("tabs.warp")));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Time.ToString(), text.Get("tabs.time")));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Advanced.ToString(), text.Get("tabs.advanced")));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i, Game1.tileSize * 5, Game1.tileSize), MenuTab.Controls.ToString(), text.Get("tabs.controls")));
+            }
+
+            int scrollbarOffset = Game1.tileSize * (IsAndroid ? 1 : 4) / 16;
+            this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(this.xPositionOnScreen + this.width + scrollbarOffset, this.yPositionOnScreen + Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
+            this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.xPositionOnScreen + this.width + scrollbarOffset, this.yPositionOnScreen + this.height - Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
+            this.Scrollbar = new ClickableTextureComponent("scrollbar", new Rectangle(this.UpArrow.bounds.X + Game1.pixelZoom * 3, this.UpArrow.bounds.Y + this.UpArrow.bounds.Height + Game1.pixelZoom, 6 * Game1.pixelZoom, 10 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(435, 463, 6, 10), Game1.pixelZoom);
+            this.ScrollbarRunner = new Rectangle(this.Scrollbar.bounds.X, this.UpArrow.bounds.Y + this.UpArrow.bounds.Height + Game1.pixelZoom, this.Scrollbar.bounds.Width, this.height - Game1.tileSize * 2 - this.UpArrow.bounds.Height - Game1.pixelZoom * 2);
+
+            this.OptionSlots.Clear();
+            for (int i = 0; i < CheatsMenu.ItemsPerPage; i++)
+                this.OptionSlots.Add(new ClickableComponent(new Rectangle(this.xPositionOnScreen + Game1.tileSize / 4, this.yPositionOnScreen + Game1.tileSize * 5 / 4 + Game1.pixelZoom + i * ((this.height - Game1.tileSize * 2) / CheatsMenu.ItemsPerPage), this.width - Game1.tileSize / 2, (this.height - Game1.tileSize * 2) / CheatsMenu.ItemsPerPage + Game1.pixelZoom), string.Concat(i)));
         }
 
         /// <summary>Whether controller-style menus should be disabled for this menu.</summary>
@@ -319,9 +320,9 @@ namespace CJBCheatsMenu.Framework
             if (!Game1.options.hardwareCursor && !IsAndroid)
                 spriteBatch.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, Game1.options.gamepadControls ? 44 : 0, 16, 16), Color.White, 0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
 
-            // This one weird trick fixes Android pinch-zoom scaling issues.
+            // Reinitialize the UI to fix Android pinch-zoom scaling issues.
             if (this.JustOpened && IsAndroid)
-                Game1.activeClickableMenu = new CheatsMenu(this.CurrentTab, this.Cheats, this.Monitor, false);
+                ResetComponents();
         }
 
 
