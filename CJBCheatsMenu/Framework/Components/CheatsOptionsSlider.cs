@@ -2,6 +2,7 @@ using System;
 using CJB.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 
@@ -110,7 +111,9 @@ namespace CJBCheatsMenu.Framework.Components
             this.label = $"{this.Label}: {this.Format(this.Value)}";
             this.greyedOut = this.IsDisabled();
 
-            base.draw(spriteBatch, slotX, slotY);
+            // Android port doesn't consider the control width, so we do so here.
+            int adjustX = (Constants.TargetPlatform == GamePlatform.Android) ? bounds.Width + 8 : 0;
+            base.draw(spriteBatch, slotX + adjustX, slotY);
 
             int sliderOffsetX = CommonHelper.GetValueAtPosition(this.ValuePosition, 0, this.PixelWidth);
             IClickableMenu.drawTextureBox(spriteBatch, Game1.mouseCursors, OptionsSlider.sliderBGSource, slotX + this.bounds.X, slotY + this.bounds.Y, this.bounds.Width, this.bounds.Height, Color.White, Game1.pixelZoom, false);

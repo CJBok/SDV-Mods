@@ -61,7 +61,7 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="y">The cursor's Y pixel position.</param>
         public override void receiveLeftClick(int x, int y)
         {
-            if (this.greyedOut || this.Listening || !this.SetButtonBounds.Contains(x, y))
+            if (this.greyedOut || this.Listening || !this.SetButtonBounds.Contains(x, y) || Constants.TargetPlatform == GamePlatform.Android)
                 return;
 
             this.Listening = true;
@@ -100,7 +100,8 @@ namespace CJBCheatsMenu.Framework.Components
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
         {
             Utility.drawTextWithShadow(spriteBatch, $"{this.label}: {this.Value}", Game1.dialogueFont, new Vector2(this.bounds.X + slotX, this.bounds.Y + slotY), this.greyedOut ? Game1.textColor * 0.33f : Game1.textColor, 1f, 0.15f);
-            Utility.drawWithShadow(spriteBatch, Game1.mouseCursors, new Vector2(this.SetButtonBounds.X + slotX, this.SetButtonBounds.Y + slotY), this.SetButtonSprite, Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom, false, 0.15f);
+            if (Constants.TargetPlatform != GamePlatform.Android)
+                Utility.drawWithShadow(spriteBatch, Game1.mouseCursors, new Vector2(this.SetButtonBounds.X + slotX, this.SetButtonBounds.Y + slotY), this.SetButtonSprite, Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom, false, 0.15f);
 
             if (this.Listening)
             {

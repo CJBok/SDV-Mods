@@ -236,6 +236,7 @@
     ** Controls tab
     *********/
     "controls.title": "コントロール",
+    "controls.android": "You can change the on-screen buttons in the config files for the CJB Cheats Menu and Virtual Keyboard mods.", // TODO
     "controls.open-menu": "チートメニューを表示",
     "controls.freeze-time": "時間を止める",
     "controls.grow-tree": "果樹が生長する",
