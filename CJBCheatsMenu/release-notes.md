@@ -19,6 +19,7 @@
   * Slime incubators now hatch slimes immediately.
 * Simplified move speed option.
 * 'Grow crops' and 'grow trees' can now be bound to the same button to grow both at once.
+* Fixed invalid time when changing time from after midnight.
 * Fixed instant-grown wild seeds being different from slow-grown ones (e.g. not applying botanist bonus, not randomized, etc).
 * Fixed instant-grown crops not generating giant crops.
 * Fixed relationship sliders being slightly off on the right side.

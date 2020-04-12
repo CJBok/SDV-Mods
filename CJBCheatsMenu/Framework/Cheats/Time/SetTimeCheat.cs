@@ -74,7 +74,8 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         private int ToGameTime(TimeSpan time)
         {
             return
-                (time.Hours * 100)
+                (time.Days * 2400)
+                + (time.Hours * 100)
                 + time.Minutes;
         }
 
