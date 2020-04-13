@@ -17,6 +17,7 @@
   * Added crab pots, soda machines, statues of endless fortune, and statues of perfection.
   * Mushroom boxes now refill immediately.
   * Slime incubators now hatch slimes immediately.
+* Improved compatibility with Android (thanks to kdau!).
 * Simplified move speed option.
 * 'Grow crops' and 'grow trees' can now be bound to the same button to grow both at once.
 * Fixed invalid time when changing time from after midnight.
