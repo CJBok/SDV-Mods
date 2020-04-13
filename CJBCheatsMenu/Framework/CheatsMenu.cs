@@ -74,6 +74,14 @@ namespace CJBCheatsMenu.Framework
             return true;
         }
 
+        /// <summary>Handle the game window being resized.</summary>
+        /// <param name="oldBounds">The previous window bounds.</param>
+        /// <param name="newBounds">The new window bounds.</param>
+        public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)
+        {
+            this.ResetComponents();
+        }
+
         /// <summary>Handle the player holding the left mouse button.</summary>
         /// <param name="x">The cursor's X pixel position.</param>
         /// <param name="y">The cursor's Y pixel position.</param>
@@ -339,6 +347,7 @@ namespace CJBCheatsMenu.Framework
             this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.xPositionOnScreen + this.width + scrollbarOffset, this.yPositionOnScreen + this.height - Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
             this.Scrollbar = new ClickableTextureComponent("scrollbar", new Rectangle(this.UpArrow.bounds.X + Game1.pixelZoom * 3, this.UpArrow.bounds.Y + this.UpArrow.bounds.Height + Game1.pixelZoom, 6 * Game1.pixelZoom, 10 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(435, 463, 6, 10), Game1.pixelZoom);
             this.ScrollbarRunner = new Rectangle(this.Scrollbar.bounds.X, this.UpArrow.bounds.Y + this.UpArrow.bounds.Height + Game1.pixelZoom, this.Scrollbar.bounds.Width, this.height - Game1.tileSize * 2 - this.UpArrow.bounds.Height - Game1.pixelZoom * 2);
+            this.SetScrollBarToCurrentIndex();
 
             // add option slots
             this.OptionSlots.Clear();
