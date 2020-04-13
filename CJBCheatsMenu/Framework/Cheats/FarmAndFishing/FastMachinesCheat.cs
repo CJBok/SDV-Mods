@@ -259,35 +259,36 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
             // mark complete
             switch (machine)
             {
-                // cask
-                case Cask cask when hasItem && processing:
-                    cask.daysToMature.Value = 0;
-                    cask.checkForMaturity();
+                case Cask cask:
+                    if (hasItem && processing)
+                    {
+                        cask.daysToMature.Value = 0;
+                        cask.checkForMaturity();
+                    }
+
                     break;
 
-                // crab pot
-                case CrabPot pot when !hasItem:
-                    pot.DayUpdate(location);
+                case CrabPot pot:
+                    if (!hasItem)
+                        pot.DayUpdate(location);
                     break;
 
                 // by name
                 default:
                     switch (machine.Name)
                     {
-                        // egg incubator
-                        case "Incubator" when location is AnimalHouse animalHouse:
-                            animalHouse.incubatingEgg.X = 0;
-                            break;
-
                         // daily machines
-                        case "Soda Machine" when !hasItem:
-                        case "Statue Of Endless Fortune" when !hasItem:
-                        case "Statue Of Perfection" when !hasItem:
-                            machine.DayUpdate(location);
-                            machine.minutesElapsed(1, location);
+                        case "Soda Machine":
+                        case "Statue Of Endless Fortune":
+                        case "Statue Of Perfection":
+                            if (!hasItem)
+                            {
+                                machine.DayUpdate(location);
+                                machine.minutesElapsed(1, location);
+                            }
                             break;
 
-                        // other
+                        // input processing machines
                         default:
                             if (hasItem && processing)
                                 machine.minutesElapsed(machine.MinutesUntilReady, location);
