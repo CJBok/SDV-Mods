@@ -14,6 +14,7 @@ using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework
 {
+    /// <summary>An interactive menu for configuring and toggling cheats.</summary>
     internal class CheatsMenu : IClickableMenu
     {
         /*********
@@ -34,9 +35,8 @@ namespace CJBCheatsMenu.Framework
         private ClickableComponent Title;
         private const int ItemsPerPage = 10;
 
-        private static readonly bool IsAndroid = Constants.TargetPlatform == GamePlatform.Android;
-        private static readonly int InnerWidth = IsAndroid ? 750 : 800;
-        private static readonly int InnerHeight = IsAndroid ? 550 : 600;
+        /// <summary>Whether the mod is running on Android.</summary>
+        private readonly bool IsAndroid = Constants.TargetPlatform == GamePlatform.Android;
 
         private string HoverText = "";
         private int OptionsSlotHeld = -1;
@@ -44,7 +44,9 @@ namespace CJBCheatsMenu.Framework
         private bool IsScrolling;
         private Rectangle ScrollbarRunner;
         private bool CanClose;
-        private bool JustOpened;
+
+        /// <summary>Whether the menu was opened in the current tick.</summary>
+        private bool JustOpened = true;
 
         /// <summary>The currently open tab.</summary>
         private readonly MenuTab CurrentTab;
@@ -57,13 +59,10 @@ namespace CJBCheatsMenu.Framework
         /// <param name="initialTab">The tab to display by default.</param>
         /// <param name="cheats">The cheats helper.</param>
         /// <param name="monitor">Encapsulates monitoring and logging.</param>
-        /// <param name="justOpened">Whether no CheatsMenu was previously open.</param>
-        public CheatsMenu(MenuTab initialTab, CheatManager cheats, IMonitor monitor, bool justOpened = true)
-          : base(0, 0, InnerWidth + IClickableMenu.borderWidth * 2, InnerHeight + IClickableMenu.borderWidth * 2, showUpperRightCloseButton: IsAndroid)
+        public CheatsMenu(MenuTab initialTab, CheatManager cheats, IMonitor monitor)
         {
             this.Cheats = cheats;
             this.Monitor = monitor;
-            this.JustOpened = justOpened;
             this.CurrentTab = initialTab;
             this.ResetComponents();
             this.SetOptions();
@@ -72,37 +71,51 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Initialize or reinitialize the UI components.</summary>
         private void ResetComponents()
         {
-            this.xPositionOnScreen = Game1.viewport.Width / 2 - (InnerWidth + IClickableMenu.borderWidth * 2 - (int) (Game1.tileSize * 2.4f)) / 2;
-            this.yPositionOnScreen = Game1.viewport.Height / 2 - (InnerHeight + IClickableMenu.borderWidth * 2) / 2;
-            if (IsAndroid)
-                initializeUpperRightCloseButton();
-
             var text = this.Cheats.Context.Text;
+
+            // set dimensions
+            this.width = (this.IsAndroid ? 750 : 800) + IClickableMenu.borderWidth * 2;
+            this.height = (this.IsAndroid ? 550 : 600) + IClickableMenu.borderWidth * 2;
+            this.xPositionOnScreen = Game1.viewport.Width / 2 - (this.width - (int)(Game1.tileSize * 2.4f)) / 2;
+            this.yPositionOnScreen = Game1.viewport.Height / 2 - this.height / 2;
+
+            // show close button on Android
+            if (this.IsAndroid)
+                this.initializeUpperRightCloseButton();
+
+            // add title
             this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.width / 2, this.yPositionOnScreen, Game1.tileSize * 4, Game1.tileSize), text.Get("mod-name"));
-            this.Tabs.Clear();
+
+            // add tabs
             {
                 int i = 0;
                 int labelX = (int)(this.xPositionOnScreen - Game1.tileSize * 4.8f);
-                int labelY = (int)(this.yPositionOnScreen + Game1.tileSize * (IsAndroid ? 1.25f : 1.5f));
+                int labelY = (int)(this.yPositionOnScreen + Game1.tileSize * (this.IsAndroid ? 1.25f : 1.5f));
                 int labelHeight = (int)(Game1.tileSize * 0.9F);
 
-                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.PlayerAndTools.ToString(), text.Get("tabs.player-and-tools")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.FarmAndFishing.ToString(), text.Get("tabs.farm-and-fishing")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Skills.ToString(), text.Get("tabs.skills")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Weather.ToString(), text.Get("tabs.weather")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Relationships.ToString(), text.Get("tabs.relationships")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.WarpLocations.ToString(), text.Get("tabs.warp")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Time.ToString(), text.Get("tabs.time")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Advanced.ToString(), text.Get("tabs.advanced")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i, Game1.tileSize * 5, Game1.tileSize), MenuTab.Controls.ToString(), text.Get("tabs.controls")));
+                this.Tabs.Clear();
+                this.Tabs.AddRange(new[]
+                {
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.PlayerAndTools.ToString(), text.Get("tabs.player-and-tools")),
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.FarmAndFishing.ToString(), text.Get("tabs.farm-and-fishing")),
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Skills.ToString(), text.Get("tabs.skills")),
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Weather.ToString(), text.Get("tabs.weather")),
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Relationships.ToString(), text.Get("tabs.relationships")),
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.WarpLocations.ToString(), text.Get("tabs.warp")),
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Time.ToString(), text.Get("tabs.time")),
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Advanced.ToString(), text.Get("tabs.advanced")),
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Controls.ToString(), text.Get("tabs.controls"))
+                });
             }
 
-            int scrollbarOffset = Game1.tileSize * (IsAndroid ? 1 : 4) / 16;
+            // add scroll UI
+            int scrollbarOffset = Game1.tileSize * (this.IsAndroid ? 1 : 4) / 16;
             this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(this.xPositionOnScreen + this.width + scrollbarOffset, this.yPositionOnScreen + Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
             this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.xPositionOnScreen + this.width + scrollbarOffset, this.yPositionOnScreen + this.height - Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
             this.Scrollbar = new ClickableTextureComponent("scrollbar", new Rectangle(this.UpArrow.bounds.X + Game1.pixelZoom * 3, this.UpArrow.bounds.Y + this.UpArrow.bounds.Height + Game1.pixelZoom, 6 * Game1.pixelZoom, 10 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(435, 463, 6, 10), Game1.pixelZoom);
             this.ScrollbarRunner = new Rectangle(this.Scrollbar.bounds.X, this.UpArrow.bounds.Y + this.UpArrow.bounds.Height + Game1.pixelZoom, this.Scrollbar.bounds.Width, this.height - Game1.tileSize * 2 - this.UpArrow.bounds.Height - Game1.pixelZoom * 2);
 
+            // add option slots
             this.OptionSlots.Clear();
             for (int i = 0; i < CheatsMenu.ItemsPerPage; i++)
                 this.OptionSlots.Add(new ClickableComponent(new Rectangle(this.xPositionOnScreen + Game1.tileSize / 4, this.yPositionOnScreen + Game1.tileSize * 5 / 4 + Game1.pixelZoom + i * ((this.height - Game1.tileSize * 2) / CheatsMenu.ItemsPerPage), this.width - Game1.tileSize / 2, (this.height - Game1.tileSize * 2) / CheatsMenu.ItemsPerPage + Game1.pixelZoom), string.Concat(i)));
@@ -180,7 +193,7 @@ namespace CJBCheatsMenu.Framework
 
                 // open menu with new index
                 MenuTab tabID = this.GetTabID(this.Tabs[index]);
-                Game1.activeClickableMenu = new CheatsMenu(tabID, this.Cheats, this.Monitor, false);
+                Game1.activeClickableMenu = new CheatsMenu(tabID, this.Cheats, this.Monitor);
             }
         }
 
@@ -259,7 +272,7 @@ namespace CJBCheatsMenu.Framework
                 if (tab.bounds.Contains(x, y))
                 {
                     MenuTab tabID = this.GetTabID(tab);
-                    Game1.activeClickableMenu = new CheatsMenu(tabID, this.Cheats, this.Monitor, false);
+                    Game1.activeClickableMenu = new CheatsMenu(tabID, this.Cheats, this.Monitor);
                     break;
                 }
             }
@@ -317,12 +330,16 @@ namespace CJBCheatsMenu.Framework
             if (this.HoverText != "")
                 IClickableMenu.drawHoverText(spriteBatch, this.HoverText, Game1.smallFont);
 
-            if (!Game1.options.hardwareCursor && !IsAndroid)
+            if (!Game1.options.hardwareCursor && !this.IsAndroid)
                 spriteBatch.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, Game1.options.gamepadControls ? 44 : 0, 16, 16), Color.White, 0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
 
-            // Reinitialize the UI to fix Android pinch-zoom scaling issues.
-            if (this.JustOpened && IsAndroid)
-                ResetComponents();
+            // reinitialize the UI to fix Android pinch-zoom scaling issues
+            if (this.JustOpened)
+            {
+                this.JustOpened = false;
+                if (this.IsAndroid)
+                    this.ResetComponents();
+            }
         }
 
 
@@ -456,7 +473,7 @@ namespace CJBCheatsMenu.Framework
 
                 case MenuTab.Advanced:
                     {
-                        this.Options.AddRange(this.GetDescriptionElements(text.Get("flags.warning")));
+                        this.AddDescription(text.Get("flags.warning"));
 
                         // quests
                         this.AddOptions(
@@ -492,8 +509,10 @@ namespace CJBCheatsMenu.Framework
 
                 case MenuTab.Controls:
                     this.AddTitle($"{text.Get("controls.title")}:");
-                    if (IsAndroid)
-                        this.Options.AddRange(this.GetDescriptionElements(text.Get("controls.android")));
+
+                    if (this.IsAndroid)
+                        this.AddDescription(text.Get("controls.android-config-note"));
+
                     this.AddOptions(
                         new CheatsOptionsKeyListener(
                             label: text.Get("controls.open-menu"),
@@ -544,9 +563,16 @@ namespace CJBCheatsMenu.Framework
             this.SetScrollBarToCurrentIndex();
         }
 
-        /// <summary>Get option elements to display a paragraph of explanatory text.</summary>
-        /// <param name="text">The text to display.</param>
-        private IEnumerable<DescriptionElement> GetDescriptionElements(string text)
+        /// <summary>Add a section title to the options list.</summary>
+        /// <param name="title">The section title.</param>
+        private void AddTitle(string title)
+        {
+            this.Options.Add(new OptionsElement(title));
+        }
+
+        /// <summary>Add descriptive text that may extend onto multiple lines if it's too long.</summary>
+        /// <param name="text">The text to render.</param>
+        private void AddDescription(string text)
         {
             // get text lines
             int maxWidth = this.width - Game1.tileSize - 10;
@@ -562,20 +588,13 @@ namespace CJBCheatsMenu.Framework
                         line += " " + word;
                     else
                     {
-                        yield return new DescriptionElement(line);
+                        this.Options.Add(new DescriptionElement(line));
                         line = word;
                     }
                 }
                 if (line != "")
-                    yield return new DescriptionElement(line);
+                    this.Options.Add(new DescriptionElement(line));
             }
-        }
-
-        /// <summary>Add a section title to the options list.</summary>
-        /// <param name="title">The section title.</param>
-        private void AddTitle(string title)
-        {
-            this.Options.Add(new OptionsElement(title));
         }
 
         /// <summary>Add fields to the options list.</summary>

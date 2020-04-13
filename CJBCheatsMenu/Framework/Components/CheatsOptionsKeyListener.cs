@@ -9,7 +9,7 @@ using StardewValley.Menus;
 namespace CJBCheatsMenu.Framework.Components
 {
     /// <summary>A button which lets the user choose a key binding.</summary>
-    internal class CheatsOptionsKeyListener : OptionsElement
+    internal class CheatsOptionsKeyListener : BaseOptionsElement
     {
         /*********
         ** Fields

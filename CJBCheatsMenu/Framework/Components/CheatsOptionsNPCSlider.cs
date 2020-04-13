@@ -2,14 +2,13 @@ using System;
 using CJB.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Components
 {
     /// <summary>A UI slider for setting a villager's friendship level.</summary>
-    internal class CheatsOptionsNpcSlider : OptionsElement
+    internal class CheatsOptionsNpcSlider : BaseOptionsElement
     {
         /*********
         ** Fields
@@ -88,9 +87,7 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
         {
-            // Android port doesn't consider the control width, so we do so here.
-            int adjustX = (Constants.TargetPlatform == GamePlatform.Android) ? bounds.Width + 8 : 0;
-            base.draw(spriteBatch, slotX + adjustX, slotY);
+            base.draw(spriteBatch, slotX + this.GetOffsetX(), slotY);
 
             Color tint = this.greyedOut ? (Color.White * 0.5f) : Color.White;
 

@@ -7,7 +7,7 @@ using StardewValley.Menus;
 namespace CJBCheatsMenu.Framework.Components
 {
     /// <summary>A button which invokes a callback when clicked.</summary>
-    internal class CheatsOptionsButton : OptionsElement
+    internal class CheatsOptionsButton : BaseOptionsElement
     {
         /*********
         ** Fields

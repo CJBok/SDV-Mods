@@ -1,13 +1,13 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Components
 {
-    internal class CheatsOptionsCheckbox : OptionsElement
+    /// <summary>A checkbox UI option.</summary>
+    internal class CheatsOptionsCheckbox : BaseOptionsElement
     {
         /*********
         ** Fields
@@ -57,10 +57,7 @@ namespace CJBCheatsMenu.Framework.Components
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
         {
             spriteBatch.Draw(Game1.mouseCursors, new Vector2(slotX + this.bounds.X, slotY + this.bounds.Y), this.IsChecked ? OptionsCheckbox.sourceRectChecked : OptionsCheckbox.sourceRectUnchecked, Color.White * (this.greyedOut ? 0.33f : 1f), 0.0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 0.4f);
-
-            // Android port doesn't consider the control width, so we do so here.
-            int adjustX = (Constants.TargetPlatform == GamePlatform.Android) ? bounds.Width + 8 : 0;
-            base.draw(spriteBatch, slotX + adjustX, slotY);
+            base.draw(spriteBatch, slotX + this.GetOffsetX(), slotY);
         }
     }
 }

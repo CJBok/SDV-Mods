@@ -2,11 +2,11 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Components
 {
-    internal class CheatsOptionsWeatherElement : OptionsElement
+    /// <summary>A button which lets the user set the weather.</summary>
+    internal class CheatsOptionsWeatherElement : BaseOptionsElement
     {
         /*********
         ** Fields

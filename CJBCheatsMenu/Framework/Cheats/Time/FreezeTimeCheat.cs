@@ -17,16 +17,6 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
     internal class FreezeTimeCheat : BaseCheat
     {
         /*********
-        ** Fields
-        *********/
-        /// <summary>Whether a vertical toolbar is being drawn on Android.</summary>
-        private bool HasVerticalToolbar;
-
-        /// <summary>The zoom level from Android pinch scaling.</summary>
-        private float NativeZoomLevel;
-
-
-        /*********
         ** Public methods
         *********/
         /// <summary>Get the config UI fields to show in the cheats menu.</summary>
@@ -69,12 +59,6 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /// <param name="e">The update event arguments.</param>
         public override void OnUpdated(CheatContext context, UpdateTickedEventArgs e)
         {
-            if (Constants.TargetPlatform == GamePlatform.Android)
-            {
-                HasVerticalToolbar = context.Reflection.GetField<bool>(Game1.options, "verticalToolbar").GetValue();
-                NativeZoomLevel = context.Reflection.GetProperty<float>(typeof(Game1), "NativeZoomLevel").GetValue();
-            }
-
             if (!Context.IsPlayerFree)
                 return;
 
@@ -87,24 +71,8 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /// <param name="spriteBatch">The sprite batch being drawn.</param>
         public override void OnRendered(CheatContext context, SpriteBatch spriteBatch)
         {
-            if (Constants.TargetPlatform == GamePlatform.Android && Game1.activeClickableMenu != null)
-                return;
-            int x = (Constants.TargetPlatform != GamePlatform.Android) ? 5 : 80 + (HasVerticalToolbar ? 160 : 80);
             if (this.ShouldFreezeTime(context.Config, Game1.currentLocation, out bool isCave))
-            {
-                // For Android, draw in a separate sprite batch whose scaling reverses the pinch zoom to keep the text box a stable size.
-                if (Constants.TargetPlatform == GamePlatform.Android)
-                {
-                    spriteBatch.End();
-                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(NativeZoomLevel));
-                }
-                CommonHelper.DrawTextBox(x, isCave ? 100 : 5, Game1.smallFont, context.Text.Get("time.time-frozen-message"));
-                if (Constants.TargetPlatform == GamePlatform.Android)
-                {
-                    spriteBatch.End();
-                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-                }
-            }
+                this.RenderTimeFrozenBox(context, spriteBatch, isCave);
         }
 
 
@@ -128,7 +96,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /// <summary>Get whether time should be frozen in the given location.</summary>
         /// <param name="config">The mod configuration.</param>
         /// <param name="location">The location to check.</param>
-        /// <param name="isCave">Indicates whether the given location is a cave.</param>
+        /// <param name="isCave">Whether the given location is a cave.</param>
         private bool ShouldFreezeTime(ModConfig config, GameLocation location, out bool isCave)
         {
             isCave = location is MineShaft || location is FarmCave;
@@ -136,6 +104,44 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
                 config.FreezeTime
                 || (config.FreezeTimeCaves && isCave)
                 || (config.FreezeTimeInside && location != null && !location.IsOutdoors && !isCave);
+        }
+
+        /// <summary>Render the 'time frozen' box in the top-left.</summary>
+        /// <param name="context">The cheat context.</param>
+        /// <param name="spriteBatch">The sprite batch being drawn.</param>
+        /// <param name="isCave">Whether the given location is a cave.</param>
+        private void RenderTimeFrozenBox(CheatContext context, SpriteBatch spriteBatch, bool isCave)
+        {
+            // get default draw settings
+            int x = 5;
+            int y = isCave ? 100 : 5;
+            SpriteFont font = Game1.smallFont;
+            string text = context.Text.Get("time.time-frozen-message");
+
+            // render
+            if (Constants.TargetPlatform == GamePlatform.Android)
+            {
+                if (Game1.activeClickableMenu != null)
+                    return;
+
+                bool hasVerticalToolbar = context.Reflection.GetField<bool>(Game1.options, "verticalToolbar").GetValue();
+                float nativeZoomLevel = context.Reflection.GetProperty<float>(typeof(Game1), "NativeZoomLevel").GetValue();
+
+                // for Android, draw in a separate sprite batch whose scaling reverses the pinch zoom to keep the text box a stable size
+                if (Constants.TargetPlatform == GamePlatform.Android)
+                {
+                    spriteBatch.End();
+                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(nativeZoomLevel));
+                }
+                CommonHelper.DrawTextBox(x: 80 + (hasVerticalToolbar ? 160 : 80), y, font, text);
+                if (Constants.TargetPlatform == GamePlatform.Android)
+                {
+                    spriteBatch.End();
+                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
+                }
+            }
+            else
+                CommonHelper.DrawTextBox(x, y, font, text);
         }
     }
 }
