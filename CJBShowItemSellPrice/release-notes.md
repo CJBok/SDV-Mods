@@ -1,7 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.9.6
+Released 14 April 2020 for Stardew Valley 3.4 or later. Updated by Pathoschild.
+
 * Improved translations. Thanks to Annosz (added Hungarian) and BURAKMESE (added Turkish)!
 
 ## 1.9.5
