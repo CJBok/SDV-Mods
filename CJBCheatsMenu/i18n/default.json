@@ -1,7 +1,11 @@
 {
+    /*********
+    ** Main translations
+    *********/
+    // mod name shown in the menu
     "mod-name": "CJB Cheats Menu",
 
-    // menu tabs
+    // tab names
     "tabs.player-and-tools": "Player & Tools",
     "tabs.farm-and-fishing": "Farm & Fishing",
     "tabs.skills": "Skills",
@@ -12,41 +16,60 @@
     "tabs.advanced": "Advanced",
     "tabs.controls": "Controls",
 
-    // 'Player & Tools' tab
+
+    /*********
+    ** Player & Tools tab
+    *********/
+    // player
     "player.title": "Player",
     "player.infinite-stamina": "Infinite Stamina",
     "player.infinite-health": "Infinite Health",
-    "player.increased-movement-speed": "Increased Movement Speed",
+    "player.instant-cooldowns": "Instant Weapon Cooldowns",
+    "player.inventory-size": "Inventory Size",
     "player.movement-speed": "Move Speed",
+    "player.movement-speed.default": "normal",
     "player.one-hit-kill": "One Hit Kill",
     "player.max-daily-luck": "Max Daily Luck",
+
+    // tools
     "tools.title": "Tools",
     "tools.infinite-water": "Infinite Water in Can",
     "tools.one-hit-break": "One Hit Break",
     "tools.harvest-with-scythe": "Harvest With Scythe",
+
+    // money
     "money.title": "Money",
     "money.add-amount": "Add {{amount}}g",
     "casino-coins.title": "Casino Coins",
     "casino-coins.add-amount": "Add {{amount}}",
 
-    // 'Farm & Fishing' tab
+
+    /*********
+    ** Farm & Fishing tab
+    *********/
+    // farm
     "farm.title": "Farm",
-    "farm.water-all-fields": "Water All Fields",
+    "farm.auto-water": "Auto-Water Crops",
     "farm.durable-fences": "Durable Fences",
     "farm.instant-build": "Instant Build",
     "farm.always-auto-feed": "Always Auto-Feed",
     "farm.infinite-hay": "Infinite Hay",
+
+    // fishing
     "fishing.title": "Fishing",
     "fishing.instant-catch": "Instant Catch",
     "fishing.instant-bite": "Instant Bite",
     "fishing.always-throw-max-distance": "Always Throw Max Distance",
     "fishing.always-treasure": "Always Treasure",
     "fishing.durable-tackles": "Durable Tackles",
+
+    // fast machines
     "fast-machines.title": "Fast Machine Processing",
     "fast-machines.bee-house": "Bee House",
     "fast-machines.cask": "Cask",
     "fast-machines.charcoal-kiln": "Charcoal Kiln",
     "fast-machines.cheese-press": "Cheese Press",
+    "fast-machines.crab-pot": "Crab Pot",
     "fast-machines.crystalarium": "Crystalarium",
     "fast-machines.fruit-trees": "Fruit Trees",
     "fast-machines.furnace": "Furnace",
@@ -61,12 +84,19 @@
     "fast-machines.recycling-machine": "Recycling Machine",
     "fast-machines.seed-maker": "Seed Maker",
     "fast-machines.slime-egg-press": "Slime Egg-Press",
-    "fast-machines.slime-incubator": "Slime Incubator (ready in the morning)",
+    "fast-machines.slime-incubator": "Slime Incubator",
+    "fast-machines.soda-machine": "Soda Machine",
+    "fast-machines.statue-of-endless-fortune": "Statue of Endless Fortune",
+    "fast-machines.statue-of-perfection": "Statue of Perfection",
     "fast-machines.tapper": "Tapper",
     "fast-machines.wood-chipper": "Wood Chipper",
     "fast-machines.worm-bin": "Worm Bin",
 
-    // 'Skills' tab
+
+    /*********
+    ** Skills tab
+    *********/
+    // skills
     "skills.title": "Skills",
     "skills.increase-farming": "Incr. Farming Lvl: {{currentLevel}}",
     "skills.increase-mining": "Incr. Mining Lvl: {{currentLevel}}",
@@ -74,6 +104,8 @@
     "skills.increase-fishing": "Incr. Fishing Lvl: {{currentLevel}}",
     "skills.increase-combat": "Incr. Combat Lvl: {{currentLevel}}",
     "skills.reset": "RESET SKILLS!",
+
+    // professions
     "professions.title": "Professions",
     "professions.combat.fighter": "Combat lvl 5 - Fighter",
     "professions.combat.scout": "Combat lvl 5 - Scout",
@@ -106,7 +138,10 @@
     "professions.mining.gemologist": "Mining lvl 10 - Gemologist",
     "professions.mining.prospector": "Mining lvl 10 - Prospector",
 
-    // 'Weather' tab
+
+    /*********
+    ** Weather tab
+    *********/
     "weather.title": "Weather Tomorrow",
     "weather.current": "Current",
     "weather.sunny": "Sunny",
@@ -114,45 +149,76 @@
     "weather.lightning": "Lightning",
     "weather.snowing": "Snowing",
 
-    // 'Relationships' tab
+
+    /*********
+    ** Relationships tab
+    *********/
     "relationships.title": "Relationships",
     "relationships.give-gifts-anytime": "Give Gifts Anytime",
     "relationships.no-decay": "No Friendship Decay",
     "relationships.friends": "Friends",
 
-    // 'Warp Locations' tab
-    "warp.title": "Warp To",
+
+    /*********
+    ** Warps tab
+    *********/
+    // main areas
+    "warp-section.main": "Main Areas",
     "warp.farm": "Farm",
+    "warp.carpenter": "Carpenter",
+    "warp.desert": "Desert",
+    "warp.mines": "Mines",
     "warp.pierre-shop": "Pierre's Shop",
+
+    // town
+    "warp-section.town": "Town",
     "warp.blacksmith": "Blacksmith",
+    "warp.community-center": "Community Center",
+    "warp.jojamart": "JojaMart",
+    "warp.movie-theater": "Movie Theater",
     "warp.museum": "Museum",
     "warp.saloon": "Saloon",
-    "warp.community-center": "Community Center",
-    "warp.carpenter": "Carpenter",
-    "warp.adventurers-guild": "Adventurer's Guild",
-    "warp.ranch": "Marnie's Ranch",
-    "warp.mines": "Mines",
-    "warp.skull-cavern": "Skull Cavern",
-    "warp.willy-shop": "Willy's Shop",
-    "warp.wizard-tower": "Wizard Tower",
-    "warp.hats": "Hats",
-    "warp.desert": "Desert",
-    "warp.sandy-shop": "Sandy's Shop",
-    "warp.casino": "Casino",
-    "warp.quarry": "Quarry",
-    "warp.new-beach": "New Beach",
-    "warp.secret-woods": "Secret Woods",
     "warp.sewer": "Sewers",
-    "warp.bathhouse": "Bathhouse",
 
-    // 'Time' tab
+    // forest
+    "warp-section.forest": "Forest",
+    "warp.hats": "Hats",
+    "warp.ranch": "Marnie's Ranch",
+    "warp.secret-woods": "Secret Woods",
+    "warp.wizard-tower": "Wizard Tower",
+
+    // mountain
+    "warp-section.mountain": "Mountain",
+    "warp.adventurers-guild": "Adventurer's Guild",
+    "warp.bathhouse": "Bathhouse",
+    "warp.quarry": "Quarry",
+
+    // beach
+    "warp-section.beach": "Beach",
+    "warp.tide-pools": "Tide Pools",
+    "warp.willy-shop": "Willy's Shop",
+
+    // desert
+    "warp-section.desert": "Desert",
+    "warp.casino": "Casino",
+    "warp.sandy-shop": "Sandy's Shop",
+    "warp.skull-cavern": "Skull Cavern",
+
+
+    /*********
+    ** Time tab
+    *********/
     "time.title": "Time",
     "time.freeze-inside": "Freeze Time Inside",
     "time.freeze-caves": "Freeze Time In Caves",
     "time.freeze-everywhere": "Freeze Time Everywhere",
     "time.time": "Time",
+    "time.time-frozen-message": "Time Frozen",
 
-    // 'Flags' tab
+
+    /*********
+    ** Advanced tab
+    *********/
     "flags.warning": "Use this section at your own risk!\nThis may cause issues like skipped mail, events, or quests.",
     "flags.quests": "Complete Quests",
     "flags.wallet": "Wallet Items",
@@ -165,16 +231,17 @@
     "flags.community-center.door-unlocked": "Door Unlocked",
     "flags.jojamart.membership": "JojaMart Membership",
 
-    // 'Controls' tab
+
+    /*********
+    ** Controls tab
+    *********/
     "controls.title": "Controls",
+    "controls.android-config-note": "You can change the on-screen buttons in the config files for the CJB Cheats Menu and Virtual Keyboard mods.",
     "controls.open-menu": "Open Menu",
     "controls.freeze-time": "Freeze Time",
     "controls.grow-tree": "Grow Tree",
     "controls.grow-crops": "Grow Crops",
     "controls.grow-radius": "Grow distance around player",
     "controls.reset-controls": "Reset",
-
-    // various messages
-    "messages.press-new-key": "Press New Key...",
-    "messages.time-frozen": "Time Frozen"
+    "controls.press-new-key": "Press New Key..."
 }

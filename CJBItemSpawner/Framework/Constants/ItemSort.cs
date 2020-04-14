@@ -25,17 +25,13 @@ namespace CJBItemSpawner.Framework.Constants
         /// <param name="current">The current sort value.</param>
         public static ItemSort GetNext(this ItemSort current)
         {
-            switch (current)
+            return current switch
             {
-                case ItemSort.DisplayName:
-                    return ItemSort.Category;
-                case ItemSort.Category:
-                    return ItemSort.ID;
-                case ItemSort.ID:
-                    return ItemSort.DisplayName;
-                default:
-                    throw new NotSupportedException($"Unknown sort '{current}'.");
-            }
+                ItemSort.DisplayName => ItemSort.Category,
+                ItemSort.Category => ItemSort.ID,
+                ItemSort.ID => ItemSort.DisplayName,
+                _ => throw new NotSupportedException($"Unknown sort '{current}'.")
+            };
         }
     }
 }

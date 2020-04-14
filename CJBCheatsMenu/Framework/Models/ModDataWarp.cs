@@ -18,6 +18,12 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>The warp's target tile coordinate.</summary>
         public Vector2 Tile { get; set; }
 
+        /// <summary>The relative order in which to list it in the warp menu (default 0).</summary>
+        public int Order { get; set; }
+
+        /// <summary>The special behavior to apply.</summary>
+        public WarpBehavior SpecialBehavior { get; set; }
+
 
         /*********
         ** Public methods

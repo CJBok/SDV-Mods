@@ -153,7 +153,7 @@ namespace CJBItemSpawner.Framework
                                     --this.ActualInventory[index].Stack;
                             }
 
-                            label_15:
+                        label_15:
                             if (this.PlayerInventory && this.ActualInventory[index] != null && this.ActualInventory[index].Stack <= 0)
                                 this.ActualInventory[index] = null;
                             if (playSound)
@@ -214,6 +214,8 @@ namespace CJBItemSpawner.Framework
             Game1.setMousePosition(this.Inventory[0].bounds.Right - this.Inventory[0].bounds.Width / 8, this.Inventory[0].bounds.Bottom - this.Inventory[0].bounds.Height / 8);
         }
 
+        /// <summary>Handle the player scrolling the mouse wheel.</summary>
+        /// <param name="direction">The scroll direction.</param>
         public override void receiveScrollWheelAction(int direction)
         {
             if (GameMenu.forcePreventClose)
@@ -227,23 +229,25 @@ namespace CJBItemSpawner.Framework
                 ItemInventoryMenu.ScrollIndex = (this.ActualInventory.Count / (this.Capacity / this.Rows));
         }
 
+        /// <summary>Draw the menu to the screen.</summary>
+        /// <param name="spriteBatch">The sprite batch being drawn.</param>
         public override void draw(SpriteBatch spriteBatch)
         {
             for (int index = 0; index < this.Capacity; ++index)
             {
-
                 int indexOffset = index;
                 if (!this.PlayerInventory)
                     indexOffset = this.Capacity / this.Rows * ItemInventoryMenu.ScrollIndex + index;
 
-                Vector2 vector2 = new Vector2(this.xPositionOnScreen + index % (this.Capacity / this.Rows) * Game1.tileSize + this.HorizontalGap * (index % (this.Capacity / this.Rows)), this.yPositionOnScreen + index / (this.Capacity / this.Rows) * (Game1.tileSize + this.VerticalGap) + (index / (this.Capacity / this.Rows) - 1) * Game1.pixelZoom);
-                spriteBatch.Draw(Game1.menuTexture, vector2, Game1.getSourceRectForStandardTileSheet(Game1.menuTexture, 10), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.5f);
+                Vector2 position = new Vector2(this.xPositionOnScreen + index % (this.Capacity / this.Rows) * Game1.tileSize + this.HorizontalGap * (index % (this.Capacity / this.Rows)), this.yPositionOnScreen + index / (this.Capacity / this.Rows) * (Game1.tileSize + this.VerticalGap) + (index / (this.Capacity / this.Rows) - 1) * Game1.pixelZoom);
+                spriteBatch.Draw(Game1.menuTexture, position, Game1.getSourceRectForStandardTileSheet(Game1.menuTexture, 10), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.5f);
+                if (this.PlayerInventory && index >= Game1.player.MaxItems)
+                    spriteBatch.Draw(Game1.menuTexture, position, Game1.getSourceRectForStandardTileSheet(Game1.menuTexture, 57), Color.White * 0.5f, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.5f);
+
                 if (this.ActualInventory.Count > indexOffset && this.ActualInventory[indexOffset] != null)
-                    this.ActualInventory[indexOffset].drawInMenu(spriteBatch, vector2, this.Inventory.Count > index ? this.Inventory[index].scale : 1f, !this.HighlightMethod(this.ActualInventory[indexOffset]) ? 0.2f : 1f, 0.865f);
+                    this.ActualInventory[indexOffset].drawInMenu(spriteBatch, position, this.Inventory.Count > index ? this.Inventory[index].scale : 1f, !this.HighlightMethod(this.ActualInventory[indexOffset]) ? 0.2f : 1f, 0.865f);
             }
         }
-
-        public override void receiveRightClick(int x, int y, bool playSound = true) { }
 
 
         /*********
@@ -310,14 +314,11 @@ namespace CJBItemSpawner.Framework
         /// <param name="item">The item to clone.</param>
         private Item GetOne(Item item)
         {
-            switch (item)
+            return item switch
             {
-                case Slingshot slingshot:
-                    return new Slingshot(slingshot.InitialParentTileIndex); // slingshot.getOne() always returns basic slingshot
-
-                default:
-                    return item.getOne();
-            }
+                Slingshot slingshot => new Slingshot(slingshot.InitialParentTileIndex), // slingshot.getOne() always returns basic slingshot
+                _ => item.getOne()
+            };
         }
     }
 }

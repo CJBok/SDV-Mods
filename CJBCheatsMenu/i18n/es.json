@@ -1,7 +1,11 @@
 {
+    /*********
+    ** Main translations
+    *********/
+    // mod name shown in the menu
     "mod-name": "CJB Cheats Menu",
 
-    // menu tabs
+    // tab names
     "tabs.player-and-tools": "Jugador & Herramientas",
     "tabs.farm-and-fishing": "Granja & Pesca",
     "tabs.skills": "Habilidades",
@@ -12,41 +16,60 @@
     "tabs.advanced": "Opciones Avanzadas",
     "tabs.controls": "Controles",
 
-    // 'Player & Tools' tab
+
+    /*********
+    ** Player & Tools tab
+    *********/
+    // player
     "player.title": "Jugador",
     "player.infinite-stamina": "Energía Infinita",
     "player.infinite-health": "Salud Infinita",
-    "player.increased-movement-speed": "Aumentar Velocidad de Movimiento",
+    "player.instant-cooldowns": "Instant Weapon Cooldowns", // TODO
+    "player.inventory-size": "Inventory Size", // TODO
     "player.movement-speed": "Velocidad de Movimiento",
+    "player.movement-speed.default": "normal", // TODO
     "player.one-hit-kill": "Matar de Un Golpe",
     "player.max-daily-luck": "Máxima Suerte Diaria",
+
+    // tools
     "tools.title": "Herramientas",
     "tools.infinite-water": "Agua Infinita en la Regadera",
     "tools.one-hit-break": "Romper de Un Golpe",
     "tools.harvest-with-scythe": "Cosechar con Guadaña",
+
+    // money
     "money.title": "Dinero",
     "money.add-amount": "Añadir {{amount}}g",
     "casino-coins.title": "Monedas Del Casino",
     "casino-coins.add-amount": "Añadir {{amount}}",
 
-    // 'Farm & Fishing' tab
+
+    /*********
+    ** Farm & Fishing tab
+    *********/
+    // farm
     "farm.title": "Granja",
-    "farm.water-all-fields": "Regar Todos Los Campos",
+    "farm.auto-water": "Auto-Water Crops", // TODO
     "farm.durable-fences": "Vallas Duraderas",
     "farm.instant-build": "Construcciones Instantáneas",
     "farm.always-auto-feed": "Siempre Auto Alimentar",
     "farm.infinite-hay": "Heno Infinito",
+
+    // fishing
     "fishing.title": "Pesca",
     "fishing.instant-catch": "Captura Instantánea",
     "fishing.instant-bite": "Mordida Instantánea",
     "fishing.always-throw-max-distance": "Siempre Lanzar Distancia Máxima",
     "fishing.always-treasure": "Siempre Tesoros",
     "fishing.durable-tackles": "Aparejos Duraderos",
+
+    // fast machines
     "fast-machines.title": "Procesamiento Rápido de Las Máquinas",
     "fast-machines.bee-house": "Colmena",
     "fast-machines.cask": "Tonel",
     "fast-machines.charcoal-kiln": "Horno de Carbón",
     "fast-machines.cheese-press": "Prensa de Queso",
+    "fast-machines.crab-pot": "Trampa para cangrejos",
     "fast-machines.crystalarium": "Cristalario",
     "fast-machines.fruit-trees": "Árboles Frutales",
     "fast-machines.furnace": "Horno",
@@ -61,12 +84,19 @@
     "fast-machines.recycling-machine": "Máquina de Reciclaje",
     "fast-machines.seed-maker": "Semilladora",
     "fast-machines.slime-egg-press": "Presa de Babas",
-    "fast-machines.slime-incubator": "Incubadora de Babas (lista por la mañana)", // TODO review (auto-translated)
+    "fast-machines.slime-incubator": "Incubadora de Babas",
+    "fast-machines.soda-machine": "Máquina de refrescos",
+    "fast-machines.statue-of-endless-fortune": "Estatua de la fortuna eterna",
+    "fast-machines.statue-of-perfection": "Estatua de la perfección",
     "fast-machines.tapper": "Resinera",
     "fast-machines.wood-chipper": "Astilladora de madera",
     "fast-machines.worm-bin": "Vivero de Cebo",
 
-    // 'Skills' tab
+
+    /*********
+    ** Skills tab
+    *********/
+    // skills
     "skills.title": "Habilidades",
     "skills.increase-farming": "Incr. Agricultura Lvl: {{currentLevel}}",
     "skills.increase-mining": "Incr. Mineria Lvl: {{currentLevel}}",
@@ -74,6 +104,8 @@
     "skills.increase-fishing": "Incr. Pesca Lvl: {{currentLevel}}",
     "skills.increase-combat": "Incr. Combate Lvl: {{currentLevel}}",
     "skills.reset": "RESTABLECER HABILIADES!",
+
+    // professions
     "professions.title": "Profesiones",
     "professions.combat.fighter": "Combate lvl 5 - Luchador",
     "professions.combat.scout": "Combate lvl 5 - Explorador",
@@ -106,7 +138,10 @@
     "professions.mining.gemologist": "Mineria lvl 10 - Gemólogo",
     "professions.mining.prospector": "Mineria lvl 10 - Buscador",
 
-    // 'Weather' tab
+
+    /*********
+    ** Weather tab
+    *********/
     "weather.title": "Tiempo Mañana",
     "weather.current": "Actual",
     "weather.sunny": "Soleado",
@@ -114,45 +149,76 @@
     "weather.lightning": "Relámpago",
     "weather.snowing": "Nevando",
 
-    // 'Relationships' tab
+
+    /*********
+    ** Relationships tab
+    *********/
     "relationships.title": "Relaciones",
     "relationships.give-gifts-anytime": "Dar regalos en cualquier momento",
     "relationships.no-decay": "Ninguna Amistad Decaerá",
     "relationships.friends": "Amigos",
 
-    // 'Warp Locations' tab
-    "warp.title": "Teletransportación",
+
+    /*********
+    ** Warps tab
+    *********/
+    // main areas
+    "warp-section.main": "Main Areas", // TODO
     "warp.farm": "Granja",
+    "warp.carpenter": "Carpintería",
+    "warp.desert": "Desierto de Calico",
+    "warp.mines": "Minas",
     "warp.pierre-shop": "Tienda Pierre's",
+
+    // town
+    "warp-section.town": "Town", // TODO
     "warp.blacksmith": "Herrería",
+    "warp.community-center": "Centro Cívico",
+    "warp.jojamart": "MercaJoja",
+    "warp.movie-theater": "El Cine",
     "warp.museum": "Museo y Biblioteca",
     "warp.saloon": "Salón",
-    "warp.community-center": "Centro Cívico",
-    "warp.carpenter": "Carpintería",
-    "warp.adventurers-guild": "Gremio de Aventureros",
-    "warp.ranch": "Rancho de Marnie",
-    "warp.mines": "Minas",
-    "warp.skull-cavern": "Caverna Calavera",
-    "warp.willy-shop": "Tienda de Pesca",
-    "warp.wizard-tower": "Torre del Mago",
-    "warp.hats": "Sombreros",
-    "warp.desert": "Desierto de Calico",
-    "warp.sandy-shop": "Tienda Sandy's",
-    "warp.casino": "Casino",
-    "warp.quarry": "Cantera",
-    "warp.new-beach": "Nueva Playa",
-    "warp.secret-woods": "Bosque Secreto",
     "warp.sewer": "Alcantarillas",
-    "warp.bathhouse": "Spa",
 
-    // 'Time' tab
+    // forest
+    "warp-section.forest": "Forest", // TODO
+    "warp.hats": "Sombreros",
+    "warp.ranch": "Rancho de Marnie",
+    "warp.secret-woods": "Bosque Secreto",
+    "warp.wizard-tower": "Torre del Mago",
+
+    // mountain
+    "warp-section.mountain": "Mountain", // TODO
+    "warp.adventurers-guild": "Gremio de Aventureros",
+    "warp.bathhouse": "Spa",
+    "warp.quarry": "Cantera",
+
+    // beach
+    "warp-section.beach": "Playa",
+    "warp.tide-pools": "Pozas de marea",
+    "warp.willy-shop": "Tienda de Pesca",
+
+    // desert
+    "warp-section.desert": "Desert", // TODO
+    "warp.casino": "Casino",
+    "warp.sandy-shop": "Tienda Sandy's",
+    "warp.skull-cavern": "Caverna Calavera",
+
+
+    /*********
+    ** Time tab
+    *********/
     "time.title": "Tiempo",
     "time.freeze-inside": "Congelar Tiempo Dentro",
     "time.freeze-caves": "Congelar Tiempo en Cuevas",
     "time.freeze-everywhere": "Congelar Tiempo en Todas Partes",
     "time.time": "Tiempo",
+    "time.time-frozen-message": "Tiempo Congelado",
 
-    // 'Flags' tab
+
+    /*********
+    ** Advanced tab
+    *********/
     "flags.warning": "Utiliza esta sección bajo tu propio riesgo!\nEsto puede causar inconvenientes como que se salteen eventos, misiones o correspondencia.",
     "flags.quests": "Completar Misiones",
     "flags.wallet": "Objetos del Monedero",
@@ -165,16 +231,17 @@
     "flags.community-center.door-unlocked": "Puerta Abierta",
     "flags.jojamart.membership": "Membresía de JojaMart",
 
-    // 'Controls' tab
+
+    /*********
+    ** Controls tab
+    *********/
     "controls.title": "Controles",
+    "controls.android-config-note": "You can change the on-screen buttons in the config files for the CJB Cheats Menu and Virtual Keyboard mods.", // TODO
     "controls.open-menu": "Abrir Menu",
     "controls.freeze-time": "Congelar Tiempo",
     "controls.grow-tree": "Cultivar Árbol",
     "controls.grow-crops": "Cultivar Cultivos",
     "controls.grow-radius": "Grow distance around player", // TODO
     "controls.reset-controls": "Reset", // TODO
-
-    // various messages
-    "messages.press-new-key": "Presione Nueva Tecla...",
-    "messages.time-frozen": "Tiempo Congelado"
+    "controls.press-new-key": "Presione Nueva Tecla..."
 }

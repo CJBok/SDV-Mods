@@ -1,0 +1,20 @@
+{
+    "title": "CJB Item Spawner",
+
+    "labels.sort-by-name": "Név szerint",
+    "labels.sort-by-category": "Kategória szerint",
+    "labels.sort-by-id": "ID szerint",
+    "labels.quality": "Minőség",
+
+    "tabs.all": "Összes",
+    "tabs.equipment": "Eszközök & Felszerelés",
+    "tabs.crops": "Magvak & zöldségek",
+    "tabs.fishing": "Hal & Csali & Szemét",
+    "tabs.forage": "Gyűjtés & Gyümölcsök",
+    "tabs.artifacts-and-minerals": "Ereklyék & Ásványok",
+    "tabs.resources-and-crafting": "Alapanyagok & Barkácsolás",
+    "tabs.artisan-and-cooking": "Kézműves & Főzés",
+    "tabs.animal-and-monster": "Állat & Szörny",
+    "tabs.decorating": "Dekorációk",
+    "tabs.miscellaneous": "Egyéb"
+}

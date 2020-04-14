@@ -1,7 +1,11 @@
 {
+    /*********
+    ** Main translations
+    *********/
+    // mod name shown in the menu
     "mod-name": "CJB Cheats Menu",
 
-    // menu tabs
+    // tab names
     "tabs.player-and-tools": "プレイヤー＆ツール",
     "tabs.farm-and-fishing": "農場＆釣り",
     "tabs.skills": "スキル",
@@ -12,41 +16,60 @@
     "tabs.advanced": "上級者向け",
     "tabs.controls": "キー変更",
 
-    // 'Player & Tools' tab
+
+    /*********
+    ** Player & Tools tab
+    *********/
+    // player
     "player.title": "プレイヤー",
     "player.infinite-stamina": "エネルギー無限",
     "player.infinite-health": "体力無限",
-    "player.increased-movement-speed": "移動速度",
+    "player.instant-cooldowns": "Instant Weapon Cooldowns", // TODO
+    "player.inventory-size": "Inventory Size", // TODO
     "player.movement-speed": "移動スピード",
+    "player.movement-speed.default": "normal", // TODO
     "player.one-hit-kill": "一撃で敵を倒す",
     "player.max-daily-luck": "幸運になる",
+
+    // tools
     "tools.title": "ツール",
     "tools.infinite-water": "ジョウロの水無限",
     "tools.one-hit-break": "1度のアクションで目的達成",
     "tools.harvest-with-scythe": "カマで収穫",
+
+    // money
     "money.title": "お金",
     "money.add-amount": "増やす {{amount}}g",
     "casino-coins.title": "カジノのコイン",
     "casino-coins.add-amount": "増やす {{amount}}",
 
-    // 'Farm & Fishing' tab
+
+    /*********
+    ** Farm & Fishing tab
+    *********/
+    // farm
     "farm.title": "農場",
-    "farm.water-all-fields": "自動で水撒き",
+    "farm.auto-water": "Auto-Water Crops", // TODO
     "farm.durable-fences": "柵を強化",
     "farm.instant-build": "建設がすぐに終わる",
     "farm.always-auto-feed": "エサやり自動化",
     "farm.infinite-hay": "干し草が無くならない",
+
+    // fishing
     "fishing.title": "釣り",
     "fishing.instant-catch": "簡単に釣り成功",
     "fishing.instant-bite": "獲物がすぐにかかる",
     "fishing.always-throw-max-distance": "最大距離で釣り糸を投げる",
     "fishing.always-treasure": "常に宝箱が釣れる",
     "fishing.durable-tackles": "釣り具の強化",
+
+    // fast machines
     "fast-machines.title": "作成時間の短縮",
     "fast-machines.bee-house": "ハチの巣箱",
     "fast-machines.cask": "熟成ダル",
     "fast-machines.charcoal-kiln": "炭焼き窯",
     "fast-machines.cheese-press": "チーズプレス",
+    "fast-machines.crab-pot": "カニかご",
     "fast-machines.crystalarium": "結晶コピーマシン",
     "fast-machines.fruit-trees": "果樹",
     "fast-machines.furnace": "溶鉱炉",
@@ -61,12 +84,19 @@
     "fast-machines.recycling-machine": "リサイクルマシン",
     "fast-machines.seed-maker": "タネ製造マシン",
     "fast-machines.slime-egg-press": " スライムエッグプレス",
-    "fast-machines.slime-incubator": "スライム用ふ卵器（午前中に準備完了）", // TODO review (auto-translated)
+    "fast-machines.slime-incubator": "スライム用ふ卵器",
+    "fast-machines.soda-machine": "コーラマシン",
+    "fast-machines.statue-of-endless-fortune": "おわりなき幸運の像",
+    "fast-machines.statue-of-perfection": "完全無欠の像",
     "fast-machines.tapper": "樹液採取器",
     "fast-machines.wood-chipper": "ウッドチッパー",
     "fast-machines.worm-bin": "ミミズ飼育器",
 
-    // 'Skills' tab
+
+    /*********
+    ** Skills tab
+    *********/
+    // skills
     "skills.title": "スキル",
     "skills.increase-farming": "農業レベル: {{currentLevel}}",
     "skills.increase-mining": "採鉱レベル: {{currentLevel}}",
@@ -74,6 +104,8 @@
     "skills.increase-fishing": "釣りレベル: {{currentLevel}}",
     "skills.increase-combat": "戦闘レベル: {{currentLevel}}",
     "skills.reset": "スキルリセット",
+
+    // professions
     "professions.title": "職業",
     "professions.combat.fighter": "戦闘レベル5 - 戦士",
     "professions.combat.scout": "戦闘レベル5 - 偵察者",
@@ -106,7 +138,10 @@
     "professions.mining.gemologist": "採鉱レベル10 - 宝石学者",
     "professions.mining.prospector": "採鉱レベル10 - 探鉱者",
 
-    // 'Weather' tab
+
+    /*********
+    ** Weather tab
+    *********/
     "weather.title": "明日の天気",
     "weather.current": "現在の天気",
     "weather.sunny": "晴れ",
@@ -114,45 +149,76 @@
     "weather.lightning": "雷雨",
     "weather.snowing": "雪",
 
-    // 'Relationships' tab
+
+    /*********
+    ** Relationships tab
+    *********/
     "relationships.title": "人間関係",
     "relationships.give-gifts-anytime": "何度もプレゼントできる",
     "relationships.no-decay": "好感度が減らない",
     "relationships.friends": "友人",
 
-    // 'Warp Locations' tab
-    "warp.title": "ワープ",
+
+    /*********
+    ** Warps tab
+    *********/
+    // main areas
+    "warp-section.main": "Main Areas", // TODO
     "warp.farm": "農場",
+    "warp.carpenter": "大工作業場",
+    "warp.desert": "砂漠",
+    "warp.mines": "鉱山",
     "warp.pierre-shop": "商店",
+
+    // town
+    "warp-section.town": "Town", // TODO
     "warp.blacksmith": "鍛冶屋",
+    "warp.community-center": "公民館",
+    "warp.jojamart": "Jojaマート",
+    "warp.movie-theater": "映画館",
     "warp.museum": "博物館",
     "warp.saloon": "酒場",
-    "warp.community-center": "公民館",
-    "warp.carpenter": "大工作業場",
-    "warp.adventurers-guild": "冒険者ギルド",
-    "warp.ranch": "牧場商店",
-    "warp.mines": "鉱山",
-    "warp.skull-cavern": "ドクロの洞窟",
-    "warp.willy-shop": "釣具店",
-    "warp.wizard-tower": "魔術師の塔",
-    "warp.hats": "ぼうしや",
-    "warp.desert": "砂漠",
-    "warp.sandy-shop": "砂漠商店",
-    "warp.casino": "カジノ",
-    "warp.quarry": "石切り場",
-    "warp.new-beach": "ビーチ",
-    "warp.secret-woods": "秘密の森",
     "warp.sewer": "下水道",
-    "warp.bathhouse": "温泉",
 
-    // 'Time' tab
+    // forest
+    "warp-section.forest": "Forest", // TODO
+    "warp.hats": "ぼうしや",
+    "warp.ranch": "牧場商店",
+    "warp.secret-woods": "秘密の森",
+    "warp.wizard-tower": "魔術師の塔",
+
+    // mountain
+    "warp-section.mountain": "Mountain", // TODO
+    "warp.adventurers-guild": "冒険者ギルド",
+    "warp.bathhouse": "温泉",
+    "warp.quarry": "石切り場",
+
+    // beach
+    "warp-section.beach": "ビーチ",
+    "warp.tide-pools": "タイドプール",
+    "warp.willy-shop": "釣具店",
+
+    // desert
+    "warp-section.desert": "Desert", // TODO
+    "warp.casino": "カジノ",
+    "warp.sandy-shop": "砂漠商店",
+    "warp.skull-cavern": "ドクロの洞窟",
+
+
+    /*********
+    ** Time tab
+    *********/
     "time.title": "時間停止",
     "time.freeze-inside": "屋内で時間が止まる",
     "time.freeze-caves": "洞窟の中で時間が止まる",
     "time.freeze-everywhere": "どこでも時間が止まる",
     "time.time": "時間",
+    "time.time-frozen-message": "時間停止！",
 
-    // 'Flags' tab
+
+    /*********
+    ** Advanced tab
+    *********/
     "flags.warning": "これらの設定の変更はあなたの自己責任です！\n手紙の配達、イベントやクエストの進行に問題が起きる場合があります。",
     "flags.quests": "クエストの完了",
     "flags.wallet": "財布のアイテム",
@@ -165,16 +231,17 @@
     "flags.community-center.door-unlocked": "公民館へ入館",
     "flags.jojamart.membership": "Jojaマート 会員権",
 
-    // 'Controls' tab
+
+    /*********
+    ** Controls tab
+    *********/
     "controls.title": "コントロール",
+    "controls.android-config-note": "You can change the on-screen buttons in the config files for the CJB Cheats Menu and Virtual Keyboard mods.", // TODO
     "controls.open-menu": "チートメニューを表示",
     "controls.freeze-time": "時間を止める",
     "controls.grow-tree": "果樹が生長する",
     "controls.grow-crops": "周りの作物が収穫できるようになる",
     "controls.grow-radius": "Grow distance around player", // TODO
     "controls.reset-controls": "Reset", // TODO
-
-    // various messages
-    "messages.press-new-key": "新しいキーを押してね",
-    "messages.time-frozen": "時間停止！"
+    "controls.press-new-key": "新しいキーを押してね"
 }

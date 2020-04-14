@@ -1,7 +1,11 @@
 {
+    /*********
+    ** Main translations
+    *********/
+    // mod name shown in the menu
     "mod-name": "CJB 作弊菜单",
 
-    // menu tabs
+    // tab names
     "tabs.player-and-tools": "玩家 & 工具",
     "tabs.farm-and-fishing": "农场 & 钓鱼",
     "tabs.skills": "技能",
@@ -12,41 +16,60 @@
     "tabs.advanced": "高级",
     "tabs.controls": "控制",
 
-    // 'Player & Tools' tab
+
+    /*********
+    ** Player & Tools tab
+    *********/
+    // player
     "player.title": "玩家",
     "player.infinite-stamina": "耐力不减",
     "player.infinite-health": "生命不减",
-    "player.increased-movement-speed": "提升移动速度",
+    "player.instant-cooldowns": "Instant Weapon Cooldowns", // TODO
+    "player.inventory-size": "Inventory Size", // TODO
     "player.movement-speed": "移动速度增加",
+    "player.movement-speed.default": "normal", // TODO
     "player.one-hit-kill": "一拳超人(对怪物)",
     "player.max-daily-luck": "每日运气最大",
+
+    // tools
     "tools.title": "工具",
     "tools.infinite-water": "无限喷壶",
     "tools.one-hit-break": "一拳超人(对物品)",
     "tools.harvest-with-scythe": "镰刀收获",
+
+    // money
     "money.title": "金钱",
     "money.add-amount": "增加 {{amount}} 金",
     "casino-coins.title": "赌场代币",
     "casino-coins.add-amount": "增加 {{amount}} 代币",
 
-    // 'Farm & Fishing' tab
+
+    /*********
+    ** Farm & Fishing tab
+    *********/
+    // farm
     "farm.title": "农场",
-    "farm.water-all-fields": "打湿所有耕地",
+    "farm.auto-water": "Auto-Water Crops", // TODO
     "farm.durable-fences": "围栏不损毁",
     "farm.instant-build": "农场建筑立即完成",
     "farm.always-auto-feed": "自动喂食",
     "farm.infinite-hay": "无限干草",
+
+    // fishing
     "fishing.title": "钓鱼",
     "fishing.instant-catch": "立即抓住",
     "fishing.instant-bite": "立即咬钩",
     "fishing.always-throw-max-distance": "抛竿总是最远距离",
     "fishing.always-treasure": "必定出现宝箱",
     "fishing.durable-tackles": "钓具不损毁",
+
+    // fast machines
     "fast-machines.title": "农场工具快速生产",
     "fast-machines.bee-house": "蜂房",
     "fast-machines.cask": "酒窖",
     "fast-machines.charcoal-kiln": "炭窑",
     "fast-machines.cheese-press": "压酪机",
+    "fast-machines.crab-pot": "蟹笼",
     "fast-machines.crystalarium": "宝石复制机",
     "fast-machines.fruit-trees": "水果树",
     "fast-machines.furnace": "熔炉",
@@ -61,12 +84,19 @@
     "fast-machines.recycling-machine": "回收机",
     "fast-machines.seed-maker": "种子生产器",
     "fast-machines.slime-egg-press": "史莱姆蛋压制机",
-    "fast-machines.slime-incubator": "史莱姆孵化器（早上准备）", // TODO review (auto-translated)
+    "fast-machines.slime-incubator": "史莱姆孵化器",
+    "fast-machines.soda-machine": "汽水机",
+    "fast-machines.statue-of-endless-fortune": "无尽财富之雕像",
+    "fast-machines.statue-of-perfection": "完美雕像",
     "fast-machines.tapper": "树液采集器",
     "fast-machines.wood-chipper": "碎木机",
     "fast-machines.worm-bin": "虫房",
 
-    // 'Skills' tab
+
+    /*********
+    ** Skills tab
+    *********/
+    // skills
     "skills.title": "技能",
     "skills.increase-farming": "提升耕种 Lv: {{currentLevel}}",
     "skills.increase-mining": "提升采矿 Lv: {{currentLevel}}",
@@ -74,6 +104,8 @@
     "skills.increase-fishing": "提升钓鱼 Lv: {{currentLevel}}",
     "skills.increase-combat": "提升战斗 Lv: {{currentLevel}}",
     "skills.reset": "重设技能!",
+
+    // professions
     "professions.title": "职业",
     "professions.combat.fighter": "战斗 lvl 5 - 战士",
     "professions.combat.scout": "战斗 lvl 5 - 观察员",
@@ -106,7 +138,10 @@
     "professions.mining.gemologist": "采矿 lvl 10 - 宝石专家",
     "professions.mining.prospector": "采矿 lvl 10 - 勘探者",
 
-    // 'Weather' tab
+
+    /*********
+    ** Weather tab
+    *********/
     "weather.title": "明日天气",
     "weather.current": "目前",
     "weather.sunny": "晴天",
@@ -114,45 +149,76 @@
     "weather.lightning": "雷雨",
     "weather.snowing": "下雪",
 
-    // 'Relationships' tab
+
+    /*********
+    ** Relationships tab
+    *********/
     "relationships.title": "人际关系",
     "relationships.give-gifts-anytime": "随时可以给予礼物",
     "relationships.no-decay": "友情不会下降",
     "relationships.friends": "朋友",
 
-    // 'Warp Locations' tab
-    "warp.title": "传送",
+
+    /*********
+    ** Warps tab
+    *********/
+    // main areas
+    "warp-section.main": "Main Areas", // TODO
     "warp.farm": "农场",
+    "warp.carpenter": "木匠的商店",
+    "warp.desert": "沙漠",
+    "warp.mines": "矿洞",
     "warp.pierre-shop": "皮埃尔的杂货店",
+
+    // town
+    "warp-section.town": "Town", // TODO
     "warp.blacksmith": "铁匠",
+    "warp.community-center": "社区中心",
+    "warp.jojamart": "Joja超市",
+    "warp.movie-theater": "电影院",
     "warp.museum": "博物馆",
     "warp.saloon": "星之果实餐吧",
-    "warp.community-center": "社区中心",
-    "warp.carpenter": "木匠的商店",
-    "warp.adventurers-guild": "探险家工会",
-    "warp.ranch": "玛尼的牧场",
-    "warp.mines": "矿洞",
-    "warp.skull-cavern": "头骨矿洞",
-    "warp.willy-shop": "威利的鱼店",
-    "warp.wizard-tower": "法师塔",
-    "warp.hats": "被遗弃的房屋",
-    "warp.desert": "沙漠",
-    "warp.sandy-shop": "桑迪的商店",
-    "warp.casino": "赌场",
-    "warp.quarry": "采石场",
-    "warp.new-beach": "沙滩",
-    "warp.secret-woods": "秘密森林",
     "warp.sewer": "下水道",
-    "warp.bathhouse": "温泉",
 
-    // 'Time' tab
+    // forest
+    "warp-section.forest": "Forest", // TODO
+    "warp.hats": "被遗弃的房屋",
+    "warp.ranch": "玛尼的牧场",
+    "warp.secret-woods": "秘密森林",
+    "warp.wizard-tower": "法师塔",
+
+    // mountain
+    "warp-section.mountain": "Mountain", // TODO
+    "warp.adventurers-guild": "探险家工会",
+    "warp.bathhouse": "温泉",
+    "warp.quarry": "采石场",
+
+    // beach
+    "warp-section.beach": "沙滩",
+    "warp.tide-pools": "沙滩",
+    "warp.willy-shop": "威利的鱼店",
+
+    // desert
+    "warp-section.desert": "Desert", // TODO
+    "warp.casino": "赌场",
+    "warp.sandy-shop": "桑迪的商店",
+    "warp.skull-cavern": "头骨矿洞",
+
+
+    /*********
+    ** Time tab
+    *********/
     "time.title": "时间",
     "time.freeze-inside": "在建筑内冻结时间",
     "time.freeze-caves": "在洞穴内冻结时间",
     "time.freeze-everywhere": "无论身在何处都冻结",
     "time.time": "时间",
+    "time.time-frozen-message": "时间冻结",
 
-    // 'Flags' tab
+
+    /*********
+    ** Advanced tab
+    *********/
     "flags.warning": "使用此部分内容需要您自行承担风险！\n这可能会导致诸如邮件、事件或日志被跳过之类的问题。",
     "flags.quests": "完成日志",
     "flags.wallet": "钱包物品",
@@ -165,16 +231,17 @@
     "flags.community-center.door-unlocked": "社区中心解锁",
     "flags.jojamart.membership": "乔家超市（JojaMart）会员资格",
 
-    // 'Controls' tab
+
+    /*********
+    ** Controls tab
+    *********/
     "controls.title": "按键绑定",
+    "controls.android-config-note": "You can change the on-screen buttons in the config files for the CJB Cheats Menu and Virtual Keyboard mods.", // TODO
     "controls.open-menu": "打开菜单",
     "controls.freeze-time": "冻结时间",
     "controls.grow-tree": "树木立即长大",
     "controls.grow-crops": "作物立即成熟",
     "controls.grow-radius": "Grow distance around player", // TODO
     "controls.reset-controls": "Reset", // TODO
-
-    // various messages
-    "messages.press-new-key": "绑定新按键...",
-    "messages.time-frozen": "时间冻结"
+    "controls.press-new-key": "绑定新按键..."
 }

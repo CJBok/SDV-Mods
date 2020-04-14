@@ -1,7 +1,11 @@
 {
+    /*********
+    ** Main translations
+    *********/
+    // mod name shown in the menu
     "mod-name": "CJB Cheatmenü",
 
-    // menu tabs
+    // tab names
     "tabs.player-and-tools": "Spieler & Werkzeuge",
     "tabs.farm-and-fishing": "Farm & Fischen",
     "tabs.skills": "Fertigkeiten",
@@ -12,41 +16,60 @@
     "tabs.advanced": "Erweitert",
     "tabs.controls": "Steuerung",
 
-    // 'Player & Tools' tab
+
+    /*********
+    ** Player & Tools tab
+    *********/
+    // player
     "player.title": "Spieler",
     "player.infinite-stamina": "Unendliche Ausdauer",
     "player.infinite-health": "Unendlich Leben",
-    "player.increased-movement-speed": "Erhöhte Bewegungsgeschwindigkeit",
+    "player.instant-cooldowns": "Instant Weapon Cooldowns", // TODO
+    "player.inventory-size": "Inventory Size", // TODO
     "player.movement-speed": "Bewegungsgeschwindigkeit",
+    "player.movement-speed.default": "normal", // TODO
     "player.one-hit-kill": "Mit einem Schlag töten",
     "player.max-daily-luck": "Maximales tägliches Glück",
+
+    // tools
     "tools.title": "Werkzeuge",
     "tools.infinite-water": "Unendlich Wasser in Gießkanne",
     "tools.one-hit-break": "Mit einem Schlag zerstören",
     "tools.harvest-with-scythe": "Mit Sense ernten",
+
+    // money
     "money.title": "Geld",
     "money.add-amount": "Füge {{amount}}g hinzu",
     "casino-coins.title": "Casino Münzen",
     "casino-coins.add-amount": "Füge {{amount}} hinzu",
 
-    // 'Farm & Fishing' tab
+
+    /*********
+    ** Farm & Fishing tab
+    *********/
+    // farm
     "farm.title": "Farm",
-    "farm.water-all-fields": "Gieße alle Felder",
+    "farm.auto-water": "Auto-Water Crops", // TODO
     "farm.durable-fences": "Widerstandsfähige Zäune",
     "farm.instant-build": "Sofortiger Bau",
     "farm.always-auto-feed": "Immer automatisch füttern",
     "farm.infinite-hay": "Unendlich Heu",
+
+    // fishing
     "fishing.title": "Angeln",
     "fishing.instant-catch": "Sofortiger Fang",
     "fishing.instant-bite": "Sofortiger Biss",
     "fishing.always-throw-max-distance": "Immer über maximale Distanz auswerfen",
     "fishing.always-treasure": "Jedes mal Schatz",
     "fishing.durable-tackles": "Haltbares Angelzubehör",
+
+    // fast machines
     "fast-machines.title": "Schnelle maschinelle Verarbeitung",
     "fast-machines.bee-house": "Bienenhaus",
     "fast-machines.cask": "Reifefass",
     "fast-machines.charcoal-kiln": "Kohlebrennofen",
     "fast-machines.cheese-press": "Käsepresse",
+    "fast-machines.crab-pot": "Krabbenreuse",
     "fast-machines.crystalarium": "Kristallarium",
     "fast-machines.fruit-trees": "Fruchtbäume",
     "fast-machines.furnace": "Ofen",
@@ -61,12 +84,19 @@
     "fast-machines.recycling-machine": "Recyclingmaschine",
     "fast-machines.seed-maker": "Saatguterzeuger",
     "fast-machines.slime-egg-press": "Schleim-Eierpresse",
-    "fast-machines.slime-incubator": "Schleimbrutkasten (morgens fertig)", // TODO review (auto-translated)
+    "fast-machines.slime-incubator": "Schleimbrutkasten",
+    "fast-machines.soda-machine": "Getränkemaschine",
+    "fast-machines.statue-of-endless-fortune": "Statue des ewigen Glücks",
+    "fast-machines.statue-of-perfection": "Statue der Perfektion",
     "fast-machines.tapper": "Zapfhahn",
     "fast-machines.wood-chipper": "Holzhackmaschine",
     "fast-machines.worm-bin": "Wurmeimer",
 
-    // 'Skills' tab
+
+    /*********
+    ** Skills tab
+    *********/
+    // skills
     "skills.title": "Fähigkeiten",
     "skills.increase-farming": "Erhöhe Hofarbeit Lvl: {{currentLevel}}",
     "skills.increase-mining": "Erhöhe Minenarbeit Lvl: {{currentLevel}}",
@@ -74,6 +104,8 @@
     "skills.increase-fishing": "Erhöhe Fischen Lvl: {{currentLevel}}",
     "skills.increase-combat": "Erhöhe Kampf Lvl: {{currentLevel}}",
     "skills.reset": "FÄHIGKEITEN ZURÜCKSETZEN!",
+
+    // professions
     "professions.title": "Berufe",
     "professions.combat.fighter": "Kampf lvl 5 - Kämpfer",
     "professions.combat.scout": "Kampf lvl 5 - Kundschafter",
@@ -106,7 +138,10 @@
     "professions.mining.gemologist": "Minenarbeit lvl 10 - Gemmologe",
     "professions.mining.prospector": "Minenarbeit lvl 10 - Erzsucher",
 
-    // 'Weather' tab
+
+    /*********
+    ** Weather tab
+    *********/
     "weather.title": "Wetter Morgen",
     "weather.current": "Aktuell",
     "weather.sunny": "Sonnig",
@@ -114,45 +149,76 @@
     "weather.lightning": "Gewitter",
     "weather.snowing": "Schnee",
 
-    // 'Relationships' tab
+
+    /*********
+    ** Relationships tab
+    *********/
     "relationships.title": "Beziehungen",
     "relationships.give-gifts-anytime": "Geschenke jederzeit hergeben",
     "relationships.no-decay": "Kein Freundschaftsrückfall",
     "relationships.friends": "Freunde",
 
-    // 'Warp Locations' tab
-    "warp.title": "Teleportieren zu",
+
+    /*********
+    ** Warps tab
+    *********/
+    // main areas
+    "warp-section.main": "Main Areas", // TODO
     "warp.farm": "Farm",
+    "warp.carpenter": "Schreinerladen",
+    "warp.desert": "Wüste",
+    "warp.mines": "Minen",
     "warp.pierre-shop": "Pierres Gemischtwarenladen",
+
+    // town
+    "warp-section.town": "Town", // TODO
     "warp.blacksmith": "Schmiede",
+    "warp.community-center": "Gemeinschaftszentrum",
+    "warp.jojamart": "Joja-Markt",
+    "warp.movie-theater": "Kino",
     "warp.museum": "Museum",
     "warp.saloon": "Saloon",
-    "warp.community-center": "Gemeinschaftszentrum",
-    "warp.carpenter": "Schreinerladen",
-    "warp.adventurers-guild": "Abenteurergilde",
-    "warp.ranch": "Marnies Ranch",
-    "warp.mines": "Minen",
-    "warp.skull-cavern": "Schädelhöhle",
-    "warp.willy-shop": "Angelbedarf",
-    "warp.wizard-tower": "Turm des Zauberers",
-    "warp.hats": "Hüte",
-    "warp.desert": "Wüste",
-    "warp.sandy-shop": "Oase",
-    "warp.casino": "Casino",
-    "warp.quarry": "Steinbruch",
-    "warp.new-beach": "Neuer Strand",
-    "warp.secret-woods": "Geheimer Wald",
     "warp.sewer": "Kanalisation",
-    "warp.bathhouse": "Spa",
 
-    // 'Time' tab
+    // forest
+    "warp-section.forest": "Forest", // TODO
+    "warp.hats": "Hüte",
+    "warp.ranch": "Marnies Ranch",
+    "warp.secret-woods": "Geheimer Wald",
+    "warp.wizard-tower": "Turm des Zauberers",
+
+    // mountain
+    "warp-section.mountain": "Mountain", // TODO
+    "warp.adventurers-guild": "Abenteurergilde",
+    "warp.bathhouse": "Spa",
+    "warp.quarry": "Steinbruch",
+
+    // beach
+    "warp-section.beach": "Strand",
+    "warp.tide-pools": "Gezeitentümpel",
+    "warp.willy-shop": "Angelbedarf",
+
+    // desert
+    "warp-section.desert": "Desert", // TODO
+    "warp.casino": "Casino",
+    "warp.sandy-shop": "Oase",
+    "warp.skull-cavern": "Schädelhöhle",
+
+
+    /*********
+    ** Time tab
+    *********/
     "time.title": "Zeit",
     "time.freeze-inside": "Zeit in Gebäuden stoppen",
     "time.freeze-caves": "Zeit in Höhlen stoppen",
     "time.freeze-everywhere": "Zeit überall stoppen",
     "time.time": "Zeit",
+    "time.time-frozen-message": "Zeit gestoppt",
 
-    // 'Flags' tab
+
+    /*********
+    ** Advanced tab
+    *********/
     "flags.warning": "Benutze diesen Abschnitt auf eigene Gefahr!\nDies kann zu Problemen wie übersprungene Briefe, Ereignisse oder Quests führen.",
     "flags.quests": "Schließe Quests ab",
     "flags.wallet": "Geldbörsen-Gegenstände",
@@ -165,16 +231,17 @@
     "flags.community-center.door-unlocked": "Tür aufgeschlossen",
     "flags.jojamart.membership": "Joja-Markt-Mitgliedschaft",
 
-    // 'Controls' tab
+
+    /*********
+    ** Controls tab
+    *********/
     "controls.title": "Steuerungen",
+    "controls.android-config-note": "You can change the on-screen buttons in the config files for the CJB Cheats Menu and Virtual Keyboard mods.", // TODO
     "controls.open-menu": "Menü öffnen",
     "controls.freeze-time": "Zeit stoppen",
     "controls.grow-tree": "Baum wachsen lassen",
     "controls.grow-crops": "Saat wachsen lassen",
     "controls.grow-radius": "Grow distance around player", // TODO
     "controls.reset-controls": "Reset", // TODO
-
-    // various messages
-    "messages.press-new-key": "Neue Taste drücken...",
-    "messages.time-frozen": "Zeit gestoppt"
+    "controls.press-new-key": "Neue Taste drücken..."
 }

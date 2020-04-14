@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using CJB.Common;
 using CJBCheatsMenu.Framework;
@@ -15,16 +16,16 @@ namespace CJBCheatsMenu
         ** Fields
         *********/
         /// <summary>The known in-game location.</summary>
-        private GameLocation[] Locations;
+        private Lazy<GameLocation[]> Locations;
 
         /// <summary>The mod settings.</summary>
         private ModConfig Config;
 
         /// <summary>The warps to show in the menu.</summary>
-        private ModDataWarp[] Warps;
+        private ModData Warps;
 
-        /// <summary>The cheats helper.</summary>
-        private Cheats Cheats;
+        /// <summary>Manages the cheat implementations.</summary>
+        private CheatManager Cheats;
 
 
         /*********
@@ -34,23 +35,34 @@ namespace CJBCheatsMenu
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
         {
-            // load config/data
+            // load config
             this.Config = helper.ReadConfig<ModConfig>();
-            this.Warps = helper.Data.ReadJsonFile<ModDataWarp[]>("data/warps.json");
-            if (this.Warps == null)
+            this.Monitor.Log($"Started with menu key {this.Config.OpenMenuKey}.");
+
+            // load warps
+            try
             {
-                this.Monitor.Log("Some of the mod files are missing (data/warps.json); try reinstalling this mod.", LogLevel.Error);
-                return;
+                this.Warps = helper.Data.ReadJsonFile<ModData>("assets/warps.json");
+                if (this.Warps == null)
+                {
+                    this.Monitor.Log("Some of the mod files are missing (assets/warps.json); try reinstalling this mod.", LogLevel.Error);
+                    return;
+                }
             }
-            this.Monitor.Log($"Started with menu key {this.Config.OpenMenuKey}.", LogLevel.Trace);
+            catch (Exception ex)
+            {
+                this.Monitor.Log($"Some of the mod files are broken or corrupted (assets/warps.json); try reinstalling this mod.\n{ex}", LogLevel.Error);
+            }
 
             // load cheats
-            this.Cheats = new Cheats(this.Config, this.Helper.Translation);
+            this.ResetLocationCache();
+            this.Cheats = new CheatManager(this.Config, this.Helper.Reflection, this.Helper.Translation, () => this.Locations.Value, this.Warps);
 
             // hook events
             helper.Events.Display.Rendered += this.OnRendered;
             helper.Events.Display.MenuChanged += this.OnMenuChanged;
 
+            helper.Events.GameLoop.ReturnedToTitle += this.OnReturnedToTitle;
             helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
             helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
 
@@ -69,8 +81,16 @@ namespace CJBCheatsMenu
         /// <param name="e">The event arguments.</param>
         private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
-            this.Locations = CommonHelper.GetAllLocations().ToArray();
-            this.Cheats.Reset();
+            this.ResetLocationCache();
+            this.Cheats.OnSaveLoaded();
+        }
+
+        /// <summary>Raised after the player returns to the title screen.</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnReturnedToTitle(object sender, ReturnedToTitleEventArgs e)
+        {
+            this.ResetLocationCache();
         }
 
         /// <summary>Raised after a game location is added or removed.</summary>
@@ -78,7 +98,7 @@ namespace CJBCheatsMenu
         /// <param name="e">The event arguments.</param>
         private void OnLocationListChanged(object sender, LocationListChangedEventArgs e)
         {
-            this.Locations = CommonHelper.GetAllLocations().ToArray();
+            this.ResetLocationCache();
         }
 
         /// <summary>Raised after the player presses a button on the keyboard, controller, or mouse.</summary>
@@ -91,7 +111,7 @@ namespace CJBCheatsMenu
 
             // open menu
             if (e.Button == this.Config.OpenMenuKey)
-                Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Config, this.Warps, this.Cheats, this.Helper.Translation, this.Monitor);
+                Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Cheats, this.Monitor);
 
             // handle button if applicable
             else
@@ -114,7 +134,7 @@ namespace CJBCheatsMenu
             if (!Context.IsWorldReady)
                 return;
 
-            this.Cheats.OnRendered(this.Helper.Translation);
+            this.Cheats.OnRendered();
         }
 
         /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
@@ -125,9 +145,7 @@ namespace CJBCheatsMenu
             if (!Context.IsWorldReady)
                 return;
 
-            this.Cheats.OnUpdateTicked(e, this.Helper.Reflection, this.Helper.Input);
-            if (e.IsOneSecond)
-                this.Cheats.OneSecondUpdate(this.Locations);
+            this.Cheats.OnUpdateTicked(e);
         }
 
         /// <summary>Raised after a game menu is opened, closed, or replaced.</summary>
@@ -141,6 +159,19 @@ namespace CJBCheatsMenu
                 this.Helper.WriteConfig(this.Config);
                 this.Cheats.OnOptionsChanged();
             }
+        }
+
+        /// <summary>Reset the cached location list.</summary>
+        private void ResetLocationCache()
+        {
+            if (this.Locations?.IsValueCreated == false)
+                return;
+
+            this.Locations = new Lazy<GameLocation[]>(
+                () => Context.IsWorldReady
+                    ? CommonHelper.GetAllLocations().ToArray()
+                    : new GameLocation[0]
+            );
         }
     }
 }

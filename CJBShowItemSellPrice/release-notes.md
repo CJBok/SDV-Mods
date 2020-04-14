@@ -1,27 +1,32 @@
 [← back to readme](README.md)
 
 # Release notes
+## 1.9.6
+Released 14 April 2020 for Stardew Valley 3.4 or later. Updated by Pathoschild.
+
+* Improved translations. Thanks to Annosz (added Hungarian) and BURAKMESE (added Turkish)!
+
 ## 1.9.5
 Released 09 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
 
-* Updated translations. Thanks to xCarloC (added Italian)!
+* Improved translations. Thanks to xCarloC (added Italian)!
 
 ## 1.9.4
 Released 26 November 2019 for SMAPI 3.0 or later. Updated by Pathoschild.
 
 * Updated for Stardew Valley 1.4.
-* Updated translations. Thanks to shirutan (added Japanese)!
+* Improved translations. Thanks to shirutan (added Japanese)!
 
 ## 1.9.3
 Released 27 March 2019 for SMAPI 2.11 or later. Updated by Pathoschild.
 
-* Updated translations. Thanks to S2SKY (added Korean) and VincentRoth (added French)!
+* Improved translations. Thanks to S2SKY (added Korean) and VincentRoth (added French)!
 
 ## 1.9.2
 Released 09 December 2018 for SMAPI 2.9 or later. Updated by Pathoschild.
 
 * Updated for the upcoming SMAPI 3.0.
-* Updated translations. Thanks to Nanogamer7 (added German) and Redlnn (added Chinese)!
+* Improved translations. Thanks to Nanogamer7 (added German) and Redlnn (added Chinese)!
 
 ## 1.9.1
 Released 28 August 2018 for SMAPI 2.8 or later. Updated by Pathoschild.
@@ -29,15 +34,15 @@ Released 28 August 2018 for SMAPI 2.8 or later. Updated by Pathoschild.
 * Updated for Stardew Valley 1.3.29.
 * Fixed tooltip being drawn offscreen when cursor is near the edge.
 * Fixed tooltip no longer shown in CJB Item Spawner menu.
-* Added Spanish translations (thanks to Yllelder!).
+* Improved translations. Thanks to Yllelder (added Spanish)!
 
 ## 1.9
 Released 04 August 2018 for SMAPI 2.6 or later. Updated by Pathoschild.
 
 * Updated for Stardew Valley 1.3 (including multiplayer support).
 * Added support for toolbar items.
-* Added Russian translations (thanks to Ryofuko!).
 * Fixed stack price shown for single items.
+* Improved translations. Thanks to Ryofuko (added Russian)!
 
 ## 1.8
 Released 11 February 2018 for SMAPI 2.4 or later. Updated by Pathoschild.
@@ -45,8 +50,8 @@ Released 11 February 2018 for SMAPI 2.4 or later. Updated by Pathoschild.
 * Updated to SMAPI 2.4.
 * Added translation support.
 * Added update checks via SMAPI.
-* Added Portuguese translations (thanks to XxIceGladiadorxX).
 * Fixed equipment showing double sale price.
+* Improved translations. Thanks to XxIceGladiadorxX (added Portuguese)!
 
 ## 1.7
 Released 05 April 2017 for SMAPI 1.9 or later. Updated by Pathoschild.

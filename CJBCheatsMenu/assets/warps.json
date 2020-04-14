@@ -1,0 +1,157 @@
+/*
+
+   The warps to show in the cheats menu. See "Warp format" in the CJB Cheats Menu readme at
+   https://github.com/CJBok/SDV-Mods/tree/master/CJBCheatsMenu#readme for more info.
+
+*/
+{
+    "SectionOrder": [
+        "warp-section.main",
+        "warp-section.town",
+        "warp-section.forest",
+        "warp-section.mountain",
+        "warp-section.beach",
+        "warp-section.desert"
+    ],
+
+    "Warps": {
+        "warp-section.main": [
+            {
+                "DisplayText": "warp.farm",
+                "Order": -1,
+                "SpecialBehavior": "Farm"
+            },
+            {
+                "DisplayText": "warp.carpenter",
+                "Location": "Mountain",
+                "Tile": "12, 26"
+            },
+            {
+                "DisplayText": "warp.mines",
+                "Location": "Mine",
+                "Tile": "13, 10"
+            },
+            {
+                "DisplayText": "warp.pierre-shop",
+                "Location": "Town",
+                "Tile": "43, 57"
+            }
+        ],
+        "warp-section.town": [
+            {
+                "DisplayText": "warp.blacksmith",
+                "Location": "Town",
+                "Tile": "94, 82"
+            },
+            {
+                "DisplayText": "warp.community-center",
+                "Location": "Town",
+                "Tile": "52, 20",
+                "SpecialBehavior": "CommunityCenter"
+            },
+            {
+                "DisplayText": "warp.jojamart",
+                "Location": "Town",
+                "Tile": "95, 51",
+                "SpecialBehavior": "JojaMart"
+            },
+            {
+                "DisplayText": "warp.movie-theater",
+                "Location": "Town",
+                "Tile": "95, 51",
+                "SpecialBehavior": "MovieTheaterCommunity"
+            },
+            {
+                "DisplayText": "warp.movie-theater",
+                "Location": "Town",
+                "Tile": "52, 20",
+                "SpecialBehavior": "MovieTheaterJoja"
+            },
+            {
+                "DisplayText": "warp.museum",
+                "Location": "Town",
+                "Tile": "101, 90"
+            },
+            {
+                "DisplayText": "warp.saloon",
+                "Location": "Town",
+                "Tile": "45, 71"
+            },
+            {
+                "DisplayText": "warp.sewer",
+                "Location": "Sewer",
+                "Tile": "3, 48"
+            }
+        ],
+        "warp-section.forest": [
+            {
+                "DisplayText": "warp.hats",
+                "Location": "Forest",
+                "Tile": "34, 96"
+            },
+            {
+                "DisplayText": "warp.ranch",
+                "Location": "Forest",
+                "Tile": "90, 16"
+            },
+            {
+                "DisplayText": "warp.secret-woods",
+                "Location": "Woods",
+                "Tile": "58, 15"
+            },
+            {
+                "DisplayText": "warp.wizard-tower",
+                "Location": "Forest",
+                "Tile": "5, 27"
+            }
+        ],
+        "warp-section.mountain": [
+            {
+                "DisplayText": "warp.adventurers-guild",
+                "Location": "Mountain",
+                "Tile": "76, 9"
+            },
+            {
+                "DisplayText": "warp.bathhouse",
+                "Location": "Railroad",
+                "Tile": "10, 57"
+            },
+            {
+                "DisplayText": "warp.quarry",
+                "Location": "Mountain",
+                "Tile": "127, 12"
+            }
+        ],
+        "warp-section.beach": [
+            {
+                "DisplayText": "warp.willy-shop",
+                "Location": "Beach",
+                "Tile": "30, 34",
+                "Order": -1 
+            },
+            {
+                "DisplayText": "warp.tide-pools",
+                "Location": "Beach",
+                "Tile": "87, 26"
+            }
+        ],
+        "warp-section.desert": [
+            {
+                "DisplayText": "warp.casino",
+                "Location": "Club",
+                "Tile": "8, 11",
+                "SpecialBehavior": "Casino"
+            },
+            {
+                "DisplayText": "warp.sandy-shop",
+                "Location": "Desert",
+                "Tile": "6, 52"
+            },
+            {
+                "DisplayText": "warp.skull-cavern",
+                "Location": "UndergroundMine121",
+                "Tile": "0, 0" // game places the player next to the ladder automatically
+            }
+        ]  
+    }
+}

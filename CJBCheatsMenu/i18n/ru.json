@@ -1,7 +1,11 @@
 {
+    /*********
+    ** Main translations
+    *********/
+    // mod name shown in the menu
     "mod-name": "CJB Cheats Menu",
 
-    // menu tabs
+    // tab names
     "tabs.player-and-tools": "Игрок и инструменты",
     "tabs.farm-and-fishing": "Ферма и рыбалка",
     "tabs.skills": "Навыки",
@@ -12,45 +16,64 @@
     "tabs.advanced": "Прочее",
     "tabs.controls": "Управление",
 
-    // 'Player & Tools' tab
+
+    /*********
+    ** Player & Tools tab
+    *********/
+    // player
     "player.title": "Игрок",
     "player.infinite-stamina": "Бесконечная выносливость",
     "player.infinite-health": "Бесконечное здоровье",
-    "player.increased-movement-speed": "Увеличенная скорость движения",
+    "player.instant-cooldowns": "Убрать задержку при использовании оружия",
+    "player.inventory-size": "Объём инвентаря",
     "player.movement-speed": "Скорость перемещения",
+    "player.movement-speed.default": "обычная",
     "player.one-hit-kill": "Убийство с одного удара",
-    "player.max-daily-luck": "Масимальная удача",
+    "player.max-daily-luck": "Максимальная удача",
+
+    // tools
     "tools.title": "Инструменты",
     "tools.infinite-water": "Бесконечная вода в лейке",
     "tools.one-hit-break": "Разрушение с одного удара",
-    "tools.harvest-with-scythe": "Сбор урожая серпом",
-    "money.title": "Деньги",
-    "money.add-amount": "Добавить {{amount}}з",
-    "casino-coins.title": "Клубные монеты",
-    "casino-coins.add-amount": "Добавить {{amount}}",
+    "tools.harvest-with-scythe": "Сбор культур серпом",
 
-    // 'Farm & Рыбалка' tab
+    // money
+    "money.title": "Деньги",
+    "money.add-amount": "Добавить {{amount}} монет",
+    "casino-coins.title": "Клубные монеты",
+    "casino-coins.add-amount": "Добавить {{amount}} клубных монет",
+
+
+    /*********
+    ** Farm & Fishing tab
+    *********/
+    // farm
     "farm.title": "Ферма",
-    "farm.water-all-fields": "Полить все грятки",
-    "farm.durable-fences": "Прочность забора",
+    "farm.auto-water": "Автополиваемые культуры",
+    "farm.durable-fences": "Прочные ограждения",
     "farm.instant-build": "Мгновенное строительство",
-    "farm.always-auto-feed": "Автоматически подкармливать",
+    "farm.always-auto-feed": "Автоматическая подкормка животных",
     "farm.infinite-hay": "Бесконечное сено",
+
+    // fishing
     "fishing.title": "Рыбалка",
-    "fishing.instant-catch": "Мгновенный вылов",
-    "fishing.instant-bite": "Мгновенный поклев",
+    "fishing.instant-catch": "Мгновенный вылов рыбы",
+    "fishing.instant-bite": "Мгновенный поклёв рыбы",
     "fishing.always-throw-max-distance": "Закидывать на максимальное расстояние",
-    "fishing.always-treasure": "Всегда с сокровищем",
+    "fishing.always-treasure": "Всегда попадается сокровище",
     "fishing.durable-tackles": "Прочные снасти",
+
+    // fast machines
     "fast-machines.title": "Ускорение работы машин",
     "fast-machines.bee-house": "Улей",
     "fast-machines.cask": "Бочка",
     "fast-machines.charcoal-kiln": "Углевыжигательная печь",
     "fast-machines.cheese-press": "Пресс для сыра",
+    "fast-machines.crab-pot": "Крабовая ловушка",
     "fast-machines.crystalarium": "Кристалляриум",
     "fast-machines.fruit-trees": "Фруктовые деревья",
     "fast-machines.furnace": "Плавильная печь",
-    "fast-machines.incubator": "Инкубатор (готов утром)", // TODO review (auto-translated)
+    "fast-machines.incubator": "Инкубатор (будет готово утром)",
     "fast-machines.keg": "Бочонок",
     "fast-machines.lightning-rod": "Громоотвод",
     "fast-machines.loom": "Прялка",
@@ -61,19 +84,28 @@
     "fast-machines.recycling-machine": "Утилизационная машина",
     "fast-machines.seed-maker": "Экстрактор семян",
     "fast-machines.slime-egg-press": "Пресс для яиц слаймов",
-    "fast-machines.slime-incubator": "Инкубатор слаймов (готов утром)", // TODO review (auto-translated)
+    "fast-machines.slime-incubator": "Инкубатор слаймов",
+    "fast-machines.soda-machine": "Автомат с газировкой",
+    "fast-machines.statue-of-endless-fortune": "Статуя Вечной Удачи",
+    "fast-machines.statue-of-perfection": "Статуя Совершенства",
     "fast-machines.tapper": "Подсочник",
     "fast-machines.wood-chipper": "Дробилка",
     "fast-machines.worm-bin": "Бак с червями",
 
-    // 'Skills' tab
+
+    /*********
+    ** Skills tab
+    *********/
+    // skills
     "skills.title": "Навыки",
     "skills.increase-farming": "Увеличить ур. Фермерства: {{currentLevel}}",
     "skills.increase-mining": "Увеличить ур. Горного дела: {{currentLevel}}",
     "skills.increase-foraging": "Увеличить ур. Собирательства: {{currentLevel}}",
     "skills.increase-fishing": "Увеличить ур. Рыбалки: {{currentLevel}}",
     "skills.increase-combat": "Увеличить ур. Боевых навыков: {{currentLevel}}",
-    "skills.reset": "СБРОСИТЬ НАВЫКИ!",
+    "skills.reset": "СБРОСИТЬ ВСЕ НАВЫКИ!",
+
+    // professions
     "professions.title": "Профессии",
     "professions.combat.fighter": "Боевые навыки ур. 5 - Боец",
     "professions.combat.scout": "Боевые навыки ур. 5 - Разведчик",
@@ -97,7 +129,7 @@
     "professions.foraging.gatherer": "Собирательство ур. 5 - Собиратель",
     "professions.foraging.botanist": "Собирательство ур. 10 - Ботаник",
     "professions.foraging.lumberjack": "Собирательство ур. 10 - Дровосек",
-    "professions.foraging.tapper": "Собирательство ур. 10 - Вздмщик",
+    "professions.foraging.tapper": "Собирательство ур. 10 - Вздымщик",
     "professions.foraging.tracker": "Собирательство ур. 10 - Сыщик",
     "professions.mining.geologist": "Горное дело ур. 5 - Геолог",
     "professions.mining.miner": "Горное дело ур. 5 - Шахтер",
@@ -106,53 +138,87 @@
     "professions.mining.gemologist": "Горное дело ур. 10 - Геммолог",
     "professions.mining.prospector": "Горное дело ур. 10 - Старатель",
 
-    // 'Weather' tab
-    "weather.title": "Завтрашняя погода",
-    "weather.current": "Текущая",
+
+    /*********
+    ** Weather tab
+    *********/
+    "weather.title": "Погода",
+    "weather.current": "Состояние погоды на завтра",
     "weather.sunny": "Солнечно",
     "weather.raining": "Дождь",
     "weather.lightning": "Гроза",
     "weather.snowing": "Снегопад",
 
-    // 'Relationships' tab
+
+    /*********
+    ** Relationships tab
+    *********/
     "relationships.title": "Отношения",
-    "relationships.give-gifts-anytime": "Подарки без ограничений",
-    "relationships.no-decay": "Без снижения уровня дружбы",
+    "relationships.give-gifts-anytime": "Подарки можно преподносить без ограничений",
+    "relationships.no-decay": "Уровень дружбы не снижается",
     "relationships.friends": "Друзья",
 
-    // 'Warp Locations' tab
-    "warp.title": "Телепортация",
-    "warp.farm": "Ферма",
-    "warp.pierre-shop": "Магазин Пьера",
-    "warp.blacksmith": "Кузнец",
-    "warp.museum": "Музей",
-    "warp.saloon": "Салун «Звездная капля»",
-    "warp.community-center": "Клуб",
-    "warp.carpenter": "Столярная мастерская",
-    "warp.adventurers-guild": "Гильдия искателей приключений",
-    "warp.ranch": "Ранчо Марни",
-    "warp.mines": "Шахта",
-    "warp.skull-cavern": "Пещера Черепа",
-    "warp.willy-shop": "Странствующий торговец",
-    "warp.wizard-tower": "Башня волшебника",
-    "warp.hats": "Разрушенный дом",
-    "warp.desert": "Пустыня",
-    "warp.sandy-shop": "Оазис",
-    "warp.casino": "Казино",
-    "warp.quarry": "Карьер",
-    "warp.new-beach": "Пляж",
-    "warp.secret-woods": "Тайный лес",
-    "warp.sewer": "Канализация",
-    "warp.bathhouse": "Баня",
 
-    // 'Time' tab
+    /*********
+    ** Warps tab
+    *********/
+    // main areas
+    "warp-section.main": "Главные локации",
+    "warp.farm": "Ферма",
+    "warp.carpenter": "Столярная мастерская",
+    "warp.desert": "Пустыня",
+    "warp.mines": "Шахта",
+    "warp.pierre-shop": "Магазин Пьера",
+
+    // town
+    "warp-section.town": "Город",
+    "warp.blacksmith": "Кузнец",
+    "warp.community-center": "Клуб",
+    "warp.jojamart": "ДжоджаМарт",
+    "warp.movie-theater": "Кинотеатр",
+    "warp.museum": "Музей",
+    "warp.saloon": "Салун \"Звёздная капля\"",
+    "warp.sewer": "Канализация",
+
+    // forest
+    "warp-section.forest": "Лес",
+    "warp.hats": "Разрушенный дом",
+    "warp.ranch": "Ранчо Марни",
+    "warp.secret-woods": "Тайный лес",
+    "warp.wizard-tower": "Башня волшебника",
+
+    // mountain
+    "warp-section.mountain": "Горы",
+    "warp.adventurers-guild": "Гильдия искателей приключений",
+    "warp.bathhouse": "Баня",
+    "warp.quarry": "Карьер",
+
+    // beach
+    "warp-section.beach": "Пляж",
+    "warp.tide-pools": "Приливные бассейны",
+    "warp.willy-shop": "Странствующий торговец",
+
+    // desert
+    "warp-section.desert": "Пустыня",
+    "warp.casino": "Казино",
+    "warp.sandy-shop": "Оазис",
+    "warp.skull-cavern": "Пещера Черепа",
+
+
+    /*********
+    ** Time tab
+    *********/
     "time.title": "Время",
     "time.freeze-inside": "Остановить время в помещениях",
     "time.freeze-caves": "Остановить время в пещерах",
-    "time.freeze-everywhere": "Остановить время везде",
-    "time.time": "Время",
+    "time.freeze-everywhere": "Остановить время в любых местах",
+    "time.time": "Текущее время",
+    "time.time-frozen-message": "Время остановлено",
 
-    // 'Flags' tab
+
+    /*********
+    ** Advanced tab
+    *********/
     "flags.warning": "Используйте данный раздел на свой страх и риск!\nМогут возникнуть проблемы по типу пропущенных писем, событий и заданий.",
     "flags.quests": "Завершить задание",
     "flags.wallet": "Бумажник",
@@ -163,18 +229,19 @@
     "flags.unlocked-content.dyes-and-tailoring": "Перекраска и шитьё",
     "flags.community-center": "Клуб",
     "flags.community-center.door-unlocked": "Открыть дверь",
-    "flags.jojamart.membership": "Членство в ДжоджаМарте",
+    "flags.jojamart.membership": "Членство в корпорации \"ДжоджаМарт\"",
 
-    // 'Controls' tab
+
+    /*********
+    ** Controls tab
+    *********/
     "controls.title": "Управление",
+    "controls.android-config-note": "You can change the on-screen buttons in the config files for the CJB Cheats Menu and Virtual Keyboard mods.", // TODO
     "controls.open-menu": "Открыть меню",
     "controls.freeze-time": "Остановить время",
     "controls.grow-tree": "Вырастить деревья",
-    "controls.grow-crops": "Вырастить растения",
-    "controls.grow-radius": "Grow distance around player", // TODO
-    "controls.reset-controls": "Reset", // TODO
-
-    // various messages
-    "messages.press-new-key": "Нажмите новую клавишу...",
-    "messages.time-frozen": "Время остановлено"
+    "controls.grow-crops": "Вырастить посевные культуры",
+    "controls.grow-radius": "Радиус произрастания флоры от игрока",
+    "controls.reset-controls": "Сбросить настройки управления данной модификации",
+    "controls.press-new-key": "Нажмите новую клавишу..."
 }

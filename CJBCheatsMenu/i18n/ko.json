@@ -1,7 +1,11 @@
 {
+    /*********
+    ** Main translations
+    *********/
+    // mod name shown in the menu
     "mod-name": "CJB 치트 메뉴",
 
-    // menu tabs
+    // tab names
     "tabs.player-and-tools": "플레이어 & 도구",
     "tabs.farm-and-fishing": "농장 & 낚시",
     "tabs.skills": "스킬",
@@ -12,41 +16,60 @@
     "tabs.advanced": "고급",
     "tabs.controls": "조작키",
 
-    // '플레이어 & 도구' 탭
+
+    /*********
+    ** Player & Tools tab
+    *********/
+    // player
     "player.title": "플레이어",
     "player.infinite-stamina": "기력 무한",
     "player.infinite-health": "체력 무한",
-    "player.increased-movement-speed": "이동속도 증가",
+    "player.instant-cooldowns": "Instant Weapon Cooldowns", // TODO
+    "player.inventory-size": "Inventory Size", // TODO
     "player.movement-speed": "이동속도",
+    "player.movement-speed.default": "normal", // TODO
     "player.one-hit-kill": "한방에 처치",
     "player.max-daily-luck": "매일 최상의 행운",
+
+    // tools
     "tools.title": "도구",
     "tools.infinite-water": "물뿌리개 무한",
     "tools.one-hit-break": "한방에 쪼개기/부수기",
     "tools.harvest-with-scythe": "낫으로 수확",
+
+    // money
     "money.title": "돈",
     "money.add-amount": "{{amount}}G 추가",
     "casino-coins.title": "카지노 코인",
     "casino-coins.add-amount": "{{amount}}개 추가",
 
-    // '농장 & 낚시' 탭
+
+    /*********
+    ** Farm & Fishing tab
+    *********/
+    // farm
     "farm.title": "농장",
-    "farm.water-all-fields": "모든 경작지에 물주기",
+    "farm.auto-water": "Auto-Water Crops", // TODO
     "farm.durable-fences": "울타리 유실 방지",
     "farm.instant-build": "농장 건물 건설 즉시 완성",
     "farm.always-auto-feed": "사료 자동 급식",
     "farm.infinite-hay": "건초 무한대",
+
+    // fishing
     "fishing.title": "낚시",
     "fishing.instant-catch": "물고기 즉시 낚음",
     "fishing.instant-bite": "물고기가 즉시 입질",
     "fishing.always-throw-max-distance": "낚싯대 최대로 멀리 던짐",
     "fishing.always-treasure": "보물상자 항상 나옴",
     "fishing.durable-tackles": "낚시찌 소모되지 않음",
+
+    // fast machines
     "fast-machines.title": "기계 빠르게하기",
     "fast-machines.bee-house": "양봉장",
     "fast-machines.cask": "숙성용 나무통",
     "fast-machines.charcoal-kiln": "숯 가마",
     "fast-machines.cheese-press": "치즈 압착기",
+    "fast-machines.crab-pot": "게잡이 통발",
     "fast-machines.crystalarium": "보석 화수분",
     "fast-machines.fruit-trees": "과일나무",
     "fast-machines.furnace": "용광로",
@@ -61,12 +84,19 @@
     "fast-machines.recycling-machine": "재활용 기계",
     "fast-machines.seed-maker": "씨앗 생산기",
     "fast-machines.slime-egg-press": "슬라임 알 압착기",
-    "fast-machines.slime-incubator": "슬라임 부화기 (아침에 준비)", // TODO review (auto-translated)
+    "fast-machines.slime-incubator": "슬라임 부화기",
+    "fast-machines.soda-machine": "소다 머신",
+    "fast-machines.statue-of-endless-fortune": "끝없는 행운의 조각상",
+    "fast-machines.statue-of-perfection": "완벽함의 조각상",
     "fast-machines.tapper": "수액 채취기",
     "fast-machines.wood-chipper": "나무 분쇄기",
     "fast-machines.worm-bin": "지렁이 통",
 
-    // '스킬' 탭
+
+    /*********
+    ** Skills tab
+    *********/
+    // skills
     "skills.title": "스킬",
     "skills.increase-farming": "농사 레벨 UP: {{currentLevel}}",
     "skills.increase-mining": "채광 레벨 UP: {{currentLevel}}",
@@ -74,6 +104,8 @@
     "skills.increase-fishing": "낚시 레벨 UP: {{currentLevel}}",
     "skills.increase-combat": "전투 레벨 UP: {{currentLevel}}",
     "skills.reset": "스킬 초기화하기!",
+
+    // professions
     "professions.title": "직업 변경",
     "professions.combat.fighter": "전투 레벨 5 - 싸움꾼",
     "professions.combat.scout": "전투 레벨 5 - 정찰자",
@@ -106,7 +138,10 @@
     "professions.mining.gemologist": "채광 레벨 10 - 보석학자",
     "professions.mining.prospector": "채광 레벨 10 - 탐광자",
 
-    // '날씨' 탭
+
+    /*********
+    ** Weather tab
+    *********/
     "weather.title": "내일의 날씨",
     "weather.current": "현재 설정된 내일의 날씨",
     "weather.sunny": "맑음",
@@ -114,45 +149,76 @@
     "weather.lightning": "폭풍(번개)",
     "weather.snowing": "눈",
 
-    // '사회관계' 탭
+
+    /*********
+    ** Relationships tab
+    *********/
     "relationships.title": "사회관계",
     "relationships.give-gifts-anytime": "언제든지 선물하기",
     "relationships.no-decay": "친밀도 유지",
     "relationships.friends": "친구",
 
-    // '장소 이동' 탭
-    "warp.title": "장소 이동",
+
+    /*********
+    ** Warps tab
+    *********/
+    // main areas
+    "warp-section.main": "Main Areas", // TODO
     "warp.farm": "농장",
+    "warp.carpenter": "로빈 목공소",
+    "warp.desert": "캘리코 사막",
+    "warp.mines": "광산",
     "warp.pierre-shop": "피에르 잡화점",
+
+    // town
+    "warp-section.town": "Town", // TODO
     "warp.blacksmith": "클린트 대장간",
+    "warp.community-center": "마을 회관",
+    "warp.jojamart": "조자마트",
+    "warp.movie-theater": "영화관",
     "warp.museum": "박물관",
     "warp.saloon": "스타드롭 살롱",
-    "warp.community-center": "마을 회관",
-    "warp.carpenter": "로빈 목공소",
-    "warp.adventurers-guild": "모험가 길드",
-    "warp.ranch": "마니의 목장",
-    "warp.mines": "광산",
-    "warp.skull-cavern": "해골 동굴",
-    "warp.willy-shop": "윌리의 낚시가게",
-    "warp.wizard-tower": "마법사의 탑",
-    "warp.hats": "모자쥐 상점",
-    "warp.desert": "캘리코 사막",
-    "warp.sandy-shop": "샌디의 오아시스",
-    "warp.casino": "카지노",
-    "warp.quarry": "채석장",
-    "warp.new-beach": "새로운 해변(오른편)",
-    "warp.secret-woods": "비밀의 숲",
     "warp.sewer": "하수도",
-    "warp.bathhouse": "목욕탕",
 
-    // '시간' 탭
+    // forest
+    "warp-section.forest": "Forest", // TODO
+    "warp.hats": "모자쥐 상점",
+    "warp.ranch": "마니의 목장",
+    "warp.secret-woods": "비밀의 숲",
+    "warp.wizard-tower": "마법사의 탑",
+
+    // mountain
+    "warp-section.mountain": "Mountain", // TODO
+    "warp.adventurers-guild": "모험가 길드",
+    "warp.bathhouse": "목욕탕",
+    "warp.quarry": "채석장",
+
+    // beach
+    "warp-section.beach": "해변(海邊)",
+    "warp.tide-pools": "조수 웅덩이",
+    "warp.willy-shop": "윌리의 낚시가게",
+
+    // desert
+    "warp-section.desert": "Desert", // TODO
+    "warp.casino": "카지노",
+    "warp.sandy-shop": "샌디의 오아시스",
+    "warp.skull-cavern": "해골 동굴",
+
+
+    /*********
+    ** Time tab
+    *********/
     "time.title": "시간",
     "time.freeze-inside": "실내에서 시간 정지",
     "time.freeze-caves": "광산/해골동굴 안에서 시간 정지",
     "time.freeze-everywhere": "모든 장소에서 시간 정지",
     "time.time": "시간",
+    "time.time-frozen-message": "시간 멈춤",
 
-    // '플래그' 탭
+
+    /*********
+    ** Advanced tab
+    *********/
     "flags.warning": "이 부분의 사용은 사용자가 전적으로 책임져야 합니다.\n 편지, 이벤트 또는 퀘스트를 보지 못 할 수 있습니다.",
     "flags.quests": "퀘스트 완료",
     "flags.wallet": "지갑 아이템",
@@ -165,16 +231,17 @@
     "flags.community-center.door-unlocked": "잠긴 문 열기",
     "flags.jojamart.membership": "조자마트 회원권",
 
-    // '조작키' 탭
+
+    /*********
+    ** Controls tab
+    *********/
     "controls.title": "조작키",
+    "controls.android-config-note": "You can change the on-screen buttons in the config files for the CJB Cheats Menu and Virtual Keyboard mods.", // TODO
     "controls.open-menu": "메뉴 열기",
     "controls.freeze-time": "시간 정지",
     "controls.grow-tree": "나무 자라게하기",
     "controls.grow-crops": "작물 자라게하기",
     "controls.grow-radius": "Grow distance around player", // TODO
     "controls.reset-controls": "Reset", // TODO
-
-    // various messages
-    "messages.press-new-key": "새로운 단축키를 입력하세요...",
-    "messages.time-frozen": "시간 멈춤"
+    "controls.press-new-key": "새로운 단축키를 입력하세요..."
 }

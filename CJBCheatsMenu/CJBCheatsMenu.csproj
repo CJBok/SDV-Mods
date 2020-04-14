@@ -2,19 +2,13 @@
 
   <PropertyGroup>
     <AssemblyName>CJBCheatsMenu</AssemblyName>
-    <Version>1.23.1</Version>
+    <Version>1.24.0</Version>
     <RootNamespace>CJBCheatsMenu</RootNamespace>
     <TargetFramework>net452</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="3.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="data\warps.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <Import Project="..\Common\Common.projitems" Label="Shared" />

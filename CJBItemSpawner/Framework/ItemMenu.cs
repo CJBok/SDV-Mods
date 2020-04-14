@@ -129,6 +129,10 @@ namespace CJBItemSpawner.Framework
             return true;
         }
 
+        /// <summary>Handle the player clicking the right mouse button.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <param name="playSound">Whether to play a sound if needed.</param>
         public override void receiveRightClick(int x, int y, bool playSound = true)
         {
             if (this.TextboxBounds.Contains(x, y))
@@ -177,11 +181,18 @@ namespace CJBItemSpawner.Framework
             }
         }
 
+        /// <summary>Handle the game window being resized.</summary>
+        /// <param name="oldBounds">The previous position and size.</param>
+        /// <param name="newBounds">The current position and size.</param>
         public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)
         {
             this.Reopen();
         }
 
+        /// <summary>Handle the player clicking the left mouse button.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <param name="playSound">Whether to play a sound if needed.</param>
         public override void receiveLeftClick(int x, int y, bool playSound = true)
         {
             base.receiveLeftClick(x, y, playSound);
@@ -293,6 +304,8 @@ namespace CJBItemSpawner.Framework
             return this.ItemsToGrabMenu.ActualInventory.All(t => t == null);
         }
 
+        /// <summary>Handle the player pressing a keyboard button.</summary>
+        /// <param name="key">The key that was pressed.</param>
         public override void receiveKeyPress(Keys key)
         {
             if (this.Textbox.Selected)
@@ -314,6 +327,8 @@ namespace CJBItemSpawner.Framework
             Game1.playSound("trashcan");
         }
 
+        /// <summary>Update the menu if needed.</summary>
+        /// <param name="time">The current game time.</param>
         public override void update(GameTime time)
         {
             if (this.TextboxExplicitlySelected && !this.Textbox.Selected)
@@ -332,6 +347,9 @@ namespace CJBItemSpawner.Framework
             this.Poof = null;
         }
 
+        /// <summary>Handle the player hovering the cursor over the menu.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
         public override void performHoverAction(int x, int y)
         {
             // handle search box selected
@@ -355,6 +373,8 @@ namespace CJBItemSpawner.Framework
                 base.performHoverAction(x, y);
         }
 
+        /// <summary>Handle the player scrolling the mouse wheel.</summary>
+        /// <param name="direction">The scroll direction.</param>
         public override void receiveScrollWheelAction(int direction)
         {
             if (GameMenu.forcePreventClose)
@@ -378,6 +398,8 @@ namespace CJBItemSpawner.Framework
                 this.ItemsToGrabMenu?.receiveScrollWheelAction(direction);
         }
 
+        /// <summary>Draw the menu to the screen.</summary>
+        /// <param name="spriteBatch">The sprite batch being drawn.</param>
         public override void draw(SpriteBatch spriteBatch)
         {
             if (!Game1.options.showMenuBackground)
@@ -449,17 +471,13 @@ namespace CJBItemSpawner.Framework
         /// <param name="sort">The sort type.</param>
         private string GetSortLabel(ItemSort sort)
         {
-            switch (sort)
+            return sort switch
             {
-                case ItemSort.DisplayName:
-                    return this.TranslationHelper.Get("labels.sort-by-name");
-                case ItemSort.Category:
-                    return this.TranslationHelper.Get("labels.sort-by-category");
-                case ItemSort.ID:
-                    return this.TranslationHelper.Get("labels.sort-by-id");
-                default:
-                    throw new NotSupportedException($"Invalid sort type {sort}.");
-            }
+                ItemSort.DisplayName => this.TranslationHelper.Get("labels.sort-by-name"),
+                ItemSort.Category => this.TranslationHelper.Get("labels.sort-by-category"),
+                ItemSort.ID => this.TranslationHelper.Get("labels.sort-by-id"),
+                _ => throw new NotSupportedException($"Invalid sort type {sort}.")
+            };
         }
 
         /// <summary>Get the tab constant represented by a tab component.</summary>
@@ -474,20 +492,14 @@ namespace CJBItemSpawner.Framework
         private void LoadInventory(Item[] spawnableItems)
         {
             // sort items
-            switch (this.SortBy)
-            {
-                case ItemSort.Category:
-                    spawnableItems = spawnableItems.OrderBy(o => o.Category).ToArray();
-                    break;
-
-                case ItemSort.ID:
-                    spawnableItems = spawnableItems.OrderBy(o => o.ParentSheetIndex).ToArray();
-                    break;
-
-                default:
-                    spawnableItems = spawnableItems.OrderBy(o => o.DisplayName).ToArray();
-                    break;
-            }
+            spawnableItems =
+                (this.SortBy switch
+                {
+                    ItemSort.Category => spawnableItems.OrderBy(o => o.Category),
+                    ItemSort.ID => spawnableItems.OrderBy(o => o.ParentSheetIndex),
+                    _ => spawnableItems.OrderBy(o => o.DisplayName)
+                })
+                .ToArray();
 
             // load inventory
             List<Item> inventoryItems = new List<Item>();

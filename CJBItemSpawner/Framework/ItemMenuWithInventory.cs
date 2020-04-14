@@ -71,6 +71,10 @@ namespace CJBItemSpawner.Framework
             return this.HeldItem == null;
         }
 
+        /// <summary>Handle the player clicking the left mouse button.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <param name="playSound">Whether to play a sound if needed.</param>
         public override void receiveLeftClick(int x, int y, bool playSound = true)
         {
             this.HeldItem = this.Inventory.LeftClick(x, y, this.HeldItem, playSound);
@@ -91,11 +95,18 @@ namespace CJBItemSpawner.Framework
             }
         }
 
+        /// <summary>Handle the player clicking the right mouse button.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <param name="playSound">Whether to play a sound if needed.</param>
         public override void receiveRightClick(int x, int y, bool playSound = true)
         {
             this.HeldItem = this.Inventory.RightClick(x, y, this.HeldItem, playSound);
         }
 
+        /// <summary>Handle the player hovering the cursor over the menu.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
         public override void performHoverAction(int x, int y)
         {
             this.DescriptionText = "";
@@ -128,6 +139,8 @@ namespace CJBItemSpawner.Framework
             }
         }
 
+        /// <summary>Handle the player scrolling the mouse wheel.</summary>
+        /// <param name="direction">The scroll direction.</param>
         public override void receiveScrollWheelAction(int direction)
         {
             if (GameMenu.forcePreventClose)
@@ -136,6 +149,8 @@ namespace CJBItemSpawner.Framework
             this.Inventory?.receiveScrollWheelAction(direction);
         }
 
+        /// <summary>Update the menu if needed.</summary>
+        /// <param name="time">The current game time.</param>
         public override void update(GameTime time)
         {
             if (this.WiggleWordsTimer <= 0)
@@ -143,6 +158,10 @@ namespace CJBItemSpawner.Framework
             this.WiggleWordsTimer -= time.ElapsedGameTime.Milliseconds;
         }
 
+        /// <summary>Draw the menu to the screen.</summary>
+        /// <param name="spriteBatch">The sprite batch being drawn.</param>
+        /// <param name="drawUpperPortion">Whether to draw the upper inventory area.</param>
+        /// <param name="drawDescriptionArea">Whether to draw the description box for <see cref="DescriptionText"/>.</param>
         public virtual void Draw(SpriteBatch spriteBatch, bool drawUpperPortion = true, bool drawDescriptionArea = true)
         {
             if (this.TrashCan != null)
@@ -171,6 +190,9 @@ namespace CJBItemSpawner.Framework
             this.Inventory.draw(spriteBatch);
         }
 
+        /// <summary>Handle the game window being resized.</summary>
+        /// <param name="oldBounds">The previous position and size.</param>
+        /// <param name="newBounds">The current position and size.</param>
         public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)
         {
             base.gameWindowSizeChanged(oldBounds, newBounds);
@@ -187,6 +209,8 @@ namespace CJBItemSpawner.Framework
             this.TrashCan = new ClickableTextureComponent("trashcan", new Rectangle(this.xPositionOnScreen + this.width + 4, this.yPositionOnScreen + this.height - Game1.tileSize * 3 - Game1.tileSize / 2 - IClickableMenu.borderWidth - 104, Game1.tileSize, 104), "", "", Game1.mouseCursors, new Rectangle(669, 261, 16, 26), Game1.pixelZoom);
         }
 
+        /// <summary>Draw the menu to the screen.</summary>
+        /// <param name="spriteBatch">The sprite batch being drawn.</param>
         public override void draw(SpriteBatch spriteBatch)
         {
             throw new NotImplementedException();

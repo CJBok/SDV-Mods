@@ -1,4 +1,3 @@
-using CJBCheatsMenu.Framework.Constants;
 using StardewModdingAPI;
 
 namespace CJBCheatsMenu.Framework.Models
@@ -39,10 +38,7 @@ namespace CJBCheatsMenu.Framework.Models
         /****
         ** Player cheats
         ****/
-        /// <summary>Whether your character moves faster. The added speed is set by the <see cref="MoveSpeed"/> field.</summary>
-        public bool IncreasedMovement { get; set; }
-
-        /// <summary>The player speed to add if <see cref="IncreasedMovement"/> is <c>true</c>. This is an added multiplier (e.g. 1 doubles the default speed).</summary>
+        /// <summary>The player speed buff to add.</summary>
         public int MoveSpeed { get; set; } = 1;
 
         /// <summary>The player's health never decreases.</summary>
@@ -50,6 +46,9 @@ namespace CJBCheatsMenu.Framework.Models
 
         /// <summary>The player's stamina never decreases.</summary>
         public bool InfiniteStamina { get; set; }
+
+        /// <summary>Tool and weapon cooldowns are instant.</summary>
+        public bool InstantCooldowns { get; set; }
 
         /// <summary>The player's daily luck is always at the maximum value.</summary>
         public bool MaxDailyLuck { get; set; }
@@ -108,6 +107,9 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Cheese presses finish instantly.</summary>
         public bool FastCheesePress { get; set; }
 
+        /// <summary>Crab pots finish instantly.</summary>
+        public bool FastCrabPot { get; set; }
+
         /// <summary>Crystalariums finish instantly.</summary>
         public bool FastCrystalarium { get; set; }
 
@@ -147,11 +149,20 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Seed makers finish instantly.</summary>
         public bool FastSeedMaker { get; set; }
 
-        /// <summary>Slime egg presss finish instantly.</summary>
+        /// <summary>Slime egg press finish instantly.</summary>
         public bool FastSlimeEggPress { get; set; }
 
         /// <summary>Slime incubators finish instantly.</summary>
         public bool FastSlimeIncubator { get; set; }
+
+        /// <summary>Soda machines finish instantly.</summary>
+        public bool FastSodaMachine { get; set; }
+
+        /// <summary>Statues of endless fortune finish instantly.</summary>
+        public bool FastStatueOfEndlessFortune { get; set; }
+
+        /// <summary>Statues of perfection finish instantly.</summary>
+        public bool FastStatueOfPerfection { get; set; }
 
         /// <summary>Tappers finish instantly.</summary>
         public bool FastTapper { get; set; }
@@ -179,6 +190,9 @@ namespace CJBCheatsMenu.Framework.Models
 
         /// <summary>Feed troughs in your barns and coops are refilled automatically.</summary>
         public bool AutoFeed { get; set; }
+
+        /// <summary>Crops are watered automatically.</summary>
+        public bool AutoWater { get; set; }
 
         /// <summary>Hay silos are always full.</summary>
         public bool InfiniteHay { get; set; }

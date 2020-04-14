@@ -1,6 +1,14 @@
 [← back to readme](README.md)
 
 # Release notes
+## 1.12.1
+Released 14 April 2020 for Stardew Valley 3.4 or later. Updated by Pathoschild.
+
+* Fixed item slots not grayed out in spawner menu if you don't have the backpack upgrades.
+* Fixed spawned 'floor TV' item not functional as a TV (thanks to Platonymous!).
+* Fixed error opening menu if you have broken XNB mods.
+* Improved translations. Thanks to BURAKMESE (added Turkish) and therealmate (added Hungarian)!
+
 ## 1.12
 Released 09 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
 
@@ -17,24 +25,24 @@ Released 09 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
 Released 26 November 2019 for SMAPI 3.0 or later. Updated by Pathoschild.
 
 * Updated for Stardew Valley 1.4, including new items and upgradeable trash can.
-* Updated translations. Thanks to shirutan (added Japanese) and xLPMG (added Italian)!
+* Improved translations. Thanks to shirutan (added Japanese) and xLPMG (added Italian)!
 
 ## 1.11.4
 Released 10 June 2019 for SMAPI 2.11.1 or later. Updated by Pathoschild.
 
-* Updated translations. Thanks to S2SKY (improved Korean)!
+* Improved translations. Thanks to S2SKY (improved Korean)!
 
 ## 1.11.3
 Released 27 March 2019 for SMAPI 2.11 or later. Updated by Pathoschild.
 
-* Updated translations. Thanks to manuqp (added Spanish), S2SKY (added Korean), and VincentRoth (added French)!
+* Improved translations. Thanks to manuqp (added Spanish), S2SKY (added Korean), and VincentRoth (added French)!
 
 ## 1.11.2
 Released 09 December 2018 for SMAPI 2.9 or later. Updated by Pathoschild.
 
 * Updated for the upcoming SMAPI 3.0.
 * Fixed inventory items being reset (e.g. slingshot ammo removed) when picked up in the spawner menu.
-* Updated translations. Thanks to Nanogamer7 (added German), BerryConcept and Redlnn (added Chinese)!
+* Improved translations. Thanks to Nanogamer7 (added German), BerryConcept and Redlnn (added Chinese)!
 
 ## 1.11.1
 Released 28 August 2018 for SMAPI 2.8 or later. Updated by Pathoschild.
@@ -50,11 +58,11 @@ Released 04 August 2018 for SMAPI 2.6 or later. Updated by Pathoschild.
 * Added controller support.
 * Added support for secret notes.
 * Problematic items are now hidden by default (e.g. those which can crash the game).
-* Added Russian translations (thanks to Ryofuko!).
 * Fixed pickled items not shown.
 * Fixed incorrect tab name.
 * Fixed errors when another mod adds invalid item data.
 * Fixed search not matching translated display names (thanks to Roskonix!).
+* Improved translations. Thanks to Ryofuko (added Russian)!
 
 ## 1.10
 Released 11 February 2018 for SMAPI 2.4 or later. Updated by Pathoschild.
@@ -62,8 +70,8 @@ Released 11 February 2018 for SMAPI 2.4 or later. Updated by Pathoschild.
 * Updated to SMAPI 2.4.
 * Added translation support.
 * Added update checks via SMAPI.
-* Added Portuguese translations (thanks to XxIceGladiadorxX).
 * Added return scepter to spawnable items.
+* Improved translations. Thanks to XxIceGladiadorxX (added Portuguese)!
 
 ## 1.9
 Released 14 July 2017 for SMAPI 1.15 or later. Updated by Pathoschild.
