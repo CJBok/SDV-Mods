@@ -1,6 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Improved translations. Thanks to D0n-A (updated Russian)!
+
 ## 1.24
 Released 14 April 2020 for Stardew Valley 3.4 or later. Updated by Pathoschild.
 
