@@ -236,7 +236,7 @@
     ** Controls tab
     *********/
     "controls.title": "Управление",
-    "controls.android-config-note": "You can change the on-screen buttons in the config files for the CJB Cheats Menu and Virtual Keyboard mods.", // TODO
+    "controls.android-config-note": "Вы можете изменить настройки экранных кнопок в конфигурационных файлах для использования CJB Cheats Menu и различных модов виртуальной клавиатуры.",
     "controls.open-menu": "Открыть меню",
     "controls.freeze-time": "Остановить время",
     "controls.grow-tree": "Вырастить деревья",
