@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Fixed freeze-time not applying while a menu is open in multiplayer.
 * Improved translations. Thanks to D0n-A (updated Russian)!
 
 ## 1.24
