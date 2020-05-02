@@ -1,6 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed prices shown for furniture, which can't be sold.
+
 ## 1.9.6
 Released 14 April 2020 for Stardew Valley 3.4 or later.
 
