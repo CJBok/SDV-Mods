@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Always Auto-Feed now waters slimes too.
 * Fixed freeze-time not applying while a menu is open in multiplayer in 1.24.
 * Fixed fast casks taking 10 in-game minutes in 1.24.
 * Improved translations. Thanks to D0n-A (updated Russian)!

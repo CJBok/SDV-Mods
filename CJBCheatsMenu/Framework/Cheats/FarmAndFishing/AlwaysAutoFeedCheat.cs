@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using CJBCheatsMenu.Framework.Components;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
@@ -52,24 +51,36 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
             if (farm == null || farm.piecesOfHay.Value <= 0)
                 return;
 
-            foreach (AnimalHouse animalHouse in context.GetAllLocations().OfType<AnimalHouse>())
+            foreach (GameLocation location in context.GetAllLocations())
             {
-                int animalCount = Math.Min(animalHouse.animalsThatLiveHere.Count, animalHouse.animalLimit.Value);
-                if (animalHouse.numberOfObjectsWithName("Hay") >= animalCount)
-                    continue;
-
-                int tileX = animalHouse.Name.Contains("Barn")
-                    ? 8
-                    : 6;
-
-                for (int i = 0; i < animalCount && farm.piecesOfHay.Value > 0; i++)
+                switch (location)
                 {
-                    Vector2 tile = new Vector2(tileX + i, 3);
-                    if (!animalHouse.objects.ContainsKey(tile))
-                    {
-                        animalHouse.objects.Add(tile, new Object(178, 1));
-                        farm.piecesOfHay.Value--;
-                    }
+                    case AnimalHouse animalHouse:
+                        {
+                            int animalCount = Math.Min(animalHouse.animalsThatLiveHere.Count, animalHouse.animalLimit.Value);
+                            if (animalHouse.numberOfObjectsWithName("Hay") >= animalCount)
+                                continue;
+
+                            int tileX = animalHouse.Name.Contains("Barn")
+                                ? 8
+                                : 6;
+
+                            for (int i = 0; i < animalCount && farm.piecesOfHay.Value > 0; i++)
+                            {
+                                Vector2 tile = new Vector2(tileX + i, 3);
+                                if (!animalHouse.objects.ContainsKey(tile))
+                                {
+                                    animalHouse.objects.Add(tile, new Object(178, 1));
+                                    farm.piecesOfHay.Value--;
+                                }
+                            }
+                        }
+                        break;
+
+                    case SlimeHutch slimeHutch:
+                        for (int i = 0; i < slimeHutch.waterSpots.Length; i++)
+                            slimeHutch.waterSpots[i] = true;
+                        break;
                 }
             }
         }
