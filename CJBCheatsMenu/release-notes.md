@@ -5,7 +5,7 @@
 * Always Auto-Feed now waters slimes too.
 * Fixed freeze-time not applying while a menu is open in multiplayer in 1.24.
 * Fixed fast casks taking 10 in-game minutes in 1.24.
-* Improved translations. Thanks to D0n-A (updated Russian)!
+* Improved translations. Thanks to D0n-A (updated Russian) and talha12 (added Turkish)!
 
 ## 1.24
 Released 14 April 2020 for Stardew Valley 3.4 or later.
