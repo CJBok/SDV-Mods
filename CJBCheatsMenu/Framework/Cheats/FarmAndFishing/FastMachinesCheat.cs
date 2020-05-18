@@ -264,8 +264,8 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                     {
                         cask.daysToMature.Value = 0;
                         cask.checkForMaturity();
+                        machine.minutesElapsed(machine.MinutesUntilReady, location);
                     }
-
                     break;
 
                 case CrabPot pot:

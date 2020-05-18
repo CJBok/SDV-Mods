@@ -1,0 +1,247 @@
+{
+    /*********
+    ** Main translations
+    *********/
+    // mod name shown in the menu
+    "mod-name": "CJB Cheats Menu",
+
+    // tab names
+    "tabs.player-and-tools": "Oyuncu & Aletler",
+    "tabs.farm-and-fishing": "Çiftlik & Balıkçılık",
+    "tabs.skills": "Beceriler",
+    "tabs.weather": "Hava Durumu",
+    "tabs.relationships": "İlişkiler",
+    "tabs.warp": "Işınlanma",
+    "tabs.time": "Zaman",
+    "tabs.advanced": "Gelişmiş",
+    "tabs.controls": "Kontroller",
+
+
+    /*********
+    ** Player & Tools tab
+    *********/
+    // player
+    "player.title": "Oyuncu",
+    "player.infinite-stamina": "Sınırsız Güç",
+    "player.infinite-health": "Sınırsız Can",
+    "player.instant-cooldowns": "Anında Silah Dolumu",
+    "player.inventory-size": "Envanter Boyutu",
+    "player.movement-speed": "Yürüme Hızı",
+    "player.movement-speed.default": "normal",
+    "player.one-hit-kill": "Tek Vuruşta Öldürme",
+    "player.max-daily-luck": "Maksimum Günlük Şans",
+
+    // tools
+    "tools.title": "Aletler",
+    "tools.infinite-water": "Sulama Kabında Sınırsız Su",
+    "tools.one-hit-break": "Tek Vuruşta Kırma",
+    "tools.harvest-with-scythe": "Tırpanla Hasat Etme",
+
+    // money
+    "money.title": "Para",
+    "money.add-amount": "Ekle {{amount}}g",
+    "casino-coins.title": "Kumarhane Parası",
+    "casino-coins.add-amount": "Ekle {{amount}}",
+
+
+    /*********
+    ** Farm & Fishing tab
+    *********/
+    // farm
+    "farm.title": "Çiftlik",
+    "farm.auto-water": "Ekinleri Otomatik Sula",
+    "farm.durable-fences": "Dayanıklı Çitler",
+    "farm.instant-build": "Anında İnşaat",
+    "farm.always-auto-feed": "Her Zaman Otomatik Yemle",
+    "farm.infinite-hay": "Sınırsız Saman",
+
+    // fishing
+    "fishing.title": "Balıkçılık",
+    "fishing.instant-catch": "Anında Yakalama",
+    "fishing.instant-bite": "Anında Isırma ",
+    "fishing.always-throw-max-distance": "Her Zaman En Uzağa Fırlat",
+    "fishing.always-treasure": "Her Seferinde Hazine Sandığı",
+    "fishing.durable-tackles": "Dayanıklı Balıkçı Aletleri",
+
+    // fast machines
+    "fast-machines.title": "Hızlı Makine İşlemleri",
+    "fast-machines.bee-house": "Arı Kovanı",
+    "fast-machines.cask": "Varil",
+    "fast-machines.charcoal-kiln": "Kömür Ocağı",
+    "fast-machines.cheese-press": "Peynir Ezeceği",
+    "fast-machines.crab-pot": "Yengeç Çömleği",
+    "fast-machines.crystalarium": "Kristalaryum",
+    "fast-machines.fruit-trees": "Meyve Ağacı",
+    "fast-machines.furnace": "Fırın",
+    "fast-machines.incubator": "Kuluçka Makinesi (Sabaha Hazır)",
+    "fast-machines.keg": "Fıçı",
+    "fast-machines.lightning-rod": "Paratoner",
+    "fast-machines.loom": "Dokuma Tezgahı",
+    "fast-machines.mayonnaise-machine": "Mayonez Makinesi",
+    "fast-machines.mushroom-box": "Mantar Kutusu",
+    "fast-machines.oil-maker": "Yağ Üreteci",
+    "fast-machines.preserves-jar": "Kavanoz",
+    "fast-machines.recycling-machine": "Geri Dönüşüm Makinesi",
+    "fast-machines.seed-maker": "Tohum Üreteci",
+    "fast-machines.slime-egg-press": "Balçıkça Yumurta Üreteci",
+    "fast-machines.slime-incubator": "Balçıkça Kuluçka Makinesi",
+    "fast-machines.soda-machine": "Soda Makinesi",
+    "fast-machines.statue-of-endless-fortune": "Sonsuz Talih Heykelciği",
+    "fast-machines.statue-of-perfection": "Mükemmellik Heykeli",
+    "fast-machines.tapper": "Akıtaç",
+    "fast-machines.wood-chipper": "Ağaç Öğütücü",
+    "fast-machines.worm-bin": "Solucan Kutusu",
+
+
+    /*********
+    ** Skills tab
+    *********/
+    // skills
+    "skills.title": "Beceriler",
+    "skills.increase-farming": "Çiftçilik Seviyesini Yükselt: {{currentLevel}}",
+    "skills.increase-mining": "Madencilik Seviyesini Yükselt: {{currentLevel}}",
+    "skills.increase-foraging": "Toplayıcılık Seviyesini Yükselt: {{currentLevel}}",
+    "skills.increase-fishing": "Balıkçılık Seviyesini Yükselt: {{currentLevel}}",
+    "skills.increase-combat": "Savaşma Seviyesini Yükselt: {{currentLevel}}",
+    "skills.reset": "BECERİLERİ SIFIRLA!",
+
+    // professions
+    "professions.title": "Uzmanlık Alanları",
+    "professions.combat.fighter": "Savaşma svy 5 - Savaşçı",
+    "professions.combat.scout": "Savaşma svy 5 - Öncü",
+    "professions.combat.acrobat": "Savaşma svy 10 - Cambaz",
+    "professions.combat.brute": "Savaşma svy 10 - Saldırgan",
+    "professions.combat.defender": "Savaşma svy 10 - Savunmacı",
+    "professions.combat.desperado": "Savaşma svy 10 - Haydut",
+    "professions.farming.rancher": "Çiftçilik svy 5 - Çiftlik Sahibi",
+    "professions.farming.tiller": "Çiftçilik  svy 5 - Filiz Kökleyicisi",
+    "professions.farming.agriculturist": "Çiftçilik  svy 10 - Ziraatçi",
+    "professions.farming.artisan": "Çiftçilik  svy 10 - Zanaatkar",
+    "professions.farming.coopmaster": "Çiftçilik  svy 10 - Kümes Sahibi",
+    "professions.farming.shepherd": "Çiftçilik  svy 10 - Çoban",
+    "professions.fishing.fisher": "Balıkçılık  svy 5 - Balıkçı",
+    "professions.fishing.trapper": "Balıkçılık  svy 5 - Tuzakçı",
+    "professions.fishing.angler": "Balıkçılık svy 10 - Oltacı",
+    "professions.fishing.luremaster": "Balıkçılık svy 10 - Yemci",
+    "professions.fishing.mariner": "Balıkçılık svy 10 - Denizci",
+    "professions.fishing.pirate": "Balıkçılık svy 10 - Korsan",
+    "professions.foraging.forester": "Toplayıcılık svy 5 - Korucu",
+    "professions.foraging.gatherer": "Toplayıcılık svy 5 - Toplayıcı",
+    "professions.foraging.botanist": "Toplayıcılık svy 10 - Bitkibilimci",
+    "professions.foraging.lumberjack": "Toplayıcılık svy 10 - Oduncu",
+    "professions.foraging.tapper": "Toplayıcılık svy 10 - Pekmez Uzmanı",
+    "professions.foraging.tracker": "Toplayıcılık svy 10 - İzci",
+    "professions.mining.geologist": "Madencilik svy 5 - Yer Bilimci",
+    "professions.mining.miner": "Madencilik svy 5 - Madenci",
+    "professions.mining.blacksmith": "Madencilik svy 10 - Demirci",
+    "professions.mining.excavator": "Madencilik svy 10 - Kazıcı",
+    "professions.mining.gemologist": "Madencilik svy 10 - Değerli Taş Uzmanı",
+    "professions.mining.prospector": "Madencilik svy 10 - Maden Uzmanı",
+
+
+    /*********
+    ** Weather tab
+    *********/
+    "weather.title": "Yarının Hava Durumu",
+    "weather.current": "Şu An",
+    "weather.sunny": "Güneşli",
+    "weather.raining": "Yağmurlu",
+    "weather.lightning": "Şimşekli Yağmur",
+    "weather.snowing": "Karlı",
+
+
+    /*********
+    ** Relationships tab
+    *********/
+    "relationships.title": "İlişkiler",
+    "relationships.give-gifts-anytime": "Hediye Verme Sınırını Kaldır",
+    "relationships.no-decay": "Arkadaşlık Düşmesini Kapat",
+    "relationships.friends": "Arkadaşlar",
+
+
+    /*********
+    ** Warps tab
+    *********/
+    // main areas
+    "warp-section.main": "Ana Bölgeler",
+    "warp.farm": "Çiftlik",
+    "warp.carpenter": "Marangoz",
+    "warp.desert": "Çöl",
+    "warp.mines": "Madens",
+    "warp.pierre-shop": "Pierre'nin Dükkanı",
+
+    // town
+    "warp-section.town": "Kasaba",
+    "warp.blacksmith": "Demirci",
+    "warp.community-center": "Halk Evi",
+    "warp.jojamart": "JojaMart",
+    "warp.movie-theater": "Sinema",
+    "warp.museum": "Müze",
+    "warp.saloon": "Salon",
+    "warp.sewer": "Kanalizasyon",
+
+    // forest
+    "warp-section.forest": "Orman",
+    "warp.hats": "Şapka",
+    "warp.ranch": "Marnie'nin Çiftliği",
+    "warp.secret-woods": "Gizli Orman",
+    "warp.wizard-tower": "Büyücü'nün Kulesi",
+
+    // mountain
+    "warp-section.mountain": "Dağ",
+    "warp.adventurers-guild": "Maceracılar Loncası",
+    "warp.bathhouse": "Sauna",
+    "warp.quarry": "Taş Ocağı",
+
+    // beach
+    "warp-section.beach": "Sahil",
+    "warp.tide-pools": "Gelgit Havuzları",
+    "warp.willy-shop": "Willy'nin Dükkanı",
+
+    // desert
+    "warp-section.desert": "Çöl",
+    "warp.casino": "Kumarhane",
+    "warp.sandy-shop": "Sandy'nin Dükkanı",
+    "warp.skull-cavern": "Kafatası Mağarası",
+
+
+    /*********
+    ** Time tab
+    *********/
+    "time.title": "Zaman",
+    "time.freeze-inside": "İçerdeyken Zamanı Dondur",
+    "time.freeze-caves": "Mağaradayken Zamanı Dondur",
+    "time.freeze-everywhere": "Zamanı Her Yerde Dondur",
+    "time.time": "Zaman",
+    "time.time-frozen-message": "Zaman Dondu",
+
+
+    /*********
+    ** Advanced tab
+    *********/
+    "flags.warning": "Bu bölümü kullanmak kendi sorumluluğunuzdadır!\nBu ayarlar postaların,olayların ya da görevlerin atlanması gibi sorunlara yol açabilir.",
+    "flags.quests": "Görevleri Tamamla",
+    "flags.wallet": "Cüzdandaki Nesneler",
+    "flags.unlocked": "Açılmış Yerler",
+    "flags.unlocked.guild": "Maceracılar Loncası",
+    "flags.unlocked.room": "Odası: {{name}}",
+    "flags.unlocked-content": "Açılmış İçerik",
+    "flags.unlocked-content.dyes-and-tailoring": "Boyama & Dikiş",
+    "flags.community-center": "Halk Evi",
+    "flags.community-center.door-unlocked": "Kapı Açıldı",
+    "flags.jojamart.membership": "JojaMart Üyeliği",
+
+
+    /*********
+    ** Controls tab
+    *********/
+    "controls.title": "Kontroller",
+    "controls.android-config-note": "CJB Cheat Menu ve Sanal Klavye modları için yapılandırma dosyalarındaki ekran düğmelerini değiştirebilirsiniz.",
+    "controls.open-menu": "Menüyü Aç",
+    "controls.freeze-time": "Zamanı Dondur",
+    "controls.grow-tree": "Ağacı Büyüt",
+    "controls.grow-crops": "Ekini Büyüt",
+    "controls.grow-radius": "Ekin Büyüme Mesafesi",
+    "controls.reset-controls": "Sıfırla",
+    "controls.press-new-key": "Yeni bir tuşa bas..."
+}

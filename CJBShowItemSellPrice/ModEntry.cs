@@ -8,6 +8,7 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Menus;
+using StardewValley.Objects;
 using SObject = StardewValley.Object;
 
 namespace CJBShowItemSellPrice
@@ -178,18 +179,8 @@ namespace CJBShowItemSellPrice
                 ? obj.sellToStorePrice()
                 : item.salePrice() / 2;
 
-            // draw tooltip
-            this.DrawPriceTooltip(spriteBatch, font, price, stack);
-        }
-
-        /// <summary>Draw a tooltip box which shows the unit and stack prices for an item.</summary>
-        /// <param name="spriteBatch">The sprite batch to update.</param>
-        /// <param name="font">The font with which to draw text.</param>
-        /// <param name="price">The price to display.</param>
-        /// <param name="stack">The stack size (if any).</param>
-        private void DrawPriceTooltip(SpriteBatch spriteBatch, SpriteFont font, int price, int stack = -1)
-        {
-            if (price < 1)
+            // skip if can't be sold
+            if (price < 1 || item is Furniture)
                 return;
 
             // basic measurements

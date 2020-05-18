@@ -1,8 +1,16 @@
 [← back to readme](README.md)
 
 # Release notes
+## 1.25
+Released 18 May 2020 for SMAPI 3.4 or later.
+
+* Always Auto-Feed now waters slimes in Slime Hutches too.
+* Fixed freeze-time not applying while a menu is open in multiplayer in 1.24.
+* Fixed fast casks taking 10 in-game minutes in 1.24.
+* Improved translations. Thanks to D0n-A (updated Russian) and talha12 (added Turkish)!
+
 ## 1.24
-Released 14 April 2020 for Stardew Valley 3.4 or later. Updated by Pathoschild.
+Released 14 April 2020 for SMAPI 3.4 or later.
 
 * Added cheats:
   * instant weapon cooldowns;
@@ -31,12 +39,12 @@ Released 14 April 2020 for Stardew Valley 3.4 or later. Updated by Pathoschild.
 * Improved translations. Thanks to Akir0 (updated French), Annosz (added Hungarian), and D0n-A (updated Russian)!
 
 ## 1.23.1
-Released 18 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
+Released 18 February 2020 for SMAPI 3.2 or later.
 
 * Fixed 'fast casks' not completing until in-game clock change after 1.23.
 
 ## 1.23
-Released 17 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
+Released 17 February 2020 for SMAPI 3.2 or later.
 
 * Added option to increase the grow crop/tree radius.
 * Added option to reset controls.
@@ -49,7 +57,7 @@ Released 17 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
 * Improved translations. Thanks to Enaium (updated Chinese)!
 
 ## 1.22
-Released 09 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
+Released 09 February 2020 for SMAPI 3.2 or later.
 
 * Water all fields now works for indoor pots in any location.
 * Grow crops/trees now affects those around the player (instead of under the cursor), to avoid confusion and for Android compatibility.
@@ -63,7 +71,7 @@ Released 09 February 2020 for SMAPI 3.2 or later. Updated by Pathoschild.
 * Improved translations. Thanks to ba0109 (updated Korean), jahangmar (updated German), mael-belval (updated French), Redlnn (updated Chinese), shirutan (updated Japanese), VengelmBjorn (updated Russian), and victrosantos (updated Portuguese and Spanish)!
 
 ## 1.21
-Released 26 November 2019 for SMAPI 3.0 or later. Updated by Pathoschild.
+Released 26 November 2019 for SMAPI 3.0 or later.
 
 * Updated for Stardew Valley 1.4, including...
   * added wood chipper support for fast machines;
@@ -78,7 +86,7 @@ Released 26 November 2019 for SMAPI 3.0 or later. Updated by Pathoschild.
 * Improved translations. Thanks to jahangmar (updated German), overwritten (updated Korean), qqkookie (updated Korean), Redlnn (updated Chinese), Riazaia (updated Spanish), shiro2579 (updated Portuguese), and shirutan (updated Japanese)!
 
 ## 1.20.1
-Released 12 June 2019 for SMAPI 2.11.1 or later. Updated by Pathoschild.
+Released 12 June 2019 for SMAPI 2.11.1 or later.
 
 * Reworked community center flag options.
 * Fixed setting a community center flag not completing the in-game area.
@@ -87,7 +95,7 @@ Released 12 June 2019 for SMAPI 2.11.1 or later. Updated by Pathoschild.
 * Improved translations. Thanks to shirutan (updated Japanese)!
 
 ## 1.20
-Released 10 June 2019 for SMAPI 2.11.1 or later. Updated by Pathoschild.
+Released 10 June 2019 for SMAPI 2.11.1 or later.
 
 * Added 'advanced' tab to set flags and wallet items; merged 'quests' tab into 'advanced'.
 * Fixed max relationship meter not extended for spouse.
@@ -95,7 +103,7 @@ Released 10 June 2019 for SMAPI 2.11.1 or later. Updated by Pathoschild.
 * Improved translations. Thanks to S2SKY (added Korean) and TheOzonO3 (updated Russian)!
 
 ## 1.19
-Released 27 March 2019 for SMAPI 2.11 or later. Updated by Pathoschild.
+Released 27 March 2019 for SMAPI 2.11 or later.
 
 * Added support for setting relationships for unmet villagers.
 * Fast machine processing is now much faster.
@@ -105,19 +113,19 @@ Released 27 March 2019 for SMAPI 2.11 or later. Updated by Pathoschild.
 * Improved translations. Thanks to kelvindules (updated Portuguese) and VincentRoth (added French)!
 
 ## 1.18.3
-Released 09 December 2018 for SMAPI 2.9 or later. Updated by Pathoschild.
+Released 09 December 2018 for SMAPI 2.9 or later.
 
 * Updated for the upcoming SMAPI 3.0.
 * Fixed harvest with scythe option saying 'no XP gain', which was fixed in Stardew Valley 1.3. (Thanks to SkpFX!)
 * Improved translations. Thanks to Nanogamer7 (added German) and Redlnn (improved Chinese)!
 
 ## 1.18.2
-Released 03 November 2018 for SMAPI 2.8 or later. Updated by Pathoschild.
+Released 03 November 2018 for SMAPI 2.8 or later.
 
 * Improved translations. Thanks to Spa51 (added Spanish)!
 
 ## 1.18.1
-Released 28 August 2018 for SMAPI 2.8 or later. Updated by Pathoschild.
+Released 28 August 2018 for SMAPI 2.8 or later.
 
 * Updated for Stardew Valley 1.3.29.
 * Farmhands in multiplayer warping to the farm now land in front of their cabin, instead of the farmhouse.
@@ -153,7 +161,7 @@ Released 04 August 2018 for SMAPI 2.7 or later. Updated by CJBok (quests feature
 * Improved translations. Thanks to Issacy (added Chinese), Marity (added Japanese), and Ryofuko (added Russian)!
 
 ## 1.17
-Released 11 February 2018 for SMAPI 2.4 or later. Updated by Pathoschild.
+Released 11 February 2018 for SMAPI 2.4 or later.
 
 * Updated to SMAPI 2.4.
 * Added translation support.
@@ -163,13 +171,13 @@ Released 11 February 2018 for SMAPI 2.4 or later. Updated by Pathoschild.
 * Improved translations. Thanks to XxIceGladiadorxX (added Portuguese)!
 
 ## 1.16
-Released 14 July 2017 for SMAPI 1.15 or later. Updated by Pathoschild.
+Released 14 July 2017 for SMAPI 1.15 or later.
 
 * Fixed open-menu key working even when another menu is already open.
 * Fixed freeze-time key working during cutscenes.
 
 ## 1.15
-Released 27 May 2017 for SMAPI 1.13 or later. Updated by Pathoschild.
+Released 27 May 2017 for SMAPI 1.13 or later.
 
 * Updated for Stardew Valley 1.2 and SMAPI 1.13.
 * Added option to set the default tab when opening the menu.
@@ -178,12 +186,12 @@ Released 27 May 2017 for SMAPI 1.13 or later. Updated by Pathoschild.
 * Fixed 'one hit break' not working on fruit trees.
 
 ## 1.14.1
-Released 12 April 2017 for SMAPI 1.9 or later. Updated by Pathoschild.
+Released 12 April 2017 for SMAPI 1.9 or later.
 
 * Fixed error when used with any mod that adds multiple seeds producing the same crop.
 
 ## 1.14
-Released 05 April 2017 for SMAPI 1.9 or later. Updated by Pathoschild.
+Released 05 April 2017 for SMAPI 1.9 or later.
 
 * Updated to SMAPI 1.9.
 * Fast machines now work anywhere, not only on the farm.
@@ -192,7 +200,7 @@ Released 05 April 2017 for SMAPI 1.9 or later. Updated by Pathoschild.
 * Internal refactoring.
 
 ## 1.13
-Released 04 January 2017 for SMAPI 1.5 or later. Updated by Pathoschild.
+Released 04 January 2017 for SMAPI 1.5 or later. This and subsequent releases updated by Pathoschild.
 
 * Updated to Stardew Valley 1.1+ and SMAPI 1.5.
 * Added compatibility with Linux and Mac.
@@ -201,7 +209,7 @@ Released 04 January 2017 for SMAPI 1.5 or later. Updated by Pathoschild.
 * Fixed 'grow crops' key in settings menu not being saved.
 
 ## 1.12
-Released 09 April 2016 for SMAPI 0.40 or later.
+Released 09 April 2016 for SMAPI 0.40 or later. Updated by CJBok.
 
 * Updated to Stardew Valley 1.07+ and SMAPI 0.40.0+.
 * Added cheats: durable tackles, harvest with scythe, grow tree, and grow crops.
@@ -209,7 +217,7 @@ Released 09 April 2016 for SMAPI 0.40 or later.
 * Fixed mouse cursor showing when disabled.
 
 ## 1.11
-Released 02 April 2016 for SMAPI 0.39.6 or later.
+Released 02 April 2016 for SMAPI 0.39.6 or later. Updated by CJBok.
 
 * Updated for SMAPI 0.39.6.
 * Added cheats: fast tapper, fast lightning rod, always auto-feed, and infinite hay.
@@ -219,32 +227,44 @@ Released 02 April 2016 for SMAPI 0.39.6 or later.
 * Fixed time frozen label.
 
 ## 1.10
-Released 30 March 2016 for SMAPI 0.39.4 or later.
+Released 30 March 2016 for SMAPI 0.39.4 or later. Updated by CJBok.
 
 * Updated for SMAPI 0.39.4.
 * Added cheats: no friendship decay, instant build.
 * Fixed fast machine processing in barns and coops.
 
 ## 1.9
+Released 23 March 2016 for SMAPI 0.39.1 or later. Updated by CJBok.
+
 * Updated for SMAPI 0.39.1.
 
 ## 1.8.2
+Released 23 March 2016 for SMAPI 0.38.3 or later. Updated by CJBok.
+
 * Fixed cheats not working in the greenhouse.
 
 ## 1.8.1
+Released 22 March 2016 for SMAPI 0.38.3 or later. Updated by CJBok.
+
 * Fixed cheats not working in the greenhouse.
 
 ## 1.8
+Released 21 March 2016 for SMAPI 0.38.3 or later. Updated by CJBok.
+
 * Updated to Stardew Valley 1.0.6 and SMAPI 0.38.3.
 * Fixed watering fields in the greenhouse.
 * Fixed fast machine processing.
 * Removed the `nini.dll` file (no longer needed, now uses save method in latest SMAPI update).
 
 ## 1.7.1
+Released 18 March 2016 for SMAPI 0.37.3 or later. Updated by CJBok.
+
 * Fixed fast machine processing.
 * Fixed watering fields in the greenhouse.
 
 ## 1.7
+Released 17 March 2016 for SMAPI 0.37.3 or later. Updated by CJBok.
+
 * Added fast processing for all machines (each toggleable).
 * Added skill reset.
 * You can now switch between categories with controller (shoulder triggers).
@@ -252,39 +272,55 @@ Released 30 March 2016 for SMAPI 0.39.4 or later.
 * Fixed watering fields in some cases.
 
 ## 1.6
+Released 11 March 2016 for SMAPI 0.37.3 or later. Updated by CJBok.
+
 * Menu now contains categories (last scroll position and category will be remembered).
 * Fixed 'always treasure' cheat.
 
 ## 1.5.3
+Released 10 March 2016 for SMAPI 0.37.3 or later. Updated by CJBok.
+
 * Fixed sound bug during fishing.
 * The cheats menu now remembers scroll position.
 
 ## 1.5.2
+Released 10 March 2016 for SMAPI 0.37.3 or later. Updated by CJBok.
+
 * Fixed player getting stuck during events.
 * Fixed sounds stuck during fishing.
 
 ## 1.5.1
+Released 10 March 2016 for SMAPI 0.37.3 or later. Updated by CJBok.
+
 * Restored `Nini.dll` in download since some users still need it.
 * Added 'instant bite' option, separate from 'instant catch' option.
 * Fixed wrong mod version shown on load.
 * Changed 'debris' weather name to 'windy'.
 
 ## 1.5
+Released 10 March 2016 for SMAPI 0.37.3 or later. Updated by CJBok.
+
 * Added 'one hit break' option.
 * Fixed diagonal movement.
 * Fixed player speed effected while walking.
 * Removed `Nini.dll` (integrated into main DLL).
 
 ## 1.4.1
+Released 08 March 2016 for SMAPI 0.37.3 or later. Updated by CJBok.
+
 * Fixed fish biting instantly when cheat isn't active.
 
 ## 1.4
+Released 08 March 2016 for SMAPI 0.37.3 or later. Updated by CJBok.
+
 * Added fish 'always treasure' option.
 * Added instant catch also making fish bite instantly.
 * Fixed time frozen dialog overlapping mine level dialog.
 * Fixed durable fences cheat not working when not on farm.
 
 ## 1.3.2
+Released 07 March 2016 for SMAPI 0.37.2 or later. Updated by CJBok.
+
 * Added many warp locations.
 * Added 'always give gift' option.
 * Added time freeze options.

@@ -1,7 +1,7 @@
 {
     "Name": "CJB Cheats Menu",
     "Author": "CJBok and Pathoschild",
-    "Version": "1.24.0",
+    "Version": "1.25.0",
     "Description": "Simple in-game cheats menu!",
     "UniqueID": "CJBok.CheatsMenu",
     "EntryDll": "CJBCheatsMenu.dll",

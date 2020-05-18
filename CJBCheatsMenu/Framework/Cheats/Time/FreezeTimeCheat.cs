@@ -59,7 +59,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /// <param name="e">The update event arguments.</param>
         public override void OnUpdated(CheatContext context, UpdateTickedEventArgs e)
         {
-            if (!Context.IsPlayerFree)
+            if (!Context.IsWorldReady)
                 return;
 
             if (this.ShouldFreezeTime(context.Config, Game1.currentLocation, out bool _))

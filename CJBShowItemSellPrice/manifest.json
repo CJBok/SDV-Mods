@@ -1,7 +1,7 @@
 {
     "Name": "CJB Show Item Sell Price",
     "Author": "CJBok and Pathoschild",
-    "Version": "1.9.6",
+    "Version": "1.9.7",
     "Description": "Show item sell price in your inventory!",
     "UniqueID": "CJBok.ShowItemSellPrice",
     "EntryDll": "CJBShowItemSellPrice.dll",
