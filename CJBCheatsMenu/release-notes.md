@@ -1,14 +1,16 @@
 [← back to readme](README.md)
 
 # Release notes
-## Upcoming release
-* Always Auto-Feed now waters slimes too.
+## 1.25
+Released 18 May 2020 for SMAPI 3.4 or later.
+
+* Always Auto-Feed now waters slimes in Slime Hutches too.
 * Fixed freeze-time not applying while a menu is open in multiplayer in 1.24.
 * Fixed fast casks taking 10 in-game minutes in 1.24.
 * Improved translations. Thanks to D0n-A (updated Russian) and talha12 (added Turkish)!
 
 ## 1.24
-Released 14 April 2020 for Stardew Valley 3.4 or later.
+Released 14 April 2020 for SMAPI 3.4 or later.
 
 * Added cheats:
   * instant weapon cooldowns;

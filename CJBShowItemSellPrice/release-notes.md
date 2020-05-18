@@ -1,11 +1,13 @@
 [← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.9.7
+Released 18 May 2020 for SMAPI 3.4 or later.
+
 * Fixed prices shown for furniture, which can't be sold.
 
 ## 1.9.6
-Released 14 April 2020 for Stardew Valley 3.4 or later.
+Released 14 April 2020 for SMAPI 3.4 or later.
 
 * Improved translations. Thanks to Annosz (added Hungarian) and BURAKMESE (added Turkish)!
 

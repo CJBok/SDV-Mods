@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <AssemblyName>CJBCheatsMenu</AssemblyName>
-    <Version>1.24.0</Version>
+    <Version>1.25.0</Version>
     <RootNamespace>CJBCheatsMenu</RootNamespace>
     <TargetFramework>net452</TargetFramework>
   </PropertyGroup>

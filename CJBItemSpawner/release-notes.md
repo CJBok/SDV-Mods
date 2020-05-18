@@ -2,7 +2,7 @@
 
 # Release notes
 ## 1.12.1
-Released 14 April 2020 for Stardew Valley 3.4 or later.
+Released 14 April 2020 for SMAPI 3.4 or later.
 
 * Fixed item slots not grayed out in spawner menu if you don't have the backpack upgrades.
 * Fixed spawned 'floor TV' item not functional as a TV (thanks to Platonymous!).
