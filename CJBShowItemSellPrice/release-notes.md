@@ -1,6 +1,10 @@
 [← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Added `assets/data.json` to configure which items can be sold.
+* Fixed price shown for unsellable items like tools.
+
 ## 1.9.7
 Released 18 May 2020 for SMAPI 3.4 or later.
 
