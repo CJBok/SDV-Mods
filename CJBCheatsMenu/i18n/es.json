@@ -24,10 +24,10 @@
     "player.title": "Jugador",
     "player.infinite-stamina": "Energía Infinita",
     "player.infinite-health": "Salud Infinita",
-    "player.instant-cooldowns": "Instant Weapon Cooldowns", // TODO
-    "player.inventory-size": "Inventory Size", // TODO
+    "player.instant-cooldowns": "Reutilización Instantánea de Armas",
+    "player.inventory-size": "Tamaño de Inventario",
     "player.movement-speed": "Velocidad de Movimiento",
-    "player.movement-speed.default": "normal", // TODO
+    "player.movement-speed.default": "normal",
     "player.one-hit-kill": "Matar de Un Golpe",
     "player.max-daily-luck": "Máxima Suerte Diaria",
 
@@ -49,7 +49,7 @@
     *********/
     // farm
     "farm.title": "Granja",
-    "farm.auto-water": "Auto-Water Crops", // TODO
+    "farm.auto-water": "Regar Cultivos Automáticamente",
     "farm.durable-fences": "Vallas Duraderas",
     "farm.instant-build": "Construcciones Instantáneas",
     "farm.always-auto-feed": "Siempre Auto Alimentar",
@@ -73,7 +73,7 @@
     "fast-machines.crystalarium": "Cristalario",
     "fast-machines.fruit-trees": "Árboles Frutales",
     "fast-machines.furnace": "Horno",
-    "fast-machines.incubator": "Incubadora (lista por la mañana)", // TODO review (auto-translated)
+    "fast-machines.incubator": "Incubadora (lista por la mañana)",
     "fast-machines.keg": "Barril",
     "fast-machines.lightning-rod": "Pararrayos",
     "fast-machines.loom": "Telar",
@@ -163,7 +163,7 @@
     ** Warps tab
     *********/
     // main areas
-    "warp-section.main": "Main Areas", // TODO
+    "warp-section.main": "Áreas Principales",
     "warp.farm": "Granja",
     "warp.carpenter": "Carpintería",
     "warp.desert": "Desierto de Calico",
@@ -171,7 +171,7 @@
     "warp.pierre-shop": "Tienda Pierre's",
 
     // town
-    "warp-section.town": "Town", // TODO
+    "warp-section.town": "Pueblo",
     "warp.blacksmith": "Herrería",
     "warp.community-center": "Centro Cívico",
     "warp.jojamart": "MercaJoja",
@@ -181,14 +181,14 @@
     "warp.sewer": "Alcantarillas",
 
     // forest
-    "warp-section.forest": "Forest", // TODO
+    "warp-section.forest": "Bosque",
     "warp.hats": "Sombreros",
     "warp.ranch": "Rancho de Marnie",
     "warp.secret-woods": "Bosque Secreto",
     "warp.wizard-tower": "Torre del Mago",
 
     // mountain
-    "warp-section.mountain": "Mountain", // TODO
+    "warp-section.mountain": "Montaña",
     "warp.adventurers-guild": "Gremio de Aventureros",
     "warp.bathhouse": "Spa",
     "warp.quarry": "Cantera",
@@ -199,7 +199,7 @@
     "warp.willy-shop": "Tienda de Pesca",
 
     // desert
-    "warp-section.desert": "Desert", // TODO
+    "warp-section.desert": "Desierto",
     "warp.casino": "Casino",
     "warp.sandy-shop": "Tienda Sandy's",
     "warp.skull-cavern": "Caverna Calavera",
@@ -236,12 +236,12 @@
     ** Controls tab
     *********/
     "controls.title": "Controles",
-    "controls.android-config-note": "You can change the on-screen buttons in the config files for the CJB Cheats Menu and Virtual Keyboard mods.", // TODO
+    "controls.android-config-note": "Se puede cambiar los botones en pantalla en los archivos de configuración de los mods CJB Cheats Menu y Virtual Keyboard.", // TODO review
     "controls.open-menu": "Abrir Menu",
     "controls.freeze-time": "Congelar Tiempo",
-    "controls.grow-tree": "Cultivar Árbol",
-    "controls.grow-crops": "Cultivar Cultivos",
-    "controls.grow-radius": "Grow distance around player", // TODO
-    "controls.reset-controls": "Reset", // TODO
+    "controls.grow-tree": "Hacer Crecer Árboles",
+    "controls.grow-crops": "Hacer Crecer Cultivos",
+    "controls.grow-radius": "Distancia de crecimiento alrededor del jugador", // TODO review
+    "controls.reset-controls": "Restablecer",
     "controls.press-new-key": "Presione Nueva Tecla..."
 }
