@@ -1,6 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Improved translations. Thanks to kdau (updated Spanish)!
+
 ## 1.25
 Released 18 May 2020 for SMAPI 3.4 or later.
 
