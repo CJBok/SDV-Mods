@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CJBShowItemSellPrice.Framework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,7 +9,6 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Menus;
-using StardewValley.Objects;
 using SObject = StardewValley.Object;
 
 namespace CJBShowItemSellPrice
@@ -46,6 +46,9 @@ namespace CJBShowItemSellPrice
         /// <summary>The cached toolbar slots.</summary>
         private IList<ClickableComponent> ToolbarSlots;
 
+        /// <summary>Metadata that isn't available from the game data directly.</summary>
+        private DataModel Data;
+
 
         /*********
         ** Public methods
@@ -54,12 +57,18 @@ namespace CJBShowItemSellPrice
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
         {
+            // init text
+            this.SingleLabel = this.Helper.Translation.Get("labels.single-price") + ":";
+            this.StackLabel = this.Helper.Translation.Get("labels.stack-price") + ":";
+
+            // load data
+            this.Data = helper.Data.ReadJsonFile<DataModel>("assets/data.json") ?? new DataModel();
+            this.Data.ForceSellable ??= new HashSet<int>();
+
+            // hook events
             helper.Events.Display.RenderedActiveMenu += this.OnRenderedActiveMenu;
             helper.Events.Display.RenderedHud += this.OnRenderedHud;
             helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
-
-            this.SingleLabel = this.Helper.Translation.Get("labels.single-price") + ":";
-            this.StackLabel = this.Helper.Translation.Get("labels.stack-price") + ":";
         }
 
 
@@ -175,12 +184,8 @@ namespace CJBShowItemSellPrice
         {
             // get info
             int stack = item.Stack;
-            int price = item is SObject obj
-                ? obj.sellToStorePrice()
-                : item.salePrice() / 2;
-
-            // skip if can't be sold
-            if (price < 1 || item is Furniture)
+            int? price = this.GetSellPrice(item);
+            if (price == null)
                 return;
 
             // basic measurements
@@ -233,6 +238,34 @@ namespace CJBShowItemSellPrice
                 Utility.drawTextWithShadow(spriteBatch, stackLabel, font, new Vector2(x + borderSize + padding, y + borderSize + padding + lineHeight), Game1.textColor);
                 Utility.drawTextWithShadow(spriteBatch, stackPrice, font, new Vector2(x + outerSize.X - borderSize - padding - coinSize - padding - stackPriceSize.X, y + borderSize + padding + lineHeight), Game1.textColor);
             }
+        }
+
+        /// <summary>Get the sell price for an item.</summary>
+        /// <param name="item">The item to check.</param>
+        /// <returns>Returns the sell price, or <c>null</c> if it can't be sold.</returns>
+        private int? GetSellPrice(Item item)
+        {
+            // skip unsellable item
+            if (!this.CanBeSold(item))
+                return null;
+
+            // get price
+            int price = item is SObject obj
+                ? obj.sellToStorePrice()
+                : item.salePrice() / 2;
+
+            return price >= 0
+                ? price
+                : null as int?;
+        }
+
+        /// <summary>Get whether an item can be sold.</summary>
+        /// <param name="item">The item to check.</param>
+        private bool CanBeSold(Item item)
+        {
+            return
+                (item is SObject obj && obj.canBeShipped())
+                || this.Data.ForceSellable.Contains(item.Category);
         }
     }
 }

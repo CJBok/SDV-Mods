@@ -1,0 +1,247 @@
+{
+    /*********
+    ** Main translations
+    *********/
+    // mod name shown in the menu
+    "mod-name": "CJB Menù dei Trucchi",
+
+    // tab names
+    "tabs.player-and-tools": "Giocatore & Utensili",
+    "tabs.farm-and-fishing": "Agricoltura & Pesca",
+    "tabs.skills": "Abilitá",
+    "tabs.weather": "Meteo",
+    "tabs.relationships": "Relazioni",
+    "tabs.warp": "Luoghi Teletrasporto",
+    "tabs.time": "Tempo",
+    "tabs.advanced": "Avanzate",
+    "tabs.controls": "Controlli",
+
+
+    /*********
+    ** Player & Tools tab
+    *********/
+    // player
+    "player.title": "Giocatore",
+    "player.infinite-stamina": "Stamina Infinita",
+    "player.infinite-health": "Salute Infinita",
+    "player.instant-cooldowns": "Arma Cooldowns Istantanea",
+    "player.inventory-size": "Dimensione dell'Inventario",
+    "player.movement-speed": "Velocitá di Movimento",
+    "player.movement-speed.default": "normale",
+    "player.one-hit-kill": "Colpo Mortale",
+    "player.max-daily-luck": "Max Fortuna Giornaliera",
+
+    // tools
+    "tools.title": "Utensili",
+    "tools.infinite-water": "Acqua Infinita nell'Annaffiatoio",
+    "tools.one-hit-break": "Rompi in un colpo",
+    "tools.harvest-with-scythe": "Mietere con la falce",
+
+    // money
+    "money.title": "Soldi",
+    "money.add-amount": "Aggiungi {{amount}}g",
+    "casino-coins.title": "Monete del Casinó",
+    "casino-coins.add-amount": "Aggiungi {{amount}}",
+
+
+    /*********
+    ** Farm & Fishing tab
+    *********/
+    // farm
+    "farm.title": "Fattoria",
+    "farm.auto-water": "Annaffia Raccolto Automatico",
+    "farm.durable-fences": "Recinti Durabili",
+    "farm.instant-build": "Costruisci Instantaneamente",
+    "farm.always-auto-feed": "Nutri Animali Automatico",
+    "farm.infinite-hay": "Fieno Infinito",
+
+    // fishing
+    "fishing.title": "Pesca",
+    "fishing.instant-catch": "Cattura Instantanea",
+    "fishing.instant-bite": "Abboccato Istantaneo",
+    "fishing.always-throw-max-distance": "Raggiungi Sempre la Distanza Massima",
+    "fishing.always-treasure": "Sempre Tesori",
+    "fishing.durable-tackles": "Ami Durabili",
+
+    // fast machines
+    "fast-machines.title": "Processo Macchinari Veloce",
+    "fast-machines.bee-house": "Arnia",
+    "fast-machines.cask": "Botte",
+    "fast-machines.charcoal-kiln": "Fornace per il Carbone",
+    "fast-machines.cheese-press": "Pressa per Formaggi",
+    "fast-machines.crab-pot": "Nassa per Granchi",
+    "fast-machines.crystalarium": "Cristallario",
+    "fast-machines.fruit-trees": "Alberi della Frutta",
+    "fast-machines.furnace": "Fornace",
+    "fast-machines.incubator": "Incubatrice (pronto il mattino)",
+    "fast-machines.keg": "Barilotto",
+    "fast-machines.lightning-rod": "Parafulmini",
+    "fast-machines.loom": "Telaio",
+    "fast-machines.mayonnaise-machine": "Macchina per la Maionese",
+    "fast-machines.mushroom-box": "Cassetta dei Funghi",
+    "fast-machines.oil-maker": "Frantoio",
+    "fast-machines.preserves-jar": "Barattolo per le Conserve",
+    "fast-machines.recycling-machine": "Riciclatore",
+    "fast-machines.seed-maker": "Estrai-Semi",
+    "fast-machines.slime-egg-press": "Pressa per le Uova di Melme",
+    "fast-machines.slime-incubator": "Incubatrice di Melme",
+    "fast-machines.soda-machine": "Macchinetta della Soda",
+    "fast-machines.statue-of-endless-fortune": "Statua d'Infinita Fortuna",
+    "fast-machines.statue-of-perfection": "Statue della Perfezione",
+    "fast-machines.tapper": "Estrattore",
+    "fast-machines.wood-chipper": "Cippatrice",
+    "fast-machines.worm-bin": "Bidone dei Vermi",
+
+
+    /*********
+    ** Skills tab
+    *********/
+    // skills
+    "skills.title": "Abilitá",
+    "skills.increase-farming": "Aumenta Livello Agricolo Lvl: {{currentLevel}}",
+    "skills.increase-mining": "Aumenta Livello Minatore Lvl: {{currentLevel}}",
+    "skills.increase-foraging": "Aumenta Livello Foraggio Lvl: {{currentLevel}}",
+    "skills.increase-fishing": "Aumenta Livello Pesca Lvl: {{currentLevel}}",
+    "skills.increase-combat": "Aumenta Livello Combattimento Lvl: {{currentLevel}}",
+    "skills.reset": "RESET ABILITÁ!",
+
+    // professions
+    "professions.title": "Professioni",
+    "professions.combat.fighter": "Combattimento lvl 5 - Fighter",
+    "professions.combat.scout": "Combattimento lvl 5 - Scout",
+    "professions.combat.acrobat": "Combattimento lvl 10 - Acrobat",
+    "professions.combat.brute": "Combattimento lvl 10 - Brute",
+    "professions.combat.defender": "Combattimento lvl 10 - Defender",
+    "professions.combat.desperado": "Combattimento lvl 10 - Desperado",
+    "professions.farming.rancher": "Agricolo lvl 5 - Rancher",
+    "professions.farming.tiller": "Agricolo lvl 5 - Tiller",
+    "professions.farming.agriculturist": "Agricolo lvl 10 - Agriculturist",
+    "professions.farming.artisan": "Agricolo lvl 10 - Artisan",
+    "professions.farming.coopmaster": "Agricolo lvl 10 - Coopmaster",
+    "professions.farming.shepherd": "Agricolo lvl 10 - Shepherd",
+    "professions.fishing.fisher": "Pesca lvl 5 - Fisher",
+    "professions.fishing.trapper": "Pesca lvl 5 - Trapper",
+    "professions.fishing.angler": "Pesca lvl 10 - Angler",
+    "professions.fishing.luremaster": "Pesca lvl 10 - Luremaster",
+    "professions.fishing.mariner": "Pesca lvl 10 - Mariner",
+    "professions.fishing.pirate": "Pesca lvl 10 - Pirate",
+    "professions.foraging.forester": "Foraggio lvl 5 - Forester",
+    "professions.foraging.gatherer": "Foraggio lvl 5 - Gatherer",
+    "professions.foraging.botanist": "Foraggio lvl 10 - Botanist",
+    "professions.foraging.lumberjack": "Foraggio lvl 10 - Lumberjack",
+    "professions.foraging.tapper": "Foraggio lvl 10 - Tapper",
+    "professions.foraging.tracker": "Foraggio lvl 10 - Tracker",
+    "professions.mining.geologist": "Minatore lvl 5 - Geologist",
+    "professions.mining.miner": "Minatore lvl 5 - Miner",
+    "professions.mining.blacksmith": "Minatore lvl 10 - Blacksmith",
+    "professions.mining.excavator": "Minatore lvl 10 - Excavator",
+    "professions.mining.gemologist": "Minatore lvl 10 - Gemologist",
+    "professions.mining.prospector": "Minatore lvl 10 - Prospector",
+
+
+    /*********
+    ** Weather tab
+    *********/
+    "weather.title": "Meteo di Domani",
+    "weather.current": "Corrente",
+    "weather.sunny": "Soleggiato",
+    "weather.raining": "Pioggia",
+    "weather.lightning": "Fulmini",
+    "weather.snowing": "Neve",
+
+
+    /*********
+    ** Relationships tab
+    *********/
+    "relationships.title": "Relazioni",
+    "relationships.give-gifts-anytime": "Sempre Regali",
+    "relationships.no-decay": "Nessun Declino dell'Amicizia",
+    "relationships.friends": "Amici",
+
+
+    /*********
+    ** Warps tab
+    *********/
+    // main areas
+    "warp-section.main": "Aree Principali",
+    "warp.farm": "Fattoria",
+    "warp.carpenter": "Carpentiere",
+    "warp.desert": "Deserto",
+    "warp.mines": "Miniera",
+    "warp.pierre-shop": "Emporio di Pierre",
+
+    // town
+    "warp-section.town": "Paese",
+    "warp.blacksmith": "Fabbro",
+    "warp.community-center": "Centro Sociale",
+    "warp.jojamart": "JojaMart",
+    "warp.movie-theater": "Cinema",
+    "warp.museum": "Museo",
+    "warp.saloon": " Saloon Astropomo",
+    "warp.sewer": "Fogne",
+
+    // forest
+    "warp-section.forest": "Foresta",
+    "warp.hats": "Cappelli",
+    "warp.ranch": "Ranch di Marnie",
+    "warp.secret-woods": "Foresta Segreta",
+    "warp.wizard-tower": "Torre del Mago",
+
+    // mountain
+    "warp-section.mountain": "Montagna",
+    "warp.adventurers-guild": "Gilda degli Avventurieri",
+    "warp.bathhouse": "Terme",
+    "warp.quarry": "Cava",
+
+    // beach
+    "warp-section.beach": "Spiaggia",
+    "warp.tide-pools": "Pozze di Marea",
+    "warp.willy-shop": "Negozio di Pesca",
+
+    // desert
+    "warp-section.desert": "Deserto",
+    "warp.casino": "Casinò",
+    "warp.sandy-shop": "Emporio di Sandy",
+    "warp.skull-cavern": "Caverna del Teschio",
+
+
+    /*********
+    ** Time tab
+    *********/
+    "time.title": "Tempo",
+    "time.freeze-inside": "Ferma il Tempo all'Interno",
+    "time.freeze-caves": "Ferma il Tempo nelle Grotte",
+    "time.freeze-everywhere": "Ferma il Tempo Ovunque",
+    "time.time": "Tempo",
+    "time.time-frozen-message": "Ferma l'Orologio",
+
+
+    /*********
+    ** Advanced tab
+    *********/
+    "flags.warning": "Usa queste opzioni a tuo rischio e pericolo! \\ Modifiche a questa sezione potrebbero causare problemi come omissioni di posta, eventi o missioni.",
+    "flags.quests": "Completa le Missioni",
+    "flags.wallet": "Oggetti nei Portafogli",
+    "flags.unlocked": "Aree Sbloccate",
+    "flags.unlocked.guild": "Gilda degli Avventurieri",
+    "flags.unlocked.room": "Stanza: {{name}}",
+    "flags.unlocked-content": "Contenuto Sbloccato",
+    "flags.unlocked-content.dyes-and-tailoring": "Colorante e Sartoria",
+    "flags.community-center": "Centro Sociale",
+    "flags.community-center.door-unlocked": "Porta Sbloccata",
+    "flags.jojamart.membership": "Membro di JojaMart",
+
+
+    /*********
+    ** Controls tab
+    *********/
+    "controls.title": "Controlli",
+    "controls.android-config-note": "Puoi cambiare i pulsanti sullo schermo nel file config del CJB Cheats Menu and Virtual Keyboard mods.",
+    "controls.open-menu": "Apri Menù",
+    "controls.freeze-time": "Ferma l'Orologio",
+    "controls.grow-tree": "Cresci l'Albero",
+    "controls.grow-crops": "Cresci la Coltura",
+    "controls.grow-radius": "Aumenta spazio personale",
+    "controls.reset-controls": "Reset",
+    "controls.press-new-key": "Premi Nuovo Pulsante..."
+}
