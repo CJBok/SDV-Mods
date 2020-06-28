@@ -1,14 +1,15 @@
 [← back to readme](README.md)
 
 # Release notes
-## Upcoming release
-* Added `assets/data.json` to configure which items can be sold.
-* Fixed price shown for unsellable items like tools.
+## 1.9.8
+Released 28 June 2020 for SMAPI 3.5 or later.
+
+* Fixed price shown for various unsellable items.
 
 ## 1.9.7
 Released 18 May 2020 for SMAPI 3.4 or later.
 
-* Fixed prices shown for furniture, which can't be sold.
+* Fixed prices shown for unsellable furniture.
 
 ## 1.9.6
 Released 14 April 2020 for SMAPI 3.4 or later.
