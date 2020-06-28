@@ -246,7 +246,7 @@ namespace CJBShowItemSellPrice
         private int? GetSellPrice(Item item)
         {
             // skip unsellable item
-            if (!this.Data.ForceSellable.Contains(item.Category) && (item as SObject)?.canBeShipped() != true)
+            if (!this.CanBeSold(item))
                 return null;
 
             // get price
@@ -257,6 +257,15 @@ namespace CJBShowItemSellPrice
             return price >= 0
                 ? price
                 : null as int?;
+        }
+
+        /// <summary>Get whether an item can be sold.</summary>
+        /// <param name="item">The item to check.</param>
+        private bool CanBeSold(Item item)
+        {
+            return
+                (item is SObject obj && obj.canBeShipped())
+                || this.Data.ForceSellable.Contains(item.Category);
         }
     }
 }
