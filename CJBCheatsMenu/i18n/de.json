@@ -241,7 +241,7 @@
     "controls.freeze-time": "Zeit stoppen",
     "controls.grow-tree": "Baum wachsen lassen",
     "controls.grow-crops": "Saat wachsen lassen",
-    "controls.grow-radius": "Grow distance around player", // TODO
+    "controls.grow-radius": "Wachstumsradius um Spieler",
     "controls.reset-controls": "Reset",
     "controls.press-new-key": "Neue Taste drücken..."
 }
