@@ -2,7 +2,7 @@
 
 # Release notes
 ## Upcoming release
-* Improved translations. Thanks to Rittsuka (updated Portuguese)!
+* Improved translations. Thanks to Rittsuka (updated Portuguese) and stefanhahn80 (updated German)!
 
 ## 1.25.1
 Released 28 June 2020 for SMAPI 3.5 or later.
