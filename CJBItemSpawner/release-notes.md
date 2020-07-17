@@ -1,6 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed error opening menu when some item data is invalid.
+
 ## 1.12.1
 Released 14 April 2020 for SMAPI 3.4 or later.
 
