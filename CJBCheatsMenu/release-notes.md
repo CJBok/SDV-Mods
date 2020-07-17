@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Fixed error using one-hit kill cheat in some mod locations with invalid data.
 * Improved translations. Thanks to Rittsuka (updated Portuguese) and stefanhahn80 (updated German)!
 
 ## 1.25.1
