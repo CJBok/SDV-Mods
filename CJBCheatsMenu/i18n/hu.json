@@ -25,9 +25,9 @@
     "player.infinite-stamina": "Végtelen Energia",
     "player.infinite-health": "Végtelen Életerő",
     "player.instant-cooldowns": "Azonnali Képesség Újratöltés",
-    "player.inventory-size": "Inventory Size", // TODO
+    "player.inventory-size": "Eszköztár Méret",
     "player.movement-speed": "Mozgási Sebesség",
-    "player.movement-speed.default": "normal", // TODO
+    "player.movement-speed.default": "normál",
     "player.one-hit-kill": "Egy Ütéses Gyilkosság",
     "player.max-daily-luck": "Maximális Napi Szerencse",
 
@@ -49,7 +49,7 @@
     *********/
     // farm
     "farm.title": "Farm",
-    "farm.auto-water": "Auto-Water Crops", // TODO
+    "farm.auto-water": "Termények Automata Öntözése",
     "farm.durable-fences": "Tartós Kerítések",
     "farm.instant-build": "Azonnali Építés",
     "farm.always-auto-feed": "Mindig Automata Etetés",
@@ -163,7 +163,7 @@
     ** Warps tab
     *********/
     // main areas
-    "warp-section.main": "Main Areas", // TODO
+    "warp-section.main": "Fő területek",
     "warp.farm": "Farm",
     "warp.carpenter": "Ács Műhely",
     "warp.desert": "Sivatag",
@@ -171,7 +171,7 @@
     "warp.pierre-shop": "Pierre Boltja",
 
     // town
-    "warp-section.town": "Town", // TODO
+    "warp-section.town": "Város",
     "warp.blacksmith": "Kovács",
     "warp.community-center": "Közösségi Központ",
     "warp.jojamart": "JojaMart",
@@ -181,14 +181,14 @@
     "warp.sewer": "Csatorna",
 
     // forest
-    "warp-section.forest": "Forest", // TODO
+    "warp-section.forest": "Erdő",
     "warp.hats": "Romos Ház",
     "warp.ranch": "Marnie Tanyája",
     "warp.secret-woods": "Titkos Erdő",
     "warp.wizard-tower": "Varázsló Torony",
 
     // mountain
-    "warp-section.mountain": "Mountain", // TODO
+    "warp-section.mountain": "Hegység",
     "warp.adventurers-guild": "Kalandorok Céhe",
     "warp.bathhouse": "Fürdő",
     "warp.quarry": "Kőbánya",
@@ -199,7 +199,7 @@
     "warp.willy-shop": "Hal Bolt",
 
     // desert
-    "warp-section.desert": "Desert", // TODO
+    "warp-section.desert": "Sivatag",
     "warp.casino": "Kaszinó",
     "warp.sandy-shop": "Sandy Boltja",
     "warp.skull-cavern": "Koponya Barlang",
@@ -236,7 +236,7 @@
     ** Controls tab
     *********/
     "controls.title": "Irányítás",
-    "controls.android-config-note": "You can change the on-screen buttons in the config files for the CJB Cheats Menu and Virtual Keyboard mods.", // TODO
+    "controls.android-config-note": "A CJB Cheats Menu és a Virtual Keyboard modok képernyőinek gombjait a konfigurációs fájlokban változtathatod meg.",
     "controls.open-menu": "Menu Megnyitása",
     "controls.freeze-time": "Idő Megállítása",
     "controls.grow-tree": "Fák megnövesztése",
