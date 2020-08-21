@@ -3,7 +3,7 @@
 # Release notes
 ## Upcoming release
 * Fixed error using one-hit kill cheat in some mod locations with invalid data.
-* Improved translations. Thanks to Rittsuka (updated Portuguese) and stefanhahn80 (updated German)!
+* Improved translations. Thanks to Annosz (updated Hungarian), Rittsuka (updated Portuguese), and stefanhahn80 (updated German)!
 
 ## 1.25.1
 Released 28 June 2020 for SMAPI 3.5 or later.
