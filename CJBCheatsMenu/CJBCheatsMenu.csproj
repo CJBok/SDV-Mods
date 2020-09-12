@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <AssemblyName>CJBCheatsMenu</AssemblyName>
-    <Version>1.25.1</Version>
+    <Version>1.25.2</Version>
     <RootNamespace>CJBCheatsMenu</RootNamespace>
     <TargetFramework>net452</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="3.1.0" />
+    <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="3.2.1" />
   </ItemGroup>
 
   <Import Project="..\Common\Common.projitems" Label="Shared" />

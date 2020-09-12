@@ -13,6 +13,7 @@ using SObject = StardewValley.Object;
 namespace CJBItemSpawner.Framework.ItemData
 {
     /// <summary>Provides methods for searching and constructing items.</summary>
+    /// <remarks>This is derived from the SMAPI source code and should be kept in sync with it.</remarks>
     internal class ItemRepository
     {
         /*********
@@ -276,7 +277,9 @@ namespace CJBItemSpawner.Framework.ItemData
         {
             try
             {
-                return new SearchableItem(type, id, createItem());
+                var item = createItem();
+                item.getDescription(); // force-load item data, so it crashes here if it's invalid
+                return new SearchableItem(type, id, item);
             }
             catch
             {

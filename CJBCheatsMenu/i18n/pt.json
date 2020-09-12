@@ -3,7 +3,7 @@
     ** Main translations
     *********/
     // mod name shown in the menu
-    "mod-name": "CJB Cheats Menu",
+    "mod-name": "Menu de Trapaças CJB",
 
     // tab names
     "tabs.player-and-tools": "Jogador e Ferramentas",
@@ -24,10 +24,10 @@
     "player.title": "Jogador",
     "player.infinite-stamina": "Energia infinita",
     "player.infinite-health": "Vida infinita",
-    "player.instant-cooldowns": "Instant Weapon Cooldowns", // TODO
-    "player.inventory-size": "Inventory Size", // TODO
+    "player.instant-cooldowns": "Tempo de recarga de armas instantâneo",
+    "player.inventory-size": "Tamanho do inventário",
     "player.movement-speed": "Velocidade de movimento",
-    "player.movement-speed.default": "normal", // TODO
+    "player.movement-speed.default": "Normal",
     "player.one-hit-kill": "Matar monstros com um golpe",
     "player.max-daily-luck": "Sorte diária máxima",
 
@@ -49,7 +49,7 @@
     *********/
     // farm
     "farm.title": "Fazenda",
-    "farm.auto-water": "Auto-Water Crops", // TODO
+    "farm.auto-water": "Molhar colheita automaticamente",
     "farm.durable-fences": "Cercas duráveis",
     "farm.instant-build": "Construções instantâneas",
     "farm.always-auto-feed": "Alimentação automática para animais",
@@ -71,9 +71,9 @@
     "fast-machines.cheese-press": "Prensa de queijo",
     "fast-machines.crab-pot": "Covo",
     "fast-machines.crystalarium": "Cristalário",
-    "fast-machines.fruit-trees": "Árvores frutiferas",
+    "fast-machines.fruit-trees": "Árvores frutíferas",
     "fast-machines.furnace": "Fornalha",
-    "fast-machines.incubator": "Chocadeira (pronta pela manhã)", // TODO review (auto-translated)
+    "fast-machines.incubator": "Chocadeira (pronta pela manhã)",
     "fast-machines.keg": "Barril",
     "fast-machines.lightning-rod": "Para-raios",
     "fast-machines.loom": "Tear",
@@ -155,7 +155,7 @@
     *********/
     "relationships.title": "Relacionamentos",
     "relationships.give-gifts-anytime": "Dar presentes a qualquer hora",
-    "relationships.no-decay": "Sem decaímento de amizade",
+    "relationships.no-decay": "Sem decaimento de amizade",
     "relationships.friends": "Amigos",
 
 
@@ -163,7 +163,7 @@
     ** Warps tab
     *********/
     // main areas
-    "warp-section.main": "Main Areas", // TODO
+    "warp-section.main": "Áreas principais",
     "warp.farm": "Fazenda",
     "warp.carpenter": "Carpintaria",
     "warp.desert": "Deserto",
@@ -171,7 +171,7 @@
     "warp.pierre-shop": "Armazém do Pierre",
 
     // town
-    "warp-section.town": "Town", // TODO
+    "warp-section.town": "Cidade",
     "warp.blacksmith": "Ferreiro",
     "warp.community-center": "Centro Comunitário",
     "warp.jojamart": "Mercado Joja",
@@ -181,14 +181,14 @@
     "warp.sewer": "Esgotos",
 
     // forest
-    "warp-section.forest": "Forest", // TODO
+    "warp-section.forest": "Floresta",
     "warp.hats": "Chapéus",
     "warp.ranch": "Rancho da Marnie",
     "warp.secret-woods": "Bosque Secreto",
     "warp.wizard-tower": "Torre do Mago",
 
     // mountain
-    "warp-section.mountain": "Mountain", // TODO
+    "warp-section.mountain": "Montanha",
     "warp.adventurers-guild": "Guilda dos Aventureiros",
     "warp.bathhouse": "Spa",
     "warp.quarry": "Pedreira",
@@ -199,7 +199,7 @@
     "warp.willy-shop": "Peixaria",
 
     // desert
-    "warp-section.desert": "Desert", // TODO
+    "warp-section.desert": "Deserto",
     "warp.casino": "Cassino",
     "warp.sandy-shop": "Loja Oásis",
     "warp.skull-cavern": "Caverna da Caveira",
@@ -236,12 +236,12 @@
     ** Controls tab
     *********/
     "controls.title": "Controles",
-    "controls.android-config-note": "You can change the on-screen buttons in the config files for the CJB Cheats Menu and Virtual Keyboard mods.", // TODO
+    "controls.android-config-note": "Você pode mudar os botões mostrados na tela nos arquivos de configuração do Meu de Trapaças CJB e dos mods de teclado virtual.",
     "controls.open-menu": "Abrir menu",
     "controls.freeze-time": "Parar o tempo",
     "controls.grow-tree": "Crescer árvores",
     "controls.grow-crops": "Crescer plantações",
-    "controls.grow-radius": "Grow distance around player", // TODO
-    "controls.reset-controls": "Reset", // TODO
+    "controls.grow-radius": "Raio de crescimento ao redor do jogador",
+    "controls.reset-controls": "Voltar ao padrão",
     "controls.press-new-key": "Pressione uma nova tecla..."
 }
