@@ -1,6 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed translations not updated when you change language.
+
 ## 1.9.8
 Released 28 June 2020 for SMAPI 3.5 or later.
 

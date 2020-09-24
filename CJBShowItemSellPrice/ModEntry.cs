@@ -34,12 +34,6 @@ namespace CJBShowItemSellPrice
         /// <summary>The pixel offset to apply to the tooltip box relative to the cursor position.</summary>
         private readonly Vector2 TooltipOffset = new Vector2(Game1.tileSize / 2);
 
-        /// <summary>The label text for the single-item price.</summary>
-        private string SingleLabel;
-
-        /// <summary>The label text for the stack price.</summary>
-        private string StackLabel;
-
         /// <summary>The cached toolbar instance.</summary>
         private Toolbar Toolbar;
 
@@ -59,8 +53,6 @@ namespace CJBShowItemSellPrice
         {
             // init text
             I18n.Init(helper.Translation);
-            this.SingleLabel = I18n.Labels_SinglePrice() + ":";
-            this.StackLabel = I18n.Labels_StackPrice() + ":";
 
             // load data
             this.Data = helper.Data.ReadJsonFile<DataModel>("assets/data.json") ?? new DataModel();
@@ -198,9 +190,9 @@ namespace CJBShowItemSellPrice
             bool showStack = stack > 1;
 
             // prepare text
-            string unitLabel = this.SingleLabel;
+            string unitLabel = I18n.Labels_SinglePrice() + ":";
             string unitPrice = price.ToString();
-            string stackLabel = this.StackLabel;
+            string stackLabel = I18n.Labels_StackPrice() + ":";
             string stackPrice = (price * stack).ToString();
 
             // get dimensions
