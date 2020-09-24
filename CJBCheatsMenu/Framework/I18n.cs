@@ -270,160 +270,17 @@ namespace CJBCheatsMenu.Framework
             return I18n.GetByKey("fast-machines.title");
         }
 
-        /// <summary>Get a translation equivalent to "Bee House".</summary>
-        public static string FastMachines_BeeHouse()
-        {
-            return I18n.GetByKey("fast-machines.bee-house");
-        }
-
-        /// <summary>Get a translation equivalent to "Cask".</summary>
-        public static string FastMachines_Cask()
-        {
-            return I18n.GetByKey("fast-machines.cask");
-        }
-
-        /// <summary>Get a translation equivalent to "Charcoal Kiln".</summary>
-        public static string FastMachines_CharcoalKiln()
-        {
-            return I18n.GetByKey("fast-machines.charcoal-kiln");
-        }
-
-        /// <summary>Get a translation equivalent to "Cheese Press".</summary>
-        public static string FastMachines_CheesePress()
-        {
-            return I18n.GetByKey("fast-machines.cheese-press");
-        }
-
-        /// <summary>Get a translation equivalent to "Crab Pot".</summary>
-        public static string FastMachines_CrabPot()
-        {
-            return I18n.GetByKey("fast-machines.crab-pot");
-        }
-
-        /// <summary>Get a translation equivalent to "Crystalarium".</summary>
-        public static string FastMachines_Crystalarium()
-        {
-            return I18n.GetByKey("fast-machines.crystalarium");
-        }
-
         /// <summary>Get a translation equivalent to "Fruit Trees".</summary>
         public static string FastMachines_FruitTrees()
         {
             return I18n.GetByKey("fast-machines.fruit-trees");
         }
 
-        /// <summary>Get a translation equivalent to "Furnace".</summary>
-        public static string FastMachines_Furnace()
+        /// <summary>Get a translation equivalent to "{{machineName}} (ready in the morning)".</summary>
+        /// <param name="machineName">The value to inject for the <c>{{machineName}}</c> token.</param>
+        public static string FastMachines_ReadyInTheMorning(object machineName)
         {
-            return I18n.GetByKey("fast-machines.furnace");
-        }
-
-        /// <summary>Get a translation equivalent to "Incubator (ready in the morning)".</summary>
-        public static string FastMachines_Incubator()
-        {
-            return I18n.GetByKey("fast-machines.incubator");
-        }
-
-        /// <summary>Get a translation equivalent to "Keg".</summary>
-        public static string FastMachines_Keg()
-        {
-            return I18n.GetByKey("fast-machines.keg");
-        }
-
-        /// <summary>Get a translation equivalent to "Lightning Rod".</summary>
-        public static string FastMachines_LightningRod()
-        {
-            return I18n.GetByKey("fast-machines.lightning-rod");
-        }
-
-        /// <summary>Get a translation equivalent to "Loom".</summary>
-        public static string FastMachines_Loom()
-        {
-            return I18n.GetByKey("fast-machines.loom");
-        }
-
-        /// <summary>Get a translation equivalent to "Mayonnaise Machine".</summary>
-        public static string FastMachines_MayonnaiseMachine()
-        {
-            return I18n.GetByKey("fast-machines.mayonnaise-machine");
-        }
-
-        /// <summary>Get a translation equivalent to "Mushroom Box".</summary>
-        public static string FastMachines_MushroomBox()
-        {
-            return I18n.GetByKey("fast-machines.mushroom-box");
-        }
-
-        /// <summary>Get a translation equivalent to "Oil Maker".</summary>
-        public static string FastMachines_OilMaker()
-        {
-            return I18n.GetByKey("fast-machines.oil-maker");
-        }
-
-        /// <summary>Get a translation equivalent to "Preserves Jar".</summary>
-        public static string FastMachines_PreservesJar()
-        {
-            return I18n.GetByKey("fast-machines.preserves-jar");
-        }
-
-        /// <summary>Get a translation equivalent to "Recycling Machine".</summary>
-        public static string FastMachines_RecyclingMachine()
-        {
-            return I18n.GetByKey("fast-machines.recycling-machine");
-        }
-
-        /// <summary>Get a translation equivalent to "Seed Maker".</summary>
-        public static string FastMachines_SeedMaker()
-        {
-            return I18n.GetByKey("fast-machines.seed-maker");
-        }
-
-        /// <summary>Get a translation equivalent to "Slime Egg-Press".</summary>
-        public static string FastMachines_SlimeEggPress()
-        {
-            return I18n.GetByKey("fast-machines.slime-egg-press");
-        }
-
-        /// <summary>Get a translation equivalent to "Slime Incubator".</summary>
-        public static string FastMachines_SlimeIncubator()
-        {
-            return I18n.GetByKey("fast-machines.slime-incubator");
-        }
-
-        /// <summary>Get a translation equivalent to "Soda Machine".</summary>
-        public static string FastMachines_SodaMachine()
-        {
-            return I18n.GetByKey("fast-machines.soda-machine");
-        }
-
-        /// <summary>Get a translation equivalent to "Statue of Endless Fortune".</summary>
-        public static string FastMachines_StatueOfEndlessFortune()
-        {
-            return I18n.GetByKey("fast-machines.statue-of-endless-fortune");
-        }
-
-        /// <summary>Get a translation equivalent to "Statue of Perfection".</summary>
-        public static string FastMachines_StatueOfPerfection()
-        {
-            return I18n.GetByKey("fast-machines.statue-of-perfection");
-        }
-
-        /// <summary>Get a translation equivalent to "Tapper".</summary>
-        public static string FastMachines_Tapper()
-        {
-            return I18n.GetByKey("fast-machines.tapper");
-        }
-
-        /// <summary>Get a translation equivalent to "Wood Chipper".</summary>
-        public static string FastMachines_WoodChipper()
-        {
-            return I18n.GetByKey("fast-machines.wood-chipper");
-        }
-
-        /// <summary>Get a translation equivalent to "Worm Bin".</summary>
-        public static string FastMachines_WormBin()
-        {
-            return I18n.GetByKey("fast-machines.worm-bin");
+            return I18n.GetByKey("fast-machines.ready-in-the-morning", new { machineName });
         }
 
         /// <summary>Get a translation equivalent to "Skills".</summary>

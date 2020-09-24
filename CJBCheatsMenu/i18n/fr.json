@@ -65,32 +65,8 @@
 
     // fast machine
     "fast-machines.title": "Transformation rapide",
-    "fast-machines.bee-house": "Ruche",
-    "fast-machines.cask": "Fût",
-    "fast-machines.charcoal-kiln": "Fourneau à charbon",
-    "fast-machines.cheese-press": "Presse à fromage",
-    "fast-machines.crab-pot": "Casier à crabes",
-    "fast-machines.crystalarium": "Cristalarium",
     "fast-machines.fruit-trees": "Arbres fruitiers",
-    "fast-machines.furnace": "Fournaise",
-    "fast-machines.incubator": "Incubateur (prêt le matin)",
-    "fast-machines.keg": "Tonneau",
-    "fast-machines.lightning-rod": "Paratonnerre",
-    "fast-machines.loom": "Métier à tisser",
-    "fast-machines.mayonnaise-machine": "Machine à mayonnaise",
-    "fast-machines.mushroom-box": "Boîte à champignon",
-    "fast-machines.oil-maker": "Machine à huile",
-    "fast-machines.preserves-jar": "Bocal",
-    "fast-machines.recycling-machine": "Machine de recyclage",
-    "fast-machines.seed-maker": "Machine à graines",
-    "fast-machines.slime-egg-press": "Presse à oeufs de Slimes",
-    "fast-machines.slime-incubator": "Incubateur de Slime",
-    "fast-machines.soda-machine": "Distributeur de boissons",
-    "fast-machines.statue-of-endless-fortune": "Statue de fortune sans fin",
-    "fast-machines.statue-of-perfection": "Statue de perfection",
-    "fast-machines.tapper": "Saigneur",
-    "fast-machines.wood-chipper": "Déchiqueteuse de bois",
-    "fast-machines.worm-bin": "Bac à compost",
+    "fast-machines.ready-in-the-morning": "{{machineName}} (prêt le matin)",
 
 
     /*********

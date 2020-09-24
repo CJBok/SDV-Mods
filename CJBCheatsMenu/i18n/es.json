@@ -65,32 +65,8 @@
 
     // fast machines
     "fast-machines.title": "Procesamiento Rápido de Las Máquinas",
-    "fast-machines.bee-house": "Colmena",
-    "fast-machines.cask": "Tonel",
-    "fast-machines.charcoal-kiln": "Horno de Carbón",
-    "fast-machines.cheese-press": "Prensa de Queso",
-    "fast-machines.crab-pot": "Trampa para cangrejos",
-    "fast-machines.crystalarium": "Cristalario",
     "fast-machines.fruit-trees": "Árboles Frutales",
-    "fast-machines.furnace": "Horno",
-    "fast-machines.incubator": "Incubadora (lista por la mañana)",
-    "fast-machines.keg": "Barril",
-    "fast-machines.lightning-rod": "Pararrayos",
-    "fast-machines.loom": "Telar",
-    "fast-machines.mayonnaise-machine": "Mayonesera",
-    "fast-machines.mushroom-box": "Caja de Setas",
-    "fast-machines.oil-maker": "Aceitera",
-    "fast-machines.preserves-jar": "Envasadora",
-    "fast-machines.recycling-machine": "Máquina de Reciclaje",
-    "fast-machines.seed-maker": "Semilladora",
-    "fast-machines.slime-egg-press": "Presa de Babas",
-    "fast-machines.slime-incubator": "Incubadora de Babas",
-    "fast-machines.soda-machine": "Máquina de refrescos",
-    "fast-machines.statue-of-endless-fortune": "Estatua de la fortuna eterna",
-    "fast-machines.statue-of-perfection": "Estatua de la perfección",
-    "fast-machines.tapper": "Resinera",
-    "fast-machines.wood-chipper": "Astilladora de madera",
-    "fast-machines.worm-bin": "Vivero de Cebo",
+    "fast-machines.ready-in-the-morning": "{{machineName}} (lista por la mañana)",
 
 
     /*********

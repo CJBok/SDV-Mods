@@ -65,32 +65,8 @@
 
     // fast machines
     "fast-machines.title": "Hızlı Makine İşlemleri",
-    "fast-machines.bee-house": "Arı Kovanı",
-    "fast-machines.cask": "Varil",
-    "fast-machines.charcoal-kiln": "Kömür Ocağı",
-    "fast-machines.cheese-press": "Peynir Ezeceği",
-    "fast-machines.crab-pot": "Yengeç Çömleği",
-    "fast-machines.crystalarium": "Kristalaryum",
     "fast-machines.fruit-trees": "Meyve Ağacı",
-    "fast-machines.furnace": "Fırın",
-    "fast-machines.incubator": "Kuluçka Makinesi (Sabaha Hazır)",
-    "fast-machines.keg": "Fıçı",
-    "fast-machines.lightning-rod": "Paratoner",
-    "fast-machines.loom": "Dokuma Tezgahı",
-    "fast-machines.mayonnaise-machine": "Mayonez Makinesi",
-    "fast-machines.mushroom-box": "Mantar Kutusu",
-    "fast-machines.oil-maker": "Yağ Üreteci",
-    "fast-machines.preserves-jar": "Kavanoz",
-    "fast-machines.recycling-machine": "Geri Dönüşüm Makinesi",
-    "fast-machines.seed-maker": "Tohum Üreteci",
-    "fast-machines.slime-egg-press": "Balçıkça Yumurta Üreteci",
-    "fast-machines.slime-incubator": "Balçıkça Kuluçka Makinesi",
-    "fast-machines.soda-machine": "Soda Makinesi",
-    "fast-machines.statue-of-endless-fortune": "Sonsuz Talih Heykelciği",
-    "fast-machines.statue-of-perfection": "Mükemmellik Heykeli",
-    "fast-machines.tapper": "Akıtaç",
-    "fast-machines.wood-chipper": "Ağaç Öğütücü",
-    "fast-machines.worm-bin": "Solucan Kutusu",
+    "fast-machines.ready-in-the-morning": "{{machineName}} (Sabaha Hazır)",
 
 
     /*********

@@ -65,32 +65,8 @@
 
     // fast machines
     "fast-machines.title": "Gyors Gépi Feldolgozás",
-    "fast-machines.bee-house": "Méhkaptár",
-    "fast-machines.cask": "Fahordó",
-    "fast-machines.charcoal-kiln": "Faszén Kemence",
-    "fast-machines.cheese-press": "Sajtprés",
-    "fast-machines.crab-pot": "Rák varsa",
-    "fast-machines.crystalarium": "Kristalárium",
     "fast-machines.fruit-trees": "Gyümölcsfák",
-    "fast-machines.furnace": "Kemence",
-    "fast-machines.incubator": "Inkubátor (reggelre kész)",
-    "fast-machines.keg": "Keghordó",
-    "fast-machines.lightning-rod": "Villámhárító",
-    "fast-machines.loom": "Szövőszék",
-    "fast-machines.mayonnaise-machine": "Majonéz Készítő Gép",
-    "fast-machines.mushroom-box": "Gombadoboz",
-    "fast-machines.oil-maker": "Olajkészítő",
-    "fast-machines.preserves-jar": "Tartósító Edény",
-    "fast-machines.recycling-machine": "Újrahasznosító Gép",
-    "fast-machines.seed-maker": "Magkészítő",
-    "fast-machines.slime-egg-press": "Ragacstojás prés",
-    "fast-machines.slime-incubator": "Ragacs inkubátor",
-    "fast-machines.soda-machine": "Italautomata",
-    "fast-machines.statue-of-endless-fortune": "A végtelen szerencse szobra",
-    "fast-machines.statue-of-perfection": "A tökéletesség szobra",
-    "fast-machines.tapper": "Csapoló",
-    "fast-machines.wood-chipper": "Fadaráló",
-    "fast-machines.worm-bin": "Kukacos Láda",
+    "fast-machines.ready-in-the-morning": "{{machineName}} (reggelre kész)",
 
 
     /*********

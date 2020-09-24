@@ -65,32 +65,8 @@
 
     // fast machines
     "fast-machines.title": "Ускорение работы машин",
-    "fast-machines.bee-house": "Улей",
-    "fast-machines.cask": "Бочка",
-    "fast-machines.charcoal-kiln": "Углевыжигательная печь",
-    "fast-machines.cheese-press": "Пресс для сыра",
-    "fast-machines.crab-pot": "Крабовая ловушка",
-    "fast-machines.crystalarium": "Кристалляриум",
     "fast-machines.fruit-trees": "Фруктовые деревья",
-    "fast-machines.furnace": "Плавильная печь",
-    "fast-machines.incubator": "Инкубатор (будет готово утром)",
-    "fast-machines.keg": "Бочонок",
-    "fast-machines.lightning-rod": "Громоотвод",
-    "fast-machines.loom": "Прялка",
-    "fast-machines.mayonnaise-machine": "Майонезный автомат",
-    "fast-machines.mushroom-box": "Грибная делянка",
-    "fast-machines.oil-maker": "Пресс для масла",
-    "fast-machines.preserves-jar": "Кадка",
-    "fast-machines.recycling-machine": "Утилизационная машина",
-    "fast-machines.seed-maker": "Экстрактор семян",
-    "fast-machines.slime-egg-press": "Пресс для яиц слаймов",
-    "fast-machines.slime-incubator": "Инкубатор слаймов",
-    "fast-machines.soda-machine": "Автомат с газировкой",
-    "fast-machines.statue-of-endless-fortune": "Статуя Вечной Удачи",
-    "fast-machines.statue-of-perfection": "Статуя Совершенства",
-    "fast-machines.tapper": "Подсочник",
-    "fast-machines.wood-chipper": "Дробилка",
-    "fast-machines.worm-bin": "Бак с червями",
+    "fast-machines.ready-in-the-morning": "{{machineName}} (будет готово утром)",
 
 
     /*********

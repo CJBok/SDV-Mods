@@ -65,32 +65,8 @@
 
     // fast machines
     "fast-machines.title": "기계 빠르게하기",
-    "fast-machines.bee-house": "양봉장",
-    "fast-machines.cask": "숙성용 나무통",
-    "fast-machines.charcoal-kiln": "숯 가마",
-    "fast-machines.cheese-press": "치즈 압착기",
-    "fast-machines.crab-pot": "게잡이 통발",
-    "fast-machines.crystalarium": "보석 화수분",
     "fast-machines.fruit-trees": "과일나무",
-    "fast-machines.furnace": "용광로",
-    "fast-machines.incubator": "부화기 (아침에 준비)", // TODO review (auto-translated)
-    "fast-machines.keg": "양조통",
-    "fast-machines.lightning-rod": "피뢰침",
-    "fast-machines.loom": "베틀",
-    "fast-machines.mayonnaise-machine": "마요네즈 기계",
-    "fast-machines.mushroom-box": "버섯 상자",
-    "fast-machines.oil-maker": "착유기",
-    "fast-machines.preserves-jar": "절임통",
-    "fast-machines.recycling-machine": "재활용 기계",
-    "fast-machines.seed-maker": "씨앗 생산기",
-    "fast-machines.slime-egg-press": "슬라임 알 압착기",
-    "fast-machines.slime-incubator": "슬라임 부화기",
-    "fast-machines.soda-machine": "소다 머신",
-    "fast-machines.statue-of-endless-fortune": "끝없는 행운의 조각상",
-    "fast-machines.statue-of-perfection": "완벽함의 조각상",
-    "fast-machines.tapper": "수액 채취기",
-    "fast-machines.wood-chipper": "나무 분쇄기",
-    "fast-machines.worm-bin": "지렁이 통",
+    "fast-machines.ready-in-the-morning": "{{machineName}} (아침에 준비)", // TODO review (auto-translated)
 
 
     /*********
