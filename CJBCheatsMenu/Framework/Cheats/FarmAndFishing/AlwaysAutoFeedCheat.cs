@@ -21,7 +21,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("farm.always-auto-feed"),
+                label: I18n.Farm_AlwaysAutoFeed(),
                 value: context.Config.AutoFeed,
                 setValue: value => context.Config.AutoFeed = value
             );

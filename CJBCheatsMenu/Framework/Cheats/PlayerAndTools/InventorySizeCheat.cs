@@ -23,7 +23,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsSlider(
-                label: context.Text.Get("player.inventory-size"),
+                label: I18n.Player_InventorySize(),
                 value: Game1.player.MaxItems / this.ItemsPerBackpackUpgrade,
                 minValue: 1,
                 maxValue: Farmer.maxInventorySpace / this.ItemsPerBackpackUpgrade,

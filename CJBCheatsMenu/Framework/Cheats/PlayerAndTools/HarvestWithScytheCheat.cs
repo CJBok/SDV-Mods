@@ -22,7 +22,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("tools.harvest-with-scythe"),
+                label: I18n.Tools_HarvestWithScythe(),
                 value: context.Config.HarvestScythe,
                 setValue: value => context.Config.HarvestScythe = value
             );

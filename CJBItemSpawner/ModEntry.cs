@@ -34,6 +34,9 @@ namespace CJBItemSpawner
             this.Config = helper.ReadConfig<ModConfig>();
             this.Monitor.Log($"Started with menu key {this.Config.ShowMenuKey}.", LogLevel.Trace);
 
+            // init translations
+            I18n.Init(helper.Translation);
+
             // init item repository
             ModData data = helper.Data.ReadJsonFile<ModData>("data.json");
             this.ItemRepository = this.GetItemRepository(data, this.Config.AllowProblematicItems);
@@ -55,7 +58,7 @@ namespace CJBItemSpawner
                 return;
 
             if (e.Button == this.Config.ShowMenuKey)
-                Game1.activeClickableMenu = new ItemMenu(this.Helper.Translation, this.ItemRepository);
+                Game1.activeClickableMenu = new ItemMenu(this.ItemRepository);
         }
 
         /// <summary>Get an item repository.</summary>

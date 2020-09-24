@@ -18,7 +18,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
         {
             // adventurer's guild
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("flags.unlocked.guild"),
+                label: I18n.Flags_Unlocked_Guild(),
                 value: this.HasFlag("guildMember"),
                 setValue: value => this.SetFlag(value, "guildMember")
             );
@@ -27,7 +27,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
             foreach (NPC npc in this.GetSocialCharacters().OrderBy(p => p.displayName))
             {
                 yield return new CheatsOptionsCheckbox(
-                    label: context.Text.Get("flags.unlocked.room", new { name = npc.displayName }),
+                    label: I18n.Flags_Unlocked_Room(name: npc.displayName),
                     value: this.HasFlag($"doorUnlock{npc.Name}"),
                     setValue: value => this.SetFlag(value, $"doorUnlock{npc.Name}")
                 );

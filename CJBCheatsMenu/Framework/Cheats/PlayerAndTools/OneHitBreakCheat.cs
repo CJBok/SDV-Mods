@@ -23,7 +23,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("tools.one-hit-break"),
+                label: I18n.Tools_OneHitBreak(),
                 value: context.Config.OneHitBreak,
                 setValue: value => context.Config.OneHitBreak = value
             );

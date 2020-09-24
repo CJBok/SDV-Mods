@@ -18,7 +18,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("farm.infinite-hay"),
+                label: I18n.Farm_InfiniteHay(),
                 value: context.Config.InfiniteHay,
                 setValue: value => context.Config.InfiniteHay = value
             );

@@ -45,14 +45,14 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
         {
             // unlock community center door
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("flags.community-center.door-unlocked"),
+                label: I18n.Flags_CommunityCenter_DoorUnlocked(),
                 value: this.HasFlag("ccDoorUnlock"),
                 setValue: value => this.SetFlag(value, "ccDoorUnlock")
             );
 
             // JojaMart membership
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("flags.jojamart.membership"),
+                label: I18n.Flags_Jojamart_Membership(),
                 value: this.HasFlag("JojaMember"),
                 setValue: value => this.SetCommunityCenterFlags(value, "JojaMember")
             );

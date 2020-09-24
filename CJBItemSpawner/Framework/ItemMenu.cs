@@ -7,7 +7,6 @@ using CJBItemSpawner.Framework.ItemData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 using StardewValley.Objects;
@@ -20,7 +19,6 @@ namespace CJBItemSpawner.Framework
         /*********
         ** Fields
         *********/
-        private readonly ITranslationHelper TranslationHelper;
         private readonly Item[] SpawnableItems;
         private readonly ClickableComponent Title;
         private readonly ClickableComponent SortButton;
@@ -56,13 +54,11 @@ namespace CJBItemSpawner.Framework
         /// <param name="sortBy">How to sort items.</param>
         /// <param name="quality">The item quality to display.</param>
         /// <param name="search">The search term to prepopulate.</param>
-        /// <param name="i18n">Provides translations for the mod.</param>
         /// <param name="itemRepository">Provides methods for searching and constructing items.</param>
-        public ItemMenu(MenuTab currentTab, ItemSort sortBy, ItemQuality quality, string search, ITranslationHelper i18n, ItemRepository itemRepository)
+        public ItemMenu(MenuTab currentTab, ItemSort sortBy, ItemQuality quality, string search, ItemRepository itemRepository)
           : base(null, true, true, 0, -50)
         {
             // initialise
-            this.TranslationHelper = i18n;
             this.ItemRepository = itemRepository;
             this.MovePosition(110, Game1.viewport.Height / 2 - (650 + IClickableMenu.borderWidth * 2) / 2);
             this.CurrentTab = currentTab;
@@ -86,8 +82,8 @@ namespace CJBItemSpawner.Framework
             this.TextboxBounds = new Rectangle(this.Textbox.X, this.Textbox.Y, this.Textbox.Width, this.Textbox.Height / 3);
 
             // create buttons
-            this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.width - Game1.tileSize, this.yPositionOnScreen - Game1.tileSize * 2, Game1.tileSize * 4, Game1.tileSize), i18n.Get("title"));
-            this.QualityButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen - Game1.tileSize * 2 + 10, (int)Game1.smallFont.MeasureString(i18n.Get("labels.quality")).X, Game1.tileSize), i18n.Get("labels.quality"));
+            this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.width - Game1.tileSize, this.yPositionOnScreen - Game1.tileSize * 2, Game1.tileSize * 4, Game1.tileSize), I18n.Title());
+            this.QualityButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen - Game1.tileSize * 2 + 10, (int)Game1.smallFont.MeasureString(I18n.Labels_Quality()).X, Game1.tileSize), I18n.Labels_Quality());
             this.SortButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.QualityButton.bounds.Width + 40, this.yPositionOnScreen - Game1.tileSize * 2 + 10, Game1.tileSize * 4, Game1.tileSize), this.GetSortLabel(sortBy));
             this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(this.xPositionOnScreen + this.width - Game1.tileSize / 2, this.yPositionOnScreen - Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
             this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.xPositionOnScreen + this.width - Game1.tileSize / 2, this.yPositionOnScreen + this.height / 2 - Game1.tileSize * 2, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
@@ -100,17 +96,17 @@ namespace CJBItemSpawner.Framework
                 int y = this.yPositionOnScreen + 10;
                 int lblHeight = (int)(Game1.tileSize * 0.9F);
 
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.All.ToString(), i18n.Get("tabs.all")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ToolsAndEquipment.ToString(), i18n.Get("tabs.equipment")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.SeedsAndCrops.ToString(), i18n.Get("tabs.crops")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.FishAndBaitAndTrash.ToString(), i18n.Get("tabs.fishing")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ForageAndFruits.ToString(), i18n.Get("tabs.forage")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ArtifactsAndMinerals.ToString(), i18n.Get("tabs.artifacts-and-minerals")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ResourcesAndCrafting.ToString(), i18n.Get("tabs.resources-and-crafting")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ArtisanAndCooking.ToString(), i18n.Get("tabs.artisan-and-cooking")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.AnimalAndMonster.ToString(), i18n.Get("tabs.animal-and-monster")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Decorating.ToString(), i18n.Get("tabs.decorating")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i, Game1.tileSize * 5, Game1.tileSize), MenuTab.Misc.ToString(), i18n.Get("tabs.miscellaneous")));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.All.ToString(), I18n.Tabs_All()));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ToolsAndEquipment.ToString(), I18n.Tabs_Equipment()));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.SeedsAndCrops.ToString(), I18n.Tabs_Crops()));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.FishAndBaitAndTrash.ToString(), I18n.Tabs_Fishing()));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ForageAndFruits.ToString(), I18n.Tabs_Forage()));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ArtifactsAndMinerals.ToString(), I18n.Tabs_ArtifactsAndMinerals()));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ResourcesAndCrafting.ToString(), I18n.Tabs_ResourcesAndCrafting()));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ArtisanAndCooking.ToString(), I18n.Tabs_ArtisanAndCooking()));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.AnimalAndMonster.ToString(), I18n.Tabs_AnimalAndMonster()));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Decorating.ToString(), I18n.Tabs_Decorating()));
+                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i, Game1.tileSize * 5, Game1.tileSize), MenuTab.Misc.ToString(), I18n.Tabs_Miscellaneous()));
             }
 
             // load items
@@ -118,10 +114,9 @@ namespace CJBItemSpawner.Framework
         }
 
         /// <summary>Construct an instance.</summary>
-        /// <param name="i18n">Provides translations for the mod.</param>
         /// <param name="itemRepository">Provides methods for searching and constructing items.</param>
-        public ItemMenu(ITranslationHelper i18n, ItemRepository itemRepository)
-            : this(0, 0, ItemQuality.Normal, "", i18n, itemRepository) { }
+        public ItemMenu(ItemRepository itemRepository)
+            : this(0, 0, ItemQuality.Normal, "", itemRepository) { }
 
         /// <summary>Whether controller-style menus should be disabled for this menu.</summary>
         public override bool overrideSnappyMenuCursorMovementBan()
@@ -449,7 +444,7 @@ namespace CJBItemSpawner.Framework
         *********/
         private void Reopen(MenuTab? tabIndex = null, ItemSort? sortBy = null, ItemQuality? quality = null, string search = null)
         {
-            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortBy ?? this.SortBy, quality ?? this.Quality, search ?? this.PreviousText, this.TranslationHelper, this.ItemRepository);
+            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortBy ?? this.SortBy, quality ?? this.Quality, search ?? this.PreviousText, this.ItemRepository);
         }
 
         /// <summary>Set the search texbox selected.</summary>
@@ -473,9 +468,9 @@ namespace CJBItemSpawner.Framework
         {
             return sort switch
             {
-                ItemSort.DisplayName => this.TranslationHelper.Get("labels.sort-by-name"),
-                ItemSort.Category => this.TranslationHelper.Get("labels.sort-by-category"),
-                ItemSort.ID => this.TranslationHelper.Get("labels.sort-by-id"),
+                ItemSort.DisplayName => I18n.Labels_SortByName(),
+                ItemSort.Category => I18n.Labels_SortByCategory(),
+                ItemSort.ID => I18n.Labels_SortById(),
                 _ => throw new NotSupportedException($"Invalid sort type {sort}.")
             };
         }

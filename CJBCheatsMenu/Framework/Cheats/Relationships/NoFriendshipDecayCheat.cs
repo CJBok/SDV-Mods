@@ -26,7 +26,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Relationships
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("relationships.no-decay"),
+                label: I18n.Relationships_NoDecay(),
                 value: context.Config.NoFriendshipDecay,
                 setValue: value => context.Config.NoFriendshipDecay = value
             );

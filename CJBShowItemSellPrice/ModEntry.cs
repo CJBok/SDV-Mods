@@ -58,8 +58,9 @@ namespace CJBShowItemSellPrice
         public override void Entry(IModHelper helper)
         {
             // init text
-            this.SingleLabel = this.Helper.Translation.Get("labels.single-price") + ":";
-            this.StackLabel = this.Helper.Translation.Get("labels.stack-price") + ":";
+            I18n.Init(helper.Translation);
+            this.SingleLabel = I18n.Labels_SinglePrice() + ":";
+            this.StackLabel = I18n.Labels_StackPrice() + ":";
 
             // load data
             this.Data = helper.Data.ReadJsonFile<DataModel>("assets/data.json") ?? new DataModel();

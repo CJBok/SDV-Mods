@@ -17,7 +17,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("player.instant-cooldowns"),
+                label: I18n.Player_InstantCooldowns(),
                 value: context.Config.InstantCooldowns,
                 setValue: value => context.Config.InstantCooldowns = value
             );

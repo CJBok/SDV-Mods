@@ -21,7 +21,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("farm.auto-water"),
+                label: I18n.Farm_AutoWater(),
                 value: context.Config.AutoWater,
                 setValue: value => context.Config.AutoWater = value
             );
