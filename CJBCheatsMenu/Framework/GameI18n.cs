@@ -1,9 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using StardewValley;
 
 namespace CJBCheatsMenu.Framework
 {
     /// <summary>Provides access to the game's internal translations.</summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Deliberately named to match convention.")]
     internal static class GameI18n
     {
         /*********
