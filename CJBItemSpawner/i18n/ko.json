@@ -1,10 +1,7 @@
 {
-    "title": "CJB 아이템 생성기",
-
     "labels.sort-by-name": "정렬 기준: 이름",
-    "labels.sort-by-category": "정렬 기준: 종류",
+    "labels.sort-by-type": "정렬 기준: 종류",
     "labels.sort-by-id": "정렬 기준: ID",
-    "labels.quality": "품질",
 
     "tabs.all": "전체",
     "tabs.equipment": "도구 & 장비",

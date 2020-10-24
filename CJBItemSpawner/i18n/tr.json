@@ -1,10 +1,7 @@
 {
-    "title": "CJB Item Spawner",
-
     "labels.sort-by-name": "isime göre",
-    "labels.sort-by-category": "Kategoriye göre",
+    "labels.sort-by-type": "Kategoriye göre",
     "labels.sort-by-id": "L'e uygun",
-    "labels.quality": "kalite",
 
     "tabs.all": "tüm",
     "tabs.equipment": "Araçlar ve Ekipmanlar",

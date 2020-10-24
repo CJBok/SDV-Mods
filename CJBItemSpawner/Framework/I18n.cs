@@ -28,34 +28,22 @@ namespace CJBItemSpawner.Framework
             I18n.Translations = translations;
         }
 
-        /// <summary>Get a translation equivalent to "CJB Item Spawner".</summary>
-        public static string Title()
-        {
-            return I18n.GetByKey("title");
-        }
-
-        /// <summary>Get a translation equivalent to "Sort By: Name".</summary>
+        /// <summary>Get a translation equivalent to "Sort: Name".</summary>
         public static string Labels_SortByName()
         {
             return I18n.GetByKey("labels.sort-by-name");
         }
 
-        /// <summary>Get a translation equivalent to "Sort By: Category".</summary>
-        public static string Labels_SortByCategory()
+        /// <summary>Get a translation equivalent to "Sort: Type".</summary>
+        public static string Labels_SortByType()
         {
-            return I18n.GetByKey("labels.sort-by-category");
+            return I18n.GetByKey("labels.sort-by-type");
         }
 
-        /// <summary>Get a translation equivalent to "Sort By: ID".</summary>
+        /// <summary>Get a translation equivalent to "Sort: ID".</summary>
         public static string Labels_SortById()
         {
             return I18n.GetByKey("labels.sort-by-id");
-        }
-
-        /// <summary>Get a translation equivalent to "Quality".</summary>
-        public static string Labels_Quality()
-        {
-            return I18n.GetByKey("labels.quality");
         }
 
         /// <summary>Get a translation equivalent to "All".</summary>

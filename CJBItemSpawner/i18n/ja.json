@@ -1,10 +1,7 @@
 {
-    "title": "CJB Item Spawner",
-
     "labels.sort-by-name": "ソート順: 名前",
-    "labels.sort-by-category": "ソート順: 種類",
+    "labels.sort-by-type": "ソート順: 種類",
     "labels.sort-by-id": "ソート順: ID",
-    "labels.quality": "品質",
 
     "tabs.all": "すべて",
     "tabs.equipment": "道具 & 装備品",

@@ -1,10 +1,7 @@
 {
-    "title": "CJB Item Spawner",
-
-    "labels.sort-by-name": "Сортировать по: Имени",
-    "labels.sort-by-category": "Сортировать по: Категории",
-    "labels.sort-by-id": "Сортировать по: ID",
-    "labels.quality": "Качество",
+    "labels.sort-by-name": "Сортировать: Имени",
+    "labels.sort-by-type": "Сортировать: Категории",
+    "labels.sort-by-id": "Сортировать: ID",
 
     "tabs.all": "Все",
     "tabs.equipment": "Инструменты и обмундирование",

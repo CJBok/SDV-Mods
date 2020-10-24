@@ -41,7 +41,7 @@ namespace CJBItemSpawner.Framework.Constants
                 ItemQuality.Normal => ItemQuality.Silver,
                 ItemQuality.Silver => ItemQuality.Gold,
                 ItemQuality.Gold => ItemQuality.Iridium,
-                ItemQuality.Iridium => ItemQuality.Iridium,
+                ItemQuality.Iridium => ItemQuality.Normal,
                 _ => throw new NotSupportedException($"Unknown quality '{current}'.")
             };
         }

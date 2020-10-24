@@ -21,7 +21,7 @@ file. These are the available settings.
 
 setting | default | what it affects
 ------- | ------- | ---------------
-`ShowMenuKey` | `P` | The button which opens the menu (see [valid key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings)).
+`ShowMenuKey` | `i` | The button which opens the menu (see [valid key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings)).
 `AllowProblematicItems` | `false` | Whether to show items which may cause bugs or crashes when spawned.
 
 ## FAQs

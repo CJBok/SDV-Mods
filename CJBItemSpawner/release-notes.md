@@ -1,6 +1,10 @@
 [← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Redesigned menu to make it simpler, more intuitive, and more mobile-friendly.
+* Internal refactoring to simplify future game updates.
+
 ## 1.12.2
 Released 12 September 2020 for SMAPI 3.7 or later.
 

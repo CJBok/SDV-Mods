@@ -1,10 +1,7 @@
 {
-    "title": "CJB Item Spawner",
-
-    "labels.sort-by-name": "Nach Name sortiert",
-    "labels.sort-by-category": "Nach Kategorie sortiert",
-    "labels.sort-by-id": "Nach ID sortiert",
-    "labels.quality": "Qualität",
+    "labels.sort-by-name": "Name sortiert",
+    "labels.sort-by-type": "Kategorie sortiert",
+    "labels.sort-by-id": "ID sortiert",
 
     "tabs.all": "Alle",
     "tabs.equipment": "Werkzeuge",
