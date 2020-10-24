@@ -144,6 +144,8 @@ namespace CJBItemSpawner.Framework
                 showOrganizeButton: false
             )
         {
+            base.drawBG = false; // handled manually to draw arrows between background and menu
+
             this.BaseDraw = this.GetBaseDraw();
             this.behaviorOnItemGrab = this.OnItemGrab;
             this.ItemsInView = this.ItemsToGrabMenu.actualInventory;
@@ -358,19 +360,23 @@ namespace CJBItemSpawner.Framework
         /// <param name="spriteBatch">The sprite batch being drawn.</param>
         public override void draw(SpriteBatch spriteBatch)
         {
-            this.BaseDraw(spriteBatch);
-
+            // draw arrows under base UI, so tooltips are drawn over them
+            spriteBatch.Draw(Game1.fadeToBlackRect, new Rectangle(0, 0, Game1.viewport.Width, Game1.viewport.Height), Color.Black * 0.5f); // replicate base.drawBG so arrows are above it
             this.UpArrow.draw(spriteBatch);
             this.DownArrow.draw(spriteBatch);
+
+            // draw base UI
+            this.BaseDraw(spriteBatch);
+
+            // add main UI
             this.SearchBox.Draw(spriteBatch);
             this.SearchIcon.draw(spriteBatch);
             this.CategoryDropdown.Draw(spriteBatch);
-
             CommonHelper.DrawTab(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, this.QualityButton.bounds.Width - CommonHelper.ButtonBorderWidth, this.QualityButton.bounds.Height - CommonHelper.ButtonBorderWidth, out Vector2 qualityIconPos, forIcon: true);
             spriteBatch.Draw(Game1.mouseCursors, qualityIconPos, new Rectangle(345, 391, 10, 9), Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
-
             CommonHelper.DrawTab(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name);
 
+            // redraw cursor over new UI
             base.drawMouse(spriteBatch);
         }
 
