@@ -73,10 +73,10 @@ namespace CJBItemSpawner.Framework
         private ItemSort SortBy = ItemSort.DisplayName;
 
         /// <summary>All items that can be spawned.</summary>
-        private readonly Item[] AllItems;
+        private readonly SearchableItem[] AllItems;
 
         /// <summary>The items matching the current search filters, without scrolling.</summary>
-        private readonly List<Item> FilteredItems = new List<Item>();
+        private readonly List<SearchableItem> FilteredItems = new List<SearchableItem>();
 
         /// <summary>The items currently visible in the UI.</summary>
         private readonly IList<Item> ItemsInView;
@@ -149,7 +149,7 @@ namespace CJBItemSpawner.Framework
             this.BaseDraw = this.GetBaseDraw();
             this.behaviorOnItemGrab = this.OnItemGrab;
             this.ItemsInView = this.ItemsToGrabMenu.actualInventory;
-            this.AllItems = itemRepository.GetAll().Select(p => p.Item).ToArray();
+            this.AllItems = itemRepository.GetAll().ToArray();
 
             this.InitializeComponents();
             this.ResetItemView(rebuild: true);
@@ -543,8 +543,9 @@ namespace CJBItemSpawner.Framework
             }
 
             this.ItemsInView.Clear();
-            foreach (var item in this.FilteredItems.Skip(this.TopRowIndex * this.ItemsPerRow).Take(this.ItemsPerView))
+            foreach (var match in this.FilteredItems.Skip(this.TopRowIndex * this.ItemsPerRow).Take(this.ItemsPerView))
             {
+                Item item = match.CreateItem();
                 item.Stack = item.maximumStackSize();
                 if (item is SObject obj && !this.ItemsWithoutQuality.Contains(obj.ParentSheetIndex))
                     obj.Quality = (int)this.Quality;
@@ -554,20 +555,20 @@ namespace CJBItemSpawner.Framework
         }
 
         /// <summary>Get all items matching the search criteria, ignoring pagination.</summary>
-        private IEnumerable<Item> SearchItems()
+        private IEnumerable<SearchableItem> SearchItems()
         {
             // get base query
-            IEnumerable<Item> items = this.AllItems;
+            IEnumerable<SearchableItem> items = this.AllItems;
             items = this.SortBy switch
             {
-                ItemSort.Type => items.OrderBy(p => p.Category),
-                ItemSort.ID => items.OrderBy(p => p.ParentSheetIndex),
-                _ => items.OrderBy(p => p.DisplayName)
+                ItemSort.Type => items.OrderBy(p => p.Item.Category),
+                ItemSort.ID => items.OrderBy(p => p.Item.ParentSheetIndex),
+                _ => items.OrderBy(p => p.Item.DisplayName)
             };
 
             // apply menu tab
             if (this.Category != Category.All)
-                items = items.Where(item => this.GetRelevantTab(item) == this.Category);
+                items = items.Where(item => this.GetRelevantTab(item.Item) == this.Category);
 
             // apply search
             string search = this.SearchBox.Text.Trim();

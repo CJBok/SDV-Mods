@@ -12,8 +12,11 @@ namespace CJBItemSpawner.Framework.ItemData
         /// <summary>The item type.</summary>
         public ItemType Type { get; }
 
-        /// <summary>The item instance.</summary>
+        /// <summary>A sample item instance.</summary>
         public Item Item { get; }
+
+        /// <summary>Create an item instance.</summary>
+        public Func<Item> CreateItem { get; }
 
         /// <summary>The item's unique ID for its type.</summary>
         public int ID { get; }
@@ -31,12 +34,13 @@ namespace CJBItemSpawner.Framework.ItemData
         /// <summary>Construct an instance.</summary>
         /// <param name="type">The item type.</param>
         /// <param name="id">The unique ID (if different from the item's parent sheet index).</param>
-        /// <param name="item">The item instance.</param>
-        public SearchableItem(ItemType type, int id, Item item)
+        /// <param name="createItem">Create an item instance.</param>
+        public SearchableItem(ItemType type, int id, Func<Item> createItem)
         {
             this.Type = type;
             this.ID = id;
-            this.Item = item;
+            this.CreateItem = createItem;
+            this.Item = createItem();
         }
 
         /// <summary>Get whether the item name contains a case-insensitive substring.</summary>

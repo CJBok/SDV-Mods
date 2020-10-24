@@ -277,9 +277,9 @@ namespace CJBItemSpawner.Framework.ItemData
         {
             try
             {
-                var item = createItem();
-                item.getDescription(); // force-load item data, so it crashes here if it's invalid
-                return new SearchableItem(type, id, item);
+                var item = new SearchableItem(type, id, createItem);
+                item.Item.getDescription(); // force-load item data, so it crashes here if it's invalid
+                return item;
             }
             catch
             {
