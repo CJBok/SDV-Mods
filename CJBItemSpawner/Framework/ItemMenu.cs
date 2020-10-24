@@ -39,18 +39,18 @@ namespace CJBItemSpawner.Framework
         };
 
         /// <summary>The tabs to show in their display order.</summary>
-        private readonly MenuTab[] TabOrder = {
-            MenuTab.All,
-            MenuTab.ToolsAndEquipment,
-            MenuTab.SeedsAndCrops,
-            MenuTab.FishAndBaitAndTrash,
-            MenuTab.ForageAndFruits,
-            MenuTab.ArtifactsAndMinerals,
-            MenuTab.ResourcesAndCrafting,
-            MenuTab.ArtisanAndCooking,
-            MenuTab.AnimalAndMonster,
-            MenuTab.Decorating,
-            MenuTab.Misc
+        private readonly Category[] CategoryOrder = {
+            Constants.Category.All,
+            Constants.Category.ToolsAndEquipment,
+            Constants.Category.SeedsAndCrops,
+            Constants.Category.FishAndBaitAndTrash,
+            Constants.Category.ForageAndFruits,
+            Constants.Category.ArtifactsAndMinerals,
+            Constants.Category.ResourcesAndCrafting,
+            Constants.Category.ArtisanAndCooking,
+            Constants.Category.AnimalAndMonster,
+            Constants.Category.Decorating,
+            Constants.Category.Misc
         };
 
         /****
@@ -61,7 +61,7 @@ namespace CJBItemSpawner.Framework
         private readonly Action<SpriteBatch> BaseDraw;
 
         /// <summary>The current filter tab.</summary>
-        private MenuTab CurrentTab = MenuTab.All;
+        private Category Category = Category.All;
 
         /// <summary>The current item quality.</summary>
         private ItemQuality Quality = ItemQuality.Normal;
@@ -94,10 +94,10 @@ namespace CJBItemSpawner.Framework
         private ClickableComponent SortButton;
 
         /// <summary>The bounds for the quality button background.</summary>
-        private Rectangle QualityButton;
+        private ClickableComponent QualityButton;
 
         /// <summary>A dropdown list to choose a category filter.</summary>
-        private Dropdown<MenuTab> CategoryDropdown;
+        private Dropdown<Category> CategoryDropdown;
 
         /// <summary>The up arrow to scroll results.</summary>
         private ClickableTextureComponent UpArrow;
@@ -111,8 +111,19 @@ namespace CJBItemSpawner.Framework
         /// <summary>The search textbox.</summary>
         private TextBox SearchBox;
 
+        /// <summary>A clickable component corresponding to the <see cref="SearchBox"/> area. This only exists for controller movement support.</summary>
+        private ClickableComponent SearchBoxArea;
+
         /// <summary>The textbox area.</summary>
         private Rectangle TextboxBounds;
+
+
+        /*********
+        ** Accessors
+        *********/
+        /// <summary>The child components for controller snapping.</summary>
+        /// <remarks>This must be public and match a type supported by <see cref="IClickableMenu.populateClickableComponentList"/>.</remarks>
+        public readonly List<ClickableComponent> ChildComponents = new List<ClickableComponent>();
 
 
         /*********
@@ -165,7 +176,7 @@ namespace CJBItemSpawner.Framework
             }
 
             // quality button
-            else if (this.QualityButton.Contains(x, y))
+            else if (this.QualityButton.bounds.Contains(x, y))
             {
                 this.Quality = this.Quality.GetNext();
                 this.ResetItemView();
@@ -180,11 +191,8 @@ namespace CJBItemSpawner.Framework
             // category dropdown
             else if (this.CategoryDropdown.containsPoint(x, y))
             {
-                if (this.CategoryDropdown.TrySelect(x, y, out MenuTab newTab))
-                {
-                    this.CurrentTab = newTab;
-                    this.ResetItemView(rebuild: true);
-                }
+                if (this.CategoryDropdown.TrySelect(x, y, out Category newTab))
+                    this.SetCategory(newTab);
                 this.SetDropdown(!this.CategoryDropdown.IsExpanded);
             }
 
@@ -213,7 +221,6 @@ namespace CJBItemSpawner.Framework
         /// <param name="x">The X-position of the cursor.</param>
         /// <param name="y">The Y-position of the cursor.</param>
         /// <param name="playSound">Whether to play interaction sounds.</param>
-        /// <returns>Whether the event has been handled and shouldn't be propagated further.</returns>
         public override void receiveRightClick(int x, int y, bool playSound = true)
         {
             // clear search box
@@ -251,6 +258,31 @@ namespace CJBItemSpawner.Framework
             // default behavior
             else if (!this.SearchBox.Selected)
                 base.receiveKeyPress(key);
+        }
+
+        /// <summary>Handle a controller button press by the player.</summary>
+        /// <param name="button">The button that was pressed.</param>
+        public override void receiveGamePadButton(Buttons button)
+        {
+            bool isExitKey = button == Buttons.B || button == Buttons.Y || button == Buttons.Start;
+            bool inDropdown = this.CategoryDropdown.IsExpanded;
+
+            // cancel dropdown
+            if (isExitKey && inDropdown)
+                this.CategoryDropdown.IsExpanded = false;
+
+            // cancel search box
+            else if (isExitKey && this.SearchBox.Selected)
+                this.DeselectSearchBox();
+
+            // navigate category dropdown
+            else if (button == Buttons.LeftTrigger && !inDropdown)
+                this.NextCategory(-1);
+            else if (button == Buttons.RightTrigger && !inDropdown)
+                this.NextCategory(1);
+
+            else
+                base.receiveGamePadButton(button);
         }
 
         /// <summary>Handle the player scrolling the mouse wheel.</summary>
@@ -334,10 +366,10 @@ namespace CJBItemSpawner.Framework
             this.SearchIcon.draw(spriteBatch);
             this.CategoryDropdown.Draw(spriteBatch);
 
-            CommonHelper.DrawButton(this.QualityButton.X, this.QualityButton.Y, this.QualityButton.Width - CommonHelper.ButtonBorderWidth, this.QualityButton.Height - CommonHelper.ButtonBorderWidth, out Vector2 qualityIconPos, forIcon: true);
+            CommonHelper.DrawTab(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, this.QualityButton.bounds.Width - CommonHelper.ButtonBorderWidth, this.QualityButton.bounds.Height - CommonHelper.ButtonBorderWidth, out Vector2 qualityIconPos, forIcon: true);
             spriteBatch.Draw(Game1.mouseCursors, qualityIconPos, new Rectangle(345, 391, 10, 9), Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
 
-            CommonHelper.DrawButton(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name);
+            CommonHelper.DrawTab(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name);
 
             base.drawMouse(spriteBatch);
         }
@@ -350,8 +382,8 @@ namespace CJBItemSpawner.Framework
         private void InitializeComponents()
         {
             // basic buttons
-            this.QualityButton = new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen - Game1.tileSize * 2 + 10, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth - 2); // manually tweak height to align with sort button
-            this.SortButton = new ClickableComponent(new Rectangle(this.QualityButton.Right + 20, this.QualityButton.Y, this.GetMaxSortLabelWidth(Game1.smallFont), Game1.tileSize), this.GetSortLabel(this.SortBy));
+            this.QualityButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen - Game1.tileSize * 2 + 10, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth - 2), ""); // manually tweak height to align with sort button
+            this.SortButton = new ClickableComponent(new Rectangle(this.QualityButton.bounds.Right + 20, this.QualityButton.bounds.Y, this.GetMaxSortLabelWidth(Game1.smallFont), Game1.tileSize), this.GetSortLabel(this.SortBy));
             this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(this.xPositionOnScreen + this.width - 32, this.yPositionOnScreen - 64, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
             this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.UpArrow.bounds.X, this.UpArrow.bounds.Y + this.height / 2 - 64, this.UpArrow.bounds.Width, this.UpArrow.bounds.Height), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
             this.SearchIcon = new ClickableTextureComponent("search", new Rectangle(this.xPositionOnScreen + this.width - 39 - 45, this.yPositionOnScreen - Game1.tileSize * 2 + 20, 39, 39), "", "", Game1.mouseCursors, new Rectangle(80, 0, 13, 13), 3);
@@ -367,11 +399,74 @@ namespace CJBItemSpawner.Framework
                 };
                 this.TextboxBounds = new Rectangle(this.SearchBox.X, this.SearchBox.Y, this.SearchBox.Width, this.SearchBox.Height);
             }
+            this.SearchBoxArea = new ClickableComponent(new Rectangle(this.SearchBox.X, this.SearchBox.Y, this.SearchBox.Width, this.SearchBox.Height), "");
 
             // category dropdown (centered between sort and search)
-            this.CategoryDropdown = new Dropdown<MenuTab>(0, this.SortButton.bounds.Y, Game1.smallFont, this.CurrentTab, this.TabOrder, this.GetTabLabel);
+            this.CategoryDropdown = new Dropdown<Category>(0, this.SortButton.bounds.Y, Game1.smallFont, this.Category, this.CategoryOrder, this.GetTabLabel);
             this.CategoryDropdown.bounds.X = this.SortButton.bounds.Right + (this.SearchBox.X - this.SortButton.bounds.Right) / 2 - this.CategoryDropdown.bounds.Width / 2;
             this.CategoryDropdown.ReinitializeComponents();
+
+            // controller flow
+            this.InitializeControllerFlow();
+        }
+
+        /// <summary>Set the fields to support controller snapping.</summary>
+        private void InitializeControllerFlow()
+        {
+            // implementation notes:
+            //   - search box is deliberately excluded from controller flow since you can't enter values.
+            //   - CategoryDropdown down neighbor ID is auto-managed depending on whether it's expanded.
+
+
+            // get components
+            List<ClickableComponent> slots = this.ItemsToGrabMenu.inventory;
+
+            // update component list
+            this.ChildComponents.Clear();
+            this.ChildComponents.AddRange(new[] { this.QualityButton, this.SortButton, this.UpArrow, this.DownArrow, this.SearchBoxArea, this.CategoryDropdown });
+
+            // set IDs
+            {
+                int curId = 1_000_000;
+                foreach (ClickableComponent component in this.ChildComponents)
+                    component.myID = curId++;
+            }
+
+            // rightward flow across custom UI
+            this.QualityButton.rightNeighborID = this.SortButton.myID;
+            this.SortButton.rightNeighborID = this.CategoryDropdown.myID;
+            this.CategoryDropdown.rightNeighborID = this.UpArrow.myID;
+            this.UpArrow.downNeighborID = this.DownArrow.myID;
+
+            // leftward flow across custom UI
+            this.UpArrow.upNeighborID = this.CategoryDropdown.myID;
+            this.CategoryDropdown.leftNeighborID = this.SortButton.myID;
+            this.SortButton.leftNeighborID = this.QualityButton.myID;
+
+            // downward flow into inventory
+            this.QualityButton.downNeighborID = slots[0].myID;
+            this.SortButton.downNeighborID = slots[1].myID;
+            this.CategoryDropdown.DefaultDownNeighborId = slots[5].myID;
+            this.DownArrow.leftNeighborID = slots.Last().myID;
+            this.DownArrow.downNeighborID = this.trashCan.myID;
+
+            // upward flow into custom UI
+            slots[0].upNeighborID = this.QualityButton.myID;
+            foreach (int i in new[] { 1, 2 })
+                slots[i].upNeighborID = this.SortButton.myID;
+            foreach (int i in new[] { 3, 4, 5, 6, 8, 9, 10, 11 })
+                slots[i].upNeighborID = this.QualityButton.myID;
+            foreach (int i in new[] { 11, 23 })
+                slots[i].rightNeighborID = this.UpArrow.myID;
+            slots.Last().rightNeighborID = this.DownArrow.myID;
+            this.trashCan.upNeighborID = this.DownArrow.myID;
+
+            // dropdown entries
+            this.CategoryDropdown.ReinitializeControllerFlow();
+            this.ChildComponents.AddRange(this.CategoryDropdown.GetChildComponents());
+
+            // update component list
+            this.populateClickableComponentList();
         }
 
         /// <summary>Handle the user selecting an item from the menu.</summary>
@@ -389,6 +484,31 @@ namespace CJBItemSpawner.Framework
             this.CategoryDropdown.IsExpanded = expanded;
             this.inventory.highlightMethod = item => !expanded;
             this.ItemsToGrabMenu.highlightMethod = item => !expanded;
+        }
+
+        /// <summary>Switch to the next category.</summary>
+        /// <param name="direction">The direction to move in the category list.</param>
+        protected void NextCategory(int direction)
+        {
+            direction = direction < 0 ? -1 : 1;
+            int last = this.CategoryOrder.Length - 1;
+
+            int index = Array.IndexOf(this.CategoryOrder, this.Category) + direction;
+            if (index < 0)
+                index = last;
+            if (index > last)
+                index = 0;
+
+            this.SetCategory(this.CategoryOrder[index]);
+        }
+
+        /// <summary>Set the current category.</summary>
+        /// <param name="category">The new category value.</param>
+        protected void SetCategory(Category category)
+        {
+            this.Category = category;
+            this.CategoryDropdown.TrySelect(category);
+            this.ResetItemView(rebuild: true);
         }
 
         /// <summary>Set the search texbox selected.</summary>
@@ -440,8 +560,8 @@ namespace CJBItemSpawner.Framework
             };
 
             // apply menu tab
-            if (this.CurrentTab != MenuTab.All)
-                items = items.Where(item => this.GetRelevantTab(item) == this.CurrentTab);
+            if (this.Category != Category.All)
+                items = items.Where(item => this.GetRelevantTab(item) == this.Category);
 
             // apply search
             string search = this.SearchBox.Text.Trim();
@@ -471,21 +591,21 @@ namespace CJBItemSpawner.Framework
 
         /// <summary>Get the translated label for a type filter.</summary>
         /// <param name="type">The type.</param>
-        private string GetTabLabel(MenuTab type)
+        private string GetTabLabel(Category type)
         {
             return type switch
             {
-                MenuTab.All => I18n.Tabs_All(),
-                MenuTab.ToolsAndEquipment => I18n.Tabs_Equipment(),
-                MenuTab.SeedsAndCrops => I18n.Tabs_Crops(),
-                MenuTab.FishAndBaitAndTrash => I18n.Tabs_Fishing(),
-                MenuTab.ForageAndFruits => I18n.Tabs_Forage(),
-                MenuTab.ArtifactsAndMinerals => I18n.Tabs_ArtifactsAndMinerals(),
-                MenuTab.ResourcesAndCrafting => I18n.Tabs_ResourcesAndCrafting(),
-                MenuTab.ArtisanAndCooking => I18n.Tabs_ArtisanAndCooking(),
-                MenuTab.AnimalAndMonster => I18n.Tabs_AnimalAndMonster(),
-                MenuTab.Decorating => I18n.Tabs_Decorating(),
-                MenuTab.Misc => I18n.Tabs_Miscellaneous(),
+                Category.All => I18n.Tabs_All(),
+                Category.ToolsAndEquipment => I18n.Tabs_Equipment(),
+                Category.SeedsAndCrops => I18n.Tabs_Crops(),
+                Category.FishAndBaitAndTrash => I18n.Tabs_Fishing(),
+                Category.ForageAndFruits => I18n.Tabs_Forage(),
+                Category.ArtifactsAndMinerals => I18n.Tabs_ArtifactsAndMinerals(),
+                Category.ResourcesAndCrafting => I18n.Tabs_ResourcesAndCrafting(),
+                Category.ArtisanAndCooking => I18n.Tabs_ArtisanAndCooking(),
+                Category.AnimalAndMonster => I18n.Tabs_AnimalAndMonster(),
+                Category.Decorating => I18n.Tabs_Decorating(),
+                Category.Misc => I18n.Tabs_Miscellaneous(),
                 _ => throw new NotSupportedException($"Invalid filter type {type}.")
             };
         }
@@ -505,7 +625,7 @@ namespace CJBItemSpawner.Framework
 
         /// <summary>Get the relevant tab for an item.</summary>
         /// <param name="item">The item whose tab to check.</param>
-        private MenuTab GetRelevantTab(Item item)
+        private Category GetRelevantTab(Item item)
         {
             // by type
             switch (item)
@@ -515,10 +635,10 @@ namespace CJBItemSpawner.Framework
                 case Hat _:
                 case Boots _:
                 case Clothing _:
-                    return MenuTab.ToolsAndEquipment;
+                    return Category.ToolsAndEquipment;
 
                 case Furniture _:
-                    return MenuTab.Decorating;
+                    return Category.Decorating;
             }
 
             // by category
@@ -528,51 +648,51 @@ namespace CJBItemSpawner.Framework
                 case SObject.VegetableCategory:
                 case SObject.fertilizerCategory:
                 case SObject.flowersCategory:
-                    return MenuTab.SeedsAndCrops;
+                    return Category.SeedsAndCrops;
 
                 case SObject.FishCategory:
                 case SObject.baitCategory:
                 case SObject.junkCategory:
                 case SObject.tackleCategory:
-                    return MenuTab.FishAndBaitAndTrash;
+                    return Category.FishAndBaitAndTrash;
 
                 case SObject.GreensCategory:
                 case SObject.FruitsCategory:
-                    return MenuTab.ForageAndFruits;
+                    return Category.ForageAndFruits;
 
                 case SObject.mineralsCategory:
                 case SObject.GemCategory:
-                    return MenuTab.ArtifactsAndMinerals;
+                    return Category.ArtifactsAndMinerals;
 
                 case SObject.metalResources:
                 case SObject.buildingResources:
                 case SObject.CraftingCategory:
                 case SObject.BigCraftableCategory:
-                    return MenuTab.ResourcesAndCrafting;
+                    return Category.ResourcesAndCrafting;
 
                 case SObject.artisanGoodsCategory:
                 case SObject.syrupCategory:
                 case SObject.CookingCategory:
                 case SObject.ingredientsCategory:
-                    return MenuTab.ArtisanAndCooking;
+                    return Category.ArtisanAndCooking;
 
                 case SObject.sellAtPierresAndMarnies:
                 case SObject.meatCategory:
                 case SObject.EggCategory:
                 case SObject.MilkCategory:
                 case SObject.monsterLootCategory:
-                    return MenuTab.AnimalAndMonster;
+                    return Category.AnimalAndMonster;
 
                 case SObject.furnitureCategory:
-                    return MenuTab.Decorating;
+                    return Category.Decorating;
             }
 
             // artifacts
             if ((item as SObject)?.Type == "Arch")
-                return MenuTab.ArtifactsAndMinerals;
+                return Category.ArtifactsAndMinerals;
 
             // anything else
-            return MenuTab.Misc;
+            return Category.Misc;
         }
 
         /// <summary>Get an action wrapper which invokes <see cref="ItemGrabMenu.draw(SpriteBatch)"/>.</summary>

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -29,12 +30,28 @@ namespace CJB.Common.UI
         /// <summary>The size of the rendered button borders.</summary>
         private readonly int BorderWidth = CommonSprites.Tab.TopLeft.Width * 2 * Game1.pixelZoom;
 
+        /// <summary>The backing field for <see cref="IsExpanded"/>.</summary>
+        private bool IsExpandedImpl;
+
 
         /*********
         ** Accessors
         *********/
         /// <summary>Whether the dropdown list is expanded.</summary>
-        public bool IsExpanded { get; set; }
+        public bool IsExpanded
+        {
+            get => this.IsExpandedImpl;
+            set
+            {
+                this.IsExpandedImpl = value;
+                this.downNeighborID = value
+                    ? this.List.TopComponentId
+                    : this.DefaultDownNeighborId;
+            }
+        }
+
+        /// <summary>The downward neighbor ID when the dropdown is closed for controller snapping.</summary>
+        public int DefaultDownNeighborId { get; set; } = -99999;
 
 
         /*********
@@ -82,6 +99,14 @@ namespace CJB.Common.UI
             return false;
         }
 
+        /// <summary>Select an item in the list matching the given value.</summary>
+        /// <param name="value">The value to search.</param>
+        /// <returns>Returns whether an item was selected.</returns>
+        public bool TrySelect(TItem value)
+        {
+            return this.List.TrySelect(value);
+        }
+
         /// <summary>A method invoked when the player scrolls the dropdown using the mouse wheel.</summary>
         /// <param name="direction">The scroll direction.</param>
         public void ReceiveScrollWheelAction(int direction)
@@ -96,7 +121,7 @@ namespace CJB.Common.UI
         public void Draw(SpriteBatch sprites, float opacity = 1)
         {
             // draw tab
-            CommonHelper.DrawButton(this.bounds.X, this.bounds.Y, this.List.MaxLabelWidth, this.List.MaxLabelHeight, out Vector2 textPos);
+            CommonHelper.DrawTab(this.bounds.X, this.bounds.Y, this.List.MaxLabelWidth, this.List.MaxLabelHeight, out Vector2 textPos);
             sprites.DrawString(this.Font, this.List.SelectedLabel, textPos, Color.Black * opacity);
 
             // draw dropdown
@@ -113,6 +138,21 @@ namespace CJB.Common.UI
             this.List.bounds.X = this.bounds.X;
             this.List.bounds.Y = this.bounds.Bottom;
             this.List.ReinitializeComponents();
+
+            this.ReinitializeControllerFlow();
+        }
+
+        /// <summary>Set the fields to support controller snapping.</summary>
+        public void ReinitializeControllerFlow()
+        {
+            this.List.ReinitializeControllerFlow();
+            this.IsExpanded = this.IsExpanded; // force-update down ID
+        }
+
+        /// <summary>Get the nested components for controller snapping.</summary>
+        public IEnumerable<ClickableComponent> GetChildComponents()
+        {
+            return this.List.GetChildComponents();
         }
     }
 }

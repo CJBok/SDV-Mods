@@ -1,39 +1,39 @@
 namespace CJBItemSpawner.Framework.Constants
 {
-    /// <summary>A tab in the item spawner menu.</summary>
-    internal enum MenuTab
+    /// <summary>A category in the item spawner menu.</summary>
+    internal enum Category
     {
-        /// <summary>The tab which shows all items.</summary>
+        /// <summary>All items.</summary>
         All,
 
-        /// <summary>The tab which shows tools and equipment.</summary>
+        /// <summary>Tools and equipment.</summary>
         ToolsAndEquipment,
 
-        /// <summary>The tab which shows seeds and crops.</summary>
+        /// <summary>Seeds and crops.</summary>
         SeedsAndCrops,
 
-        /// <summary>The tab which shows fish, bait, and trash.</summary>
+        /// <summary>Fish, bait, and trash.</summary>
         FishAndBaitAndTrash,
 
-        /// <summary>The tab which shows forage and fruits.</summary>
+        /// <summary>Forage and fruits.</summary>
         ForageAndFruits,
 
-        /// <summary>The tab which shows artifacts and minerals.</summary>
+        /// <summary>Artifacts and minerals.</summary>
         ArtifactsAndMinerals,
 
-        /// <summary>The tab which shows resources and crafting items.</summary>
+        /// <summary>Resources and crafting items.</summary>
         ResourcesAndCrafting,
 
-        /// <summary>The tab which shows artisan and cooking items.</summary>
+        /// <summary>Artisan and cooking items.</summary>
         ArtisanAndCooking,
 
-        /// <summary>The tab which shows animal and monster drops.</summary>
+        /// <summary>Animal and monster drops.</summary>
         AnimalAndMonster,
 
-        /// <summary>The tab which shows decorative items.</summary>
+        /// <summary>Decorative items.</summary>
         Decorating,
 
-        /// <summary>The tab which shows miscellaneous items.</summary>
+        /// <summary>Miscellaneous items.</summary>
         Misc
     }
 }

@@ -38,6 +38,9 @@ namespace CJB.Common.UI
         /// <summary>The items in the list.</summary>
         private readonly DropListItem[] Items;
 
+        /// <summary>The clickable components representing the list items.</summary>
+        private readonly List<ClickableComponent> ItemComponents = new List<ClickableComponent>();
+
         /// <summary>The item index shown at the top of the list.</summary>
         private int FirstVisibleIndex;
 
@@ -50,14 +53,12 @@ namespace CJB.Common.UI
         /// <summary>Get the display name for a value.</summary>
         private readonly Func<TItem, string> GetLabel;
 
+
         /****
         ** Rendering
         ****/
         /// <summary>The font with which to render text.</summary>
         private readonly SpriteFont Font;
-
-        /// <summary>The clickable components representing the list items.</summary>
-        private readonly List<ClickableComponent> ItemComponents = new List<ClickableComponent>();
 
 
         /*********
@@ -74,6 +75,9 @@ namespace CJB.Common.UI
 
         /// <summary>The maximum width for the possible labels.</summary>
         public int MaxLabelWidth { get; private set; }
+
+        /// <summary>The <see cref="ClickableComponent.myID"/> value for the top entry in the dropdown.</summary>
+        public int TopComponentId => this.ItemComponents[0].myID;
 
 
         /*********
@@ -138,6 +142,23 @@ namespace CJB.Common.UI
             return false;
         }
 
+        /// <summary>Select an item in the list matching the given value.</summary>
+        /// <param name="value">The value to search.</param>
+        /// <returns>Returns whether an item was selected.</returns>
+        public bool TrySelect(TItem value)
+        {
+            var entry = this.Items.FirstOrDefault(p =>
+                (p.Value == null && value == null)
+                || p.Value?.Equals(value) == true
+            );
+
+            if (entry == null)
+                return false;
+
+            this.Selected = entry;
+            return true;
+        }
+
         /// <summary>Render the UI.</summary>
         /// <param name="sprites">The sprites to render.</param>
         /// <param name="opacity">The opacity at which to draw.</param>
@@ -196,6 +217,33 @@ namespace CJB.Common.UI
                 this.ItemComponents.Add(new ClickableComponent(new Rectangle(x, y, this.MaxLabelWidth, itemHeight), i.ToString()));
                 y += this.MaxLabelHeight;
             }
+
+            // update controller flow
+            this.ReinitializeControllerFlow();
+        }
+
+        /// <summary>Set the fields to support controller snapping.</summary>
+        public void ReinitializeControllerFlow()
+        {
+            int initialId = 1_100_000;
+            for (int last = this.ItemComponents.Count - 1, i = last; i >= 0; i--)
+            {
+                var component = this.ItemComponents[i];
+
+                component.myID = initialId + i;
+                component.upNeighborID = i != 0
+                    ? initialId + i - 1
+                    : -99999;
+                component.downNeighborID = i != last
+                    ? initialId + i + 1
+                    : -1;
+            }
+        }
+
+        /// <summary>Get the nested components for controller snapping.</summary>
+        public IEnumerable<ClickableComponent> GetChildComponents()
+        {
+            return this.ItemComponents;
         }
 
 

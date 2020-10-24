@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Redesigned menu to make it simpler, more intuitive, and more mobile-friendly.
+* Added full controller support.
 * Internal refactoring to simplify future game updates.
 
 ## 1.12.2

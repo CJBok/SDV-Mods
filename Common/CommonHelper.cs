@@ -14,7 +14,7 @@ namespace CJB.Common
         /*********
         ** Accessors
         *********/
-        /// <summary>The width of the borders drawn by <see cref="DrawButton(int, int, SpriteFont, string, int, float)"/>.</summary>
+        /// <summary>The width of the borders drawn by <see cref="DrawTab(int,int,Microsoft.Xna.Framework.Graphics.SpriteFont,string,int,float)"/>.</summary>
         public const int ButtonBorderWidth = 4 * Game1.pixelZoom;
 
 
@@ -45,12 +45,12 @@ namespace CJB.Common
         /// <param name="text">The button text.</param>
         /// <param name="align">The button's horizontal alignment relative to <paramref name="x"/>. The possible values are 0 (left), 1 (center), or 2 (right).</param>
         /// <param name="alpha">The button opacity, as a value from 0 (transparent) to 1 (opaque).</param>
-        public static void DrawButton(int x, int y, SpriteFont font, string text, int align = 0, float alpha = 1)
+        public static void DrawTab(int x, int y, SpriteFont font, string text, int align = 0, float alpha = 1)
         {
             SpriteBatch spriteBatch = Game1.spriteBatch;
             Vector2 bounds = font.MeasureString(text);
 
-            CommonHelper.DrawButton(x, y, (int)bounds.X, (int)bounds.Y, out Vector2 drawPos, align, alpha);
+            CommonHelper.DrawTab(x, y, (int)bounds.X, (int)bounds.Y, out Vector2 drawPos, align, alpha);
             Utility.drawTextWithShadow(spriteBatch, text, font, drawPos, Game1.textColor);
         }
 
@@ -63,7 +63,7 @@ namespace CJB.Common
         /// <param name="align">The button's horizontal alignment relative to <paramref name="x"/>. The possible values are 0 (left), 1 (center), or 2 (right).</param>
         /// <param name="alpha">The button opacity, as a value from 0 (transparent) to 1 (opaque).</param>
         /// <param name="forIcon">Whether the button will contain an icon instead of text.</param>
-        public static void DrawButton(int x, int y, int innerWidth, int innerHeight, out Vector2 innerDrawPosition, int align = 0, float alpha = 1, bool forIcon = false)
+        public static void DrawTab(int x, int y, int innerWidth, int innerHeight, out Vector2 innerDrawPosition, int align = 0, float alpha = 1, bool forIcon = false)
         {
             SpriteBatch spriteBatch = Game1.spriteBatch;
 

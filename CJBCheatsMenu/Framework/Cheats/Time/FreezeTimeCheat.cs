@@ -118,7 +118,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
                     spriteBatch.End();
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(nativeZoomLevel));
                 }
-                CommonHelper.DrawButton(x: 80 + (hasVerticalToolbar ? 160 : 80), y, font, text);
+                CommonHelper.DrawTab(x: 80 + (hasVerticalToolbar ? 160 : 80), y, font, text);
                 if (Constants.TargetPlatform == GamePlatform.Android)
                 {
                     spriteBatch.End();
@@ -126,7 +126,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
                 }
             }
             else
-                CommonHelper.DrawButton(x, y, font, text);
+                CommonHelper.DrawTab(x, y, font, text);
         }
     }
 }
