@@ -32,7 +32,7 @@ namespace CJBItemSpawner
         {
             // read config
             this.Config = helper.ReadConfig<ModConfig>();
-            this.Monitor.Log($"Started with menu key {this.Config.ShowMenuKey}.", LogLevel.Trace);
+            this.Monitor.Log($"Started with menu key {this.Config.ShowMenuKey}.");
 
             // read data
             this.ModData = helper.Data.ReadJsonFile<ModData>("data.json");

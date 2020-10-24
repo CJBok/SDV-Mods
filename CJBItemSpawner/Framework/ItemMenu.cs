@@ -144,7 +144,7 @@ namespace CJBItemSpawner.Framework
                 showOrganizeButton: false
             )
         {
-            base.drawBG = false; // handled manually to draw arrows between background and menu
+            this.drawBG = false; // handled manually to draw arrows between background and menu
 
             this.BaseDraw = this.GetBaseDraw();
             this.behaviorOnItemGrab = this.OnItemGrab;
@@ -377,7 +377,7 @@ namespace CJBItemSpawner.Framework
             CommonHelper.DrawTab(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name);
 
             // redraw cursor over new UI
-            base.drawMouse(spriteBatch);
+            this.drawMouse(spriteBatch);
         }
 
 
@@ -517,7 +517,7 @@ namespace CJBItemSpawner.Framework
             this.ResetItemView(rebuild: true);
         }
 
-        /// <summary>Set the search texbox selected.</summary>
+        /// <summary>Set the search textbox selected.</summary>
         /// <param name="explicitly">Whether the textbox was selected explicitly by the user (rather than automatically by hovering), so the selection should be maintained.</param>
         private void SelectSearchBox(bool explicitly)
         {
@@ -525,7 +525,7 @@ namespace CJBItemSpawner.Framework
             this.TextboxExplicitlySelected = explicitly;
         }
 
-        /// <summary>Set the search texbox non-selected.</summary>
+        /// <summary>Set the search textbox non-selected.</summary>
         private void DeselectSearchBox()
         {
             this.SearchBox.Selected = false;
@@ -706,7 +706,7 @@ namespace CJBItemSpawner.Framework
         /// <remarks>See remarks on <see cref="BaseDraw"/>.</remarks>
         private Action<SpriteBatch> GetBaseDraw()
         {
-            MethodInfo method = typeof(ItemGrabMenu).GetMethod("draw", BindingFlags.Instance | BindingFlags.Public, null, new Type[] { typeof(SpriteBatch) }, null) ?? throw new InvalidOperationException($"Can't find {nameof(ItemGrabMenu)}.{nameof(ItemGrabMenu.draw)} method.");
+            MethodInfo method = typeof(ItemGrabMenu).GetMethod("draw", BindingFlags.Instance | BindingFlags.Public, null, new[] { typeof(SpriteBatch) }, null) ?? throw new InvalidOperationException($"Can't find {nameof(ItemGrabMenu)}.{nameof(ItemGrabMenu.draw)} method.");
             IntPtr pointer = method.MethodHandle.GetFunctionPointer();
             return (Action<SpriteBatch>)Activator.CreateInstance(typeof(Action<SpriteBatch>), this, pointer);
         }

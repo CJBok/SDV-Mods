@@ -12,13 +12,13 @@ namespace CJBCheatsMenu.Framework
         ** Public methods
         *********/
         /// <summary>Get the translated name for a big craftable object.</summary>
-        /// <param name="id">The big craftable's ID.</param>
+        /// <param name="id">The big craftable ID.</param>
         public static string GetBigCraftableName(int id)
         {
             if (Game1.bigCraftablesInformation == null)
-                return "(missing translation: game hasn't loaded bigcraftable data yet)";
+                return "(missing translation: game hasn't loaded big craftable data yet)";
             if (!Game1.bigCraftablesInformation.TryGetValue(id, out string value))
-                return $"(missing translation: no bigcraftable #{id})";
+                return $"(missing translation: no big craftable #{id})";
 
             return value.Split('/').Last();
         }
