@@ -4,6 +4,7 @@ using StardewValley;
 namespace CJBItemSpawner.Framework.ItemData
 {
     /// <summary>A game item with metadata.</summary>
+    /// <remarks>This is copied from the SMAPI source code and should be kept in sync with it.</remarks>
     internal class SearchableItem
     {
         /*********
@@ -48,8 +49,8 @@ namespace CJBItemSpawner.Framework.ItemData
         public bool NameContains(string substring)
         {
             return
-                this.Name.IndexOf(substring, StringComparison.InvariantCultureIgnoreCase) != -1
-                || this.DisplayName.IndexOf(substring, StringComparison.InvariantCultureIgnoreCase) != -1;
+                this.Name.IndexOf(substring, StringComparison.OrdinalIgnoreCase) != -1
+                || this.DisplayName.IndexOf(substring, StringComparison.OrdinalIgnoreCase) != -1;
         }
 
         /// <summary>Get whether the item name is exactly equal to a case-insensitive string.</summary>
@@ -57,8 +58,8 @@ namespace CJBItemSpawner.Framework.ItemData
         public bool NameEquivalentTo(string name)
         {
             return
-                this.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)
-                || this.DisplayName.Equals(name, StringComparison.InvariantCultureIgnoreCase);
+                this.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
+                || this.DisplayName.Equals(name, StringComparison.OrdinalIgnoreCase);
         }
     }
 }
