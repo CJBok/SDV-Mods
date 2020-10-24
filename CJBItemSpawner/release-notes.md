@@ -4,6 +4,7 @@
 ## Upcoming release
 * Redesigned menu to make it simpler, more intuitive, and more mobile-friendly.
 * Added full controller support.
+* Added shirts normally only available during character customization.
 * Internal refactoring to simplify future game updates.
 
 ## 1.12.2

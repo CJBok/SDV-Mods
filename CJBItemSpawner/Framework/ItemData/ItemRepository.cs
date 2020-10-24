@@ -66,8 +66,25 @@ namespace CJBItemSpawner.Framework.ItemData
                 yield return this.TryCreate(ItemType.Tool, this.CustomIDOffset + 3, () => new Wand());
 
                 // clothing
-                foreach (int id in Game1.clothingInformation.Keys)
-                    yield return this.TryCreate(ItemType.Clothing, id, () => new Clothing(id));
+                {
+                    // items
+                    HashSet<int> clothingIds = new HashSet<int>();
+                    foreach (int id in Game1.clothingInformation.Keys)
+                    {
+                        if (id < 0)
+                            continue; // placeholder data for character customization clothing below
+
+                        clothingIds.Add(id);
+                        yield return this.TryCreate(ItemType.Clothing, id, () => new Clothing(id));
+                    }
+
+                    // character customization shirts (some shirts in this range have no data, but game has special logic to handle them)
+                    for (int id = 1000; id <= 1111; id++)
+                    {
+                        if (!clothingIds.Contains(id))
+                            yield return this.TryCreate(ItemType.Clothing, id, () => new Clothing(id));
+                    }
+                }
 
                 // wallpapers
                 for (int id = 0; id < 112; id++)
