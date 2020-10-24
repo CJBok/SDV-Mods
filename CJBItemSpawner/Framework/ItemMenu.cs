@@ -130,8 +130,8 @@ namespace CJBItemSpawner.Framework
         ** Public methods
         *********/
         /// <summary>Construct an instance.</summary>
-        /// <param name="itemRepository">Provides methods for searching and constructing items.</param>
-        public ItemMenu(ItemRepository itemRepository)
+        /// <param name="spawnableItems">The items available to spawn.</param>
+        public ItemMenu(SearchableItem[] spawnableItems)
             : base(
                 inventory: new List<Item>(),
                 reverseGrab: false,
@@ -149,7 +149,7 @@ namespace CJBItemSpawner.Framework
             this.BaseDraw = this.GetBaseDraw();
             this.behaviorOnItemGrab = this.OnItemGrab;
             this.ItemsInView = this.ItemsToGrabMenu.actualInventory;
-            this.AllItems = itemRepository.GetAll().ToArray();
+            this.AllItems = spawnableItems;
 
             this.InitializeComponents();
             this.ResetItemView(rebuild: true);

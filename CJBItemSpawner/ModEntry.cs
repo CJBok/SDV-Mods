@@ -19,8 +19,8 @@ namespace CJBItemSpawner
         /// <summary>The mod settings.</summary>
         private ModConfig Config;
 
-        /// <summary>Provides methods for searching and constructing items.</summary>
-        private ItemRepository ItemRepository;
+        /// <summary>The internal mod data file.</summary>
+        private ModData ModData;
 
 
         /*********
@@ -34,12 +34,13 @@ namespace CJBItemSpawner
             this.Config = helper.ReadConfig<ModConfig>();
             this.Monitor.Log($"Started with menu key {this.Config.ShowMenuKey}.", LogLevel.Trace);
 
+            // read data
+            this.ModData = helper.Data.ReadJsonFile<ModData>("data.json");
+            if (this.ModData?.ProblematicItems == null)
+                this.Monitor.LogOnce("One of the mod files (data.json) is missing or invalid. Some features may not work correctly; consider reinstalling the mod.", LogLevel.Warn);
+
             // init translations
             I18n.Init(helper.Translation);
-
-            // init item repository
-            ModData data = helper.Data.ReadJsonFile<ModData>("data.json");
-            this.ItemRepository = this.GetItemRepository(data, this.Config.AllowProblematicItems);
 
             // hook events
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
@@ -58,30 +59,24 @@ namespace CJBItemSpawner
                 return;
 
             if (e.Button == this.Config.ShowMenuKey)
-                Game1.activeClickableMenu = new ItemMenu(this.ItemRepository);
+                Game1.activeClickableMenu = new ItemMenu(this.GetSpawnableItems());
         }
 
-        /// <summary>Get an item repository.</summary>
-        /// <param name="data">The predefined mod data.</param>
-        /// <param name="allowProblematicItems">Whether to show items which may cause bugs or crashes when spawned.</param>
-        private ItemRepository GetItemRepository(ModData data, bool allowProblematicItems)
+        /// <summary>Get the items which can be spawned.</summary>
+        private SearchableItem[] GetSpawnableItems()
         {
-            // no filter needed
-            if (data?.ProblematicItems == null && !allowProblematicItems)
-            {
-                this.Monitor.Log("One of the mod files (data.json) is missing or invalid. Some features may not work correctly; consider reinstalling the mod.", LogLevel.Warn);
-                allowProblematicItems = true;
-            }
-            if (allowProblematicItems)
-                return new ItemRepository(filter: item => true);
+            IEnumerable<SearchableItem> items = new ItemRepository().GetAll();
 
-            // create with filter
-            var problematicItems = new HashSet<Tuple<ItemType, int>>(
-                data.ProblematicItems.Select(item => Tuple.Create(item.Type, item.ID))
-            );
-            return new ItemRepository(
-                filter: item => !problematicItems.Contains(Tuple.Create(item.Type, item.ID))
-            );
+            // apply 'problematic items' filter
+            if (!this.Config.AllowProblematicItems && this.ModData?.ProblematicItems?.Any() == true)
+            {
+                var problematicItems = new HashSet<Tuple<ItemType, int>>(
+                    this.ModData.ProblematicItems.Select(item => Tuple.Create(item.Type, item.ID))
+                );
+                items = items.Where(item => !problematicItems.Contains(Tuple.Create(item.Type, item.ID)));
+            }
+
+            return items.ToArray();
         }
     }
 }
