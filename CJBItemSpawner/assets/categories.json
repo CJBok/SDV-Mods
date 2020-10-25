@@ -1,0 +1,81 @@
+/**
+ * The item category filters available in the item spawner menu.
+ *
+ * For each item, a category applies if at least one value from each property matches the item. If
+ * multiple categories apply, the first match is used. The UI shows categories in the order
+ * listed here.
+ *
+ * Rule properties:
+ *    - Label (required): the translation key or literal text for the category display name. If
+ *      multiple rules have the same label, they're combined into one category in the UI.
+ *
+ *    - Class: the full name of the item's C# instance type.
+ *    - ObjCategory: the object's Category value (see https://stardewvalleywiki.com/Modding:Object_data#Categories).
+ *    - ObjType: the object's Type value (see https://stardewvalleywiki.com/Modding:Object_data).
+ *    - ItemId: the item's unique ID (i.e. the ParentSheetIndex field).
+ *
+ * Two categories are hardcoded: all (at the top) and miscellaneous (at the bottom).
+ */
+[
+    // tools & equipment
+    {
+        "Label": "tabs.equipment",
+        "Class": [ "StardewValley.Tool", "StardewValley.Objects.Boots", "StardewValley.Objects.Clothing", "StardewValley.Objects.Hat", "StardewValley.Objects.Ring" ]
+    },
+
+    // seeds & crops
+    {
+        "Label": "tabs.crops",
+        "ObjCategory": [ -19, -74, -75, -80 ] // fertilizer (-19), seeds (-74), vegetables (-75), flowers (-80)
+    },
+
+    // fish & bait & trash
+    {
+        "Label": "tabs.fishing",
+        "ObjCategory": [ -4, -20, -21, -22 ] // fish (-4), junk (-20), bait (-21), tackle (-22)
+    },
+
+    // forage & fruits
+    {
+        "Label": "tabs.forage",
+        "ObjCategory": [ -79, -81 ] // fruit (-79), greens (-81)
+    },
+
+    // artifacts & minerals
+    {
+        "Label": "tabs.artifacts-and-minerals",
+        "ObjCategory": [ -2, -12 ] // gems (-2), minerals (-12)
+    },
+    {
+        "Label": "tabs.artifacts-and-minerals",
+        "ObjType": [ "Arch" ]
+    },
+
+    // resources & crafting
+    {
+        "Label": "tabs.resources-and-crafting",
+        "ObjCategory": [ -8, -9, -15, -16 ] // crafting (-8), big craftables (-9), metals (-15), building resources (-16)
+    },
+
+    // artisan & cooking
+    {
+        "Label": "tabs.artisan-and-cooking",
+        "ObjCategory": [ -7, -25, -26, -27 ] // cooking (-7), ingredients (-25), artisan goods (-26), syrup (-27)
+    },
+
+    // animal & monster
+    {
+        "Label": "tabs.animal-and-monster",
+        "ObjCategory": [ -5, -6, -14, -18, -28 ] // eggs (-5), milk (-6), meat (-14), sell at Pierre's (-18), monster loot (-28)
+    },
+
+    // decorating
+    {
+        "Label": "tabs.decorating",
+        "Class": [ "StardewValley.Objects.Furniture" ]
+    },
+    {
+        "Label": "tabs.decorating",
+        "ObjCategory": [ -24 ] // furniture (-24)
+    }
+]

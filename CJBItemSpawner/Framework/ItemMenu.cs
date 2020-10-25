@@ -5,7 +5,6 @@ using System.Reflection;
 using CJB.Common;
 using CJB.Common.UI;
 using CJBItemSpawner.Framework.Constants;
-using CJBItemSpawner.Framework.ItemData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -38,20 +37,8 @@ namespace CJBItemSpawner.Framework
             812 // roe
         };
 
-        /// <summary>The tabs to show in their display order.</summary>
-        private readonly Category[] CategoryOrder = {
-            Constants.Category.All,
-            Constants.Category.ToolsAndEquipment,
-            Constants.Category.SeedsAndCrops,
-            Constants.Category.FishAndBaitAndTrash,
-            Constants.Category.ForageAndFruits,
-            Constants.Category.ArtifactsAndMinerals,
-            Constants.Category.ResourcesAndCrafting,
-            Constants.Category.ArtisanAndCooking,
-            Constants.Category.AnimalAndMonster,
-            Constants.Category.Decorating,
-            Constants.Category.Misc
-        };
+        /// <summary>The available category names.</summary>
+        private readonly string[] Categories;
 
         /****
         ** State
@@ -61,7 +48,7 @@ namespace CJBItemSpawner.Framework
         private readonly Action<SpriteBatch> BaseDraw;
 
         /// <summary>The current filter tab.</summary>
-        private Category Category = Category.All;
+        private string Category = I18n.Tabs_All();
 
         /// <summary>The current item quality.</summary>
         private ItemQuality Quality = ItemQuality.Normal;
@@ -73,10 +60,10 @@ namespace CJBItemSpawner.Framework
         private ItemSort SortBy = ItemSort.DisplayName;
 
         /// <summary>All items that can be spawned.</summary>
-        private readonly SearchableItem[] AllItems;
+        private readonly SpawnableItem[] AllItems;
 
         /// <summary>The items matching the current search filters, without scrolling.</summary>
-        private readonly List<SearchableItem> FilteredItems = new List<SearchableItem>();
+        private readonly List<SpawnableItem> FilteredItems = new List<SpawnableItem>();
 
         /// <summary>The items currently visible in the UI.</summary>
         private readonly IList<Item> ItemsInView;
@@ -97,7 +84,7 @@ namespace CJBItemSpawner.Framework
         private ClickableComponent QualityButton;
 
         /// <summary>A dropdown list to choose a category filter.</summary>
-        private Dropdown<Category> CategoryDropdown;
+        private Dropdown<string> CategoryDropdown;
 
         /// <summary>The up arrow to scroll results.</summary>
         private ClickableTextureComponent UpArrow;
@@ -131,7 +118,8 @@ namespace CJBItemSpawner.Framework
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="spawnableItems">The items available to spawn.</param>
-        public ItemMenu(SearchableItem[] spawnableItems)
+        /// <param name="categoryLabels">The available category labels.</param>
+        public ItemMenu(SpawnableItem[] spawnableItems, string[] categoryLabels)
             : base(
                 inventory: new List<Item>(),
                 reverseGrab: false,
@@ -144,13 +132,15 @@ namespace CJBItemSpawner.Framework
                 showOrganizeButton: false
             )
         {
-            this.drawBG = false; // handled manually to draw arrows between background and menu
-
+            // init settings
             this.BaseDraw = this.GetBaseDraw();
-            this.behaviorOnItemGrab = this.OnItemGrab;
             this.ItemsInView = this.ItemsToGrabMenu.actualInventory;
             this.AllItems = spawnableItems;
+            this.Categories = this.GetDisplayCategories(categoryLabels).ToArray();
 
+            // init UI
+            this.drawBG = false; // handled manually to draw arrows between background and menu
+            this.behaviorOnItemGrab = this.OnItemGrab;
             this.InitializeComponents();
             this.ResetItemView(rebuild: true);
         }
@@ -193,8 +183,8 @@ namespace CJBItemSpawner.Framework
             // category dropdown
             else if (this.CategoryDropdown.containsPoint(x, y))
             {
-                if (this.CategoryDropdown.TrySelect(x, y, out Category newTab))
-                    this.SetCategory(newTab);
+                if (this.CategoryDropdown.TrySelect(x, y, out string category))
+                    this.SetCategory(category);
                 this.SetDropdown(!this.CategoryDropdown.IsExpanded);
             }
 
@@ -384,6 +374,22 @@ namespace CJBItemSpawner.Framework
         /*********
         ** Private methods
         *********/
+        /// <summary>Get the categories to show in the UI.</summary>
+        /// <param name="categories">The configured category names.</param>
+        private IEnumerable<string> GetDisplayCategories(string[] categories)
+        {
+            string all = I18n.Tabs_All();
+            string misc = I18n.Tabs_Miscellaneous();
+
+            yield return all;
+            foreach (string category in categories.Distinct(StringComparer.OrdinalIgnoreCase))
+            {
+                if (!this.EqualsCaseInsensitive(category, all) && !this.EqualsCaseInsensitive(category, misc))
+                    yield return category;
+            }
+            yield return misc;
+        }
+
         /// <summary>Initialize the custom UI components.</summary>
         private void InitializeComponents()
         {
@@ -408,7 +414,7 @@ namespace CJBItemSpawner.Framework
             this.SearchBoxArea = new ClickableComponent(new Rectangle(this.SearchBox.X, this.SearchBox.Y, this.SearchBox.Width, this.SearchBox.Height), "");
 
             // category dropdown (centered between sort and search)
-            this.CategoryDropdown = new Dropdown<Category>(0, this.SortButton.bounds.Y, Game1.smallFont, this.Category, this.CategoryOrder, this.GetTabLabel);
+            this.CategoryDropdown = new Dropdown<string>(0, this.SortButton.bounds.Y, Game1.smallFont, this.Category, this.Categories, p => p);
             this.CategoryDropdown.bounds.X = this.SortButton.bounds.Right + (this.SearchBox.X - this.SortButton.bounds.Right) / 2 - this.CategoryDropdown.bounds.Width / 2;
             this.CategoryDropdown.ReinitializeComponents();
 
@@ -497,20 +503,20 @@ namespace CJBItemSpawner.Framework
         protected void NextCategory(int direction)
         {
             direction = direction < 0 ? -1 : 1;
-            int last = this.CategoryOrder.Length - 1;
+            int last = this.Categories.Length - 1;
 
-            int index = Array.IndexOf(this.CategoryOrder, this.Category) + direction;
+            int index = Array.IndexOf(this.Categories, this.Category) + direction;
             if (index < 0)
                 index = last;
             if (index > last)
                 index = 0;
 
-            this.SetCategory(this.CategoryOrder[index]);
+            this.SetCategory(this.Categories[index]);
         }
 
         /// <summary>Set the current category.</summary>
         /// <param name="category">The new category value.</param>
-        protected void SetCategory(Category category)
+        protected void SetCategory(string category)
         {
             this.Category = category;
             this.CategoryDropdown.TrySelect(category);
@@ -555,10 +561,10 @@ namespace CJBItemSpawner.Framework
         }
 
         /// <summary>Get all items matching the search criteria, ignoring pagination.</summary>
-        private IEnumerable<SearchableItem> SearchItems()
+        private IEnumerable<SpawnableItem> SearchItems()
         {
             // get base query
-            IEnumerable<SearchableItem> items = this.AllItems;
+            IEnumerable<SpawnableItem> items = this.AllItems;
             items = this.SortBy switch
             {
                 ItemSort.Type => items.OrderBy(p => p.Item.Category),
@@ -567,8 +573,8 @@ namespace CJBItemSpawner.Framework
             };
 
             // apply menu tab
-            if (this.Category != Category.All)
-                items = items.Where(item => this.GetRelevantTab(item.Item) == this.Category);
+            if (!this.EqualsCaseInsensitive(this.Category, I18n.Tabs_All()))
+                items = items.Where(item => this.EqualsCaseInsensitive(item.Category, this.Category));
 
             // apply search
             string search = this.SearchBox.Text.Trim();
@@ -596,27 +602,6 @@ namespace CJBItemSpawner.Framework
             };
         }
 
-        /// <summary>Get the translated label for a type filter.</summary>
-        /// <param name="type">The type.</param>
-        private string GetTabLabel(Category type)
-        {
-            return type switch
-            {
-                Category.All => I18n.Tabs_All(),
-                Category.ToolsAndEquipment => I18n.Tabs_Equipment(),
-                Category.SeedsAndCrops => I18n.Tabs_Crops(),
-                Category.FishAndBaitAndTrash => I18n.Tabs_Fishing(),
-                Category.ForageAndFruits => I18n.Tabs_Forage(),
-                Category.ArtifactsAndMinerals => I18n.Tabs_ArtifactsAndMinerals(),
-                Category.ResourcesAndCrafting => I18n.Tabs_ResourcesAndCrafting(),
-                Category.ArtisanAndCooking => I18n.Tabs_ArtisanAndCooking(),
-                Category.AnimalAndMonster => I18n.Tabs_AnimalAndMonster(),
-                Category.Decorating => I18n.Tabs_Decorating(),
-                Category.Misc => I18n.Tabs_Miscellaneous(),
-                _ => throw new NotSupportedException($"Invalid filter type {type}.")
-            };
-        }
-
         /// <summary>Get the maximum width of the sort label.</summary>
         /// <param name="font">The text font.</param>
         private int GetMaxSortLabelWidth(SpriteFont font)
@@ -630,78 +615,6 @@ namespace CJBItemSpawner.Framework
                 .Max();
         }
 
-        /// <summary>Get the relevant tab for an item.</summary>
-        /// <param name="item">The item whose tab to check.</param>
-        private Category GetRelevantTab(Item item)
-        {
-            // by type
-            switch (item)
-            {
-                case Tool _:
-                case Ring _:
-                case Hat _:
-                case Boots _:
-                case Clothing _:
-                    return Category.ToolsAndEquipment;
-
-                case Furniture _:
-                    return Category.Decorating;
-            }
-
-            // by category
-            switch (item.Category)
-            {
-                case SObject.SeedsCategory:
-                case SObject.VegetableCategory:
-                case SObject.fertilizerCategory:
-                case SObject.flowersCategory:
-                    return Category.SeedsAndCrops;
-
-                case SObject.FishCategory:
-                case SObject.baitCategory:
-                case SObject.junkCategory:
-                case SObject.tackleCategory:
-                    return Category.FishAndBaitAndTrash;
-
-                case SObject.GreensCategory:
-                case SObject.FruitsCategory:
-                    return Category.ForageAndFruits;
-
-                case SObject.mineralsCategory:
-                case SObject.GemCategory:
-                    return Category.ArtifactsAndMinerals;
-
-                case SObject.metalResources:
-                case SObject.buildingResources:
-                case SObject.CraftingCategory:
-                case SObject.BigCraftableCategory:
-                    return Category.ResourcesAndCrafting;
-
-                case SObject.artisanGoodsCategory:
-                case SObject.syrupCategory:
-                case SObject.CookingCategory:
-                case SObject.ingredientsCategory:
-                    return Category.ArtisanAndCooking;
-
-                case SObject.sellAtPierresAndMarnies:
-                case SObject.meatCategory:
-                case SObject.EggCategory:
-                case SObject.MilkCategory:
-                case SObject.monsterLootCategory:
-                    return Category.AnimalAndMonster;
-
-                case SObject.furnitureCategory:
-                    return Category.Decorating;
-            }
-
-            // artifacts
-            if ((item as SObject)?.Type == "Arch")
-                return Category.ArtifactsAndMinerals;
-
-            // anything else
-            return Category.Misc;
-        }
-
         /// <summary>Get an action wrapper which invokes <see cref="ItemGrabMenu.draw(SpriteBatch)"/>.</summary>
         /// <remarks>See remarks on <see cref="BaseDraw"/>.</remarks>
         private Action<SpriteBatch> GetBaseDraw()
@@ -709,6 +622,14 @@ namespace CJBItemSpawner.Framework
             MethodInfo method = typeof(ItemGrabMenu).GetMethod("draw", BindingFlags.Instance | BindingFlags.Public, null, new[] { typeof(SpriteBatch) }, null) ?? throw new InvalidOperationException($"Can't find {nameof(ItemGrabMenu)}.{nameof(ItemGrabMenu.draw)} method.");
             IntPtr pointer = method.MethodHandle.GetFunctionPointer();
             return (Action<SpriteBatch>)Activator.CreateInstance(typeof(Action<SpriteBatch>), this, pointer);
+        }
+
+        /// <summary>Get whether two strings are equal, ignoring case differences.</summary>
+        /// <param name="a">The first string to compare.</param>
+        /// <param name="b">The second string to compare.</param>
+        private bool EqualsCaseInsensitive(string a, string b)
+        {
+            return string.Equals(a, b, StringComparison.OrdinalIgnoreCase);
         }
     }
 }
