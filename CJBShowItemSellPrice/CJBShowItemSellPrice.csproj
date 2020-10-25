@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <AssemblyName>CJBShowItemSellPrice</AssemblyName>
     <Version>1.9.8</Version>
@@ -19,5 +18,4 @@
   </ItemGroup>
 
   <Import Project="$(SolutionDir)\common.targets" />
-
 </Project>

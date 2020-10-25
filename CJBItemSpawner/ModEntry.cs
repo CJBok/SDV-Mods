@@ -19,8 +19,8 @@ namespace CJBItemSpawner
         /// <summary>The mod settings.</summary>
         private ModConfig Config;
 
-        /// <summary>The internal mod data file.</summary>
-        private ModData ModData;
+        /// <summary>The internal mod data about items.</summary>
+        private ModItemData ItemData;
 
 
         /*********
@@ -35,9 +35,9 @@ namespace CJBItemSpawner
             this.Monitor.Log($"Started with menu key {this.Config.ShowMenuKey}.");
 
             // read data
-            this.ModData = helper.Data.ReadJsonFile<ModData>("data.json");
-            if (this.ModData?.ProblematicItems == null)
-                this.Monitor.LogOnce("One of the mod files (data.json) is missing or invalid. Some features may not work correctly; consider reinstalling the mod.", LogLevel.Warn);
+            this.ItemData = helper.Data.ReadJsonFile<ModItemData>("assets/item-data.json");
+            if (this.ItemData?.ProblematicItems == null)
+                this.Monitor.Log("One of the mod files (assets/item-data.json) is missing or invalid. Some features may not work correctly; consider reinstalling the mod.", LogLevel.Warn);
 
             // init translations
             I18n.Init(helper.Translation);
@@ -68,10 +68,10 @@ namespace CJBItemSpawner
             IEnumerable<SearchableItem> items = new ItemRepository().GetAll();
 
             // apply 'problematic items' filter
-            if (!this.Config.AllowProblematicItems && this.ModData?.ProblematicItems?.Any() == true)
+            if (!this.Config.AllowProblematicItems && this.ItemData?.ProblematicItems?.Any() == true)
             {
                 var problematicItems = new HashSet<Tuple<ItemType, int>>(
-                    this.ModData.ProblematicItems.Select(item => Tuple.Create(item.Type, item.ID))
+                    this.ItemData.ProblematicItems.Select(item => Tuple.Create(item.Type, item.ID))
                 );
                 items = items.Where(item => !problematicItems.Contains(Tuple.Create(item.Type, item.ID)));
             }
