@@ -50,6 +50,9 @@ namespace CJB.Common.UI
             }
         }
 
+        /// <summary>The selected item.</summary>
+        public TItem Selected => this.List.SelectedItem;
+
         /// <summary>The downward neighbor ID when the dropdown is closed for controller snapping.</summary>
         public int DefaultDownNeighborId { get; set; } = -99999;
 

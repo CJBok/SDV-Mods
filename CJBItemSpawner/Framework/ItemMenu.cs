@@ -8,6 +8,7 @@ using CJBItemSpawner.Framework.Constants;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 using StardewValley.Objects;
@@ -43,12 +44,12 @@ namespace CJBItemSpawner.Framework
         /****
         ** State
         ****/
+        /// <summary>Handles writing to the SMAPI console and log.</summary>
+        private readonly IMonitor Monitor;
+
         /// <summary>The base draw method.</summary>
         /// <remarks>This circumvents an issue where <see cref="ItemGrabMenu.draw(SpriteBatch)"/> can't be called directly due to a conflicting overload.</remarks>
         private readonly Action<SpriteBatch> BaseDraw;
-
-        /// <summary>The current filter tab.</summary>
-        private string Category = I18n.Tabs_All();
 
         /// <summary>The current item quality.</summary>
         private ItemQuality Quality = ItemQuality.Normal;
@@ -119,7 +120,8 @@ namespace CJBItemSpawner.Framework
         /// <summary>Construct an instance.</summary>
         /// <param name="spawnableItems">The items available to spawn.</param>
         /// <param name="categoryLabels">The available category labels.</param>
-        public ItemMenu(SpawnableItem[] spawnableItems, string[] categoryLabels)
+        /// <param name="monitor">Handles writing to the SMAPI console and log.</param>
+        public ItemMenu(SpawnableItem[] spawnableItems, string[] categoryLabels, IMonitor monitor)
             : base(
                 inventory: new List<Item>(),
                 reverseGrab: false,
@@ -137,6 +139,7 @@ namespace CJBItemSpawner.Framework
             this.ItemsInView = this.ItemsToGrabMenu.actualInventory;
             this.AllItems = spawnableItems;
             this.Categories = this.GetDisplayCategories(categoryLabels).ToArray();
+            this.Monitor = monitor;
 
             // init UI
             this.drawBG = false; // handled manually to draw arrows between background and menu
@@ -289,20 +292,7 @@ namespace CJBItemSpawner.Framework
 
             // scroll item view
             else
-            {
-                // apply scroll
-                if (direction > 0)
-                    this.TopRowIndex--;
-                if (direction < 0)
-                    this.TopRowIndex++;
-
-                // normalize
-                int maxRows = (int)Math.Ceiling(this.FilteredItems.Count / (this.ItemsPerRow * 1m));
-                this.TopRowIndex = (int)MathHelper.Clamp(this.TopRowIndex, 0, maxRows);
-
-                // update list
-                this.ResetItemView(rebuild: false);
-            }
+                this.ScrollView(direction);
         }
 
         /// <summary>Handle the player hovering the cursor over the menu.</summary>
@@ -414,7 +404,7 @@ namespace CJBItemSpawner.Framework
             this.SearchBoxArea = new ClickableComponent(new Rectangle(this.SearchBox.X, this.SearchBox.Y, this.SearchBox.Width, this.SearchBox.Height), "");
 
             // category dropdown (centered between sort and search)
-            this.CategoryDropdown = new Dropdown<string>(0, this.SortButton.bounds.Y, Game1.smallFont, this.Category, this.Categories, p => p);
+            this.CategoryDropdown = new Dropdown<string>(0, this.SortButton.bounds.Y, Game1.smallFont, this.CategoryDropdown?.Selected ?? I18n.Tabs_All(), this.Categories, p => p);
             this.CategoryDropdown.bounds.X = this.SortButton.bounds.Right + (this.SearchBox.X - this.SortButton.bounds.Right) / 2 - this.CategoryDropdown.bounds.Width / 2;
             this.CategoryDropdown.ReinitializeComponents();
 
@@ -505,7 +495,7 @@ namespace CJBItemSpawner.Framework
             direction = direction < 0 ? -1 : 1;
             int last = this.Categories.Length - 1;
 
-            int index = Array.IndexOf(this.Categories, this.Category) + direction;
+            int index = Array.IndexOf(this.Categories, this.CategoryDropdown.Selected) + direction;
             if (index < 0)
                 index = last;
             if (index > last)
@@ -518,9 +508,35 @@ namespace CJBItemSpawner.Framework
         /// <param name="category">The new category value.</param>
         protected void SetCategory(string category)
         {
-            this.Category = category;
-            this.CategoryDropdown.TrySelect(category);
+            if (!this.CategoryDropdown.TrySelect(category))
+            {
+                this.Monitor.Log($"Failed selecting category filter category '{category}'.", LogLevel.Warn);
+                if (category != I18n.Tabs_All())
+                    this.SetCategory(I18n.Tabs_All());
+                return;
+            }
+
             this.ResetItemView(rebuild: true);
+        }
+
+        /// <summary>Scroll the item view.</summary>
+        /// <param name="direction">The scroll direction.</param>
+        /// <param name="resetItemView">Whether to update the item view.</param>
+        public void ScrollView(int direction, bool resetItemView = true)
+        {
+            // apply scroll
+            if (direction > 0)
+                this.TopRowIndex--;
+            if (direction < 0)
+                this.TopRowIndex++;
+
+            // normalize
+            int maxRows = (int)Math.Ceiling(this.FilteredItems.Count / (this.ItemsPerRow * 1m));
+            this.TopRowIndex = (int)MathHelper.Clamp(this.TopRowIndex, 0, maxRows);
+
+            // update view
+            if (resetItemView)
+                this.ResetItemView();
         }
 
         /// <summary>Set the search textbox selected.</summary>
@@ -542,12 +558,18 @@ namespace CJBItemSpawner.Framework
         /// <param name="rebuild">Whether to rebuild the search results.</param>
         private void ResetItemView(bool rebuild = false)
         {
+            // rebuild underlying list
             if (rebuild)
             {
                 this.FilteredItems.Clear();
                 this.FilteredItems.AddRange(this.SearchItems());
+                this.TopRowIndex = 0;
             }
 
+            // fix scroll if needed
+            this.ScrollView(0, resetItemView: false);
+
+            // update items in view
             this.ItemsInView.Clear();
             foreach (var match in this.FilteredItems.Skip(this.TopRowIndex * this.ItemsPerRow).Take(this.ItemsPerView))
             {
@@ -573,8 +595,8 @@ namespace CJBItemSpawner.Framework
             };
 
             // apply menu tab
-            if (!this.EqualsCaseInsensitive(this.Category, I18n.Tabs_All()))
-                items = items.Where(item => this.EqualsCaseInsensitive(item.Category, this.Category));
+            if (!this.EqualsCaseInsensitive(this.CategoryDropdown.Selected, I18n.Tabs_All()))
+                items = items.Where(item => this.EqualsCaseInsensitive(item.Category, this.CategoryDropdown.Selected));
 
             // apply search
             string search = this.SearchBox.Text.Trim();

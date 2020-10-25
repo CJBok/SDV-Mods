@@ -74,7 +74,7 @@ namespace CJBItemSpawner
             SpawnableItem[] items = this.GetSpawnableItems().ToArray();
             string[] categoryLabels = this.GetCategories().ToArray();
 
-            return new ItemMenu(items, categoryLabels);
+            return new ItemMenu(items, categoryLabels, this.Monitor);
         }
 
         /// <summary>Get the available filter category labels.</summary>
