@@ -530,9 +530,10 @@ namespace CJBItemSpawner.Framework
             if (direction < 0)
                 this.TopRowIndex++;
 
-            // normalize
-            int maxRows = (int)Math.Ceiling(this.FilteredItems.Count / (this.ItemsPerRow * 1m));
-            this.TopRowIndex = (int)MathHelper.Clamp(this.TopRowIndex, 0, maxRows);
+            // normalize scroll
+            int totalRows = (int)Math.Ceiling(this.FilteredItems.Count / (this.ItemsPerRow * 1m));
+            int maxRow = Math.Max(0, totalRows - 3);
+            this.TopRowIndex = (int)MathHelper.Clamp(this.TopRowIndex, 0, maxRow);
 
             // update view
             if (resetItemView)
