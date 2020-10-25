@@ -146,7 +146,7 @@ namespace CJBShowItemSellPrice
         /// <summary>Get the hovered item from the on-screen toolbar.</summary>
         private Item GetItemFromToolbar()
         {
-            if (!Context.IsPlayerFree || this.Toolbar == null || this.ToolbarSlots == null)
+            if (!Context.IsPlayerFree || this.Toolbar == null || this.ToolbarSlots == null || !Game1.displayHUD)
                 return null;
 
             // find hovered slot
