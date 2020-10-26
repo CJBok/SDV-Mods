@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 
@@ -32,6 +33,9 @@ namespace CJB.Common.UI
 
         /// <summary>The backing field for <see cref="IsExpanded"/>.</summary>
         private bool IsExpandedImpl;
+
+        /// <summary>Whether the menu is being displayed on Android.</summary>
+        private bool IsAndroid => Constants.TargetPlatform == GamePlatform.Android;
 
 
         /*********
@@ -144,7 +148,7 @@ namespace CJB.Common.UI
         public void Draw(SpriteBatch sprites, float opacity = 1)
         {
             // draw tab
-            CommonHelper.DrawTab(this.bounds.X, this.bounds.Y, this.List.MaxLabelWidth, this.List.MaxLabelHeight, out Vector2 textPos);
+            CommonHelper.DrawTab(this.bounds.X, this.bounds.Y, this.List.MaxLabelWidth, this.List.MaxLabelHeight, out Vector2 textPos, drawShadow: this.IsAndroid);
             sprites.DrawString(this.Font, this.List.SelectedLabel, textPos, Color.Black * opacity);
 
             // draw dropdown
