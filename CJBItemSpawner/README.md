@@ -11,9 +11,13 @@ Compatible with Stardew Valley 1.4+ on Linux, Mac, and Windows.
 3. Run the game using SMAPI.
 
 ## Use
-* Press `i` on your keyboard (configurable) to open up the menu.
-* Change item quality by hovering over the item, holding left-shift, then using the mouse wheel to
-  increase or decrease the quality level.
+Press `i` on your keyboard (configurable) to open the menu.
+
+In the menu you can...
+* Change item quality by clicking the quality button.
+* Change category filters by clicking the dropdown, with `left`/`right` on a keyboard, or with `left trigger`/`right trigger` on a controller.
+* Scroll items by clicking the arrows, with your mouse scroll wheel, with `up`/`down` on your keyboard, or with the right thumbstick on a controller.
+* Search by pointing at the search box and typing an item name.
 
 ## Configure
 The mod will work fine out of the box, but you can tweak its settings by editing the `config.json`

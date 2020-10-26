@@ -235,12 +235,14 @@ namespace CJBItemSpawner.Framework
         /// <param name="key">The button that was pressed.</param>
         public override void receiveKeyPress(Keys key)
         {
+            bool inDropdown = this.CategoryDropdown.IsExpanded;
+
             // deselect textbox
             if (this.SearchBox.Selected && key == Keys.Escape)
                 this.DeselectSearchBox();
 
             // close dropdown
-            else if (this.CategoryDropdown.IsExpanded && key == Keys.Escape)
+            else if (inDropdown && key == Keys.Escape)
                 this.SetDropdown(false);
 
             // allow trashing any item
@@ -248,6 +250,26 @@ namespace CJBItemSpawner.Framework
             {
                 Utility.trashItem(this.heldItem);
                 this.heldItem = null;
+            }
+
+            // navigate
+            else if ((key == Keys.Left || key == Keys.Right))
+            {
+                this.NextCategory(key == Keys.Left
+                    ? -1
+                    : 1
+                );
+            }
+
+            // scroll
+            else if (key == Keys.Up || key == Keys.Down)
+            {
+                int direction = key == Keys.Up ? -1 : 1;
+
+                if (inDropdown)
+                    this.CategoryDropdown.ReceiveScrollWheelAction(direction);
+                else
+                    this.ScrollView(direction);
             }
 
             // default behavior
@@ -292,7 +314,7 @@ namespace CJBItemSpawner.Framework
 
             // scroll item view
             else
-                this.ScrollView(direction);
+                this.ScrollView(-direction); // higher scroll value = scroll down
         }
 
         /// <summary>Handle the player hovering the cursor over the menu.</summary>
@@ -525,9 +547,9 @@ namespace CJBItemSpawner.Framework
         public void ScrollView(int direction, bool resetItemView = true)
         {
             // apply scroll
-            if (direction > 0)
-                this.TopRowIndex--;
             if (direction < 0)
+                this.TopRowIndex--;
+            else if (direction > 0)
                 this.TopRowIndex++;
 
             // normalize scroll

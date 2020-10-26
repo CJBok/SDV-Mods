@@ -4,6 +4,7 @@
 ## Upcoming release
 * Redesigned menu to make it simpler, more intuitive, and more mobile-friendly.
 * Added full controller support.
+* Added keyboard navigation for categories and scrolling.
 * Added shirts normally only available during character customization.
 * Added support for customizing the filter categories via `assets/categories.json`.
 * Internal refactoring to simplify future game updates.
