@@ -72,16 +72,7 @@ namespace CJBItemSpawner
         private ItemMenu BuildMenu()
         {
             SpawnableItem[] items = this.GetSpawnableItems().ToArray();
-            string[] categoryLabels = this.GetCategories().ToArray();
-
-            return new ItemMenu(items, categoryLabels, this.Monitor);
-        }
-
-        /// <summary>Get the available filter category labels.</summary>
-        private IEnumerable<string> GetCategories()
-        {
-            return this.Categories?.Select(p => (string)I18n.GetByKey(p.Label).Default(p.Label))
-                ?? new string[0];
+            return new ItemMenu(items, this.Monitor);
         }
 
         /// <summary>Get the items which can be spawned.</summary>

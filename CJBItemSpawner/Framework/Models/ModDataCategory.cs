@@ -22,7 +22,7 @@ namespace CJBItemSpawner.Framework.Models
         /// <summary>The object's type (i.e. <see cref="SObject.Type"/>).</summary>
         public ISet<string> ObjType { get; set; }
 
-        /// <summary>The object's category (i.e. <see cref="SObject.Category"/>).</summary>
+        /// <summary>The object's category (i.e. <see cref="Item.Category"/>).</summary>
         public ISet<int> ObjCategory { get; set; }
 
         /// <summary>The item's unique ID (i.e. <see cref="Item.ParentSheetIndex"/>).</summary>
@@ -38,20 +38,17 @@ namespace CJBItemSpawner.Framework.Models
         {
             SObject obj = item as SObject;
 
-            // no criteria
-            if (!this.Class.Any() && !this.ObjCategory.Any() && !this.ObjType.Any() && !this.ItemId.Any())
-                return false;
-
             // match criteria
-            if (this.Class.Any() && !this.GetClassFullNames(item).Any(className => this.Class.Contains(className)))
-                return false;
-            if (this.ObjCategory.Any() && !this.ObjCategory.Contains(item.Category))
-                return false;
-            if (this.ObjType.Any() && (obj == null || !this.ObjType.Contains(obj.Type)))
-                return false;
-            if (this.ItemId.Any() && !this.ItemId.Contains(item.ParentSheetIndex))
-                return false;
-            return true;
+            if (this.Class.Any() && this.GetClassFullNames(item).Any(className => this.Class.Contains(className)))
+                return true;
+            if (this.ObjCategory.Any() && this.ObjCategory.Contains(item.Category))
+                return true;
+            if (this.ObjType.Any() && obj != null && this.ObjType.Contains(obj.Type))
+                return true;
+            if (this.ItemId.Any() && this.ItemId.Contains(item.ParentSheetIndex))
+                return true;
+
+            return false;
         }
 
 

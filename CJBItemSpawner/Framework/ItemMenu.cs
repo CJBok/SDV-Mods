@@ -119,9 +119,8 @@ namespace CJBItemSpawner.Framework
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="spawnableItems">The items available to spawn.</param>
-        /// <param name="categoryLabels">The available category labels.</param>
         /// <param name="monitor">Handles writing to the SMAPI console and log.</param>
-        public ItemMenu(SpawnableItem[] spawnableItems, string[] categoryLabels, IMonitor monitor)
+        public ItemMenu(SpawnableItem[] spawnableItems, IMonitor monitor)
             : base(
                 inventory: new List<Item>(),
                 reverseGrab: false,
@@ -138,7 +137,7 @@ namespace CJBItemSpawner.Framework
             this.BaseDraw = this.GetBaseDraw();
             this.ItemsInView = this.ItemsToGrabMenu.actualInventory;
             this.AllItems = spawnableItems;
-            this.Categories = this.GetDisplayCategories(categoryLabels).ToArray();
+            this.Categories = this.GetDisplayCategories(spawnableItems).ToArray();
             this.Monitor = monitor;
 
             // init UI
@@ -387,18 +386,23 @@ namespace CJBItemSpawner.Framework
         ** Private methods
         *********/
         /// <summary>Get the categories to show in the UI.</summary>
-        /// <param name="categories">The configured category names.</param>
-        private IEnumerable<string> GetDisplayCategories(string[] categories)
+        /// <param name="items">The items that can be spawned.</param>
+        private IEnumerable<string> GetDisplayCategories(SpawnableItem[] items)
         {
             string all = I18n.Tabs_All();
             string misc = I18n.Tabs_Miscellaneous();
 
-            yield return all;
-            foreach (string category in categories.Distinct(StringComparer.OrdinalIgnoreCase))
+            HashSet<string> categories = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (SpawnableItem item in items)
             {
-                if (!this.EqualsCaseInsensitive(category, all) && !this.EqualsCaseInsensitive(category, misc))
-                    yield return category;
+                if (this.EqualsCaseInsensitive(item.Category, all) || this.EqualsCaseInsensitive(item.Category, misc))
+                    continue;
+                categories.Add(item.Category);
             }
+
+            yield return all;
+            foreach (string category in categories.OrderBy(p => p, StringComparer.OrdinalIgnoreCase))
+                yield return category;
             yield return misc;
         }
 

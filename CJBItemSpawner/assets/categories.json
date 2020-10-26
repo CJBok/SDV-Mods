@@ -1,9 +1,8 @@
 /**
  * The item category filters available in the item spawner menu.
  *
- * For each item, a category applies if at least one value from each property matches the item. If
- * multiple categories apply, the first match is used. The UI shows categories in the order
- * listed here.
+ * For each item, a category applies if at least property matches the item. If multiple categories
+ * apply, the first match is used. The UI shows categories in the order listed here.
  *
  * Rule properties:
  *    - Label (required): the translation key or literal text for the category display name. If
