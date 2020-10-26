@@ -12,6 +12,7 @@ using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 using StardewValley.Objects;
+using SConstants = StardewModdingAPI.Constants;
 using SObject = StardewValley.Object;
 
 namespace CJBItemSpawner.Framework
@@ -40,6 +41,9 @@ namespace CJBItemSpawner.Framework
 
         /// <summary>The available category names.</summary>
         private readonly string[] Categories;
+
+        /// <summary>Whether the menu is being displayed on Android.</summary>
+        private bool IsAndroid => SConstants.TargetPlatform == GamePlatform.Android;
 
         /****
         ** State
@@ -130,7 +134,8 @@ namespace CJBItemSpawner.Framework
                 behaviorOnItemSelectFunction: (item, player) => { },
                 message: null,
                 canBeExitedWithKey: true,
-                showOrganizeButton: false
+                showOrganizeButton: false,
+                source: SConstants.TargetPlatform == GamePlatform.Android ? ItemGrabMenu.source_chest : ItemGrabMenu.source_none // needed on Android to avoid a malformed UI
             )
         {
             // init settings
@@ -140,9 +145,12 @@ namespace CJBItemSpawner.Framework
             this.Categories = this.GetDisplayCategories(spawnableItems).ToArray();
             this.Monitor = monitor;
 
-            // init UI
-            this.drawBG = false; // handled manually to draw arrows between background and menu
+            // init base UI
+            if (!this.IsAndroid)
+                this.drawBG = false; // handled manually to draw arrows between background and menu
             this.behaviorOnItemGrab = this.OnItemGrab;
+
+            // init custom UI
             this.InitializeComponents();
             this.ResetItemView(rebuild: true);
         }
@@ -183,11 +191,12 @@ namespace CJBItemSpawner.Framework
                 this.receiveScrollWheelAction(-1);
 
             // category dropdown
-            else if (this.CategoryDropdown.containsPoint(x, y))
+            else if (this.CategoryDropdown.TryClick(x, y, out bool itemClicked, out bool dropdownToggled))
             {
-                if (this.CategoryDropdown.TrySelect(x, y, out string category))
-                    this.SetCategory(category);
-                this.SetDropdown(!this.CategoryDropdown.IsExpanded);
+                if (dropdownToggled)
+                    this.SetDropdown(this.CategoryDropdown.IsExpanded);
+                if (itemClicked)
+                    this.SetCategory(this.CategoryDropdown.Selected);
             }
 
             // textbox
@@ -354,6 +363,10 @@ namespace CJBItemSpawner.Framework
                 this.ResetItemView(rebuild: true);
             }
 
+            // fix empty spots on Android
+            if (this.IsAndroid && this.ItemsInView.Any(p => p == null))
+                this.ResetItemView();
+
             base.update(time);
         }
 
@@ -362,16 +375,26 @@ namespace CJBItemSpawner.Framework
         public override void draw(SpriteBatch spriteBatch)
         {
             // draw arrows under base UI, so tooltips are drawn over them
-            spriteBatch.Draw(Game1.fadeToBlackRect, new Rectangle(0, 0, Game1.viewport.Width, Game1.viewport.Height), Color.Black * 0.5f); // replicate base.drawBG so arrows are above it
-            this.UpArrow.draw(spriteBatch);
-            this.DownArrow.draw(spriteBatch);
-
-            // draw base UI
-            this.BaseDraw(spriteBatch);
+            if (!this.IsAndroid)
+            {
+                spriteBatch.Draw(Game1.fadeToBlackRect, new Rectangle(0, 0, Game1.viewport.Width, Game1.viewport.Height), Color.Black * 0.5f); // replicate base.drawBG so arrows are above it
+                this.UpArrow.draw(spriteBatch);
+                this.DownArrow.draw(spriteBatch);
+                this.BaseDraw(spriteBatch);
+            }
+            else
+            {
+                this.BaseDraw(spriteBatch);
+                this.UpArrow.draw(spriteBatch);
+                this.DownArrow.draw(spriteBatch);
+            }
 
             // add main UI
-            this.SearchBox.Draw(spriteBatch);
-            this.SearchIcon.draw(spriteBatch);
+            if (!this.IsAndroid)
+            {
+                this.SearchBox.Draw(spriteBatch);
+                this.SearchIcon.draw(spriteBatch);
+            }
             this.CategoryDropdown.Draw(spriteBatch);
             CommonHelper.DrawTab(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, this.QualityButton.bounds.Width - CommonHelper.ButtonBorderWidth, this.QualityButton.bounds.Height - CommonHelper.ButtonBorderWidth, out Vector2 qualityIconPos, forIcon: true);
             spriteBatch.Draw(Game1.mouseCursors, qualityIconPos, new Rectangle(345, 391, 10, 9), Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
@@ -409,12 +432,16 @@ namespace CJBItemSpawner.Framework
         /// <summary>Initialize the custom UI components.</summary>
         private void InitializeComponents()
         {
+            int x = this.xPositionOnScreen;
+            int y = this.yPositionOnScreen;
+            int right = x + this.width;
+
             // basic buttons
-            this.QualityButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen - Game1.tileSize * 2 + 10, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth - 2), ""); // manually tweak height to align with sort button
+            this.QualityButton = new ClickableComponent(new Rectangle(x, y - Game1.tileSize * 2 + 10, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth - 2), ""); // manually tweak height to align with sort button
             this.SortButton = new ClickableComponent(new Rectangle(this.QualityButton.bounds.Right + 20, this.QualityButton.bounds.Y, this.GetMaxSortLabelWidth(Game1.smallFont), Game1.tileSize), this.GetSortLabel(this.SortBy));
-            this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(this.xPositionOnScreen + this.width - 32, this.yPositionOnScreen - 64, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
+            this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(right - 32, y - 64, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
             this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.UpArrow.bounds.X, this.UpArrow.bounds.Y + this.height / 2 - 64, this.UpArrow.bounds.Width, this.UpArrow.bounds.Height), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
-            this.SearchIcon = new ClickableTextureComponent("search", new Rectangle(this.xPositionOnScreen + this.width - 39 - 45, this.yPositionOnScreen - Game1.tileSize * 2 + 20, 39, 39), "", "", Game1.mouseCursors, new Rectangle(80, 0, 13, 13), 3);
+            this.SearchIcon = new ClickableTextureComponent("search", new Rectangle(right - 39 - 45, y - Game1.tileSize * 2 + 20, 39, 39), "", "", Game1.mouseCursors, new Rectangle(80, 0, 13, 13), 3);
 
             // search box
             {
@@ -434,6 +461,22 @@ namespace CJBItemSpawner.Framework
             this.CategoryDropdown.bounds.X = this.SortButton.bounds.Right + (this.SearchBox.X - this.SortButton.bounds.Right) / 2 - this.CategoryDropdown.bounds.Width / 2;
             this.CategoryDropdown.ReinitializeComponents();
 
+            // move layout for Android
+            if (this.IsAndroid)
+            {
+                // center up/down buttons under large X
+                this.UpArrow.bounds.X = this.upperRightCloseButton.bounds.Center.X - this.SortButton.bounds.Width / 2;
+                this.UpArrow.bounds.Y = this.upperRightCloseButton.bounds.Bottom;
+                this.DownArrow.bounds.X = this.UpArrow.bounds.X;
+
+                // move top UI down into view
+                int offsetY = y - (CommonSprites.Tab.Top.Height * Game1.pixelZoom); // at top of screen, moved up slightly to reduce overlap over items
+                this.QualityButton.bounds.Y = offsetY;
+                this.SortButton.bounds.Y = offsetY;
+                this.CategoryDropdown.bounds.Y = offsetY;
+                this.CategoryDropdown.ReinitializeComponents();
+            }
+
             // controller flow
             this.InitializeControllerFlow();
         }
@@ -445,6 +488,8 @@ namespace CJBItemSpawner.Framework
             //   - search box is deliberately excluded from controller flow since you can't enter values.
             //   - CategoryDropdown down neighbor ID is auto-managed depending on whether it's expanded.
 
+            if (this.IsAndroid)
+                return; // no controller on Android, and crashes due to Android-specific changes to the menu
 
             // get components
             List<ClickableComponent> slots = this.ItemsToGrabMenu.inventory;

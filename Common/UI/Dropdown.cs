@@ -88,17 +88,37 @@ namespace CJB.Common.UI
                 || (this.IsExpanded && this.List.containsPoint(x, y));
         }
 
-        /// <summary>Select an item in the list if it's under the cursor.</summary>
-        /// <param name="x">The X-position of the item in the UI.</param>
-        /// <param name="y">The Y-position of the item in the UI.</param>
-        /// <param name="selected">The selected item, if found.</param>
-        /// <returns>Returns whether an item was selected.</returns>
-        public bool TrySelect(int x, int y, out TItem selected)
+        /// <summary>Handle a click at the given position, if applicable.</summary>
+        /// <param name="x">The X-position that was clicked.</param>
+        /// <param name="y">The Y-position that was clicked.</param>
+        /// <param name="itemClicked">Whether a dropdown item was clicked.</param>
+        /// <param name="dropdownToggled">Whether the dropdown was expanded or collapsed.</param>
+        /// <returns>Returns whether the click was handled.</returns>
+        public bool TryClick(int x, int y, out bool itemClicked, out bool dropdownToggled)
         {
-            if (this.IsExpanded)
-                return this.List.TrySelect(x, y, out selected);
+            itemClicked = false;
+            dropdownToggled = false;
 
-            selected = default;
+            // click dropdown item
+            if (this.IsExpanded && this.List.TryClick(x, y, out itemClicked))
+            {
+                if (itemClicked)
+                {
+                    this.IsExpanded = false;
+                    dropdownToggled = true;
+                }
+                return true;
+            }
+
+            // toggle expansion
+            if (this.bounds.Contains(x, y) || this.IsExpanded)
+            {
+                this.IsExpanded = !this.IsExpanded;
+                dropdownToggled = true;
+                return true;
+            }
+
+            // not handled
             return false;
         }
 
@@ -140,8 +160,8 @@ namespace CJB.Common.UI
 
             this.List.bounds.X = this.bounds.X;
             this.List.bounds.Y = this.bounds.Bottom;
-            this.List.ReinitializeComponents();
 
+            this.List.ReinitializeComponents();
             this.ReinitializeControllerFlow();
         }
 

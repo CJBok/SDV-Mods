@@ -41,6 +41,12 @@ namespace CJB.Common.UI
         /// <summary>The clickable components representing the list items.</summary>
         private readonly List<ClickableComponent> ItemComponents = new List<ClickableComponent>();
 
+        /// <summary>The up arrow to scroll results.</summary>
+        private ClickableTextureComponent UpArrow;
+
+        /// <summary>The bottom arrow to scroll results.</summary>
+        private ClickableTextureComponent DownArrow;
+
         /// <summary>The item index shown at the top of the list.</summary>
         private int FirstVisibleIndex;
 
@@ -52,6 +58,12 @@ namespace CJB.Common.UI
 
         /// <summary>Get the display name for a value.</summary>
         private readonly Func<TItem, string> GetLabel;
+
+        /// <summary>Whether the player can scroll up in the list.</summary>
+        private bool CanScrollUp => this.FirstVisibleIndex > 0;
+
+        /// <summary>Whether the player can scroll down in the list.</summary>
+        private bool CanScrollDown => this.FirstVisibleIndex < this.MaxFirstVisibleIndex;
 
 
         /****
@@ -120,25 +132,38 @@ namespace CJB.Common.UI
             this.Scroll(direction > 0 ? -1 : 1); // scrolling down moves first item up
         }
 
-        /// <summary>Select an item in the list if it's under the cursor.</summary>
-        /// <param name="x">The X-position of the item in the UI.</param>
-        /// <param name="y">The Y-position of the item in the UI.</param>
-        /// <param name="selected">The selected item, if found.</param>
-        /// <returns>Returns whether an item was selected.</returns>
-        public bool TrySelect(int x, int y, out TItem selected)
+        /// <summary>Handle a click at the given position, if applicable.</summary>
+        /// <param name="x">The X-position that was clicked.</param>
+        /// <param name="y">The Y-position that was clicked.</param>
+        /// <param name="itemClicked">Whether a dropdown item was clicked.</param>
+        /// <returns>Returns whether the click was handled.</returns>
+        public bool TryClick(int x, int y, out bool itemClicked)
         {
+            // dropdown value
             for (int i = 0; i < this.ItemComponents.Count; i++)
             {
                 var component = this.ItemComponents[i];
                 if (component.containsPoint(x, y))
                 {
                     this.Selected = this.Items[i];
-                    selected = this.SelectedItem;
+                    itemClicked = true;
                     return true;
                 }
             }
+            itemClicked = false;
 
-            selected = default;
+            // arrows
+            if (this.UpArrow.containsPoint(x, y))
+            {
+                this.Scroll(-1);
+                return true;
+            }
+            if (this.DownArrow.containsPoint(x, y))
+            {
+                this.Scroll(1);
+                return true;
+            }
+
             return false;
         }
 
@@ -157,6 +182,17 @@ namespace CJB.Common.UI
 
             this.Selected = entry;
             return true;
+        }
+
+        /// <summary>Get whether the dropdown list contains the given UI pixel position.</summary>
+        /// <param name="x">The UI X position.</param>
+        /// <param name="y">The UI Y position.</param>
+        public override bool containsPoint(int x, int y)
+        {
+            return
+                base.containsPoint(x, y)
+                || this.UpArrow.containsPoint(x, y)
+                || this.DownArrow.containsPoint(x, y);
         }
 
         /// <summary>Render the UI.</summary>
@@ -184,15 +220,18 @@ namespace CJB.Common.UI
             }
 
             // draw up/down arrows
-            if (this.FirstVisibleIndex > 0)
-                sprites.Draw(CommonSprites.Icons.Sheet, new Vector2(this.bounds.X - CommonSprites.Icons.UpArrow.Width, this.bounds.Y), CommonSprites.Icons.UpArrow, Color.White * opacity);
-            if (this.FirstVisibleIndex < this.MaxFirstVisibleIndex)
-                sprites.Draw(CommonSprites.Icons.Sheet, new Vector2(this.bounds.X - CommonSprites.Icons.UpArrow.Width, this.bounds.Y + this.bounds.Height - CommonSprites.Icons.DownArrow.Height), CommonSprites.Icons.DownArrow, Color.White * opacity);
+            if (this.CanScrollUp)
+                this.UpArrow.draw(sprites, Color.White * opacity, 1);
+            if (this.CanScrollDown)
+                this.DownArrow.draw(sprites, Color.White * opacity, 1);
         }
 
         /// <summary>Recalculate dimensions and components for rendering.</summary>
         public void ReinitializeComponents()
         {
+            int x = this.bounds.X;
+            int y = this.bounds.Y;
+
             // get item size
             int minItemWidth = Game1.tileSize * 2;
             this.MaxLabelWidth = Math.Max((int)this.Items.Max(p => this.Font.MeasureString(p.Name).X), minItemWidth) + DropdownList<TItem>.DropdownPadding * 2;
@@ -200,7 +239,7 @@ namespace CJB.Common.UI
 
             // get pagination
             int itemCount = this.Items.Length;
-            this.MaxItems = Math.Min((Game1.viewport.Height - (int)this.bounds.Y) / itemHeight, itemCount);
+            this.MaxItems = Math.Min((Game1.viewport.Height - y) / itemHeight, itemCount);
             this.MaxFirstVisibleIndex = this.Items.Length - this.MaxItems;
             this.FirstVisibleIndex = this.GetValidFirstItem(this.FirstVisibleIndex, this.MaxFirstVisibleIndex);
 
@@ -208,14 +247,24 @@ namespace CJB.Common.UI
             this.bounds.Width = this.MaxLabelWidth;
             this.bounds.Height = itemHeight * this.MaxItems;
 
-            // generate components
-            this.ItemComponents.Clear();
-            int x = this.bounds.X;
-            int y = this.bounds.Y;
-            for (int i = this.FirstVisibleIndex; i < this.MaxItems; i++)
+            // add item components
             {
-                this.ItemComponents.Add(new ClickableComponent(new Rectangle(x, y, this.MaxLabelWidth, itemHeight), i.ToString()));
-                y += this.MaxLabelHeight;
+                int itemY = y;
+                this.ItemComponents.Clear();
+                for (int i = this.FirstVisibleIndex; i < this.MaxItems; i++)
+                {
+                    this.ItemComponents.Add(new ClickableComponent(new Rectangle(x, itemY, this.MaxLabelWidth, itemHeight), i.ToString()));
+                    itemY += this.MaxLabelHeight;
+                }
+            }
+
+            // add arrows
+            {
+                var upSource = CommonSprites.Icons.UpArrow;
+                var downSource = CommonSprites.Icons.DownArrow;
+
+                this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(x - upSource.Width, y, upSource.Width, upSource.Height), "", "", CommonSprites.Icons.Sheet, upSource, 1);
+                this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(x - downSource.Width, y + this.bounds.Height - downSource.Height, downSource.Width, downSource.Height), "", "", CommonSprites.Icons.Sheet, downSource, 1);
             }
 
             // update controller flow
