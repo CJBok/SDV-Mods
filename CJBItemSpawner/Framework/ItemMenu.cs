@@ -55,6 +55,9 @@ namespace CJBItemSpawner.Framework
         /// <remarks>This circumvents an issue where <see cref="ItemGrabMenu.draw(SpriteBatch)"/> can't be called directly due to a conflicting overload.</remarks>
         private readonly Action<SpriteBatch> BaseDraw;
 
+        /// <summary>The icon representing the default quality.</summary>
+        private readonly Texture2D EmptyQualityIcon;
+
         /// <summary>The current item quality.</summary>
         private ItemQuality Quality = ItemQuality.Normal;
 
@@ -132,8 +135,9 @@ namespace CJBItemSpawner.Framework
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="spawnableItems">The items available to spawn.</param>
+        /// <param name="emptyQualityIcon">The icon representing the default quality.</param>
         /// <param name="monitor">Handles writing to the SMAPI console and log.</param>
-        public ItemMenu(SpawnableItem[] spawnableItems, IMonitor monitor)
+        public ItemMenu(SpawnableItem[] spawnableItems, Texture2D emptyQualityIcon, IMonitor monitor)
             : base(
                 inventory: new List<Item>(),
                 reverseGrab: false,
@@ -153,6 +157,7 @@ namespace CJBItemSpawner.Framework
             this.AllItems = spawnableItems;
             this.Categories = this.GetDisplayCategories(spawnableItems).ToArray();
             this.Monitor = monitor;
+            this.EmptyQualityIcon = emptyQualityIcon;
 
             // init base UI
             if (!this.IsAndroid)
@@ -410,9 +415,14 @@ namespace CJBItemSpawner.Framework
                 this.SearchIcon.draw(spriteBatch);
             }
             this.CategoryDropdown.Draw(spriteBatch);
-            CommonHelper.DrawTab(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, this.QualityButton.bounds.Width - CommonHelper.ButtonBorderWidth, this.QualityButton.bounds.Height - CommonHelper.ButtonBorderWidth, out Vector2 qualityIconPos, forIcon: true, drawShadow: this.IsAndroid);
-            spriteBatch.Draw(Game1.mouseCursors, qualityIconPos, new Rectangle(345, 391, 10, 9), Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
+            CommonHelper.DrawTab(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, this.QualityButton.bounds.Width - CommonHelper.ButtonBorderWidth, this.QualityButton.bounds.Height - CommonHelper.ButtonBorderWidth, out Vector2 qualityIconPos, drawShadow: this.IsAndroid);
             CommonHelper.DrawTab(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name, drawShadow: this.IsAndroid);
+
+            // draw quality icon
+            {
+                this.GetQualityIcon(out Texture2D texture, out Rectangle sourceRect, out Color color);
+                spriteBatch.Draw(texture, qualityIconPos, sourceRect, color, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
+            }
 
             // redraw cursor over new UI
             this.drawMouse(spriteBatch);
@@ -422,6 +432,36 @@ namespace CJBItemSpawner.Framework
         /*********
         ** Private methods
         *********/
+        /// <summary>Get the icon to draw on the quality button.</summary>
+        /// <param name="texture">The texture containing the icon.</param>
+        /// <param name="sourceRect">The icon's pixel area within the texture.</param>
+        private void GetQualityIcon(out Texture2D texture, out Rectangle sourceRect, out Color color)
+        {
+            texture = Game1.mouseCursors;
+            color = Color.White;
+
+            switch (this.Quality)
+            {
+                case ItemQuality.Normal:
+                    texture = this.EmptyQualityIcon;
+                    sourceRect = new Rectangle(0, 0, texture.Width, texture.Height);
+                    color = color * 0.65f;
+                    break;
+
+                case ItemQuality.Silver:
+                    sourceRect = new Rectangle(338, 400, 8, 8); // silver
+                    break;
+
+                case ItemQuality.Gold:
+                    sourceRect = new Rectangle(346, 400, 8, 8); // gold
+                    break;
+
+                default:
+                    sourceRect = new Rectangle(346, 392, 8, 8); // iridium
+                    break;
+            }
+        }
+
         /// <summary>Get the categories to show in the UI.</summary>
         /// <param name="items">The items that can be spawned.</param>
         private IEnumerable<string> GetDisplayCategories(SpawnableItem[] items)

@@ -4,6 +4,7 @@ using System.Linq;
 using CJBItemSpawner.Framework;
 using CJBItemSpawner.Framework.ItemData;
 using CJBItemSpawner.Framework.Models;
+using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -72,7 +73,8 @@ namespace CJBItemSpawner
         private ItemMenu BuildMenu()
         {
             SpawnableItem[] items = this.GetSpawnableItems().ToArray();
-            return new ItemMenu(items, this.Monitor);
+            Texture2D emptyQualityIcon = this.Helper.Content.Load<Texture2D>("assets/empty-quality.png");
+            return new ItemMenu(items, emptyQualityIcon, this.Monitor);
         }
 
         /// <summary>Get the items which can be spawned.</summary>
