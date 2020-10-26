@@ -76,6 +76,15 @@ namespace CJBItemSpawner.Framework
         /// <summary>The index of the top row shown in the UI view, used to scroll through the results.</summary>
         private int TopRowIndex;
 
+        /// <summary>The maximum <see cref="TopRowIndex"/> value for the current number of items.</summary>
+        private int MaxTopRowIndex;
+
+        /// <summary>Whether the player can scroll up in the list.</summary>
+        private bool CanScrollUp => this.TopRowIndex > 0;
+
+        /// <summary>Whether the player can scroll down in the list.</summary>
+        private bool CanScrollDown => this.TopRowIndex < this.MaxTopRowIndex;
+
         /// <summary>Whether the user explicitly selected the textbox by clicking on it, so the selection should be maintained.</summary>
         private bool TextboxExplicitlySelected;
 
@@ -375,18 +384,23 @@ namespace CJBItemSpawner.Framework
         public override void draw(SpriteBatch spriteBatch)
         {
             // draw arrows under base UI, so tooltips are drawn over them
+            void DrawArrows()
+            {
+                if (this.CanScrollUp)
+                    this.UpArrow.draw(spriteBatch);
+                if (this.CanScrollDown)
+                    this.DownArrow.draw(spriteBatch);
+            }
             if (!this.IsAndroid)
             {
                 spriteBatch.Draw(Game1.fadeToBlackRect, new Rectangle(0, 0, Game1.viewport.Width, Game1.viewport.Height), Color.Black * 0.5f); // replicate base.drawBG so arrows are above it
-                this.UpArrow.draw(spriteBatch);
-                this.DownArrow.draw(spriteBatch);
+                DrawArrows();
                 this.BaseDraw(spriteBatch);
             }
             else
             {
                 this.BaseDraw(spriteBatch);
-                this.UpArrow.draw(spriteBatch);
-                this.DownArrow.draw(spriteBatch);
+                DrawArrows();
             }
 
             // add main UI
@@ -602,9 +616,7 @@ namespace CJBItemSpawner.Framework
                 this.TopRowIndex++;
 
             // normalize scroll
-            int totalRows = (int)Math.Ceiling(this.FilteredItems.Count / (this.ItemsPerRow * 1m));
-            int maxRow = Math.Max(0, totalRows - 3);
-            this.TopRowIndex = (int)MathHelper.Clamp(this.TopRowIndex, 0, maxRow);
+            this.TopRowIndex = (int)MathHelper.Clamp(this.TopRowIndex, 0, this.MaxTopRowIndex);
 
             // update view
             if (resetItemView)
@@ -639,6 +651,8 @@ namespace CJBItemSpawner.Framework
             }
 
             // fix scroll if needed
+            int totalRows = (int)Math.Ceiling(this.FilteredItems.Count / (this.ItemsPerRow * 1m));
+            this.MaxTopRowIndex = Math.Max(0, totalRows - 3);
             this.ScrollView(0, resetItemView: false);
 
             // update items in view
