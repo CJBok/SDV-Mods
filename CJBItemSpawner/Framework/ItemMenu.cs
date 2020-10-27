@@ -422,11 +422,8 @@ namespace CJBItemSpawner.Framework
             CommonHelper.DrawTab(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name, drawShadow: this.IsAndroid);
             this.SortIcon.draw(spriteBatch);
             this.CategoryDropdown.Draw(spriteBatch);
-            if (!this.IsAndroid)
-            {
-                this.SearchBox.Draw(spriteBatch);
-                this.SearchIcon.draw(spriteBatch);
-            }
+            this.SearchBox.Draw(spriteBatch);
+            this.SearchIcon.draw(spriteBatch);
 
             // draw quality icon
             {
@@ -497,14 +494,18 @@ namespace CJBItemSpawner.Framework
         /// <summary>Initialize the custom UI components.</summary>
         private void InitializeComponents()
         {
+            // get basic positions
             int x = this.xPositionOnScreen;
             int y = this.yPositionOnScreen;
             int right = x + this.width;
+            int top = this.IsAndroid
+                ? y - (CommonSprites.Tab.Top.Height * Game1.pixelZoom) // at top of screen, moved up slightly to reduce overlap over items
+                : y - Game1.tileSize * 2 + 10; // above menu
 
             // basic UI
-            this.QualityButton = new ClickableComponent(new Rectangle(x - 1 * Game1.pixelZoom, y - Game1.tileSize * 2 + 10, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth - 2), ""); // manually tweak height to align with sort button
-            this.SortButton = new ClickableComponent(new Rectangle(this.QualityButton.bounds.Right + 20, this.QualityButton.bounds.Y, this.GetMaxSortLabelWidth(Game1.smallFont) + CommonHelper.ButtonBorderWidth, Game1.tileSize), this.GetSortLabel(this.SortBy));
-            this.SortIcon = new ClickableTextureComponent(new Rectangle(this.SortButton.bounds.X + CommonHelper.ButtonBorderWidth, this.QualityButton.bounds.Y + CommonHelper.ButtonBorderWidth, this.SortTexture.Width, Game1.tileSize), this.SortTexture, new Rectangle(0, 0, this.SortTexture.Width, this.SortTexture.Height), 1f);
+            this.QualityButton = new ClickableComponent(new Rectangle(x - 1 * Game1.pixelZoom, top, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth - 2), ""); // manually tweak height to align with sort button
+            this.SortButton = new ClickableComponent(new Rectangle(this.QualityButton.bounds.Right + 20, top, this.GetMaxSortLabelWidth(Game1.smallFont) + CommonHelper.ButtonBorderWidth, Game1.tileSize), this.GetSortLabel(this.SortBy));
+            this.SortIcon = new ClickableTextureComponent(new Rectangle(this.SortButton.bounds.X + CommonHelper.ButtonBorderWidth, top + CommonHelper.ButtonBorderWidth, this.SortTexture.Width, Game1.tileSize), this.SortTexture, new Rectangle(0, 0, this.SortTexture.Width, this.SortTexture.Height), 1f);
             this.CategoryDropdown = new Dropdown<string>(this.SortButton.bounds.Right + 20, this.SortButton.bounds.Y, Game1.smallFont, this.CategoryDropdown?.Selected ?? I18n.Filter_All(), this.Categories, p => p);
             this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(right - 32, y - 64, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
             this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.UpArrow.bounds.X, this.UpArrow.bounds.Y + this.height / 2 - 64, this.UpArrow.bounds.Width, this.UpArrow.bounds.Height), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
@@ -526,17 +527,9 @@ namespace CJBItemSpawner.Framework
             // move layout for Android
             if (this.IsAndroid)
             {
-                // center up/down buttons under large X
                 this.UpArrow.bounds.X = this.upperRightCloseButton.bounds.Center.X - this.SortButton.bounds.Width / 2;
                 this.UpArrow.bounds.Y = this.upperRightCloseButton.bounds.Bottom;
                 this.DownArrow.bounds.X = this.UpArrow.bounds.X;
-
-                // move top UI down into view
-                int offsetY = y - (CommonSprites.Tab.Top.Height * Game1.pixelZoom); // at top of screen, moved up slightly to reduce overlap over items
-                this.QualityButton.bounds.Y = offsetY;
-                this.SortButton.bounds.Y = offsetY;
-                this.CategoryDropdown.bounds.Y = offsetY;
-                this.CategoryDropdown.ReinitializeComponents();
             }
 
             // controller flow
