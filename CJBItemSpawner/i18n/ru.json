@@ -2,9 +2,9 @@
     /*********
     ** Sort button
     *********/
-    "sort.by-name": "Сортировать: Имени",
-    "sort.by-type": "Сортировать: Категории",
-    "sort.by-id": "Сортировать: ID",
+    "sort.by-name": "Имени",
+    "sort.by-type": "Категории",
+    "sort.by-id": "ID",
 
 
     /*********

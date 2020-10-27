@@ -2,9 +2,9 @@
     /*********
     ** Sort button
     *********/
-    "sort.by-name": "ソート順: 名前",
-    "sort.by-type": "ソート順: 種類",
-    "sort.by-id": "ソート順: ID",
+    "sort.by-name": "名前",
+    "sort.by-type": "種類",
+    "sort.by-id": "ID",
 
 
     /*********

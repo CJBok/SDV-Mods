@@ -2,9 +2,9 @@
     /*********
     ** Sort button
     *********/
-    "sort.by-name": "Trier : Nom",
-    "sort.by-type": "Trier : Type",
-    "sort.by-id": "Trier : ID",
+    "sort.by-name": "Nom",
+    "sort.by-type": "Type",
+    "sort.by-id": "ID",
 
 
     /*********

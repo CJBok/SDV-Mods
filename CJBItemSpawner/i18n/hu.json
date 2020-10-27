@@ -2,9 +2,9 @@
     /*********
     ** Sort button
     *********/
-    "sort.by-name": "Név szerint",
-    "sort.by-type": "Kategória szerint",
-    "sort.by-id": "ID szerint",
+    "sort.by-name": "Név",
+    "sort.by-type": "Kategória",
+    "sort.by-id": "ID",
 
 
     /*********

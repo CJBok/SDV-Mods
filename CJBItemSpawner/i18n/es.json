@@ -2,9 +2,9 @@
     /*********
     ** Sort button
     *********/
-    "sort.by-name": "Ordenar: Nombre",
-    "sort.by-type": "Ordenar: Categoría",
-    "sort.by-id": "Ordenar: ID",
+    "sort.by-name": "Nombre",
+    "sort.by-type": "Categoría",
+    "sort.by-id": "ID",
 
 
     /*********

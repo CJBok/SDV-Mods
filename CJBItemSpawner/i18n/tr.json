@@ -2,8 +2,8 @@
     /*********
     ** Sort button
     *********/
-    "sort.by-name": "isime göre",
-    "sort.by-type": "Kategoriye göre",
+    "sort.by-name": "isime",
+    "sort.by-type": "Kategoriye",
     "sort.by-id": "L'e uygun",
 
 
