@@ -409,14 +409,14 @@ namespace CJBItemSpawner.Framework
             }
 
             // add main UI
+            CommonHelper.DrawTab(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, this.QualityButton.bounds.Width - CommonHelper.ButtonBorderWidth, this.QualityButton.bounds.Height - CommonHelper.ButtonBorderWidth, out Vector2 qualityIconPos, drawShadow: this.IsAndroid);
+            CommonHelper.DrawTab(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name, drawShadow: this.IsAndroid);
+            this.CategoryDropdown.Draw(spriteBatch);
             if (!this.IsAndroid)
             {
                 this.SearchBox.Draw(spriteBatch);
                 this.SearchIcon.draw(spriteBatch);
             }
-            this.CategoryDropdown.Draw(spriteBatch);
-            CommonHelper.DrawTab(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, this.QualityButton.bounds.Width - CommonHelper.ButtonBorderWidth, this.QualityButton.bounds.Height - CommonHelper.ButtonBorderWidth, out Vector2 qualityIconPos, drawShadow: this.IsAndroid);
-            CommonHelper.DrawTab(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name, drawShadow: this.IsAndroid);
 
             // draw quality icon
             {
@@ -491,9 +491,10 @@ namespace CJBItemSpawner.Framework
             int y = this.yPositionOnScreen;
             int right = x + this.width;
 
-            // basic buttons
-            this.QualityButton = new ClickableComponent(new Rectangle(x, y - Game1.tileSize * 2 + 10, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth - 2), ""); // manually tweak height to align with sort button
-            this.SortButton = new ClickableComponent(new Rectangle(this.QualityButton.bounds.Right + 20, this.QualityButton.bounds.Y, this.GetMaxSortLabelWidth(Game1.smallFont), Game1.tileSize), this.GetSortLabel(this.SortBy));
+            // basic UI
+            this.QualityButton = new ClickableComponent(new Rectangle(x - 1 * Game1.pixelZoom, y - Game1.tileSize * 2 + 10, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth - 2), ""); // manually tweak height to align with sort button
+            this.SortButton = new ClickableComponent(new Rectangle(this.QualityButton.bounds.Right + 20, this.QualityButton.bounds.Y, this.GetMaxSortLabelWidth(Game1.smallFont) + CommonHelper.ButtonBorderWidth, Game1.tileSize), this.GetSortLabel(this.SortBy));
+            this.CategoryDropdown = new Dropdown<string>(this.SortButton.bounds.Right + 20, this.SortButton.bounds.Y, Game1.smallFont, this.CategoryDropdown?.Selected ?? I18n.Filter_All(), this.Categories, p => p);
             this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(right - 32, y - 64, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
             this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.UpArrow.bounds.X, this.UpArrow.bounds.Y + this.height / 2 - 64, this.UpArrow.bounds.Width, this.UpArrow.bounds.Height), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
             this.SearchIcon = new ClickableTextureComponent("search", new Rectangle(right - 39 - 45, y - Game1.tileSize * 2 + 20, 39, 39), "", "", Game1.mouseCursors, new Rectangle(80, 0, 13, 13), 3);
@@ -503,18 +504,13 @@ namespace CJBItemSpawner.Framework
                 var searchBoxTexture = Game1.content.Load<Texture2D>("LooseSprites\\textBox");
                 this.SearchBox = new TextBox(searchBoxTexture, null, Game1.smallFont, Game1.textColor)
                 {
-                    X = this.SearchIcon.bounds.X - searchBoxTexture.Width - 10,
+                    X = this.SearchIcon.bounds.X - searchBoxTexture.Width,
                     Y = this.SearchIcon.bounds.Y,
                     Text = this.SearchText
                 };
                 this.TextboxBounds = new Rectangle(this.SearchBox.X, this.SearchBox.Y, this.SearchBox.Width, this.SearchBox.Height);
             }
             this.SearchBoxArea = new ClickableComponent(new Rectangle(this.SearchBox.X, this.SearchBox.Y, this.SearchBox.Width, this.SearchBox.Height), "");
-
-            // category dropdown (centered between sort and search)
-            this.CategoryDropdown = new Dropdown<string>(0, this.SortButton.bounds.Y, Game1.smallFont, this.CategoryDropdown?.Selected ?? I18n.Filter_All(), this.Categories, p => p);
-            this.CategoryDropdown.bounds.X = this.SortButton.bounds.Right + (this.SearchBox.X - this.SortButton.bounds.Right) / 2 - this.CategoryDropdown.bounds.Width / 2;
-            this.CategoryDropdown.ReinitializeComponents();
 
             // move layout for Android
             if (this.IsAndroid)

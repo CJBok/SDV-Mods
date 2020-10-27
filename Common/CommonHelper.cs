@@ -65,7 +65,7 @@ namespace CJB.Common
         /// <param name="alpha">The button opacity, as a value from 0 (transparent) to 1 (opaque).</param>
         /// <param name="forIcon">Whether the button will contain an icon instead of text.</param>
         /// <param name="drawShadow">Whether to draw a shadow under the tab.</param>
-        public static void DrawTab(int x, int y, int innerWidth, int innerHeight, out Vector2 innerDrawPosition, int align = 0, float alpha = 1, bool forIcon = false, bool drawShadow = true)
+        public static void DrawTab(int x, int y, int innerWidth, int innerHeight, out Vector2 innerDrawPosition, int align = 0, float alpha = 1, bool drawShadow = true)
         {
             SpriteBatch spriteBatch = Game1.spriteBatch;
 
@@ -79,15 +79,9 @@ namespace CJB.Common
                 _ => 0
             };
 
-            // calculate inner coordinates
-            {
-                int iconOffsetX = forIcon ? -Game1.pixelZoom : 0;
-                int iconOffsetY = forIcon ? 2 * -Game1.pixelZoom : 0;
-                innerDrawPosition = new Vector2(x + CommonHelper.ButtonBorderWidth + offsetX + iconOffsetX, y + CommonHelper.ButtonBorderWidth + iconOffsetY);
-            }
-
             // draw texture
             IClickableMenu.drawTextureBox(spriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), x + offsetX, y, outerWidth, outerHeight + Game1.tileSize / 16, Color.White * alpha, drawShadow: drawShadow);
+            innerDrawPosition = new Vector2(x + CommonHelper.ButtonBorderWidth + offsetX, y + CommonHelper.ButtonBorderWidth);
         }
 
 
