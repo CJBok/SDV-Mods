@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using StardewValley;
-using SObject = StardewValley.Object;
+using CJBItemSpawner.Framework.ItemData;
 
 namespace CJBItemSpawner.Framework.Models
 {
@@ -16,17 +11,11 @@ namespace CJBItemSpawner.Framework.Models
         /// <summary>The translation key or literal text for the category display name.</summary>
         public string Label { get; set; }
 
-        /// <summary>The full name of the item's C# instance type.</summary>
-        public ISet<string> Class { get; set; }
+        /// <summary>The rules for items which match this category.</summary>
+        public ModDataCategoryRule When { get; set; }
 
-        /// <summary>The object's type (i.e. <see cref="SObject.Type"/>).</summary>
-        public ISet<string> ObjType { get; set; }
-
-        /// <summary>The object's category (i.e. <see cref="Item.Category"/>).</summary>
-        public ISet<int> ObjCategory { get; set; }
-
-        /// <summary>The item's unique ID (i.e. <see cref="Item.ParentSheetIndex"/>).</summary>
-        public ISet<int> ItemId { get; set; }
+        /// <summary>The rules for items to ignore.</summary>
+        public ModDataCategoryRule Except { get; set; }
 
 
         /*********
@@ -34,44 +23,12 @@ namespace CJBItemSpawner.Framework.Models
         *********/
         /// <summary>Get whether a given item matches the rules for this category.</summary>
         /// <param name="item">The item to check.</param>
-        public bool IsMatch(Item item)
+        public bool IsMatch(SearchableItem item)
         {
-            SObject obj = item as SObject;
-
-            // match criteria
-            if (this.Class.Any() && this.GetClassFullNames(item).Any(className => this.Class.Contains(className)))
-                return true;
-            if (this.ObjCategory.Any() && this.ObjCategory.Contains(item.Category))
-                return true;
-            if (this.ObjType.Any() && obj != null && this.ObjType.Contains(obj.Type))
-                return true;
-            if (this.ItemId.Any() && this.ItemId.Contains(item.ParentSheetIndex))
-                return true;
-
-            return false;
-        }
-
-
-        /*********
-        ** Private methods
-        *********/
-        /// <summary>Normalize the data model after it's deserialized.</summary>
-        /// <param name="context">The deserialization context.</param>
-        [OnDeserialized]
-        private void OnDeserialized(StreamingContext context)
-        {
-            this.Class = new HashSet<string>(this.Class ?? (IEnumerable<string>)new string[0], StringComparer.OrdinalIgnoreCase);
-            this.ObjType = new HashSet<string>(this.ObjType ?? (IEnumerable<string>)new string[0], StringComparer.OrdinalIgnoreCase);
-            this.ObjCategory ??= new HashSet<int>();
-            this.ItemId ??= new HashSet<int>();
-        }
-
-        /// <summary>Get the full names for each class in an item's class hierarchy.</summary>
-        /// <param name="item">The item instance.</param>
-        private IEnumerable<string> GetClassFullNames(Item item)
-        {
-            for (Type type = item.GetType(); type != null; type = type.BaseType)
-                yield return type.FullName;
+            return
+                this.When != null
+                && this.When.IsMatch(item)
+                && this.Except?.IsMatch(item) != true;
         }
     }
 }

@@ -8,6 +8,7 @@
 * Added official Android compatibility.
 * Added shirts normally only available during character customization.
 * Added support for customizing the filter categories via `assets/categories.json`.
+* Overhauled category grouping to be more useful.
 * Internal refactoring to simplify future game updates.
 
 ## 1.12.2

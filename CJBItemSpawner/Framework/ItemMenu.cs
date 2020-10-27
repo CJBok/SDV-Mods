@@ -435,6 +435,7 @@ namespace CJBItemSpawner.Framework
         /// <summary>Get the icon to draw on the quality button.</summary>
         /// <param name="texture">The texture containing the icon.</param>
         /// <param name="sourceRect">The icon's pixel area within the texture.</param>
+        /// <param name="color">The icon color and transparency.</param>
         private void GetQualityIcon(out Texture2D texture, out Rectangle sourceRect, out Color color)
         {
             texture = Game1.mouseCursors;
@@ -466,8 +467,8 @@ namespace CJBItemSpawner.Framework
         /// <param name="items">The items that can be spawned.</param>
         private IEnumerable<string> GetDisplayCategories(SpawnableItem[] items)
         {
-            string all = I18n.Tabs_All();
-            string misc = I18n.Tabs_Miscellaneous();
+            string all = I18n.Filter_All();
+            string misc = I18n.Filter_Miscellaneous();
 
             HashSet<string> categories = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (SpawnableItem item in items)
@@ -511,7 +512,7 @@ namespace CJBItemSpawner.Framework
             this.SearchBoxArea = new ClickableComponent(new Rectangle(this.SearchBox.X, this.SearchBox.Y, this.SearchBox.Width, this.SearchBox.Height), "");
 
             // category dropdown (centered between sort and search)
-            this.CategoryDropdown = new Dropdown<string>(0, this.SortButton.bounds.Y, Game1.smallFont, this.CategoryDropdown?.Selected ?? I18n.Tabs_All(), this.Categories, p => p);
+            this.CategoryDropdown = new Dropdown<string>(0, this.SortButton.bounds.Y, Game1.smallFont, this.CategoryDropdown?.Selected ?? I18n.Filter_All(), this.Categories, p => p);
             this.CategoryDropdown.bounds.X = this.SortButton.bounds.Right + (this.SearchBox.X - this.SortButton.bounds.Right) / 2 - this.CategoryDropdown.bounds.Width / 2;
             this.CategoryDropdown.ReinitializeComponents();
 
@@ -636,8 +637,8 @@ namespace CJBItemSpawner.Framework
             if (!this.CategoryDropdown.TrySelect(category))
             {
                 this.Monitor.Log($"Failed selecting category filter category '{category}'.", LogLevel.Warn);
-                if (category != I18n.Tabs_All())
-                    this.SetCategory(I18n.Tabs_All());
+                if (category != I18n.Filter_All())
+                    this.SetCategory(I18n.Filter_All());
                 return;
             }
 
@@ -721,7 +722,7 @@ namespace CJBItemSpawner.Framework
             };
 
             // apply menu tab
-            if (!this.EqualsCaseInsensitive(this.CategoryDropdown.Selected, I18n.Tabs_All()))
+            if (!this.EqualsCaseInsensitive(this.CategoryDropdown.Selected, I18n.Filter_All()))
                 items = items.Where(item => this.EqualsCaseInsensitive(item.Category, this.CategoryDropdown.Selected));
 
             // apply search
@@ -743,9 +744,9 @@ namespace CJBItemSpawner.Framework
         {
             return sort switch
             {
-                ItemSort.DisplayName => I18n.Labels_SortByName(),
-                ItemSort.Type => I18n.Labels_SortByType(),
-                ItemSort.ID => I18n.Labels_SortById(),
+                ItemSort.DisplayName => I18n.Sort_ByName(),
+                ItemSort.Type => I18n.Sort_ByType(),
+                ItemSort.ID => I18n.Sort_ById(),
                 _ => throw new NotSupportedException($"Invalid sort type {sort}.")
             };
         }

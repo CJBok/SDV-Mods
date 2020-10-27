@@ -29,87 +29,129 @@ namespace CJBItemSpawner.Framework
         }
 
         /// <summary>Get a translation equivalent to "Sort: Name".</summary>
-        public static string Labels_SortByName()
+        public static string Sort_ByName()
         {
-            return I18n.GetByKey("labels.sort-by-name");
+            return I18n.GetByKey("sort.by-name");
         }
 
         /// <summary>Get a translation equivalent to "Sort: Type".</summary>
-        public static string Labels_SortByType()
+        public static string Sort_ByType()
         {
-            return I18n.GetByKey("labels.sort-by-type");
+            return I18n.GetByKey("sort.by-type");
         }
 
         /// <summary>Get a translation equivalent to "Sort: ID".</summary>
-        public static string Labels_SortById()
+        public static string Sort_ById()
         {
-            return I18n.GetByKey("labels.sort-by-id");
+            return I18n.GetByKey("sort.by-id");
         }
 
         /// <summary>Get a translation equivalent to "All".</summary>
-        public static string Tabs_All()
+        public static string Filter_All()
         {
-            return I18n.GetByKey("tabs.all");
+            return I18n.GetByKey("filter.all");
         }
 
-        /// <summary>Get a translation equivalent to "Tools & Equipment".</summary>
-        public static string Tabs_Equipment()
+        /// <summary>Get a translation equivalent to "Artisan & cooking".</summary>
+        public static string Filter_ArtisanAndCooking()
         {
-            return I18n.GetByKey("tabs.equipment");
+            return I18n.GetByKey("filter.artisan-and-cooking");
         }
 
-        /// <summary>Get a translation equivalent to "Seeds & Crops".</summary>
-        public static string Tabs_Crops()
+        /// <summary>Get a translation equivalent to "Crafting: products".</summary>
+        public static string Filter_Crafting_Products()
         {
-            return I18n.GetByKey("tabs.crops");
+            return I18n.GetByKey("filter.crafting.products");
         }
 
-        /// <summary>Get a translation equivalent to "Fish & Bait & Trash".</summary>
-        public static string Tabs_Fishing()
+        /// <summary>Get a translation equivalent to "Crafting: resources".</summary>
+        public static string Filter_Crafting_Resources()
         {
-            return I18n.GetByKey("tabs.fishing");
+            return I18n.GetByKey("filter.crafting.resources");
         }
 
-        /// <summary>Get a translation equivalent to "Forage & Fruits".</summary>
-        public static string Tabs_Forage()
+        /// <summary>Get a translation equivalent to "Decor: furniture".</summary>
+        public static string Filter_Decor_Furniture()
         {
-            return I18n.GetByKey("tabs.forage");
+            return I18n.GetByKey("filter.decor.furniture");
         }
 
-        /// <summary>Get a translation equivalent to "Artifacts & Minerals".</summary>
-        public static string Tabs_ArtifactsAndMinerals()
+        /// <summary>Get a translation equivalent to "Decor: other".</summary>
+        public static string Filter_Decor_Other()
         {
-            return I18n.GetByKey("tabs.artifacts-and-minerals");
+            return I18n.GetByKey("filter.decor.other");
         }
 
-        /// <summary>Get a translation equivalent to "Resources & Crafting".</summary>
-        public static string Tabs_ResourcesAndCrafting()
+        /// <summary>Get a translation equivalent to "Equipment: boots".</summary>
+        public static string Filter_EquipmentBoots()
         {
-            return I18n.GetByKey("tabs.resources-and-crafting");
+            return I18n.GetByKey("filter.equipment-boots");
         }
 
-        /// <summary>Get a translation equivalent to "Artisan & Cooking".</summary>
-        public static string Tabs_ArtisanAndCooking()
+        /// <summary>Get a translation equivalent to "Equipment: clothes".</summary>
+        public static string Filter_EquipmentClothes()
         {
-            return I18n.GetByKey("tabs.artisan-and-cooking");
+            return I18n.GetByKey("filter.equipment-clothes");
         }
 
-        /// <summary>Get a translation equivalent to "Animal & Monster".</summary>
-        public static string Tabs_AnimalAndMonster()
+        /// <summary>Get a translation equivalent to "Equipment: hats".</summary>
+        public static string Filter_EquipmentHats()
         {
-            return I18n.GetByKey("tabs.animal-and-monster");
+            return I18n.GetByKey("filter.equipment-hats");
         }
 
-        /// <summary>Get a translation equivalent to "Decorating".</summary>
-        public static string Tabs_Decorating()
+        /// <summary>Get a translation equivalent to "Equipment: rings".</summary>
+        public static string Filter_EquipmentRings()
         {
-            return I18n.GetByKey("tabs.decorating");
+            return I18n.GetByKey("filter.equipment-rings");
+        }
+
+        /// <summary>Get a translation equivalent to "Equipment: tools".</summary>
+        public static string Filter_EquipmentTools()
+        {
+            return I18n.GetByKey("filter.equipment-tools");
+        }
+
+        /// <summary>Get a translation equivalent to "Equipment: weapons".</summary>
+        public static string Filter_EquipmentWeapons()
+        {
+            return I18n.GetByKey("filter.equipment-weapons");
+        }
+
+        /// <summary>Get a translation equivalent to "Farm: animal drops".</summary>
+        public static string Filter_FarmAnimalDrops()
+        {
+            return I18n.GetByKey("filter.farm-animal-drops");
+        }
+
+        /// <summary>Get a translation equivalent to "Farm: crops".</summary>
+        public static string Filter_FarmCrops()
+        {
+            return I18n.GetByKey("filter.farm-crops");
+        }
+
+        /// <summary>Get a translation equivalent to "Farm: seeds".</summary>
+        public static string Filter_FarmSeeds()
+        {
+            return I18n.GetByKey("filter.farm-seeds");
+        }
+
+        /// <summary>Get a translation equivalent to "Fish".</summary>
+        public static string Filter_Fish()
+        {
+            return I18n.GetByKey("filter.fish");
+        }
+
+        /// <summary>Get a translation equivalent to "Minerals & artifacts".</summary>
+        public static string Filter_MineralsAndArtifacts()
+        {
+            return I18n.GetByKey("filter.minerals-and-artifacts");
         }
 
         /// <summary>Get a translation equivalent to "Misc".</summary>
-        public static string Tabs_Miscellaneous()
+        public static string Filter_Miscellaneous()
         {
-            return I18n.GetByKey("tabs.miscellaneous");
+            return I18n.GetByKey("filter.miscellaneous");
         }
 
         /// <summary>Get a translation by its key.</summary>

@@ -94,10 +94,10 @@ namespace CJBItemSpawner
             // yield models
             foreach (SearchableItem entry in items)
             {
-                ModDataCategory category = this.Categories?.FirstOrDefault(rule => rule.IsMatch(entry.Item));
+                ModDataCategory category = this.Categories?.FirstOrDefault(rule => rule.IsMatch(entry));
                 string categoryLabel = category != null
                     ? I18n.GetByKey(category.Label).Default(category.Label)
-                    : I18n.Tabs_Miscellaneous();
+                    : I18n.Filter_Miscellaneous();
 
                 yield return new SpawnableItem(entry, categoryLabel);
             }
