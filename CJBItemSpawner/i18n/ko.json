@@ -2,9 +2,9 @@
     /*********
     ** Sort button
     *********/
-    "sort.by-name": "정렬 기준: 이름",
-    "sort.by-type": "정렬 기준: 종류",
-    "sort.by-id": "정렬 기준: ID",
+    "sort.by-name": "이름",
+    "sort.by-type": "종류",
+    "sort.by-id": "ID",
 
 
     /*********

@@ -56,7 +56,10 @@ namespace CJBItemSpawner.Framework
         private readonly Action<SpriteBatch> BaseDraw;
 
         /// <summary>The icon representing the default quality.</summary>
-        private readonly Texture2D EmptyQualityIcon;
+        private readonly Texture2D StarOutlineTexture;
+
+        /// <summary>The icon for the sort button.</summary>
+        private readonly Texture2D SortTexture;
 
         /// <summary>The current item quality.</summary>
         private ItemQuality Quality = ItemQuality.Normal;
@@ -94,6 +97,9 @@ namespace CJBItemSpawner.Framework
         /****
         ** UI components
         ****/
+        /// <summary>An icon shown next to the sort button.</summary>
+        private ClickableTextureComponent SortIcon;
+
         /// <summary>A button which toggles between sort criteria.</summary>
         private ClickableComponent SortButton;
 
@@ -138,9 +144,9 @@ namespace CJBItemSpawner.Framework
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="spawnableItems">The items available to spawn.</param>
-        /// <param name="emptyQualityIcon">The icon representing the default quality.</param>
+        /// <param name="content">The content helper for loading assets.</param>
         /// <param name="monitor">Handles writing to the SMAPI console and log.</param>
-        public ItemMenu(SpawnableItem[] spawnableItems, Texture2D emptyQualityIcon, IMonitor monitor)
+        public ItemMenu(SpawnableItem[] spawnableItems, IContentHelper content, IMonitor monitor)
             : base(
                 inventory: new List<Item>(),
                 reverseGrab: false,
@@ -160,7 +166,10 @@ namespace CJBItemSpawner.Framework
             this.AllItems = spawnableItems;
             this.Categories = this.GetDisplayCategories(spawnableItems).ToArray();
             this.Monitor = monitor;
-            this.EmptyQualityIcon = emptyQualityIcon;
+
+            // init assets
+            this.StarOutlineTexture = content.Load<Texture2D>("assets/empty-quality.png");
+            this.SortTexture = content.Load<Texture2D>("assets/sort.png");
 
             // init base UI
             if (!this.IsAndroid)
@@ -429,6 +438,9 @@ namespace CJBItemSpawner.Framework
             // add main UI
             CommonHelper.DrawTab(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, this.QualityButton.bounds.Width - CommonHelper.ButtonBorderWidth, this.QualityButton.bounds.Height - CommonHelper.ButtonBorderWidth, out Vector2 qualityIconPos, drawShadow: this.IsAndroid);
             CommonHelper.DrawTab(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name, drawShadow: this.IsAndroid);
+            this.SortIcon.draw(spriteBatch);
+
+            // draw category dropdown
             {
                 Vector2 position = new Vector2(
                     this.CategoryDropdown.bounds.X + this.CategoryDropdown.bounds.Width - 3 * Game1.pixelZoom,
@@ -442,11 +454,8 @@ namespace CJBItemSpawner.Framework
                         Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.FlipVertically, 1f);
                 this.CategoryDropdown.Draw(spriteBatch);
             }
-            if (!this.IsAndroid)
-            {
-                this.SearchBox.Draw(spriteBatch);
-                spriteBatch.Draw(this.SearchIcon.texture, this.SearchIcon.bounds, this.SearchIcon.sourceRect, Color.White * this.SearchIconOpacity);
-            }
+            this.SearchBox.Draw(spriteBatch);
+            spriteBatch.Draw(this.SearchIcon.texture, this.SearchIcon.bounds, this.SearchIcon.sourceRect, Color.White * this.SearchIconOpacity);
 
             // draw quality icon
             {
@@ -474,7 +483,7 @@ namespace CJBItemSpawner.Framework
             switch (this.Quality)
             {
                 case ItemQuality.Normal:
-                    texture = this.EmptyQualityIcon;
+                    texture = this.StarOutlineTexture;
                     sourceRect = new Rectangle(0, 0, texture.Width, texture.Height);
                     color = color * 0.65f;
                     break;
@@ -517,13 +526,18 @@ namespace CJBItemSpawner.Framework
         /// <summary>Initialize the custom UI components.</summary>
         private void InitializeComponents()
         {
+            // get basic positions
             int x = this.xPositionOnScreen;
             int y = this.yPositionOnScreen;
             int right = x + this.width;
+            int top = this.IsAndroid
+                ? y - (CommonSprites.Tab.Top.Height * Game1.pixelZoom) // at top of screen, moved up slightly to reduce overlap over items
+                : y - Game1.tileSize * 2 + 10; // above menu
 
             // basic UI
-            this.QualityButton = new ClickableComponent(new Rectangle(x - 2 * Game1.pixelZoom, y - Game1.tileSize * 2 + 10, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth - 2), ""); // manually tweak height to align with sort button
-            this.SortButton = new ClickableComponent(new Rectangle(this.QualityButton.bounds.Right + 20, this.QualityButton.bounds.Y, this.GetMaxSortLabelWidth(Game1.smallFont) + CommonHelper.ButtonBorderWidth, Game1.tileSize), this.GetSortLabel(this.SortBy));
+            this.QualityButton = new ClickableComponent(new Rectangle(x - 2 * Game1.pixelZoom, top, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth - 2), ""); // manually tweak height to align with sort button
+            this.SortButton = new ClickableComponent(new Rectangle(this.QualityButton.bounds.Right + 20, top, this.GetMaxSortLabelWidth(Game1.smallFont) + CommonHelper.ButtonBorderWidth, Game1.tileSize), this.GetSortLabel(this.SortBy));
+            this.SortIcon = new ClickableTextureComponent(new Rectangle(this.SortButton.bounds.X + CommonHelper.ButtonBorderWidth, top + CommonHelper.ButtonBorderWidth, this.SortTexture.Width, Game1.tileSize), this.SortTexture, new Rectangle(0, 0, this.SortTexture.Width, this.SortTexture.Height), 1f);
             this.CategoryDropdown = new Dropdown<string>(this.SortButton.bounds.Right + 20, this.SortButton.bounds.Y, Game1.smallFont, this.CategoryDropdown?.Selected ?? I18n.Filter_All(), this.Categories, p => p);
             this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(right - 32, y - 64, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
             this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.UpArrow.bounds.X, this.UpArrow.bounds.Y + this.height / 2 - 64, this.UpArrow.bounds.Width, this.UpArrow.bounds.Height), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
@@ -547,17 +561,9 @@ namespace CJBItemSpawner.Framework
             // move layout for Android
             if (this.IsAndroid)
             {
-                // center up/down buttons under large X
                 this.UpArrow.bounds.X = this.upperRightCloseButton.bounds.Center.X - this.SortButton.bounds.Width / 2;
                 this.UpArrow.bounds.Y = this.upperRightCloseButton.bounds.Bottom;
                 this.DownArrow.bounds.X = this.UpArrow.bounds.X;
-
-                // move top UI down into view
-                int offsetY = y - (CommonSprites.Tab.Top.Height * Game1.pixelZoom); // at top of screen, moved up slightly to reduce overlap over items
-                this.QualityButton.bounds.Y = offsetY;
-                this.SortButton.bounds.Y = offsetY;
-                this.CategoryDropdown.bounds.Y = offsetY;
-                this.CategoryDropdown.ReinitializeComponents();
             }
 
             // controller flow
@@ -772,7 +778,7 @@ namespace CJBItemSpawner.Framework
         /// <param name="sort">The sort type.</param>
         private string GetSortLabel(ItemSort sort)
         {
-            return sort switch
+            return "    " + sort switch // leave space for sort icon
             {
                 ItemSort.DisplayName => I18n.Sort_ByName(),
                 ItemSort.Type => I18n.Sort_ByType(),

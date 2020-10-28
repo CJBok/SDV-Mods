@@ -10,6 +10,7 @@
 * Added support for customizing the filter categories via `assets/categories.json`.
 * Overhauled category grouping to be more useful.
 * Internal refactoring to simplify future game updates.
+* Improved translations. Thanks to Caco-o-sapo (updated Portuguese)!
 
 ## 1.12.2
 Released 12 September 2020 for SMAPI 3.7 or later.
