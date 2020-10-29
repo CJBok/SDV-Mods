@@ -124,8 +124,11 @@ namespace CJBItemSpawner.Framework
         /// <summary>A clickable component corresponding to the <see cref="SearchBox"/> area. This only exists for controller movement support.</summary>
         private ClickableComponent SearchBoxArea;
 
-        /// <summary>The textbox area.</summary>
-        private Rectangle TextboxBounds;
+        /// <summary>The search textbox area.</summary>
+        private Rectangle SearchBoxBounds;
+        
+        /// <summary>The opacity of the <see cref="SearchIcon"/>. Fades out when selected, and back in when deselected.</summary>
+        private float SearchIconOpacity = 1f;
 
 
         /*********
@@ -223,7 +226,7 @@ namespace CJBItemSpawner.Framework
             }
 
             // textbox
-            else if (this.TextboxBounds.Contains(x, y))
+            else if (this.SearchBoxBounds.Contains(x, y))
             {
                 if (!this.SearchBox.Selected || !this.TextboxExplicitlySelected)
                     this.SelectSearchBox(explicitly: true);
@@ -250,7 +253,7 @@ namespace CJBItemSpawner.Framework
         public override void receiveRightClick(int x, int y, bool playSound = true)
         {
             // clear search box
-            if (this.TextboxBounds.Contains(x, y))
+            if (this.SearchBoxBounds.Contains(x, y))
                 this.SearchBox.Text = "";
 
             // close dropdown
@@ -356,7 +359,7 @@ namespace CJBItemSpawner.Framework
             // handle search box selected
             if (!this.TextboxExplicitlySelected)
             {
-                bool overSearchBox = this.TextboxBounds.Contains(x, y);
+                bool overSearchBox = this.SearchBoxBounds.Contains(x, y);
                 if (this.SearchBox.Selected != overSearchBox)
                 {
                     if (overSearchBox)
@@ -386,6 +389,15 @@ namespace CJBItemSpawner.Framework
                 this.ResetItemView(rebuild: true);
             }
 
+            // fade out search icon on search box selected, fade back in on deselected
+            {
+                float delta = 1.5f / time.ElapsedGameTime.Milliseconds;
+                if (!this.SearchBox.Selected && this.SearchIconOpacity < 1f)
+                    this.SearchIconOpacity = Math.Min(1f, this.SearchIconOpacity + delta);
+                else if (this.SearchBox.Selected && this.SearchIconOpacity > 0f)
+                    this.SearchIconOpacity = Math.Max(0f, this.SearchIconOpacity - delta);
+            }
+
             // fix empty spots on Android
             if (this.IsAndroid && this.ItemsInView.Any(p => p == null))
                 this.ResetItemView();
@@ -408,6 +420,12 @@ namespace CJBItemSpawner.Framework
             if (!this.IsAndroid)
             {
                 spriteBatch.Draw(Game1.fadeToBlackRect, new Rectangle(0, 0, Game1.viewport.Width, Game1.viewport.Height), Color.Black * 0.5f); // replicate base.drawBG so arrows are above it
+                CommonHelper.DrawTab(
+                    this.SearchBoxBounds.X, this.SearchBoxBounds.Y - CommonHelper.ButtonBorderWidth / 2,
+                    this.SearchBoxBounds.Width - CommonHelper.ButtonBorderWidth * 3 / 2,
+                    this.SearchBoxBounds.Height - CommonHelper.ButtonBorderWidth,
+                    out Vector2 tempPos,
+                    drawShadow: this.IsAndroid);
                 DrawArrows();
                 this.BaseDraw(spriteBatch);
             }
@@ -421,14 +439,28 @@ namespace CJBItemSpawner.Framework
             CommonHelper.DrawTab(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, this.QualityButton.bounds.Width - CommonHelper.ButtonBorderWidth, this.QualityButton.bounds.Height - CommonHelper.ButtonBorderWidth, out Vector2 qualityIconPos, drawShadow: this.IsAndroid);
             CommonHelper.DrawTab(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name, drawShadow: this.IsAndroid);
             this.SortIcon.draw(spriteBatch);
-            this.CategoryDropdown.Draw(spriteBatch);
+
+            // draw category dropdown
+            {
+                Vector2 position = new Vector2(
+                    this.CategoryDropdown.bounds.X + this.CategoryDropdown.bounds.Width - 3 * Game1.pixelZoom,
+                    this.CategoryDropdown.bounds.Y + 2 * Game1.pixelZoom);
+                Rectangle sourceRect = new Rectangle(437, 450, 10, 11);
+                spriteBatch.Draw(Game1.mouseCursors, position, sourceRect, Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
+                if (this.CategoryDropdown.IsExpanded)
+                    spriteBatch.Draw(Game1.mouseCursors,
+                        new Vector2(position.X + 2 * Game1.pixelZoom, position.Y + 3 * Game1.pixelZoom), 
+                        new Rectangle(sourceRect.X + 2, sourceRect.Y + 3, 5, 6),
+                        Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.FlipVertically, 1f);
+                this.CategoryDropdown.Draw(spriteBatch);
+            }
             this.SearchBox.Draw(spriteBatch);
-            this.SearchIcon.draw(spriteBatch);
+            spriteBatch.Draw(this.SearchIcon.texture, this.SearchIcon.bounds, this.SearchIcon.sourceRect, Color.White * this.SearchIconOpacity);
 
             // draw quality icon
             {
                 this.GetQualityIcon(out Texture2D texture, out Rectangle sourceRect, out Color color);
-                spriteBatch.Draw(texture, qualityIconPos, sourceRect, color, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
+                spriteBatch.Draw(texture, new Vector2(qualityIconPos.X, qualityIconPos.Y - 1 * Game1.pixelZoom), sourceRect, color, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
             }
 
             // redraw cursor over new UI
@@ -503,26 +535,28 @@ namespace CJBItemSpawner.Framework
                 : y - Game1.tileSize * 2 + 10; // above menu
 
             // basic UI
-            this.QualityButton = new ClickableComponent(new Rectangle(x - 1 * Game1.pixelZoom, top, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth - 2), ""); // manually tweak height to align with sort button
+            this.QualityButton = new ClickableComponent(new Rectangle(x - 2 * Game1.pixelZoom, top, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth - 2), ""); // manually tweak height to align with sort button
             this.SortButton = new ClickableComponent(new Rectangle(this.QualityButton.bounds.Right + 20, top, this.GetMaxSortLabelWidth(Game1.smallFont) + CommonHelper.ButtonBorderWidth, Game1.tileSize), this.GetSortLabel(this.SortBy));
             this.SortIcon = new ClickableTextureComponent(new Rectangle(this.SortButton.bounds.X + CommonHelper.ButtonBorderWidth, top + CommonHelper.ButtonBorderWidth, this.SortTexture.Width, Game1.tileSize), this.SortTexture, new Rectangle(0, 0, this.SortTexture.Width, this.SortTexture.Height), 1f);
             this.CategoryDropdown = new Dropdown<string>(this.SortButton.bounds.Right + 20, this.SortButton.bounds.Y, Game1.smallFont, this.CategoryDropdown?.Selected ?? I18n.Filter_All(), this.Categories, p => p);
             this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(right - 32, y - 64, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
             this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.UpArrow.bounds.X, this.UpArrow.bounds.Y + this.height / 2 - 64, this.UpArrow.bounds.Width, this.UpArrow.bounds.Height), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
-            this.SearchIcon = new ClickableTextureComponent("search", new Rectangle(right - 39 - 45, y - Game1.tileSize * 2 + 20, 39, 39), "", "", Game1.mouseCursors, new Rectangle(80, 0, 13, 13), 3);
+            this.SearchIcon = new ClickableTextureComponent("search", new Rectangle(right - 39 - 58, y - Game1.tileSize * 2 + 20, 39, 39), "", "", Game1.mouseCursors, new Rectangle(80, 0, 13, 13), 3);
 
             // search box
             {
-                var searchBoxTexture = Game1.content.Load<Texture2D>("LooseSprites\\textBox");
-                this.SearchBox = new TextBox(searchBoxTexture, null, Game1.smallFont, Game1.textColor)
+                // width stretches to fit the gap between category dropdown and right margin
+                this.SearchBox = new TextBox(Game1.content.Load<Texture2D>("LooseSprites\\textBox"), null, Game1.smallFont, Game1.textColor)
                 {
-                    X = this.SearchIcon.bounds.X - searchBoxTexture.Width,
-                    Y = this.SearchIcon.bounds.Y,
+                    X = this.CategoryDropdown.bounds.X + this.CategoryDropdown.bounds.Width + 8 * Game1.pixelZoom,
+                    Y = this.SearchIcon.bounds.Y - 4,
+                    Height = 0,
                     Text = this.SearchText
                 };
-                this.TextboxBounds = new Rectangle(this.SearchBox.X, this.SearchBox.Y, this.SearchBox.Width, this.SearchBox.Height);
+                this.SearchBox.Width = this.SearchIcon.bounds.X - this.SearchBox.X + this.SearchIcon.bounds.Width + 10;
+                this.SearchBoxBounds = new Rectangle(this.SearchBox.X, this.SearchBox.Y + 4, this.SearchBox.Width, 48);
             }
-            this.SearchBoxArea = new ClickableComponent(new Rectangle(this.SearchBox.X, this.SearchBox.Y, this.SearchBox.Width, this.SearchBox.Height), "");
+            this.SearchBoxArea = new ClickableComponent(new Rectangle(this.SearchBoxBounds.X, this.SearchBoxBounds.Y, this.SearchBoxBounds.Width, this.SearchBoxBounds.Height), "");
 
             // move layout for Android
             if (this.IsAndroid)
@@ -670,6 +704,7 @@ namespace CJBItemSpawner.Framework
         {
             this.SearchBox.Selected = true;
             this.TextboxExplicitlySelected = explicitly;
+            this.SearchBox.Width = this.SearchBoxBounds.Width;
         }
 
         /// <summary>Set the search textbox non-selected.</summary>
@@ -677,6 +712,7 @@ namespace CJBItemSpawner.Framework
         {
             this.SearchBox.Selected = false;
             this.TextboxExplicitlySelected = false;
+            this.SearchBox.Width = this.SearchIcon.bounds.X - this.SearchBox.X + this.SearchIcon.bounds.Width + 10 - this.SearchIcon.bounds.Width - 6 * Game1.pixelZoom;
         }
 
         /// <summary>Reset the items shown in the view.</summary>
