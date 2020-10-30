@@ -2,13 +2,14 @@
 
 # Release notes
 ## Upcoming release
-* Redesigned menu to make it simpler, more intuitive, and more mobile-friendly.
+* Redesigned menu to make it more intuitive and mobile-friendly.
 * Added full controller support.
 * Added keyboard navigation for categories and scrolling.
 * Added official Android compatibility.
 * Added shirts normally only available during character customization.
 * Added support for customizing the filter categories via `assets/categories.json`.
 * Overhauled category grouping to be more useful.
+* The item spawner now applies fish pond rules for roe items. (That mainly adds Clam Roe, Sea Urchin Roe, and custom roe from mods.)
 * Internal refactoring to simplify future game updates.
 * Improved translations. Thanks to Caco-o-sapo (updated Portuguese)!
 
