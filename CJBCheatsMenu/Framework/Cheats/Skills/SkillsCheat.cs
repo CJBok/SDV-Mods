@@ -24,7 +24,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Skills
                 this.GetSkillButton(context, "fishing", Farmer.fishingSkill, Game1.player.FishingLevel),
                 this.GetSkillButton(context, "combat", Farmer.combatSkill, Game1.player.CombatLevel),
                 new CheatsOptionsButton(
-                    label: context.Text.Get("skills.reset"),
+                    label: I18n.Skills_Reset(),
                     slotWidth: context.SlotWidth,
                     toggle: this.ResetAllSkills
                 )
@@ -43,7 +43,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Skills
         private CheatsOptionsButton GetSkillButton(CheatContext context, string translationKey, int id, int currentLevel)
         {
             return new CheatsOptionsButton(
-                label: context.Text.Get($"skills.increase-{translationKey}", new { currentLevel = currentLevel }),
+                label: I18n.GetByKey($"skills.increase-{translationKey}", new { currentLevel = currentLevel }),
                 slotWidth: context.SlotWidth,
                 toggle: () => this.IncreaseSkill(id),
                 disabled: currentLevel >= 10

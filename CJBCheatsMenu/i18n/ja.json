@@ -65,32 +65,8 @@
 
     // fast machines
     "fast-machines.title": "作成時間の短縮",
-    "fast-machines.bee-house": "ハチの巣箱",
-    "fast-machines.cask": "熟成ダル",
-    "fast-machines.charcoal-kiln": "炭焼き窯",
-    "fast-machines.cheese-press": "チーズプレス",
-    "fast-machines.crab-pot": "カニかご",
-    "fast-machines.crystalarium": "結晶コピーマシン",
     "fast-machines.fruit-trees": "果樹",
-    "fast-machines.furnace": "溶鉱炉",
-    "fast-machines.incubator": "ふ卵器（午前中に準備完了）", // TODO review (auto-translated)
-    "fast-machines.keg": "醸造ダル",
-    "fast-machines.lightning-rod": "ひらい針",
-    "fast-machines.loom": "織り機",
-    "fast-machines.mayonnaise-machine": "マヨネーズマシン",
-    "fast-machines.mushroom-box": "マッシュルームボックス",
-    "fast-machines.oil-maker": "オイルメーカー",
-    "fast-machines.preserves-jar": "保存ジャー",
-    "fast-machines.recycling-machine": "リサイクルマシン",
-    "fast-machines.seed-maker": "タネ製造マシン",
-    "fast-machines.slime-egg-press": " スライムエッグプレス",
-    "fast-machines.slime-incubator": "スライム用ふ卵器",
-    "fast-machines.soda-machine": "コーラマシン",
-    "fast-machines.statue-of-endless-fortune": "おわりなき幸運の像",
-    "fast-machines.statue-of-perfection": "完全無欠の像",
-    "fast-machines.tapper": "樹液採取器",
-    "fast-machines.wood-chipper": "ウッドチッパー",
-    "fast-machines.worm-bin": "ミミズ飼育器",
+    "fast-machines.ready-in-the-morning": "{{machineName}}（午前中に準備完了）", // TODO review (auto-translated)
 
 
     /*********

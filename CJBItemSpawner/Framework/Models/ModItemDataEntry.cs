@@ -3,7 +3,7 @@ using CJBItemSpawner.Framework.ItemData;
 namespace CJBItemSpawner.Framework.Models
 {
     /// <summary>A unique item identifier.</summary>
-    internal class ModDataItem
+    internal class ModItemDataEntry
     {
         /********
         ** Accessors

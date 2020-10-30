@@ -97,7 +97,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
             return
                 (
                     from key in this.WarpsBySection.Keys
-                    let label = context.Text.Get(key).Default(key)
+                    let label = I18n.GetByKey(key).Default(key)
                     let order = this.SectionOrder.TryGetValue(key, out int order) ? order : int.MaxValue
                     orderby order, label
                     select new KeyValuePair<string, string>(key, label)
@@ -115,7 +115,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
             return
                 (
                     from warp in warps
-                    let label = context.Text.Get(warp.DisplayText).Default(warp.DisplayText ?? "???").ToString()
+                    let label = I18n.GetByKey(warp.DisplayText).Default(warp.DisplayText ?? "???").ToString()
                     orderby warp.Order, label
                     select Tuple.Create(warp, label)
                 );

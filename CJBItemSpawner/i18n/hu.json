@@ -1,20 +1,32 @@
 {
-    "title": "CJB Item Spawner",
+    /*********
+    ** Sort button
+    *********/
+    "sort.by-name": "Név",
+    "sort.by-type": "Kategória",
+    "sort.by-id": "ID",
 
-    "labels.sort-by-name": "Név szerint",
-    "labels.sort-by-category": "Kategória szerint",
-    "labels.sort-by-id": "ID szerint",
-    "labels.quality": "Minőség",
 
-    "tabs.all": "Összes",
-    "tabs.equipment": "Eszközök & Felszerelés",
-    "tabs.crops": "Magvak & zöldségek",
-    "tabs.fishing": "Hal & Csali & Szemét",
-    "tabs.forage": "Gyűjtés & Gyümölcsök",
-    "tabs.artifacts-and-minerals": "Ereklyék & Ásványok",
-    "tabs.resources-and-crafting": "Alapanyagok & Barkácsolás",
-    "tabs.artisan-and-cooking": "Kézműves & Főzés",
-    "tabs.animal-and-monster": "Állat & Szörny",
-    "tabs.decorating": "Dekorációk",
-    "tabs.miscellaneous": "Egyéb"
+    /*********
+    ** Category dropdown
+    *********/
+    // TODO
+    "filter.all": "All",
+    "filter.artisan-and-cooking": "Artisan & cooking",
+    "filter.crafting.products": "Crafting: products",
+    "filter.crafting.resources": "Crafting: resources",
+    "filter.decor.furniture": "Decor: furniture",
+    "filter.decor.other": "Decor: other",
+    "filter.equipment-boots": "Equipment: boots",
+    "filter.equipment-clothes": "Equipment: clothes",
+    "filter.equipment-hats": "Equipment: hats",
+    "filter.equipment-rings": "Equipment: rings",
+    "filter.equipment-tools": "Equipment: tools",
+    "filter.equipment-weapons": "Equipment: weapons",
+    "filter.farm-animal-drops": "Farm: animal drops",
+    "filter.farm-crops": "Farm: crops",
+    "filter.farm-seeds": "Farm: seeds",
+    "filter.fish": "Fish",
+    "filter.minerals-and-artifacts": "Minerals & artifacts",
+    "filter.miscellaneous": "Misc"
 }

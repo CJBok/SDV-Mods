@@ -26,12 +26,12 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsSlider(
-                label: context.Text.Get("player.movement-speed"),
+                label: I18n.Player_MovementSpeed(),
                 value: context.Config.MoveSpeed,
                 maxValue: 10,
                 setValue: value => context.Config.MoveSpeed = value,
                 format: val => val == 0
-                    ? context.Text.Get("player.movement-speed.default")
+                    ? I18n.Player_MovementSpeed_Default()
                     : val.ToString()
             );
         }
@@ -69,7 +69,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
             if (buff == null)
             {
                 Game1.buffsDisplay.addOtherBuff(
-                    buff = new Buff(0, 0, 0, 0, 0, 0, 0, 0, 0, speed: context.Config.MoveSpeed, 0, 0, minutesDuration: 1, source: "CJB Cheats Menu", displaySource: context.Text.Get("mod-name")) { which = buffId }
+                    buff = new Buff(0, 0, 0, 0, 0, 0, 0, 0, 0, speed: context.Config.MoveSpeed, 0, 0, minutesDuration: 1, source: "CJB Cheats Menu", displaySource: I18n.ModName()) { which = buffId }
                 );
             }
             buff.millisecondsDuration = 50;

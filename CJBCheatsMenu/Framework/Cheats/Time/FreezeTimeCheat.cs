@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using CJB.Common;
 using CJBCheatsMenu.Framework.Components;
@@ -25,9 +24,9 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         {
             return new[]
             {
-                this.GetField(context, "inside", context.Config.FreezeTimeInside, value => context.Config.FreezeTimeInside = value),
-                this.GetField(context, "caves", context.Config.FreezeTimeCaves, value => context.Config.FreezeTimeCaves = value),
-                this.GetField(context, "everywhere", context.Config.FreezeTime, value => context.Config.FreezeTime = value)
+                new CheatsOptionsCheckbox(I18n.Time_FreezeInside(), context.Config.FreezeTimeInside, value => context.Config.FreezeTimeInside = value),
+                new CheatsOptionsCheckbox(I18n.Time_FreezeCaves(), context.Config.FreezeTimeCaves, value => context.Config.FreezeTimeCaves = value),
+                new CheatsOptionsCheckbox(I18n.Time_FreezeEverywhere(), context.Config.FreezeTime, value => context.Config.FreezeTime = value)
             };
         }
 
@@ -79,20 +78,6 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /*********
         ** Private methods
         *********/
-        /// <summary>Get an option field.</summary>
-        /// <param name="context">The cheat context.</param>
-        /// <param name="translationKey">The unique portion of its display text translation key.</param>
-        /// <param name="frozen">Whether the time is frozen.</param>
-        /// <param name="setValue">Set the value.</param>
-        private CheatsOptionsCheckbox GetField(CheatContext context, string translationKey, bool frozen, Action<bool> setValue)
-        {
-            return new CheatsOptionsCheckbox(
-                label: context.Text.Get($"time.freeze-{translationKey}"),
-                value: frozen,
-                setValue: setValue
-            );
-        }
-
         /// <summary>Get whether time should be frozen in the given location.</summary>
         /// <param name="config">The mod configuration.</param>
         /// <param name="location">The location to check.</param>
@@ -116,7 +101,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
             int x = 5;
             int y = isCave ? 100 : 5;
             SpriteFont font = Game1.smallFont;
-            string text = context.Text.Get("time.time-frozen-message");
+            string text = I18n.Time_TimeFrozenMessage();
 
             // render
             if (Constants.TargetPlatform == GamePlatform.Android)
@@ -133,7 +118,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
                     spriteBatch.End();
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(nativeZoomLevel));
                 }
-                CommonHelper.DrawTextBox(x: 80 + (hasVerticalToolbar ? 160 : 80), y, font, text);
+                CommonHelper.DrawTab(x: 80 + (hasVerticalToolbar ? 160 : 80), y, font, text);
                 if (Constants.TargetPlatform == GamePlatform.Android)
                 {
                     spriteBatch.End();
@@ -141,7 +126,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
                 }
             }
             else
-                CommonHelper.DrawTextBox(x, y, font, text);
+                CommonHelper.DrawTab(x, y, font, text);
         }
     }
 }

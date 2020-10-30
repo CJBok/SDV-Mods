@@ -20,7 +20,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("farm.instant-build"),
+                label: I18n.Farm_InstantBuild(),
                 value: context.Config.InstantBuild,
                 setValue: value => context.Config.InstantBuild = value
             );

@@ -19,7 +19,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("farm.durable-fences"),
+                label: I18n.Farm_DurableFences(),
                 value: context.Config.DurableFences,
                 setValue: value => context.Config.DurableFences = value
             );

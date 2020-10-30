@@ -65,32 +65,8 @@
 
     // fast machines
     "fast-machines.title": "Schnelle maschinelle Verarbeitung",
-    "fast-machines.bee-house": "Bienenhaus",
-    "fast-machines.cask": "Reifefass",
-    "fast-machines.charcoal-kiln": "Kohlebrennofen",
-    "fast-machines.cheese-press": "Käsepresse",
-    "fast-machines.crab-pot": "Krabbenreuse",
-    "fast-machines.crystalarium": "Kristallarium",
     "fast-machines.fruit-trees": "Fruchtbäume",
-    "fast-machines.furnace": "Ofen",
-    "fast-machines.incubator": "Brutkasten (morgens fertig)",
-    "fast-machines.keg": "Fass",
-    "fast-machines.lightning-rod": "Blitzableiter",
-    "fast-machines.loom": "Webstuhl",
-    "fast-machines.mayonnaise-machine": "Mayonnaise Maschine",
-    "fast-machines.mushroom-box": "Pilzbox",
-    "fast-machines.oil-maker": "Ölpresse",
-    "fast-machines.preserves-jar": "Aufbewahrungsglas",
-    "fast-machines.recycling-machine": "Recyclingmaschine",
-    "fast-machines.seed-maker": "Saatguterzeuger",
-    "fast-machines.slime-egg-press": "Schleim-Eierpresse",
-    "fast-machines.slime-incubator": "Schleimbrutkasten",
-    "fast-machines.soda-machine": "Getränkemaschine",
-    "fast-machines.statue-of-endless-fortune": "Statue des ewigen Glücks",
-    "fast-machines.statue-of-perfection": "Statue der Perfektion",
-    "fast-machines.tapper": "Zapfhahn",
-    "fast-machines.wood-chipper": "Holzhackmaschine",
-    "fast-machines.worm-bin": "Wurmeimer",
+    "fast-machines.ready-in-the-morning": "{{machineName}} (morgens fertig)",
 
 
     /*********

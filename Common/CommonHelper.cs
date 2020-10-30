@@ -12,33 +12,76 @@ namespace CJB.Common
     internal static class CommonHelper
     {
         /*********
+        ** Accessors
+        *********/
+        /// <summary>The width of the borders drawn by <see cref="DrawTab(int,int,Microsoft.Xna.Framework.Graphics.SpriteFont,string,int,float)"/>.</summary>
+        public const int ButtonBorderWidth = 4 * Game1.pixelZoom;
+
+
+        /*********
         ** Public methods
         *********/
         /****
         ** UI
         ****/
-        public static void DrawTextBox(int x, int y, SpriteFont font, string message, int align = 0, float colorIntensity = 1F)
+        /// <summary>Draw a sprite to the screen.</summary>
+        /// <param name="batch">The sprite batch.</param>
+        /// <param name="sheet">The sprite sheet containing the sprite.</param>
+        /// <param name="sprite">The sprite coordinates and dimensions in the sprite sheet.</param>
+        /// <param name="x">The X-position at which to draw the sprite.</param>
+        /// <param name="y">The X-position at which to draw the sprite.</param>
+        /// <param name="width">The width to draw.</param>
+        /// <param name="height">The height to draw.</param>
+        /// <param name="color">The color to tint the sprite.</param>
+        public static void Draw(this SpriteBatch batch, Texture2D sheet, Rectangle sprite, int x, int y, int width, int height, Color? color = null)
+        {
+            batch.Draw(sheet, new Rectangle(x, y, width, height), sprite, color ?? Color.White);
+        }
+
+        /// <summary>Draw a button texture fir the given text to the screen.</summary>
+        /// <param name="x">The X position at which to draw.</param>
+        /// <param name="y">The Y position at which to draw.</param>
+        /// <param name="font">The text font.</param>
+        /// <param name="text">The button text.</param>
+        /// <param name="align">The button's horizontal alignment relative to <paramref name="x"/>. The possible values are 0 (left), 1 (center), or 2 (right).</param>
+        /// <param name="alpha">The button opacity, as a value from 0 (transparent) to 1 (opaque).</param>
+        /// <param name="drawShadow">Whether to draw a shadow under the tab.</param>
+        public static void DrawTab(int x, int y, SpriteFont font, string text, int align = 0, float alpha = 1, bool drawShadow = true)
+        {
+            SpriteBatch spriteBatch = Game1.spriteBatch;
+            Vector2 bounds = font.MeasureString(text);
+
+            CommonHelper.DrawTab(x, y, (int)bounds.X, (int)bounds.Y, out Vector2 drawPos, align, alpha, drawShadow: drawShadow);
+            Utility.drawTextWithShadow(spriteBatch, text, font, drawPos, Game1.textColor);
+        }
+
+        /// <summary>Draw a button texture to the screen.</summary>
+        /// <param name="x">The X position at which to draw.</param>
+        /// <param name="y">The Y position at which to draw.</param>
+        /// <param name="innerWidth">The width of the button's inner content.</param>
+        /// <param name="innerHeight">The height of the button's inner content.</param>
+        /// <param name="innerDrawPosition">The position at which the content should be drawn.</param>
+        /// <param name="align">The button's horizontal alignment relative to <paramref name="x"/>. The possible values are 0 (left), 1 (center), or 2 (right).</param>
+        /// <param name="alpha">The button opacity, as a value from 0 (transparent) to 1 (opaque).</param>
+        /// <param name="forIcon">Whether the button will contain an icon instead of text.</param>
+        /// <param name="drawShadow">Whether to draw a shadow under the tab.</param>
+        public static void DrawTab(int x, int y, int innerWidth, int innerHeight, out Vector2 innerDrawPosition, int align = 0, float alpha = 1, bool drawShadow = true)
         {
             SpriteBatch spriteBatch = Game1.spriteBatch;
 
-            Vector2 bounds = font.MeasureString(message);
-            int width = (int)bounds.X + Game1.tileSize / 2;
-            int height = (int)font.MeasureString(message).Y + Game1.tileSize / 3;
-            switch (align)
+            // calculate outer coordinates
+            int outerWidth = innerWidth + CommonHelper.ButtonBorderWidth * 2;
+            int outerHeight = innerHeight + Game1.tileSize / 3;
+            int offsetX = align switch
             {
-                case 0:
-                    IClickableMenu.drawTextureBox(spriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), x, y, width, height + Game1.tileSize / 16, Color.White * colorIntensity);
-                    Utility.drawTextWithShadow(spriteBatch, message, font, new Vector2(x + Game1.tileSize / 4, y + Game1.tileSize / 4), Game1.textColor);
-                    break;
-                case 1:
-                    IClickableMenu.drawTextureBox(spriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), x - width / 2, y, width, height + Game1.tileSize / 16, Color.White * colorIntensity);
-                    Utility.drawTextWithShadow(spriteBatch, message, font, new Vector2(x + Game1.tileSize / 4 - width / 2, y + Game1.tileSize / 4), Game1.textColor);
-                    break;
-                case 2:
-                    IClickableMenu.drawTextureBox(spriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), x - width, y, width, height + Game1.tileSize / 16, Color.White * colorIntensity);
-                    Utility.drawTextWithShadow(spriteBatch, message, font, new Vector2(x + Game1.tileSize / 4 - width, y + Game1.tileSize / 4), Game1.textColor);
-                    break;
-            }
+                1 => -outerWidth / 2,
+                2 => -outerWidth,
+                _ => 0
+            };
+
+            // draw texture
+            IClickableMenu.drawTextureBox(spriteBatch, Game1.menuTexture, new Rectangle(0, 256, 60, 60), x + offsetX, y, outerWidth, outerHeight + Game1.tileSize / 16, Color.White * alpha, drawShadow: drawShadow);
+            innerDrawPosition = new Vector2(x + CommonHelper.ButtonBorderWidth + offsetX, y + CommonHelper.ButtonBorderWidth);
         }
 
 

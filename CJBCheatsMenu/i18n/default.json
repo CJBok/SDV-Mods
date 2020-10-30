@@ -65,32 +65,8 @@
 
     // fast machines
     "fast-machines.title": "Fast Machine Processing",
-    "fast-machines.bee-house": "Bee House",
-    "fast-machines.cask": "Cask",
-    "fast-machines.charcoal-kiln": "Charcoal Kiln",
-    "fast-machines.cheese-press": "Cheese Press",
-    "fast-machines.crab-pot": "Crab Pot",
-    "fast-machines.crystalarium": "Crystalarium",
     "fast-machines.fruit-trees": "Fruit Trees",
-    "fast-machines.furnace": "Furnace",
-    "fast-machines.incubator": "Incubator (ready in the morning)",
-    "fast-machines.keg": "Keg",
-    "fast-machines.lightning-rod": "Lightning Rod",
-    "fast-machines.loom": "Loom",
-    "fast-machines.mayonnaise-machine": "Mayonnaise Machine",
-    "fast-machines.mushroom-box": "Mushroom Box",
-    "fast-machines.oil-maker": "Oil Maker",
-    "fast-machines.preserves-jar": "Preserves Jar",
-    "fast-machines.recycling-machine": "Recycling Machine",
-    "fast-machines.seed-maker": "Seed Maker",
-    "fast-machines.slime-egg-press": "Slime Egg-Press",
-    "fast-machines.slime-incubator": "Slime Incubator",
-    "fast-machines.soda-machine": "Soda Machine",
-    "fast-machines.statue-of-endless-fortune": "Statue of Endless Fortune",
-    "fast-machines.statue-of-perfection": "Statue of Perfection",
-    "fast-machines.tapper": "Tapper",
-    "fast-machines.wood-chipper": "Wood Chipper",
-    "fast-machines.worm-bin": "Worm Bin",
+    "fast-machines.ready-in-the-morning": "{{machineName}} (ready in the morning)",
 
 
     /*********

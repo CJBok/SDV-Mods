@@ -1,20 +1,31 @@
 {
-    "title": "CJB Item Spawner",
+    /*********
+    ** Sort button
+    *********/
+    "sort.by-name": "Nom",
+    "sort.by-type": "Type",
+    "sort.by-id": "ID",
 
-    "labels.sort-by-name": "Trier par : Nom",
-    "labels.sort-by-category": "Trier par : Catégorie",
-    "labels.sort-by-id": "Trier par : ID",
-    "labels.quality": "Qualité",
 
-    "tabs.all": "Tout",
-    "tabs.equipment": "Outils & Equipement",
-    "tabs.crops": "Graines & Culture",
-    "tabs.fishing": "Poisson & Appât & Déchet",
-    "tabs.forage": "Cueillete & Fruits",
-    "tabs.artifacts-and-minerals": "Artéfacts & Minerais",
-    "tabs.resources-and-crafting": "Ressources & Fabrication",
-    "tabs.artisan-and-cooking": "Artisanat & Cuisine",
-    "tabs.animal-and-monster": "Animaux & Monstres",
-    "tabs.decorating": "Décoration",
-    "tabs.miscellaneous": "Divers"
+    /*********
+    ** Category dropdown
+    *********/
+    "filter.all": "Tout",
+    "filter.artisan-and-cooking": "Artisanat & cuisine",
+    "filter.crafting.products": "Fabrication: produits",
+    "filter.crafting.resources": "Fabrication: ressources",
+    "filter.decor.furniture": "Décors: meubles",
+    "filter.decor.other": "Décors: divers",
+    "filter.equipment-boots": "Équipement: bottes",
+    "filter.equipment-clothes": "Équipement: vêtements",
+    "filter.equipment-hats": "Équipement: chapeaux",
+    "filter.equipment-rings": "Équipement: anneaux",
+    "filter.equipment-tools": "Équipement: outils",
+    "filter.equipment-weapons": "Équipement: armes",
+    "filter.farm-animal-drops": "Ferme: produits animaliers",
+    "filter.farm-crops": "Ferme: récoltes",
+    "filter.farm-seeds": "Ferme: graines",
+    "filter.fish": "Poissons",
+    "filter.minerals-and-artifacts": "Minerais & artéfacts",
+    "filter.miscellaneous": "Divers"
 }

@@ -18,7 +18,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("fishing.instant-bite"),
+                label: I18n.Fishing_InstantBite(),
                 value: context.Config.InstantBite,
                 setValue: value => context.Config.InstantBite = value
             );

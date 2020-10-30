@@ -1,20 +1,32 @@
 {
-    "title": "CJB Item Spawner",
+    /*********
+    ** Sort button
+    *********/
+    "sort.by-name": "isime",
+    "sort.by-type": "Kategoriye",
+    "sort.by-id": "L'e uygun",
 
-    "labels.sort-by-name": "isime göre",
-    "labels.sort-by-category": "Kategoriye göre",
-    "labels.sort-by-id": "L'e uygun",
-    "labels.quality": "kalite",
 
-    "tabs.all": "tüm",
-    "tabs.equipment": "Araçlar ve Ekipmanlar",
-    "tabs.crops": "Tohum ve Sebzeler",
-    "tabs.fishing": "Balık Yemi ve Çöp Kutusu",
-    "tabs.forage": "Koleksiyon ve Meyveler",
-    "tabs.artifacts-and-minerals": "madenler ve minaraller",
-    "tabs.resources-and-crafting": "Hammaddeler ve DIY",
-    "tabs.artisan-and-cooking": "Zanaat ve Yemek Pişirme",
-    "tabs.animal-and-monster": "Hayvan ve Canavar",
-    "tabs.decorating": "dekorasyonlar",
-    "tabs.miscellaneous": "Diğerleri"
+    /*********
+    ** Category dropdown
+    *********/
+    // TODO
+    "filter.all": "All",
+    "filter.artisan-and-cooking": "Artisan & cooking",
+    "filter.crafting.products": "Crafting: products",
+    "filter.crafting.resources": "Crafting: resources",
+    "filter.decor.furniture": "Decor: furniture",
+    "filter.decor.other": "Decor: other",
+    "filter.equipment-boots": "Equipment: boots",
+    "filter.equipment-clothes": "Equipment: clothes",
+    "filter.equipment-hats": "Equipment: hats",
+    "filter.equipment-rings": "Equipment: rings",
+    "filter.equipment-tools": "Equipment: tools",
+    "filter.equipment-weapons": "Equipment: weapons",
+    "filter.farm-animal-drops": "Farm: animal drops",
+    "filter.farm-crops": "Farm: crops",
+    "filter.farm-seeds": "Farm: seeds",
+    "filter.fish": "Fish",
+    "filter.minerals-and-artifacts": "Minerals & artifacts",
+    "filter.miscellaneous": "Misc"
 }

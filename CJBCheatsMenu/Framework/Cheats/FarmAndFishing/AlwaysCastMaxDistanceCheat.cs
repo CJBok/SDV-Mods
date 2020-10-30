@@ -18,7 +18,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("fishing.always-throw-max-distance"),
+                label: I18n.Fishing_AlwaysThrowMaxDistance(),
                 value: context.Config.ThrowBobberMax,
                 setValue: value => context.Config.ThrowBobberMax = value
             );

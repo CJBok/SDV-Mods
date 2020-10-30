@@ -18,7 +18,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Relationships
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("relationships.give-gifts-anytime"),
+                label: I18n.Relationships_GiveGiftsAnytime(),
                 value: context.Config.AlwaysGiveGift,
                 setValue: value => context.Config.AlwaysGiveGift = value
             );

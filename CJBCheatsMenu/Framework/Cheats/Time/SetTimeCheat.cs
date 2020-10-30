@@ -17,7 +17,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsSlider(
-                label: context.Text.Get("time.time"),
+                label: I18n.Time_Time(),
                 value: Game1.timeOfDay / 100,
                 minValue: 6,
                 maxValue: 25,

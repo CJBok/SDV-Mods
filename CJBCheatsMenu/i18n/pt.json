@@ -65,32 +65,8 @@
 
     // fast machines
     "fast-machines.title": "Máquinas rápidas",
-    "fast-machines.bee-house": "Apiário",
-    "fast-machines.cask": "Barril de madeira",
-    "fast-machines.charcoal-kiln": "Carvoaria",
-    "fast-machines.cheese-press": "Prensa de queijo",
-    "fast-machines.crab-pot": "Covo",
-    "fast-machines.crystalarium": "Cristalário",
     "fast-machines.fruit-trees": "Árvores frutíferas",
-    "fast-machines.furnace": "Fornalha",
-    "fast-machines.incubator": "Chocadeira (pronta pela manhã)",
-    "fast-machines.keg": "Barril",
-    "fast-machines.lightning-rod": "Para-raios",
-    "fast-machines.loom": "Tear",
-    "fast-machines.mayonnaise-machine": "Máquina de maionese",
-    "fast-machines.mushroom-box": "Caixa de cogumelos",
-    "fast-machines.oil-maker": "Gerador de óleo",
-    "fast-machines.preserves-jar": "Jarra de conserva",
-    "fast-machines.recycling-machine": "Máquina de reciclagem",
-    "fast-machines.seed-maker": "Gerador de sementes",
-    "fast-machines.slime-egg-press": "Prensa de gosmas",
-    "fast-machines.slime-incubator": "Incubador de gosmas",
-    "fast-machines.soda-machine": "Máquina de refrigerante",
-    "fast-machines.statue-of-endless-fortune": "Estátua da Riqueza Eterna",
-    "fast-machines.statue-of-perfection": "Estátua da perfeição",
-    "fast-machines.tapper": "Torneirinha",
-    "fast-machines.wood-chipper": "Picador de madeira",
-    "fast-machines.worm-bin": "Cesto de minhocas",
+    "fast-machines.ready-in-the-morning": "{{machineName}} (pronta pela manhã)",
 
 
     /*********

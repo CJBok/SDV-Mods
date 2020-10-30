@@ -1,20 +1,32 @@
 {
-    "title": "CJB 아이템 생성기",
+    /*********
+    ** Sort button
+    *********/
+    "sort.by-name": "이름",
+    "sort.by-type": "종류",
+    "sort.by-id": "ID",
 
-    "labels.sort-by-name": "정렬 기준: 이름",
-    "labels.sort-by-category": "정렬 기준: 종류",
-    "labels.sort-by-id": "정렬 기준: ID",
-    "labels.quality": "품질",
 
-    "tabs.all": "전체",
-    "tabs.equipment": "도구 & 장비",
-    "tabs.crops": "씨앗 & 작물/",
-    "tabs.fishing": "물고기 & 미끼 & 쓰레기",
-    "tabs.forage": "채집 & 과일",
-    "tabs.artifacts-and-minerals": "유물 & 광물",
-    "tabs.resources-and-crafting": "자원/재료 & 제작/설치",
-    "tabs.artisan-and-cooking": "장인 가공품 & 요리",
-    "tabs.animal-and-monster": "동물 & 몬스터",
-    "tabs.decorating": "가구 & 장식품",
-    "tabs.miscellaneous": "기타 & 퀘스트"
+    /*********
+    ** Category dropdown
+    *********/
+    // TODO
+    "filter.all": "All",
+    "filter.artisan-and-cooking": "Artisan & cooking",
+    "filter.crafting.products": "Crafting: products",
+    "filter.crafting.resources": "Crafting: resources",
+    "filter.decor.furniture": "Decor: furniture",
+    "filter.decor.other": "Decor: other",
+    "filter.equipment-boots": "Equipment: boots",
+    "filter.equipment-clothes": "Equipment: clothes",
+    "filter.equipment-hats": "Equipment: hats",
+    "filter.equipment-rings": "Equipment: rings",
+    "filter.equipment-tools": "Equipment: tools",
+    "filter.equipment-weapons": "Equipment: weapons",
+    "filter.farm-animal-drops": "Farm: animal drops",
+    "filter.farm-crops": "Farm: crops",
+    "filter.farm-seeds": "Farm: seeds",
+    "filter.fish": "Fish",
+    "filter.minerals-and-artifacts": "Minerals & artifacts",
+    "filter.miscellaneous": "Misc"
 }

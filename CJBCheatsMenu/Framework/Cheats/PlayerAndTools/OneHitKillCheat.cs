@@ -20,7 +20,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("player.one-hit-kill"),
+                label: I18n.Player_OneHitKill(),
                 value: context.Config.OneHitKill,
                 setValue: value => context.Config.OneHitKill = value
             );

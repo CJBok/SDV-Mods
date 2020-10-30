@@ -255,7 +255,7 @@ namespace CJBCheatsMenu.Framework
             base.draw(spriteBatch);
 
             Game1.drawDialogueBox(this.xPositionOnScreen, this.yPositionOnScreen, this.width, this.height, false, true);
-            CommonHelper.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.dialogueFont, this.Title.name, 1);
+            CommonHelper.DrawTab(this.Title.bounds.X, this.Title.bounds.Y, Game1.dialogueFont, this.Title.name, 1);
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null);
             for (int index = 0; index < this.OptionSlots.Count; ++index)
@@ -271,7 +271,7 @@ namespace CJBCheatsMenu.Framework
                 foreach (ClickableComponent tab in this.Tabs)
                 {
                     MenuTab tabID = this.GetTabID(tab);
-                    CommonHelper.DrawTextBox(tab.bounds.X + tab.bounds.Width, tab.bounds.Y, Game1.smallFont, tab.label, 2, this.CurrentTab == tabID ? 1F : 0.7F);
+                    CommonHelper.DrawTab(tab.bounds.X + tab.bounds.Width, tab.bounds.Y, Game1.smallFont, tab.label, 2, this.CurrentTab == tabID ? 1F : 0.7F);
                 }
 
                 this.UpArrow.draw(spriteBatch);
@@ -304,8 +304,6 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Initialize or reinitialize the UI components.</summary>
         private void ResetComponents()
         {
-            var text = this.Cheats.Context.Text;
-
             // set dimensions
             this.width = (this.IsAndroid ? 750 : 800) + IClickableMenu.borderWidth * 2;
             this.height = (this.IsAndroid ? 550 : 600) + IClickableMenu.borderWidth * 2;
@@ -317,7 +315,7 @@ namespace CJBCheatsMenu.Framework
                 this.initializeUpperRightCloseButton();
 
             // add title
-            this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.width / 2, this.yPositionOnScreen, Game1.tileSize * 4, Game1.tileSize), text.Get("mod-name"));
+            this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.width / 2, this.yPositionOnScreen, Game1.tileSize * 4, Game1.tileSize), I18n.ModName());
 
             // add tabs
             {
@@ -329,15 +327,15 @@ namespace CJBCheatsMenu.Framework
                 this.Tabs.Clear();
                 this.Tabs.AddRange(new[]
                 {
-                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.PlayerAndTools.ToString(), text.Get("tabs.player-and-tools")),
-                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.FarmAndFishing.ToString(), text.Get("tabs.farm-and-fishing")),
-                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Skills.ToString(), text.Get("tabs.skills")),
-                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Weather.ToString(), text.Get("tabs.weather")),
-                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Relationships.ToString(), text.Get("tabs.relationships")),
-                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.WarpLocations.ToString(), text.Get("tabs.warp")),
-                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Time.ToString(), text.Get("tabs.time")),
-                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Advanced.ToString(), text.Get("tabs.advanced")),
-                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Controls.ToString(), text.Get("tabs.controls"))
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.PlayerAndTools.ToString(), I18n.Tabs_PlayerAndTools()),
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.FarmAndFishing.ToString(), I18n.Tabs_FarmAndFishing()),
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Skills.ToString(), I18n.Tabs_Skills()),
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Weather.ToString(), I18n.Tabs_Weather()),
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Relationships.ToString(), I18n.Tabs_Relationships()),
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.WarpLocations.ToString(), I18n.Tabs_Warp()),
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Time.ToString(), I18n.Tabs_Time()),
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Advanced.ToString(), I18n.Tabs_Advanced()),
+                    new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Controls.ToString(), I18n.Tabs_Controls())
                 });
             }
 
@@ -360,7 +358,6 @@ namespace CJBCheatsMenu.Framework
         {
             CheatManager cheats = this.Cheats;
             CheatContext context = cheats.Context;
-            ITranslationHelper text = context.Text;
             ModConfig config = context.Config;
 
             cheats.Context.SlotWidth = this.OptionSlots[0].bounds.Width;
@@ -371,7 +368,7 @@ namespace CJBCheatsMenu.Framework
                 case MenuTab.PlayerAndTools:
                     // player
                     this.AddOptions(
-                        $"{text.Get("player.title")}:",
+                        $"{I18n.Player_Title()}:",
                         cheats.InfiniteHealth,
                         cheats.InfiniteStamina,
                         cheats.InstantCooldowns,
@@ -383,7 +380,7 @@ namespace CJBCheatsMenu.Framework
 
                     // tools
                     this.AddOptions(
-                        $"{text.Get("tools.title")}:",
+                        $"{I18n.Tools_Title()}:",
                         cheats.InfiniteWater,
                         cheats.OneHitBreak,
                         cheats.HarvestWithScythe
@@ -391,13 +388,13 @@ namespace CJBCheatsMenu.Framework
 
                     // money
                     this.AddOptions(
-                        $"{text.Get("money.title")}:",
+                        $"{I18n.Money_Title()}:",
                         cheats.AddMoney
                     );
 
                     // casino coins
                     this.AddOptions(
-                        $"{text.Get("casino-coins.title")}:",
+                        $"{I18n.CasinoCoins_Title()}:",
                         cheats.AddCasinoCoins
                     );
                     break;
@@ -405,7 +402,7 @@ namespace CJBCheatsMenu.Framework
                 case MenuTab.FarmAndFishing:
                     // farming
                     this.AddOptions(
-                        $"{text.Get("farm.title")}:",
+                        $"{I18n.Farm_Title()}:",
                         cheats.AutoWater,
                         cheats.DurableFences,
                         cheats.InstantBuild,
@@ -415,7 +412,7 @@ namespace CJBCheatsMenu.Framework
 
                     // fishing
                     this.AddOptions(
-                        $"{text.Get("fishing.title")}:",
+                        $"{I18n.Fishing_Title()}:",
                         cheats.InstantFishCatch,
                         cheats.InstantFishBite,
                         cheats.AlwaysCastMaxDistance,
@@ -425,7 +422,7 @@ namespace CJBCheatsMenu.Framework
 
                     // fast machines
                     this.AddOptions(
-                        $"{text.Get("fast-machines.title")}:",
+                        $"{I18n.FastMachines_Title()}:",
                         cheats.FastMachines
                     );
                     break;
@@ -433,20 +430,20 @@ namespace CJBCheatsMenu.Framework
                 case MenuTab.Skills:
                     // skills
                     this.AddOptions(
-                        $"{text.Get("skills.title")}:",
+                        $"{I18n.Skills_Title()}:",
                         cheats.Skills
                     );
 
                     // professions
                     this.AddOptions(
-                        $"{text.Get("professions.title")}:",
+                        $"{I18n.Professions_Title()}:",
                         cheats.Professions
                     );
                     break;
 
                 case MenuTab.Weather:
                     this.AddOptions(
-                        $"{text.Get("weather.title")}:",
+                        $"{I18n.Weather_Title()}:",
                         cheats.SetWeatherForTomorrow
                     );
                     break;
@@ -454,14 +451,14 @@ namespace CJBCheatsMenu.Framework
                 case MenuTab.Relationships:
                     // relationship options
                     this.AddOptions(
-                        $"{text.Get("relationships.title")}:",
+                        $"{I18n.Relationships_Title()}:",
                         cheats.AlwaysGiveGifts,
                         cheats.NoFriendshipDecay
                     );
 
                     // heart levels
                     this.AddOptions(
-                        $"{text.Get("relationships.friends")}:",
+                        $"{I18n.Relationships_Friends()}:",
                         cheats.Hearts
                     );
                     break;
@@ -474,7 +471,7 @@ namespace CJBCheatsMenu.Framework
 
                 case MenuTab.Time:
                     this.AddOptions(
-                        $"{text.Get("time.title")}:",
+                        $"{I18n.Time_Title()}:",
                         cheats.FreezeTime,
                         cheats.SetTime
                     );
@@ -482,78 +479,74 @@ namespace CJBCheatsMenu.Framework
 
                 case MenuTab.Advanced:
                     {
-                        this.AddDescription(text.Get("flags.warning"));
+                        this.AddDescription(I18n.Flags_Warning());
 
                         // quests
                         this.AddOptions(
-                            $"{text.Get("flags.quests")}:",
+                            $"{I18n.Flags_Quests()}:",
                             cheats.Quests
                         );
 
                         // wallet items
                         this.AddOptions(
-                            $"{text.Get("flags.wallet")}:",
+                            $"{I18n.Flags_Wallet()}:",
                             cheats.WalletItems
                         );
 
                         // locked doors
                         this.AddOptions(
-                            $"{text.Get("flags.unlocked")}:",
+                            $"{I18n.Flags_Unlocked()}:",
                             cheats.UnlockDoor
                         );
 
                         // locked content
                         this.AddOptions(
-                            $"{text.Get("flags.unlocked-content")}:",
+                            $"{I18n.Flags_UnlockedContent()}:",
                             cheats.UnlockContent
                         );
 
                         // community center
                         this.AddOptions(
-                            $"{text.Get("flags.community-center")}:",
+                            $"{I18n.Flags_CommunityCenter()}:",
                             cheats.Bundles
                         );
                     }
                     break;
 
                 case MenuTab.Controls:
-                    this.AddTitle($"{text.Get("controls.title")}:");
+                    this.AddTitle($"{I18n.Controls_Title()}:");
 
                     if (this.IsAndroid)
-                        this.AddDescription(text.Get("controls.android-config-note"));
+                        this.AddDescription(I18n.Controls_AndroidConfigNote());
 
                     this.AddOptions(
                         new CheatsOptionsKeyListener(
-                            label: text.Get("controls.open-menu"),
+                            label: I18n.Controls_OpenMenu(),
                             value: config.OpenMenuKey,
                             setValue: key => config.OpenMenuKey = key,
                             slotWidth: context.SlotWidth,
-                            i18n: text,
                             clearToButton: ModConfig.Defaults.OpenMenuKey
                         ),
                         new CheatsOptionsKeyListener(
-                            label: text.Get("controls.freeze-time"),
+                            label: I18n.Controls_FreezeTime(),
                             value: config.FreezeTimeKey,
                             setValue: key => config.FreezeTimeKey = key,
-                            slotWidth: context.SlotWidth,
-                            i18n: text
+                            slotWidth: context.SlotWidth
                         ),
                         new CheatsOptionsKeyListener(
-                            label: text.Get("controls.grow-tree"),
+                            label: I18n.Controls_GrowTree(),
                             value: config.GrowTreeKey,
                             setValue: key => config.GrowTreeKey = key,
-                            slotWidth: context.SlotWidth,
-                            i18n: text
+                            slotWidth: context.SlotWidth
                         ),
                         new CheatsOptionsKeyListener(
-                            label: text.Get("controls.grow-crops"),
+                            label: I18n.Controls_GrowCrops(),
                             value: config.GrowCropsKey,
                             setValue: key => config.GrowCropsKey = key,
-                            slotWidth: context.SlotWidth,
-                            i18n: text
+                            slotWidth: context.SlotWidth
                         ),
                         new CheatsOptionsSlider(
-                            label: text.Get("controls.grow-radius"),
+                            label: I18n.Controls_GrowRadius(),
                             value: config.GrowRadius,
                             minValue: 1,
                             maxValue: 10,
@@ -562,7 +555,7 @@ namespace CJBCheatsMenu.Framework
                         ),
                         new OptionsElement(string.Empty), // blank line
                         new CheatsOptionsButton(
-                            label: text.Get("controls.reset-controls"),
+                            label: I18n.Controls_ResetControls(),
                             toggle: this.ResetControls,
                             slotWidth: context.SlotWidth
                         )

@@ -44,13 +44,12 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="slotWidth">The field width.</param>
         /// <param name="value">The current key binding.</param>
         /// <param name="setValue">The action to perform when the button is toggled.</param>
-        /// <param name="i18n">Provides translations for the mod.</param>
         /// <param name="clearToButton">The button to set when the player clears it.</param>
-        public CheatsOptionsKeyListener(string label, int slotWidth, SButton value, Action<SButton> setValue, ITranslationHelper i18n, SButton clearToButton = SButton.None)
+        public CheatsOptionsKeyListener(string label, int slotWidth, SButton value, Action<SButton> setValue, SButton clearToButton = SButton.None)
           : base(label, -1, -1, slotWidth + 1, 11 * Game1.pixelZoom)
         {
             this.Value = value;
-            this.PressNewKeyLabel = i18n.Get("controls.press-new-key");
+            this.PressNewKeyLabel = I18n.Controls_PressNewKey();
             this.SetValue = setValue;
             this.SetButtonBounds = new Rectangle(slotWidth - 28 * Game1.pixelZoom, -1 + Game1.pixelZoom * 3, 21 * Game1.pixelZoom, 11 * Game1.pixelZoom);
             this.ClearToButton = clearToButton;

@@ -19,8 +19,11 @@ namespace CJBItemSpawner
         /// <summary>The mod settings.</summary>
         private ModConfig Config;
 
-        /// <summary>Provides methods for searching and constructing items.</summary>
-        private ItemRepository ItemRepository;
+        /// <summary>The internal mod data about items.</summary>
+        private ModItemData ItemData;
+
+        /// <summary>The item category filters available in the item spawner menu.</summary>
+        public ModDataCategory[] Categories { get; set; }
 
 
         /*********
@@ -32,13 +35,20 @@ namespace CJBItemSpawner
         {
             // read config
             this.Config = helper.ReadConfig<ModConfig>();
-            this.Monitor.Log($"Started with menu key {this.Config.ShowMenuKey}.", LogLevel.Trace);
+            this.Monitor.Log($"Started with menu key {this.Config.ShowMenuKey}.");
 
-            // init item repository
-            ModData data = helper.Data.ReadJsonFile<ModData>("data.json");
-            this.ItemRepository = this.GetItemRepository(data, this.Config.AllowProblematicItems);
+            // read item data
+            this.ItemData = helper.Data.ReadJsonFile<ModItemData>("assets/item-data.json");
+            if (this.ItemData?.ProblematicItems == null)
+                this.Monitor.Log("One of the mod files (assets/item-data.json) is missing or invalid. Some features may not work correctly; consider reinstalling the mod.", LogLevel.Warn);
 
-            // hook events
+            // read categories
+            this.Categories = helper.Data.ReadJsonFile<ModDataCategory[]>("assets/categories.json");
+            if (this.Categories == null)
+                this.Monitor.LogOnce("One of the mod files (assets/categories.json) is missing or invalid. Some features may not work correctly; consider reinstalling the mod.", LogLevel.Warn);
+
+            // init mod
+            I18n.Init(helper.Translation);
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
         }
 
@@ -55,30 +65,40 @@ namespace CJBItemSpawner
                 return;
 
             if (e.Button == this.Config.ShowMenuKey)
-                Game1.activeClickableMenu = new ItemMenu(this.Helper.Translation, this.ItemRepository);
+                Game1.activeClickableMenu = this.BuildMenu();
         }
 
-        /// <summary>Get an item repository.</summary>
-        /// <param name="data">The predefined mod data.</param>
-        /// <param name="allowProblematicItems">Whether to show items which may cause bugs or crashes when spawned.</param>
-        private ItemRepository GetItemRepository(ModData data, bool allowProblematicItems)
+        /// <summary>Build an item spawner menu.</summary>
+        private ItemMenu BuildMenu()
         {
-            // no filter needed
-            if (data?.ProblematicItems == null && !allowProblematicItems)
-            {
-                this.Monitor.Log("One of the mod files (data.json) is missing or invalid. Some features may not work correctly; consider reinstalling the mod.", LogLevel.Warn);
-                allowProblematicItems = true;
-            }
-            if (allowProblematicItems)
-                return new ItemRepository(filter: item => true);
+            SpawnableItem[] items = this.GetSpawnableItems().ToArray();
+            return new ItemMenu(items, this.Helper.Content, this.Monitor);
+        }
 
-            // create with filter
-            var problematicItems = new HashSet<Tuple<ItemType, int>>(
-                data.ProblematicItems.Select(item => Tuple.Create(item.Type, item.ID))
-            );
-            return new ItemRepository(
-                filter: item => !problematicItems.Contains(Tuple.Create(item.Type, item.ID))
-            );
+        /// <summary>Get the items which can be spawned.</summary>
+        private IEnumerable<SpawnableItem> GetSpawnableItems()
+        {
+            IEnumerable<SearchableItem> items = new ItemRepository().GetAll();
+
+            // apply 'problematic items' filter
+            if (!this.Config.AllowProblematicItems && this.ItemData?.ProblematicItems?.Any() == true)
+            {
+                var problematicItems = new HashSet<Tuple<ItemType, int>>(
+                    this.ItemData.ProblematicItems.Select(item => Tuple.Create(item.Type, item.ID))
+                );
+                items = items.Where(item => !problematicItems.Contains(Tuple.Create(item.Type, item.ID)));
+            }
+
+            // yield models
+            foreach (SearchableItem entry in items)
+            {
+                ModDataCategory category = this.Categories?.FirstOrDefault(rule => rule.IsMatch(entry));
+                string categoryLabel = category != null
+                    ? I18n.GetByKey(category.Label).Default(category.Label)
+                    : I18n.Filter_Miscellaneous();
+
+                yield return new SpawnableItem(entry, categoryLabel);
+            }
         }
     }
 }

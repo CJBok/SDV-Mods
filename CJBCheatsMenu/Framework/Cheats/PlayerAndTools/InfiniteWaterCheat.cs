@@ -19,7 +19,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("tools.infinite-water"),
+                label: I18n.Tools_InfiniteWater(),
                 value: context.Config.InfiniteWateringCan,
                 setValue: value => context.Config.InfiniteWateringCan = value
             );

@@ -18,7 +18,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("player.infinite-health"),
+                label: I18n.Player_InfiniteHealth(),
                 value: context.Config.InfiniteHealth,
                 setValue: value => context.Config.InfiniteHealth = value
             );

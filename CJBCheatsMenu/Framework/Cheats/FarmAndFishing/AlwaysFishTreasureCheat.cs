@@ -18,7 +18,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("fishing.always-treasure"),
+                label: I18n.Fishing_AlwaysTreasure(),
                 value: context.Config.AlwaysTreasure,
                 setValue: value => context.Config.AlwaysTreasure = value
             );

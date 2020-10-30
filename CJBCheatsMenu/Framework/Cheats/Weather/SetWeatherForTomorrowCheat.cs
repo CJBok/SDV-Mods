@@ -17,11 +17,11 @@ namespace CJBCheatsMenu.Framework.Cheats.Weather
         {
             return new OptionsElement[]
             {
-                new CheatsOptionsWeatherElement($"{context.Text.Get("weather.current")}", () => this.GetWeatherForNextDay(context)),
-                this.GetWeatherField(context, "sunny", Game1.weather_sunny),
-                this.GetWeatherField(context, "raining", Game1.weather_rain),
-                this.GetWeatherField(context, "lightning", Game1.weather_lightning),
-                this.GetWeatherField(context, "snowing", Game1.weather_snow)
+                new CheatsOptionsWeatherElement(I18n.Weather_Current(), () => this.GetWeatherForNextDay(context)),
+                this.GetWeatherField(context, I18n.Weather_Sunny(), Game1.weather_sunny),
+                this.GetWeatherField(context, I18n.Weather_Raining(), Game1.weather_rain),
+                this.GetWeatherField(context, I18n.Weather_Lightning(), Game1.weather_lightning),
+                this.GetWeatherField(context, I18n.Weather_Snowing(), Game1.weather_snow)
             };
         }
 
@@ -31,12 +31,12 @@ namespace CJBCheatsMenu.Framework.Cheats.Weather
         *********/
         /// <summary>Get the option field to set a weather for tomorrow.</summary>
         /// <param name="context">The cheat context.</param>
-        /// <param name="translationKey">The unique portion of its display text translation key.</param>
+        /// <param name="label">The option label text.</param>
         /// <param name="id">The game's weather ID.</param>
-        private CheatsOptionsButton GetWeatherField(CheatContext context, string translationKey, int id)
+        private CheatsOptionsButton GetWeatherField(CheatContext context, string label, int id)
         {
             return new CheatsOptionsButton(
-                label: $"{context.Text.Get($"weather.{translationKey}")}",
+                label: label,
                 slotWidth: context.SlotWidth,
                 toggle: () => this.SetWeatherForNextDay(id)
             );
@@ -46,24 +46,22 @@ namespace CJBCheatsMenu.Framework.Cheats.Weather
         /// <param name="context">The cheat context.</param>
         public string GetWeatherForNextDay(CheatContext context)
         {
-            var text = context.Text;
-
             switch (Game1.weatherForTomorrow)
             {
                 case Game1.weather_sunny:
                 case Game1.weather_debris:
                 case Game1.weather_festival:
                 case Game1.weather_wedding:
-                    return text.Get("weather.sunny");
+                    return I18n.Weather_Sunny();
 
                 case Game1.weather_rain:
-                    return text.Get("weather.raining");
+                    return I18n.Weather_Raining();
 
                 case Game1.weather_lightning:
-                    return text.Get("weather.lightning");
+                    return I18n.Weather_Lightning();
 
                 case Game1.weather_snow:
-                    return text.Get("weather.snowing");
+                    return I18n.Weather_Snowing();
 
                 default:
                     return "";

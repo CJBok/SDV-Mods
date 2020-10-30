@@ -18,7 +18,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("player.max-daily-luck"),
+                label: I18n.Player_MaxDailyLuck(),
                 value: context.Config.MaxDailyLuck,
                 setValue: value => context.Config.MaxDailyLuck = value
             );

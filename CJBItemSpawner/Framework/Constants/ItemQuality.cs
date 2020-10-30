@@ -18,20 +18,6 @@ namespace CJBItemSpawner.Framework.Constants
         /*********
         ** Public methods
         *********/
-        /// <summary>Get the previous quality.</summary>
-        /// <param name="current">The current quality.</param>
-        public static ItemQuality GetPrevious(this ItemQuality current)
-        {
-            return current switch
-            {
-                ItemQuality.Normal => ItemQuality.Normal,
-                ItemQuality.Silver => ItemQuality.Normal,
-                ItemQuality.Gold => ItemQuality.Silver,
-                ItemQuality.Iridium => ItemQuality.Gold,
-                _ => throw new NotSupportedException($"Unknown quality '{current}'.")
-            };
-        }
-
         /// <summary>Get the next better quality.</summary>
         /// <param name="current">The current quality.</param>
         public static ItemQuality GetNext(this ItemQuality current)
@@ -41,7 +27,7 @@ namespace CJBItemSpawner.Framework.Constants
                 ItemQuality.Normal => ItemQuality.Silver,
                 ItemQuality.Silver => ItemQuality.Gold,
                 ItemQuality.Gold => ItemQuality.Iridium,
-                ItemQuality.Iridium => ItemQuality.Iridium,
+                ItemQuality.Iridium => ItemQuality.Normal,
                 _ => throw new NotSupportedException($"Unknown quality '{current}'.")
             };
         }

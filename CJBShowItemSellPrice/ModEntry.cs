@@ -34,12 +34,6 @@ namespace CJBShowItemSellPrice
         /// <summary>The pixel offset to apply to the tooltip box relative to the cursor position.</summary>
         private readonly Vector2 TooltipOffset = new Vector2(Game1.tileSize / 2);
 
-        /// <summary>The label text for the single-item price.</summary>
-        private string SingleLabel;
-
-        /// <summary>The label text for the stack price.</summary>
-        private string StackLabel;
-
         /// <summary>The cached toolbar instance.</summary>
         private Toolbar Toolbar;
 
@@ -58,8 +52,7 @@ namespace CJBShowItemSellPrice
         public override void Entry(IModHelper helper)
         {
             // init text
-            this.SingleLabel = this.Helper.Translation.Get("labels.single-price") + ":";
-            this.StackLabel = this.Helper.Translation.Get("labels.stack-price") + ":";
+            I18n.Init(helper.Translation);
 
             // load data
             this.Data = helper.Data.ReadJsonFile<DataModel>("assets/data.json") ?? new DataModel();
@@ -147,17 +140,13 @@ namespace CJBShowItemSellPrice
             else if (menu is MenuWithInventory inventoryMenu)
                 return inventoryMenu.hoveredItem;
 
-            // CJB mods
-            else if (menu.GetType().FullName == "CJBItemSpawner.Framework.ItemMenu")
-                return this.Helper.Reflection.GetField<Item>(menu, "HoveredItem").GetValue();
-
             return null;
         }
 
         /// <summary>Get the hovered item from the on-screen toolbar.</summary>
         private Item GetItemFromToolbar()
         {
-            if (!Context.IsPlayerFree || this.Toolbar == null || this.ToolbarSlots == null)
+            if (!Context.IsPlayerFree || this.Toolbar == null || this.ToolbarSlots == null || !Game1.displayHUD)
                 return null;
 
             // find hovered slot
@@ -197,9 +186,9 @@ namespace CJBShowItemSellPrice
             bool showStack = stack > 1;
 
             // prepare text
-            string unitLabel = this.SingleLabel;
+            string unitLabel = I18n.Labels_SinglePrice() + ":";
             string unitPrice = price.ToString();
-            string stackLabel = this.StackLabel;
+            string stackLabel = I18n.Labels_StackPrice() + ":";
             string stackPrice = (price * stack).ToString();
 
             // get dimensions

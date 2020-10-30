@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using CJB.Common;
+using CJB.Common.UI;
 using CJBItemSpawner.Framework.Constants;
-using CJBItemSpawner.Framework.ItemData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,340 +12,343 @@ using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 using StardewValley.Objects;
+using SConstants = StardewModdingAPI.Constants;
 using SObject = StardewValley.Object;
 
 namespace CJBItemSpawner.Framework
 {
-    internal class ItemMenu : ItemMenuWithInventory
+    /// <summary>The item spawner menu which lets players add any item to their inventory and trash any item.</summary>
+    internal class ItemMenu : ItemGrabMenu
     {
         /*********
         ** Fields
         *********/
-        private readonly ITranslationHelper TranslationHelper;
-        private readonly Item[] SpawnableItems;
-        private readonly ClickableComponent Title;
-        private readonly ClickableComponent SortButton;
-        private readonly ClickableComponent QualityButton;
-        private readonly ClickableTextureComponent UpArrow;
-        private readonly ClickableTextureComponent DownArrow;
-        private readonly List<ClickableComponent> Tabs = new List<ClickableComponent>();
-        private readonly TextBox Textbox;
-        private readonly bool AllowRightClick;
-        private readonly MenuTab CurrentTab;
-        private readonly ItemSort SortBy;
-        private readonly ItemQuality Quality;
-        private readonly bool ShowReceivingMenu = true;
-        private readonly bool CanExitOnKey = true;
+        /****
+        ** Constants
+        ****/
+        /// <summary>The max number of items that can shown at once in the UI view.</summary>
+        private readonly int ItemsPerView = Chest.capacity;
 
-        /// <summary>Provides methods for searching and constructing items.</summary>
-        private readonly ItemRepository ItemRepository;
+        /// <summary>The max number of items that can be shown per row.</summary>
+        private readonly int ItemsPerRow = Chest.capacity / 3;
 
-        private ItemInventoryMenu ItemsToGrabMenu;
-        private TemporaryAnimatedSprite Poof;
-        private Rectangle TextboxBounds;
-        private string PreviousText = "";
+        /// <summary>The IDs for objects which can't have a quality value.</summary>
+        private readonly ISet<int> ItemsWithoutQuality = new HashSet<int>
+        {
+            447, // aged roe
+            812 // roe
+        };
+
+        /// <summary>The available category names.</summary>
+        private readonly string[] Categories;
+
+        /// <summary>Whether the menu is being displayed on Android.</summary>
+        private bool IsAndroid => SConstants.TargetPlatform == GamePlatform.Android;
+
+        /****
+        ** State
+        ****/
+        /// <summary>Handles writing to the SMAPI console and log.</summary>
+        private readonly IMonitor Monitor;
+
+        /// <summary>The base draw method.</summary>
+        /// <remarks>This circumvents an issue where <see cref="ItemGrabMenu.draw(SpriteBatch)"/> can't be called directly due to a conflicting overload.</remarks>
+        private readonly Action<SpriteBatch> BaseDraw;
+
+        /// <summary>The icon representing the default quality.</summary>
+        private readonly Texture2D StarOutlineTexture;
+
+        /// <summary>The icon for the sort button.</summary>
+        private readonly Texture2D SortTexture;
+
+        /// <summary>The current item quality.</summary>
+        private ItemQuality Quality = ItemQuality.Normal;
+
+        /// <summary>The search text for which to filter items.</summary>
+        private string SearchText = "";
+
+        /// <summary>The field by which to sort items.</summary>
+        private ItemSort SortBy = ItemSort.DisplayName;
+
+        /// <summary>All items that can be spawned.</summary>
+        private readonly SpawnableItem[] AllItems;
+
+        /// <summary>The items matching the current search filters, without scrolling.</summary>
+        private readonly List<SpawnableItem> FilteredItems = new List<SpawnableItem>();
+
+        /// <summary>The items currently visible in the UI.</summary>
+        private readonly IList<Item> ItemsInView;
+
+        /// <summary>The index of the top row shown in the UI view, used to scroll through the results.</summary>
+        private int TopRowIndex;
+
+        /// <summary>The maximum <see cref="TopRowIndex"/> value for the current number of items.</summary>
+        private int MaxTopRowIndex;
+
+        /// <summary>Whether the player can scroll up in the list.</summary>
+        private bool CanScrollUp => this.TopRowIndex > 0;
+
+        /// <summary>Whether the player can scroll down in the list.</summary>
+        private bool CanScrollDown => this.TopRowIndex < this.MaxTopRowIndex;
 
         /// <summary>Whether the user explicitly selected the textbox by clicking on it, so the selection should be maintained.</summary>
         private bool TextboxExplicitlySelected;
+
+        /****
+        ** UI components
+        ****/
+        /// <summary>An icon shown next to the sort button.</summary>
+        private ClickableTextureComponent SortIcon;
+
+        /// <summary>A button which toggles between sort criteria.</summary>
+        private ClickableComponent SortButton;
+
+        /// <summary>The bounds for the quality button background.</summary>
+        private ClickableComponent QualityButton;
+
+        /// <summary>A dropdown list to choose a category filter.</summary>
+        private Dropdown<string> CategoryDropdown;
+
+        /// <summary>The up arrow to scroll results.</summary>
+        private ClickableTextureComponent UpArrow;
+
+        /// <summary>The down arrow to scroll results.</summary>
+        private ClickableTextureComponent DownArrow;
+
+        /// <summary>The search textbox.</summary>
+        private TextBox SearchBox;
+
+        /// <summary>A clickable component corresponding to the <see cref="SearchBox"/> area. This only exists for controller movement support.</summary>
+        private ClickableComponent SearchBoxArea;
+
+        /// <summary>The search textbox area.</summary>
+        private Rectangle SearchBoxBounds;
+
+        /// <summary>The search icon for the search box.</summary>
+        private ClickableTextureComponent SearchIcon;
+
+        /// <summary>The current opacity of the <see cref="SearchIcon"/>, which fades out when selected and back in when deselected.</summary>
+        private float SearchIconOpacity = 1f;
+
+
+        /*********
+        ** Accessors
+        *********/
+        /// <summary>The child components for controller snapping.</summary>
+        /// <remarks>This must be public and match a type supported by <see cref="IClickableMenu.populateClickableComponentList"/>.</remarks>
+        public readonly List<ClickableComponent> ChildComponents = new List<ClickableComponent>();
 
 
         /*********
         ** Public methods
         *********/
         /// <summary>Construct an instance.</summary>
-        /// <param name="currentTab">The selected tab.</param>
-        /// <param name="sortBy">How to sort items.</param>
-        /// <param name="quality">The item quality to display.</param>
-        /// <param name="search">The search term to prepopulate.</param>
-        /// <param name="i18n">Provides translations for the mod.</param>
-        /// <param name="itemRepository">Provides methods for searching and constructing items.</param>
-        public ItemMenu(MenuTab currentTab, ItemSort sortBy, ItemQuality quality, string search, ITranslationHelper i18n, ItemRepository itemRepository)
-          : base(null, true, true, 0, -50)
+        /// <param name="spawnableItems">The items available to spawn.</param>
+        /// <param name="content">The content helper for loading assets.</param>
+        /// <param name="monitor">Handles writing to the SMAPI console and log.</param>
+        public ItemMenu(SpawnableItem[] spawnableItems, IContentHelper content, IMonitor monitor)
+            : base(
+                inventory: new List<Item>(),
+                reverseGrab: false,
+                showReceivingMenu: true,
+                highlightFunction: item => true,
+                behaviorOnItemGrab: (item, player) => { },
+                behaviorOnItemSelectFunction: (item, player) => { },
+                message: null,
+                canBeExitedWithKey: true,
+                showOrganizeButton: false,
+                source: SConstants.TargetPlatform == GamePlatform.Android ? ItemGrabMenu.source_chest : ItemGrabMenu.source_none // needed on Android to avoid a malformed UI
+            )
         {
-            // initialise
-            this.TranslationHelper = i18n;
-            this.ItemRepository = itemRepository;
-            this.MovePosition(110, Game1.viewport.Height / 2 - (650 + IClickableMenu.borderWidth * 2) / 2);
-            this.CurrentTab = currentTab;
-            this.SortBy = sortBy;
-            this.Quality = quality;
-            this.SpawnableItems = this.ItemRepository.GetFiltered().Select(p => p.Item).ToArray();
-            this.AllowRightClick = true;
+            // init settings
+            this.BaseDraw = this.GetBaseDraw();
+            this.ItemsInView = this.ItemsToGrabMenu.actualInventory;
+            this.AllItems = spawnableItems;
+            this.Categories = this.GetDisplayCategories(spawnableItems).ToArray();
+            this.Monitor = monitor;
 
-            // create search box
-            int textWidth = Game1.tileSize * 8;
-            this.Textbox = new TextBox(null, null, Game1.dialogueFont, Game1.textColor)
-            {
-                X = this.xPositionOnScreen + (this.width / 2) - (textWidth / 2) - Game1.tileSize + 32,
-                Y = this.yPositionOnScreen + (this.height / 2) + Game1.tileSize * 2 + 40,
-                Width = textWidth,
-                Height = Game1.tileSize * 3,
-                Selected = false,
-                Text = search
-            };
-            Game1.keyboardDispatcher.Subscriber = this.Textbox;
-            this.TextboxBounds = new Rectangle(this.Textbox.X, this.Textbox.Y, this.Textbox.Width, this.Textbox.Height / 3);
+            // init assets
+            this.StarOutlineTexture = content.Load<Texture2D>("assets/empty-quality.png");
+            this.SortTexture = content.Load<Texture2D>("assets/sort.png");
 
-            // create buttons
-            this.Title = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.width - Game1.tileSize, this.yPositionOnScreen - Game1.tileSize * 2, Game1.tileSize * 4, Game1.tileSize), i18n.Get("title"));
-            this.QualityButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen - Game1.tileSize * 2 + 10, (int)Game1.smallFont.MeasureString(i18n.Get("labels.quality")).X, Game1.tileSize), i18n.Get("labels.quality"));
-            this.SortButton = new ClickableComponent(new Rectangle(this.xPositionOnScreen + this.QualityButton.bounds.Width + 40, this.yPositionOnScreen - Game1.tileSize * 2 + 10, Game1.tileSize * 4, Game1.tileSize), this.GetSortLabel(sortBy));
-            this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(this.xPositionOnScreen + this.width - Game1.tileSize / 2, this.yPositionOnScreen - Game1.tileSize, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
-            this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.xPositionOnScreen + this.width - Game1.tileSize / 2, this.yPositionOnScreen + this.height / 2 - Game1.tileSize * 2, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
+            // init base UI
+            if (!this.IsAndroid)
+                this.drawBG = false; // handled manually to draw arrows between background and menu
+            this.behaviorOnItemGrab = this.OnItemGrab;
 
-            // create tabs
-            {
-                int i = -1;
-
-                int x = (int)(this.xPositionOnScreen - Game1.tileSize * 5.3f);
-                int y = this.yPositionOnScreen + 10;
-                int lblHeight = (int)(Game1.tileSize * 0.9F);
-
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.All.ToString(), i18n.Get("tabs.all")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ToolsAndEquipment.ToString(), i18n.Get("tabs.equipment")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.SeedsAndCrops.ToString(), i18n.Get("tabs.crops")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.FishAndBaitAndTrash.ToString(), i18n.Get("tabs.fishing")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ForageAndFruits.ToString(), i18n.Get("tabs.forage")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ArtifactsAndMinerals.ToString(), i18n.Get("tabs.artifacts-and-minerals")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ResourcesAndCrafting.ToString(), i18n.Get("tabs.resources-and-crafting")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.ArtisanAndCooking.ToString(), i18n.Get("tabs.artisan-and-cooking")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.AnimalAndMonster.ToString(), i18n.Get("tabs.animal-and-monster")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Decorating.ToString(), i18n.Get("tabs.decorating")));
-                this.Tabs.Add(new ClickableComponent(new Rectangle(x, y + lblHeight * i, Game1.tileSize * 5, Game1.tileSize), MenuTab.Misc.ToString(), i18n.Get("tabs.miscellaneous")));
-            }
-
-            // load items
-            this.LoadInventory(this.SpawnableItems);
+            // init custom UI
+            this.InitializeComponents();
+            this.ResetItemView(rebuild: true);
         }
 
-        /// <summary>Construct an instance.</summary>
-        /// <param name="i18n">Provides translations for the mod.</param>
-        /// <param name="itemRepository">Provides methods for searching and constructing items.</param>
-        public ItemMenu(ITranslationHelper i18n, ItemRepository itemRepository)
-            : this(0, 0, ItemQuality.Normal, "", i18n, itemRepository) { }
-
-        /// <summary>Whether controller-style menus should be disabled for this menu.</summary>
-        public override bool overrideSnappyMenuCursorMovementBan()
-        {
-            return true;
-        }
-
-        /// <summary>Handle the player clicking the right mouse button.</summary>
-        /// <param name="x">The cursor's X pixel position.</param>
-        /// <param name="y">The cursor's Y pixel position.</param>
-        /// <param name="playSound">Whether to play a sound if needed.</param>
-        public override void receiveRightClick(int x, int y, bool playSound = true)
-        {
-            if (this.TextboxBounds.Contains(x, y))
-            {
-                this.Textbox.Text = "";
-                return;
-            }
-            if (!this.AllowRightClick)
-                return;
-            base.receiveRightClick(x, y, false);
-            if (this.HeldItem == null && this.ShowReceivingMenu)
-            {
-                this.HeldItem = this.ItemsToGrabMenu.RightClick(x, y, this.HeldItem, false);
-                if (this.HeldItem is SObject obj && obj.ParentSheetIndex == 326)
-                {
-                    this.HeldItem = null;
-                    Game1.player.canUnderstandDwarves = true;
-                    this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % 64 + 16, y - y % 64 + 16), false, false);
-                    Game1.playSound("fireball");
-                }
-                else if (this.HeldItem is SObject recipe && recipe.IsRecipe)
-                {
-                    string key = this.HeldItem.Name.Substring(0, recipe.Name.IndexOf("Recipe", StringComparison.InvariantCultureIgnoreCase) - 1);
-                    try
-                    {
-                        if (recipe.Category == -7)
-                            Game1.player.cookingRecipes.Add(key, 0);
-                        else
-                            Game1.player.craftingRecipes.Add(key, 0);
-                        this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % 64 + 16, y - y % 64 + 16), false, false);
-                        Game1.playSound("newRecipe");
-                    }
-                    catch
-                    {
-                        // deliberately ignore errors
-                    }
-                    this.HeldItem = null;
-                }
-                else
-                {
-                    if (!Game1.player.addItemToInventoryBool(this.HeldItem))
-                        return;
-                    this.HeldItem = null;
-                    Game1.playSound("coin");
-                }
-            }
-        }
-
-        /// <summary>Handle the game window being resized.</summary>
-        /// <param name="oldBounds">The previous position and size.</param>
-        /// <param name="newBounds">The current position and size.</param>
-        public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)
-        {
-            this.Reopen();
-        }
-
-        /// <summary>Handle the player clicking the left mouse button.</summary>
-        /// <param name="x">The cursor's X pixel position.</param>
-        /// <param name="y">The cursor's Y pixel position.</param>
-        /// <param name="playSound">Whether to play a sound if needed.</param>
+        /// <summary>Handle a left-click by the player.</summary>
+        /// <param name="x">The X-position of the cursor.</param>
+        /// <param name="y">The Y-position of the cursor.</param>
+        /// <param name="playSound">Whether to play interaction sounds.</param>
+        /// <returns>Whether the event has been handled and shouldn't be propagated further.</returns>
         public override void receiveLeftClick(int x, int y, bool playSound = true)
         {
-            base.receiveLeftClick(x, y, playSound);
-
-            // deselect textbox
-            bool justDeselectedSearch = this.Textbox.Selected && !this.TextboxBounds.Contains(x, y);
-            if (justDeselectedSearch)
-                this.DeselectSearchBox();
-
-            // handle general UI
-            if (this.HeldItem == null)
+            // allow trashing any item
+            if (this.trashCan.containsPoint(x, y) && this.heldItem != null)
             {
-                foreach (ClickableComponent tab in this.Tabs)
-                {
-                    if (tab.bounds.Contains(x, y))
-                    {
-                        Game1.exitActiveMenu();
-                        ItemInventoryMenu.ScrollIndex = 0;
-                        MenuTab tabID = this.GetTabID(tab);
-                        this.Reopen(tabID);
-                        break;
-                    }
-                }
+                Utility.trashItem(this.heldItem);
+                this.heldItem = null;
+            }
 
-                if (this.SortButton.bounds.Contains(x, y))
-                    this.Reopen(sortBy: this.SortBy.GetNext());
+            // sort button
+            else if (this.SortButton.bounds.Contains(x, y))
+            {
+                this.SortBy = this.SortBy.GetNext();
+                this.SortButton.label = this.SortButton.name = this.GetSortLabel(this.SortBy);
+                this.ResetItemView(rebuild: true);
+            }
 
-                if (this.QualityButton.bounds.Contains(x, y))
-                {
-                    ItemQuality quality = this.Quality != this.Quality.GetNext()
-                        ? this.Quality.GetNext()
-                        : ItemQuality.Normal;
-                    this.Reopen(quality: quality);
-                }
+            // quality button
+            else if (this.QualityButton.bounds.Contains(x, y))
+            {
+                this.Quality = this.Quality.GetNext();
+                this.ResetItemView();
+            }
 
-                if (this.UpArrow.bounds.Contains(x, y))
-                    this.ItemsToGrabMenu?.receiveScrollWheelAction(1);
+            // scroll buttons
+            else if (this.UpArrow.bounds.Contains(x, y))
+                this.receiveScrollWheelAction(1);
+            else if (this.DownArrow.bounds.Contains(x, y))
+                this.receiveScrollWheelAction(-1);
 
-                if (this.DownArrow.bounds.Contains(x, y))
-                    this.ItemsToGrabMenu?.receiveScrollWheelAction(-1);
+            // category dropdown
+            else if (this.CategoryDropdown.TryClick(x, y, out bool itemClicked, out bool dropdownToggled))
+            {
+                if (dropdownToggled)
+                    this.SetDropdown(this.CategoryDropdown.IsExpanded);
+                if (itemClicked)
+                    this.SetCategory(this.CategoryDropdown.Selected);
+            }
 
-                if (!justDeselectedSearch && (!this.Textbox.Selected || !this.TextboxExplicitlySelected) && this.TextboxBounds.Contains(x, y))
+            // textbox
+            else if (this.SearchBoxBounds.Contains(x, y))
+            {
+                if (!this.SearchBox.Selected || !this.TextboxExplicitlySelected)
                     this.SelectSearchBox(explicitly: true);
             }
 
-            // take item from menu
-            if (this.HeldItem == null && this.ShowReceivingMenu)
+            // fallback
+            else
             {
-                this.HeldItem = this.ItemsToGrabMenu?.LeftClick(x, y, this.HeldItem, false);
-                SObject obj = this.HeldItem as SObject;
+                // deselect textbox
+                bool justDeselectedSearch = this.SearchBox.Selected;
+                if (justDeselectedSearch)
+                    this.DeselectSearchBox();
 
-                // read Dwarvish Translation Guide
-                if (obj != null && obj.ParentSheetIndex == 326)
-                {
-                    this.HeldItem = null;
-                    Game1.player.canUnderstandDwarves = true;
-                    this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
-                    Game1.playSound("fireball");
-                }
-
-                // read Lost Book
-                else if (obj != null && obj.ParentSheetIndex == 102)
-                {
-                    this.HeldItem = null;
-                    Game1.player.foundArtifact(102, 1);
-                    this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
-                    Game1.playSound("fireball");
-                }
-
-                // learn recipe
-                else if (obj != null && obj.IsRecipe)
-                {
-                    string key = obj.Name.Substring(0, obj.Name.IndexOf("Recipe", StringComparison.InvariantCultureIgnoreCase) - 1);
-                    try
-                    {
-                        if (obj.Category == -7)
-                            Game1.player.cookingRecipes.Add(key, 0);
-                        else
-                            Game1.player.craftingRecipes.Add(key, 0);
-                        this.Poof = new TemporaryAnimatedSprite("TileSheets\\animations", new Rectangle(0, 320, 64, 64), 50f, 8, 0, new Vector2(x - x % Game1.tileSize + Game1.tileSize / 4, y - y % Game1.tileSize + Game1.tileSize / 4), false, false);
-                        Game1.playSound("newRecipe");
-                    }
-                    catch
-                    {
-                        // deliberately ignore errors
-                    }
-                    this.HeldItem = null;
-                }
-
-                // take normal item
-                else if (this.HeldItem != null && Game1.player.addItemToInventoryBool(this.HeldItem))
-                {
-                    this.HeldItem = null;
-                    Game1.playSound("coin");
-                }
+                // default behavior
+                base.receiveLeftClick(x, y, playSound);
             }
 
-            // drop item
-            if (this.HeldItem != null && !this.isWithinBounds(x, y) && this.HeldItem.canBeTrashed())
-            {
-                Game1.playSound("throwDownITem");
-                Game1.createItemDebris(this.HeldItem, Game1.player.getStandingPosition(), Game1.player.FacingDirection);
-                this.HeldItem = null;
-            }
         }
 
-        public bool AreAllItemsTaken()
+        /// <summary>Handle a right-click by the player.</summary>
+        /// <param name="x">The X-position of the cursor.</param>
+        /// <param name="y">The Y-position of the cursor.</param>
+        /// <param name="playSound">Whether to play interaction sounds.</param>
+        public override void receiveRightClick(int x, int y, bool playSound = true)
         {
-            return this.ItemsToGrabMenu.ActualInventory.All(t => t == null);
+            // clear search box
+            if (this.SearchBoxBounds.Contains(x, y))
+                this.SearchBox.Text = "";
+
+            // close dropdown
+            else if (this.CategoryDropdown.IsExpanded)
+                this.SetDropdown(false);
+
+            // default behavior
+            else
+                base.receiveRightClick(x, y, playSound);
         }
 
-        /// <summary>Handle the player pressing a keyboard button.</summary>
-        /// <param name="key">The key that was pressed.</param>
+        /// <summary>Handle a button press by the player.</summary>
+        /// <param name="key">The button that was pressed.</param>
         public override void receiveKeyPress(Keys key)
         {
-            if (this.Textbox.Selected)
-                return;
+            bool inDropdown = this.CategoryDropdown.IsExpanded;
 
-            if ((this.CanExitOnKey || this.AreAllItemsTaken()) && (Game1.options.doesInputListContain(Game1.options.menuButton, key) && this.readyToClose()))
-            {
-                this.exitThisMenu();
-                if (Game1.currentLocation.currentEvent != null)
-                    ++Game1.currentLocation.currentEvent.CurrentCommand;
-            }
-            else if (Game1.options.doesInputListContain(Game1.options.menuButton, key) && this.HeldItem != null)
-                Game1.setMousePosition(this.TrashCan.bounds.Center);
-            if (key != Keys.Delete || this.HeldItem == null || !this.HeldItem.canBeTrashed())
-                return;
-            if (this.HeldItem is SObject obj && Game1.player.specialItems.Contains(obj.ParentSheetIndex))
-                Game1.player.specialItems.Remove(obj.ParentSheetIndex);
-            this.HeldItem = null;
-            Game1.playSound("trashcan");
-        }
-
-        /// <summary>Update the menu if needed.</summary>
-        /// <param name="time">The current game time.</param>
-        public override void update(GameTime time)
-        {
-            if (this.TextboxExplicitlySelected && !this.Textbox.Selected)
+            // deselect textbox
+            if (this.SearchBox.Selected && key == Keys.Escape)
                 this.DeselectSearchBox();
 
-            if (this.PreviousText != this.Textbox.Text)
+            // close dropdown
+            else if (inDropdown && key == Keys.Escape)
+                this.SetDropdown(false);
+
+            // allow trashing any item
+            else if (key == Keys.Delete && this.heldItem != null)
             {
-                this.PreviousText = this.Textbox.Text;
-                ItemInventoryMenu.ScrollIndex = 0;
-                this.LoadInventory(this.SpawnableItems);
+                Utility.trashItem(this.heldItem);
+                this.heldItem = null;
             }
 
-            base.update(time);
-            if (this.Poof == null || !this.Poof.update(time))
-                return;
-            this.Poof = null;
+            // navigate
+            else if ((key == Keys.Left || key == Keys.Right))
+            {
+                this.NextCategory(key == Keys.Left
+                    ? -1
+                    : 1
+                );
+            }
+
+            // scroll
+            else if (key == Keys.Up || key == Keys.Down)
+            {
+                int direction = key == Keys.Up ? -1 : 1;
+
+                if (inDropdown)
+                    this.CategoryDropdown.ReceiveScrollWheelAction(direction);
+                else
+                    this.ScrollView(direction);
+            }
+
+            // default behavior
+            else if (!this.SearchBox.Selected)
+                base.receiveKeyPress(key);
+        }
+
+        /// <summary>Handle a controller button press by the player.</summary>
+        /// <param name="button">The button that was pressed.</param>
+        public override void receiveGamePadButton(Buttons button)
+        {
+            bool isExitKey = button == Buttons.B || button == Buttons.Y || button == Buttons.Start;
+            bool inDropdown = this.CategoryDropdown.IsExpanded;
+
+            // cancel dropdown
+            if (isExitKey && inDropdown)
+                this.CategoryDropdown.IsExpanded = false;
+
+            // cancel search box
+            else if (isExitKey && this.SearchBox.Selected)
+                this.DeselectSearchBox();
+
+            // navigate category dropdown
+            else if (button == Buttons.LeftTrigger && !inDropdown)
+                this.NextCategory(-1);
+            else if (button == Buttons.RightTrigger && !inDropdown)
+                this.NextCategory(1);
+
+            else
+                base.receiveGamePadButton(button);
+        }
+
+        /// <summary>Handle the player scrolling the mouse wheel.</summary>
+        /// <param name="direction">The scroll direction.</param>
+        public override void receiveScrollWheelAction(int direction)
+        {
+            base.receiveScrollWheelAction(direction);
+
+            // scroll dropdown
+            if (this.CategoryDropdown.IsExpanded)
+                this.CategoryDropdown.ReceiveScrollWheelAction(direction);
+
+            // scroll item view
+            else
+                this.ScrollView(-direction); // higher scroll value = scroll down
         }
 
         /// <summary>Handle the player hovering the cursor over the menu.</summary>
@@ -355,246 +359,477 @@ namespace CJBItemSpawner.Framework
             // handle search box selected
             if (!this.TextboxExplicitlySelected)
             {
-                bool overSearchBox = this.TextboxBounds.Contains(x, y);
-                if (this.Textbox.Selected != overSearchBox)
+                bool overSearchBox = this.SearchBoxBounds.Contains(x, y);
+                if (this.SearchBox.Selected != overSearchBox)
                 {
                     if (overSearchBox)
                         this.SelectSearchBox(explicitly: false);
                     else
                         this.DeselectSearchBox();
-                    return;
                 }
             }
 
-            // hover item/menu
-            if (this.ItemsToGrabMenu.isWithinBounds(x, y) && this.ShowReceivingMenu)
-                this.HoveredItem = this.ItemsToGrabMenu.Hover(x, y, this.HeldItem);
-            else
-                base.performHoverAction(x, y);
+            // base logic
+            base.performHoverAction(x, y);
         }
 
-        /// <summary>Handle the player scrolling the mouse wheel.</summary>
-        /// <param name="direction">The scroll direction.</param>
-        public override void receiveScrollWheelAction(int direction)
+        /// <summary>Update the menu if needed.</summary>
+        /// <param name="time">The current game time.</param>
+        public override void update(GameTime time)
         {
-            if (GameMenu.forcePreventClose)
-                return;
+            // deselect textbox
+            if (this.TextboxExplicitlySelected && !this.SearchBox.Selected)
+                this.DeselectSearchBox();
 
-            if (this.HeldItem == null && this.HoveredItem != null && Game1.oldKBState.IsKeyDown(Keys.LeftShift))
+            // update search text
+            if (this.SearchText != this.SearchBox.Text)
             {
-                try
-                {
-                    SObject obj = (SObject)this.HoveredItem;
-                    obj.Quality = direction > 0
-                        ? (int)((ItemQuality)obj.Quality).GetNext()
-                        : (int)((ItemQuality)obj.Quality).GetPrevious();
-                }
-                catch
-                {
-                    // deliberately ignore errors
-                }
+                this.SearchText = this.SearchBox.Text;
+                this.TopRowIndex = 0;
+                this.ResetItemView(rebuild: true);
             }
-            else
-                this.ItemsToGrabMenu?.receiveScrollWheelAction(direction);
+
+            // fade out search icon on search box selected, fade back in on deselected
+            {
+                float delta = 1.5f / time.ElapsedGameTime.Milliseconds;
+                if (!this.SearchBox.Selected && this.SearchIconOpacity < 1f)
+                    this.SearchIconOpacity = Math.Min(1f, this.SearchIconOpacity + delta);
+                else if (this.SearchBox.Selected && this.SearchIconOpacity > 0f)
+                    this.SearchIconOpacity = Math.Max(0f, this.SearchIconOpacity - delta);
+            }
+
+            // fix empty spots on Android
+            if (this.IsAndroid && this.ItemsInView.Any(p => p == null))
+                this.ResetItemView();
+
+            base.update(time);
         }
 
         /// <summary>Draw the menu to the screen.</summary>
         /// <param name="spriteBatch">The sprite batch being drawn.</param>
         public override void draw(SpriteBatch spriteBatch)
         {
-            if (!Game1.options.showMenuBackground)
-                spriteBatch.Draw(Game1.fadeToBlackRect, Game1.graphics.GraphicsDevice.Viewport.Bounds, Color.Black * 0.8f);
-            this.Textbox.Draw(spriteBatch);
-            this.Draw(spriteBatch, false, false);
-            if (this.ShowReceivingMenu)
+            // draw arrows under base UI, so tooltips are drawn over them
+            void DrawArrows()
             {
-                CommonHelper.DrawTextBox(this.Title.bounds.X, this.Title.bounds.Y, Game1.dialogueFont, this.Title.name, 2);
-                Game1.drawDialogueBox(this.ItemsToGrabMenu.xPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearSideBorder, this.ItemsToGrabMenu.yPositionOnScreen - IClickableMenu.borderWidth - IClickableMenu.spaceToClearTopBorder, this.ItemsToGrabMenu.width + IClickableMenu.borderWidth * 2 + IClickableMenu.spaceToClearSideBorder * 2, this.ItemsToGrabMenu.height + IClickableMenu.spaceToClearTopBorder + IClickableMenu.borderWidth * 2, false, true);
-                this.ItemsToGrabMenu.draw(spriteBatch);
-                foreach (ClickableComponent tab in this.Tabs)
-                {
-                    MenuTab tabID = this.GetTabID(tab);
-                    CommonHelper.DrawTextBox(tab.bounds.X + tab.bounds.Width, tab.bounds.Y, Game1.smallFont, tab.label, 2, this.CurrentTab == tabID ? 1F : 0.7F);
-                }
-
-                CommonHelper.DrawTextBox(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name);
-                CommonHelper.DrawTextBox(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, Game1.smallFont, this.QualityButton.name);
-
-                this.UpArrow.draw(spriteBatch);
-                this.DownArrow.draw(spriteBatch);
+                if (this.CanScrollUp)
+                    this.UpArrow.draw(spriteBatch);
+                if (this.CanScrollDown)
+                    this.DownArrow.draw(spriteBatch);
+            }
+            if (!this.IsAndroid)
+            {
+                spriteBatch.Draw(Game1.fadeToBlackRect, new Rectangle(0, 0, Game1.viewport.Width, Game1.viewport.Height), Color.Black * 0.5f); // replicate base.drawBG so arrows are above it
+                CommonHelper.DrawTab(this.SearchBoxBounds.X, this.SearchBoxBounds.Y - CommonHelper.ButtonBorderWidth / 2, this.SearchBoxBounds.Width - CommonHelper.ButtonBorderWidth * 3 / 2, this.SearchBoxBounds.Height - CommonHelper.ButtonBorderWidth, out _, drawShadow: this.IsAndroid);
+                DrawArrows();
+                this.BaseDraw(spriteBatch);
+            }
+            else
+            {
+                this.BaseDraw(spriteBatch);
+                DrawArrows();
             }
 
-            this.Poof?.draw(spriteBatch, true);
-            if (this.HoverText != null && (this.HoveredItem == null || this.ItemsToGrabMenu == null))
+            // draw buttons
+            CommonHelper.DrawTab(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, this.QualityButton.bounds.Width - CommonHelper.ButtonBorderWidth, this.QualityButton.bounds.Height - CommonHelper.ButtonBorderWidth, out Vector2 qualityIconPos, drawShadow: this.IsAndroid);
+            CommonHelper.DrawTab(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name, drawShadow: this.IsAndroid);
+            this.SortIcon.draw(spriteBatch);
+
+            // draw quality icon
             {
-                if (this.HoverAmount > 0)
-                    IClickableMenu.drawToolTip(spriteBatch, this.HoverText, "", null, true, -1, 0, -1, -1, null, this.HoverAmount);
-                else
-                    IClickableMenu.drawHoverText(spriteBatch, this.HoverText, Game1.smallFont);
+                this.GetQualityIcon(out Texture2D texture, out Rectangle sourceRect, out Color color);
+                spriteBatch.Draw(texture, new Vector2(qualityIconPos.X, qualityIconPos.Y - 1 * Game1.pixelZoom), sourceRect, color, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
             }
 
-            if (this.HoveredItem != null)
-                IClickableMenu.drawToolTip(spriteBatch, this.HoveredItem.getDescription(), this.HoveredItem.DisplayName, this.HoveredItem, this.HeldItem != null);
-            else if (this.HoveredItem != null && this.ItemsToGrabMenu != null)
-                IClickableMenu.drawToolTip(spriteBatch, this.ItemsToGrabMenu.DescriptionText, this.ItemsToGrabMenu.DescriptionTitle, this.HoveredItem, this.HeldItem != null);
-            this.HeldItem?.drawInMenu(spriteBatch, new Vector2(Game1.getOldMouseX() + 8, Game1.getOldMouseY() + 8), 1f);
+            // draw category dropdown
+            {
+                Vector2 position = new Vector2(this.CategoryDropdown.bounds.X + this.CategoryDropdown.bounds.Width - 3 * Game1.pixelZoom, this.CategoryDropdown.bounds.Y + 2 * Game1.pixelZoom);
+                Rectangle sourceRect = new Rectangle(437, 450, 10, 11); // down triangle
+                spriteBatch.Draw(Game1.mouseCursors, position, sourceRect, Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
+                if (this.CategoryDropdown.IsExpanded)
+                    spriteBatch.Draw(Game1.mouseCursors, new Vector2(position.X + 2 * Game1.pixelZoom, position.Y + 3 * Game1.pixelZoom), new Rectangle(sourceRect.X + 2, sourceRect.Y + 3, 5, 6), Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.FlipVertically, 1f); // right triangle
 
-            if (!Game1.options.hardwareCursor)
-                spriteBatch.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 0, 16, 16), Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
+                this.CategoryDropdown.Draw(spriteBatch);
+            }
+
+            // draw search box
+            this.SearchBox.Draw(spriteBatch);
+            spriteBatch.Draw(this.SearchIcon.texture, this.SearchIcon.bounds, this.SearchIcon.sourceRect, Color.White * this.SearchIconOpacity);
+            //this.SearchIcon.draw(spriteBatch, Color.White * this.SearchIconOpacity, 1);
+
+            // redraw cursor over new UI
+            this.drawMouse(spriteBatch);
         }
 
 
         /*********
         ** Private methods
         *********/
-        private void Reopen(MenuTab? tabIndex = null, ItemSort? sortBy = null, ItemQuality? quality = null, string search = null)
+        /// <summary>Get the icon to draw on the quality button.</summary>
+        /// <param name="texture">The texture containing the icon.</param>
+        /// <param name="sourceRect">The icon's pixel area within the texture.</param>
+        /// <param name="color">The icon color and transparency.</param>
+        private void GetQualityIcon(out Texture2D texture, out Rectangle sourceRect, out Color color)
         {
-            Game1.activeClickableMenu = new ItemMenu(tabIndex ?? this.CurrentTab, sortBy ?? this.SortBy, quality ?? this.Quality, search ?? this.PreviousText, this.TranslationHelper, this.ItemRepository);
+            texture = Game1.mouseCursors;
+            color = Color.White;
+
+            switch (this.Quality)
+            {
+                case ItemQuality.Normal:
+                    texture = this.StarOutlineTexture;
+                    sourceRect = new Rectangle(0, 0, texture.Width, texture.Height);
+                    color = color * 0.65f;
+                    break;
+
+                case ItemQuality.Silver:
+                    sourceRect = new Rectangle(338, 400, 8, 8); // silver
+                    break;
+
+                case ItemQuality.Gold:
+                    sourceRect = new Rectangle(346, 400, 8, 8); // gold
+                    break;
+
+                default:
+                    sourceRect = new Rectangle(346, 392, 8, 8); // iridium
+                    break;
+            }
         }
 
-        /// <summary>Set the search texbox selected.</summary>
+        /// <summary>Get the categories to show in the UI.</summary>
+        /// <param name="items">The items that can be spawned.</param>
+        private IEnumerable<string> GetDisplayCategories(SpawnableItem[] items)
+        {
+            string all = I18n.Filter_All();
+            string misc = I18n.Filter_Miscellaneous();
+
+            HashSet<string> categories = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (SpawnableItem item in items)
+            {
+                if (this.EqualsCaseInsensitive(item.Category, all) || this.EqualsCaseInsensitive(item.Category, misc))
+                    continue;
+                categories.Add(item.Category);
+            }
+
+            yield return all;
+            foreach (string category in categories.OrderBy(p => p, StringComparer.OrdinalIgnoreCase))
+                yield return category;
+            yield return misc;
+        }
+
+        /// <summary>Initialize the custom UI components.</summary>
+        private void InitializeComponents()
+        {
+            // get basic positions
+            int x = this.xPositionOnScreen;
+            int y = this.yPositionOnScreen;
+            int right = x + this.width;
+            int top = this.IsAndroid
+                ? y - (CommonSprites.Tab.Top.Height * Game1.pixelZoom) // at top of screen, moved up slightly to reduce overlap over items
+                : y - Game1.tileSize * 2 + 10; // above menu
+
+            // basic UI
+            this.QualityButton = new ClickableComponent(new Rectangle(x - 2 * Game1.pixelZoom, top, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth - 2), ""); // manually tweak height to align with sort button
+            this.SortButton = new ClickableComponent(new Rectangle(this.QualityButton.bounds.Right + 20, top, this.GetMaxSortLabelWidth(Game1.smallFont) + CommonHelper.ButtonBorderWidth, Game1.tileSize), this.GetSortLabel(this.SortBy));
+            this.SortIcon = new ClickableTextureComponent(new Rectangle(this.SortButton.bounds.X + CommonHelper.ButtonBorderWidth, top + CommonHelper.ButtonBorderWidth, this.SortTexture.Width, Game1.tileSize), this.SortTexture, new Rectangle(0, 0, this.SortTexture.Width, this.SortTexture.Height), 1f);
+            this.CategoryDropdown = new Dropdown<string>(this.SortButton.bounds.Right + 20, this.SortButton.bounds.Y, Game1.smallFont, this.CategoryDropdown?.Selected ?? I18n.Filter_All(), this.Categories, p => p);
+            this.UpArrow = new ClickableTextureComponent(new Rectangle(right - 32, y - 64, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
+            this.DownArrow = new ClickableTextureComponent(new Rectangle(this.UpArrow.bounds.X, this.UpArrow.bounds.Y + this.height / 2 - 64, this.UpArrow.bounds.Width, this.UpArrow.bounds.Height), Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
+
+            // search box
+            // aligned to the right, stretched to fit space between category dropdown and right margin up to a max width
+            {
+                int maxWidth = (int)Game1.smallFont.MeasureString("ABCDEFGHIJKLMNOPQRSTUVWXYZ").X;
+                int leftSpacing = 10 * Game1.pixelZoom; // min space between category dropdown and search box
+                int searchRight = this.IsAndroid
+                    ? this.upperRightCloseButton.bounds.X - 5 * Game1.pixelZoom
+                    : right - 13 * Game1.pixelZoom;
+
+                int searchWidth = Math.Min(searchRight - this.CategoryDropdown.bounds.Right - leftSpacing + 10, maxWidth);
+                int searchX = searchRight - searchWidth;
+
+                this.SearchBox = new TextBox(Game1.content.Load<Texture2D>("LooseSprites\\textBox"), null, Game1.smallFont, Game1.textColor)
+                {
+                    X = searchX,
+                    Y = top + 6,
+                    Height = 0,
+                    Width = searchWidth,
+                    Text = this.SearchText
+                };
+                this.SearchBoxBounds = new Rectangle(this.SearchBox.X, this.SearchBox.Y + 4, this.SearchBox.Width, 12 * Game1.pixelZoom);
+                this.SearchBoxArea = new ClickableComponent(new Rectangle(this.SearchBoxBounds.X, this.SearchBoxBounds.Y, this.SearchBoxBounds.Width, this.SearchBoxBounds.Height), "");
+            }
+
+            // search icon
+            {
+                var iconRect = new Rectangle(80, 0, 13, 13);
+                float scale = 2.5f;
+                var iconBounds = new Rectangle(
+                    x: (int)(this.SearchBoxBounds.Right - (iconRect.Width * scale)),
+                    y: (int)(this.SearchBoxBounds.Center.Y - (iconRect.Height / 2f * scale)),
+                    width: (int)(iconRect.Width * scale),
+                    height: (int)(iconRect.Height * scale)
+                );
+                this.SearchIcon = new ClickableTextureComponent(iconBounds, Game1.mouseCursors, iconRect, scale);
+            }
+
+            // move layout for Android
+            if (this.IsAndroid)
+            {
+                this.UpArrow.bounds.X = this.upperRightCloseButton.bounds.Center.X - this.SortButton.bounds.Width / 2;
+                this.UpArrow.bounds.Y = this.upperRightCloseButton.bounds.Bottom;
+                this.DownArrow.bounds.X = this.UpArrow.bounds.X;
+            }
+
+            // controller flow
+            this.InitializeControllerFlow();
+        }
+
+        /// <summary>Set the fields to support controller snapping.</summary>
+        private void InitializeControllerFlow()
+        {
+            // implementation notes:
+            //   - search box is deliberately excluded from controller flow since you can't enter values.
+            //   - CategoryDropdown down neighbor ID is auto-managed depending on whether it's expanded.
+
+            if (this.IsAndroid)
+                return; // no controller on Android, and crashes due to Android-specific changes to the menu
+
+            // get components
+            List<ClickableComponent> slots = this.ItemsToGrabMenu.inventory;
+
+            // update component list
+            this.ChildComponents.Clear();
+            this.ChildComponents.AddRange(new[] { this.QualityButton, this.SortButton, this.UpArrow, this.DownArrow, this.SearchBoxArea, this.CategoryDropdown });
+
+            // set IDs
+            {
+                int curId = 1_000_000;
+                foreach (ClickableComponent component in this.ChildComponents)
+                    component.myID = curId++;
+            }
+
+            // rightward flow across custom UI
+            this.QualityButton.rightNeighborID = this.SortButton.myID;
+            this.SortButton.rightNeighborID = this.CategoryDropdown.myID;
+            this.CategoryDropdown.rightNeighborID = this.UpArrow.myID;
+            this.UpArrow.downNeighborID = this.DownArrow.myID;
+
+            // leftward flow across custom UI
+            this.UpArrow.upNeighborID = this.CategoryDropdown.myID;
+            this.CategoryDropdown.leftNeighborID = this.SortButton.myID;
+            this.SortButton.leftNeighborID = this.QualityButton.myID;
+
+            // downward flow into inventory
+            this.QualityButton.downNeighborID = slots[0].myID;
+            this.SortButton.downNeighborID = slots[1].myID;
+            this.CategoryDropdown.DefaultDownNeighborId = slots[5].myID;
+            this.DownArrow.leftNeighborID = slots.Last().myID;
+            this.DownArrow.downNeighborID = this.trashCan.myID;
+
+            // upward flow into custom UI
+            slots[0].upNeighborID = this.QualityButton.myID;
+            foreach (int i in new[] { 1, 2 })
+                slots[i].upNeighborID = this.SortButton.myID;
+            foreach (int i in new[] { 3, 4, 5, 6, 8, 9, 10, 11 })
+                slots[i].upNeighborID = this.QualityButton.myID;
+            foreach (int i in new[] { 11, 23 })
+                slots[i].rightNeighborID = this.UpArrow.myID;
+            slots.Last().rightNeighborID = this.DownArrow.myID;
+            this.trashCan.upNeighborID = this.DownArrow.myID;
+
+            // dropdown entries
+            this.CategoryDropdown.ReinitializeControllerFlow();
+            this.ChildComponents.AddRange(this.CategoryDropdown.GetChildComponents());
+
+            // update component list
+            this.populateClickableComponentList();
+        }
+
+        /// <summary>Handle the user selecting an item from the menu.</summary>
+        /// <param name="item">The item grabbed from the menu.</param>
+        /// <param name="player">The player who grabbed the item.</param>
+        private void OnItemGrab(Item item, Farmer player)
+        {
+            this.ResetItemView();
+        }
+
+        /// <summary>Expand or collapse the category dropdown.</summary>
+        /// <param name="expanded">Whether the dropdown should be expanded.</param>
+        protected void SetDropdown(bool expanded)
+        {
+            this.CategoryDropdown.IsExpanded = expanded;
+            this.inventory.highlightMethod = item => !expanded;
+            this.ItemsToGrabMenu.highlightMethod = item => !expanded;
+        }
+
+        /// <summary>Switch to the next category.</summary>
+        /// <param name="direction">The direction to move in the category list.</param>
+        protected void NextCategory(int direction)
+        {
+            direction = direction < 0 ? -1 : 1;
+            int last = this.Categories.Length - 1;
+
+            int index = Array.IndexOf(this.Categories, this.CategoryDropdown.Selected) + direction;
+            if (index < 0)
+                index = last;
+            if (index > last)
+                index = 0;
+
+            this.SetCategory(this.Categories[index]);
+        }
+
+        /// <summary>Set the current category.</summary>
+        /// <param name="category">The new category value.</param>
+        protected void SetCategory(string category)
+        {
+            if (!this.CategoryDropdown.TrySelect(category))
+            {
+                this.Monitor.Log($"Failed selecting category filter category '{category}'.", LogLevel.Warn);
+                if (category != I18n.Filter_All())
+                    this.SetCategory(I18n.Filter_All());
+                return;
+            }
+
+            this.ResetItemView(rebuild: true);
+        }
+
+        /// <summary>Scroll the item view.</summary>
+        /// <param name="direction">The scroll direction.</param>
+        /// <param name="resetItemView">Whether to update the item view.</param>
+        public void ScrollView(int direction, bool resetItemView = true)
+        {
+            // apply scroll
+            if (direction < 0)
+                this.TopRowIndex--;
+            else if (direction > 0)
+                this.TopRowIndex++;
+
+            // normalize scroll
+            this.TopRowIndex = (int)MathHelper.Clamp(this.TopRowIndex, 0, this.MaxTopRowIndex);
+
+            // update view
+            if (resetItemView)
+                this.ResetItemView();
+        }
+
+        /// <summary>Set the search textbox selected.</summary>
         /// <param name="explicitly">Whether the textbox was selected explicitly by the user (rather than automatically by hovering), so the selection should be maintained.</param>
         private void SelectSearchBox(bool explicitly)
         {
-            this.Textbox.Selected = true;
+            this.SearchBox.Selected = true;
             this.TextboxExplicitlySelected = explicitly;
+            this.SearchBox.Width = this.SearchBoxBounds.Width;
         }
 
-        /// <summary>Set the search texbox non-selected.</summary>
+        /// <summary>Set the search textbox non-selected.</summary>
         private void DeselectSearchBox()
         {
-            this.Textbox.Selected = false;
+            this.SearchBox.Selected = false;
             this.TextboxExplicitlySelected = false;
+            this.SearchBox.Width = this.SearchIcon.bounds.X - this.SearchBox.X + this.SearchIcon.bounds.Width + 10 - this.SearchIcon.bounds.Width - 6 * Game1.pixelZoom;
+        }
+
+        /// <summary>Reset the items shown in the view.</summary>
+        /// <param name="rebuild">Whether to rebuild the search results.</param>
+        private void ResetItemView(bool rebuild = false)
+        {
+            // rebuild underlying list
+            if (rebuild)
+            {
+                this.FilteredItems.Clear();
+                this.FilteredItems.AddRange(this.SearchItems());
+                this.TopRowIndex = 0;
+            }
+
+            // fix scroll if needed
+            int totalRows = (int)Math.Ceiling(this.FilteredItems.Count / (this.ItemsPerRow * 1m));
+            this.MaxTopRowIndex = Math.Max(0, totalRows - 3);
+            this.ScrollView(0, resetItemView: false);
+
+            // update items in view
+            this.ItemsInView.Clear();
+            foreach (var match in this.FilteredItems.Skip(this.TopRowIndex * this.ItemsPerRow).Take(this.ItemsPerView))
+            {
+                Item item = match.CreateItem();
+                item.Stack = item.maximumStackSize();
+                if (item is SObject obj && !this.ItemsWithoutQuality.Contains(obj.ParentSheetIndex))
+                    obj.Quality = (int)this.Quality;
+
+                this.ItemsInView.Add(item);
+            }
+        }
+
+        /// <summary>Get all items matching the search criteria, ignoring pagination.</summary>
+        private IEnumerable<SpawnableItem> SearchItems()
+        {
+            // get base query
+            IEnumerable<SpawnableItem> items = this.AllItems;
+            items = this.SortBy switch
+            {
+                ItemSort.Type => items.OrderBy(p => p.Item.Category),
+                ItemSort.ID => items.OrderBy(p => p.Item.ParentSheetIndex),
+                _ => items.OrderBy(p => p.Item.DisplayName)
+            };
+
+            // apply menu tab
+            if (!this.EqualsCaseInsensitive(this.CategoryDropdown.Selected, I18n.Filter_All()))
+                items = items.Where(item => this.EqualsCaseInsensitive(item.Category, this.CategoryDropdown.Selected));
+
+            // apply search
+            string search = this.SearchBox.Text.Trim();
+            if (search != "")
+            {
+                items = items.Where(item =>
+                    item.Name.IndexOf(search, StringComparison.InvariantCultureIgnoreCase) >= 0
+                    || item.DisplayName.IndexOf(search, StringComparison.InvariantCultureIgnoreCase) >= 0
+                );
+            }
+
+            return items;
         }
 
         /// <summary>Get the translated label for a sort type.</summary>
         /// <param name="sort">The sort type.</param>
         private string GetSortLabel(ItemSort sort)
         {
-            return sort switch
+            return "    " + sort switch // leave space for sort icon
             {
-                ItemSort.DisplayName => this.TranslationHelper.Get("labels.sort-by-name"),
-                ItemSort.Category => this.TranslationHelper.Get("labels.sort-by-category"),
-                ItemSort.ID => this.TranslationHelper.Get("labels.sort-by-id"),
+                ItemSort.DisplayName => I18n.Sort_ByName(),
+                ItemSort.Type => I18n.Sort_ByType(),
+                ItemSort.ID => I18n.Sort_ById(),
                 _ => throw new NotSupportedException($"Invalid sort type {sort}.")
             };
         }
 
-        /// <summary>Get the tab constant represented by a tab component.</summary>
-        /// <param name="tab">The component to check.</param>
-        private MenuTab GetTabID(ClickableComponent tab)
+        /// <summary>Get the maximum width of the sort label.</summary>
+        /// <param name="font">The text font.</param>
+        private int GetMaxSortLabelWidth(SpriteFont font)
         {
-            if (!Enum.TryParse(tab.name, out MenuTab tabID))
-                throw new InvalidOperationException($"Couldn't parse tab name '{tab.name}'.");
-            return tabID;
+            return
+                (
+                    from ItemSort key in Enum.GetValues(typeof(ItemSort))
+                    let text = this.GetSortLabel(key)
+                    select (int)font.MeasureString(text).X
+                )
+                .Max();
         }
 
-        private void LoadInventory(Item[] spawnableItems)
+        /// <summary>Get an action wrapper which invokes <see cref="ItemGrabMenu.draw(SpriteBatch)"/>.</summary>
+        /// <remarks>See remarks on <see cref="BaseDraw"/>.</remarks>
+        private Action<SpriteBatch> GetBaseDraw()
         {
-            // sort items
-            spawnableItems =
-                (this.SortBy switch
-                {
-                    ItemSort.Category => spawnableItems.OrderBy(o => o.Category),
-                    ItemSort.ID => spawnableItems.OrderBy(o => o.ParentSheetIndex),
-                    _ => spawnableItems.OrderBy(o => o.DisplayName)
-                })
-                .ToArray();
-
-            // load inventory
-            List<Item> inventoryItems = new List<Item>();
-            string search = this.Textbox.Text.Trim();
-            foreach (Item item in spawnableItems)
-            {
-                // get item
-                item.Stack = item.maximumStackSize();
-                if (item is SObject obj)
-                    obj.Quality = (int)this.Quality;
-
-                // skip if not applicable
-                if (this.CurrentTab != MenuTab.All && this.GetRelevantTab(item) != this.CurrentTab)
-                    continue;
-                if (search != "" && item.Name.IndexOf(search, StringComparison.InvariantCultureIgnoreCase) < 0 && item.DisplayName.IndexOf(search, StringComparison.InvariantCultureIgnoreCase) < 0)
-                    continue;
-
-                // add to inventory
-                inventoryItems.Add(item);
-            }
-
-            // show menu
-            this.ItemsToGrabMenu = new ItemInventoryMenu(this.xPositionOnScreen + Game1.tileSize / 2, this.yPositionOnScreen, false, inventoryItems);
+            MethodInfo method = typeof(ItemGrabMenu).GetMethod("draw", BindingFlags.Instance | BindingFlags.Public, null, new[] { typeof(SpriteBatch) }, null) ?? throw new InvalidOperationException($"Can't find {nameof(ItemGrabMenu)}.{nameof(ItemGrabMenu.draw)} method.");
+            IntPtr pointer = method.MethodHandle.GetFunctionPointer();
+            return (Action<SpriteBatch>)Activator.CreateInstance(typeof(Action<SpriteBatch>), this, pointer);
         }
 
-        /// <summary>Get the relevant tab for an item.</summary>
-        /// <param name="item">The item whose tab to check.</param>
-        private MenuTab GetRelevantTab(Item item)
+        /// <summary>Get whether two strings are equal, ignoring case differences.</summary>
+        /// <param name="a">The first string to compare.</param>
+        /// <param name="b">The second string to compare.</param>
+        private bool EqualsCaseInsensitive(string a, string b)
         {
-            // by type
-            switch (item)
-            {
-                case Tool _:
-                case Ring _:
-                case Hat _:
-                case Boots _:
-                case Clothing _:
-                    return MenuTab.ToolsAndEquipment;
-
-                case Furniture _:
-                    return MenuTab.Decorating;
-            }
-
-            // by category
-            switch (item.Category)
-            {
-                case SObject.SeedsCategory:
-                case SObject.VegetableCategory:
-                case SObject.fertilizerCategory:
-                case SObject.flowersCategory:
-                    return MenuTab.SeedsAndCrops;
-
-                case SObject.FishCategory:
-                case SObject.baitCategory:
-                case SObject.junkCategory:
-                case SObject.tackleCategory:
-                    return MenuTab.FishAndBaitAndTrash;
-
-                case SObject.GreensCategory:
-                case SObject.FruitsCategory:
-                    return MenuTab.ForageAndFruits;
-
-                case SObject.mineralsCategory:
-                case SObject.GemCategory:
-                    return MenuTab.ArtifactsAndMinerals;
-
-                case SObject.metalResources:
-                case SObject.buildingResources:
-                case SObject.CraftingCategory:
-                case SObject.BigCraftableCategory:
-                    return MenuTab.ResourcesAndCrafting;
-
-                case SObject.artisanGoodsCategory:
-                case SObject.syrupCategory:
-                case SObject.CookingCategory:
-                case SObject.ingredientsCategory:
-                    return MenuTab.ArtisanAndCooking;
-
-                case SObject.sellAtPierresAndMarnies:
-                case SObject.meatCategory:
-                case SObject.EggCategory:
-                case SObject.MilkCategory:
-                case SObject.monsterLootCategory:
-                    return MenuTab.AnimalAndMonster;
-
-                case SObject.furnitureCategory:
-                    return MenuTab.Decorating;
-            }
-
-            // artifacts
-            if ((item as SObject)?.Type == "Arch")
-                return MenuTab.ArtifactsAndMinerals;
-
-            // anything else
-            return MenuTab.Misc;
+            return string.Equals(a, b, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

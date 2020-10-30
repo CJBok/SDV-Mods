@@ -1,0 +1,236 @@
+/**
+ * The item category filters available in the item spawner menu.
+ *
+ * For each item, a category applies if at least property matches the item. If multiple categories
+ * apply, the first match is used. The UI shows categories in alphabetical order.
+ *
+ * Category properties:
+ *    - Label (required): the translation key or literal text for the category display name. If
+ *      multiple rules have the same label, they're combined into one category in the UI.
+ *    - When (required): rules for items to add to the category.
+ *    - Except: rules for items to ignore.
+ *
+ * Rule properties:
+ *    - Class: the full name of the item's C# instance type.
+ *    - ObjCategory: the object's Category value (see https://stardewvalleywiki.com/Modding:Object_data#Categories).
+ *    - ObjType: the object's Type value (see https://stardewvalleywiki.com/Modding:Object_data).
+ *    - ItemId: the item type and ParentSheetIndex value in the form "type:id".
+ *
+ * Two categories are hardcoded: all (at the top) and miscellaneous (at the bottom).
+ */
+[
+    // tools
+    {
+        "Label": "filter.equipment-tools",
+        "When": {
+            "ObjCategory": [
+                -19, // fertilizer
+                -21, // bait
+                -22, // tackle
+                -99 // tools
+            ],
+            "ItemId": [
+                "Object:261", // warp totem: desert
+                "Object:297", // grass starter
+                "Object:463", // drum block
+                "Object:464", // flute block
+                "Object:681", // rain totem
+                "Object:688", // warp totem: farm
+                "Object:689", // warp totem: mountains
+                "Object:690" // warp totem: beach
+            ]
+        },
+        "Except": {
+            "Class": [ "StardewValley.Tools.Slingshot" ] // has category -99 (tools)
+        }
+    },
+
+    // weapons
+    {
+        "Label": "filter.equipment-weapons",
+        "When": {
+            "ObjCategory": [ -98 ],
+            "Class": [ "StardewValley.Tools.Slingshot" ],
+            "ItemId": [
+                "Object:286", // cherry bomb
+                "Object:287", // bomb
+                "Object:288", // mega bomb
+                "Object:441" // explosive ammo
+            ]
+        }
+    },
+
+    // hats
+    {
+        "Label": "filter.equipment-hats",
+        "When": {
+            "ObjCategory": [ -95 ]
+        }
+    },
+
+    // clothes
+    {
+        "Label": "filter.equipment-clothes",
+        "When": {
+            "ObjCategory": [ -100 ]
+        }
+    },
+
+    // boots
+    {
+        "Label": "filter.equipment-boots",
+        "When": {
+            "ObjCategory": [ -97 ]
+        }
+    },
+
+    // rings
+    {
+        "Label": "filter.equipment-rings",
+        "When": {
+            "ObjCategory": [ -96 ]
+        }
+    },
+
+    // farm: crops
+    {
+        "Label": "filter.farm-crops",
+        "When": {
+            "ObjCategory": [
+                -75, // vegetables
+                -79, // fruit
+                -80, // flowers
+                -81 // greens
+            ],
+            "ItemId": [
+                "Object:417" // sweet gem berry
+            ]
+        }
+    },
+
+    // farm: seeds
+    {
+        "Label": "filter.farm-seeds",
+        "When": {
+            "ObjCategory": [ -74 ]
+        }
+    },
+
+    // farm: animal drops
+    {
+        "Label": "filter.farm-animal-drops",
+        "When": {
+            "ObjCategory": [
+                -5, // eggs
+                -6, // milk
+                -14, // meat
+                -17, // sell at Pierre's
+                -18, // sell at Pierre and Marnie's
+                -28 // monster loot
+            ],
+            "ItemId": [
+                "Object:413", // blue slime egg
+                "Object:437", // red slime egg
+                "Object:439", // purple slime egg
+                "Object:680" // green slime egg
+            ]
+        }
+    },
+
+    // fish
+    {
+        "Label": "filter.fish",
+        "When": {
+            "ObjCategory": [
+                -4, // fish
+                -23 // sell at fish shop
+            ],
+            "ObjType": [ "Fish" ]
+        },
+        "Except": {
+            "ObjCategory": [ -20 ] // trash
+        }
+    },
+
+    // minerals & artifacts
+    {
+        "Label": "filter.minerals-and-artifacts",
+        "When": {
+            "ObjCategory": [
+                -2, // gems
+                -12 // minerals
+            ],
+            "ObjType": [ "Arch" ],
+            "ItemId": [
+                "Object:535", // geode
+                "Object:536", // frozen geode
+                "Object:537", // magma geode
+                "Object:749" // omni geode
+            ]
+        }
+    },
+
+    // crafting
+    {
+        "Label": "filter.crafting.resources",
+        "When": {
+            "ObjCategory": [
+                -15, // metals
+                -16 // building resources
+            ]
+        }
+    },
+
+    // craftables
+    {
+        "Label": "filter.crafting.products",
+        "When": {
+            "ObjCategory": [
+                -8, // crafting
+                -9 // big craftables
+            ],
+            "ItemId": [
+                "Object:710" // crab pot
+            ]
+        }
+    },
+
+    // artisan & cooking
+    {
+        "Label": "filter.artisan-and-cooking",
+        "When": {
+            "ObjCategory": [
+                -7, // cooking
+                -25, // ingredients
+                -26, // artisan goods
+                -27 // syrup
+            ],
+            "ItemId": [
+                "Object:245", // sugar
+                "Object:246", // wheat flour
+                "Object:247", // oil
+                "Object:403", // field snack
+                "Object:419", // vinegar
+                "Object:423" // rice
+            ]
+        }
+    },
+
+    // furniture
+    {
+        "Label": "filter.decor.furniture",
+        "When": {
+            "Class": [ "StardewValley.Objects.Furniture" ]
+        }
+    },
+
+    // decorating
+    {
+        "Label": "filter.decor.other",
+        "When": {
+            "ObjCategory": [
+                -24 // furniture (excluding those with the Furniture class above)
+            ]
+        }
+    }
+]

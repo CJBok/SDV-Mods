@@ -24,132 +24,132 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         {
             return this.SortFields(
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.bee-house"),
+                    label: GameI18n.GetBigCraftableName(10),
                     value: context.Config.FastBeeHouse,
                     setValue: value => context.Config.FastBeeHouse = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.cask"),
+                    label: GameI18n.GetBigCraftableName(163),
                     value: context.Config.FastCask,
                     setValue: value => context.Config.FastCask = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.charcoal-kiln"),
+                    label: GameI18n.GetBigCraftableName(114),
                     value: context.Config.FastCharcoalKiln,
                     setValue: value => context.Config.FastCharcoalKiln = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.cheese-press"),
+                    label: GameI18n.GetBigCraftableName(16),
                     value: context.Config.FastCheesePress,
                     setValue: value => context.Config.FastCheesePress = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.crab-pot"),
+                    label: GameI18n.GetObjectName(710),
                     value: context.Config.FastCrabPot,
                     setValue: value => context.Config.FastCrabPot = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.crystalarium"),
+                    label: GameI18n.GetBigCraftableName(21),
                     value: context.Config.FastCrystalarium,
                     setValue: value => context.Config.FastCrystalarium = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.fruit-trees"),
+                    label: I18n.FastMachines_FruitTrees(),
                     value: context.Config.FastFruitTree,
                     setValue: value => context.Config.FastFruitTree = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.furnace"),
+                    label: GameI18n.GetBigCraftableName(13),
                     value: context.Config.FastFurnace,
                     setValue: value => context.Config.FastFurnace = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.incubator"),
+                    label: I18n.FastMachines_ReadyInTheMorning(machineName: GameI18n.GetBigCraftableName(101)),
                     value: context.Config.FastIncubator,
                     setValue: value => context.Config.FastIncubator = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.keg"),
+                    label: GameI18n.GetBigCraftableName(12),
                     value: context.Config.FastKeg,
                     setValue: value => context.Config.FastKeg = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.lightning-rod"),
+                    label: GameI18n.GetBigCraftableName(9),
                     value: context.Config.FastLightningRod,
                     setValue: value => context.Config.FastLightningRod = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.loom"),
+                    label: GameI18n.GetBigCraftableName(17),
                     value: context.Config.FastLoom,
                     setValue: value => context.Config.FastLoom = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.mayonnaise-machine"),
+                    label: GameI18n.GetBigCraftableName(24),
                     value: context.Config.FastMayonnaiseMachine,
                     setValue: value => context.Config.FastMayonnaiseMachine = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.mushroom-box"),
+                    label: GameI18n.GetBigCraftableName(128),
                     value: context.Config.FastMushroomBox,
                     setValue: value => context.Config.FastMushroomBox = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.oil-maker"),
+                    label: GameI18n.GetBigCraftableName(19),
                     value: context.Config.FastOilMaker,
                     setValue: value => context.Config.FastOilMaker = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.preserves-jar"),
+                    label: GameI18n.GetBigCraftableName(15),
                     value: context.Config.FastPreservesJar,
                     setValue: value => context.Config.FastPreservesJar = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.recycling-machine"),
+                    label: GameI18n.GetBigCraftableName(20),
                     value: context.Config.FastRecyclingMachine,
                     setValue: value => context.Config.FastRecyclingMachine = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.seed-maker"),
+                    label: GameI18n.GetBigCraftableName(25),
                     value: context.Config.FastSeedMaker,
                     setValue: value => context.Config.FastSeedMaker = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.slime-egg-press"),
+                    label: GameI18n.GetBigCraftableName(158),
                     value: context.Config.FastSlimeEggPress,
                     setValue: value => context.Config.FastSlimeEggPress = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.slime-incubator"),
+                    label: GameI18n.GetBigCraftableName(156),
                     value: context.Config.FastSlimeIncubator,
                     setValue: value => context.Config.FastSlimeIncubator = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.soda-machine"),
+                    label: GameI18n.GetBigCraftableName(117),
                     value: context.Config.FastSodaMachine,
                     setValue: value => context.Config.FastSodaMachine = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.statue-of-endless-fortune"),
+                    label: GameI18n.GetBigCraftableName(127),
                     value: context.Config.FastStatueOfEndlessFortune,
                     setValue: value => context.Config.FastStatueOfEndlessFortune = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.statue-of-perfection"),
+                    label: GameI18n.GetBigCraftableName(160),
                     value: context.Config.FastStatueOfPerfection,
                     setValue: value => context.Config.FastStatueOfPerfection = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.tapper"),
+                    label: GameI18n.GetBigCraftableName(105),
                     value: context.Config.FastTapper,
                     setValue: value => context.Config.FastTapper = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.wood-chipper"),
+                    label: GameI18n.GetBigCraftableName(211),
                     value: context.Config.FastWoodChipper,
                     setValue: value => context.Config.FastWoodChipper = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: context.Text.Get("fast-machines.worm-bin"),
+                    label: GameI18n.GetBigCraftableName(154),
                     value: context.Config.FastWormBin,
                     setValue: value => context.Config.FastWormBin = value
                 )

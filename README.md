@@ -11,19 +11,19 @@ use the right translations.
 
 (❑ = untranslated, ↻ = partly translated, ✓ = fully translated)
 
-&nbsp;     | CJB Cheats Menu                         | CJB Item Spawner                  | CJB Show Item Sell Price
----------- | :-------------------------------------- | :-------------------------------- | :----------------------------------
-Chinese    | [↻ partial](CJBCheatsMenu/i18n/zh.json) | [✓](CJBItemSpawner/i18n/zh.json) | [✓](CJBShowItemSellPrice/i18n/zh.json)
-French     | [✓](CJBCheatsMenu/i18n/fr.json)        | [✓](CJBItemSpawner/i18n/fr.json) | [✓](CJBShowItemSellPrice/i18n/fr.json)
-German     | [✓](CJBCheatsMenu/i18n/de.json)        | [✓](CJBItemSpawner/i18n/de.json) | [✓](CJBShowItemSellPrice/i18n/de.json)
-Hungarian  | [✓](CJBCheatsMenu/i18n/hu.json)        | [✓](CJBItemSpawner/i18n/hu.json) | [✓](CJBShowItemSellPrice/i18n/hu.json)
-Italian    | [✓](CJBCheatsMenu/i18n/it.json)        | [✓](CJBItemSpawner/i18n/it.json) | [✓](CJBShowItemSellPrice/i18n/it.json)
-Japanese   | [↻ partial](CJBCheatsMenu/i18n/ja.json) | [✓](CJBItemSpawner/i18n/ja.json) | [✓](CJBShowItemSellPrice/i18n/ja.json)
-Korean     | [↻ partial](CJBCheatsMenu/i18n/ko.json) | [✓](CJBItemSpawner/i18n/ko.json) | [✓](CJBShowItemSellPrice/i18n/ko.json)
-Portuguese | [✓](CJBCheatsMenu/i18n/pt.json)        | [✓](CJBItemSpawner/i18n/pt.json) | [✓](CJBShowItemSellPrice/i18n/pt.json)
-Russian    | [✓](CJBCheatsMenu/i18n/ru.json)        | [✓](CJBItemSpawner/i18n/ru.json) | [✓](CJBShowItemSellPrice/i18n/ru.json)
-Spanish    | [✓](CJBCheatsMenu/i18n/es.json)        | [✓](CJBItemSpawner/i18n/es.json) | [✓](CJBShowItemSellPrice/i18n/es.json)
-Turkish    | [✓](CJBCheatsMenu/i18n/tr.json)        | [✓](CJBItemSpawner/i18n/tr.json) | [✓](CJBShowItemSellPrice/i18n/tr.json)
+&nbsp;     | CJB Cheats Menu                         | CJB Item Spawner                         | CJB Show Item Sell Price
+---------- | :-------------------------------------- | :--------------------------------------- | :----------------------------------
+Chinese    | [↻ partial](CJBCheatsMenu/i18n/zh.json) | [↻ partial](CJBItemSpawner/i18n/zh.json) | [✓](CJBShowItemSellPrice/i18n/zh.json)
+French     | [✓](CJBCheatsMenu/i18n/fr.json)        | [✓](CJBItemSpawner/i18n/fr.json)        | [✓](CJBShowItemSellPrice/i18n/fr.json)
+German     | [✓](CJBCheatsMenu/i18n/de.json)        | [↻ partial](CJBItemSpawner/i18n/de.json) | [✓](CJBShowItemSellPrice/i18n/de.json)
+Hungarian  | [✓](CJBCheatsMenu/i18n/hu.json)        | [↻ partial](CJBItemSpawner/i18n/hu.json) | [✓](CJBShowItemSellPrice/i18n/hu.json)
+Italian    | [✓](CJBCheatsMenu/i18n/it.json)        | [↻ partial](CJBItemSpawner/i18n/it.json) | [✓](CJBShowItemSellPrice/i18n/it.json)
+Japanese   | [↻ partial](CJBCheatsMenu/i18n/ja.json) | [↻ partial](CJBItemSpawner/i18n/ja.json) | [✓](CJBShowItemSellPrice/i18n/ja.json)
+Korean     | [↻ partial](CJBCheatsMenu/i18n/ko.json) | [↻ partial](CJBItemSpawner/i18n/ko.json) | [✓](CJBShowItemSellPrice/i18n/ko.json)
+Portuguese | [✓](CJBCheatsMenu/i18n/pt.json)        | [✓](CJBItemSpawner/i18n/pt.json)        | [✓](CJBShowItemSellPrice/i18n/pt.json)
+Russian    | [✓](CJBCheatsMenu/i18n/ru.json)        | [↻ partial](CJBItemSpawner/i18n/ru.json) | [✓](CJBShowItemSellPrice/i18n/ru.json)
+Spanish    | [✓](CJBCheatsMenu/i18n/es.json)        | [↻ partial](CJBItemSpawner/i18n/es.json) | [✓](CJBShowItemSellPrice/i18n/es.json)
+Turkish    | [✓](CJBCheatsMenu/i18n/tr.json)        | [↻ partial](CJBItemSpawner/i18n/tr.json) | [✓](CJBShowItemSellPrice/i18n/tr.json)
 
 Contributions are welcome! See [Modding:Translations](https://stardewvalleywiki.com/Modding:Translations)
 on the wiki for help contributing translations.

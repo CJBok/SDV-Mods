@@ -15,7 +15,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("flags.unlocked-content.dyes-and-tailoring"),
+                label: I18n.Flags_UnlockedContent_DyesAndTailoring(),
                 value: this.HasEvent(992559),
                 setValue: value => this.SetEvent(992559, value)
             );

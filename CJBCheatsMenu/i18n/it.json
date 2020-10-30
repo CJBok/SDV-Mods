@@ -65,32 +65,8 @@
 
     // fast machines
     "fast-machines.title": "Processo Macchinari Veloce",
-    "fast-machines.bee-house": "Arnia",
-    "fast-machines.cask": "Botte",
-    "fast-machines.charcoal-kiln": "Fornace per il Carbone",
-    "fast-machines.cheese-press": "Pressa per Formaggi",
-    "fast-machines.crab-pot": "Nassa per Granchi",
-    "fast-machines.crystalarium": "Cristallario",
     "fast-machines.fruit-trees": "Alberi della Frutta",
-    "fast-machines.furnace": "Fornace",
-    "fast-machines.incubator": "Incubatrice (pronto il mattino)",
-    "fast-machines.keg": "Barilotto",
-    "fast-machines.lightning-rod": "Parafulmini",
-    "fast-machines.loom": "Telaio",
-    "fast-machines.mayonnaise-machine": "Macchina per la Maionese",
-    "fast-machines.mushroom-box": "Cassetta dei Funghi",
-    "fast-machines.oil-maker": "Frantoio",
-    "fast-machines.preserves-jar": "Barattolo per le Conserve",
-    "fast-machines.recycling-machine": "Riciclatore",
-    "fast-machines.seed-maker": "Estrai-Semi",
-    "fast-machines.slime-egg-press": "Pressa per le Uova di Melme",
-    "fast-machines.slime-incubator": "Incubatrice di Melme",
-    "fast-machines.soda-machine": "Macchinetta della Soda",
-    "fast-machines.statue-of-endless-fortune": "Statua d'Infinita Fortuna",
-    "fast-machines.statue-of-perfection": "Statue della Perfezione",
-    "fast-machines.tapper": "Estrattore",
-    "fast-machines.wood-chipper": "Cippatrice",
-    "fast-machines.worm-bin": "Bidone dei Vermi",
+    "fast-machines.ready-in-the-morning": "{{machineName}} (pronto il mattino)",
 
 
     /*********

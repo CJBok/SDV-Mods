@@ -18,7 +18,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: context.Text.Get("fishing.durable-tackles"),
+                label: I18n.Fishing_DurableTackles(),
                 value: context.Config.DurableTackles,
                 setValue: value => context.Config.DurableTackles = value
             );

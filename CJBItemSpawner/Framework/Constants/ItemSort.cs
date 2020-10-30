@@ -9,7 +9,7 @@ namespace CJBItemSpawner.Framework.Constants
         DisplayName,
 
         /// <summary>Sort by the item's category name.</summary>
-        Category,
+        Type,
 
         /// <summary>Sort by the item ID.</summary>
         ID
@@ -27,8 +27,8 @@ namespace CJBItemSpawner.Framework.Constants
         {
             return current switch
             {
-                ItemSort.DisplayName => ItemSort.Category,
-                ItemSort.Category => ItemSort.ID,
+                ItemSort.DisplayName => ItemSort.Type,
+                ItemSort.Type => ItemSort.ID,
                 ItemSort.ID => ItemSort.DisplayName,
                 _ => throw new NotSupportedException($"Unknown sort '{current}'.")
             };
