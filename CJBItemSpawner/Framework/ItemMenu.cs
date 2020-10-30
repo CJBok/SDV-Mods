@@ -115,9 +115,6 @@ namespace CJBItemSpawner.Framework
         /// <summary>The down arrow to scroll results.</summary>
         private ClickableTextureComponent DownArrow;
 
-        /// <summary>The search icon for the search box.</summary>
-        private ClickableTextureComponent SearchIcon;
-
         /// <summary>The search textbox.</summary>
         private TextBox SearchBox;
 
@@ -126,8 +123,11 @@ namespace CJBItemSpawner.Framework
 
         /// <summary>The search textbox area.</summary>
         private Rectangle SearchBoxBounds;
-        
-        /// <summary>The opacity of the <see cref="SearchIcon"/>. Fades out when selected, and back in when deselected.</summary>
+
+        /// <summary>The search icon for the search box.</summary>
+        private ClickableTextureComponent SearchIcon;
+
+        /// <summary>The current opacity of the <see cref="SearchIcon"/>, which fades out when selected and back in when deselected.</summary>
         private float SearchIconOpacity = 1f;
 
 
@@ -420,12 +420,7 @@ namespace CJBItemSpawner.Framework
             if (!this.IsAndroid)
             {
                 spriteBatch.Draw(Game1.fadeToBlackRect, new Rectangle(0, 0, Game1.viewport.Width, Game1.viewport.Height), Color.Black * 0.5f); // replicate base.drawBG so arrows are above it
-                CommonHelper.DrawTab(
-                    this.SearchBoxBounds.X, this.SearchBoxBounds.Y - CommonHelper.ButtonBorderWidth / 2,
-                    this.SearchBoxBounds.Width - CommonHelper.ButtonBorderWidth * 3 / 2,
-                    this.SearchBoxBounds.Height - CommonHelper.ButtonBorderWidth,
-                    out Vector2 tempPos,
-                    drawShadow: this.IsAndroid);
+                CommonHelper.DrawTab(this.SearchBoxBounds.X, this.SearchBoxBounds.Y - CommonHelper.ButtonBorderWidth / 2, this.SearchBoxBounds.Width - CommonHelper.ButtonBorderWidth * 3 / 2, this.SearchBoxBounds.Height - CommonHelper.ButtonBorderWidth, out _, drawShadow: this.IsAndroid);
                 DrawArrows();
                 this.BaseDraw(spriteBatch);
             }
@@ -435,33 +430,32 @@ namespace CJBItemSpawner.Framework
                 DrawArrows();
             }
 
-            // add main UI
+            // draw buttons
             CommonHelper.DrawTab(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, this.QualityButton.bounds.Width - CommonHelper.ButtonBorderWidth, this.QualityButton.bounds.Height - CommonHelper.ButtonBorderWidth, out Vector2 qualityIconPos, drawShadow: this.IsAndroid);
             CommonHelper.DrawTab(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name, drawShadow: this.IsAndroid);
             this.SortIcon.draw(spriteBatch);
-
-            // draw category dropdown
-            {
-                Vector2 position = new Vector2(
-                    this.CategoryDropdown.bounds.X + this.CategoryDropdown.bounds.Width - 3 * Game1.pixelZoom,
-                    this.CategoryDropdown.bounds.Y + 2 * Game1.pixelZoom);
-                Rectangle sourceRect = new Rectangle(437, 450, 10, 11);
-                spriteBatch.Draw(Game1.mouseCursors, position, sourceRect, Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
-                if (this.CategoryDropdown.IsExpanded)
-                    spriteBatch.Draw(Game1.mouseCursors,
-                        new Vector2(position.X + 2 * Game1.pixelZoom, position.Y + 3 * Game1.pixelZoom), 
-                        new Rectangle(sourceRect.X + 2, sourceRect.Y + 3, 5, 6),
-                        Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.FlipVertically, 1f);
-                this.CategoryDropdown.Draw(spriteBatch);
-            }
-            this.SearchBox.Draw(spriteBatch);
-            spriteBatch.Draw(this.SearchIcon.texture, this.SearchIcon.bounds, this.SearchIcon.sourceRect, Color.White * this.SearchIconOpacity);
 
             // draw quality icon
             {
                 this.GetQualityIcon(out Texture2D texture, out Rectangle sourceRect, out Color color);
                 spriteBatch.Draw(texture, new Vector2(qualityIconPos.X, qualityIconPos.Y - 1 * Game1.pixelZoom), sourceRect, color, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
             }
+
+            // draw category dropdown
+            {
+                Vector2 position = new Vector2(this.CategoryDropdown.bounds.X + this.CategoryDropdown.bounds.Width - 3 * Game1.pixelZoom, this.CategoryDropdown.bounds.Y + 2 * Game1.pixelZoom);
+                Rectangle sourceRect = new Rectangle(437, 450, 10, 11); // down triangle
+                spriteBatch.Draw(Game1.mouseCursors, position, sourceRect, Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
+                if (this.CategoryDropdown.IsExpanded)
+                    spriteBatch.Draw(Game1.mouseCursors, new Vector2(position.X + 2 * Game1.pixelZoom, position.Y + 3 * Game1.pixelZoom), new Rectangle(sourceRect.X + 2, sourceRect.Y + 3, 5, 6), Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.FlipVertically, 1f); // right triangle
+
+                this.CategoryDropdown.Draw(spriteBatch);
+            }
+
+            // draw search box
+            this.SearchBox.Draw(spriteBatch);
+            spriteBatch.Draw(this.SearchIcon.texture, this.SearchIcon.bounds, this.SearchIcon.sourceRect, Color.White * this.SearchIconOpacity);
+            //this.SearchIcon.draw(spriteBatch, Color.White * this.SearchIconOpacity, 1);
 
             // redraw cursor over new UI
             this.drawMouse(spriteBatch);
@@ -530,6 +524,7 @@ namespace CJBItemSpawner.Framework
             int x = this.xPositionOnScreen;
             int y = this.yPositionOnScreen;
             int right = x + this.width;
+            int rightWithoutMargin = right - 58;
             int top = this.IsAndroid
                 ? y - (CommonSprites.Tab.Top.Height * Game1.pixelZoom) // at top of screen, moved up slightly to reduce overlap over items
                 : y - Game1.tileSize * 2 + 10; // above menu
@@ -539,24 +534,36 @@ namespace CJBItemSpawner.Framework
             this.SortButton = new ClickableComponent(new Rectangle(this.QualityButton.bounds.Right + 20, top, this.GetMaxSortLabelWidth(Game1.smallFont) + CommonHelper.ButtonBorderWidth, Game1.tileSize), this.GetSortLabel(this.SortBy));
             this.SortIcon = new ClickableTextureComponent(new Rectangle(this.SortButton.bounds.X + CommonHelper.ButtonBorderWidth, top + CommonHelper.ButtonBorderWidth, this.SortTexture.Width, Game1.tileSize), this.SortTexture, new Rectangle(0, 0, this.SortTexture.Width, this.SortTexture.Height), 1f);
             this.CategoryDropdown = new Dropdown<string>(this.SortButton.bounds.Right + 20, this.SortButton.bounds.Y, Game1.smallFont, this.CategoryDropdown?.Selected ?? I18n.Filter_All(), this.Categories, p => p);
-            this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(right - 32, y - 64, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
-            this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.UpArrow.bounds.X, this.UpArrow.bounds.Y + this.height / 2 - 64, this.UpArrow.bounds.Width, this.UpArrow.bounds.Height), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
-            this.SearchIcon = new ClickableTextureComponent("search", new Rectangle(right - 39 - 58, y - Game1.tileSize * 2 + 20, 39, 39), "", "", Game1.mouseCursors, new Rectangle(80, 0, 13, 13), 3);
+            this.UpArrow = new ClickableTextureComponent(new Rectangle(right - 32, y - 64, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
+            this.DownArrow = new ClickableTextureComponent(new Rectangle(this.UpArrow.bounds.X, this.UpArrow.bounds.Y + this.height / 2 - 64, this.UpArrow.bounds.Width, this.UpArrow.bounds.Height), Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
 
             // search box
             {
                 // width stretches to fit the gap between category dropdown and right margin
                 this.SearchBox = new TextBox(Game1.content.Load<Texture2D>("LooseSprites\\textBox"), null, Game1.smallFont, Game1.textColor)
                 {
-                    X = this.CategoryDropdown.bounds.X + this.CategoryDropdown.bounds.Width + 8 * Game1.pixelZoom,
-                    Y = this.SearchIcon.bounds.Y - 4,
+                    X = this.CategoryDropdown.bounds.Right + 8 * Game1.pixelZoom,
+                    Y = y - Game1.tileSize * 2 + 16,
                     Height = 0,
                     Text = this.SearchText
                 };
-                this.SearchBox.Width = this.SearchIcon.bounds.X - this.SearchBox.X + this.SearchIcon.bounds.Width + 10;
+                this.SearchBox.Width = rightWithoutMargin - this.SearchBox.X + 10;
                 this.SearchBoxBounds = new Rectangle(this.SearchBox.X, this.SearchBox.Y + 4, this.SearchBox.Width, 48);
+                this.SearchBoxArea = new ClickableComponent(new Rectangle(this.SearchBoxBounds.X, this.SearchBoxBounds.Y, this.SearchBoxBounds.Width, this.SearchBoxBounds.Height), "");
             }
-            this.SearchBoxArea = new ClickableComponent(new Rectangle(this.SearchBoxBounds.X, this.SearchBoxBounds.Y, this.SearchBoxBounds.Width, this.SearchBoxBounds.Height), "");
+
+            // search icon
+            {
+                var iconRect = new Rectangle(80, 0, 13, 13);
+                float scale = 2.5f;
+                var iconBounds = new Rectangle(
+                    x: (int)(this.SearchBoxBounds.Right - (iconRect.Width * scale)),
+                    y: (int)(this.SearchBoxBounds.Center.Y - (iconRect.Height / 2f * scale)),
+                    width: (int)(iconRect.Width * scale),
+                    height: (int)(iconRect.Height * scale)
+                );
+                this.SearchIcon = new ClickableTextureComponent(iconBounds, Game1.mouseCursors, iconRect, scale);
+            }
 
             // move layout for Android
             if (this.IsAndroid)

@@ -12,6 +12,8 @@
 * Internal refactoring to simplify future game updates.
 * Improved translations. Thanks to Caco-o-sapo (updated Portuguese)!
 
+(Thanks to b-b-blueberry for tweaking some of the new UI, Cakewalker for Android testing, and many users on Discord for feedback!)
+
 ## 1.12.2
 Released 12 September 2020 for SMAPI 3.7 or later.
 
