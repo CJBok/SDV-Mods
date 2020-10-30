@@ -524,7 +524,6 @@ namespace CJBItemSpawner.Framework
             int x = this.xPositionOnScreen;
             int y = this.yPositionOnScreen;
             int right = x + this.width;
-            int rightWithoutMargin = right - 58;
             int top = this.IsAndroid
                 ? y - (CommonSprites.Tab.Top.Height * Game1.pixelZoom) // at top of screen, moved up slightly to reduce overlap over items
                 : y - Game1.tileSize * 2 + 10; // above menu
@@ -538,17 +537,26 @@ namespace CJBItemSpawner.Framework
             this.DownArrow = new ClickableTextureComponent(new Rectangle(this.UpArrow.bounds.X, this.UpArrow.bounds.Y + this.height / 2 - 64, this.UpArrow.bounds.Width, this.UpArrow.bounds.Height), Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
 
             // search box
+            // aligned to the right, stretched to fit space between category dropdown and right margin up to a max width
             {
-                // width stretches to fit the gap between category dropdown and right margin
+                int maxWidth = (int)Game1.smallFont.MeasureString("ABCDEFGHIJKLMNOPQRSTUVWXYZ").X;
+                int leftSpacing = 10 * Game1.pixelZoom; // min space between category dropdown and search box
+                int searchRight = this.IsAndroid
+                    ? this.upperRightCloseButton.bounds.X - 5 * Game1.pixelZoom
+                    : right - 13 * Game1.pixelZoom;
+
+                int searchWidth = Math.Min(searchRight - this.CategoryDropdown.bounds.Right - leftSpacing + 10, maxWidth);
+                int searchX = searchRight - searchWidth;
+
                 this.SearchBox = new TextBox(Game1.content.Load<Texture2D>("LooseSprites\\textBox"), null, Game1.smallFont, Game1.textColor)
                 {
-                    X = this.CategoryDropdown.bounds.Right + 8 * Game1.pixelZoom,
-                    Y = y - Game1.tileSize * 2 + 16,
+                    X = searchX,
+                    Y = top + 6,
                     Height = 0,
+                    Width = searchWidth,
                     Text = this.SearchText
                 };
-                this.SearchBox.Width = rightWithoutMargin - this.SearchBox.X + 10;
-                this.SearchBoxBounds = new Rectangle(this.SearchBox.X, this.SearchBox.Y + 4, this.SearchBox.Width, 48);
+                this.SearchBoxBounds = new Rectangle(this.SearchBox.X, this.SearchBox.Y + 4, this.SearchBox.Width, 12 * Game1.pixelZoom);
                 this.SearchBoxArea = new ClickableComponent(new Rectangle(this.SearchBoxBounds.X, this.SearchBoxBounds.Y, this.SearchBoxBounds.Width, this.SearchBoxBounds.Height), "");
             }
 
