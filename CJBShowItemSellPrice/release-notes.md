@@ -1,7 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.9.9
+Released 30 October 2020 for SMAPI 3.7 or later.
+
 * Fixed translations not updated when you change language.
 * Fixed prices shown for toolbar items when the toolbar is hidden (e.g. during festivals).
 

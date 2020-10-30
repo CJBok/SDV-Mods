@@ -1,7 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 2.0
+Released 30 October 2020 for SMAPI 3.7 or later.
+
 * Redesigned menu to make it more intuitive and mobile-friendly.
 * Added full controller support.
 * Added keyboard navigation for categories and scrolling.
@@ -10,7 +12,7 @@
 * Added support for customizing the filter categories via `assets/categories.json`.
 * Overhauled category grouping to be more useful.
 * The item spawner now applies fish pond rules for roe items. (That mainly adds Clam Roe, Sea Urchin Roe, and custom roe from mods.)
-* Internal refactoring to simplify future game updates.
+* Rewrote mod to simplify future game updates.
 * Improved translations. Thanks to Caco-o-sapo (updated Portuguese)!
 
 (Thanks to b-b-blueberry for tweaking some of the new UI, Cakewalker for Android testing, and many users on Discord for feedback!)

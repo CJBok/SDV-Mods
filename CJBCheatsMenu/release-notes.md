@@ -1,7 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.25.3
+Released 30 October 2020 for SMAPI 3.7 or later.
+
 * 'Always auto-feed' now works without silos if 'infinite hay' is enabled.
 * Internal refactor to translation handling, and now uses game translations where possible.
 
