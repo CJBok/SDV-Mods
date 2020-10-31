@@ -21,7 +21,7 @@
     ** Player & Tools tab
     *********/
     // player
-    "player.title": "플레이어 ",
+    "player.title": "플레이어",
     "player.infinite-stamina": "기력 무한",
     "player.infinite-health": "체력 무한",
     "player.instant-cooldowns": "무기 즉시 재사용 대기 시간",
@@ -64,9 +64,9 @@
     "fishing.durable-tackles": "낚시찌 소모되지 않음",
 
     // fast machines
-    "fast-machines.title": "기계 빠르게 설정 ",
+    "fast-machines.title": "기계 빠르게 설정",
     "fast-machines.fruit-trees": "과일나무",
-    "fast-machines.ready-in-the-morning": "{{machineName}} (아침에 준비)", // TODO review (auto-translated)
+    "fast-machines.ready-in-the-morning": "{{machineName}} (아침에 준비)",
 
 
     /*********
