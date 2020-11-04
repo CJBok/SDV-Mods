@@ -66,7 +66,7 @@
     // fast machines
     "fast-machines.title": "农场工具快速生产",
     "fast-machines.fruit-trees": "水果树",
-    "fast-machines.ready-in-the-morning": "{{machineName}}（早上准备）", // TODO review (auto-translated)
+    "fast-machines.ready-in-the-morning": "{{machineName}}（第二天早上）", // TODO review (auto-translated)
 
 
     /*********
