@@ -83,10 +83,8 @@ namespace CJBItemSpawner
             // apply 'problematic items' filter
             if (!this.Config.AllowProblematicItems && this.ItemData?.ProblematicItems?.Any() == true)
             {
-                var problematicItems = new HashSet<Tuple<ItemType, int>>(
-                    this.ItemData.ProblematicItems.Select(item => Tuple.Create(item.Type, item.ID))
-                );
-                items = items.Where(item => !problematicItems.Contains(Tuple.Create(item.Type, item.ID)));
+                var problematicItems = new HashSet<string>(this.ItemData.ProblematicItems, StringComparer.OrdinalIgnoreCase);
+                items = items.Where(item => !problematicItems.Contains($"{item.Type}:{item.ID}"));
             }
 
             // yield models
