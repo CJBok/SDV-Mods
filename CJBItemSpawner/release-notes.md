@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Jukebox Ring is no longer hidden by default, since the crash was fixed in Stardew Valley 1.4 (though it still does nothing).
 * Improved translations. Thanks to wally232 (updated Korean)!
 
 ## 2.0
