@@ -2,8 +2,8 @@
 
 # Release notes
 ## Upcoming release
-* Jukebox Ring is no longer hidden by default, since the crash was fixed in Stardew Valley 1.4 (though it still does nothing).
-* Improved translations. Thanks to wally232 (updated Korean)!
+* Jukebox ring is no longer hidden by default (since it no longer causes a crash in SDV 1.4).
+* Improved translations. Thanks to Becks723 (updated Chinese) and wally232 (updated Korean)!
 
 ## 2.0
 Released 30 October 2020 for SMAPI 3.7 or later.
