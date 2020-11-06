@@ -32,8 +32,6 @@
             "ItemId": [
                 "Object:261", // warp totem: desert
                 "Object:297", // grass starter
-                "Object:463", // drum block
-                "Object:464", // flute block
                 "Object:681", // rain totem
                 "Object:688", // warp totem: farm
                 "Object:689", // warp totem: mountains
@@ -190,7 +188,10 @@
                 -9 // big craftables
             ],
             "ItemId": [
-                "Object:710" // crab pot
+                "Object:710", // crab pot
+                "Object:463", // drum block
+                "Object:464" // flute block
+
             ]
         }
     },

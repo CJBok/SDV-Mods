@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Jukebox ring is no longer hidden by default (since it no longer causes a crash in SDV 1.4).
+* Moved drum/flute blocks from _equipment: tools_ to _crafting: products_.
 * Improved translations. Thanks to Becks723 (updated Chinese) and wally232 (updated Korean)!
 
 ## 2.0
