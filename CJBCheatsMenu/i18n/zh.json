@@ -24,10 +24,10 @@
     "player.title": "玩家",
     "player.infinite-stamina": "耐力不减",
     "player.infinite-health": "生命不减",
-    "player.instant-cooldowns": "Instant Weapon Cooldowns", // TODO
-    "player.inventory-size": "Inventory Size", // TODO
+    "player.instant-cooldowns": "武器无冷却时间",
+    "player.inventory-size": "背包栏大小",
     "player.movement-speed": "移动速度增加",
-    "player.movement-speed.default": "normal", // TODO
+    "player.movement-speed.default": "默认",
     "player.one-hit-kill": "一拳超人(对怪物)",
     "player.max-daily-luck": "每日运气最大",
 
@@ -49,7 +49,7 @@
     *********/
     // farm
     "farm.title": "农场",
-    "farm.auto-water": "Auto-Water Crops", // TODO
+    "farm.auto-water": "作物自动灌溉",
     "farm.durable-fences": "围栏不损毁",
     "farm.instant-build": "农场建筑立即完成",
     "farm.always-auto-feed": "自动喂食",
@@ -66,7 +66,7 @@
     // fast machines
     "fast-machines.title": "农场工具快速生产",
     "fast-machines.fruit-trees": "水果树",
-    "fast-machines.ready-in-the-morning": "{{machineName}}（早上准备）", // TODO review (auto-translated)
+    "fast-machines.ready-in-the-morning": "{{machineName}}（第二天早上）",
 
 
     /*********
@@ -139,7 +139,7 @@
     ** Warps tab
     *********/
     // main areas
-    "warp-section.main": "Main Areas", // TODO
+    "warp-section.main": "主要区域",
     "warp.farm": "农场",
     "warp.carpenter": "木匠的商店",
     "warp.desert": "沙漠",
@@ -147,7 +147,7 @@
     "warp.pierre-shop": "皮埃尔的杂货店",
 
     // town
-    "warp-section.town": "Town", // TODO
+    "warp-section.town": "镇上",
     "warp.blacksmith": "铁匠",
     "warp.community-center": "社区中心",
     "warp.jojamart": "Joja超市",
@@ -157,14 +157,14 @@
     "warp.sewer": "下水道",
 
     // forest
-    "warp-section.forest": "Forest", // TODO
+    "warp-section.forest": "南部森林",
     "warp.hats": "被遗弃的房屋",
     "warp.ranch": "玛尼的牧场",
     "warp.secret-woods": "秘密森林",
     "warp.wizard-tower": "法师塔",
 
     // mountain
-    "warp-section.mountain": "Mountain", // TODO
+    "warp-section.mountain": "北部山区",
     "warp.adventurers-guild": "探险家工会",
     "warp.bathhouse": "温泉",
     "warp.quarry": "采石场",
@@ -175,7 +175,7 @@
     "warp.willy-shop": "威利的鱼店",
 
     // desert
-    "warp-section.desert": "Desert", // TODO
+    "warp-section.desert": "沙漠",
     "warp.casino": "赌场",
     "warp.sandy-shop": "桑迪的商店",
     "warp.skull-cavern": "头骨矿洞",
@@ -212,12 +212,12 @@
     ** Controls tab
     *********/
     "controls.title": "按键绑定",
-    "controls.android-config-note": "You can change the on-screen buttons in the config files for the CJB Cheats Menu and Virtual Keyboard mods.", // TODO
+    "controls.android-config-note": "您可以在配置（config）文件中为CJB作弊菜单和一些使用虚拟键盘的模组设置按键布局。",
     "controls.open-menu": "打开菜单",
     "controls.freeze-time": "冻结时间",
     "controls.grow-tree": "树木立即长大",
     "controls.grow-crops": "作物立即成熟",
-    "controls.grow-radius": "Grow distance around player", // TODO
-    "controls.reset-controls": "Reset", // TODO
+    "controls.grow-radius": "生长范围（相对于玩家）",
+    "controls.reset-controls": "重置按键",
     "controls.press-new-key": "绑定新按键..."
 }
