@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Fixed clicks on a scrolled dropdown selecting the wrong option.
 * Improved translations. Thanks to Becks723 (updated Chinese) and wally232 (updated Korean)!
 
 ## 1.25.3

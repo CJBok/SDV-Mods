@@ -54,8 +54,8 @@ namespace CJB.Common.UI
             }
         }
 
-        /// <summary>The selected item.</summary>
-        public TItem Selected => this.List.SelectedItem;
+        /// <summary>The selected option.</summary>
+        public TItem Selected => this.List.SelectedValue;
 
         /// <summary>The downward neighbor ID when the dropdown is closed for controller snapping.</summary>
         public int DefaultDownNeighborId { get; set; } = -99999;
@@ -90,6 +90,15 @@ namespace CJB.Common.UI
             return
                 base.containsPoint(x, y)
                 || (this.IsExpanded && this.List.containsPoint(x, y));
+        }
+
+        /// <summary>Handle a click at the given position, if applicable.</summary>
+        /// <param name="x">The X-position that was clicked.</param>
+        /// <param name="y">The Y-position that was clicked.</param>
+        /// <returns>Returns whether the click was handled.</returns>
+        public bool TryClick(int x, int y)
+        {
+            return this.TryClick(x, y, out _, out _);
         }
 
         /// <summary>Handle a click at the given position, if applicable.</summary>
