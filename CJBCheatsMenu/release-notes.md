@@ -2,7 +2,6 @@
 
 # Release notes
 ## Upcoming release
-* Fixed clicks on a scrolled dropdown selecting the wrong option.
 * Fixed 'time frozen' box still shown in screenshot mode.
 * Improved translations. Thanks to Becks723 (updated Chinese) and wally232 (updated Korean)!
 
