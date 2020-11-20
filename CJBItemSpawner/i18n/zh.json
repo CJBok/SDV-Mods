@@ -10,23 +10,22 @@
     /*********
     ** Category dropdown
     *********/
-    // TODO
-    "filter.all": "All",
-    "filter.artisan-and-cooking": "Artisan & cooking",
-    "filter.crafting.products": "Crafting: products",
-    "filter.crafting.resources": "Crafting: resources",
-    "filter.decor.furniture": "Decor: furniture",
-    "filter.decor.other": "Decor: other",
-    "filter.equipment-boots": "Equipment: boots",
-    "filter.equipment-clothes": "Equipment: clothes",
-    "filter.equipment-hats": "Equipment: hats",
-    "filter.equipment-rings": "Equipment: rings",
-    "filter.equipment-tools": "Equipment: tools",
-    "filter.equipment-weapons": "Equipment: weapons",
-    "filter.farm-animal-drops": "Farm: animal drops",
-    "filter.farm-crops": "Farm: crops",
-    "filter.farm-seeds": "Farm: seeds",
-    "filter.fish": "Fish",
-    "filter.minerals-and-artifacts": "Minerals & artifacts",
-    "filter.miscellaneous": "Misc"
+    "filter.all": "全部",
+    "filter.artisan-and-cooking": "工艺与烹饪",
+    "filter.crafting.products": "制造：各种制品",
+    "filter.crafting.resources": "制造：资源",
+    "filter.decor.furniture": "装饰：家具",
+    "filter.decor.other": "装饰：其他",
+    "filter.equipment-boots": "穿戴：鞋",
+    "filter.equipment-clothes": "穿戴：衣物",
+    "filter.equipment-hats": "穿戴：帽子",
+    "filter.equipment-rings": "装备：戒指",
+    "filter.equipment-tools": "装备：工具",
+    "filter.equipment-weapons": "装备：武器",
+    "filter.farm-animal-drops": "农场：动物掉落物",
+    "filter.farm-crops": "农场：作物",
+    "filter.farm-seeds": "农场：种子",
+    "filter.fish": "鱼类",
+    "filter.minerals-and-artifacts": "宝物与矿物",
+    "filter.miscellaneous": "杂项"
 }

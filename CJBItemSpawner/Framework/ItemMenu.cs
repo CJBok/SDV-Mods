@@ -45,6 +45,9 @@ namespace CJBItemSpawner.Framework
         /// <summary>Whether the menu is being displayed on Android.</summary>
         private bool IsAndroid => SConstants.TargetPlatform == GamePlatform.Android;
 
+        /// <summary>Indented spaces to add to sort labels to make room for the sort icon.</summary>
+        private readonly string SortLabelIndent;
+
         /****
         ** State
         ****/
@@ -170,6 +173,7 @@ namespace CJBItemSpawner.Framework
             // init assets
             this.StarOutlineTexture = content.Load<Texture2D>("assets/empty-quality.png");
             this.SortTexture = content.Load<Texture2D>("assets/sort.png");
+            this.SortLabelIndent = this.GetSpaceIndent(Game1.smallFont, this.SortTexture.Width) + " ";
 
             // init base UI
             if (!this.IsAndroid)
@@ -287,12 +291,10 @@ namespace CJBItemSpawner.Framework
             }
 
             // navigate
-            else if ((key == Keys.Left || key == Keys.Right))
+            else if (key == Keys.Left || key == Keys.Right)
             {
-                this.NextCategory(key == Keys.Left
-                    ? -1
-                    : 1
-                );
+                int direction = key == Keys.Left ? -1 : 1;
+                this.NextCategory(direction);
             }
 
             // scroll
@@ -789,11 +791,26 @@ namespace CJBItemSpawner.Framework
             return items;
         }
 
+        /// <summary>Get a string space-indented to the given width.</summary>
+        /// <param name="font">The font with which to measure the indent size.</param>
+        /// <param name="width">The minimum indent width in pixels.</param>
+        private string GetSpaceIndent(SpriteFont font, int width)
+        {
+            if (width <= 0)
+                return "";
+
+            string indent = " ";
+            while (font.MeasureString(indent).X < width)
+                indent += " ";
+
+            return indent;
+        }
+
         /// <summary>Get the translated label for a sort type.</summary>
         /// <param name="sort">The sort type.</param>
         private string GetSortLabel(ItemSort sort)
         {
-            return "    " + sort switch // leave space for sort icon
+            return this.SortLabelIndent + sort switch
             {
                 ItemSort.DisplayName => I18n.Sort_ByName(),
                 ItemSort.Type => I18n.Sort_ByType(),

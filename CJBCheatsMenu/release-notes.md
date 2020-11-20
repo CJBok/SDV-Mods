@@ -1,6 +1,13 @@
 [← back to readme](README.md)
 
 # Release notes
+## 1.25.4
+Released 19 November 2020 for SMAPI 3.7 or later.
+
+* Fixed 'time frozen' box still shown in screenshot mode.
+* Fixed errors when the current location isn't ready.
+* Improved translations. Thanks to Becks723 (updated Chinese) and wally232 (updated Korean)!
+
 ## 1.25.3
 Released 30 October 2020 for SMAPI 3.7 or later.
 

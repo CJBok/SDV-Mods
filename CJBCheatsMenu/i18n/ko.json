@@ -24,10 +24,10 @@
     "player.title": "플레이어",
     "player.infinite-stamina": "기력 무한",
     "player.infinite-health": "체력 무한",
-    "player.instant-cooldowns": "Instant Weapon Cooldowns", // TODO
-    "player.inventory-size": "Inventory Size", // TODO
-    "player.movement-speed": "이동속도",
-    "player.movement-speed.default": "normal", // TODO
+    "player.instant-cooldowns": "무기 즉시 재사용 대기 시간",
+    "player.inventory-size": "가방 크기",
+    "player.movement-speed": "이동 속도",
+    "player.movement-speed.default": "기본",
     "player.one-hit-kill": "한방에 처치",
     "player.max-daily-luck": "매일 최상의 행운",
 
@@ -39,7 +39,7 @@
 
     // money
     "money.title": "돈",
-    "money.add-amount": "{{amount}}G 추가",
+    "money.add-amount": "{{amount}}골드 추가",
     "casino-coins.title": "카지노 코인",
     "casino-coins.add-amount": "{{amount}}개 추가",
 
@@ -49,7 +49,7 @@
     *********/
     // farm
     "farm.title": "농장",
-    "farm.auto-water": "Auto-Water Crops", // TODO
+    "farm.auto-water": "작물 자동 물주기",
     "farm.durable-fences": "울타리 유실 방지",
     "farm.instant-build": "농장 건물 건설 즉시 완성",
     "farm.always-auto-feed": "사료 자동 급식",
@@ -64,9 +64,9 @@
     "fishing.durable-tackles": "낚시찌 소모되지 않음",
 
     // fast machines
-    "fast-machines.title": "기계 빠르게하기",
+    "fast-machines.title": "기계 빠르게 설정",
     "fast-machines.fruit-trees": "과일나무",
-    "fast-machines.ready-in-the-morning": "{{machineName}} (아침에 준비)", // TODO review (auto-translated)
+    "fast-machines.ready-in-the-morning": "{{machineName}} (아침에 준비)",
 
 
     /*********
@@ -139,7 +139,7 @@
     ** Warps tab
     *********/
     // main areas
-    "warp-section.main": "Main Areas", // TODO
+    "warp-section.main": "주요 지역",
     "warp.farm": "농장",
     "warp.carpenter": "로빈 목공소",
     "warp.desert": "캘리코 사막",
@@ -147,7 +147,7 @@
     "warp.pierre-shop": "피에르 잡화점",
 
     // town
-    "warp-section.town": "Town", // TODO
+    "warp-section.town": "마을",
     "warp.blacksmith": "클린트 대장간",
     "warp.community-center": "마을 회관",
     "warp.jojamart": "조자마트",
@@ -157,25 +157,25 @@
     "warp.sewer": "하수도",
 
     // forest
-    "warp-section.forest": "Forest", // TODO
+    "warp-section.forest": "숲",
     "warp.hats": "모자쥐 상점",
     "warp.ranch": "마니의 목장",
     "warp.secret-woods": "비밀의 숲",
     "warp.wizard-tower": "마법사의 탑",
 
     // mountain
-    "warp-section.mountain": "Mountain", // TODO
+    "warp-section.mountain": "산",
     "warp.adventurers-guild": "모험가 길드",
     "warp.bathhouse": "목욕탕",
     "warp.quarry": "채석장",
 
     // beach
-    "warp-section.beach": "해변(海邊)",
-    "warp.tide-pools": "조수 웅덩이",
+    "warp-section.beach": "해변",
+    "warp.tide-pools": "오른쪽 해변",
     "warp.willy-shop": "윌리의 낚시가게",
 
     // desert
-    "warp-section.desert": "Desert", // TODO
+    "warp-section.desert": "사막",
     "warp.casino": "카지노",
     "warp.sandy-shop": "샌디의 오아시스",
     "warp.skull-cavern": "해골 동굴",
@@ -212,12 +212,12 @@
     ** Controls tab
     *********/
     "controls.title": "조작키",
-    "controls.android-config-note": "You can change the on-screen buttons in the config files for the CJB Cheats Menu and Virtual Keyboard mods.", // TODO
+    "controls.android-config-note": "CJB 치트 메뉴 및 가상 키보드 모드의 구성 파일에서 화면 버튼을 변경할 수 있습니다.",
     "controls.open-menu": "메뉴 열기",
     "controls.freeze-time": "시간 정지",
-    "controls.grow-tree": "나무 자라게하기",
-    "controls.grow-crops": "작물 자라게하기",
-    "controls.grow-radius": "Grow distance around player", // TODO
-    "controls.reset-controls": "Reset", // TODO
+    "controls.grow-tree": "나무 즉시 성장",
+    "controls.grow-crops": "작물 즉시 성장",
+    "controls.grow-radius": "플레이어 주변 거리 증가",
+    "controls.reset-controls": "초기화 하기",
     "controls.press-new-key": "새로운 단축키를 입력하세요..."
 }

@@ -72,6 +72,9 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         /// <param name="location">The location to scan.</param>
         private IEnumerable<Crop> GetCropsIn(GameLocation location)
         {
+            if (location == null)
+                yield break;
+
             // planted crops
             if (location.IsFarm || location.IsGreenhouse)
             {

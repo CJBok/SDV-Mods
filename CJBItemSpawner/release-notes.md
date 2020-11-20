@@ -1,6 +1,15 @@
 [← back to readme](README.md)
 
 # Release notes
+## 2.0.1
+Released 19 November 2020 for SMAPI 3.7 or later.
+
+* Jukebox ring is no longer hidden by default (since it no longer causes a crash in SDV 1.4).
+* Moved drum/flute blocks from _equipment: tools_ to _crafting: products_.
+* Fixed clicks on a scrolled dropdown selecting the wrong option.
+* Fixed sort icon overlapping text in some languages.
+* Improved translations. Thanks to Becks723 (updated Chinese) and wally232 (updated Korean)!
+
 ## 2.0
 Released 30 October 2020 for SMAPI 3.7 or later.
 

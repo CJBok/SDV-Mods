@@ -63,7 +63,6 @@ namespace CJB.Common
         /// <param name="innerDrawPosition">The position at which the content should be drawn.</param>
         /// <param name="align">The button's horizontal alignment relative to <paramref name="x"/>. The possible values are 0 (left), 1 (center), or 2 (right).</param>
         /// <param name="alpha">The button opacity, as a value from 0 (transparent) to 1 (opaque).</param>
-        /// <param name="forIcon">Whether the button will contain an icon instead of text.</param>
         /// <param name="drawShadow">Whether to draw a shadow under the tab.</param>
         public static void DrawTab(int x, int y, int innerWidth, int innerHeight, out Vector2 innerDrawPosition, int align = 0, float alpha = 1, bool drawShadow = true)
         {
