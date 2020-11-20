@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Fixed 'time frozen' box still shown in screenshot mode.
+* Fixed errors when the current location isn't ready.
 * Improved translations. Thanks to Becks723 (updated Chinese) and wally232 (updated Korean)!
 
 ## 1.25.3
