@@ -291,12 +291,10 @@ namespace CJBItemSpawner.Framework
             }
 
             // navigate
-            else if ((key == Keys.Left || key == Keys.Right))
+            else if (key == Keys.Left || key == Keys.Right)
             {
-                this.NextCategory(key == Keys.Left
-                    ? -1
-                    : 1
-                );
+                int direction = key == Keys.Left ? -1 : 1;
+                this.NextCategory(direction);
             }
 
             // scroll
