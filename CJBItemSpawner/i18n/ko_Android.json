@@ -1,0 +1,29 @@
+{
+    /*********
+    ** Sort button
+    *********/
+    "sort.by-name": "이름",
+    "sort.by-type": "종류",
+    "sort.by-id": "ID",
+
+
+    /*********
+    ** Category dropdown
+    *********/
+    "filter.all": "전체",
+    "filter.artisan-and-cooking": "기타 : 장인 제작품 & 요리",
+    "filter.crafting.products": "제작 : 기계 & 제작품",
+    "filter.crafting.resources": "제작 : 자원",
+    "filter.decor.furniture": "장식 : 가구",
+    "filter.decor.other": "장식 : 벽지 & 바닥",
+    "filter.equipment-clothes": "장비 : 의류",
+    "filter.equipment-hats": "장비 : 모자",
+    "filter.equipment-tools": "장비 : 도구 & 미끼 & 비료",
+    "filter.equipment-weapons": "장비 : 무기 & 반지 & 신발",
+    "filter.farm-animal-drops": "농장 : 동물 생산품",
+    "filter.farm-crops": "농장 : 작물",
+    "filter.farm-seeds": "농장 : 씨앗",
+    "filter.fish": "기타 : 물고기 & 어란",
+    "filter.minerals-and-artifacts": "기타 : 광물 & 유물",
+    "filter.miscellaneous": "기타 & 퀘스트"
+}
