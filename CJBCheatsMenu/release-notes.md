@@ -4,7 +4,8 @@
 ## Upcoming release
 * Updated for Stardew Valley 1.5, including...
   * split-screen mode and UI scaling;
-  * key to the town wallet item.
+  * key to the town wallet item;
+  * island warps.
 
 ## 1.25.4
 Released 19 November 2020 for SMAPI 3.7 or later.

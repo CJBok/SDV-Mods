@@ -180,6 +180,15 @@
     "warp.sandy-shop": "砂漠商店",
     "warp.skull-cavern": "ドクロの洞窟",
 
+    // island
+    // TODO
+    "warp-section.island": "Ginger Island",
+    "warp.forge": "Forge",
+    "warp.island-farm": "Island Farm",
+    "warp.dwarf-shop": "Volcano Dwarf Shop",
+    "warp.field-office": "Field Office",
+    "warp.leo-house": "Leo's House",
+
 
     /*********
     ** Time tab
