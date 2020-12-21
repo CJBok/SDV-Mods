@@ -732,6 +732,42 @@ namespace CJBCheatsMenu.Framework
             return I18n.GetByKey("warp.willy-shop");
         }
 
+        /// <summary>Get a translation equivalent to "Ginger Island".</summary>
+        public static string WarpSection_Island()
+        {
+            return I18n.GetByKey("warp-section.island");
+        }
+
+        /// <summary>Get a translation equivalent to "Forge".</summary>
+        public static string Warp_Forge()
+        {
+            return I18n.GetByKey("warp.forge");
+        }
+
+        /// <summary>Get a translation equivalent to "Island Farm".</summary>
+        public static string Warp_IslandFarm()
+        {
+            return I18n.GetByKey("warp.island-farm");
+        }
+
+        /// <summary>Get a translation equivalent to "Volcano Dwarf Shop".</summary>
+        public static string Warp_DwarfShop()
+        {
+            return I18n.GetByKey("warp.dwarf-shop");
+        }
+
+        /// <summary>Get a translation equivalent to "Field Office".</summary>
+        public static string Warp_FieldOffice()
+        {
+            return I18n.GetByKey("warp.field-office");
+        }
+
+        /// <summary>Get a translation equivalent to "Leo's House".</summary>
+        public static string Warp_LeoHouse()
+        {
+            return I18n.GetByKey("warp.leo-house");
+        }
+
         /// <summary>Get a translation equivalent to "Desert".</summary>
         public static string WarpSection_Desert()
         {

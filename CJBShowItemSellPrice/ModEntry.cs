@@ -4,9 +4,9 @@ using System.Linq;
 using CJBShowItemSellPrice.Framework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Menus;
 using SObject = StardewValley.Object;
@@ -34,14 +34,14 @@ namespace CJBShowItemSellPrice
         /// <summary>The pixel offset to apply to the tooltip box relative to the cursor position.</summary>
         private readonly Vector2 TooltipOffset = new Vector2(Game1.tileSize / 2);
 
-        /// <summary>The cached toolbar instance.</summary>
-        private Toolbar Toolbar;
-
-        /// <summary>The cached toolbar slots.</summary>
-        private IList<ClickableComponent> ToolbarSlots;
-
         /// <summary>Metadata that isn't available from the game data directly.</summary>
         private DataModel Data;
+
+        /// <summary>The cached toolbar instance.</summary>
+        private readonly PerScreen<Toolbar> Toolbar = new PerScreen<Toolbar>();
+
+        /// <summary>The cached toolbar slots.</summary>
+        private readonly PerScreen<IList<ClickableComponent>> ToolbarSlots = new PerScreen<IList<ClickableComponent>>();
 
 
         /*********
@@ -78,15 +78,15 @@ namespace CJBShowItemSellPrice
             {
                 if (Context.IsPlayerFree)
                 {
-                    this.Toolbar = Game1.onScreenMenus.OfType<Toolbar>().FirstOrDefault();
-                    this.ToolbarSlots = this.Toolbar != null
-                        ? this.Helper.Reflection.GetField<List<ClickableComponent>>(this.Toolbar, "buttons").GetValue()
+                    this.Toolbar.Value = Game1.onScreenMenus.OfType<Toolbar>().FirstOrDefault();
+                    this.ToolbarSlots.Value = this.Toolbar.Value != null
+                        ? this.Helper.Reflection.GetField<List<ClickableComponent>>(this.Toolbar.Value, "buttons").GetValue()
                         : null;
                 }
                 else
                 {
-                    this.Toolbar = null;
-                    this.ToolbarSlots = null;
+                    this.Toolbar.Value = null;
+                    this.ToolbarSlots.Value = null;
                 }
             }
         }
@@ -146,18 +146,18 @@ namespace CJBShowItemSellPrice
         /// <summary>Get the hovered item from the on-screen toolbar.</summary>
         private Item GetItemFromToolbar()
         {
-            if (!Context.IsPlayerFree || this.Toolbar == null || this.ToolbarSlots == null || !Game1.displayHUD)
+            if (!Context.IsPlayerFree || this.Toolbar?.Value == null || this.ToolbarSlots == null || !Game1.displayHUD)
                 return null;
 
             // find hovered slot
             int x = Game1.getMouseX();
             int y = Game1.getMouseY();
-            ClickableComponent hoveredSlot = this.ToolbarSlots.FirstOrDefault(slot => slot.containsPoint(x, y));
+            ClickableComponent hoveredSlot = this.ToolbarSlots.Value.FirstOrDefault(slot => slot.containsPoint(x, y));
             if (hoveredSlot == null)
                 return null;
 
             // get inventory index
-            int index = this.ToolbarSlots.IndexOf(hoveredSlot);
+            int index = this.ToolbarSlots.Value.IndexOf(hoveredSlot);
             if (index < 0 || index > Game1.player.Items.Count - 1)
                 return null;
 
@@ -201,15 +201,15 @@ namespace CJBShowItemSellPrice
             Vector2 outerSize = innerSize + new Vector2((borderSize + padding) * 2);
 
             // get position
-            float x = (Mouse.GetState().X / Game1.options.zoomLevel) - offsetFromCursor.X - outerSize.X;
-            float y = (Mouse.GetState().Y / Game1.options.zoomLevel) + offsetFromCursor.Y + borderSize;
+            float x = Game1.getMouseX() - offsetFromCursor.X - outerSize.X;
+            float y = Game1.getMouseY() + offsetFromCursor.Y + borderSize;
 
             // adjust position to fit on screen
             Rectangle area = new Rectangle((int)x, (int)y, (int)outerSize.X, (int)outerSize.Y);
-            if (area.Right > Game1.viewport.Width)
-                x = Game1.viewport.Width - area.Width;
-            if (area.Bottom > Game1.viewport.Height)
-                y = Game1.viewport.Height - area.Height;
+            if (area.Right > Game1.uiViewport.Width)
+                x = Game1.uiViewport.Width - area.Width;
+            if (area.Bottom > Game1.uiViewport.Height)
+                y = Game1.uiViewport.Height - area.Height;
 
             // draw tooltip box
             IClickableMenu.drawTextureBox(spriteBatch, Game1.menuTexture, this.TooltipSourceRect, (int)x, (int)y, (int)outerSize.X, (int)outerSize.Y, Color.White);
