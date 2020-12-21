@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Updated for Stardew Valley 1.5, including...
+  * split-screen mode;
   * key to the town wallet item.
 
 ## 1.25.4

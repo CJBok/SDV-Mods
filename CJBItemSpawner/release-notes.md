@@ -2,7 +2,7 @@
 
 # Release notes
 ## Upcoming release
-* Updated for Stardew Valley 1.5.
+* Updated for Stardew Valley 1.5, including split-screen mode.
 
 ## 2.0.1
 Released 19 November 2020 for SMAPI 3.7 or later.
