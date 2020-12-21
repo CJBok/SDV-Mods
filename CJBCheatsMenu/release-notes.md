@@ -1,6 +1,10 @@
 [← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Updated for Stardew Valley 1.5, including...
+  * key to the town wallet item.
+
 ## 1.25.4
 Released 19 November 2020 for SMAPI 3.7 or later.
 
