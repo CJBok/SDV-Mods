@@ -1,7 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.9.10
+Released 21 December 2020 for SMAPI 3.8 or later.
+
 * Updated for Stardew Valley 1.5, including split-screen mode and UI scaling.
 
 ## 1.9.9
