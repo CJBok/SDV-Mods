@@ -1,6 +1,15 @@
 [← back to readme](README.md)
 
 # Release notes
+## 1.26
+Released 21 December 2020 for SMAPI 3.8 or later.
+
+* Updated for Stardew Valley 1.5, including support for...
+  * split-screen mode and UI scaling;
+  * new fast machines (bone mill, coffee maker, deconstructor, geode crusher, heavy tapper, ostrich incubator, and solar panel);
+  * key to the town wallet item;
+  * island warps.
+
 ## 1.25.4
 Released 19 November 2020 for SMAPI 3.7 or later.
 

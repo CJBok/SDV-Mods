@@ -95,8 +95,11 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>The game clock doesn't change when you're inside the mines, Skull Cavern, or farm cave.</summary>
         public bool FreezeTimeCaves { get; set; }
 
-        /// <summary>Beehouses finish instantly.</summary>
+        /// <summary>Bee houses finish instantly.</summary>
         public bool FastBeeHouse { get; set; }
+
+        /// <summary>Bone mills finish instantly.</summary>
+        public bool FastBoneMill { get; set; }
 
         /// <summary>Casks finish instantly.</summary>
         public bool FastCask { get; set; }
@@ -107,17 +110,26 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Cheese presses finish instantly.</summary>
         public bool FastCheesePress { get; set; }
 
+        /// <summary>Coffee makers finish instantly.</summary>
+        public bool FastCoffeeMaker { get; set; }
+
         /// <summary>Crab pots finish instantly.</summary>
         public bool FastCrabPot { get; set; }
 
         /// <summary>Crystalariums finish instantly.</summary>
         public bool FastCrystalarium { get; set; }
 
+        /// <summary>Deconstructors finish instantly.</summary>
+        public bool FastDeconstructor { get; set; }
+
         /// <summary>Fruit trees bear fruit instantly.</summary>
         public bool FastFruitTree { get; set; }
 
         /// <summary>Furnaces finish instantly.</summary>
         public bool FastFurnace { get; set; }
+
+        /// <summary>Geode crushers finish instantly.</summary>
+        public bool FastGeodeCrusher { get; set; }
 
         /// <summary>Egg incubators finish overnight.</summary>
         public bool FastIncubator { get; set; }
@@ -140,6 +152,9 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Oil makers finish instantly.</summary>
         public bool FastOilMaker { get; set; }
 
+        /// <summary>Ostrich incubators finish overnight.</summary>
+        public bool FastOstrichIncubator { get; set; }
+
         /// <summary>Preserves jars finish instantly.</summary>
         public bool FastPreservesJar { get; set; }
 
@@ -157,6 +172,9 @@ namespace CJBCheatsMenu.Framework.Models
 
         /// <summary>Soda machines finish instantly.</summary>
         public bool FastSodaMachine { get; set; }
+
+        /// <summary>Solar panels finish instantly.</summary>
+        public bool FastSolarPanel { get; set; }
 
         /// <summary>Statues of endless fortune finish instantly.</summary>
         public bool FastStatueOfEndlessFortune { get; set; }

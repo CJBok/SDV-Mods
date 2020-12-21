@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyName>CJBCheatsMenu</AssemblyName>
-    <Version>1.25.4</Version>
+    <Version>1.26.0</Version>
     <RootNamespace>CJBCheatsMenu</RootNamespace>
     <TargetFramework>net452</TargetFramework>
   </PropertyGroup>

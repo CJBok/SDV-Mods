@@ -54,10 +54,11 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="spriteBatch">The sprite batch being drawn.</param>
         /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
         /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
-        public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
+        /// <param name="context">The menu drawing the component.</param>
+        public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu context = null)
         {
             spriteBatch.Draw(Game1.mouseCursors, new Vector2(slotX + this.bounds.X, slotY + this.bounds.Y), this.IsChecked ? OptionsCheckbox.sourceRectChecked : OptionsCheckbox.sourceRectUnchecked, Color.White * (this.greyedOut ? 0.33f : 1f), 0.0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 0.4f);
-            base.draw(spriteBatch, slotX + this.GetOffsetX(), slotY);
+            base.draw(spriteBatch, slotX + this.GetOffsetX(), slotY, context);
         }
     }
 }

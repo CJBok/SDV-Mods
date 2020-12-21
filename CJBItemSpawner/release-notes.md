@@ -1,6 +1,11 @@
 [← back to readme](README.md)
 
 # Release notes
+## 2.0.2
+Released 21 December 2020 for SMAPI 3.8 or later.
+
+* Updated for Stardew Valley 1.5, including split-screen mode.
+
 ## 2.0.1
 Released 19 November 2020 for SMAPI 3.7 or later.
 
