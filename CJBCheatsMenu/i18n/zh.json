@@ -181,13 +181,12 @@
     "warp.skull-cavern": "头骨矿洞",
 
     // island
-    // TODO
-    "warp-section.island": "Ginger Island",
-    "warp.forge": "Forge",
-    "warp.island-farm": "Island Farm",
-    "warp.dwarf-shop": "Volcano Dwarf Shop",
-    "warp.field-office": "Field Office",
-    "warp.leo-house": "Leo's House",
+    "warp-section.island": "睡觉小屋",
+    "warp.forge": "锻造台",
+    "warp.island-farm": "海岛农场",
+    "warp.dwarf-shop": "火山矮人商店",
+    "warp.field-office": "外地办事处",
+    "warp.leo-house": "雷欧的房子",
 
 
     /*********
