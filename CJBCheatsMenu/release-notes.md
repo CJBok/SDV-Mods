@@ -1,6 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed 'fast casks' not fully completing casks in Stardew Valley 1.5.
+
 ## 1.26
 Released 21 December 2020 for SMAPI 3.8 or later.
 
