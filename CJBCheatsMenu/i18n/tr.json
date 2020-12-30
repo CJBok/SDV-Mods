@@ -38,10 +38,12 @@
     "tools.harvest-with-scythe": "Tırpanla Hasat Etme",
 
     // money
-    "money.title": "Para",
-    "money.add-amount": "Ekle {{amount}}g",
-    "casino-coins.title": "Kumarhane Parası",
-    "casino-coins.add-amount": "Ekle {{amount}}",
+    "add.money": "Para",
+    "add.casino-coins": "Kumarhane Parası",
+    "add.golden-walnuts": "Altın Ceviz",
+    "add.qi-gems": "Qi Taşı",
+    "add.amount-gold": "Ekle {{amount}}g",
+    "add.amount-other": "Ekle {{amount}}",
 
 
     /*********

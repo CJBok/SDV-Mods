@@ -38,10 +38,12 @@
     "tools.harvest-with-scythe": "カマで収穫",
 
     // money
-    "money.title": "お金",
-    "money.add-amount": "増やす {{amount}}g",
-    "casino-coins.title": "カジノのコイン",
-    "casino-coins.add-amount": "増やす {{amount}}",
+    "add.money": "お金",
+    "add.casino-coins": "カジノのコイン",
+    "add.golden-walnuts": "金のクルミ",
+    "add.qi-gems": "Qiジェム",
+    "add.amount-gold": "増やす {{amount}}g",
+    "add.amount-other": "増やす {{amount}}",
 
 
     /*********

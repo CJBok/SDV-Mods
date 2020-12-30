@@ -167,29 +167,41 @@ namespace CJBCheatsMenu.Framework
         }
 
         /// <summary>Get a translation equivalent to "Money".</summary>
-        public static string Money_Title()
+        public static string Add_Money()
         {
-            return I18n.GetByKey("money.title");
+            return I18n.GetByKey("add.money");
+        }
+
+        /// <summary>Get a translation equivalent to "Casino Coins".</summary>
+        public static string Add_CasinoCoins()
+        {
+            return I18n.GetByKey("add.casino-coins");
+        }
+
+        /// <summary>Get a translation equivalent to "Golden Walnuts".</summary>
+        public static string Add_GoldenWalnuts()
+        {
+            return I18n.GetByKey("add.golden-walnuts");
+        }
+
+        /// <summary>Get a translation equivalent to "Qi Gems".</summary>
+        public static string Add_QiGems()
+        {
+            return I18n.GetByKey("add.qi-gems");
         }
 
         /// <summary>Get a translation equivalent to "Add {{amount}}g".</summary>
         /// <param name="amount">The value to inject for the <c>{{amount}}</c> token.</param>
-        public static string Money_AddAmount(object amount)
+        public static string Add_AmountGold(object amount)
         {
-            return I18n.GetByKey("money.add-amount", new { amount });
-        }
-
-        /// <summary>Get a translation equivalent to "Casino Coins".</summary>
-        public static string CasinoCoins_Title()
-        {
-            return I18n.GetByKey("casino-coins.title");
+            return I18n.GetByKey("add.amount-gold", new { amount });
         }
 
         /// <summary>Get a translation equivalent to "Add {{amount}}".</summary>
         /// <param name="amount">The value to inject for the <c>{{amount}}</c> token.</param>
-        public static string CasinoCoins_AddAmount(object amount)
+        public static string Add_AmountOther(object amount)
         {
-            return I18n.GetByKey("casino-coins.add-amount", new { amount });
+            return I18n.GetByKey("add.amount-other", new { amount });
         }
 
         /// <summary>Get a translation equivalent to "Farm".</summary>

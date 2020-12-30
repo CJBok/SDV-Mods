@@ -38,10 +38,12 @@
     "tools.harvest-with-scythe": "Mietere con la falce",
 
     // money
-    "money.title": "Soldi",
-    "money.add-amount": "Aggiungi {{amount}}g",
-    "casino-coins.title": "Monete del Casinó",
-    "casino-coins.add-amount": "Aggiungi {{amount}}",
+    "add.money": "Soldi",
+    "add.casino-coins": "Monete del Casinó",
+    "add.golden-walnuts": "Noci Dorate",
+    "add.qi-gems": "Gemme Qi",
+    "add.amount-gold": "Aggiungi {{amount}}g",
+    "add.amount-other": "Aggiungi {{amount}}",
 
 
     /*********

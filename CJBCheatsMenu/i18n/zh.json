@@ -38,10 +38,12 @@
     "tools.harvest-with-scythe": "镰刀收获",
 
     // money
-    "money.title": "金钱",
-    "money.add-amount": "增加 {{amount}} 金",
-    "casino-coins.title": "赌场代币",
-    "casino-coins.add-amount": "增加 {{amount}} 代币",
+    "add.money": "金钱",
+    "add.casino-coins": "赌场代币",
+    "add.golden-walnuts": "的金色核桃",
+    "add.qi-gems": "齐钻",
+    "add.amount-gold": "增加 {{amount}} 金",
+    "add.amount-other": "增加 {{amount}}",
 
 
     /*********

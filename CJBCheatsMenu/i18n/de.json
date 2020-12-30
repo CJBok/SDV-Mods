@@ -38,10 +38,12 @@
     "tools.harvest-with-scythe": "Mit Sense ernten",
 
     // money
-    "money.title": "Geld",
-    "money.add-amount": "Füge {{amount}}g hinzu",
-    "casino-coins.title": "Casino Münzen",
-    "casino-coins.add-amount": "Füge {{amount}} hinzu",
+    "add.money": "Geld",
+    "add.casino-coins": "Casino Münzen",
+    "add.golden-walnuts": "Goldene Walnüsse",
+    "add.qi-gems": "Qi-Edelsteine",
+    "add.amount-gold": "Füge {{amount}}g hinzu",
+    "add.amount-other": "Füge {{amount}} hinzu",
 
 
     /*********

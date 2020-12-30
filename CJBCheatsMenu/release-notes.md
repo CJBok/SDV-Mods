@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Added options to increase Golden Walnuts and Qi Gems count.
 * Fixed 'fast casks' not fully completing casks in Stardew Valley 1.5.
 * Fixed error when split-screen player joins.
 * Improved translations. Thanks to Enaium (updated Chinese)!
