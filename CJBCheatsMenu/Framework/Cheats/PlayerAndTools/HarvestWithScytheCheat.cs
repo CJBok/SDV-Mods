@@ -76,7 +76,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
                 yield break;
 
             // planted crops
-            if (location.IsFarm || location.IsGreenhouse)
+            if (this.MayHaveCrops(location))
             {
                 foreach (HoeDirt dirt in location.terrainFeatures.Values.OfType<HoeDirt>())
                 {
