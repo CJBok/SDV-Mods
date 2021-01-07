@@ -38,10 +38,12 @@
     "tools.harvest-with-scythe": "Сбор культур серпом",
 
     // money
-    "money.title": "Деньги",
-    "money.add-amount": "Добавить {{amount}} монет",
-    "casino-coins.title": "Клубные монеты",
-    "casino-coins.add-amount": "Добавить {{amount}} клубных монет",
+    "add.money": "Деньги",
+    "add.casino-coins": "Клубные монеты",
+    "add.golden-walnuts": "Золотых грецких",
+    "add.qi-gems": "Самоцветы Ки",
+    "add.amount-gold": "Добавить {{amount}}",
+    "add.amount-other": "Добавить {{amount}}",
 
 
     /*********

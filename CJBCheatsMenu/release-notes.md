@@ -1,6 +1,18 @@
 [← back to readme](README.md)
 
 # Release notes
+## 1.27
+Released 06 January 2021 for SMAPI 3.8 or later.
+
+* Added cheats to increase Golden Walnut and Qi Gem counts.
+* Fixed some options not working on the island farm (specifically auto water, harvest with scythe, and one-hit break).
+* Fixed 'auto water' not watering tilled-but-empty dirt.
+* Fixed 'fast casks' not fully completing casks in Stardew Valley 1.5.
+* Fixed 'time frozen' box covering the floor number in the new volcano dungeon.
+* Fixed warp to farm not accounting for custom farmhouse positions in Stardew Valley 1.5.
+* Fixed error when split-screen player joins.
+* Improved translations. Thanks to Enaium (updated Chinese)!
+
 ## 1.26
 Released 21 December 2020 for SMAPI 3.8 or later.
 

@@ -38,10 +38,12 @@
     "tools.harvest-with-scythe": "镰刀收获",
 
     // money
-    "money.title": "金钱",
-    "money.add-amount": "增加 {{amount}} 金",
-    "casino-coins.title": "赌场代币",
-    "casino-coins.add-amount": "增加 {{amount}} 代币",
+    "add.money": "金钱",
+    "add.casino-coins": "赌场代币",
+    "add.golden-walnuts": "的金色核桃",
+    "add.qi-gems": "齐钻",
+    "add.amount-gold": "增加 {{amount}} 金",
+    "add.amount-other": "增加 {{amount}}",
 
 
     /*********
@@ -181,13 +183,12 @@
     "warp.skull-cavern": "头骨矿洞",
 
     // island
-    // TODO
-    "warp-section.island": "Ginger Island",
-    "warp.forge": "Forge",
-    "warp.island-farm": "Island Farm",
-    "warp.dwarf-shop": "Volcano Dwarf Shop",
-    "warp.field-office": "Field Office",
-    "warp.leo-house": "Leo's House",
+    "warp-section.island": "生姜岛",
+    "warp.forge": "锻造台",
+    "warp.island-farm": "海岛农场",
+    "warp.dwarf-shop": "火山矮人商店",
+    "warp.field-office": "外地办事处",
+    "warp.leo-house": "雷欧的房子",
 
 
     /*********

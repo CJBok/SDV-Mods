@@ -38,10 +38,12 @@
     "tools.harvest-with-scythe": "낫으로 수확",
 
     // money
-    "money.title": "돈",
-    "money.add-amount": "{{amount}}골드 추가",
-    "casino-coins.title": "카지노 코인",
-    "casino-coins.add-amount": "{{amount}}개 추가",
+    "add.money": "돈",
+    "add.casino-coins": "카지노 코인",
+    "add.golden-walnuts": "황금 호두",
+    "add.qi-gems": "치 보석",
+    "add.amount-gold": "{{amount}}골드 추가",
+    "add.amount-other": "{{amount}}개 추가",
 
 
     /*********

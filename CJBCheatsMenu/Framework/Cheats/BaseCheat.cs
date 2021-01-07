@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI.Events;
 using StardewValley;
+using StardewValley.Locations;
 using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats
@@ -122,6 +123,16 @@ namespace CJBCheatsMenu.Framework.Cheats
             }
             else
                 Game1.player.eventsSeen.Remove(id);
+        }
+
+        /// <summary>Get whether a location may have crops.</summary>
+        /// <param name="location">The location to check.</param>
+        protected bool MayHaveCrops(GameLocation location)
+        {
+            return
+                location.IsFarm
+                || location.IsGreenhouse
+                || location is IslandWest;
         }
     }
 }

@@ -26,7 +26,7 @@ namespace CJBCheatsMenu
         private PerScreen<CheatManager> Cheats;
 
         /// <summary>The known in-game location.</summary>
-        private readonly PerScreen<Lazy<GameLocation[]>> Locations = new PerScreen<Lazy<GameLocation[]>>();
+        private readonly PerScreen<Lazy<GameLocation[]>> Locations = new(ModEntry.GetLocationsForCache);
 
 
         /*********
@@ -168,13 +168,16 @@ namespace CJBCheatsMenu
         /// <summary>Reset the cached location list.</summary>
         private void ResetLocationCache()
         {
-            if (this.Locations.Value?.IsValueCreated == false)
-                return;
+            if (this.Locations.Value.IsValueCreated)
+                this.Locations.Value = ModEntry.GetLocationsForCache();
+        }
 
-            this.Locations.Value = new Lazy<GameLocation[]>(
-                () => Context.IsWorldReady
-                    ? CommonHelper.GetAllLocations().ToArray()
-                    : new GameLocation[0]
+        /// <summary>Get a cached lookup of available locations.</summary>
+        private static Lazy<GameLocation[]> GetLocationsForCache()
+        {
+            return new(() => Context.IsWorldReady
+                ? CommonHelper.GetAllLocations().ToArray()
+                : new GameLocation[0]
             );
         }
     }

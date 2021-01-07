@@ -4,6 +4,7 @@ using System.Linq;
 using CJB.Common;
 using CJBCheatsMenu.Framework.Components;
 using CJBCheatsMenu.Framework.Models;
+using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Buildings;
@@ -159,7 +160,8 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
             }
 
             // else farmhouse
-            this.Warp("Farm", 64, 15);
+            Point farmhousePos = Game1.getFarm().GetMainFarmHouseEntry();
+            this.Warp("Farm", farmhousePos.X, farmhousePos.Y);
         }
     }
 }

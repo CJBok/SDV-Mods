@@ -38,10 +38,12 @@
     "tools.harvest-with-scythe": "Betakarítás Kaszával",
 
     // money
-    "money.title": "Pénz",
-    "money.add-amount": "{{amount}} Arany Adása",
-    "casino-coins.title": "Klub Érme",
-    "casino-coins.add-amount": "{{amount}} Klub Érme Adása",
+    "add.money": "Pénz",
+    "add.casino-coins": "Klub Érme",
+    "add.golden-walnuts": "Arany Diót",
+    "add.qi-gems": "Qi Drágaköveknek",
+    "add.amount-gold": "{{amount}} Arany Adása",
+    "add.amount-other": "{{amount}} Adása",
 
 
     /*********

@@ -85,6 +85,12 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Adds various numbers of casino coins to the player.</summary>
         public ICheat AddCasinoCoins { get; } = new AddCasinoCoinsCheat();
 
+        /// <summary>Adds various numbers of golden walnuts to the player.</summary>
+        public ICheat AddGoldenWalnuts { get; } = new AddGoldenWalnutsCheat();
+
+        /// <summary>Adds various numbers of Qi gems to the player.</summary>
+        public ICheat AddQiGems { get; } = new AddQiGemsCheat();
+
         /****
         ** Farming & fishing
         ****/

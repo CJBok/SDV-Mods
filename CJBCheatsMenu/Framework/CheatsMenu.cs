@@ -388,14 +388,26 @@ namespace CJBCheatsMenu.Framework
 
                     // money
                     this.AddOptions(
-                        $"{I18n.Money_Title()}:",
+                        $"{I18n.Add_Money()}:",
                         cheats.AddMoney
                     );
 
                     // casino coins
                     this.AddOptions(
-                        $"{I18n.CasinoCoins_Title()}:",
+                        $"{I18n.Add_CasinoCoins()}:",
                         cheats.AddCasinoCoins
+                    );
+
+                    // golden walnuts
+                    this.AddOptions(
+                        $"{I18n.Add_GoldenWalnuts()}:",
+                        cheats.AddGoldenWalnuts
+                    );
+
+                    // Qi gems
+                    this.AddOptions(
+                        $"{I18n.Add_QiGems()}:",
+                        cheats.AddQiGems
                     );
                     break;
 

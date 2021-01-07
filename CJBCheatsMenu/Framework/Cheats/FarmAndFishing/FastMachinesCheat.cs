@@ -300,8 +300,9 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                 case Cask cask:
                     if (hasItem && processing)
                     {
+                        cask.heldObject.Value.Quality = SObject.bestQuality;
                         cask.daysToMature.Value = 0;
-                        cask.checkForMaturity();
+                        cask.MinutesUntilReady = 1;
                         machine.minutesElapsed(machine.MinutesUntilReady, location);
                     }
                     break;

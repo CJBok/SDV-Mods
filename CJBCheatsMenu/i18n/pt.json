@@ -38,10 +38,12 @@
     "tools.harvest-with-scythe": "Colher com a foice",
 
     // money
-    "money.title": "Dinheiro",
-    "money.add-amount": "Adicionar {{amount}}g",
-    "casino-coins.title": "Moedas do Cassino",
-    "casino-coins.add-amount": "Adicionar {{amount}}",
+    "add.money": "Dinheiro",
+    "add.casino-coins": "Moedas do Cassino",
+    "add.golden-walnuts": "Nozes Douradas",
+    "add.qi-gems": "Gemas Qi",
+    "add.amount-gold": "Adicionar {{amount}}g",
+    "add.amount-other": "Adicionar {{amount}}",
 
 
     /*********

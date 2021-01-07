@@ -89,14 +89,20 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         /// <param name="location">The location to check.</param>
         private IEnumerable<ResourceClump> GetResourceClumps(GameLocation location)
         {
-            return location switch
+            IEnumerable<ResourceClump> clumps = location.resourceClumps;
+
+            switch (location)
             {
-                MineShaft mineShaft => mineShaft.resourceClumps,
-                Farm farm => farm.resourceClumps,
-                Forest forest => new[] { forest.log },
-                Woods woods => woods.stumps,
-                _ => Enumerable.Empty<ResourceClump>()
-            };
+                case Forest forest when forest.log != null:
+                    clumps = clumps.Concat(new[] { forest.log });
+                    break;
+
+                case Woods woods when woods.stumps.Any():
+                    clumps = clumps.Concat(woods.stumps);
+                    break;
+            }
+
+            return clumps;
         }
     }
 }

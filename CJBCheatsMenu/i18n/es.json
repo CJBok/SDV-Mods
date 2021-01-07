@@ -38,10 +38,12 @@
     "tools.harvest-with-scythe": "Cosechar con Guadaña",
 
     // money
-    "money.title": "Dinero",
-    "money.add-amount": "Añadir {{amount}}g",
-    "casino-coins.title": "Monedas Del Casino",
-    "casino-coins.add-amount": "Añadir {{amount}}",
+    "add.money": "Dinero",
+    "add.casino-coins": "Monedas Del Casino",
+    "add.golden-walnuts": "Nueces De Oro",
+    "add.qi-gems": "Gemas Qi",
+    "add.amount-gold": "Añadir {{amount}}g",
+    "add.amount-other": "Añadir {{amount}}",
 
 
     /*********
