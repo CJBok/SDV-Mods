@@ -38,7 +38,7 @@ item | issue
 Crystal Chair | (Unreleased version.) Glitches and causes crashes once rotated / picked up.
 Incubator | Can't be removed once placed.
 Locked Door | Can't be removed once placed.
-Mushroom Box | Can't be removed once placed (unless you install the [Moveable Mushroom Boxes](https://www.nexusmods.com/stardewvalley/mods/2852) mod _before_ spawning them).
+Mushroom Box | Can't be removed once placed (unless you install the [Craftable Mushroom Boxes](https://www.nexusmods.com/stardewvalley/mods/2899) mod _before_ spawning them).
 Obelisk | Once placed, it runs a glitched animation when the player is near that eventually starts switching between the Obelisk and a chicken statue sprite. Picking it up after that point can cause an immediate game crash or result in an unremovable inventory item.
 Wicked Statue | (Lit eyes version.) Can't be removed once placed.
 Jukebox Ring | Crashes the game when you enter the mines.
