@@ -176,8 +176,7 @@ namespace CJBItemSpawner.Framework
             this.SortLabelIndent = this.GetSpaceIndent(Game1.smallFont, this.SortTexture.Width) + " ";
 
             // init base UI
-            if (!this.IsAndroid)
-                this.drawBG = false; // handled manually to draw arrows between background and menu
+            this.drawBG = false; // handled manually to draw arrows between background and menu on Android, and fix UI scaling issues on all platforms
             this.behaviorOnItemGrab = this.OnItemGrab;
 
             // init custom UI
@@ -411,26 +410,18 @@ namespace CJBItemSpawner.Framework
         /// <param name="spriteBatch">The sprite batch being drawn.</param>
         public override void draw(SpriteBatch spriteBatch)
         {
+            // draw background overlay
+            spriteBatch.Draw(Game1.fadeToBlackRect, new Rectangle(0, 0, Game1.uiViewport.Width, Game1.uiViewport.Height), Color.Black * 0.5f);
+
             // draw arrows under base UI, so tooltips are drawn over them
-            void DrawArrows()
-            {
-                if (this.CanScrollUp)
-                    this.UpArrow.draw(spriteBatch);
-                if (this.CanScrollDown)
-                    this.DownArrow.draw(spriteBatch);
-            }
-            if (!this.IsAndroid)
-            {
-                spriteBatch.Draw(Game1.fadeToBlackRect, new Rectangle(0, 0, Game1.viewport.Width, Game1.viewport.Height), Color.Black * 0.5f); // replicate base.drawBG so arrows are above it
-                CommonHelper.DrawTab(this.SearchBoxBounds.X, this.SearchBoxBounds.Y - CommonHelper.ButtonBorderWidth / 2, this.SearchBoxBounds.Width - CommonHelper.ButtonBorderWidth * 3 / 2, this.SearchBoxBounds.Height - CommonHelper.ButtonBorderWidth, out _, drawShadow: this.IsAndroid);
-                DrawArrows();
-                this.BaseDraw(spriteBatch);
-            }
-            else
-            {
-                this.BaseDraw(spriteBatch);
-                DrawArrows();
-            }
+            if (this.CanScrollUp)
+                this.UpArrow.draw(spriteBatch);
+            if (this.CanScrollDown)
+                this.DownArrow.draw(spriteBatch);
+            this.BaseDraw(spriteBatch);
+
+            // draw search box
+            CommonHelper.DrawTab(this.SearchBoxBounds.X, this.SearchBoxBounds.Y - CommonHelper.ButtonBorderWidth / 2, this.SearchBoxBounds.Width - CommonHelper.ButtonBorderWidth * 3 / 2, this.SearchBoxBounds.Height - CommonHelper.ButtonBorderWidth, out _, drawShadow: this.IsAndroid);
 
             // draw buttons
             CommonHelper.DrawTab(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, this.QualityButton.bounds.Width - CommonHelper.ButtonBorderWidth, this.QualityButton.bounds.Height - CommonHelper.ButtonBorderWidth, out Vector2 qualityIconPos, drawShadow: this.IsAndroid);

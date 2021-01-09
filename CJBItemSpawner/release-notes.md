@@ -1,6 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed menu background not handling UI scaling correctly.
+
 ## 2.0.2
 Released 21 December 2020 for SMAPI 3.8 or later.
 
