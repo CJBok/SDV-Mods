@@ -174,7 +174,7 @@
     // beach
     "warp-section.beach": "Пляж",
     "warp.tide-pools": "Приливные бассейны",
-    "warp.willy-shop": "Странствующий торговец",
+    "warp.willy-shop": "Магазин Вилли",
 
     // desert
     "warp-section.desert": "Пустыня",
@@ -183,13 +183,12 @@
     "warp.skull-cavern": "Пещера Черепа",
 
     // island
-    // TODO
-    "warp-section.island": "Ginger Island",
-    "warp.forge": "Forge",
-    "warp.island-farm": "Island Farm",
-    "warp.dwarf-shop": "Volcano Dwarf Shop",
-    "warp.field-office": "Field Office",
-    "warp.leo-house": "Leo's House",
+    "warp-section.island": "Имбирный остров",
+    "warp.forge": "Жерло вулкана",
+    "warp.island-farm": "Ферма на острове",
+    "warp.dwarf-shop": "Магазин дварфа в вулкане",
+    "warp.field-office": "Палатка археолога",
+    "warp.leo-house": "Домик Лео",
 
 
     /*********

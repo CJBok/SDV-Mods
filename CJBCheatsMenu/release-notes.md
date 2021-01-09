@@ -1,6 +1,9 @@
 [← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Improved translations. Thanks to GraceHol (updated Russian)!
+
 ## 1.27
 Released 06 January 2021 for SMAPI 3.8 or later.
 
