@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Added fast-machine cheat for Statues of True Perfection.
 * Improved translations. Thanks to GraceHol (updated Russian)!
 
 ## 1.27

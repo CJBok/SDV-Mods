@@ -182,6 +182,9 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Statues of perfection finish instantly.</summary>
         public bool FastStatueOfPerfection { get; set; }
 
+        /// <summary>Statues of true perfection finish instantly.</summary>
+        public bool FastStatueOfTruePerfection { get; set; }
+
         /// <summary>Tappers finish instantly.</summary>
         public bool FastTapper { get; set; }
 
