@@ -70,7 +70,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /// <param name="spriteBatch">The sprite batch being drawn.</param>
         public override void OnRendered(CheatContext context, SpriteBatch spriteBatch)
         {
-            if (Game1.displayHUD && this.ShouldFreezeTime(context.Config, Game1.currentLocation, out bool isCave))
+            if (Game1.displayHUD && !Game1.game1.takingMapScreenshot && this.ShouldFreezeTime(context.Config, Game1.currentLocation, out bool isCave))
                 this.RenderTimeFrozenBox(context, spriteBatch, isCave);
         }
 

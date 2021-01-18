@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Added fast-machine cheat for Statues of True Perfection.
+* Fixed 'time frozen' box shown in map screenshot exports.
 * Improved translations. Thanks to GraceHol (updated Russian)!
 
 ## 1.27
