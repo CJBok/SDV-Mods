@@ -4,7 +4,7 @@
 ## Upcoming release
 * Added fast-machine cheat for Statues of True Perfection.
 * Fixed 'time frozen' box shown in map screenshot exports.
-* Improved translations. Thanks to GraceHol (updated Russian)!
+* Improved translations. Thanks to GraceHol and Kareolis (updated Russian)!
 
 ## 1.27
 Released 06 January 2021 for SMAPI 3.8 or later.

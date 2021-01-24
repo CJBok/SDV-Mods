@@ -174,7 +174,7 @@
     // beach
     "warp-section.beach": "Пляж",
     "warp.tide-pools": "Приливные бассейны",
-    "warp.willy-shop": "Магазин Вилли",
+    "warp.willy-shop": "Странствующий торговец",
 
     // desert
     "warp-section.desert": "Пустыня",
@@ -184,11 +184,11 @@
 
     // island
     "warp-section.island": "Имбирный остров",
-    "warp.forge": "Жерло вулкана",
+    "warp.forge": "Кузница",
     "warp.island-farm": "Ферма на острове",
-    "warp.dwarf-shop": "Магазин дварфа в вулкане",
-    "warp.field-office": "Палатка археолога",
-    "warp.leo-house": "Домик Лео",
+    "warp.dwarf-shop": "Магазин в вулкане",
+    "warp.field-office": "Полевой офис",
+    "warp.leo-house": "Хижина Лео",
 
 
     /*********
