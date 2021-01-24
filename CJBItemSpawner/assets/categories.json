@@ -1,4 +1,4 @@
-/**
+﻿/**
  * The item category filters available in the item spawner menu.
  *
  * For each item, a category applies if at least property matches the item. If multiple categories

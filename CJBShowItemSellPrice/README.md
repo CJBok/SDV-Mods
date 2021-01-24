@@ -1,4 +1,4 @@
-**CJB Show Item Sell Price** is a [Stardew Valley](http://stardewvalley.net/) mod shows the sell
+﻿**CJB Show Item Sell Price** is a [Stardew Valley](http://stardewvalley.net/) mod shows the sell
 price of items in your inventory:
 
 ![](screenshot.gif)

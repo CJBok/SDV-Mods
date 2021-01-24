@@ -28,19 +28,19 @@ namespace CJBItemSpawner.Framework
             I18n.Translations = translations;
         }
 
-        /// <summary>Get a translation equivalent to "Sort: Name".</summary>
+        /// <summary>Get a translation equivalent to "Name".</summary>
         public static string Sort_ByName()
         {
             return I18n.GetByKey("sort.by-name");
         }
 
-        /// <summary>Get a translation equivalent to "Sort: Type".</summary>
+        /// <summary>Get a translation equivalent to "Type".</summary>
         public static string Sort_ByType()
         {
             return I18n.GetByKey("sort.by-type");
         }
 
-        /// <summary>Get a translation equivalent to "Sort: ID".</summary>
+        /// <summary>Get a translation equivalent to "ID".</summary>
         public static string Sort_ById()
         {
             return I18n.GetByKey("sort.by-id");

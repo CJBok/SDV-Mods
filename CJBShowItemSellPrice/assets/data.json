@@ -1,4 +1,4 @@
-{
+﻿{
     // item categories that can be sold in shops, regardless of what SObject.canBeShipped() returns
     "ForceSellable": [
         // adventure guild

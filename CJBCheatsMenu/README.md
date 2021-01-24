@@ -1,4 +1,4 @@
-**CJB Cheats Menu** is a [Stardew Valley](http://stardewvalley.net/) mod that adds an in-game menu
+﻿**CJB Cheats Menu** is a [Stardew Valley](http://stardewvalley.net/) mod that adds an in-game menu
 with many different cheat features:
 
 ![](screenshot.gif)

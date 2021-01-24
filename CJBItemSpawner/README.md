@@ -1,4 +1,4 @@
-**CJB Item Spawner** is a [Stardew Valley](http://stardewvalley.net/) mod that lets you spawn items
+﻿**CJB Item Spawner** is a [Stardew Valley](http://stardewvalley.net/) mod that lets you spawn items
 with just a few clicks:
 
 ![](screenshot.png)
