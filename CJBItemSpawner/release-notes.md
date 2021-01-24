@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Fixed menu background not handling UI scaling correctly.
+* Improved translations. Thanks to Kareolis (updated Russian)!
 
 ## 2.0.2
 Released 21 December 2020 for SMAPI 3.8 or later.
