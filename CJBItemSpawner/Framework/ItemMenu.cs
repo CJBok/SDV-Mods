@@ -270,15 +270,25 @@ namespace CJBItemSpawner.Framework
         public override void receiveKeyPress(Keys key)
         {
             bool inDropdown = this.CategoryDropdown.IsExpanded;
+            bool closeMenuButton = key == Keys.Escape || Game1.options.doesInputListContain(Game1.options.menuButton, key)
+                || Game1.options.doesInputListContain(Game1.options.cancelButton, key);
 
-            // deselect textbox
-            if (this.SearchBox.Selected && key == Keys.Escape)
-                this.DeselectSearchBox();
-
+            if (this.SearchBox.Selected && closeMenuButton)
+            {
+                // cleaer textbox
+                if (!string.IsNullOrWhiteSpace(this.SearchBox.Text) && this.SearchBox.Text.Length > 0)
+                    this.SearchBox.Text = "";
+                // exit menu
+                else
+                    this.exitThisMenu();
+            }
+            
             // close dropdown
-            else if (inDropdown && key == Keys.Escape)
+            else if (inDropdown && closeMenuButton)
+            {
                 this.SetDropdown(false);
-
+            }
+            
             // allow trashing any item
             else if (key == Keys.Delete && this.heldItem != null)
             {
@@ -307,8 +317,10 @@ namespace CJBItemSpawner.Framework
             }
 
             // default behavior
-            else if (!this.SearchBox.Selected)
+            else if (Math.Abs(1f - this.SearchIconOpacity) < 0.5f) // prevent gamepad deselect searchbox from closing menu
+            {
                 base.receiveKeyPress(key);
+            }
         }
 
         /// <summary>Handle a controller button press by the player.</summary>
@@ -318,13 +330,16 @@ namespace CJBItemSpawner.Framework
             bool isExitKey = button == Buttons.B || button == Buttons.Y || button == Buttons.Start;
             bool inDropdown = this.CategoryDropdown.IsExpanded;
 
-            // cancel dropdown
-            if (isExitKey && inDropdown)
-                this.CategoryDropdown.IsExpanded = false;
+            if (this.SearchBox.Selected)
+            {
+                // open searchbox onscreen keyboard
+                if (button == Buttons.A)
+                    Game1.showTextEntry(this.SearchBox);
 
-            // cancel search box
-            else if (isExitKey && this.SearchBox.Selected)
-                this.DeselectSearchBox();
+                // cancel search box
+                else if (isExitKey || button == Buttons.LeftShoulder || button == Buttons.RightShoulder)
+                    this.DeselectSearchBox();
+            }
 
             // navigate category dropdown
             else if (button == Buttons.LeftTrigger && !inDropdown)
@@ -357,7 +372,7 @@ namespace CJBItemSpawner.Framework
         public override void performHoverAction(int x, int y)
         {
             // handle search box selected
-            if (!this.TextboxExplicitlySelected)
+            if (!this.TextboxExplicitlySelected && !Game1.options.gamepadControls && Game1.lastCursorMotionWasMouse)
             {
                 bool overSearchBox = this.SearchBoxBounds.Contains(x, y);
                 if (this.SearchBox.Selected != overSearchBox)
@@ -597,11 +612,14 @@ namespace CJBItemSpawner.Framework
             // rightward flow across custom UI
             this.QualityButton.rightNeighborID = this.SortButton.myID;
             this.SortButton.rightNeighborID = this.CategoryDropdown.myID;
-            this.CategoryDropdown.rightNeighborID = this.UpArrow.myID;
+            this.CategoryDropdown.rightNeighborID = this.SearchBoxArea.myID;
+            this.SearchBoxArea.rightNeighborID = this.UpArrow.myID;
             this.UpArrow.downNeighborID = this.DownArrow.myID;
 
             // leftward flow across custom UI
-            this.UpArrow.upNeighborID = this.CategoryDropdown.myID;
+            this.UpArrow.upNeighborID = this.SearchBoxArea.myID;
+            this.UpArrow.leftNeighborID = slots[10].myID;
+            this.SearchBoxArea.leftNeighborID = this.CategoryDropdown.myID;
             this.CategoryDropdown.leftNeighborID = this.SortButton.myID;
             this.SortButton.leftNeighborID = this.QualityButton.myID;
 
@@ -609,6 +627,7 @@ namespace CJBItemSpawner.Framework
             this.QualityButton.downNeighborID = slots[0].myID;
             this.SortButton.downNeighborID = slots[1].myID;
             this.CategoryDropdown.DefaultDownNeighborId = slots[5].myID;
+            this.SearchBoxArea.downNeighborID = slots[10].myID;
             this.DownArrow.leftNeighborID = slots.Last().myID;
             this.DownArrow.downNeighborID = this.trashCan.myID;
 
@@ -646,6 +665,11 @@ namespace CJBItemSpawner.Framework
             this.CategoryDropdown.IsExpanded = expanded;
             this.inventory.highlightMethod = item => !expanded;
             this.ItemsToGrabMenu.highlightMethod = item => !expanded;
+            if (!expanded && !Game1.lastCursorMotionWasMouse)
+            {
+                this.setCurrentlySnappedComponentTo(this.CategoryDropdown.myID);
+                this.snapCursorToCurrentSnappedComponent();
+            }
         }
 
         /// <summary>Switch to the next category.</summary>
@@ -710,9 +734,18 @@ namespace CJBItemSpawner.Framework
         /// <summary>Set the search textbox non-selected.</summary>
         private void DeselectSearchBox()
         {
+            if (Game1.textEntry != null)
+                return;
+
             this.SearchBox.Selected = false;
             this.TextboxExplicitlySelected = false;
             this.SearchBox.Width = this.SearchIcon.bounds.X - this.SearchBox.X + this.SearchIcon.bounds.Width + 10 - this.SearchIcon.bounds.Width - 6 * Game1.pixelZoom;
+
+            if (Game1.options.gamepadControls && !Game1.lastCursorMotionWasMouse)
+            {
+                this.setCurrentlySnappedComponentTo(this.ItemsToGrabMenu.inventory.First().myID);
+                this.snapCursorToCurrentSnappedComponent();
+            }
         }
 
         /// <summary>Reset the items shown in the view.</summary>
