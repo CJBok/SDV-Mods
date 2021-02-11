@@ -275,8 +275,8 @@ namespace CJBItemSpawner.Framework
 
             if (this.SearchBox.Selected && closeMenuButton)
             {
-                // cleaer textbox
-                if (!string.IsNullOrWhiteSpace(this.SearchBox.Text) && this.SearchBox.Text.Length > 0)
+                // clear textbox
+                if (!string.IsNullOrWhiteSpace(this.SearchBox.Text))
                     this.SearchBox.Text = "";
                 // exit menu
                 else
@@ -571,7 +571,7 @@ namespace CJBItemSpawner.Framework
                 this.SearchBox.Width = this.SearchIcon.bounds.X - this.SearchBox.X + this.SearchIcon.bounds.Width + 10;
                 this.SearchBoxBounds = new Rectangle(this.SearchBox.X, this.SearchBox.Y + 4, this.SearchBox.Width, 48);
             }
-            this.SearchBoxArea = new ClickableComponent(new Rectangle(this.SearchBoxBounds.X, this.SearchBoxBounds.Y, this.SearchBoxBounds.Width, this.SearchBoxBounds.Height), "");
+            this.SearchBoxArea = new ClickableComponent(this.SearchBoxBounds, "");
 
             // move layout for Android
             if (this.IsAndroid)
