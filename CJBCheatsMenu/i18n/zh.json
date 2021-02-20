@@ -34,7 +34,7 @@
     // tools
     "tools.title": "工具",
     "tools.infinite-water": "喷壶永不干涸",
-    "tools.one-hit-break": "一挥即倒（一击即碎）",
+    "tools.one-hit-break": "一砍即倒（一击即碎）",
     "tools.harvest-with-scythe": "镰刀收获",
 
     // money
@@ -189,7 +189,6 @@
     "warp.casino": "赌场",
     "warp.sandy-shop": "桑迪的商店",
     "warp.skull-cavern": "骷髅洞穴",
-
 
 
     /*********
