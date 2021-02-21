@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
 using Microsoft.Xna.Framework;
@@ -37,7 +36,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         private void SafelySetTime(int time)
         {
             // move time back
-            int intervals = this.GetMinutesBetween(time, Game1.timeOfDay) / 10;
+            int intervals = Utility.CalculateMinutesBetweenTimes(Game1.timeOfDay, time) / 10;
             if (intervals > 0)
             {
                 for (int i = 0; i < intervals; i++)
@@ -47,7 +46,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
             {
                 for (int i = 0; i > intervals; i--)
                 {
-                    Game1.timeOfDay = this.OffsetTime(Game1.timeOfDay, -20); // offset 20 mins so game updates to next interval
+                    Game1.timeOfDay = Utility.ModifyTime(Game1.timeOfDay, -20); // offset 20 mins so game updates to next interval
                     Game1.performTenMinuteClockUpdate();
                 }
             }
@@ -61,46 +60,6 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
             // run clock update (to correct lighting, etc)
             Game1.gameTimeInterval = 0;
             Game1.UpdateGameClock(Game1.currentGameTime);
-        }
-
-        /// <summary>Get the number of minutes between two times.</summary>
-        /// <param name="newTime">The new time.</param>
-        /// <param name="oldTime">The old time.</param>
-        private int GetMinutesBetween(int newTime, int oldTime)
-        {
-            return (int)(this.ToTimeSpan(newTime) - this.ToTimeSpan(oldTime)).TotalMinutes;
-        }
-
-        /// <summary>Get a new game time with the given offset.</summary>
-        /// <param name="time">The game time.</param>
-        /// <param name="minutes">The number of minutes to offset.</param>
-        private int OffsetTime(int time, int minutes)
-        {
-            TimeSpan span = this.ToTimeSpan(time);
-            span = span.Add(TimeSpan.FromMinutes(minutes));
-            return this.ToGameTime(span);
-        }
-
-        /// <summary>Convert a time game time like '2300' into a time span.</summary>
-        /// <param name="time">The time span to convert.</param>
-        private int ToGameTime(TimeSpan time)
-        {
-            return
-                (time.Days * 2400)
-                + (time.Hours * 100)
-                + time.Minutes;
-        }
-
-        /// <summary>Convert a game time like '2300' into a time span.</summary>
-        /// <param name="time">The game time to convert.</param>
-        private TimeSpan ToTimeSpan(int time)
-        {
-            return new TimeSpan(
-                days: 0,
-                hours: time / 100,
-                minutes: time % 100,
-                seconds: 0
-            );
         }
     }
 }
