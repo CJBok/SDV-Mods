@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
+using Microsoft.Xna.Framework;
 using StardewValley;
 using StardewValley.Menus;
 
@@ -35,6 +36,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /// <param name="time">The time of day.</param>
         private void SafelySetTime(int time)
         {
+            // move time back
             int intervals = this.GetMinutesBetween(time, Game1.timeOfDay) / 10;
             if (intervals > 0)
             {
@@ -49,6 +51,16 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
                     Game1.performTenMinuteClockUpdate();
                 }
             }
+
+            // reset ambient light
+            // White is the default non-raining color. If it's raining or dark out, UpdateGameClock
+            // below will update it automatically.
+            Game1.outdoorLight = Color.White;
+            Game1.ambientLight = Color.White;
+
+            // run clock update (to correct lighting, etc)
+            Game1.gameTimeInterval = 0;
+            Game1.UpdateGameClock(Game1.currentGameTime);
         }
 
         /// <summary>Get the number of minutes between two times.</summary>

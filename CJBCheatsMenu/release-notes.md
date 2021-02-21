@@ -4,6 +4,7 @@
 ## Upcoming release
 * Added fast-machine cheat for Statues of True Perfection.
 * Fixed 'time frozen' box shown in map screenshot exports.
+* Fixed outdoor ambient lighting not updated when you reverse time.
 * Improved translations. Thanks to GraceHol and Kareolis (updated Russian)!
 
 ## 1.27
