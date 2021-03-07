@@ -176,12 +176,6 @@
     "warp.tide-pools": "Gelgit Havuzları",
     "warp.willy-shop": "Willy'nin Dükkanı",
 
-    // desert
-    "warp-section.desert": "Çöl",
-    "warp.casino": "Kumarhane",
-    "warp.sandy-shop": "Sandy'nin Dükkanı",
-    "warp.skull-cavern": "Kafatası Mağarası",
-
     // island
     // TODO
     "warp-section.island": "Ginger Island",
@@ -190,6 +184,12 @@
     "warp.dwarf-shop": "Volcano Dwarf Shop",
     "warp.field-office": "Field Office",
     "warp.leo-house": "Leo's House",
+
+    // desert
+    "warp-section.desert": "Çöl",
+    "warp.casino": "Kumarhane",
+    "warp.sandy-shop": "Sandy'nin Dükkanı",
+    "warp.skull-cavern": "Kafatası Mağarası",
 
 
     /*********

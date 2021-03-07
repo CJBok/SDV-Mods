@@ -176,12 +176,6 @@
     "warp.tide-pools": "Pozas de marea",
     "warp.willy-shop": "Tienda de Pesca",
 
-    // desert
-    "warp-section.desert": "Desierto",
-    "warp.casino": "Casino",
-    "warp.sandy-shop": "Tienda Sandy's",
-    "warp.skull-cavern": "Caverna Calavera",
-
     // island
     // TODO
     "warp-section.island": "Ginger Island",
@@ -190,6 +184,12 @@
     "warp.dwarf-shop": "Volcano Dwarf Shop",
     "warp.field-office": "Field Office",
     "warp.leo-house": "Leo's House",
+
+    // desert
+    "warp-section.desert": "Desierto",
+    "warp.casino": "Casino",
+    "warp.sandy-shop": "Tienda Sandy's",
+    "warp.skull-cavern": "Caverna Calavera",
 
 
     /*********
