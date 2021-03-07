@@ -1,4 +1,5 @@
 using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 
 namespace CJBCheatsMenu.Framework.Models
 {
@@ -9,22 +10,22 @@ namespace CJBCheatsMenu.Framework.Models
         ** Accessors
         *********/
         /// <summary>The default values.</summary>
-        public static ModConfig Defaults { get; } = new ModConfig();
+        public static ModConfig Defaults { get; } = new();
 
         /****
         ** Keyboard buttons
         ****/
         /// <summary>The button which opens the menu.</summary>
-        public SButton OpenMenuKey { get; set; } = SButton.P;
+        public KeybindList OpenMenuKey { get; set; } = KeybindList.ForSingle(SButton.P);
 
         /// <summary>The button which freezes the game clock.</summary>
-        public SButton FreezeTimeKey { get; set; } = SButton.None;
+        public KeybindList FreezeTimeKey { get; set; } = new();
 
         /// <summary>The button held to grow trees around the player.</summary>
-        public SButton GrowTreeKey { get; set; } = SButton.NumPad1;
+        public KeybindList GrowTreeKey { get; set; } = KeybindList.ForSingle(SButton.NumPad1);
 
         /// <summary>The button held to grow crops around the player.</summary>
-        public SButton GrowCropsKey { get; set; } = SButton.NumPad2;
+        public KeybindList GrowCropsKey { get; set; } = KeybindList.ForSingle(SButton.NumPad2);
 
         /// <summary>The number of tiles in each direction around the player to cover when pressing <see cref="GrowCropsKey"/> or <see cref="GrowTreeKey"/>.</summary>
         public int GrowRadius { get; set; } = 1;

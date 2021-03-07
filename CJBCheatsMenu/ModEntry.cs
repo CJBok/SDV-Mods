@@ -70,8 +70,7 @@ namespace CJBCheatsMenu
             helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
             helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
 
-            helper.Events.Input.ButtonPressed += this.OnButtonPressed;
-            helper.Events.Input.ButtonReleased += this.OnButtonReleased;
+            helper.Events.Input.ButtonsChanged += this.OnButtonChanged;
 
             helper.Events.World.LocationListChanged += this.OnLocationListChanged;
         }
@@ -105,29 +104,22 @@ namespace CJBCheatsMenu
             this.ResetLocationCache();
         }
 
-        /// <summary>Raised after the player presses a button on the keyboard, controller, or mouse.</summary>
+        /// <summary>Raised after the player presses or releases any keys on the keyboard, controller, or mouse.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void OnButtonPressed(object sender, ButtonPressedEventArgs e)
+        private void OnButtonChanged(object sender, ButtonsChangedEventArgs e)
         {
-            if (!Context.IsPlayerFree || Game1.currentMinigame != null)
-                return;
-
             // open menu
-            if (e.Button == this.Config.OpenMenuKey)
-                Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Cheats.Value, this.Monitor);
+            if (this.Config.OpenMenuKey.JustPressed())
+            {
+                if (Context.IsPlayerFree && Game1.currentMinigame == null)
+                    Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Cheats.Value, this.Monitor);
+                else if (Game1.activeClickableMenu is CheatsMenu menu)
+                    menu.ExitIfValid();
+            }
 
             // handle button if applicable
-            else
-                this.Cheats.Value.OnButtonPressed(e);
-        }
-
-        /// <summary>Raised after the player releases a button on the keyboard, controller, or mouse.</summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event arguments.</param>
-        private void OnButtonReleased(object sender, ButtonReleasedEventArgs e)
-        {
-            this.Cheats.Value.OnButtonReleased(e);
+            this.Cheats.Value.OnButtonsChanged(e);
         }
 
         /// <summary>Raised after the game draws to the sprite patch in a draw tick, just before the final sprite batch is rendered to the screen.</summary>

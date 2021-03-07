@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Added support for [multi-key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings#Multi-key_bindings).
 * Fixed menu background not handling UI scaling correctly.
 * Improved translations. Thanks to horizon98 (updated Chinese) and Kareolis (updated Russian)!
 

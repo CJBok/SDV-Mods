@@ -44,31 +44,18 @@ namespace CJBCheatsMenu.Framework.Cheats
         /// <param name="needsRendering">Whether the cheat should be notified of render ticks.</param>
         public override void OnConfig(CheatContext context, out bool needsInput, out bool needsUpdate, out bool needsRendering)
         {
-            needsInput = context.Config.GrowCropsKey != SButton.None || context.Config.GrowTreeKey != SButton.None;
+            needsInput = context.Config.GrowCropsKey.IsBound || context.Config.GrowTreeKey.IsBound;
             needsUpdate = needsInput;
             needsRendering = false;
         }
 
-        /// <summary>Handle the player pressing a button if <see cref="ICheat.OnSaveLoaded"/> indicated input was needed.</summary>
+        /// <summary>Handle the player pressing or releasing any buttons if <see cref="ICheat.OnSaveLoaded"/> indicated input was needed.</summary>
         /// <param name="context">The cheat context.</param>
         /// <param name="e">The input event arguments.</param>
-        public override void OnButtonPressed(CheatContext context, ButtonPressedEventArgs e)
+        public override void OnButtonsChanged(CheatContext context, ButtonsChangedEventArgs e)
         {
-            if (e.Button == context.Config.GrowTreeKey)
-                this.ShouldGrowTrees = true;
-            if (e.Button == context.Config.GrowCropsKey)
-                this.ShouldGrowCrops = true;
-        }
-
-        /// <summary>Handle the player releasing a button if <see cref="ICheat.OnSaveLoaded"/> indicated input was needed.</summary>
-        /// <param name="context">The cheat context.</param>
-        /// <param name="e">The input event arguments.</param>
-        public override void OnButtonReleased(CheatContext context, ButtonReleasedEventArgs e)
-        {
-            if (e.Button == context.Config.GrowTreeKey)
-                this.ShouldGrowTrees = false;
-            if (e.Button == context.Config.GrowCropsKey)
-                this.ShouldGrowCrops = false;
+            this.ShouldGrowCrops = context.Config.GrowCropsKey.IsDown();
+            this.ShouldGrowTrees = context.Config.GrowTreeKey.IsDown();
         }
 
         /// <summary>Handle a game update if <see cref="ICheat.OnSaveLoaded"/> indicated updates were needed.</summary>

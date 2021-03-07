@@ -20,14 +20,16 @@ file. Most of the settings should be edited in-game through the cheats menu inst
 you may need to edit directly are listed here.
 
 ### Key bindings
-(See [valid key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings).)
+See [valid key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings). Simple
+key bindings can be configured through the in-game UI, but multi-key bindings can only be set in the
+`config.json` file.
 
 setting | default | what it affects
 ------- | ------- | ---------------
-`OpenMenuKey` | `P` | The button which opens the menu.
-`FreezeTimeKey` | `T` | The button which freezes the game clock.
-`GrowTreeKey` | `NumPad1` | The button held to grow trees around the player.
-`GrowCropsKey` | `NumPad2` | The button held to grow crops around the player.
+`OpenMenuKey` | `P` | The keybind which opens the menu.
+`FreezeTimeKey` | `T` | The keybind which freezes the game clock.
+`GrowTreeKey` | `NumPad1` | The keybind held to grow trees around the player.
+`GrowCropsKey` | `NumPad2` | The keybind held to grow crops around the player.
 `GrowRadius` | `1` | The number of tiles in each direction around the player to cover when pressing the `GrowCropsKey` or `GrowTreeKey`.
 
 ### Menu settings

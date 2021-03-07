@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Menus;
 
@@ -43,7 +44,6 @@ namespace CJBCheatsMenu.Framework
         private int CurrentItemIndex;
         private bool IsScrolling;
         private Rectangle ScrollbarRunner;
-        private bool CanClose;
 
         /// <summary>Whether the menu was opened in the current tick.</summary>
         private bool JustOpened = true;
@@ -112,20 +112,18 @@ namespace CJBCheatsMenu.Framework
         /// <param name="key">The key that was pressed.</param>
         public override void receiveKeyPress(Keys key)
         {
-            SButton openMenuKey = this.Cheats.Context.Config.OpenMenuKey;
-            bool isExitKey = Game1.options.menuButton.Contains(new InputButton(key)) || (openMenuKey.TryGetKeyboard(out Keys exitKey) && key == exitKey);
-            if (isExitKey && this.readyToClose() && this.CanClose && !GameMenu.forcePreventClose)
+            if (this.OptionsSlotHeld != -1 && this.OptionsSlotHeld + this.CurrentItemIndex < this.Options.Count)
+                this.Options[this.CurrentItemIndex + this.OptionsSlotHeld].receiveKeyPress(key);
+        }
+
+        /// <summary>Exit the menu if that's allowed for the current state.</summary>
+        public void ExitIfValid()
+        {
+            if (this.readyToClose() && !GameMenu.forcePreventClose)
             {
                 Game1.exitActiveMenu();
                 Game1.soundBank.PlayCue("bigDeSelect");
-                return;
             }
-
-            this.CanClose = true;
-
-            if (this.OptionsSlotHeld == -1 || this.OptionsSlotHeld + this.CurrentItemIndex >= this.Options.Count)
-                return;
-            this.Options[this.CurrentItemIndex + this.OptionsSlotHeld].receiveKeyPress(key);
         }
 
         /// <summary>Handle the player pressing a controller button.</summary>
@@ -534,27 +532,27 @@ namespace CJBCheatsMenu.Framework
                     this.AddOptions(
                         new CheatsOptionsKeyListener(
                             label: I18n.Controls_OpenMenu(),
-                            value: config.OpenMenuKey,
-                            setValue: key => config.OpenMenuKey = key,
+                            value: this.GetSingleButton(config.OpenMenuKey),
+                            setValue: key => config.OpenMenuKey = KeybindList.ForSingle(key),
                             slotWidth: context.SlotWidth,
-                            clearToButton: ModConfig.Defaults.OpenMenuKey
+                            clearToButton: this.GetSingleButton(ModConfig.Defaults.OpenMenuKey)
                         ),
                         new CheatsOptionsKeyListener(
                             label: I18n.Controls_FreezeTime(),
-                            value: config.FreezeTimeKey,
-                            setValue: key => config.FreezeTimeKey = key,
+                            value: this.GetSingleButton(config.FreezeTimeKey),
+                            setValue: key => config.FreezeTimeKey = KeybindList.ForSingle(key),
                             slotWidth: context.SlotWidth
                         ),
                         new CheatsOptionsKeyListener(
                             label: I18n.Controls_GrowTree(),
-                            value: config.GrowTreeKey,
-                            setValue: key => config.GrowTreeKey = key,
+                            value: this.GetSingleButton(config.GrowTreeKey),
+                            setValue: key => config.GrowTreeKey = KeybindList.ForSingle(key),
                             slotWidth: context.SlotWidth
                         ),
                         new CheatsOptionsKeyListener(
                             label: I18n.Controls_GrowCrops(),
-                            value: config.GrowCropsKey,
-                            setValue: key => config.GrowCropsKey = key,
+                            value: this.GetSingleButton(config.GrowCropsKey),
+                            setValue: key => config.GrowCropsKey = KeybindList.ForSingle(key),
                             slotWidth: context.SlotWidth
                         ),
                         new CheatsOptionsSlider(
@@ -563,7 +561,7 @@ namespace CJBCheatsMenu.Framework
                             minValue: 1,
                             maxValue: 10,
                             setValue: value => config.GrowRadius = value,
-                            disabled: () => config.GrowTreeKey == SButton.None && config.GrowCropsKey == SButton.None
+                            disabled: () => !config.GrowTreeKey.IsBound && !config.GrowCropsKey.IsBound
                         ),
                         new OptionsElement(string.Empty), // blank line
                         new CheatsOptionsButton(
@@ -575,6 +573,19 @@ namespace CJBCheatsMenu.Framework
                     break;
             }
             this.SetScrollBarToCurrentIndex();
+        }
+
+        /// <summary>Get the first button in a key binding, if any.</summary>
+        /// <param name="keybindList">The key binding list.</param>
+        private SButton GetSingleButton(KeybindList keybindList)
+        {
+            foreach (Keybind keybind in keybindList.Keybinds)
+            {
+                if (keybind.IsBound)
+                    return keybind.Buttons.First();
+            }
+
+            return SButton.None;
         }
 
         /// <summary>Add a section title to the options list.</summary>
