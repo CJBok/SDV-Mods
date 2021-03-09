@@ -4,7 +4,7 @@
 ## Upcoming release
 * Added support for [multi-key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings#Multi-key_bindings).
 * Fixed menu background not handling UI scaling correctly.
-* Improved translations. Thanks to horizon98 (updated Chinese) and Kareolis (updated Russian)!
+* Improved translations. Thanks to Alucard92 (updated Spanish), horizon98 (updated Chinese), Kareolis (updated Russian), and KediDili (updated Turkish)!
 
 ## 2.0.2
 Released 21 December 2020 for SMAPI 3.8 or later.

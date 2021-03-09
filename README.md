@@ -22,8 +22,8 @@ Japanese   | [↻ partial](CJBCheatsMenu/i18n/ja.json) | [↻ partial](CJBItemSp
 Korean     | [✓](CJBCheatsMenu/i18n/ko.json)        | [✓](CJBItemSpawner/i18n/ko.json)        | [✓](CJBShowItemSellPrice/i18n/ko.json)
 Portuguese | [↻ partial](CJBCheatsMenu/i18n/pt.json) | [✓](CJBItemSpawner/i18n/pt.json)        | [✓](CJBShowItemSellPrice/i18n/pt.json)
 Russian    | [✓](CJBCheatsMenu/i18n/ru.json)        | [✓](CJBItemSpawner/i18n/ru.json)        | [✓](CJBShowItemSellPrice/i18n/ru.json)
-Spanish    | [↻ partial](CJBCheatsMenu/i18n/es.json) | [↻ partial](CJBItemSpawner/i18n/es.json) | [✓](CJBShowItemSellPrice/i18n/es.json)
-Turkish    | [↻ partial](CJBCheatsMenu/i18n/tr.json) | [↻ partial](CJBItemSpawner/i18n/tr.json) | [✓](CJBShowItemSellPrice/i18n/tr.json)
+Spanish    | [✓](CJBCheatsMenu/i18n/es.json)        | [✓](CJBItemSpawner/i18n/es.json)        | [✓](CJBShowItemSellPrice/i18n/es.json)
+Turkish    | [✓](CJBCheatsMenu/i18n/tr.json)        | [✓](CJBItemSpawner/i18n/tr.json)        | [✓](CJBShowItemSellPrice/i18n/tr.json)
 
 Contributions are welcome! See [Modding:Translations](https://stardewvalleywiki.com/Modding:Translations)
 on the wiki for help contributing translations.

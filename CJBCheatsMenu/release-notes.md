@@ -6,7 +6,7 @@
 * Added fast-machine cheat for Statues of True Perfection.
 * Fixed 'time frozen' box shown in map screenshot exports.
 * Fixed outdoor ambient lighting not updated when you reverse time.
-* Improved translations. Thanks to GraceHol and Kareolis (updated Russian), horizon98 (updated Chinese), and wally232 (updated Korean)!
+* Improved translations. Thanks to GraceHol and Kareolis (updated Russian), horizon98 (updated Chinese), KediDili (updated Turkish), vlcoo (updated Spanish), and wally232 (updated Korean)!
 
 ## 1.27
 Released 06 January 2021 for SMAPI 3.8 or later.
