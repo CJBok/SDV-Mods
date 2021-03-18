@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
+using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Components
 {
@@ -19,10 +20,10 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="spriteBatch">The sprite batch being drawn.</param>
         /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
         /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
-        public override void draw(SpriteBatch spriteBatch, int slotX, int slotY)
+        /// <param name="context">The menu drawing the component.</param>
+        public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu context = null)
         {
             int yOffset = 0;
-            //Utility.drawBoldText(spriteBatch, line, Game1.smallFont, new Vector2(slotX + this.bounds.X, slotY + this.bounds.Y + yOffset), Color.Black);
             spriteBatch.DrawString(Game1.smallFont, this.label, new Vector2(slotX + this.bounds.X, slotY + this.bounds.Y + yOffset), Color.Black);
         }
     }

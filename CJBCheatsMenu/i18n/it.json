@@ -1,4 +1,4 @@
-{
+﻿{
     /*********
     ** Main translations
     *********/
@@ -38,10 +38,12 @@
     "tools.harvest-with-scythe": "Mietere con la falce",
 
     // money
-    "money.title": "Soldi",
-    "money.add-amount": "Aggiungi {{amount}}g",
-    "casino-coins.title": "Monete del Casinó",
-    "casino-coins.add-amount": "Aggiungi {{amount}}",
+    "add.money": "Soldi",
+    "add.casino-coins": "Monete del Casinó",
+    "add.golden-walnuts": "Noci Dorate",
+    "add.qi-gems": "Gemme Qi",
+    "add.amount-gold": "Aggiungi {{amount}}g",
+    "add.amount-other": "Aggiungi {{amount}}",
 
 
     /*********
@@ -173,6 +175,15 @@
     "warp-section.beach": "Spiaggia",
     "warp.tide-pools": "Pozze di Marea",
     "warp.willy-shop": "Negozio di Pesca",
+
+    // island
+    // TODO
+    "warp-section.island": "Ginger Island",
+    "warp.forge": "Forge",
+    "warp.island-farm": "Island Farm",
+    "warp.dwarf-shop": "Volcano Dwarf Shop",
+    "warp.field-office": "Field Office",
+    "warp.leo-house": "Leo's House",
 
     // desert
     "warp-section.desert": "Deserto",

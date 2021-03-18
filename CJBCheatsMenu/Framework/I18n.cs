@@ -167,29 +167,41 @@ namespace CJBCheatsMenu.Framework
         }
 
         /// <summary>Get a translation equivalent to "Money".</summary>
-        public static string Money_Title()
+        public static string Add_Money()
         {
-            return I18n.GetByKey("money.title");
+            return I18n.GetByKey("add.money");
+        }
+
+        /// <summary>Get a translation equivalent to "Casino Coins".</summary>
+        public static string Add_CasinoCoins()
+        {
+            return I18n.GetByKey("add.casino-coins");
+        }
+
+        /// <summary>Get a translation equivalent to "Golden Walnuts".</summary>
+        public static string Add_GoldenWalnuts()
+        {
+            return I18n.GetByKey("add.golden-walnuts");
+        }
+
+        /// <summary>Get a translation equivalent to "Qi Gems".</summary>
+        public static string Add_QiGems()
+        {
+            return I18n.GetByKey("add.qi-gems");
         }
 
         /// <summary>Get a translation equivalent to "Add {{amount}}g".</summary>
         /// <param name="amount">The value to inject for the <c>{{amount}}</c> token.</param>
-        public static string Money_AddAmount(object amount)
+        public static string Add_AmountGold(object amount)
         {
-            return I18n.GetByKey("money.add-amount", new { amount });
-        }
-
-        /// <summary>Get a translation equivalent to "Casino Coins".</summary>
-        public static string CasinoCoins_Title()
-        {
-            return I18n.GetByKey("casino-coins.title");
+            return I18n.GetByKey("add.amount-gold", new { amount });
         }
 
         /// <summary>Get a translation equivalent to "Add {{amount}}".</summary>
         /// <param name="amount">The value to inject for the <c>{{amount}}</c> token.</param>
-        public static string CasinoCoins_AddAmount(object amount)
+        public static string Add_AmountOther(object amount)
         {
-            return I18n.GetByKey("casino-coins.add-amount", new { amount });
+            return I18n.GetByKey("add.amount-other", new { amount });
         }
 
         /// <summary>Get a translation equivalent to "Farm".</summary>
@@ -730,6 +742,42 @@ namespace CJBCheatsMenu.Framework
         public static string Warp_WillyShop()
         {
             return I18n.GetByKey("warp.willy-shop");
+        }
+
+        /// <summary>Get a translation equivalent to "Ginger Island".</summary>
+        public static string WarpSection_Island()
+        {
+            return I18n.GetByKey("warp-section.island");
+        }
+
+        /// <summary>Get a translation equivalent to "Forge".</summary>
+        public static string Warp_Forge()
+        {
+            return I18n.GetByKey("warp.forge");
+        }
+
+        /// <summary>Get a translation equivalent to "Island Farm".</summary>
+        public static string Warp_IslandFarm()
+        {
+            return I18n.GetByKey("warp.island-farm");
+        }
+
+        /// <summary>Get a translation equivalent to "Volcano Dwarf Shop".</summary>
+        public static string Warp_DwarfShop()
+        {
+            return I18n.GetByKey("warp.dwarf-shop");
+        }
+
+        /// <summary>Get a translation equivalent to "Field Office".</summary>
+        public static string Warp_FieldOffice()
+        {
+            return I18n.GetByKey("warp.field-office");
+        }
+
+        /// <summary>Get a translation equivalent to "Leo's House".</summary>
+        public static string Warp_LeoHouse()
+        {
+            return I18n.GetByKey("warp.leo-house");
         }
 
         /// <summary>Get a translation equivalent to "Desert".</summary>

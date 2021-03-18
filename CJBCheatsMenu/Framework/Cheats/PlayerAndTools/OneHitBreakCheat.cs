@@ -9,6 +9,7 @@ using StardewValley.Locations;
 using StardewValley.Menus;
 using StardewValley.TerrainFeatures;
 using StardewValley.Tools;
+using SObject = StardewValley.Object;
 
 namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
 {
@@ -52,33 +53,31 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
 
             Farmer player = Game1.player;
             var tool = player.CurrentTool;
+            var location = player.currentLocation;
+            if (location == null)
+                return;
 
             // get affected tile
             Vector2 tile = new Vector2((int)player.GetToolLocation().X / Game1.tileSize, (int)player.GetToolLocation().Y / Game1.tileSize);
 
             // break stones
-            if (tool is Pickaxe && player.currentLocation.objects.ContainsKey(tile))
-            {
-                Object obj = player.currentLocation.Objects[tile];
-                if (obj != null && obj.name == "Stone")
-                    obj.MinutesUntilReady = 0;
-            }
+            if (tool is Pickaxe && location.objects.TryGetValue(tile, out SObject obj) && obj?.name == "Stone")
+                obj.MinutesUntilReady = 0;
 
             // break trees
-            if (tool is Axe && player.currentLocation.terrainFeatures.ContainsKey(tile))
+            if (tool is Axe && location.terrainFeatures.TryGetValue(tile, out TerrainFeature feature))
             {
-                TerrainFeature obj = player.currentLocation.terrainFeatures[tile];
-                if (obj is Tree tree && tree.health.Value > 1)
+                if (feature is Tree tree && tree.health.Value > 1)
                     tree.health.Value = 1;
-                else if (obj is FruitTree fruitTree && fruitTree.health.Value > 1)
+                else if (feature is FruitTree fruitTree && fruitTree.health.Value > 1)
                     fruitTree.health.Value = 1;
             }
 
             // break resource clumps
-            foreach (ResourceClump r in this.GetResourceClumps(player.currentLocation))
+            foreach (ResourceClump clump in this.GetResourceClumps(location))
             {
-                if (r != null && r.getBoundingBox(r.tile.Value).Contains((int)player.GetToolLocation().X, (int)player.GetToolLocation().Y) && r.health.Value > 0)
-                    r.health.Value = 0;
+                if (clump != null && clump.getBoundingBox(clump.tile.Value).Contains((int)player.GetToolLocation().X, (int)player.GetToolLocation().Y) && clump.health.Value > 0)
+                    clump.health.Value = 0;
             }
         }
 
@@ -90,14 +89,20 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         /// <param name="location">The location to check.</param>
         private IEnumerable<ResourceClump> GetResourceClumps(GameLocation location)
         {
-            return location switch
+            IEnumerable<ResourceClump> clumps = location.resourceClumps;
+
+            switch (location)
             {
-                MineShaft mineShaft => mineShaft.resourceClumps,
-                Farm farm => farm.resourceClumps,
-                Forest forest => new[] { forest.log },
-                Woods woods => woods.stumps,
-                _ => Enumerable.Empty<ResourceClump>()
-            };
+                case Forest forest when forest.log != null:
+                    clumps = clumps.Concat(new[] { forest.log });
+                    break;
+
+                case Woods woods when woods.stumps.Any():
+                    clumps = clumps.Concat(woods.stumps);
+                    break;
+            }
+
+            return clumps;
         }
     }
 }

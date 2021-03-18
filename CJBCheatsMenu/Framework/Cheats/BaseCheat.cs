@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI.Events;
 using StardewValley;
+using StardewValley.Locations;
 using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats
@@ -33,15 +34,10 @@ namespace CJBCheatsMenu.Framework.Cheats
         /// <param name="context">The cheat context.</param>
         public virtual void OnSaveLoaded(CheatContext context) { }
 
-        /// <summary>Handle the player pressing a button if <see cref="ICheat.OnSaveLoaded"/> indicated input was needed.</summary>
+        /// <summary>Handle the player pressing or releasing any buttons if <see cref="ICheat.OnSaveLoaded"/> indicated input was needed.</summary>
         /// <param name="context">The cheat context.</param>
         /// <param name="e">The input event arguments.</param>
-        public virtual void OnButtonPressed(CheatContext context, ButtonPressedEventArgs e) { }
-
-        /// <summary>Handle the player releasing a button if <see cref="ICheat.OnSaveLoaded"/> indicated input was needed.</summary>
-        /// <param name="context">The cheat context.</param>
-        /// <param name="e">The input event arguments.</param>
-        public virtual void OnButtonReleased(CheatContext context, ButtonReleasedEventArgs e) { }
+        public virtual void OnButtonsChanged(CheatContext context, ButtonsChangedEventArgs e) {  }
 
         /// <summary>Handle a game update if <see cref="ICheat.OnSaveLoaded"/> indicated updates were needed.</summary>
         /// <param name="context">The cheat context.</param>
@@ -122,6 +118,16 @@ namespace CJBCheatsMenu.Framework.Cheats
             }
             else
                 Game1.player.eventsSeen.Remove(id);
+        }
+
+        /// <summary>Get whether a location may have crops.</summary>
+        /// <param name="location">The location to check.</param>
+        protected bool MayHaveCrops(GameLocation location)
+        {
+            return
+                location.IsFarm
+                || location.IsGreenhouse
+                || location is IslandWest;
         }
     }
 }

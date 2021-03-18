@@ -1,7 +1,17 @@
-[← back to readme](README.md)
+﻿[← back to readme](README.md)
 
 # Release notes
 ## Upcoming release
+* Improved translations. Thanks to horizon98 (updated Chinese)!
+
+## 1.9.10
+Released 21 December 2020 for SMAPI 3.8 or later.
+
+* Updated for Stardew Valley 1.5, including split-screen mode and UI scaling.
+
+## 1.9.9
+Released 30 October 2020 for SMAPI 3.7 or later.
+
 * Fixed translations not updated when you change language.
 * Fixed prices shown for toolbar items when the toolbar is hidden (e.g. during festivals).
 

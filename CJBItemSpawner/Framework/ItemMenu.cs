@@ -45,6 +45,9 @@ namespace CJBItemSpawner.Framework
         /// <summary>Whether the menu is being displayed on Android.</summary>
         private bool IsAndroid => SConstants.TargetPlatform == GamePlatform.Android;
 
+        /// <summary>Indented spaces to add to sort labels to make room for the sort icon.</summary>
+        private readonly string SortLabelIndent;
+
         /****
         ** State
         ****/
@@ -115,9 +118,6 @@ namespace CJBItemSpawner.Framework
         /// <summary>The down arrow to scroll results.</summary>
         private ClickableTextureComponent DownArrow;
 
-        /// <summary>The search icon for the search box.</summary>
-        private ClickableTextureComponent SearchIcon;
-
         /// <summary>The search textbox.</summary>
         private TextBox SearchBox;
 
@@ -126,8 +126,11 @@ namespace CJBItemSpawner.Framework
 
         /// <summary>The search textbox area.</summary>
         private Rectangle SearchBoxBounds;
-        
-        /// <summary>The opacity of the <see cref="SearchIcon"/>. Fades out when selected, and back in when deselected.</summary>
+
+        /// <summary>The search icon for the search box.</summary>
+        private ClickableTextureComponent SearchIcon;
+
+        /// <summary>The current opacity of the <see cref="SearchIcon"/>, which fades out when selected and back in when deselected.</summary>
         private float SearchIconOpacity = 1f;
 
 
@@ -170,10 +173,10 @@ namespace CJBItemSpawner.Framework
             // init assets
             this.StarOutlineTexture = content.Load<Texture2D>("assets/empty-quality.png");
             this.SortTexture = content.Load<Texture2D>("assets/sort.png");
+            this.SortLabelIndent = this.GetSpaceIndent(Game1.smallFont, this.SortTexture.Width) + " ";
 
             // init base UI
-            if (!this.IsAndroid)
-                this.drawBG = false; // handled manually to draw arrows between background and menu
+            this.drawBG = false; // handled manually to draw arrows between background and menu on Android, and fix UI scaling issues on all platforms
             this.behaviorOnItemGrab = this.OnItemGrab;
 
             // init custom UI
@@ -297,12 +300,10 @@ namespace CJBItemSpawner.Framework
             }
 
             // navigate
-            else if ((key == Keys.Left || key == Keys.Right))
+            else if (key == Keys.Left || key == Keys.Right)
             {
-                this.NextCategory(key == Keys.Left
-                    ? -1
-                    : 1
-                );
+                int direction = key == Keys.Left ? -1 : 1;
+                this.NextCategory(direction);
             }
 
             // scroll
@@ -424,6 +425,9 @@ namespace CJBItemSpawner.Framework
         /// <param name="spriteBatch">The sprite batch being drawn.</param>
         public override void draw(SpriteBatch spriteBatch)
         {
+            // draw background overlay
+            spriteBatch.Draw(Game1.fadeToBlackRect, new Rectangle(0, 0, Game1.uiViewport.Width, Game1.uiViewport.Height), Color.Black * 0.5f);
+
             // draw arrows under base UI, so tooltips are drawn over them
             void DrawArrows()
             {
@@ -450,7 +454,10 @@ namespace CJBItemSpawner.Framework
                 DrawArrows();
             }
 
-            // add main UI
+            // draw search box
+            CommonHelper.DrawTab(this.SearchBoxBounds.X, this.SearchBoxBounds.Y - CommonHelper.ButtonBorderWidth / 2, this.SearchBoxBounds.Width - CommonHelper.ButtonBorderWidth * 3 / 2, this.SearchBoxBounds.Height - CommonHelper.ButtonBorderWidth, out _, drawShadow: this.IsAndroid);
+
+            // draw buttons
             CommonHelper.DrawTab(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, this.QualityButton.bounds.Width - CommonHelper.ButtonBorderWidth, this.QualityButton.bounds.Height - CommonHelper.ButtonBorderWidth, out Vector2 qualityIconPos, drawShadow: this.IsAndroid);
             CommonHelper.DrawTab(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name, drawShadow: this.IsAndroid);
             this.SortIcon.draw(spriteBatch);
@@ -554,24 +561,45 @@ namespace CJBItemSpawner.Framework
             this.SortButton = new ClickableComponent(new Rectangle(this.QualityButton.bounds.Right + 20, top, this.GetMaxSortLabelWidth(Game1.smallFont) + CommonHelper.ButtonBorderWidth, Game1.tileSize), this.GetSortLabel(this.SortBy));
             this.SortIcon = new ClickableTextureComponent(new Rectangle(this.SortButton.bounds.X + CommonHelper.ButtonBorderWidth, top + CommonHelper.ButtonBorderWidth, this.SortTexture.Width, Game1.tileSize), this.SortTexture, new Rectangle(0, 0, this.SortTexture.Width, this.SortTexture.Height), 1f);
             this.CategoryDropdown = new Dropdown<string>(this.SortButton.bounds.Right + 20, this.SortButton.bounds.Y, Game1.smallFont, this.CategoryDropdown?.Selected ?? I18n.Filter_All(), this.Categories, p => p);
-            this.UpArrow = new ClickableTextureComponent("up-arrow", new Rectangle(right - 32, y - 64, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), "", "", Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
-            this.DownArrow = new ClickableTextureComponent("down-arrow", new Rectangle(this.UpArrow.bounds.X, this.UpArrow.bounds.Y + this.height / 2 - 64, this.UpArrow.bounds.Width, this.UpArrow.bounds.Height), "", "", Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
-            this.SearchIcon = new ClickableTextureComponent("search", new Rectangle(right - 39 - 58, y - Game1.tileSize * 2 + 20, 39, 39), "", "", Game1.mouseCursors, new Rectangle(80, 0, 13, 13), 3);
+            this.UpArrow = new ClickableTextureComponent(new Rectangle(right - 32, y - 64, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
+            this.DownArrow = new ClickableTextureComponent(new Rectangle(this.UpArrow.bounds.X, this.UpArrow.bounds.Y + this.height / 2 - 64, this.UpArrow.bounds.Width, this.UpArrow.bounds.Height), Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
 
             // search box
+            // aligned to the right, stretched to fit space between category dropdown and right margin up to a max width
             {
-                // width stretches to fit the gap between category dropdown and right margin
+                int maxWidth = (int)Game1.smallFont.MeasureString("ABCDEFGHIJKLMNOPQRSTUVWXYZ").X;
+                int leftSpacing = 10 * Game1.pixelZoom; // min space between category dropdown and search box
+                int searchRight = this.IsAndroid
+                    ? this.upperRightCloseButton.bounds.X - 5 * Game1.pixelZoom
+                    : right - 13 * Game1.pixelZoom;
+
+                int searchWidth = Math.Min(searchRight - this.CategoryDropdown.bounds.Right - leftSpacing + 10, maxWidth);
+                int searchX = searchRight - searchWidth;
+
                 this.SearchBox = new TextBox(Game1.content.Load<Texture2D>("LooseSprites\\textBox"), null, Game1.smallFont, Game1.textColor)
                 {
-                    X = this.CategoryDropdown.bounds.X + this.CategoryDropdown.bounds.Width + 8 * Game1.pixelZoom,
-                    Y = this.SearchIcon.bounds.Y - 4,
+                    X = searchX,
+                    Y = top + 6,
                     Height = 0,
+                    Width = searchWidth,
                     Text = this.SearchText
                 };
-                this.SearchBox.Width = this.SearchIcon.bounds.X - this.SearchBox.X + this.SearchIcon.bounds.Width + 10;
-                this.SearchBoxBounds = new Rectangle(this.SearchBox.X, this.SearchBox.Y + 4, this.SearchBox.Width, 48);
+                this.SearchBoxBounds = new Rectangle(this.SearchBox.X, this.SearchBox.Y + 4, this.SearchBox.Width, 12 * Game1.pixelZoom);
+                this.SearchBoxArea = new ClickableComponent(new Rectangle(this.SearchBoxBounds.X, this.SearchBoxBounds.Y, this.SearchBoxBounds.Width, this.SearchBoxBounds.Height), "");
             }
-            this.SearchBoxArea = new ClickableComponent(this.SearchBoxBounds, "");
+
+            // search icon
+            {
+                var iconRect = new Rectangle(80, 0, 13, 13);
+                float scale = 2.5f;
+                var iconBounds = new Rectangle(
+                    x: (int)(this.SearchBoxBounds.Right - (iconRect.Width * scale)),
+                    y: (int)(this.SearchBoxBounds.Center.Y - (iconRect.Height / 2f * scale)),
+                    width: (int)(iconRect.Width * scale),
+                    height: (int)(iconRect.Height * scale)
+                );
+                this.SearchIcon = new ClickableTextureComponent(iconBounds, Game1.mouseCursors, iconRect, scale);
+            }
 
             // move layout for Android
             if (this.IsAndroid)
@@ -807,11 +835,26 @@ namespace CJBItemSpawner.Framework
             return items;
         }
 
+        /// <summary>Get a string space-indented to the given width.</summary>
+        /// <param name="font">The font with which to measure the indent size.</param>
+        /// <param name="width">The minimum indent width in pixels.</param>
+        private string GetSpaceIndent(SpriteFont font, int width)
+        {
+            if (width <= 0)
+                return "";
+
+            string indent = " ";
+            while (font.MeasureString(indent).X < width)
+                indent += " ";
+
+            return indent;
+        }
+
         /// <summary>Get the translated label for a sort type.</summary>
         /// <param name="sort">The sort type.</param>
         private string GetSortLabel(ItemSort sort)
         {
-            return "    " + sort switch // leave space for sort icon
+            return this.SortLabelIndent + sort switch
             {
                 ItemSort.DisplayName => I18n.Sort_ByName(),
                 ItemSort.Type => I18n.Sort_ByType(),

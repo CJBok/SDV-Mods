@@ -1,7 +1,44 @@
-[← back to readme](README.md)
+﻿[← back to readme](README.md)
 
 # Release notes
 ## Upcoming release
+* Added support for [multi-key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings#Multi-key_bindings). (Multi-key bindings must be set [through the `config.json`](README.md#configure); the UI will only recognize one key.)
+* Added fast-machine cheat for Statues of True Perfection.
+* Fixed 'time frozen' box shown in map screenshot exports.
+* Fixed outdoor ambient lighting not updated when you reverse time.
+* Improved translations. Thanks to GraceHol and Kareolis (updated Russian), horizon98 (updated Chinese), KediDili (updated Turkish), vlcoo (updated Spanish), and wally232 (updated Korean)!
+
+## 1.27
+Released 06 January 2021 for SMAPI 3.8 or later.
+
+* Added cheats to increase Golden Walnut and Qi Gem counts.
+* Fixed some options not working on the island farm (specifically auto water, harvest with scythe, and one-hit break).
+* Fixed 'auto water' not watering tilled-but-empty dirt.
+* Fixed 'fast casks' not fully completing casks in Stardew Valley 1.5.
+* Fixed 'time frozen' box covering the floor number in the new volcano dungeon.
+* Fixed warp to farm not accounting for custom farmhouse positions in Stardew Valley 1.5.
+* Fixed error when split-screen player joins.
+* Improved translations. Thanks to Enaium (updated Chinese)!
+
+## 1.26
+Released 21 December 2020 for SMAPI 3.8 or later.
+
+* Updated for Stardew Valley 1.5, including support for...
+  * split-screen mode and UI scaling;
+  * new fast machines (bone mill, coffee maker, deconstructor, geode crusher, heavy tapper, ostrich incubator, and solar panel);
+  * key to the town wallet item;
+  * island warps.
+
+## 1.25.4
+Released 19 November 2020 for SMAPI 3.7 or later.
+
+* Fixed 'time frozen' box still shown in screenshot mode.
+* Fixed errors when the current location isn't ready.
+* Improved translations. Thanks to Becks723 (updated Chinese) and wally232 (updated Korean)!
+
+## 1.25.3
+Released 30 October 2020 for SMAPI 3.7 or later.
+
 * 'Always auto-feed' now works without silos if 'infinite hay' is enabled.
 * Internal refactor to translation handling, and now uses game translations where possible.
 

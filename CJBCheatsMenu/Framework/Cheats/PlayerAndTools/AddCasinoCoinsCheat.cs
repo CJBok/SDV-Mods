@@ -18,7 +18,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
             foreach (int amount in new[] { 100, 1000, 10000 })
             {
                 yield return new CheatsOptionsButton(
-                    label: I18n.CasinoCoins_AddAmount(amount: amount),
+                    label: I18n.Add_AmountOther(amount: amount),
                     slotWidth: context.SlotWidth,
                     toggle: () => this.AddCoins(amount)
                 );

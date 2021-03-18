@@ -1,16 +1,40 @@
-[← back to readme](README.md)
+﻿[← back to readme](README.md)
 
 # Release notes
 ## Upcoming release
-* Redesigned menu to make it simpler, more intuitive, and more mobile-friendly.
+* Added support for [multi-key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings#Multi-key_bindings).
+* Fixed menu background not handling UI scaling correctly.
+* Improved translations. Thanks to Alucard92 (updated Spanish), horizon98 (updated Chinese), Kareolis (updated Russian), and KediDili (updated Turkish)!
+
+## 2.0.2
+Released 21 December 2020 for SMAPI 3.8 or later.
+
+* Updated for Stardew Valley 1.5, including split-screen mode.
+
+## 2.0.1
+Released 19 November 2020 for SMAPI 3.7 or later.
+
+* Jukebox ring is no longer hidden by default (since it no longer causes a crash in SDV 1.4).
+* Moved drum/flute blocks from _equipment: tools_ to _crafting: products_.
+* Fixed clicks on a scrolled dropdown selecting the wrong option.
+* Fixed sort icon overlapping text in some languages.
+* Improved translations. Thanks to Becks723 (updated Chinese) and wally232 (updated Korean)!
+
+## 2.0
+Released 30 October 2020 for SMAPI 3.7 or later.
+
+* Redesigned menu to make it more intuitive and mobile-friendly.
 * Added full controller support.
 * Added keyboard navigation for categories and scrolling.
 * Added official Android compatibility.
 * Added shirts normally only available during character customization.
 * Added support for customizing the filter categories via `assets/categories.json`.
 * Overhauled category grouping to be more useful.
-* Internal refactoring to simplify future game updates.
+* The item spawner now applies fish pond rules for roe items. (That mainly adds Clam Roe, Sea Urchin Roe, and custom roe from mods.)
+* Rewrote mod to simplify future game updates.
 * Improved translations. Thanks to Caco-o-sapo (updated Portuguese)!
+
+(Thanks to b-b-blueberry for tweaking some of the new UI, Cakewalker for Android testing, and many users on Discord for feedback!)
 
 ## 1.12.2
 Released 12 September 2020 for SMAPI 3.7 or later.

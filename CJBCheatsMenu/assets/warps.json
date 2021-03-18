@@ -1,4 +1,4 @@
-/*
+﻿/*
 
    The warps to show in the cheats menu. See "Warp format" in the CJB Cheats Menu readme at
    https://github.com/CJBok/SDV-Mods/tree/master/CJBCheatsMenu#readme for more info.
@@ -127,12 +127,40 @@
                 "DisplayText": "warp.willy-shop",
                 "Location": "Beach",
                 "Tile": "30, 34",
-                "Order": -1 
+                "Order": -1
             },
             {
                 "DisplayText": "warp.tide-pools",
                 "Location": "Beach",
                 "Tile": "87, 26"
+            }
+        ],
+        "warp-section.island": [
+            {
+                "DisplayText": "warp.island-farm",
+                "Location": "IslandWest",
+                "Tile": "77, 41",
+                "Order": -1
+            },
+            {
+                "DisplayText": "warp.dwarf-shop",
+                "Location": "VolcanoDungeon5",
+                "Tile": "36, 32"
+            },
+            {
+                "DisplayText": "warp.field-office",
+                "Location": "IslandNorth",
+                "Tile": "46, 48"
+            },
+            {
+                "DisplayText": "warp.forge",
+                "Location": "Caldera",
+                "Tile": "23, 25"
+            },
+            {
+                "DisplayText": "warp.leo-house",
+                "Location": "IslandEast",
+                "Tile": "22, 14"
             }
         ],
         "warp-section.desert": [

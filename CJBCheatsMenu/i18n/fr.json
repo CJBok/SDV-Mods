@@ -1,4 +1,4 @@
-{
+﻿{
     /*********
     ** Main translations
     *********/
@@ -38,10 +38,12 @@
     "tools.harvest-with-scythe": "Récolter avec la faux",
 
     // money
-    "money.title": "Argent",
-    "money.add-amount": "Ajouter {{amount}}po",
-    "casino-coins.title": "Pièce de casino",
-    "casino-coins.add-amount": "Ajouter {{amount}}",
+    "add.money": "Argent",
+    "add.casino-coins": "Pièces de casino",
+    "add.golden-walnuts": "Noix Dorées",
+    "add.qi-gems": "Gemmes Qi",
+    "add.amount-gold": "Ajouter {{amount}}po",
+    "add.amount-other": "Ajouter {{amount}}",
 
 
     /*********
@@ -173,6 +175,15 @@
     "warp-section.beach": "À la plage",
     "warp.tide-pools": "Cuvettes de marée",
     "warp.willy-shop": "Poissonnerie",
+
+    // island
+    // TODO
+    "warp-section.island": "Ginger Island",
+    "warp.forge": "Forge",
+    "warp.island-farm": "Island Farm",
+    "warp.dwarf-shop": "Volcano Dwarf Shop",
+    "warp.field-office": "Field Office",
+    "warp.leo-house": "Leo's House",
 
     // desert
     "warp-section.desert": "Désert",

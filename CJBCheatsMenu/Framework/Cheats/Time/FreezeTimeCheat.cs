@@ -37,19 +37,19 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /// <param name="needsRendering">Whether the cheat should be notified of render ticks.</param>
         public override void OnConfig(CheatContext context, out bool needsInput, out bool needsUpdate, out bool needsRendering)
         {
-            needsInput = context.Config.FreezeTimeKey != SButton.None;
+            needsInput = context.Config.FreezeTimeKey.IsBound;
             needsUpdate = needsInput || context.Config.FreezeTime || context.Config.FreezeTimeInside || context.Config.FreezeTimeCaves;
             needsRendering = needsUpdate;
         }
 
-        /// <summary>Handle the player pressing a button if <see cref="ICheat.OnSaveLoaded"/> indicated input was needed.</summary>
+        /// <summary>Handle the player pressing or releasing any buttons if <see cref="ICheat.OnSaveLoaded"/> indicated input was needed.</summary>
         /// <param name="context">The cheat context.</param>
         /// <param name="e">The input event arguments.</param>
-        public override void OnButtonPressed(CheatContext context, ButtonPressedEventArgs e)
+        public override void OnButtonsChanged(CheatContext context, ButtonsChangedEventArgs e)
         {
             ModConfig config = context.Config;
 
-            if (e.Button == config.FreezeTimeKey)
+            if (config.FreezeTimeKey.JustPressed())
                 config.FreezeTime = !config.FreezeTime;
         }
 
@@ -70,7 +70,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /// <param name="spriteBatch">The sprite batch being drawn.</param>
         public override void OnRendered(CheatContext context, SpriteBatch spriteBatch)
         {
-            if (this.ShouldFreezeTime(context.Config, Game1.currentLocation, out bool isCave))
+            if (Game1.displayHUD && !Game1.game1.takingMapScreenshot && this.ShouldFreezeTime(context.Config, Game1.currentLocation, out bool isCave))
                 this.RenderTimeFrozenBox(context, spriteBatch, isCave);
         }
 
@@ -84,7 +84,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /// <param name="isCave">Whether the given location is a cave.</param>
         private bool ShouldFreezeTime(ModConfig config, GameLocation location, out bool isCave)
         {
-            isCave = location is MineShaft || location is FarmCave;
+            isCave = location is MineShaft || location is FarmCave || location is VolcanoDungeon;
             return
                 config.FreezeTime
                 || (config.FreezeTimeCaves && isCave)

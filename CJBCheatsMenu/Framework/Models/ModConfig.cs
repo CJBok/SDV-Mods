@@ -1,4 +1,5 @@
 using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 
 namespace CJBCheatsMenu.Framework.Models
 {
@@ -9,22 +10,22 @@ namespace CJBCheatsMenu.Framework.Models
         ** Accessors
         *********/
         /// <summary>The default values.</summary>
-        public static ModConfig Defaults { get; } = new ModConfig();
+        public static ModConfig Defaults { get; } = new();
 
         /****
         ** Keyboard buttons
         ****/
         /// <summary>The button which opens the menu.</summary>
-        public SButton OpenMenuKey { get; set; } = SButton.P;
+        public KeybindList OpenMenuKey { get; set; } = KeybindList.ForSingle(SButton.P);
 
         /// <summary>The button which freezes the game clock.</summary>
-        public SButton FreezeTimeKey { get; set; } = SButton.None;
+        public KeybindList FreezeTimeKey { get; set; } = new();
 
         /// <summary>The button held to grow trees around the player.</summary>
-        public SButton GrowTreeKey { get; set; } = SButton.NumPad1;
+        public KeybindList GrowTreeKey { get; set; } = KeybindList.ForSingle(SButton.NumPad1);
 
         /// <summary>The button held to grow crops around the player.</summary>
-        public SButton GrowCropsKey { get; set; } = SButton.NumPad2;
+        public KeybindList GrowCropsKey { get; set; } = KeybindList.ForSingle(SButton.NumPad2);
 
         /// <summary>The number of tiles in each direction around the player to cover when pressing <see cref="GrowCropsKey"/> or <see cref="GrowTreeKey"/>.</summary>
         public int GrowRadius { get; set; } = 1;
@@ -95,8 +96,11 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>The game clock doesn't change when you're inside the mines, Skull Cavern, or farm cave.</summary>
         public bool FreezeTimeCaves { get; set; }
 
-        /// <summary>Beehouses finish instantly.</summary>
+        /// <summary>Bee houses finish instantly.</summary>
         public bool FastBeeHouse { get; set; }
+
+        /// <summary>Bone mills finish instantly.</summary>
+        public bool FastBoneMill { get; set; }
 
         /// <summary>Casks finish instantly.</summary>
         public bool FastCask { get; set; }
@@ -107,17 +111,26 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Cheese presses finish instantly.</summary>
         public bool FastCheesePress { get; set; }
 
+        /// <summary>Coffee makers finish instantly.</summary>
+        public bool FastCoffeeMaker { get; set; }
+
         /// <summary>Crab pots finish instantly.</summary>
         public bool FastCrabPot { get; set; }
 
         /// <summary>Crystalariums finish instantly.</summary>
         public bool FastCrystalarium { get; set; }
 
+        /// <summary>Deconstructors finish instantly.</summary>
+        public bool FastDeconstructor { get; set; }
+
         /// <summary>Fruit trees bear fruit instantly.</summary>
         public bool FastFruitTree { get; set; }
 
         /// <summary>Furnaces finish instantly.</summary>
         public bool FastFurnace { get; set; }
+
+        /// <summary>Geode crushers finish instantly.</summary>
+        public bool FastGeodeCrusher { get; set; }
 
         /// <summary>Egg incubators finish overnight.</summary>
         public bool FastIncubator { get; set; }
@@ -140,6 +153,9 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Oil makers finish instantly.</summary>
         public bool FastOilMaker { get; set; }
 
+        /// <summary>Ostrich incubators finish overnight.</summary>
+        public bool FastOstrichIncubator { get; set; }
+
         /// <summary>Preserves jars finish instantly.</summary>
         public bool FastPreservesJar { get; set; }
 
@@ -158,11 +174,17 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Soda machines finish instantly.</summary>
         public bool FastSodaMachine { get; set; }
 
+        /// <summary>Solar panels finish instantly.</summary>
+        public bool FastSolarPanel { get; set; }
+
         /// <summary>Statues of endless fortune finish instantly.</summary>
         public bool FastStatueOfEndlessFortune { get; set; }
 
         /// <summary>Statues of perfection finish instantly.</summary>
         public bool FastStatueOfPerfection { get; set; }
+
+        /// <summary>Statues of true perfection finish instantly.</summary>
+        public bool FastStatueOfTruePerfection { get; set; }
 
         /// <summary>Tappers finish instantly.</summary>
         public bool FastTapper { get; set; }

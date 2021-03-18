@@ -85,6 +85,12 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Adds various numbers of casino coins to the player.</summary>
         public ICheat AddCasinoCoins { get; } = new AddCasinoCoinsCheat();
 
+        /// <summary>Adds various numbers of golden walnuts to the player.</summary>
+        public ICheat AddGoldenWalnuts { get; } = new AddGoldenWalnutsCheat();
+
+        /// <summary>Adds various numbers of Qi gems to the player.</summary>
+        public ICheat AddQiGems { get; } = new AddQiGemsCheat();
+
         /****
         ** Farming & fishing
         ****/
@@ -254,20 +260,12 @@ namespace CJBCheatsMenu.Framework
                 cheat.OnUpdated(this.Context, e);
         }
 
-        /// <summary>Raised after the player presses a button on the keyboard, controller, or mouse.</summary>
-        /// <param name="e">The event arguments.</param>
-        public void OnButtonPressed(ButtonPressedEventArgs e)
+        /// <summary>Raised after the player presses or releases any buttons if <see cref="OnSaveLoaded"/> indicated input was needed.</summary>
+        /// <param name="e">The input event arguments.</param>
+        public void OnButtonsChanged(ButtonsChangedEventArgs e)
         {
             foreach (ICheat cheat in this.CheatsWhichNeedInput)
-                cheat.OnButtonPressed(this.Context, e);
-        }
-
-        /// <summary>Raised after the player releases a button on the keyboard, controller, or mouse.</summary>
-        /// <param name="e">The event arguments.</param>
-        public void OnButtonReleased(ButtonReleasedEventArgs e)
-        {
-            foreach (ICheat cheat in this.CheatsWhichNeedInput)
-                cheat.OnButtonReleased(this.Context, e);
+                cheat.OnButtonsChanged(this.Context, e);
         }
     }
 }

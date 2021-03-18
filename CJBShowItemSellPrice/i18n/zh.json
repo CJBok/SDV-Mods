@@ -1,4 +1,4 @@
-{
-    "labels.single-price": "单个物品",
-    "labels.stack-price": "堆叠的所有物品"
+﻿{
+    "labels.single-price": "单价",
+    "labels.stack-price": "总计"
 }

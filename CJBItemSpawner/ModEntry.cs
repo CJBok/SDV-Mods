@@ -23,7 +23,7 @@ namespace CJBItemSpawner
         private ModItemData ItemData;
 
         /// <summary>The item category filters available in the item spawner menu.</summary>
-        public ModDataCategory[] Categories { get; set; }
+        private ModDataCategory[] Categories;
 
 
         /*********
@@ -49,22 +49,22 @@ namespace CJBItemSpawner
 
             // init mod
             I18n.Init(helper.Translation);
-            helper.Events.Input.ButtonPressed += this.OnButtonPressed;
+            helper.Events.Input.ButtonsChanged += this.OnButtonsChanged;
         }
 
 
         /*********
         ** Private methods
         *********/
-        /// <summary>Raised after the player presses a button on the keyboard, controller, or mouse.</summary>
+        /// <summary>Raised after the player presses or releases any buttons on the keyboard, controller, or mouse.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void OnButtonPressed(object sender, ButtonPressedEventArgs e)
+        private void OnButtonsChanged(object sender, ButtonsChangedEventArgs e)
         {
             if (!Context.IsPlayerFree)
                 return;
 
-            if (e.Button == this.Config.ShowMenuKey)
+            if (this.Config.ShowMenuKey.JustPressed())
                 Game1.activeClickableMenu = this.BuildMenu();
         }
 
@@ -83,10 +83,8 @@ namespace CJBItemSpawner
             // apply 'problematic items' filter
             if (!this.Config.AllowProblematicItems && this.ItemData?.ProblematicItems?.Any() == true)
             {
-                var problematicItems = new HashSet<Tuple<ItemType, int>>(
-                    this.ItemData.ProblematicItems.Select(item => Tuple.Create(item.Type, item.ID))
-                );
-                items = items.Where(item => !problematicItems.Contains(Tuple.Create(item.Type, item.ID)));
+                var problematicItems = new HashSet<string>(this.ItemData.ProblematicItems, StringComparer.OrdinalIgnoreCase);
+                items = items.Where(item => !problematicItems.Contains($"{item.Type}:{item.ID}"));
             }
 
             // yield models

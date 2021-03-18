@@ -26,15 +26,10 @@ namespace CJBCheatsMenu.Framework.Cheats
         /// <param name="context">The cheat context.</param>
         void OnSaveLoaded(CheatContext context);
 
-        /// <summary>Handle the player pressing a button if <see cref="OnSaveLoaded"/> indicated input was needed.</summary>
+        /// <summary>Handle the player pressing or releasing any buttons if <see cref="OnSaveLoaded"/> indicated input was needed.</summary>
         /// <param name="context">The cheat context.</param>
         /// <param name="e">The input event arguments.</param>
-        void OnButtonPressed(CheatContext context, ButtonPressedEventArgs e);
-
-        /// <summary>Handle the player releasing a button if <see cref="OnSaveLoaded"/> indicated input was needed.</summary>
-        /// <param name="context">The cheat context.</param>
-        /// <param name="e">The input event arguments.</param>
-        void OnButtonReleased(CheatContext context, ButtonReleasedEventArgs e);
+        void OnButtonsChanged(CheatContext context, ButtonsChangedEventArgs e);
 
         /// <summary>Handle a game update if <see cref="OnSaveLoaded"/> indicated updates were needed.</summary>
         /// <param name="context">The cheat context.</param>

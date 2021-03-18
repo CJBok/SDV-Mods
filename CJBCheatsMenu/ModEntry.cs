@@ -5,6 +5,7 @@ using CJBCheatsMenu.Framework;
 using CJBCheatsMenu.Framework.Models;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 
 namespace CJBCheatsMenu
@@ -15,9 +16,6 @@ namespace CJBCheatsMenu
         /*********
         ** Fields
         *********/
-        /// <summary>The known in-game location.</summary>
-        private Lazy<GameLocation[]> Locations;
-
         /// <summary>The mod settings.</summary>
         private ModConfig Config;
 
@@ -25,7 +23,10 @@ namespace CJBCheatsMenu
         private ModData Warps;
 
         /// <summary>Manages the cheat implementations.</summary>
-        private CheatManager Cheats;
+        private PerScreen<CheatManager> Cheats;
+
+        /// <summary>The known in-game location.</summary>
+        private readonly PerScreen<Lazy<GameLocation[]>> Locations = new(ModEntry.GetLocationsForCache);
 
 
         /*********
@@ -59,7 +60,7 @@ namespace CJBCheatsMenu
 
             // load cheats
             this.ResetLocationCache();
-            this.Cheats = new CheatManager(this.Config, this.Helper.Reflection, () => this.Locations.Value, this.Warps);
+            this.Cheats = new PerScreen<CheatManager>(() => new CheatManager(this.Config, this.Helper.Reflection, () => this.Locations.Value.Value, this.Warps));
 
             // hook events
             helper.Events.Display.Rendered += this.OnRendered;
@@ -69,8 +70,7 @@ namespace CJBCheatsMenu
             helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
             helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
 
-            helper.Events.Input.ButtonPressed += this.OnButtonPressed;
-            helper.Events.Input.ButtonReleased += this.OnButtonReleased;
+            helper.Events.Input.ButtonsChanged += this.OnButtonChanged;
 
             helper.Events.World.LocationListChanged += this.OnLocationListChanged;
         }
@@ -85,7 +85,7 @@ namespace CJBCheatsMenu
         private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
             this.ResetLocationCache();
-            this.Cheats.OnSaveLoaded();
+            this.Cheats.Value.OnSaveLoaded();
         }
 
         /// <summary>Raised after the player returns to the title screen.</summary>
@@ -104,29 +104,22 @@ namespace CJBCheatsMenu
             this.ResetLocationCache();
         }
 
-        /// <summary>Raised after the player presses a button on the keyboard, controller, or mouse.</summary>
+        /// <summary>Raised after the player presses or releases any keys on the keyboard, controller, or mouse.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void OnButtonPressed(object sender, ButtonPressedEventArgs e)
+        private void OnButtonChanged(object sender, ButtonsChangedEventArgs e)
         {
-            if (!Context.IsPlayerFree || Game1.currentMinigame != null)
-                return;
-
             // open menu
-            if (e.Button == this.Config.OpenMenuKey)
-                Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Cheats, this.Monitor);
+            if (this.Config.OpenMenuKey.JustPressed())
+            {
+                if (Context.IsPlayerFree && Game1.currentMinigame == null)
+                    Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Cheats.Value, this.Monitor);
+                else if (Game1.activeClickableMenu is CheatsMenu menu)
+                    menu.ExitIfValid();
+            }
 
             // handle button if applicable
-            else
-                this.Cheats.OnButtonPressed(e);
-        }
-
-        /// <summary>Raised after the player releases a button on the keyboard, controller, or mouse.</summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event arguments.</param>
-        private void OnButtonReleased(object sender, ButtonReleasedEventArgs e)
-        {
-            this.Cheats.OnButtonReleased(e);
+            this.Cheats.Value.OnButtonsChanged(e);
         }
 
         /// <summary>Raised after the game draws to the sprite patch in a draw tick, just before the final sprite batch is rendered to the screen.</summary>
@@ -137,7 +130,7 @@ namespace CJBCheatsMenu
             if (!Context.IsWorldReady)
                 return;
 
-            this.Cheats.OnRendered();
+            this.Cheats.Value.OnRendered();
         }
 
         /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
@@ -148,7 +141,7 @@ namespace CJBCheatsMenu
             if (!Context.IsWorldReady)
                 return;
 
-            this.Cheats.OnUpdateTicked(e);
+            this.Cheats.Value.OnUpdateTicked(e);
         }
 
         /// <summary>Raised after a game menu is opened, closed, or replaced.</summary>
@@ -160,20 +153,23 @@ namespace CJBCheatsMenu
             if (e.OldMenu is CheatsMenu)
             {
                 this.Helper.WriteConfig(this.Config);
-                this.Cheats.OnOptionsChanged();
+                this.Cheats.Value.OnOptionsChanged();
             }
         }
 
         /// <summary>Reset the cached location list.</summary>
         private void ResetLocationCache()
         {
-            if (this.Locations?.IsValueCreated == false)
-                return;
+            if (this.Locations.Value.IsValueCreated)
+                this.Locations.Value = ModEntry.GetLocationsForCache();
+        }
 
-            this.Locations = new Lazy<GameLocation[]>(
-                () => Context.IsWorldReady
-                    ? CommonHelper.GetAllLocations().ToArray()
-                    : new GameLocation[0]
+        /// <summary>Get a cached lookup of available locations.</summary>
+        private static Lazy<GameLocation[]> GetLocationsForCache()
+        {
+            return new(() => Context.IsWorldReady
+                ? CommonHelper.GetAllLocations().ToArray()
+                : new GameLocation[0]
             );
         }
     }
