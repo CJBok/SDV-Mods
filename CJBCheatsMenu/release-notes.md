@@ -6,6 +6,7 @@
 * Added fast-machine cheat for Statues of True Perfection.
 * Fixed 'time frozen' box shown in map screenshot exports.
 * Fixed outdoor ambient lighting not updated when you reverse time.
+* Fixed menu becoming unresponsive if you press a controller shoulder button while the 'press new key' overlay is open.
 * Improved translations. Thanks to GraceHol and Kareolis (updated Russian), horizon98 (updated Chinese), KediDili (updated Turkish), vlcoo (updated Spanish), and wally232 (updated Korean)!
 
 ## 1.27

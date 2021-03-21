@@ -130,7 +130,7 @@ namespace CJBCheatsMenu.Framework
         /// <param name="key">The key that was pressed.</param>
         public override void receiveGamePadButton(Buttons key)
         {
-            if (key == Buttons.LeftShoulder || key == Buttons.RightShoulder)
+            if ((key == Buttons.LeftShoulder || key == Buttons.RightShoulder) && !this.IsPressNewKeyActive())
             {
                 // rotate tab index
                 int index = this.Tabs.FindIndex(p => p.name == this.CurrentTab.ToString());
@@ -573,6 +573,12 @@ namespace CJBCheatsMenu.Framework
                     break;
             }
             this.SetScrollBarToCurrentIndex();
+        }
+
+        /// <summary>Whether any button bind control is active and listening for input.</summary>
+        private bool IsPressNewKeyActive()
+        {
+            return this.Options.Any(p => p is CheatsOptionsKeyListener { IsListening: true });
         }
 
         /// <summary>Get the first button in a key binding, if any.</summary>

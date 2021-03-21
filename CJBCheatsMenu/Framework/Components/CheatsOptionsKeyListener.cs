@@ -32,8 +32,12 @@ namespace CJBCheatsMenu.Framework.Components
         /// <summary>The button to set when the player clears it.</summary>
         private readonly SButton ClearToButton;
 
-        private string ListenerMessage;
-        private bool Listening;
+
+        /*********
+        ** Public methods
+        *********/
+        /// <summary>Whether the control overlay is active and waiting for the user to press a key.</summary>
+        public bool IsListening { get; private set; }
 
 
         /*********
@@ -60,20 +64,19 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="y">The cursor's Y pixel position.</param>
         public override void receiveLeftClick(int x, int y)
         {
-            if (this.greyedOut || this.Listening || !this.SetButtonBounds.Contains(x, y) || Constants.TargetPlatform == GamePlatform.Android)
+            if (this.greyedOut || this.IsListening || !this.SetButtonBounds.Contains(x, y) || Constants.TargetPlatform == GamePlatform.Android)
                 return;
 
-            this.Listening = true;
+            this.IsListening = true;
             Game1.soundBank.PlayCue("breathin");
             GameMenu.forcePreventClose = true;
-            this.ListenerMessage = this.PressNewKeyLabel;
         }
 
         /// <summary>Handle the player pressing a keyboard button.</summary>
         /// <param name="key">The key that was pressed.</param>
         public override void receiveKeyPress(Keys key)
         {
-            if (this.greyedOut || !this.Listening)
+            if (this.greyedOut || !this.IsListening)
                 return;
 
             if (key == Keys.Escape)
@@ -88,7 +91,7 @@ namespace CJBCheatsMenu.Framework.Components
             }
 
             this.SetValue(this.Value);
-            this.Listening = false;
+            this.IsListening = false;
             GameMenu.forcePreventClose = false;
         }
 
@@ -103,10 +106,10 @@ namespace CJBCheatsMenu.Framework.Components
             if (Constants.TargetPlatform != GamePlatform.Android)
                 Utility.drawWithShadow(spriteBatch, Game1.mouseCursors, new Vector2(this.SetButtonBounds.X + slotX, this.SetButtonBounds.Y + slotY), this.SetButtonSprite, Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom, false, 0.15f);
 
-            if (this.Listening)
+            if (this.IsListening)
             {
                 spriteBatch.Draw(Game1.staminaRect, new Rectangle(0, 0, Game1.graphics.GraphicsDevice.Viewport.Width, Game1.graphics.GraphicsDevice.Viewport.Height), new Rectangle(0, 0, 1, 1), Color.Black * 0.75f, 0.0f, Vector2.Zero, SpriteEffects.None, 0.999f);
-                spriteBatch.DrawString(Game1.dialogueFont, this.ListenerMessage, Utility.getTopLeftPositionForCenteringOnScreen(Game1.tileSize * 3, Game1.tileSize), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9999f);
+                spriteBatch.DrawString(Game1.dialogueFont, this.PressNewKeyLabel, Utility.getTopLeftPositionForCenteringOnScreen(Game1.tileSize * 3, Game1.tileSize), Color.White, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9999f);
             }
         }
     }
