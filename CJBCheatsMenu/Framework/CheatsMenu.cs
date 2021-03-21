@@ -135,6 +135,7 @@ namespace CJBCheatsMenu.Framework
         /// <param name="key">The key that was pressed.</param>
         public override void receiveGamePadButton(Buttons key)
         {
+            // navigate tabs
             if ((key == Buttons.LeftShoulder || key == Buttons.RightShoulder) && !this.IsPressNewKeyActive())
             {
                 // rotate tab index
@@ -153,6 +154,9 @@ namespace CJBCheatsMenu.Framework
                 MenuTab tabID = this.GetTabID(this.Tabs[index]);
                 Game1.activeClickableMenu = new CheatsMenu(tabID, this.Cheats, this.Monitor);
             }
+
+            // send to active menu
+            (this.GetActiveOption() as BaseOptionsElement)?.ReceiveButtonPress(key.ToSButton());
         }
 
         /// <summary>Handle the player scrolling the mouse wheel.</summary>
@@ -270,7 +274,6 @@ namespace CJBCheatsMenu.Framework
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
             if (!GameMenu.forcePreventClose)
             {
-
                 foreach (ClickableComponent tab in this.Tabs)
                 {
                     MenuTab tabID = this.GetTabID(tab);

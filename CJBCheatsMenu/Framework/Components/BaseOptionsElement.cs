@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewValley.Menus;
 
@@ -31,6 +32,18 @@ namespace CJBCheatsMenu.Framework.Components
             return Constants.TargetPlatform == GamePlatform.Android
                 ? this.bounds.Width + 8
                 : 0;
+        }
+
+        /// <summary>Handle the player pressing a button.</summary>
+        /// <param name="button">The button that was pressed.</param>
+        public virtual void ReceiveButtonPress(SButton button) { }
+
+        /// <inheritdoc />
+        public override void receiveKeyPress(Keys key)
+        {
+            this.ReceiveButtonPress(key.ToSButton());
+
+            base.receiveKeyPress(key);
         }
     }
 }

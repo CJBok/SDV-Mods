@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Added support for [multi-key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings#Multi-key_bindings). (Multi-key bindings must be set [through the `config.json`](README.md#configure); the UI will only recognize one key.)
+* Added support for binding a controller button through the 'controls' tab.
 * Added fast-machine cheat for Statues of True Perfection.
 * Fixed 'time frozen' box shown in map screenshot exports.
 * Fixed outdoor ambient lighting not updated when you reverse time.

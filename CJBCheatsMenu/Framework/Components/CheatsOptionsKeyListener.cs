@@ -1,7 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
@@ -31,6 +31,31 @@ namespace CJBCheatsMenu.Framework.Components
 
         /// <summary>The button to set when the player clears it.</summary>
         private readonly SButton ClearToButton;
+
+        /// <summary>Buttons that can't be bound.</summary>
+        private readonly HashSet<SButton> InvalidButtons = new()
+        {
+            // invalid
+            SButton.None,
+
+            // buttons that would exit menu or conflict
+            SButton.Escape,
+            SButton.ControllerB,
+
+            // buttons that would break navigation
+            SButton.MouseLeft,
+            SButton.MouseRight,
+            SButton.LeftThumbstickDown,
+            SButton.LeftThumbstickLeft,
+            SButton.LeftThumbstickRight,
+            SButton.LeftThumbstickUp,
+            SButton.RightThumbstickDown,
+            SButton.RightThumbstickLeft,
+            SButton.RightThumbstickRight,
+            SButton.RightThumbstickUp,
+            SButton.LeftShoulder,
+            SButton.RightShoulder
+        };
 
 
         /*********
@@ -72,21 +97,20 @@ namespace CJBCheatsMenu.Framework.Components
             GameMenu.forcePreventClose = true;
         }
 
-        /// <summary>Handle the player pressing a keyboard button.</summary>
-        /// <param name="key">The key that was pressed.</param>
-        public override void receiveKeyPress(Keys key)
+        /// <inheritdoc />
+        public override void ReceiveButtonPress(SButton button)
         {
             if (this.greyedOut || !this.IsListening)
                 return;
 
-            if (key == Keys.Escape || key == Keys.None)
+            if (this.InvalidButtons.Contains(button))
             {
                 this.Value = this.ClearToButton;
                 Game1.soundBank.PlayCue("bigDeSelect");
             }
             else
             {
-                this.Value = key.ToSButton();
+                this.Value = button;
                 Game1.soundBank.PlayCue("coin");
             }
 
