@@ -1,7 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.28
+Released 20 March 2021 for SMAPI 3.9 or later.
+
 * Added support for [multi-key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings#Multi-key_bindings). (Multi-key bindings must be set [through the `config.json`](README.md#configure); the UI will only recognize one key.)
 * Added support for binding a controller button through the 'controls' tab.
 * Added fast-machine cheat for Statues of True Perfection.

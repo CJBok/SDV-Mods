@@ -1,7 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 2.1
+Released 20 March 2021 for SMAPI 3.9 or later.
+
 * Added support for [multi-key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings#Multi-key_bindings).
 * Improved controller support (thanks to b-b-blueberry!).
 * Fixed menu background not handling UI scaling correctly.
