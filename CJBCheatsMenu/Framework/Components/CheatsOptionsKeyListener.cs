@@ -79,7 +79,7 @@ namespace CJBCheatsMenu.Framework.Components
             if (this.greyedOut || !this.IsListening)
                 return;
 
-            if (key == Keys.Escape)
+            if (key == Keys.Escape || key == Keys.None)
             {
                 this.Value = this.ClearToButton;
                 Game1.soundBank.PlayCue("bigDeSelect");
