@@ -95,7 +95,7 @@ namespace CJBItemSpawner.Framework
         private bool CanScrollDown => this.TopRowIndex < this.MaxTopRowIndex;
 
         /// <summary>Whether the user explicitly selected the textbox by clicking on it, so the selection should be maintained.</summary>
-        private bool TextboxExplicitlySelected;
+        private bool IsSearchBoxSelectedExplicitly;
 
         /****
         ** UI components
@@ -134,7 +134,7 @@ namespace CJBItemSpawner.Framework
         private float SearchIconOpacity = 1f;
 
         /// <summary>Whether the search icon is transitioning between the selected/unselected states.</summary>
-        private bool IsSearchBoxSelectionChanging => Math.Abs(1f - this.SearchIconOpacity) > 0.5f;
+        private bool IsSearchBoxSelectionChanging => this.SearchIconOpacity > 0 && this.SearchIconOpacity < 1;
 
 
         /*********
@@ -234,7 +234,7 @@ namespace CJBItemSpawner.Framework
             // textbox
             else if (this.SearchBoxBounds.Contains(x, y))
             {
-                if (!this.SearchBox.Selected || !this.TextboxExplicitlySelected)
+                if (!this.SearchBox.Selected || !this.IsSearchBoxSelectedExplicitly)
                     this.SelectSearchBox(explicitly: true);
             }
 
@@ -276,18 +276,17 @@ namespace CJBItemSpawner.Framework
         public override void receiveKeyPress(Keys key)
         {
             bool inDropdown = this.CategoryDropdown.IsExpanded;
+            bool isEscape = key == Keys.Escape;
             bool isExitButton =
-                key == Keys.Escape
+                isEscape
                 || Game1.options.doesInputListContain(Game1.options.menuButton, key)
                 || Game1.options.doesInputListContain(Game1.options.cancelButton, key);
 
-            // clear textbox (or exit if empty)
-            if (this.SearchBox.Selected && isExitButton)
+            // clear textbox
+            if (isEscape && (this.IsSearchBoxSelectedExplicitly || (this.SearchBox.Selected && !string.IsNullOrEmpty(this.SearchBox.Text))))
             {
-                if (!string.IsNullOrEmpty(this.SearchBox.Text))
-                    this.SearchBox.Text = "";
-                else
-                    this.exitThisMenu();
+                this.SearchBox.Text = "";
+                this.DeselectSearchBox();
             }
 
             // close dropdown
@@ -320,8 +319,12 @@ namespace CJBItemSpawner.Framework
             }
 
             // default behavior (unless we're already handling a searchbox selection change)
-            else if (!this.IsSearchBoxSelectionChanging)
-                base.receiveKeyPress(key);
+            else
+            {
+                bool isIgnoredExitKey = this.SearchBox.Selected && isExitButton && !isEscape;
+                if (!isIgnoredExitKey && !this.IsSearchBoxSelectionChanging)
+                    base.receiveKeyPress(key);
+            }
         }
 
         /// <summary>Handle a controller button press by the player.</summary>
@@ -374,7 +377,7 @@ namespace CJBItemSpawner.Framework
         public override void performHoverAction(int x, int y)
         {
             // handle search box selected
-            if (!this.TextboxExplicitlySelected && !Game1.options.gamepadControls && Game1.lastCursorMotionWasMouse)
+            if (!this.IsSearchBoxSelectedExplicitly && !Game1.options.gamepadControls && Game1.lastCursorMotionWasMouse)
             {
                 bool overSearchBox = this.SearchBoxBounds.Contains(x, y);
                 if (this.SearchBox.Selected != overSearchBox)
@@ -395,7 +398,7 @@ namespace CJBItemSpawner.Framework
         public override void update(GameTime time)
         {
             // deselect textbox
-            if (this.TextboxExplicitlySelected && !this.SearchBox.Selected)
+            if (this.IsSearchBoxSelectedExplicitly && !this.SearchBox.Selected)
                 this.DeselectSearchBox();
 
             // update search text
@@ -735,21 +738,20 @@ namespace CJBItemSpawner.Framework
         private void SelectSearchBox(bool explicitly)
         {
             this.SearchBox.Selected = true;
-            this.TextboxExplicitlySelected = explicitly;
+            this.IsSearchBoxSelectedExplicitly = explicitly;
             this.SearchBox.Width = this.SearchBoxBounds.Width;
         }
 
         /// <summary>Set the search textbox non-selected.</summary>
         private void DeselectSearchBox()
         {
-            if (Game1.textEntry != null)
-                return;
+            bool wasTextEntryOpen = Game1.textEntry != null;
 
             this.SearchBox.Selected = false;
-            this.TextboxExplicitlySelected = false;
+            this.IsSearchBoxSelectedExplicitly = false;
             this.SearchBox.Width = this.SearchIcon.bounds.X - this.SearchBox.X + this.SearchIcon.bounds.Width + 10 - this.SearchIcon.bounds.Width - 6 * Game1.pixelZoom;
 
-            if (Game1.options.gamepadControls && !Game1.lastCursorMotionWasMouse)
+            if (wasTextEntryOpen && Game1.options.gamepadControls && !Game1.lastCursorMotionWasMouse)
             {
                 this.setCurrentlySnappedComponentTo(this.ItemsToGrabMenu.inventory.First().myID);
                 this.snapCursorToCurrentSnappedComponent();

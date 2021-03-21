@@ -1,6 +1,10 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed menu exiting if you type 'e' in the search box with 2.1.
+* Fixed unable to deselect textbox with 2.1.
+
 ## 2.1
 Released 20 March 2021 for SMAPI 3.9 or later.
 
