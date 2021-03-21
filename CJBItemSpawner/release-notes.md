@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Closing the gamepad text entry UI now snaps to the item grid.
 * Fixed menu exiting if you type 'e' in the search box with 2.1.
 * Fixed unable to deselect textbox with 2.1.
 

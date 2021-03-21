@@ -54,6 +54,9 @@ namespace CJBItemSpawner.Framework
         /// <summary>Handles writing to the SMAPI console and log.</summary>
         private readonly IMonitor Monitor;
 
+        /// <summary>Manages the gamepad text entry UI.</summary>
+        private readonly TextEntryManager TextEntryManager;
+
         /// <summary>The base draw method.</summary>
         /// <remarks>This circumvents an issue where <see cref="ItemGrabMenu.draw(SpriteBatch)"/> can't be called directly due to a conflicting overload.</remarks>
         private readonly Action<SpriteBatch> BaseDraw;
@@ -150,9 +153,10 @@ namespace CJBItemSpawner.Framework
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="spawnableItems">The items available to spawn.</param>
+        /// <param name="textEntryManager">Manages the gamepad text entry UI.</param>
         /// <param name="content">The content helper for loading assets.</param>
         /// <param name="monitor">Handles writing to the SMAPI console and log.</param>
-        public ItemMenu(SpawnableItem[] spawnableItems, IContentHelper content, IMonitor monitor)
+        public ItemMenu(SpawnableItem[] spawnableItems, TextEntryManager textEntryManager, IContentHelper content, IMonitor monitor)
             : base(
                 inventory: new List<Item>(),
                 reverseGrab: false,
@@ -167,11 +171,12 @@ namespace CJBItemSpawner.Framework
             )
         {
             // init settings
+            this.TextEntryManager = textEntryManager;
+            this.Monitor = monitor;
             this.BaseDraw = this.GetBaseDraw();
             this.ItemsInView = this.ItemsToGrabMenu.actualInventory;
             this.AllItems = spawnableItems;
             this.Categories = this.GetDisplayCategories(spawnableItems).ToArray();
-            this.Monitor = monitor;
 
             // init assets
             this.StarOutlineTexture = content.Load<Texture2D>("assets/empty-quality.png");
@@ -397,7 +402,11 @@ namespace CJBItemSpawner.Framework
         /// <param name="time">The current game time.</param>
         public override void update(GameTime time)
         {
-            // deselect textbox
+            // deselect textbox when text entry closes
+            if (this.SearchBox.Selected && this.TextEntryManager.JustClosed())
+                this.DeselectSearchBox(snapToItems: true);
+
+            // update state when search box is deselected
             if (this.IsSearchBoxSelectedExplicitly && !this.SearchBox.Selected)
                 this.DeselectSearchBox();
 
@@ -743,15 +752,16 @@ namespace CJBItemSpawner.Framework
         }
 
         /// <summary>Set the search textbox non-selected.</summary>
-        private void DeselectSearchBox()
+        /// <param name="snapToItems">Whether to snap the gamepad cursor to the item grid, if applicable.</param>
+        private void DeselectSearchBox(bool snapToItems = false)
         {
-            bool wasTextEntryOpen = Game1.textEntry != null;
+            Game1.closeTextEntry();
 
             this.SearchBox.Selected = false;
             this.IsSearchBoxSelectedExplicitly = false;
             this.SearchBox.Width = this.SearchIcon.bounds.X - this.SearchBox.X + this.SearchIcon.bounds.Width + 10 - this.SearchIcon.bounds.Width - 6 * Game1.pixelZoom;
 
-            if (wasTextEntryOpen && Game1.options.gamepadControls && !Game1.lastCursorMotionWasMouse)
+            if (snapToItems && Game1.options.gamepadControls && !Game1.lastCursorMotionWasMouse)
             {
                 this.setCurrentlySnappedComponentTo(this.ItemsToGrabMenu.inventory.First().myID);
                 this.snapCursorToCurrentSnappedComponent();
