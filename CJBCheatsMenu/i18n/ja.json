@@ -1,4 +1,4 @@
-{
+﻿{
     /*********
     ** Main translations
     *********/
@@ -176,12 +176,6 @@
     "warp.tide-pools": "タイドプール",
     "warp.willy-shop": "釣具店",
 
-    // desert
-    "warp-section.desert": "Desert", // TODO
-    "warp.casino": "カジノ",
-    "warp.sandy-shop": "砂漠商店",
-    "warp.skull-cavern": "ドクロの洞窟",
-
     // island
     // TODO
     "warp-section.island": "Ginger Island",
@@ -190,6 +184,12 @@
     "warp.dwarf-shop": "Volcano Dwarf Shop",
     "warp.field-office": "Field Office",
     "warp.leo-house": "Leo's House",
+
+    // desert
+    "warp-section.desert": "Desert", // TODO
+    "warp.casino": "カジノ",
+    "warp.sandy-shop": "砂漠商店",
+    "warp.skull-cavern": "ドクロの洞窟",
 
 
     /*********

@@ -1,4 +1,4 @@
-{
+﻿{
     /*********
     ** Main translations
     *********/
@@ -22,28 +22,28 @@
     *********/
     // player
     "player.title": "玩家",
-    "player.infinite-stamina": "耐力不减",
-    "player.infinite-health": "生命不减",
+    "player.infinite-stamina": "无限体力",
+    "player.infinite-health": "无限生命",
     "player.instant-cooldowns": "武器无冷却时间",
     "player.inventory-size": "背包栏大小",
     "player.movement-speed": "移动速度增加",
     "player.movement-speed.default": "默认",
-    "player.one-hit-kill": "一拳超人(对怪物)",
+    "player.one-hit-kill": "一击必杀",
     "player.max-daily-luck": "每日运气最大",
 
     // tools
     "tools.title": "工具",
-    "tools.infinite-water": "无限喷壶",
-    "tools.one-hit-break": "一拳超人(对物品)",
+    "tools.infinite-water": "喷壶永不干涸",
+    "tools.one-hit-break": "一砍即倒（一击即碎）",
     "tools.harvest-with-scythe": "镰刀收获",
 
     // money
     "add.money": "金钱",
     "add.casino-coins": "赌场代币",
-    "add.golden-walnuts": "的金色核桃",
+    "add.golden-walnuts": "金色核桃",
     "add.qi-gems": "齐钻",
     "add.amount-gold": "增加 {{amount}} 金",
-    "add.amount-other": "增加 {{amount}}",
+    "add.amount-other": "增加 {{amount}}个",
 
 
     /*********
@@ -59,16 +59,16 @@
 
     // fishing
     "fishing.title": "钓鱼",
-    "fishing.instant-catch": "立即抓住",
+    "fishing.instant-catch": "立即钓起",
     "fishing.instant-bite": "立即咬钩",
     "fishing.always-throw-max-distance": "抛竿总是最远距离",
     "fishing.always-treasure": "必定出现宝箱",
     "fishing.durable-tackles": "钓具不损毁",
 
     // fast machines
-    "fast-machines.title": "农场工具快速生产",
+    "fast-machines.title": "工匠设备快速工作",
     "fast-machines.fruit-trees": "水果树",
-    "fast-machines.ready-in-the-morning": "{{machineName}}（第二天早上）",
+    "fast-machines.ready-in-the-morning": "{{machineName}}（第二天早上完成）",
 
 
     /*********
@@ -76,45 +76,45 @@
     *********/
     // skills
     "skills.title": "技能",
-    "skills.increase-farming": "提升耕种 Lv: {{currentLevel}}",
-    "skills.increase-mining": "提升采矿 Lv: {{currentLevel}}",
-    "skills.increase-foraging": "提升觅食 Lv: {{currentLevel}}",
-    "skills.increase-fishing": "提升钓鱼 Lv: {{currentLevel}}",
-    "skills.increase-combat": "提升战斗 Lv: {{currentLevel}}",
+    "skills.increase-farming": "耕种增加1级 当前等级: {{currentLevel}}",
+    "skills.increase-mining": "采矿增加1级 当前等级: {{currentLevel}}",
+    "skills.increase-foraging": "觅食增加1级 当前等级: {{currentLevel}}",
+    "skills.increase-fishing": "钓鱼增加1级 当前等级: {{currentLevel}}",
+    "skills.increase-combat": "战斗增加1级 当前等级: {{currentLevel}}",
     "skills.reset": "重设技能!",
 
     // professions
     "professions.title": "职业",
-    "professions.combat.fighter": "战斗 lvl 5 - 战士",
-    "professions.combat.scout": "战斗 lvl 5 - 观察员",
-    "professions.combat.acrobat": "战斗 lvl 10 - 特技者",
-    "professions.combat.brute": "战斗 lvl 10 - 暴击",
-    "professions.combat.defender": "战斗 lvl 10 - 防御者",
-    "professions.combat.desperado": "战斗 lvl 10 - 亡命徒",
-    "professions.farming.rancher": "耕种 lvl 5 - 牧场主",
-    "professions.farming.tiller": "耕种 lvl 5 - 农场主",
-    "professions.farming.agriculturist": "耕种 lvl 10 - 农业学家",
-    "professions.farming.artisan": "耕种 lvl 10 - 制品生产家",
-    "professions.farming.coopmaster": "耕种 lvl 10 - 鸡舍大师",
-    "professions.farming.shepherd": "耕种 lvl 10 - 牧羊人",
-    "professions.fishing.fisher": "钓鱼 lvl 5 - 渔夫",
-    "professions.fishing.trapper": "钓鱼 lvl 5 - 捕鱼者",
-    "professions.fishing.angler": "钓鱼 lvl 10 - 垂钓者",
-    "professions.fishing.luremaster": "钓鱼 lvl 10 - 诱饵大师",
-    "professions.fishing.mariner": "钓鱼 lvl 10 - 水手",
-    "professions.fishing.pirate": "钓鱼 lvl 10 - 海盗",
-    "professions.foraging.forester": "觅食 lvl 5 - 护林人",
-    "professions.foraging.gatherer": "觅食 lvl 5 - 收集者",
-    "professions.foraging.botanist": "觅食 lvl 10 - 植物学家",
-    "professions.foraging.lumberjack": "觅食 lvl 10 - 伐木工人",
-    "professions.foraging.tapper": "觅食 lvl 10 - 萃取者",
-    "professions.foraging.tracker": "觅食 lvl 10 - 追踪者",
-    "professions.mining.geologist": "采矿 lvl 5 - 地质学家",
-    "professions.mining.miner": "采矿 lvl 5 - 矿工",
-    "professions.mining.blacksmith": "采矿 lvl 10 - 铁匠",
-    "professions.mining.excavator": "采矿 lvl 10 - 挖掘者",
-    "professions.mining.gemologist": "采矿 lvl 10 - 宝石专家",
-    "professions.mining.prospector": "采矿 lvl 10 - 勘探者",
+    "professions.combat.fighter": "战斗 等级 5 - 战士",
+    "professions.combat.scout": "战斗 等级 5 - 侦查员",
+    "professions.combat.acrobat": "战斗 等级 10 - 特技者",
+    "professions.combat.brute": "战斗 等级 10 - 野蛮人",
+    "professions.combat.defender": "战斗 等级 10 - 防御者",
+    "professions.combat.desperado": "战斗 等级 10 - 亡命徒",
+    "professions.farming.rancher": "耕种 等级 5 - 畜牧人",
+    "professions.farming.tiller": "耕种 等级 5 - 农耕人",
+    "professions.farming.agriculturist": "耕种 等级 10 - 农业学家",
+    "professions.farming.artisan": "耕种 等级 10 - 工匠",
+    "professions.farming.coopmaster": "耕种 等级 10 - 鸡舍大师",
+    "professions.farming.shepherd": "耕种 等级 10 - 牧羊人",
+    "professions.fishing.fisher": "钓鱼 等级 5 - 渔夫",
+    "professions.fishing.trapper": "钓鱼 等级 5 - 捕猎者",
+    "professions.fishing.angler": "钓鱼 等级 10 - 垂钓者",
+    "professions.fishing.luremaster": "钓鱼 等级 10 - 诱饵大师",
+    "professions.fishing.mariner": "钓鱼 等级 10 - 水手",
+    "professions.fishing.pirate": "钓鱼 等级 10 - 海盗",
+    "professions.foraging.forester": "觅食 等级 5 - 护林人",
+    "professions.foraging.gatherer": "觅食 等级 5 - 收集者",
+    "professions.foraging.botanist": "觅食 等级 10 - 植物学家",
+    "professions.foraging.lumberjack": "觅食 等级 10 - 伐木工人",
+    "professions.foraging.tapper": "觅食 等级 10 - 萃取者",
+    "professions.foraging.tracker": "觅食 等级 10 - 追踪者",
+    "professions.mining.geologist": "采矿 等级 5 - 地质学家",
+    "professions.mining.miner": "采矿 等级 5 - 矿工",
+    "professions.mining.blacksmith": "采矿 等级 10 - 铁匠",
+    "professions.mining.excavator": "采矿 等级 10 - 挖掘者",
+    "professions.mining.gemologist": "采矿 等级 10 - 宝石专家",
+    "professions.mining.prospector": "采矿 等级 10 - 勘探者",
 
 
     /*********
@@ -145,29 +145,29 @@
     "warp.farm": "农场",
     "warp.carpenter": "木匠的商店",
     "warp.desert": "沙漠",
-    "warp.mines": "矿洞",
+    "warp.mines": "矿井",
     "warp.pierre-shop": "皮埃尔的杂货店",
 
     // town
     "warp-section.town": "镇上",
-    "warp.blacksmith": "铁匠",
+    "warp.blacksmith": "铁匠铺",
     "warp.community-center": "社区中心",
     "warp.jojamart": "Joja超市",
     "warp.movie-theater": "电影院",
     "warp.museum": "博物馆",
-    "warp.saloon": "星之果实餐吧",
+    "warp.saloon": "星之果实酒吧",
     "warp.sewer": "下水道",
 
     // forest
     "warp-section.forest": "南部森林",
-    "warp.hats": "被遗弃的房屋",
-    "warp.ranch": "玛尼的牧场",
+    "warp.hats": "帽子店",
+    "warp.ranch": "玛妮的牧场",
     "warp.secret-woods": "秘密森林",
     "warp.wizard-tower": "法师塔",
 
     // mountain
     "warp-section.mountain": "北部山区",
-    "warp.adventurers-guild": "探险家工会",
+    "warp.adventurers-guild": "探险家公会",
     "warp.bathhouse": "温泉",
     "warp.quarry": "采石场",
 
@@ -176,19 +176,19 @@
     "warp.tide-pools": "沙滩",
     "warp.willy-shop": "威利的鱼店",
 
+    // island
+    "warp-section.island": "姜岛",
+    "warp.forge": "锻造台",
+    "warp.island-farm": "姜岛农场",
+    "warp.dwarf-shop": "火山地牢矮人商店",
+    "warp.field-office": "岛屿办事处",
+    "warp.leo-house": "雷欧的房子",
+
     // desert
     "warp-section.desert": "沙漠",
     "warp.casino": "赌场",
     "warp.sandy-shop": "桑迪的商店",
-    "warp.skull-cavern": "头骨矿洞",
-
-    // island
-    "warp-section.island": "生姜岛",
-    "warp.forge": "锻造台",
-    "warp.island-farm": "海岛农场",
-    "warp.dwarf-shop": "火山矮人商店",
-    "warp.field-office": "外地办事处",
-    "warp.leo-house": "雷欧的房子",
+    "warp.skull-cavern": "骷髅洞穴",
 
 
     /*********
@@ -196,8 +196,8 @@
     *********/
     "time.title": "时间",
     "time.freeze-inside": "在建筑内冻结时间",
-    "time.freeze-caves": "在洞穴内冻结时间",
-    "time.freeze-everywhere": "无论身在何处都冻结",
+    "time.freeze-caves": "在矿井内冻结时间",
+    "time.freeze-everywhere": "任何地方都冻结时间",
     "time.time": "时间",
     "time.time-frozen-message": "时间冻结",
 
@@ -205,17 +205,17 @@
     /*********
     ** Advanced tab
     *********/
-    "flags.warning": "使用此部分内容需要您自行承担风险！\n这可能会导致诸如邮件、事件或日志被跳过之类的问题。",
-    "flags.quests": "完成日志",
+    "flags.warning": "使用此部分内容需要您自行承担风险！\n这可能会导致诸如信件、事件或任务被跳过等问题。",
+    "flags.quests": "立刻完成任务",
     "flags.wallet": "钱包物品",
     "flags.unlocked": "区域解锁",
-    "flags.unlocked.guild": "冒险家公会解锁",
+    "flags.unlocked.guild": "探险家公会解锁",
     "flags.unlocked.room": "{{name}} 的房间",
     "flags.unlocked-content": "解锁内容",
-    "flags.unlocked-content.dyes-and-tailoring": "染色 & 裁剪",
+    "flags.unlocked-content.dyes-and-tailoring": "染色 & 缝纫",
     "flags.community-center": "社区中心",
     "flags.community-center.door-unlocked": "社区中心解锁",
-    "flags.jojamart.membership": "乔家超市（JojaMart）会员资格",
+    "flags.jojamart.membership": "Joja超市会员资格",
 
 
     /*********

@@ -1,4 +1,4 @@
-{
+﻿{
     /*********
     ** Main translations
     *********/
@@ -176,12 +176,6 @@
     "warp.tide-pools": "Gezeitentümpel",
     "warp.willy-shop": "Angelbedarf",
 
-    // desert
-    "warp-section.desert": "Wüste",
-    "warp.casino": "Casino",
-    "warp.sandy-shop": "Oase",
-    "warp.skull-cavern": "Schädelhöhle",
-
     // island
     // TODO
     "warp-section.island": "Ginger Island",
@@ -190,6 +184,12 @@
     "warp.dwarf-shop": "Volcano Dwarf Shop",
     "warp.field-office": "Field Office",
     "warp.leo-house": "Leo's House",
+
+    // desert
+    "warp-section.desert": "Wüste",
+    "warp.casino": "Casino",
+    "warp.sandy-shop": "Oase",
+    "warp.skull-cavern": "Schädelhöhle",
 
 
     /*********

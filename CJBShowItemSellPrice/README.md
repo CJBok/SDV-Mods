@@ -1,9 +1,9 @@
-**CJB Show Item Sell Price** is a [Stardew Valley](http://stardewvalley.net/) mod shows the sell
+﻿**CJB Show Item Sell Price** is a [Stardew Valley](http://stardewvalley.net/) mod shows the sell
 price of items in your inventory:
 
 ![](screenshot.gif)
 
-Compatible with Stardew Valley 1.4+ on Linux, Mac, and Windows.
+Compatible with Stardew Valley 1.5+ on Linux, MacOS, and Windows.
 
 ## Install
 1. [Install the latest version of SMAPI](https://smapi.io/).

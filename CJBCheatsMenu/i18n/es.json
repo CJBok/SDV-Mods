@@ -1,4 +1,4 @@
-{
+﻿{
     /*********
     ** Main translations
     *********/
@@ -11,7 +11,7 @@
     "tabs.skills": "Habilidades",
     "tabs.weather": "Clima",
     "tabs.relationships": "Relaciones",
-    "tabs.warp": "Puntos de Localizaciones",
+    "tabs.warp": "Puntos de Teletransporte",
     "tabs.time": "Tiempo",
     "tabs.advanced": "Opciones Avanzadas",
     "tabs.controls": "Controles",
@@ -66,7 +66,7 @@
     "fishing.durable-tackles": "Aparejos Duraderos",
 
     // fast machines
-    "fast-machines.title": "Procesamiento Rápido de Las Máquinas",
+    "fast-machines.title": "Procesamiento Rápido de las Máquinas",
     "fast-machines.fruit-trees": "Árboles Frutales",
     "fast-machines.ready-in-the-morning": "{{machineName}} (lista por la mañana)",
 
@@ -123,9 +123,9 @@
     "weather.title": "Tiempo Mañana",
     "weather.current": "Actual",
     "weather.sunny": "Soleado",
-    "weather.raining": "Lloviendo",
-    "weather.lightning": "Relámpago",
-    "weather.snowing": "Nevando",
+    "weather.raining": "Lluvioso",
+    "weather.lightning": "Tormentoso",
+    "weather.snowing": "Nevado",
 
 
     /*********
@@ -133,7 +133,7 @@
     *********/
     "relationships.title": "Relaciones",
     "relationships.give-gifts-anytime": "Dar regalos en cualquier momento",
-    "relationships.no-decay": "Ninguna Amistad Decaerá",
+    "relationships.no-decay": "Ninguna Amistad Disminuye",
     "relationships.friends": "Amigos",
 
 
@@ -176,37 +176,36 @@
     "warp.tide-pools": "Pozas de marea",
     "warp.willy-shop": "Tienda de Pesca",
 
+    // island
+    "warp-section.island": "Isla Jengibre",
+    "warp.forge": "Forja",
+    "warp.island-farm": "Granja de la Isla",
+    "warp.dwarf-shop": "Tienda del Enano del Volcán",
+    "warp.field-office": "Oficina de Campo",
+    "warp.leo-house": "Casa de Leo",
+
     // desert
     "warp-section.desert": "Desierto",
     "warp.casino": "Casino",
     "warp.sandy-shop": "Tienda Sandy's",
     "warp.skull-cavern": "Caverna Calavera",
 
-    // island
-    // TODO
-    "warp-section.island": "Ginger Island",
-    "warp.forge": "Forge",
-    "warp.island-farm": "Island Farm",
-    "warp.dwarf-shop": "Volcano Dwarf Shop",
-    "warp.field-office": "Field Office",
-    "warp.leo-house": "Leo's House",
-
 
     /*********
     ** Time tab
     *********/
     "time.title": "Tiempo",
-    "time.freeze-inside": "Congelar Tiempo Dentro",
-    "time.freeze-caves": "Congelar Tiempo en Cuevas",
-    "time.freeze-everywhere": "Congelar Tiempo en Todas Partes",
+    "time.freeze-inside": "Parar el Tiempo Dentro",
+    "time.freeze-caves": "Parar el Tiempo en Cuevas",
+    "time.freeze-everywhere": "Parar el Tiempo en Todas Partes",
     "time.time": "Tiempo",
-    "time.time-frozen-message": "Tiempo Congelado",
+    "time.time-frozen-message": "Tiempo Parado",
 
 
     /*********
     ** Advanced tab
     *********/
-    "flags.warning": "Utiliza esta sección bajo tu propio riesgo!\nEsto puede causar inconvenientes como que se salteen eventos, misiones o correspondencia.",
+    "flags.warning": "Utiliza esta sección bajo tu propio riesgo!\nEsto puede causar inconvenientes como que se omiten eventos, misiones o correo.",
     "flags.quests": "Completar Misiones",
     "flags.wallet": "Objetos del Monedero",
     "flags.unlocked": "Áreas Desbloqueadas",
@@ -223,12 +222,12 @@
     ** Controls tab
     *********/
     "controls.title": "Controles",
-    "controls.android-config-note": "Se puede cambiar los botones en pantalla en los archivos de configuración de los mods CJB Cheats Menu y Virtual Keyboard.", // TODO review
-    "controls.open-menu": "Abrir Menu",
-    "controls.freeze-time": "Congelar Tiempo",
+    "controls.android-config-note": "Puedes cambiar los botones en pantalla desde los archivos de configuración de los mods CJB Cheats Menu y Virtual Keyboard.",
+    "controls.open-menu": "Abrir Menú",
+    "controls.freeze-time": "Parar el Tiempo",
     "controls.grow-tree": "Hacer Crecer Árboles",
     "controls.grow-crops": "Hacer Crecer Cultivos",
-    "controls.grow-radius": "Distancia de crecimiento alrededor del jugador", // TODO review
+    "controls.grow-radius": "Distancia de crecimiento alrededor del jugador",
     "controls.reset-controls": "Restablecer",
     "controls.press-new-key": "Presione Nueva Tecla..."
 }

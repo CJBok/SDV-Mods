@@ -1,4 +1,4 @@
-{
+﻿{
     /*********
     ** Main translations
     *********/
@@ -176,20 +176,19 @@
     "warp.tide-pools": "Приливные бассейны",
     "warp.willy-shop": "Странствующий торговец",
 
+    // island
+    "warp-section.island": "Имбирный остров",
+    "warp.forge": "Кузница",
+    "warp.island-farm": "Ферма на острове",
+    "warp.dwarf-shop": "Магазин в вулкане",
+    "warp.field-office": "Полевой офис",
+    "warp.leo-house": "Хижина Лео",
+
     // desert
     "warp-section.desert": "Пустыня",
     "warp.casino": "Казино",
     "warp.sandy-shop": "Оазис",
     "warp.skull-cavern": "Пещера Черепа",
-
-    // island
-    // TODO
-    "warp-section.island": "Ginger Island",
-    "warp.forge": "Forge",
-    "warp.island-farm": "Island Farm",
-    "warp.dwarf-shop": "Volcano Dwarf Shop",
-    "warp.field-office": "Field Office",
-    "warp.leo-house": "Leo's House",
 
 
     /*********

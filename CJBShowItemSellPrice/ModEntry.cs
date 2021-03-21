@@ -239,10 +239,7 @@ namespace CJBShowItemSellPrice
                 return null;
 
             // get price
-            int price = item is SObject obj
-                ? obj.sellToStorePrice()
-                : item.salePrice() / 2;
-
+            int price = Utility.getSellToStorePriceOfItem(item, countStack: false);
             return price >= 0
                 ? price
                 : null as int?;

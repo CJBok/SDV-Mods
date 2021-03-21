@@ -1,4 +1,4 @@
-{
+﻿{
     /*********
     ** Main translations
     *********/
@@ -176,12 +176,6 @@
     "warp.tide-pools": "Árapály Medencék",
     "warp.willy-shop": "Hal Bolt",
 
-    // desert
-    "warp-section.desert": "Sivatag",
-    "warp.casino": "Kaszinó",
-    "warp.sandy-shop": "Sandy Boltja",
-    "warp.skull-cavern": "Koponya Barlang",
-
     // island
     // TODO
     "warp-section.island": "Ginger Island",
@@ -190,6 +184,12 @@
     "warp.dwarf-shop": "Volcano Dwarf Shop",
     "warp.field-office": "Field Office",
     "warp.leo-house": "Leo's House",
+
+    // desert
+    "warp-section.desert": "Sivatag",
+    "warp.casino": "Kaszinó",
+    "warp.sandy-shop": "Sandy Boltja",
+    "warp.skull-cavern": "Koponya Barlang",
 
 
     /*********

@@ -1,13 +1,13 @@
-{
+﻿{
     /*********
     ** Main translations
     *********/
     // mod name shown in the menu
-    "mod-name": "CJB Cheats Menu",
+    "mod-name": "CJB Hile Menüsü",
 
     // tab names
-    "tabs.player-and-tools": "Oyuncu & Aletler",
-    "tabs.farm-and-fishing": "Çiftlik & Balıkçılık",
+    "tabs.player-and-tools": "Oyuncu ve Aletler",
+    "tabs.farm-and-fishing": "Çiftlik ve Balıkçılık",
     "tabs.skills": "Beceriler",
     "tabs.weather": "Hava Durumu",
     "tabs.relationships": "İlişkiler",
@@ -33,13 +33,13 @@
 
     // tools
     "tools.title": "Aletler",
-    "tools.infinite-water": "Sulama Kabında Sınırsız Su",
+    "tools.infinite-water": "Su Kabında Sınırsız Su",
     "tools.one-hit-break": "Tek Vuruşta Kırma",
     "tools.harvest-with-scythe": "Tırpanla Hasat Etme",
 
     // money
     "add.money": "Para",
-    "add.casino-coins": "Kumarhane Parası",
+    "add.casino-coins": "Qi Sikkesi",
     "add.golden-walnuts": "Altın Ceviz",
     "add.qi-gems": "Qi Taşı",
     "add.amount-gold": "Ekle {{amount}}g",
@@ -121,10 +121,10 @@
     ** Weather tab
     *********/
     "weather.title": "Yarının Hava Durumu",
-    "weather.current": "Şu An",
+    "weather.current": "Mevcut",
     "weather.sunny": "Güneşli",
     "weather.raining": "Yağmurlu",
-    "weather.lightning": "Şimşekli Yağmur",
+    "weather.lightning": "Fırtınalı",
     "weather.snowing": "Karlı",
 
 
@@ -145,7 +145,7 @@
     "warp.farm": "Çiftlik",
     "warp.carpenter": "Marangoz",
     "warp.desert": "Çöl",
-    "warp.mines": "Madens",
+    "warp.mines": "Madenler",
     "warp.pierre-shop": "Pierre'nin Dükkanı",
 
     // town
@@ -156,19 +156,19 @@
     "warp.movie-theater": "Sinema",
     "warp.museum": "Müze",
     "warp.saloon": "Salon",
-    "warp.sewer": "Kanalizasyon",
+    "warp.sewer": "Lağım",
 
     // forest
     "warp-section.forest": "Orman",
     "warp.hats": "Şapka",
     "warp.ranch": "Marnie'nin Çiftliği",
-    "warp.secret-woods": "Gizli Orman",
+    "warp.secret-woods": "Gizli Koru",
     "warp.wizard-tower": "Büyücü'nün Kulesi",
 
     // mountain
     "warp-section.mountain": "Dağ",
     "warp.adventurers-guild": "Maceracılar Loncası",
-    "warp.bathhouse": "Sauna",
+    "warp.bathhouse": "Hamam",
     "warp.quarry": "Taş Ocağı",
 
     // beach
@@ -176,45 +176,44 @@
     "warp.tide-pools": "Gelgit Havuzları",
     "warp.willy-shop": "Willy'nin Dükkanı",
 
+    // island
+    "warp-section.island": "Zencefil Adası",
+    "warp.forge": "Demir Ocağı",
+    "warp.island-farm": "Ada Çiftliği",
+    "warp.dwarf-shop": "Volkan Cüce Dükkanı",
+    "warp.field-office": "Saha Ofisi",
+    "warp.leo-house": "Leo'nun Evi",
+
     // desert
     "warp-section.desert": "Çöl",
     "warp.casino": "Kumarhane",
     "warp.sandy-shop": "Sandy'nin Dükkanı",
     "warp.skull-cavern": "Kafatası Mağarası",
 
-    // island
-    // TODO
-    "warp-section.island": "Ginger Island",
-    "warp.forge": "Forge",
-    "warp.island-farm": "Island Farm",
-    "warp.dwarf-shop": "Volcano Dwarf Shop",
-    "warp.field-office": "Field Office",
-    "warp.leo-house": "Leo's House",
-
 
     /*********
     ** Time tab
     *********/
     "time.title": "Zaman",
-    "time.freeze-inside": "İçerdeyken Zamanı Dondur",
+    "time.freeze-inside": "İçerideyken Zamanı Dondur",
     "time.freeze-caves": "Mağaradayken Zamanı Dondur",
     "time.freeze-everywhere": "Zamanı Her Yerde Dondur",
-    "time.time": "Zaman",
+    "time.time": "Saat",
     "time.time-frozen-message": "Zaman Dondu",
 
 
     /*********
     ** Advanced tab
     *********/
-    "flags.warning": "Bu bölümü kullanmak kendi sorumluluğunuzdadır!\nBu ayarlar postaların,olayların ya da görevlerin atlanması gibi sorunlara yol açabilir.",
+    "flags.warning": "Bu bölümün kullanım sorumluluğu size aittir!\nBu ayarlar postaların, olayların ya da görevlerin atlanması gibi sorunlara yol açabilir.",
     "flags.quests": "Görevleri Tamamla",
     "flags.wallet": "Cüzdandaki Nesneler",
     "flags.unlocked": "Açılmış Yerler",
     "flags.unlocked.guild": "Maceracılar Loncası",
     "flags.unlocked.room": "Odası: {{name}}",
     "flags.unlocked-content": "Açılmış İçerik",
-    "flags.unlocked-content.dyes-and-tailoring": "Boyama & Dikiş",
-    "flags.community-center": "Halk Evi",
+    "flags.unlocked-content.dyes-and-tailoring": "Boyama ve Dikiş",
+    "flags.community-center": "Halkevi",
     "flags.community-center.door-unlocked": "Kapı Açıldı",
     "flags.jojamart.membership": "JojaMart Üyeliği",
 
@@ -223,7 +222,7 @@
     ** Controls tab
     *********/
     "controls.title": "Kontroller",
-    "controls.android-config-note": "CJB Cheat Menu ve Sanal Klavye modları için yapılandırma dosyalarındaki ekran düğmelerini değiştirebilirsiniz.",
+    "controls.android-config-note": "CJB Hile Menüsü ve Sanal Klavye modları için yapılandırma dosyalarındaki ekran düğmelerini değiştirebilirsiniz.",
     "controls.open-menu": "Menüyü Aç",
     "controls.freeze-time": "Zamanı Dondur",
     "controls.grow-tree": "Ağacı Büyüt",

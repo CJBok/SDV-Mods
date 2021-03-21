@@ -1,4 +1,4 @@
-This repository contains my SMAPI mods for Stardew Valley. See the individual mods for
+﻿This repository contains my SMAPI mods for Stardew Valley. See the individual mods for
 documentation and release notes:
 
 * [CJB Cheats Menu](CJBCheatsMenu)
@@ -19,11 +19,11 @@ German     | [↻ partial](CJBCheatsMenu/i18n/de.json) | [↻ partial](CJBItemSp
 Hungarian  | [↻ partial](CJBCheatsMenu/i18n/hu.json) | [↻ partial](CJBItemSpawner/i18n/hu.json) | [✓](CJBShowItemSellPrice/i18n/hu.json)
 Italian    | [↻ partial](CJBCheatsMenu/i18n/it.json) | [↻ partial](CJBItemSpawner/i18n/it.json) | [✓](CJBShowItemSellPrice/i18n/it.json)
 Japanese   | [↻ partial](CJBCheatsMenu/i18n/ja.json) | [↻ partial](CJBItemSpawner/i18n/ja.json) | [✓](CJBShowItemSellPrice/i18n/ja.json)
-Korean     | [↻ partial](CJBCheatsMenu/i18n/ko.json) | [✓](CJBItemSpawner/i18n/ko.json)        | [✓](CJBShowItemSellPrice/i18n/ko.json)
+Korean     | [✓](CJBCheatsMenu/i18n/ko.json)        | [✓](CJBItemSpawner/i18n/ko.json)        | [✓](CJBShowItemSellPrice/i18n/ko.json)
 Portuguese | [↻ partial](CJBCheatsMenu/i18n/pt.json) | [✓](CJBItemSpawner/i18n/pt.json)        | [✓](CJBShowItemSellPrice/i18n/pt.json)
-Russian    | [↻ partial](CJBCheatsMenu/i18n/ru.json) | [↻ partial](CJBItemSpawner/i18n/ru.json) | [✓](CJBShowItemSellPrice/i18n/ru.json)
-Spanish    | [↻ partial](CJBCheatsMenu/i18n/es.json) | [↻ partial](CJBItemSpawner/i18n/es.json) | [✓](CJBShowItemSellPrice/i18n/es.json)
-Turkish    | [↻ partial](CJBCheatsMenu/i18n/tr.json) | [↻ partial](CJBItemSpawner/i18n/tr.json) | [✓](CJBShowItemSellPrice/i18n/tr.json)
+Russian    | [✓](CJBCheatsMenu/i18n/ru.json)        | [✓](CJBItemSpawner/i18n/ru.json)        | [✓](CJBShowItemSellPrice/i18n/ru.json)
+Spanish    | [✓](CJBCheatsMenu/i18n/es.json)        | [✓](CJBItemSpawner/i18n/es.json)        | [✓](CJBShowItemSellPrice/i18n/es.json)
+Turkish    | [✓](CJBCheatsMenu/i18n/tr.json)        | [✓](CJBItemSpawner/i18n/tr.json)        | [✓](CJBShowItemSellPrice/i18n/tr.json)
 
 Contributions are welcome! See [Modding:Translations](https://stardewvalleywiki.com/Modding:Translations)
 on the wiki for help contributing translations.

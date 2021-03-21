@@ -1,4 +1,4 @@
-{
+﻿{
     /*********
     ** Main translations
     *********/
@@ -176,20 +176,19 @@
     "warp.tide-pools": "오른쪽 해변",
     "warp.willy-shop": "윌리의 낚시가게",
 
+    // island
+    "warp-section.island": "진저섬",
+    "warp.forge": "용암 광산 10층",
+    "warp.island-farm": "진저섬 농장",
+    "warp.dwarf-shop": "용암 광산 5층",
+    "warp.field-office": "진저섬 현장 사무소",
+    "warp.leo-house": "레오 집",
+
     // desert
     "warp-section.desert": "사막",
     "warp.casino": "카지노",
     "warp.sandy-shop": "샌디의 오아시스",
     "warp.skull-cavern": "해골 동굴",
-
-    // island
-    // TODO
-    "warp-section.island": "Ginger Island",
-    "warp.forge": "Forge",
-    "warp.island-farm": "Island Farm",
-    "warp.dwarf-shop": "Volcano Dwarf Shop",
-    "warp.field-office": "Field Office",
-    "warp.leo-house": "Leo's House",
 
 
     /*********

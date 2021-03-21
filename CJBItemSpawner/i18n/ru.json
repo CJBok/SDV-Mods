@@ -1,4 +1,4 @@
-{
+﻿{
     /*********
     ** Sort button
     *********/
@@ -10,23 +10,22 @@
     /*********
     ** Category dropdown
     *********/
-    // TODO
-    "filter.all": "All",
-    "filter.artisan-and-cooking": "Artisan & cooking",
-    "filter.crafting.products": "Crafting: products",
-    "filter.crafting.resources": "Crafting: resources",
-    "filter.decor.furniture": "Decor: furniture",
-    "filter.decor.other": "Decor: other",
-    "filter.equipment-boots": "Equipment: boots",
-    "filter.equipment-clothes": "Equipment: clothes",
-    "filter.equipment-hats": "Equipment: hats",
-    "filter.equipment-rings": "Equipment: rings",
-    "filter.equipment-tools": "Equipment: tools",
-    "filter.equipment-weapons": "Equipment: weapons",
-    "filter.farm-animal-drops": "Farm: animal drops",
-    "filter.farm-crops": "Farm: crops",
-    "filter.farm-seeds": "Farm: seeds",
-    "filter.fish": "Fish",
-    "filter.minerals-and-artifacts": "Minerals & artifacts",
-    "filter.miscellaneous": "Misc"
+    "filter.all": "Все",
+    "filter.artisan-and-cooking": "Товары собств. пр-ва и готовка",
+    "filter.crafting.products": "Крафт: изделия",
+    "filter.crafting.resources": "Крафт: ресурсы",
+    "filter.decor.furniture": "Декор: мебель",
+    "filter.decor.other": "Декор: остальное",
+    "filter.equipment-boots": "Снаряжение: обувь",
+    "filter.equipment-clothes": "Снаряжение: одежда",
+    "filter.equipment-hats": "Снаряжение: шляпы",
+    "filter.equipment-rings": "Снаряжение: кольца",
+    "filter.equipment-tools": "Снаряжение: инструменты",
+    "filter.equipment-weapons": "Снаряжение: оружие",
+    "filter.farm-animal-drops": "Ферма: животная продукция",
+    "filter.farm-crops": "Ферма: урожай",
+    "filter.farm-seeds": "Ферма: семена",
+    "filter.fish": "Рыба",
+    "filter.minerals-and-artifacts": "Минералы и артефакты",
+    "filter.miscellaneous": "Разное"
 }

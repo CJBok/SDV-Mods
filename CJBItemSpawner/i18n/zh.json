@@ -1,4 +1,4 @@
-{
+﻿{
     /*********
     ** Sort button
     *********/
@@ -11,14 +11,14 @@
     ** Category dropdown
     *********/
     "filter.all": "全部",
-    "filter.artisan-and-cooking": "工艺与烹饪",
+    "filter.artisan-and-cooking": "工匠物品与菜肴",
     "filter.crafting.products": "制造：各种制品",
-    "filter.crafting.resources": "制造：资源",
+    "filter.crafting.resources": "制造：原材料",
     "filter.decor.furniture": "装饰：家具",
     "filter.decor.other": "装饰：其他",
-    "filter.equipment-boots": "穿戴：鞋",
-    "filter.equipment-clothes": "穿戴：衣物",
-    "filter.equipment-hats": "穿戴：帽子",
+    "filter.equipment-boots": "服饰：鞋",
+    "filter.equipment-clothes": "服饰：衣物",
+    "filter.equipment-hats": "服饰：帽子",
     "filter.equipment-rings": "装备：戒指",
     "filter.equipment-tools": "装备：工具",
     "filter.equipment-weapons": "装备：武器",
@@ -26,6 +26,6 @@
     "filter.farm-crops": "农场：作物",
     "filter.farm-seeds": "农场：种子",
     "filter.fish": "鱼类",
-    "filter.minerals-and-artifacts": "宝物与矿物",
+    "filter.minerals-and-artifacts": "矿石与古物",
     "filter.miscellaneous": "杂项"
 }

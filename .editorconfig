@@ -3,7 +3,7 @@ root: true
 
 ##########
 ## General formatting
-## documentation: http://editorconfig.org
+## documentation: https://editorconfig.org
 ##########
 [*]
 indent_style = space
@@ -17,6 +17,12 @@ indent_size = 2
 
 [*.csproj]
 charset = utf-8-bom
+insert_final_newline = false
+
+[*.{json,md}]
+charset = utf-8-bom
+
+[*.{ttinclude,tt}]
 insert_final_newline = false
 
 ##########
@@ -66,3 +72,10 @@ csharp_style_inlined_variable_declaration = true:warning
 
 # avoid superfluous braces
 csharp_prefer_braces = false:hint
+
+##########
+## Column guidelines
+## documentation: https://marketplace.visualstudio.com/items?itemName=PaulHarrington.EditorGuidelines
+##########
+[*.md]
+guidelines = 100

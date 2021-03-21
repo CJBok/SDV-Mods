@@ -1,6 +1,18 @@
-[← back to readme](README.md)
+﻿[← back to readme](README.md)
 
 # Release notes
+## 1.28
+Released 20 March 2021 for SMAPI 3.9 or later.
+
+* Added support for [multi-key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings#Multi-key_bindings). (Multi-key bindings must be set [through the `config.json`](README.md#configure); the UI will only recognize one key.)
+* Added support for binding a controller button through the 'controls' tab.
+* Added fast-machine cheat for Statues of True Perfection.
+* Fixed 'time frozen' box shown in map screenshot exports.
+* Fixed outdoor ambient lighting not updated when you reverse time.
+* Fixed menu becoming unresponsive if you press a controller shoulder button while the 'press new key' overlay is open.
+* Fixed able to disable menu key accidentally using a controller.
+* Improved translations. Thanks to GraceHol and Kareolis (updated Russian), horizon98 (updated Chinese), KediDili (updated Turkish), vlcoo (updated Spanish), and wally232 (updated Korean)!
+
 ## 1.27
 Released 06 January 2021 for SMAPI 3.8 or later.
 

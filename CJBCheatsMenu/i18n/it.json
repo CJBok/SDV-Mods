@@ -1,4 +1,4 @@
-{
+﻿{
     /*********
     ** Main translations
     *********/
@@ -176,12 +176,6 @@
     "warp.tide-pools": "Pozze di Marea",
     "warp.willy-shop": "Negozio di Pesca",
 
-    // desert
-    "warp-section.desert": "Deserto",
-    "warp.casino": "Casinò",
-    "warp.sandy-shop": "Emporio di Sandy",
-    "warp.skull-cavern": "Caverna del Teschio",
-
     // island
     // TODO
     "warp-section.island": "Ginger Island",
@@ -190,6 +184,12 @@
     "warp.dwarf-shop": "Volcano Dwarf Shop",
     "warp.field-office": "Field Office",
     "warp.leo-house": "Leo's House",
+
+    // desert
+    "warp-section.desert": "Deserto",
+    "warp.casino": "Casinò",
+    "warp.sandy-shop": "Emporio di Sandy",
+    "warp.skull-cavern": "Caverna del Teschio",
 
 
     /*********
