@@ -133,6 +133,9 @@ namespace CJBItemSpawner.Framework
         /// <summary>The current opacity of the <see cref="SearchIcon"/>, which fades out when selected and back in when deselected.</summary>
         private float SearchIconOpacity = 1f;
 
+        /// <summary>Whether the search icon is transitioning between the selected/unselected states.</summary>
+        private bool IsSearchBoxSelectionChanging => Math.Abs(1f - this.SearchIconOpacity) > 0.5f;
+
 
         /*********
         ** Accessors
@@ -273,25 +276,24 @@ namespace CJBItemSpawner.Framework
         public override void receiveKeyPress(Keys key)
         {
             bool inDropdown = this.CategoryDropdown.IsExpanded;
-            bool closeMenuButton = key == Keys.Escape || Game1.options.doesInputListContain(Game1.options.menuButton, key)
+            bool isExitButton =
+                key == Keys.Escape
+                || Game1.options.doesInputListContain(Game1.options.menuButton, key)
                 || Game1.options.doesInputListContain(Game1.options.cancelButton, key);
 
-            if (this.SearchBox.Selected && closeMenuButton)
+            // clear textbox (or exit if empty)
+            if (this.SearchBox.Selected && isExitButton)
             {
-                // clear textbox
-                if (!string.IsNullOrWhiteSpace(this.SearchBox.Text))
+                if (!string.IsNullOrEmpty(this.SearchBox.Text))
                     this.SearchBox.Text = "";
-                // exit menu
                 else
                     this.exitThisMenu();
             }
-            
+
             // close dropdown
-            else if (inDropdown && closeMenuButton)
-            {
+            else if (inDropdown && isExitButton)
                 this.SetDropdown(false);
-            }
-            
+
             // allow trashing any item
             else if (key == Keys.Delete && this.heldItem != null)
             {
@@ -317,11 +319,9 @@ namespace CJBItemSpawner.Framework
                     this.ScrollView(direction);
             }
 
-            // default behavior
-            else if (Math.Abs(1f - this.SearchIconOpacity) < 0.5f) // prevent gamepad deselect searchbox from closing menu
-            {
+            // default behavior (unless we're already handling a searchbox selection change)
+            else if (!this.IsSearchBoxSelectionChanging)
                 base.receiveKeyPress(key);
-            }
         }
 
         /// <summary>Handle a controller button press by the player.</summary>
@@ -331,9 +331,10 @@ namespace CJBItemSpawner.Framework
             bool isExitKey = button == Buttons.B || button == Buttons.Y || button == Buttons.Start;
             bool inDropdown = this.CategoryDropdown.IsExpanded;
 
+            // handle search box
             if (this.SearchBox.Selected)
             {
-                // open searchbox onscreen keyboard
+                // open on-screen keyboard
                 if (button == Buttons.A)
                     Game1.showTextEntry(this.SearchBox);
 
@@ -429,60 +430,39 @@ namespace CJBItemSpawner.Framework
             spriteBatch.Draw(Game1.fadeToBlackRect, new Rectangle(0, 0, Game1.uiViewport.Width, Game1.uiViewport.Height), Color.Black * 0.5f);
 
             // draw arrows under base UI, so tooltips are drawn over them
-            void DrawArrows()
-            {
-                if (this.CanScrollUp)
-                    this.UpArrow.draw(spriteBatch);
-                if (this.CanScrollDown)
-                    this.DownArrow.draw(spriteBatch);
-            }
-            if (!this.IsAndroid)
-            {
-                spriteBatch.Draw(Game1.fadeToBlackRect, new Rectangle(0, 0, Game1.viewport.Width, Game1.viewport.Height), Color.Black * 0.5f); // replicate base.drawBG so arrows are above it
-                CommonHelper.DrawTab(
-                    this.SearchBoxBounds.X, this.SearchBoxBounds.Y - CommonHelper.ButtonBorderWidth / 2,
-                    this.SearchBoxBounds.Width - CommonHelper.ButtonBorderWidth * 3 / 2,
-                    this.SearchBoxBounds.Height - CommonHelper.ButtonBorderWidth,
-                    out Vector2 tempPos,
-                    drawShadow: this.IsAndroid);
-                DrawArrows();
-                this.BaseDraw(spriteBatch);
-            }
-            else
-            {
-                this.BaseDraw(spriteBatch);
-                DrawArrows();
-            }
+            if (this.CanScrollUp)
+                this.UpArrow.draw(spriteBatch);
+            if (this.CanScrollDown)
+                this.DownArrow.draw(spriteBatch);
+            this.BaseDraw(spriteBatch);
 
             // draw search box
             CommonHelper.DrawTab(this.SearchBoxBounds.X, this.SearchBoxBounds.Y - CommonHelper.ButtonBorderWidth / 2, this.SearchBoxBounds.Width - CommonHelper.ButtonBorderWidth * 3 / 2, this.SearchBoxBounds.Height - CommonHelper.ButtonBorderWidth, out _, drawShadow: this.IsAndroid);
+            this.SearchBox.Draw(spriteBatch);
+            spriteBatch.Draw(this.SearchIcon.texture, this.SearchIcon.bounds, this.SearchIcon.sourceRect, Color.White * this.SearchIconOpacity);
 
             // draw buttons
             CommonHelper.DrawTab(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, this.QualityButton.bounds.Width - CommonHelper.ButtonBorderWidth, this.QualityButton.bounds.Height - CommonHelper.ButtonBorderWidth, out Vector2 qualityIconPos, drawShadow: this.IsAndroid);
             CommonHelper.DrawTab(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name, drawShadow: this.IsAndroid);
             this.SortIcon.draw(spriteBatch);
 
-            // draw category dropdown
-            {
-                Vector2 position = new Vector2(
-                    this.CategoryDropdown.bounds.X + this.CategoryDropdown.bounds.Width - 3 * Game1.pixelZoom,
-                    this.CategoryDropdown.bounds.Y + 2 * Game1.pixelZoom);
-                Rectangle sourceRect = new Rectangle(437, 450, 10, 11);
-                spriteBatch.Draw(Game1.mouseCursors, position, sourceRect, Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
-                if (this.CategoryDropdown.IsExpanded)
-                    spriteBatch.Draw(Game1.mouseCursors,
-                        new Vector2(position.X + 2 * Game1.pixelZoom, position.Y + 3 * Game1.pixelZoom), 
-                        new Rectangle(sourceRect.X + 2, sourceRect.Y + 3, 5, 6),
-                        Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.FlipVertically, 1f);
-                this.CategoryDropdown.Draw(spriteBatch);
-            }
-            this.SearchBox.Draw(spriteBatch);
-            spriteBatch.Draw(this.SearchIcon.texture, this.SearchIcon.bounds, this.SearchIcon.sourceRect, Color.White * this.SearchIconOpacity);
-
             // draw quality icon
             {
                 this.GetQualityIcon(out Texture2D texture, out Rectangle sourceRect, out Color color);
                 spriteBatch.Draw(texture, new Vector2(qualityIconPos.X, qualityIconPos.Y - 1 * Game1.pixelZoom), sourceRect, color, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
+            }
+
+            // draw category dropdown
+            {
+                Vector2 position = new Vector2(
+                    x: this.CategoryDropdown.bounds.X + this.CategoryDropdown.bounds.Width - 3 * Game1.pixelZoom,
+                    y: this.CategoryDropdown.bounds.Y + 2 * Game1.pixelZoom
+                );
+                Rectangle sourceRect = new Rectangle(437, 450, 10, 11);
+                spriteBatch.Draw(Game1.mouseCursors, position, sourceRect, Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
+                if (this.CategoryDropdown.IsExpanded)
+                    spriteBatch.Draw(Game1.mouseCursors, new Vector2(position.X + 2 * Game1.pixelZoom, position.Y + 3 * Game1.pixelZoom), new Rectangle(sourceRect.X + 2, sourceRect.Y + 3, 5, 6), Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.FlipVertically, 1f);  // right triangle
+                this.CategoryDropdown.Draw(spriteBatch);
             }
 
             // redraw cursor over new UI
