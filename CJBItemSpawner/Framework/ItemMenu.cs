@@ -54,6 +54,9 @@ namespace CJBItemSpawner.Framework
         /// <summary>Handles writing to the SMAPI console and log.</summary>
         private readonly IMonitor Monitor;
 
+        /// <summary>Manages the gamepad text entry UI.</summary>
+        private readonly TextEntryManager TextEntryManager;
+
         /// <summary>The base draw method.</summary>
         /// <remarks>This circumvents an issue where <see cref="ItemGrabMenu.draw(SpriteBatch)"/> can't be called directly due to a conflicting overload.</remarks>
         private readonly Action<SpriteBatch> BaseDraw;
@@ -95,7 +98,7 @@ namespace CJBItemSpawner.Framework
         private bool CanScrollDown => this.TopRowIndex < this.MaxTopRowIndex;
 
         /// <summary>Whether the user explicitly selected the textbox by clicking on it, so the selection should be maintained.</summary>
-        private bool TextboxExplicitlySelected;
+        private bool IsSearchBoxSelectedExplicitly;
 
         /****
         ** UI components
@@ -134,7 +137,7 @@ namespace CJBItemSpawner.Framework
         private float SearchIconOpacity = 1f;
 
         /// <summary>Whether the search icon is transitioning between the selected/unselected states.</summary>
-        private bool IsSearchBoxSelectionChanging => Math.Abs(1f - this.SearchIconOpacity) > 0.5f;
+        private bool IsSearchBoxSelectionChanging => this.SearchIconOpacity > 0 && this.SearchIconOpacity < 1;
 
 
         /*********
@@ -150,9 +153,10 @@ namespace CJBItemSpawner.Framework
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="spawnableItems">The items available to spawn.</param>
+        /// <param name="textEntryManager">Manages the gamepad text entry UI.</param>
         /// <param name="content">The content helper for loading assets.</param>
         /// <param name="monitor">Handles writing to the SMAPI console and log.</param>
-        public ItemMenu(SpawnableItem[] spawnableItems, IContentHelper content, IMonitor monitor)
+        public ItemMenu(SpawnableItem[] spawnableItems, TextEntryManager textEntryManager, IContentHelper content, IMonitor monitor)
             : base(
                 inventory: new List<Item>(),
                 reverseGrab: false,
@@ -167,11 +171,12 @@ namespace CJBItemSpawner.Framework
             )
         {
             // init settings
+            this.TextEntryManager = textEntryManager;
+            this.Monitor = monitor;
             this.BaseDraw = this.GetBaseDraw();
             this.ItemsInView = this.ItemsToGrabMenu.actualInventory;
             this.AllItems = spawnableItems;
             this.Categories = this.GetDisplayCategories(spawnableItems).ToArray();
-            this.Monitor = monitor;
 
             // init assets
             this.StarOutlineTexture = content.Load<Texture2D>("assets/empty-quality.png");
@@ -234,7 +239,7 @@ namespace CJBItemSpawner.Framework
             // textbox
             else if (this.SearchBoxBounds.Contains(x, y))
             {
-                if (!this.SearchBox.Selected || !this.TextboxExplicitlySelected)
+                if (!this.SearchBox.Selected || !this.IsSearchBoxSelectedExplicitly)
                     this.SelectSearchBox(explicitly: true);
             }
 
@@ -276,18 +281,17 @@ namespace CJBItemSpawner.Framework
         public override void receiveKeyPress(Keys key)
         {
             bool inDropdown = this.CategoryDropdown.IsExpanded;
+            bool isEscape = key == Keys.Escape;
             bool isExitButton =
-                key == Keys.Escape
+                isEscape
                 || Game1.options.doesInputListContain(Game1.options.menuButton, key)
                 || Game1.options.doesInputListContain(Game1.options.cancelButton, key);
 
-            // clear textbox (or exit if empty)
-            if (this.SearchBox.Selected && isExitButton)
+            // clear textbox
+            if (isEscape && (this.IsSearchBoxSelectedExplicitly || (this.SearchBox.Selected && !string.IsNullOrEmpty(this.SearchBox.Text))))
             {
-                if (!string.IsNullOrEmpty(this.SearchBox.Text))
-                    this.SearchBox.Text = "";
-                else
-                    this.exitThisMenu();
+                this.SearchBox.Text = "";
+                this.DeselectSearchBox();
             }
 
             // close dropdown
@@ -320,8 +324,12 @@ namespace CJBItemSpawner.Framework
             }
 
             // default behavior (unless we're already handling a searchbox selection change)
-            else if (!this.IsSearchBoxSelectionChanging)
-                base.receiveKeyPress(key);
+            else
+            {
+                bool isIgnoredExitKey = this.SearchBox.Selected && isExitButton && !isEscape;
+                if (!isIgnoredExitKey && !this.IsSearchBoxSelectionChanging)
+                    base.receiveKeyPress(key);
+            }
         }
 
         /// <summary>Handle a controller button press by the player.</summary>
@@ -374,7 +382,7 @@ namespace CJBItemSpawner.Framework
         public override void performHoverAction(int x, int y)
         {
             // handle search box selected
-            if (!this.TextboxExplicitlySelected && !Game1.options.gamepadControls && Game1.lastCursorMotionWasMouse)
+            if (!this.IsSearchBoxSelectedExplicitly && !Game1.options.gamepadControls && Game1.lastCursorMotionWasMouse)
             {
                 bool overSearchBox = this.SearchBoxBounds.Contains(x, y);
                 if (this.SearchBox.Selected != overSearchBox)
@@ -394,8 +402,12 @@ namespace CJBItemSpawner.Framework
         /// <param name="time">The current game time.</param>
         public override void update(GameTime time)
         {
-            // deselect textbox
-            if (this.TextboxExplicitlySelected && !this.SearchBox.Selected)
+            // deselect textbox when text entry closes
+            if (this.SearchBox.Selected && this.TextEntryManager.JustClosed())
+                this.DeselectSearchBox(snapToItems: true);
+
+            // update state when search box is deselected
+            if (this.IsSearchBoxSelectedExplicitly && !this.SearchBox.Selected)
                 this.DeselectSearchBox();
 
             // update search text
@@ -735,21 +747,21 @@ namespace CJBItemSpawner.Framework
         private void SelectSearchBox(bool explicitly)
         {
             this.SearchBox.Selected = true;
-            this.TextboxExplicitlySelected = explicitly;
+            this.IsSearchBoxSelectedExplicitly = explicitly;
             this.SearchBox.Width = this.SearchBoxBounds.Width;
         }
 
         /// <summary>Set the search textbox non-selected.</summary>
-        private void DeselectSearchBox()
+        /// <param name="snapToItems">Whether to snap the gamepad cursor to the item grid, if applicable.</param>
+        private void DeselectSearchBox(bool snapToItems = false)
         {
-            if (Game1.textEntry != null)
-                return;
+            Game1.closeTextEntry();
 
             this.SearchBox.Selected = false;
-            this.TextboxExplicitlySelected = false;
+            this.IsSearchBoxSelectedExplicitly = false;
             this.SearchBox.Width = this.SearchIcon.bounds.X - this.SearchBox.X + this.SearchIcon.bounds.Width + 10 - this.SearchIcon.bounds.Width - 6 * Game1.pixelZoom;
 
-            if (Game1.options.gamepadControls && !Game1.lastCursorMotionWasMouse)
+            if (snapToItems && Game1.options.gamepadControls && !Game1.lastCursorMotionWasMouse)
             {
                 this.setCurrentlySnappedComponentTo(this.ItemsToGrabMenu.inventory.First().myID);
                 this.snapCursorToCurrentSnappedComponent();

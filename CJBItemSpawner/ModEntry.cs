@@ -25,6 +25,9 @@ namespace CJBItemSpawner
         /// <summary>The item category filters available in the item spawner menu.</summary>
         private ModDataCategory[] Categories;
 
+        /// <summary>Manages the gamepad text entry UI.</summary>
+        private readonly TextEntryManager TextEntryManager = new();
+
 
         /*********
         ** Public methods
@@ -50,6 +53,7 @@ namespace CJBItemSpawner
             // init mod
             I18n.Init(helper.Translation);
             helper.Events.Input.ButtonsChanged += this.OnButtonsChanged;
+            helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
         }
 
 
@@ -68,11 +72,19 @@ namespace CJBItemSpawner
                 Game1.activeClickableMenu = this.BuildMenu();
         }
 
+        /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
+        {
+            this.TextEntryManager.Update();
+        }
+
         /// <summary>Build an item spawner menu.</summary>
         private ItemMenu BuildMenu()
         {
             SpawnableItem[] items = this.GetSpawnableItems().ToArray();
-            return new ItemMenu(items, this.Helper.Content, this.Monitor);
+            return new ItemMenu(items, this.TextEntryManager, this.Helper.Content, this.Monitor);
         }
 
         /// <summary>Get the items which can be spawned.</summary>
