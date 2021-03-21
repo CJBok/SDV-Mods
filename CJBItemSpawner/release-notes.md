@@ -1,7 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 2.1.1
+Released 21 March 2021 for SMAPI 3.9 or later.
+
 * Closing the gamepad text entry UI now snaps to the item grid.
 * Fixed menu exiting if you type 'e' in the search box with 2.1.
 * Fixed unable to deselect textbox with 2.1.
