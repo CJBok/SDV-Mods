@@ -68,6 +68,16 @@ namespace CJBCheatsMenu.Framework
             this.SetOptions();
         }
 
+        /// <summary>Exit the menu if that's allowed for the current state.</summary>
+        public void ExitIfValid()
+        {
+            if (this.readyToClose() && !GameMenu.forcePreventClose)
+            {
+                Game1.exitActiveMenu();
+                Game1.soundBank.PlayCue("bigDeSelect");
+            }
+        }
+
         /// <summary>Whether controller-style menus should be disabled for this menu.</summary>
         public override bool overrideSnappyMenuCursorMovementBan()
         {
@@ -112,18 +122,13 @@ namespace CJBCheatsMenu.Framework
         /// <param name="key">The key that was pressed.</param>
         public override void receiveKeyPress(Keys key)
         {
-            if (this.OptionsSlotHeld != -1 && this.OptionsSlotHeld + this.CurrentItemIndex < this.Options.Count)
-                this.Options[this.CurrentItemIndex + this.OptionsSlotHeld].receiveKeyPress(key);
-        }
+            // exit menu
+            if (Game1.options.menuButton.Contains(new InputButton(key)) && !this.IsPressNewKeyActive())
+                this.ExitIfValid();
 
-        /// <summary>Exit the menu if that's allowed for the current state.</summary>
-        public void ExitIfValid()
-        {
-            if (this.readyToClose() && !GameMenu.forcePreventClose)
-            {
-                Game1.exitActiveMenu();
-                Game1.soundBank.PlayCue("bigDeSelect");
-            }
+            // send key to active option
+            else
+                this.GetActiveOption()?.receiveKeyPress(key);
         }
 
         /// <summary>Handle the player pressing a controller button.</summary>
@@ -579,6 +584,18 @@ namespace CJBCheatsMenu.Framework
         private bool IsPressNewKeyActive()
         {
             return this.Options.Any(p => p is CheatsOptionsKeyListener { IsListening: true });
+        }
+
+        /// <summary>Get the currently active option, if any.</summary>
+        private OptionsElement GetActiveOption()
+        {
+            if (this.OptionsSlotHeld == -1)
+                return null;
+
+            int index = this.CurrentItemIndex + this.OptionsSlotHeld;
+            return index < this.Options.Count
+                ? this.Options[index]
+                : null;
         }
 
         /// <summary>Get the first button in a key binding, if any.</summary>
