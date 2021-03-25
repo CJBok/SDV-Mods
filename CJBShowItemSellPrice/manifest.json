@@ -5,6 +5,6 @@
     "Description": "Show item sell price in your inventory!",
     "UniqueID": "CJBok.ShowItemSellPrice",
     "EntryDll": "CJBShowItemSellPrice.dll",
-    "MinimumApiVersion": "3.9.0",
+    "MinimumApiVersion": "3.9.5",
     "UpdateKeys": [ "Nexus:5" ]
 }
