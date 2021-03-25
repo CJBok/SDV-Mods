@@ -541,26 +541,26 @@ namespace CJBCheatsMenu.Framework
                         new CheatsOptionsKeyListener(
                             label: I18n.Controls_OpenMenu(),
                             value: this.GetSingleButton(config.OpenMenuKey),
-                            setValue: key => config.OpenMenuKey = KeybindList.ForSingle(key),
+                            setValue: key => config.OpenMenuKey = new(key),
                             slotWidth: context.SlotWidth,
                             clearToButton: this.GetSingleButton(ModConfig.Defaults.OpenMenuKey)
                         ),
                         new CheatsOptionsKeyListener(
                             label: I18n.Controls_FreezeTime(),
                             value: this.GetSingleButton(config.FreezeTimeKey),
-                            setValue: key => config.FreezeTimeKey = KeybindList.ForSingle(key),
+                            setValue: key => config.FreezeTimeKey = new(key),
                             slotWidth: context.SlotWidth
                         ),
                         new CheatsOptionsKeyListener(
                             label: I18n.Controls_GrowTree(),
                             value: this.GetSingleButton(config.GrowTreeKey),
-                            setValue: key => config.GrowTreeKey = KeybindList.ForSingle(key),
+                            setValue: key => config.GrowTreeKey = new(key),
                             slotWidth: context.SlotWidth
                         ),
                         new CheatsOptionsKeyListener(
                             label: I18n.Controls_GrowCrops(),
                             value: this.GetSingleButton(config.GrowCropsKey),
-                            setValue: key => config.GrowCropsKey = KeybindList.ForSingle(key),
+                            setValue: key => config.GrowCropsKey = new(key),
                             slotWidth: context.SlotWidth
                         ),
                         new CheatsOptionsSlider(
