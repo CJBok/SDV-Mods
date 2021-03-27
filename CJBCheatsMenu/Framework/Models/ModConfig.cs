@@ -16,16 +16,16 @@ namespace CJBCheatsMenu.Framework.Models
         ** Keyboard buttons
         ****/
         /// <summary>The button which opens the menu.</summary>
-        public KeybindList OpenMenuKey { get; set; } = KeybindList.ForSingle(SButton.P);
+        public KeybindList OpenMenuKey { get; set; } = new(SButton.P);
 
         /// <summary>The button which freezes the game clock.</summary>
         public KeybindList FreezeTimeKey { get; set; } = new();
 
         /// <summary>The button held to grow trees around the player.</summary>
-        public KeybindList GrowTreeKey { get; set; } = KeybindList.ForSingle(SButton.NumPad1);
+        public KeybindList GrowTreeKey { get; set; } = new(SButton.NumPad1);
 
         /// <summary>The button held to grow crops around the player.</summary>
-        public KeybindList GrowCropsKey { get; set; } = KeybindList.ForSingle(SButton.NumPad2);
+        public KeybindList GrowCropsKey { get; set; } = new(SButton.NumPad2);
 
         /// <summary>The number of tiles in each direction around the player to cover when pressing <see cref="GrowCropsKey"/> or <see cref="GrowTreeKey"/>.</summary>
         public int GrowRadius { get; set; } = 1;
