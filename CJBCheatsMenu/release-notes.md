@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed 'auto-water crops' and 'harvest with scythe' in locations that are only farmable using mods.
+
 ## 1.28.1
 Released 27 March 2021 for SMAPI 3.9.5 or later.
 

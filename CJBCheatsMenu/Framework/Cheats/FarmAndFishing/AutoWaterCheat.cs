@@ -49,11 +49,8 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
 
             foreach (GameLocation location in context.GetAllLocations())
             {
-                if (this.MayHaveCrops(location))
-                {
-                    foreach (HoeDirt dirt in location.terrainFeatures.Values.OfType<HoeDirt>())
-                        dirt.state.Value = HoeDirt.watered;
-                }
+                foreach (HoeDirt dirt in location.terrainFeatures.Values.OfType<HoeDirt>())
+                    dirt.state.Value = HoeDirt.watered;
 
                 foreach (IndoorPot pot in location.objects.Values.OfType<IndoorPot>())
                 {
