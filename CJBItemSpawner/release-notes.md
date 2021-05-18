@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Fixed some vanilla shirts not shown in the menu.
+* Improved translations. Thanks to randomC0der (updated German)!
 
 ## 2.1.2
 Released 27 March 2021 for SMAPI 3.9.5 or later.
