@@ -10,23 +10,22 @@
     /*********
     ** Category dropdown
     *********/
-    // TODO
-    "filter.all": "All",
-    "filter.artisan-and-cooking": "Artisan & cooking",
-    "filter.crafting.products": "Crafting: products",
-    "filter.crafting.resources": "Crafting: resources",
-    "filter.decor.furniture": "Decor: furniture",
-    "filter.decor.other": "Decor: other",
-    "filter.equipment-boots": "Equipment: boots",
-    "filter.equipment-clothes": "Equipment: clothes",
-    "filter.equipment-hats": "Equipment: hats",
-    "filter.equipment-rings": "Equipment: rings",
-    "filter.equipment-tools": "Equipment: tools",
-    "filter.equipment-weapons": "Equipment: weapons",
-    "filter.farm-animal-drops": "Farm: animal drops",
-    "filter.farm-crops": "Farm: crops",
-    "filter.farm-seeds": "Farm: seeds",
-    "filter.fish": "Fish",
-    "filter.minerals-and-artifacts": "Minerals & artifacts",
-    "filter.miscellaneous": "Misc"
+    "filter.all": "Alles",
+    "filter.artisan-and-cooking": "Handwerkswaren & Kochen",
+    "filter.crafting.products": "Herstellung: Produkte",
+    "filter.crafting.resources": "Herstellung: Ressourcen",
+    "filter.decor.furniture": "Dekoration: Möbel",
+    "filter.decor.other": "Dekoration: Andere",
+    "filter.equipment-boots": "Ausrüstung: Schuhe",
+    "filter.equipment-clothes": "Ausrüstung: Kleidung",
+    "filter.equipment-hats": "Ausrüstung: Hüte",
+    "filter.equipment-rings": "Ausrüstung: Ringe",
+    "filter.equipment-tools": "Ausrüstung: Werkzeuge",
+    "filter.equipment-weapons": "Ausrüstung: Waffen",
+    "filter.farm-animal-drops": "Hof: Tierprodukte",
+    "filter.farm-crops": "Hof: Nutzpflanzen",
+    "filter.farm-seeds": "Hof: Saatgut",
+    "filter.fish": "Fische",
+    "filter.minerals-and-artifacts": "Mineralien & Artefakte",
+    "filter.miscellaneous": "Andere"
 }
