@@ -62,25 +62,8 @@ namespace CJBItemSpawner.Framework.ItemData
                 yield return this.TryCreate(ItemType.Tool, this.CustomIDOffset + 3, _ => new Wand());
 
                 // clothing
-                {
-                    // items
-                    HashSet<int> clothingIds = new HashSet<int>();
-                    foreach (int id in Game1.clothingInformation.Keys)
-                    {
-                        if (id < 0)
-                            continue; // placeholder data for character customization clothing below
-
-                        clothingIds.Add(id);
-                        yield return this.TryCreate(ItemType.Clothing, id, p => new Clothing(p.ID));
-                    }
-
-                    // character customization shirts (some shirts in this range have no data, but game has special logic to handle them)
-                    for (int id = 1000; id <= 1111; id++)
-                    {
-                        if (!clothingIds.Contains(id))
-                            yield return this.TryCreate(ItemType.Clothing, id, p => new Clothing(p.ID));
-                    }
-                }
+                foreach (int id in this.GetShirtIds())
+                    yield return this.TryCreate(ItemType.Clothing, id, p => new Clothing(p.ID));
 
                 // wallpapers
                 for (int id = 0; id < 112; id++)
@@ -226,7 +209,7 @@ namespace CJBItemSpawner.Framework.ItemData
                                         // check if roe-producing fish
                                         if (!inputTags.Any(tag => simpleTags.Contains(tag)) && !complexTags.Any(set => set.All(tag => input.HasContextTag(tag))))
                                             continue;
-                                        
+
                                         // yield roe
                                         SObject roe = null;
                                         Color color = this.GetRoeColor(input);
@@ -332,6 +315,44 @@ namespace CJBItemSpawner.Framework.ItemData
             return fish.ParentSheetIndex == 698 // sturgeon
                 ? new Color(61, 55, 42)
                 : (TailoringMenu.GetDyeColor(fish) ?? Color.Orange);
+        }
+
+        /// <summary>Get valid shirt IDs.</summary>
+        /// <remarks>
+        /// Shirts have a possible range of 1000–1999, but not all of those IDs are valid. There are two sets of IDs:
+        ///
+        /// <list type="number">
+        ///   <item>
+        ///     Shirts which exist in <see cref="Game1.clothingInformation"/>.
+        ///   </item>
+        ///   <item>
+        ///     Shirts with a dynamic ID and no entry in <see cref="Game1.clothingInformation"/>. These automatically
+        ///     use the generic shirt entry with ID <c>-1</c> and are mapped to a calculated position in the
+        ///     <c>Characters/Farmer/shirts</c> spritesheet. There's no constant we can use, but some known valid
+        ///     ranges are 1000–1111 (used in <see cref="Farmer.changeShirt"/> for the customization screen and
+        ///     1000–1127 (used in <see cref="Utility.getShopStock"/> and <see cref="GameLocation.sandyShopStock"/>).
+        ///     Based on the spritesheet, the max valid ID is 1299.
+        ///   </item>
+        /// </list>
+        /// </remarks>
+        private IEnumerable<int> GetShirtIds()
+        {
+            // defined shirt items
+            foreach (int id in Game1.clothingInformation.Keys)
+            {
+                if (id < 0)
+                    continue; // placeholder data for character customization clothing below
+
+                yield return id;
+            }
+
+            // dynamic shirts
+            HashSet<int> clothingIds = new HashSet<int>(Game1.clothingInformation.Keys);
+            for (int id = 1000; id <= 1299; id++)
+            {
+                if (!clothingIds.Contains(id))
+                    yield return id;
+            }
         }
     }
 }
