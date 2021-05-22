@@ -55,6 +55,7 @@
     "farm.durable-fences": "Tartós Kerítések",
     "farm.instant-build": "Azonnali Építés",
     "farm.auto-feed-animals": "Mindig Automata Etetés",
+    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
     "farm.infinite-hay": "Végtelen Széna",
 
     // fishing

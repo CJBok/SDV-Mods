@@ -55,6 +55,7 @@
     "farm.durable-fences": "Dayanıklı Çitler",
     "farm.instant-build": "Anında İnşaat",
     "farm.auto-feed-animals": "Her Zaman Otomatik Yemle",
+    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
     "farm.infinite-hay": "Sınırsız Saman",
 
     // fishing

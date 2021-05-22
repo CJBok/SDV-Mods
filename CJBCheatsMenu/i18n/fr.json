@@ -55,6 +55,7 @@
     "farm.durable-fences": "Clôture durable",
     "farm.instant-build": "Construction instantanée",
     "farm.auto-feed-animals": "Toujours nourrir automatiquement",
+    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
     "farm.infinite-hay": "Foin infini",
 
     // fishing

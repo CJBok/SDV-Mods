@@ -39,8 +39,6 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The backing field for <see cref="NoFriendshipDecay"/>.</summary>
         private readonly NoFriendshipDecayCheat NoFriendshipDecayImpl = new NoFriendshipDecayCheat();
 
-        /// <summary>The backing field for <see cref="NoFriendshipDecay"/>.</summary>
-        private readonly NoAnimalFriendshipDecayCheat NoAnimalFriendshipDecayImpl = new NoAnimalFriendshipDecayCheat();
 
         /*********
         ** Accessors
@@ -108,11 +106,11 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Automatically fills animal feed troughs.</summary>
         public ICheat AutoFeedAnimals { get; } = new AutoFeedAnimalsCheat();
 
+        /// <summary>Automatically pets animals.</summary>
+        public ICheat AutoPetAnimals { get; } = new AutoPetAnimalsCheat();
+
         /// <summary>Enables infinite hay.</summary>
         public ICheat InfiniteHay { get; } = new InfiniteHayCheat();
-
-        /// <summary>Prevents Animal friendships from decaying.</summary>
-        public ICheat NoAnimalFriendshipDecay => this.NoAnimalFriendshipDecayImpl;
 
         /// <summary>Enables instant catches when fishing.</summary>
         public ICheat InstantFishCatch { get; } = new InstantFishCatchCheat();

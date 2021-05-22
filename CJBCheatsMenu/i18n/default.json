@@ -55,9 +55,8 @@
     "farm.durable-fences": "Durable Fences",
     "farm.instant-build": "Instant Build",
     "farm.auto-feed-animals": "Auto-Feed Animals",
+    "farm.auto-pet-animals": "Auto-Pet Animals",
     "farm.infinite-hay": "Infinite Hay",
-    "farm.no-decay": "No Animal Friendship Decay",
-
 
     // fishing
     "fishing.title": "Fishing",

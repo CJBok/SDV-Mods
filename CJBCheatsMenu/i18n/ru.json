@@ -55,6 +55,7 @@
     "farm.durable-fences": "Прочные ограждения",
     "farm.instant-build": "Мгновенное строительство",
     "farm.auto-feed-animals": "Автоматическая подкормка животных",
+    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
     "farm.infinite-hay": "Бесконечное сено",
 
     // fishing

@@ -55,6 +55,7 @@
     "farm.durable-fences": "Recinti Durabili",
     "farm.instant-build": "Costruisci Instantaneamente",
     "farm.auto-feed-animals": "Nutri Animali Automatico",
+    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
     "farm.infinite-hay": "Fieno Infinito",
 
     // fishing

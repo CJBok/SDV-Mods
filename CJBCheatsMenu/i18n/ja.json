@@ -55,6 +55,7 @@
     "farm.durable-fences": "柵を強化",
     "farm.instant-build": "建設がすぐに終わる",
     "farm.auto-feed-animals": "エサやり自動化",
+    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
     "farm.infinite-hay": "干し草が無くならない",
 
     // fishing

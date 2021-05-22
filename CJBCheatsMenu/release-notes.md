@@ -2,6 +2,8 @@
 
 # Release notes
 ## Upcoming release
+* Added 'auto-pet animals' cheat (thanks to strobel1ght!).
+* Renamed 'always auto-feed' to 'auto-feed animals' for clarity.
 * Fixed 'auto-water crops' and 'harvest with scythe' in locations that are only farmable using mods.
 * Improved translations. Thanks to Fioruci (updated Portuguese)!
 

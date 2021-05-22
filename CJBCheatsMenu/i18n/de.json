@@ -55,6 +55,7 @@
     "farm.durable-fences": "Widerstandsfähige Zäune",
     "farm.instant-build": "Sofortiger Bau",
     "farm.auto-feed-animals": "Immer automatisch füttern",
+    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
     "farm.infinite-hay": "Unendlich Heu",
 
     // fishing

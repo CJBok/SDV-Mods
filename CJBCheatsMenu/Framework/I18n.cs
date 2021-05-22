@@ -234,14 +234,16 @@ namespace CJBCheatsMenu.Framework
             return I18n.GetByKey("farm.auto-feed-animals");
         }
 
+        /// <summary>Get a translation equivalent to "Auto-Pet Animals".</summary>
+        public static string Farm_AutoPetAnimals()
+        {
+            return I18n.GetByKey("farm.auto-pet-animals");
+        }
+
         /// <summary>Get a translation equivalent to "Infinite Hay".</summary>
         public static string Farm_InfiniteHay()
         {
             return I18n.GetByKey("farm.infinite-hay");
-        }
-        public static string Farm_NoDecay()
-        {
-            return I18n.GetByKey("farm.no-decay");
         }
 
         /// <summary>Get a translation equivalent to "Fishing".</summary>

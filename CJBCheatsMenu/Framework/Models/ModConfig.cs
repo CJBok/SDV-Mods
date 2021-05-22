@@ -213,13 +213,13 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Feed troughs in your barns and coops are refilled automatically.</summary>
         public bool AutoFeed { get; set; }
 
+        /// <summary>Farm animals are pet automatically.</summary>
+        public bool AutoPetAnimals { get; set; }
+
         /// <summary>Crops are watered automatically.</summary>
         public bool AutoWater { get; set; }
 
         /// <summary>Hay silos are always full.</summary>
         public bool InfiniteHay { get; set; }
-
-        /// <summary>Animal's friendship value no longer slowly decays if it isn't maxed out.</summary>
-        public bool NoAnimalFriendshipDecay { get; set; }
     }
 }

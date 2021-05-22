@@ -55,6 +55,7 @@
     "farm.durable-fences": "Cercas duráveis",
     "farm.instant-build": "Construções instantâneas",
     "farm.auto-feed-animals": "Alimentação automática para animais",
+    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
     "farm.infinite-hay": "Palha infinita",
 
     // fishing
