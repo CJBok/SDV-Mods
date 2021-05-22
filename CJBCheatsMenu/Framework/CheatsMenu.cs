@@ -425,7 +425,8 @@ namespace CJBCheatsMenu.Framework
                         cheats.DurableFences,
                         cheats.InstantBuild,
                         cheats.AlwaysAutoFeed,
-                        cheats.InfiniteHay
+                        cheats.InfiniteHay,
+                        cheats.NoAnimalFriendshipDecay
                     );
 
                     // fishing

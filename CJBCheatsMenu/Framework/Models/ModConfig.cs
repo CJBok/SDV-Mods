@@ -218,5 +218,8 @@ namespace CJBCheatsMenu.Framework.Models
 
         /// <summary>Hay silos are always full.</summary>
         public bool InfiniteHay { get; set; }
+
+        /// <summary>Animal's friendship value no longer slowly decays if it isn't maxed out.</summary>
+        public bool NoAnimalFriendshipDecay { get; set; }
     }
 }
