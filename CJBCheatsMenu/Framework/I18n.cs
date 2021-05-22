@@ -228,10 +228,10 @@ namespace CJBCheatsMenu.Framework
             return I18n.GetByKey("farm.instant-build");
         }
 
-        /// <summary>Get a translation equivalent to "Always Auto-Feed".</summary>
-        public static string Farm_AlwaysAutoFeed()
+        /// <summary>Get a translation equivalent to "Auto-Feed Animals".</summary>
+        public static string Farm_AutoFeedAnimals()
         {
-            return I18n.GetByKey("farm.always-auto-feed");
+            return I18n.GetByKey("farm.auto-feed-animals");
         }
 
         /// <summary>Get a translation equivalent to "Infinite Hay".</summary>

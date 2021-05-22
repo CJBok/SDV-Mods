@@ -54,7 +54,7 @@
     "farm.auto-water": "Auto-Water Crops", // TODO
     "farm.durable-fences": "柵を強化",
     "farm.instant-build": "建設がすぐに終わる",
-    "farm.always-auto-feed": "エサやり自動化",
+    "farm.auto-feed-animals": "エサやり自動化",
     "farm.infinite-hay": "干し草が無くならない",
 
     // fishing

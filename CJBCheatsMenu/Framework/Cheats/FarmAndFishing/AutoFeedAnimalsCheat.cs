@@ -11,7 +11,7 @@ using Object = StardewValley.Object;
 namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
 {
     /// <summary>A cheat which automatically fills animal feed troughs.</summary>
-    internal class AlwaysAutoFeedCheat : BaseCheat
+    internal class AutoFeedAnimalsCheat : BaseCheat
     {
         /*********
         ** Public methods
@@ -21,7 +21,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: I18n.Farm_AlwaysAutoFeed(),
+                label: I18n.Farm_AutoFeedAnimals(),
                 value: context.Config.AutoFeed,
                 setValue: value => context.Config.AutoFeed = value
             );

@@ -106,7 +106,7 @@ namespace CJBCheatsMenu.Framework
         public ICheat InstantBuild { get; } = new InstantBuildCheat();
 
         /// <summary>Automatically fills animal feed troughs.</summary>
-        public ICheat AlwaysAutoFeed { get; } = new AlwaysAutoFeedCheat();
+        public ICheat AutoFeedAnimals { get; } = new AutoFeedAnimalsCheat();
 
         /// <summary>Enables infinite hay.</summary>
         public ICheat InfiniteHay { get; } = new InfiniteHayCheat();

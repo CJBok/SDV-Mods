@@ -54,7 +54,7 @@
     "farm.auto-water": "작물 자동 물주기",
     "farm.durable-fences": "울타리 유실 방지",
     "farm.instant-build": "농장 건물 건설 즉시 완성",
-    "farm.always-auto-feed": "사료 자동 급식",
+    "farm.auto-feed-animals": "사료 자동 급식",
     "farm.infinite-hay": "건초 무한대",
 
     // fishing

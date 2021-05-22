@@ -424,7 +424,7 @@ namespace CJBCheatsMenu.Framework
                         cheats.AutoWater,
                         cheats.DurableFences,
                         cheats.InstantBuild,
-                        cheats.AlwaysAutoFeed,
+                        cheats.AutoFeedAnimals,
                         cheats.InfiniteHay,
                         cheats.NoAnimalFriendshipDecay
                     );
