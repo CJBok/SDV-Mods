@@ -239,6 +239,10 @@ namespace CJBCheatsMenu.Framework
         {
             return I18n.GetByKey("farm.infinite-hay");
         }
+        public static string Farm_NoDecay()
+        {
+            return I18n.GetByKey("farm.no-decay");
+        }
 
         /// <summary>Get a translation equivalent to "Fishing".</summary>
         public static string Fishing_Title()

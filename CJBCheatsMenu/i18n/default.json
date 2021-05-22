@@ -56,7 +56,7 @@
     "farm.instant-build": "Instant Build",
     "farm.always-auto-feed": "Always Auto-Feed",
     "farm.infinite-hay": "Infinite Hay",
-    "farm.no-decay-animal": "No Animal Friendship Decay",
+    "farm.no-decay": "No Animal Friendship Decay",
 
 
     // fishing

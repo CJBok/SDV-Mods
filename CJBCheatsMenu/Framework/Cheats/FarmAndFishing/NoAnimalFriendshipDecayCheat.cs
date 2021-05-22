@@ -22,7 +22,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
-                label: I18n.Relationships_NoDecay(),
+                label: I18n.Farm_NoDecay(),
                 value: context.Config.NoAnimalFriendshipDecay,
                 setValue: value => context.Config.NoAnimalFriendshipDecay = value
             );
