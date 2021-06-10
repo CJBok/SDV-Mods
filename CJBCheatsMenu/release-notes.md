@@ -5,7 +5,7 @@
 * Added 'auto-pet animals' cheat (thanks to strobel1ght!).
 * Renamed 'always auto-feed' to 'auto-feed animals' for clarity.
 * Fixed 'auto-water crops' and 'harvest with scythe' in locations that are only farmable using mods.
-* Improved translations. Thanks to Fioruci (updated Portuguese)!
+* Improved translations. Thanks to Aminato01 (updated French) and Fioruci (updated Portuguese)!
 
 ## 1.28.1
 Released 27 March 2021 for SMAPI 3.9.5 or later.
