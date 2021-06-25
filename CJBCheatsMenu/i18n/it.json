@@ -12,7 +12,7 @@
     "tabs.weather": "Meteo",
     "tabs.relationships": "Relazioni",
     "tabs.warp": "Luoghi Teletrasporto",
-    "tabs.time": "Tempo",
+    "tabs.time": "Tempo", // TODO: "Time & Date"
     "tabs.advanced": "Avanzate",
     "tabs.controls": "Controlli",
 
@@ -194,14 +194,22 @@
 
 
     /*********
-    ** Time tab
+    ** Time & Date tab
     *********/
+    // time
     "time.title": "Tempo",
     "time.freeze-inside": "Ferma il Tempo all'Interno",
     "time.freeze-caves": "Ferma il Tempo nelle Grotte",
     "time.freeze-everywhere": "Ferma il Tempo Ovunque",
     "time.time": "Tempo",
     "time.time-frozen-message": "Ferma l'Orologio",
+
+    // date
+    "date.title": "Date", // TODO
+    "date.warning": "Use this section at your own risk!\nMany updates will not occur until a night has passed.", // TODO
+    "date.year": "Year", // TODO
+    "date.season": "Season", // TODO
+    "date.day": "Day", // TODO
 
 
     /*********

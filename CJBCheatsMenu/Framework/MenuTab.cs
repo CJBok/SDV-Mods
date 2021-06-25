@@ -21,7 +21,7 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The 'warp locations' tab.</summary>
         WarpLocations,
 
-        /// <summary>The 'time' tab.</summary>
+        /// <summary>The 'time &amp; date' tab.</summary>
         Time,
 
         /// <summary>The 'advanced' tab.</summary>

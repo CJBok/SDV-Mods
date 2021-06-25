@@ -12,7 +12,7 @@
     "tabs.weather": "天气",
     "tabs.relationships": "人际关系",
     "tabs.warp": "传送",
-    "tabs.time": "时间",
+    "tabs.time": "时间", // TODO: "Time & Date"
     "tabs.advanced": "高级",
     "tabs.controls": "控制",
 
@@ -193,14 +193,22 @@
 
 
     /*********
-    ** Time tab
+    ** Time & Date tab
     *********/
+    // time
     "time.title": "时间",
     "time.freeze-inside": "在建筑内冻结时间",
     "time.freeze-caves": "在矿井内冻结时间",
     "time.freeze-everywhere": "任何地方都冻结时间",
     "time.time": "时间",
     "time.time-frozen-message": "时间冻结",
+
+    // date
+    "date.title": "Date", // TODO
+    "date.warning": "Use this section at your own risk!\nMany updates will not occur until a night has passed.", // TODO
+    "date.year": "Year", // TODO
+    "date.season": "Season", // TODO
+    "date.day": "Day", // TODO
 
 
     /*********

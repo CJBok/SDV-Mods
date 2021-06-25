@@ -12,7 +12,7 @@
     "tabs.weather": "天気",
     "tabs.relationships": "人間関係",
     "tabs.warp": "ワープ",
-    "tabs.time": "時間",
+    "tabs.time": "時間", // TODO: "Time & Date"
     "tabs.advanced": "上級者向け",
     "tabs.controls": "キー変更",
 
@@ -194,14 +194,22 @@
 
 
     /*********
-    ** Time tab
+    ** Time & Date tab
     *********/
+    // time
     "time.title": "時間停止",
     "time.freeze-inside": "屋内で時間が止まる",
     "time.freeze-caves": "洞窟の中で時間が止まる",
     "time.freeze-everywhere": "どこでも時間が止まる",
     "time.time": "時間",
     "time.time-frozen-message": "時間停止！",
+
+    // date
+    "date.title": "Date", // TODO
+    "date.warning": "Use this section at your own risk!\nMany updates will not occur until a night has passed.", // TODO
+    "date.year": "Year", // TODO
+    "date.season": "Season", // TODO
+    "date.day": "Day", // TODO
 
 
     /*********

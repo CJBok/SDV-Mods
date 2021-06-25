@@ -12,7 +12,7 @@
     "tabs.weather": "Погода",
     "tabs.relationships": "Отношения",
     "tabs.warp": "Телепортация",
-    "tabs.time": "Время",
+    "tabs.time": "Время", // TODO: "Time & Date"
     "tabs.advanced": "Прочее",
     "tabs.controls": "Управление",
 
@@ -193,14 +193,22 @@
 
 
     /*********
-    ** Time tab
+    ** Time & Date tab
     *********/
+    // time
     "time.title": "Время",
     "time.freeze-inside": "Остановить время в помещениях",
     "time.freeze-caves": "Остановить время в пещерах",
     "time.freeze-everywhere": "Остановить время в любых местах",
     "time.time": "Текущее время",
     "time.time-frozen-message": "Время остановлено",
+
+    // date
+    "date.title": "Date", // TODO
+    "date.warning": "Use this section at your own risk!\nMany updates will not occur until a night has passed.", // TODO
+    "date.year": "Year", // TODO
+    "date.season": "Season", // TODO
+    "date.day": "Day", // TODO
 
 
     /*********

@@ -12,7 +12,7 @@
     "tabs.weather": "Hava Durumu",
     "tabs.relationships": "İlişkiler",
     "tabs.warp": "Işınlanma",
-    "tabs.time": "Zaman",
+    "tabs.time": "Zaman", // TODO: "Time & Date"
     "tabs.advanced": "Gelişmiş",
     "tabs.controls": "Kontroller",
 
@@ -193,14 +193,22 @@
 
 
     /*********
-    ** Time tab
+    ** Time & Date tab
     *********/
+    // time
     "time.title": "Zaman",
     "time.freeze-inside": "İçerideyken Zamanı Dondur",
     "time.freeze-caves": "Mağaradayken Zamanı Dondur",
     "time.freeze-everywhere": "Zamanı Her Yerde Dondur",
     "time.time": "Saat",
     "time.time-frozen-message": "Zaman Dondu",
+
+    // date
+    "date.title": "Date", // TODO
+    "date.warning": "Use this section at your own risk!\nMany updates will not occur until a night has passed.", // TODO
+    "date.year": "Year", // TODO
+    "date.season": "Season", // TODO
+    "date.day": "Day", // TODO
 
 
     /*********

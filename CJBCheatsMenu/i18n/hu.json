@@ -12,7 +12,7 @@
     "tabs.weather": "Időjárás",
     "tabs.relationships": "Kapcsolatok",
     "tabs.warp": "Teleport",
-    "tabs.time": "Idő",
+    "tabs.time": "Idő", // TODO: "Time & Date"
     "tabs.advanced": "Haladó",
     "tabs.controls": "Irányítás",
 
@@ -194,14 +194,22 @@
 
 
     /*********
-    ** Time tab
+    ** Time & Date tab
     *********/
+    // time
     "time.title": "Idő",
     "time.freeze-inside": "Idő Megállítása Beltéren",
     "time.freeze-caves": "Idő Megállítása Barlangokban",
     "time.freeze-everywhere": "Idő Megállítása Mindenhol",
     "time.time": "Idő",
     "time.time-frozen-message": "Idő Megállítva",
+
+    // date
+    "date.title": "Date", // TODO
+    "date.warning": "Use this section at your own risk!\nMany updates will not occur until a night has passed.", // TODO
+    "date.year": "Year", // TODO
+    "date.season": "Season", // TODO
+    "date.day": "Day", // TODO
 
 
     /*********
