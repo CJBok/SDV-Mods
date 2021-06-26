@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
-using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Time
 {
     /// <summary>A cheat which sets the current year.</summary>
-    internal class SetYearCheat : BaseCheat
+    internal class SetYearCheat : BaseDateCheat
     {
         /*********
         ** Public methods
@@ -34,10 +33,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /// <param name="year">The year.</param>
         private void SafelySetYear(int year)
         {
-            Game1.year = year;
-            Game1.stats.DaysPlayed = (uint)SDate.Now().DaysSinceStart;
-            if (Game1.IsMasterGame)
-                Game1.netWorldState.Value.UpdateFromGame1();
+            this.SafelySetDate(Game1.dayOfMonth, Game1.currentSeason, year);
         }
     }
 }

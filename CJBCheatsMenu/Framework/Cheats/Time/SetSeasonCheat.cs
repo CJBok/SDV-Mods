@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
-using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Time
 {
     /// <summary>A cheat which sets the current season.</summary>
-    internal class SetSeasonCheat : BaseCheat
+    internal class SetSeasonCheat : BaseDateCheat
     {
         /*********
         ** Public methods
@@ -23,7 +22,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
                 maxValue: 3,
                 setValue: this.SafelySetSeason,
                 width: 100,
-                format: value => Utility.getSeasonNameFromNumber(value)
+                format: Utility.getSeasonNameFromNumber
             );
         }
 
@@ -32,21 +31,19 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         ** Private methods
         *********/
         /// <summary>Safely transition to the given season.</summary>
-        /// <param name="season">The season.</param>
-        private void SafelySetSeason(int season)
+        /// <param name="seasonNumber">The season number.</param>
+        private void SafelySetSeason(int seasonNumber)
         {
-            Game1.currentSeason = season switch
+            string season = seasonNumber switch
             {
                 0 => "spring",
                 1 => "summer",
                 2 => "fall",
                 3 => "winter",
-                _ => Game1.currentSeason,
+                _ => Game1.currentSeason
             };
-            Game1.setGraphicsForSeason();
-            Game1.stats.DaysPlayed = (uint)SDate.Now().DaysSinceStart;
-            if (Game1.IsMasterGame)
-                Game1.netWorldState.Value.UpdateFromGame1();
+
+            this.SafelySetDate(Game1.dayOfMonth, season, Game1.year);
         }
     }
 }
