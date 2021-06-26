@@ -500,9 +500,9 @@ namespace CJBCheatsMenu.Framework
                     this.AddTitle($"{I18n.Date_Title()}:");
                     this.AddDescription(I18n.Date_Warning());
                     this.AddOptions(
-                        cheats.SetYear,
+                        cheats.SetDay,
                         cheats.SetSeason,
-                        cheats.SetDay
+                        cheats.SetYear
                     );
                     break;
 
