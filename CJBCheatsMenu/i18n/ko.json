@@ -195,12 +195,21 @@
     /*********
     ** Time tab
     *********/
+    // time
     "time.title": "시간",
     "time.freeze-inside": "실내에서 시간 정지",
     "time.freeze-caves": "광산/해골동굴 안에서 시간 정지",
     "time.freeze-everywhere": "모든 장소에서 시간 정지",
     "time.time": "시간",
     "time.time-frozen-message": "시간 멈춤",
+
+    // date
+    // TODO
+    "date.title": "Date",
+    "date.warning": "Some things won't update until a night has passed.",
+    "date.year": "Year",
+    "date.season": "Season",
+    "date.day": "Day",
 
 
     /*********

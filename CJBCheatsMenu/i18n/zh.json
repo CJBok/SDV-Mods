@@ -195,12 +195,21 @@
     /*********
     ** Time tab
     *********/
+    // time
     "time.title": "时间",
     "time.freeze-inside": "在建筑内冻结时间",
     "time.freeze-caves": "在矿井内冻结时间",
     "time.freeze-everywhere": "任何地方都冻结时间",
     "time.time": "时间",
     "time.time-frozen-message": "时间冻结",
+
+    // date
+    // TODO
+    "date.title": "Date",
+    "date.warning": "Some things won't update until a night has passed.",
+    "date.year": "Year",
+    "date.season": "Season",
+    "date.day": "Day",
 
 
     /*********

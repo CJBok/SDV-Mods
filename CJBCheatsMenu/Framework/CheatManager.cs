@@ -172,6 +172,15 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Sets the current time.</summary>
         public ICheat SetTime { get; } = new SetTimeCheat();
 
+        /// <summary>Sets the current year.</summary>
+        public ICheat SetYear { get; } = new SetYearCheat();
+
+        /// <summary>Sets the current season.</summary>
+        public ICheat SetSeason { get; } = new SetSeasonCheat();
+
+        /// <summary>Sets the current day of the season.</summary>
+        public ICheat SetDay { get; } = new SetDayCheat();
+
         /****
         ** Advanced
         ****/

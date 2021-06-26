@@ -195,12 +195,20 @@
     /*********
     ** Time tab
     *********/
+    // time
     "time.title": "Tiempo",
     "time.freeze-inside": "Parar el Tiempo Dentro",
     "time.freeze-caves": "Parar el Tiempo en Cuevas",
     "time.freeze-everywhere": "Parar el Tiempo en Todas Partes",
     "time.time": "Tiempo",
     "time.time-frozen-message": "Tiempo Parado",
+
+    // date
+    "date.title": "Fecha",
+    "date.warning": "Muchas actualizaciones no pasarán hasta que haya pasado una noche.",
+    "date.year": "Año",
+    "date.season": "Estación",
+    "date.day": "Día",
 
 
     /*********

@@ -195,12 +195,21 @@
     /*********
     ** Time tab
     *********/
+    // time
     "time.title": "Время",
     "time.freeze-inside": "Остановить время в помещениях",
     "time.freeze-caves": "Остановить время в пещерах",
     "time.freeze-everywhere": "Остановить время в любых местах",
     "time.time": "Текущее время",
     "time.time-frozen-message": "Время остановлено",
+
+    // date
+    // TODO
+    "date.title": "Date",
+    "date.warning": "Some things won't update until a night has passed.",
+    "date.year": "Year",
+    "date.season": "Season",
+    "date.day": "Day",
 
 
     /*********
