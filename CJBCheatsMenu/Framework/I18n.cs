@@ -852,7 +852,7 @@ namespace CJBCheatsMenu.Framework
             return I18n.GetByKey("date.title");
         }
 
-        /// <summary>Get a translation equivalent to "Use this section at your own risk!\nMany updates will not occur until a night has passed.".</summary>
+        /// <summary>Get a translation equivalent to "Some things won't update until a night has passed.".</summary>
         public static string Date_Warning()
         {
             return I18n.GetByKey("date.warning");

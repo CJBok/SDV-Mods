@@ -205,7 +205,7 @@
 
     // date
     "date.title": "Date",
-    "date.warning": "Use this section at your own risk!\nMany updates will not occur until a night has passed.",
+    "date.warning": "Some things won't update until a night has passed.",
     "date.year": "Year",
     "date.season": "Season",
     "date.day": "Day",

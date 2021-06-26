@@ -205,7 +205,7 @@
 
     // date
     "date.title": "Fecha",
-    "date.warning": "Utiliza esta sección bajo tu propio riesgo!\nMuchas actualizaciones no pasarán hasta que haya pasado una noche.",
+    "date.warning": "Muchas actualizaciones no pasarán hasta que haya pasado una noche.",
     "date.year": "Año",
     "date.season": "Estación",
     "date.day": "Día",
