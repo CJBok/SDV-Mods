@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
 using StardewValley;
@@ -19,7 +20,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
                 label: I18n.Date_Year(),
                 value: Game1.year,
                 minValue: 1,
-                maxValue: 30,
+                maxValue: Math.Max(30, Game1.year + 15),
                 setValue: this.SafelySetYear,
                 width: 100
             );
