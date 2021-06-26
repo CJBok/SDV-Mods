@@ -70,7 +70,7 @@ namespace CJBCheatsMenu.Framework
             return I18n.GetByKey("tabs.warp");
         }
 
-        /// <summary>Get a translation equivalent to "Time &amp; Date".</summary>
+        /// <summary>Get a translation equivalent to "Time".</summary>
         public static string Tabs_Time()
         {
             return I18n.GetByKey("tabs.time");

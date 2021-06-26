@@ -12,7 +12,7 @@
     "tabs.weather": "Weather",
     "tabs.relationships": "Relationships",
     "tabs.warp": "Warp Locations",
-    "tabs.time": "Time & Date",
+    "tabs.time": "Time",
     "tabs.advanced": "Advanced",
     "tabs.controls": "Controls",
 
@@ -193,7 +193,7 @@
 
 
     /*********
-    ** Time & Date tab
+    ** Time tab
     *********/
     // time
     "time.title": "Time",

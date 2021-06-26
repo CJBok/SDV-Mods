@@ -12,7 +12,7 @@
     "tabs.weather": "날씨",
     "tabs.relationships": "사회관계",
     "tabs.warp": "이동",
-    "tabs.time": "시간", // TODO: "Time & Date"
+    "tabs.time": "시간",
     "tabs.advanced": "고급",
     "tabs.controls": "조작키",
 
@@ -193,7 +193,7 @@
 
 
     /*********
-    ** Time & Date tab
+    ** Time tab
     *********/
     // time
     "time.title": "시간",
@@ -204,11 +204,12 @@
     "time.time-frozen-message": "시간 멈춤",
 
     // date
-    "date.title": "Date", // TODO
-    "date.warning": "Use this section at your own risk!\nMany updates will not occur until a night has passed.", // TODO
-    "date.year": "Year", // TODO
-    "date.season": "Season", // TODO
-    "date.day": "Day", // TODO
+    // TODO
+    "date.title": "Date",
+    "date.warning": "Use this section at your own risk!\nMany updates will not occur until a night has passed.",
+    "date.year": "Year",
+    "date.season": "Season",
+    "date.day": "Day",
 
 
     /*********

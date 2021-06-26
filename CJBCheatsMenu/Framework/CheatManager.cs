@@ -164,7 +164,7 @@ namespace CJBCheatsMenu.Framework
         public ICheat Warps { get; }
 
         /****
-        ** Time & Date
+        ** Time
         ****/
         /// <summary>Stops the passage of time.</summary>
         public ICheat FreezeTime { get; } = new FreezeTimeCheat();

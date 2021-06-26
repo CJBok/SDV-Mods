@@ -12,7 +12,7 @@
     "tabs.weather": "天气",
     "tabs.relationships": "人际关系",
     "tabs.warp": "传送",
-    "tabs.time": "时间", // TODO: "Time & Date"
+    "tabs.time": "时间",
     "tabs.advanced": "高级",
     "tabs.controls": "控制",
 
@@ -193,7 +193,7 @@
 
 
     /*********
-    ** Time & Date tab
+    ** Time tab
     *********/
     // time
     "time.title": "时间",
@@ -204,11 +204,12 @@
     "time.time-frozen-message": "时间冻结",
 
     // date
-    "date.title": "Date", // TODO
-    "date.warning": "Use this section at your own risk!\nMany updates will not occur until a night has passed.", // TODO
-    "date.year": "Year", // TODO
-    "date.season": "Season", // TODO
-    "date.day": "Day", // TODO
+    // TODO
+    "date.title": "Date",
+    "date.warning": "Use this section at your own risk!\nMany updates will not occur until a night has passed.",
+    "date.year": "Year",
+    "date.season": "Season",
+    "date.day": "Day",
 
 
     /*********

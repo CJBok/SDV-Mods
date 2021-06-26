@@ -12,7 +12,7 @@
     "tabs.weather": "Clima",
     "tabs.relationships": "Relaciones",
     "tabs.warp": "Puntos de Teletransporte",
-    "tabs.time": "Tiempo & Fecha",
+    "tabs.time": "Tiempo",
     "tabs.advanced": "Opciones Avanzadas",
     "tabs.controls": "Controles",
 
@@ -193,7 +193,7 @@
 
 
     /*********
-    ** Time & Date tab
+    ** Time tab
     *********/
     // time
     "time.title": "Tiempo",

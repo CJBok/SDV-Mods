@@ -12,7 +12,7 @@
     "tabs.weather": "Meteo",
     "tabs.relationships": "Relazioni",
     "tabs.warp": "Luoghi Teletrasporto",
-    "tabs.time": "Tempo", // TODO: "Time & Date"
+    "tabs.time": "Tempo",
     "tabs.advanced": "Avanzate",
     "tabs.controls": "Controlli",
 
@@ -194,7 +194,7 @@
 
 
     /*********
-    ** Time & Date tab
+    ** Time tab
     *********/
     // time
     "time.title": "Tempo",
@@ -205,11 +205,12 @@
     "time.time-frozen-message": "Ferma l'Orologio",
 
     // date
-    "date.title": "Date", // TODO
-    "date.warning": "Use this section at your own risk!\nMany updates will not occur until a night has passed.", // TODO
-    "date.year": "Year", // TODO
-    "date.season": "Season", // TODO
-    "date.day": "Day", // TODO
+    // TODO
+    "date.title": "Date",
+    "date.warning": "Use this section at your own risk!\nMany updates will not occur until a night has passed.",
+    "date.year": "Year",
+    "date.season": "Season",
+    "date.day": "Day",
 
 
     /*********
