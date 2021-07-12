@@ -6,6 +6,7 @@
 * Added 'auto-pet animals' cheat (thanks to strobel1ght!).
 * Renamed 'always auto-feed' to 'auto-feed animals' for clarity.
 * Fixed 'auto-water crops' and 'harvest with scythe' in locations that are only farmable using mods.
+* Fixed move speed set to +1 by default.
 * Improved translations. Thanks to Aminato01 (updated French) and Fioruci (updated Portuguese)!
 
 ## 1.28.1
