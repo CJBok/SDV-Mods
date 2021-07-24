@@ -1,8 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AssemblyName>CJBShowItemSellPrice</AssemblyName>
     <Version>1.9.12</Version>
-    <RootNamespace>CJBShowItemSellPrice</RootNamespace>
     <TargetFramework>net452</TargetFramework>
   </PropertyGroup>
 

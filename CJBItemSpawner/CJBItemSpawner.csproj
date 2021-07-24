@@ -1,8 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AssemblyName>CJBItemSpawner</AssemblyName>
     <Version>2.1.2</Version>
-    <RootNamespace>CJBItemSpawner</RootNamespace>
     <TargetFramework>net452</TargetFramework>
   </PropertyGroup>
 
