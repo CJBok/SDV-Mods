@@ -54,7 +54,8 @@
     "farm.auto-water": "Автополиваемые культуры",
     "farm.durable-fences": "Прочные ограждения",
     "farm.instant-build": "Мгновенное строительство",
-    "farm.always-auto-feed": "Автоматическая подкормка животных",
+    "farm.auto-feed-animals": "Автоматическая подкормка животных",
+    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
     "farm.infinite-hay": "Бесконечное сено",
 
     // fishing
@@ -194,12 +195,21 @@
     /*********
     ** Time tab
     *********/
+    // time
     "time.title": "Время",
     "time.freeze-inside": "Остановить время в помещениях",
     "time.freeze-caves": "Остановить время в пещерах",
     "time.freeze-everywhere": "Остановить время в любых местах",
     "time.time": "Текущее время",
     "time.time-frozen-message": "Время остановлено",
+
+    // date
+    // TODO
+    "date.title": "Date",
+    "date.warning": "Some things won't update until a night has passed.",
+    "date.year": "Year",
+    "date.season": "Season",
+    "date.day": "Day",
 
 
     /*********

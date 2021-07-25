@@ -54,7 +54,8 @@
     "farm.auto-water": "Ekinleri Otomatik Sula",
     "farm.durable-fences": "Dayanıklı Çitler",
     "farm.instant-build": "Anında İnşaat",
-    "farm.always-auto-feed": "Her Zaman Otomatik Yemle",
+    "farm.auto-feed-animals": "Her Zaman Otomatik Yemle",
+    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
     "farm.infinite-hay": "Sınırsız Saman",
 
     // fishing
@@ -194,12 +195,21 @@
     /*********
     ** Time tab
     *********/
+    // time
     "time.title": "Zaman",
     "time.freeze-inside": "İçerideyken Zamanı Dondur",
     "time.freeze-caves": "Mağaradayken Zamanı Dondur",
     "time.freeze-everywhere": "Zamanı Her Yerde Dondur",
     "time.time": "Saat",
     "time.time-frozen-message": "Zaman Dondu",
+
+    // date
+    // TODO
+    "date.title": "Date",
+    "date.warning": "Some things won't update until a night has passed.",
+    "date.year": "Year",
+    "date.season": "Season",
+    "date.day": "Day",
 
 
     /*********

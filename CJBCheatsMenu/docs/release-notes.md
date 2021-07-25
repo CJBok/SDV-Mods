@@ -1,6 +1,16 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 1.29.0
+Released 24 July 2021 for SMAPI 3.9.5 or later.
+
+* Added in-game date changer (thanks to kdau!).
+* Added 'auto-pet animals' cheat (thanks to strobel1ght!).
+* Renamed 'always auto-feed' to 'auto-feed animals' for clarity.
+* Fixed 'auto-water crops' and 'harvest with scythe' in locations that are only farmable using mods.
+* Fixed move speed set to +1 by default.
+* Improved translations. Thanks to Aminato01 (updated French) and Fioruci (updated Portuguese)!
+
 ## 1.28.1
 Released 27 March 2021 for SMAPI 3.9.5 or later.
 

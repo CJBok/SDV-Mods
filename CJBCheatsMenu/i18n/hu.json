@@ -54,7 +54,8 @@
     "farm.auto-water": "Termények Automata Öntözése",
     "farm.durable-fences": "Tartós Kerítések",
     "farm.instant-build": "Azonnali Építés",
-    "farm.always-auto-feed": "Mindig Automata Etetés",
+    "farm.auto-feed-animals": "Mindig Automata Etetés",
+    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
     "farm.infinite-hay": "Végtelen Széna",
 
     // fishing
@@ -195,12 +196,21 @@
     /*********
     ** Time tab
     *********/
+    // time
     "time.title": "Idő",
     "time.freeze-inside": "Idő Megállítása Beltéren",
     "time.freeze-caves": "Idő Megállítása Barlangokban",
     "time.freeze-everywhere": "Idő Megállítása Mindenhol",
     "time.time": "Idő",
     "time.time-frozen-message": "Idő Megállítva",
+
+    // date
+    // TODO
+    "date.title": "Date",
+    "date.warning": "Some things won't update until a night has passed.",
+    "date.year": "Year",
+    "date.season": "Season",
+    "date.day": "Day",
 
 
     /*********

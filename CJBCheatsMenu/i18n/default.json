@@ -54,7 +54,8 @@
     "farm.auto-water": "Auto-Water Crops",
     "farm.durable-fences": "Durable Fences",
     "farm.instant-build": "Instant Build",
-    "farm.always-auto-feed": "Always Auto-Feed",
+    "farm.auto-feed-animals": "Auto-Feed Animals",
+    "farm.auto-pet-animals": "Auto-Pet Animals",
     "farm.infinite-hay": "Infinite Hay",
 
     // fishing
@@ -194,12 +195,20 @@
     /*********
     ** Time tab
     *********/
+    // time
     "time.title": "Time",
     "time.freeze-inside": "Freeze Time Inside",
     "time.freeze-caves": "Freeze Time In Caves",
     "time.freeze-everywhere": "Freeze Time Everywhere",
     "time.time": "Time",
     "time.time-frozen-message": "Time Frozen",
+
+    // date
+    "date.title": "Date",
+    "date.warning": "Some things won't update until a night has passed.",
+    "date.year": "Year",
+    "date.season": "Season",
+    "date.day": "Day",
 
 
     /*********

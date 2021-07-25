@@ -54,7 +54,8 @@
     "farm.auto-water": "Regar Cultivos Automáticamente",
     "farm.durable-fences": "Vallas Duraderas",
     "farm.instant-build": "Construcciones Instantáneas",
-    "farm.always-auto-feed": "Siempre Auto Alimentar",
+    "farm.auto-feed-animals": "Siempre Auto Alimentar",
+    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
     "farm.infinite-hay": "Heno Infinito",
 
     // fishing
@@ -194,12 +195,20 @@
     /*********
     ** Time tab
     *********/
+    // time
     "time.title": "Tiempo",
     "time.freeze-inside": "Parar el Tiempo Dentro",
     "time.freeze-caves": "Parar el Tiempo en Cuevas",
     "time.freeze-everywhere": "Parar el Tiempo en Todas Partes",
     "time.time": "Tiempo",
     "time.time-frozen-message": "Tiempo Parado",
+
+    // date
+    "date.title": "Fecha",
+    "date.warning": "Muchas actualizaciones no pasarán hasta que haya pasado una noche.",
+    "date.year": "Año",
+    "date.season": "Estación",
+    "date.day": "Día",
 
 
     /*********

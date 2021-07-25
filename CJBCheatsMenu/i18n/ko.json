@@ -54,7 +54,8 @@
     "farm.auto-water": "작물 자동 물주기",
     "farm.durable-fences": "울타리 유실 방지",
     "farm.instant-build": "농장 건물 건설 즉시 완성",
-    "farm.always-auto-feed": "사료 자동 급식",
+    "farm.auto-feed-animals": "사료 자동 급식",
+    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
     "farm.infinite-hay": "건초 무한대",
 
     // fishing
@@ -194,12 +195,21 @@
     /*********
     ** Time tab
     *********/
+    // time
     "time.title": "시간",
     "time.freeze-inside": "실내에서 시간 정지",
     "time.freeze-caves": "광산/해골동굴 안에서 시간 정지",
     "time.freeze-everywhere": "모든 장소에서 시간 정지",
     "time.time": "시간",
     "time.time-frozen-message": "시간 멈춤",
+
+    // date
+    // TODO
+    "date.title": "Date",
+    "date.warning": "Some things won't update until a night has passed.",
+    "date.year": "Year",
+    "date.season": "Season",
+    "date.day": "Day",
 
 
     /*********

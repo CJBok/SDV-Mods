@@ -54,7 +54,8 @@
     "farm.auto-water": "作物自动灌溉",
     "farm.durable-fences": "围栏不损毁",
     "farm.instant-build": "农场建筑立即完成",
-    "farm.always-auto-feed": "自动喂食",
+    "farm.auto-feed-animals": "自动喂食",
+    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
     "farm.infinite-hay": "无限干草",
 
     // fishing
@@ -194,12 +195,21 @@
     /*********
     ** Time tab
     *********/
+    // time
     "time.title": "时间",
     "time.freeze-inside": "在建筑内冻结时间",
     "time.freeze-caves": "在矿井内冻结时间",
     "time.freeze-everywhere": "任何地方都冻结时间",
     "time.time": "时间",
     "time.time-frozen-message": "时间冻结",
+
+    // date
+    // TODO
+    "date.title": "Date",
+    "date.warning": "Some things won't update until a night has passed.",
+    "date.year": "Year",
+    "date.season": "Season",
+    "date.day": "Day",
 
 
     /*********

@@ -76,13 +76,10 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
                 yield break;
 
             // planted crops
-            if (this.MayHaveCrops(location))
+            foreach (HoeDirt dirt in location.terrainFeatures.Values.OfType<HoeDirt>())
             {
-                foreach (HoeDirt dirt in location.terrainFeatures.Values.OfType<HoeDirt>())
-                {
-                    if (dirt.crop != null)
-                        yield return dirt.crop;
-                }
+                if (dirt.crop != null)
+                    yield return dirt.crop;
             }
 
             // garden pots

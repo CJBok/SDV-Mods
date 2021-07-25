@@ -55,6 +55,7 @@
     "farm.durable-fences": "Clôture durable",
     "farm.instant-build": "Construction instantanée",
     "farm.always-auto-feed": "Toujours nourrir automatiquement",
+    "farm.auto-pet-animals": "Caresser les animaux automatiquement",
     "farm.infinite-hay": "Foin infini",
 
     // fishing
@@ -177,13 +178,12 @@
     "warp.willy-shop": "Poissonnerie",
 
     // island
-    // TODO
-    "warp-section.island": "Ginger Island",
+    "warp-section.island": "Île Gingembre",
     "warp.forge": "Forge",
-    "warp.island-farm": "Island Farm",
-    "warp.dwarf-shop": "Volcano Dwarf Shop",
-    "warp.field-office": "Field Office",
-    "warp.leo-house": "Leo's House",
+    "warp.island-farm": "Ferme de l'île",
+    "warp.dwarf-shop": "Magasin du nain du volcan",
+    "warp.field-office": "Bureau local",
+    "warp.leo-house": "Maison de Leo",
 
     // desert
     "warp-section.desert": "Désert",
@@ -195,12 +195,21 @@
     /*********
     ** Time tab
     *********/
+    // time
     "time.title": "Temps",
     "time.freeze-inside": "Arrêter le temps à l'intérieur",
     "time.freeze-caves": "Arrêter le temps dans les grottes",
     "time.freeze-everywhere": "Arrêter le temps partout",
     "time.time": "Heure",
     "time.time-frozen-message": "Temps figé",
+
+    // date
+    // TODO
+    "date.title": "Date",
+    "date.warning": "Some things won't update until a night has passed.",
+    "date.year": "Year",
+    "date.season": "Season",
+    "date.day": "Day",
 
 
     /*********
@@ -223,7 +232,7 @@
     ** Controls tab
     *********/
     "controls.title": "Contrôles",
-    "controls.android-config-note": "You can change the on-screen buttons in the config files for the CJB Cheats Menu and Virtual Keyboard mods.", // TODO
+    "controls.android-config-note": "Vous pouvez modifier les boutons affichés à l'écran dans les fichiers de configuration des mods CJB Menu de triche et Menu du clavier virtuel.",
     "controls.open-menu": "Ouvrir ce menu",
     "controls.freeze-time": "Arrêter le temps",
     "controls.grow-tree": "Faire pousser les arbres",

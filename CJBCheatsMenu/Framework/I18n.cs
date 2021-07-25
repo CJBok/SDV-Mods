@@ -228,10 +228,16 @@ namespace CJBCheatsMenu.Framework
             return I18n.GetByKey("farm.instant-build");
         }
 
-        /// <summary>Get a translation equivalent to "Always Auto-Feed".</summary>
-        public static string Farm_AlwaysAutoFeed()
+        /// <summary>Get a translation equivalent to "Auto-Feed Animals".</summary>
+        public static string Farm_AutoFeedAnimals()
         {
-            return I18n.GetByKey("farm.always-auto-feed");
+            return I18n.GetByKey("farm.auto-feed-animals");
+        }
+
+        /// <summary>Get a translation equivalent to "Auto-Pet Animals".</summary>
+        public static string Farm_AutoPetAnimals()
+        {
+            return I18n.GetByKey("farm.auto-pet-animals");
         }
 
         /// <summary>Get a translation equivalent to "Infinite Hay".</summary>
@@ -838,6 +844,36 @@ namespace CJBCheatsMenu.Framework
         public static string Time_TimeFrozenMessage()
         {
             return I18n.GetByKey("time.time-frozen-message");
+        }
+
+        /// <summary>Get a translation equivalent to "Date".</summary>
+        public static string Date_Title()
+        {
+            return I18n.GetByKey("date.title");
+        }
+
+        /// <summary>Get a translation equivalent to "Some things won't update until a night has passed.".</summary>
+        public static string Date_Warning()
+        {
+            return I18n.GetByKey("date.warning");
+        }
+
+        /// <summary>Get a translation equivalent to "Year".</summary>
+        public static string Date_Year()
+        {
+            return I18n.GetByKey("date.year");
+        }
+
+        /// <summary>Get a translation equivalent to "Season".</summary>
+        public static string Date_Season()
+        {
+            return I18n.GetByKey("date.season");
+        }
+
+        /// <summary>Get a translation equivalent to "Day".</summary>
+        public static string Date_Day()
+        {
+            return I18n.GetByKey("date.day");
         }
 
         /// <summary>Get a translation equivalent to "Use this section at your own risk!\nThis may cause issues like skipped mail, events, or quests.".</summary>

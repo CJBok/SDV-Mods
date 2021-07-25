@@ -104,7 +104,10 @@ namespace CJBCheatsMenu.Framework
         public ICheat InstantBuild { get; } = new InstantBuildCheat();
 
         /// <summary>Automatically fills animal feed troughs.</summary>
-        public ICheat AlwaysAutoFeed { get; } = new AlwaysAutoFeedCheat();
+        public ICheat AutoFeedAnimals { get; } = new AutoFeedAnimalsCheat();
+
+        /// <summary>Automatically pets animals.</summary>
+        public ICheat AutoPetAnimals { get; } = new AutoPetAnimalsCheat();
 
         /// <summary>Enables infinite hay.</summary>
         public ICheat InfiniteHay { get; } = new InfiniteHayCheat();
@@ -168,6 +171,15 @@ namespace CJBCheatsMenu.Framework
 
         /// <summary>Sets the current time.</summary>
         public ICheat SetTime { get; } = new SetTimeCheat();
+
+        /// <summary>Sets the current year.</summary>
+        public ICheat SetYear { get; } = new SetYearCheat();
+
+        /// <summary>Sets the current season.</summary>
+        public ICheat SetSeason { get; } = new SetSeasonCheat();
+
+        /// <summary>Sets the current day of the season.</summary>
+        public ICheat SetDay { get; } = new SetDayCheat();
 
         /****
         ** Advanced

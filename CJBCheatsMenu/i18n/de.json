@@ -54,7 +54,8 @@
     "farm.auto-water": "Automatisches Gießen",
     "farm.durable-fences": "Widerstandsfähige Zäune",
     "farm.instant-build": "Sofortiger Bau",
-    "farm.always-auto-feed": "Immer automatisch füttern",
+    "farm.auto-feed-animals": "Immer automatisch füttern",
+    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
     "farm.infinite-hay": "Unendlich Heu",
 
     // fishing
@@ -195,12 +196,21 @@
     /*********
     ** Time tab
     *********/
+    //time
     "time.title": "Zeit",
     "time.freeze-inside": "Zeit in Gebäuden stoppen",
     "time.freeze-caves": "Zeit in Höhlen stoppen",
     "time.freeze-everywhere": "Zeit überall stoppen",
     "time.time": "Zeit",
     "time.time-frozen-message": "Zeit gestoppt",
+
+    // date
+    // TODO
+    "date.title": "Date",
+    "date.warning": "Some things won't update until a night has passed.",
+    "date.year": "Year",
+    "date.season": "Season",
+    "date.day": "Day",
 
 
     /*********

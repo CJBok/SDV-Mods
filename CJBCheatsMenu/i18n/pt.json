@@ -51,10 +51,11 @@
     *********/
     // farm
     "farm.title": "Fazenda",
-    "farm.auto-water": "Molhar colheita automaticamente",
+    "farm.auto-water": "Regar colheita automaticamente",
     "farm.durable-fences": "Cercas duráveis",
     "farm.instant-build": "Construções instantâneas",
-    "farm.always-auto-feed": "Alimentação automática para animais",
+    "farm.auto-feed-animals": "Alimentação automática para animais",
+    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
     "farm.infinite-hay": "Palha infinita",
 
     // fishing
@@ -173,17 +174,16 @@
 
     // beach
     "warp-section.beach": "Praia",
-    "warp.tide-pools": "Poças de maré",
+    "warp.tide-pools": "Poças de Maré",
     "warp.willy-shop": "Peixaria",
 
     // island
-    // TODO
-    "warp-section.island": "Ginger Island",
-    "warp.forge": "Forge",
-    "warp.island-farm": "Island Farm",
-    "warp.dwarf-shop": "Volcano Dwarf Shop",
-    "warp.field-office": "Field Office",
-    "warp.leo-house": "Leo's House",
+    "warp-section.island": "Ilha Gengibre",
+    "warp.forge": "Forja",
+    "warp.island-farm": "Fazenda da llha",
+    "warp.dwarf-shop": "Loja do Anão do Vulcão",
+    "warp.field-office": "Escritório do Campo",
+    "warp.leo-house": "Casa do Leo",
 
     // desert
     "warp-section.desert": "Deserto",
@@ -195,12 +195,21 @@
     /*********
     ** Time tab
     *********/
+    // time
     "time.title": "Horário",
     "time.freeze-inside": "Parar o tempo dentro das construções",
     "time.freeze-caves": "Parar o tempo nas cavernas",
-    "time.freeze-everywhere": "Parar o tempo em todo lugar",
+    "time.freeze-everywhere": "Parar o tempo em qualquer lugar",
     "time.time": "Horário",
     "time.time-frozen-message": "Tempo parado",
+
+    // date
+    // TODO
+    "date.title": "Date",
+    "date.warning": "Some things won't update until a night has passed.",
+    "date.year": "Year",
+    "date.season": "Season",
+    "date.day": "Day",
 
 
     /*********

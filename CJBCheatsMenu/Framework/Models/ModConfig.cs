@@ -40,7 +40,7 @@ namespace CJBCheatsMenu.Framework.Models
         ** Player cheats
         ****/
         /// <summary>The player speed buff to add.</summary>
-        public int MoveSpeed { get; set; } = 1;
+        public int MoveSpeed { get; set; }
 
         /// <summary>The player's health never decreases.</summary>
         public bool InfiniteHealth { get; set; }
@@ -212,6 +212,9 @@ namespace CJBCheatsMenu.Framework.Models
 
         /// <summary>Feed troughs in your barns and coops are refilled automatically.</summary>
         public bool AutoFeed { get; set; }
+
+        /// <summary>Farm animals are pet automatically.</summary>
+        public bool AutoPetAnimals { get; set; }
 
         /// <summary>Crops are watered automatically.</summary>
         public bool AutoWater { get; set; }
