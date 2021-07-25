@@ -1,7 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.29.0
+Released 24 July 2021 for SMAPI 3.9.5 or later.
+
 * Added in-game date changer (thanks to kdau!).
 * Added 'auto-pet animals' cheat (thanks to strobel1ght!).
 * Renamed 'always auto-feed' to 'auto-feed animals' for clarity.

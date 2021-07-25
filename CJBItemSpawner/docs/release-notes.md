@@ -1,7 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 2.1.3
+Released 24 July 2021 for SMAPI 3.9.5 or later.
+
 * Fixed some vanilla shirts not shown in the menu.
 * Improved translations. Thanks to randomC0der (updated German)!
 
