@@ -204,12 +204,11 @@
     "time.time-frozen-message": "시간 멈춤",
 
     // date
-    // TODO
-    "date.title": "Date",
-    "date.warning": "Some things won't update until a night has passed.",
-    "date.year": "Year",
-    "date.season": "Season",
-    "date.day": "Day",
+    "date.title": "날짜",
+    "date.warning": "밤이 지나야 업데이트 되는 것도 있습니다.",
+    "date.year": "년",
+    "date.season": "계절",
+    "date.day": "일",
 
 
     /*********
