@@ -55,7 +55,7 @@
     "farm.durable-fences": "Recinti Durabili",
     "farm.instant-build": "Costruisci Instantaneamente",
     "farm.auto-feed-animals": "Nutri gli Animali Automaticamente",
-    "farm.auto-pet-animals": "Cura degli Animali Automatica", // TODO
+    "farm.auto-pet-animals": "Cura degli Animali Automatica",
     "farm.infinite-hay": "Fieno Infinito",
 
     // fishing
@@ -178,7 +178,6 @@
     "warp.willy-shop": "Negozio di Pesca",
 
     // island
-    // TODO
     "warp-section.island": "Isola di Ginger",
     "warp.forge": "Fabbro",
     "warp.island-farm": "Fattoria dell'Isola",
@@ -205,7 +204,6 @@
     "time.time-frozen-message": "Ferma l'Orologio",
 
     // date
-    // TODO
     "date.title": "Data",
     "date.warning": "Alcune cose non si aggiorneranno finché non sarà passata una notte.",
     "date.year": "Anno",
