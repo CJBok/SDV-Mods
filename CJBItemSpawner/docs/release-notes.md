@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming releases
+* Updated for Stardew Valley 1.5.5.
 * Improved translations. Thanks to widfar (updated Italian)!
 
 ## 2.1.3
