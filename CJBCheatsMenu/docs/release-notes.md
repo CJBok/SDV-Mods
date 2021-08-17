@@ -3,7 +3,7 @@
 # Release notes
 ## Upcoming releases
 * Updated for Stardew Valley 1.5.5.
-* Improved translations. Thanks to widfar (updated Italian)!
+* Improved translations. Thanks to widfar (updated Italian) and wally232 (updated Korean)!
 
 ## 1.29.0
 Released 24 July 2021 for SMAPI 3.9.5 or later.
