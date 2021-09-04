@@ -1,10 +1,10 @@
 ﻿{
     "Name": "CJB Cheats Menu",
     "Author": "CJBok and Pathoschild",
-    "Version": "1.29.0",
+    "Version": "1.29.1",
     "Description": "Simple in-game cheats menu!",
     "UniqueID": "CJBok.CheatsMenu",
     "EntryDll": "CJBCheatsMenu.dll",
-    "MinimumApiVersion": "3.9.5",
+    "MinimumApiVersion": "3.12.6",
     "UpdateKeys": [ "Nexus:4" ]
 }
