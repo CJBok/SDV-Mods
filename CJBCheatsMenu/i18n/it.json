@@ -54,8 +54,8 @@
     "farm.auto-water": "Annaffia Raccolto Automatico",
     "farm.durable-fences": "Recinti Durabili",
     "farm.instant-build": "Costruisci Instantaneamente",
-    "farm.auto-feed-animals": "Nutri Animali Automatico",
-    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
+    "farm.auto-feed-animals": "Nutri gli Animali Automaticamente",
+    "farm.auto-pet-animals": "Cura degli Animali Automatica",
     "farm.infinite-hay": "Fieno Infinito",
 
     // fishing
@@ -178,13 +178,12 @@
     "warp.willy-shop": "Negozio di Pesca",
 
     // island
-    // TODO
-    "warp-section.island": "Ginger Island",
-    "warp.forge": "Forge",
-    "warp.island-farm": "Island Farm",
-    "warp.dwarf-shop": "Volcano Dwarf Shop",
-    "warp.field-office": "Field Office",
-    "warp.leo-house": "Leo's House",
+    "warp-section.island": "Isola di Ginger",
+    "warp.forge": "Fabbro",
+    "warp.island-farm": "Fattoria dell'Isola",
+    "warp.dwarf-shop": "Negozio del Nano del Vulcano",
+    "warp.field-office": "Ufficio del Campo",
+    "warp.leo-house": "Casa di Leo",
 
     // desert
     "warp-section.desert": "Deserto",
@@ -205,12 +204,11 @@
     "time.time-frozen-message": "Ferma l'Orologio",
 
     // date
-    // TODO
-    "date.title": "Date",
-    "date.warning": "Some things won't update until a night has passed.",
-    "date.year": "Year",
-    "date.season": "Season",
-    "date.day": "Day",
+    "date.title": "Data",
+    "date.warning": "Alcune cose non si aggiorneranno finché non sarà passata una notte.",
+    "date.year": "Anno",
+    "date.season": "Stagione",
+    "date.day": "Giorno",
 
 
     /*********

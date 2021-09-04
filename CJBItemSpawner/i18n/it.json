@@ -10,23 +10,22 @@
     /*********
     ** Category dropdown
     *********/
-    // TODO
-    "filter.all": "All",
-    "filter.artisan-and-cooking": "Artisan & cooking",
-    "filter.crafting.products": "Crafting: products",
-    "filter.crafting.resources": "Crafting: resources",
-    "filter.decor.furniture": "Decor: furniture",
-    "filter.decor.other": "Decor: other",
-    "filter.equipment-boots": "Equipment: boots",
-    "filter.equipment-clothes": "Equipment: clothes",
-    "filter.equipment-hats": "Equipment: hats",
-    "filter.equipment-rings": "Equipment: rings",
-    "filter.equipment-tools": "Equipment: tools",
-    "filter.equipment-weapons": "Equipment: weapons",
-    "filter.farm-animal-drops": "Farm: animal drops",
-    "filter.farm-crops": "Farm: crops",
-    "filter.farm-seeds": "Farm: seeds",
-    "filter.fish": "Fish",
-    "filter.minerals-and-artifacts": "Minerals & artifacts",
-    "filter.miscellaneous": "Misc"
+    "filter.all": "Tutti",
+    "filter.artisan-and-cooking": "Artigianato & cucina",
+    "filter.crafting.products": "Fabbricazione: prodotti",
+    "filter.crafting.resources": "Fabbricazione: risorse",
+    "filter.decor.furniture": "Decorazione: mobilia",
+    "filter.decor.other": "Decorazione: altri",
+    "filter.equipment-boots": "Equipaggiamento: calzature",
+    "filter.equipment-clothes": "Equipaggiamento: vestiti",
+    "filter.equipment-hats": "Equipaggiamento: cappelli",
+    "filter.equipment-rings": "Equipaggiamento: anelli",
+    "filter.equipment-tools": "Equipaggiamento: attrezzi",
+    "filter.equipment-weapons": "Equipaggiamento: armi",
+    "filter.farm-animal-drops": "Fattoria: prodotti animali",
+    "filter.farm-crops": "Fattoria: colture",
+    "filter.farm-seeds": "Fattoria: semi",
+    "filter.fish": "Pesci",
+    "filter.minerals-and-artifacts": "Minerali & artefatti",
+    "filter.miscellaneous": "Vari"
 }

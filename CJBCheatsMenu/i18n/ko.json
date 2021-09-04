@@ -55,7 +55,7 @@
     "farm.durable-fences": "울타리 유실 방지",
     "farm.instant-build": "농장 건물 건설 즉시 완성",
     "farm.auto-feed-animals": "사료 자동 급식",
-    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
+    "farm.auto-pet-animals": "팻 자동 물그릇 ",
     "farm.infinite-hay": "건초 무한대",
 
     // fishing
@@ -204,12 +204,11 @@
     "time.time-frozen-message": "시간 멈춤",
 
     // date
-    // TODO
-    "date.title": "Date",
-    "date.warning": "Some things won't update until a night has passed.",
-    "date.year": "Year",
-    "date.season": "Season",
-    "date.day": "Day",
+    "date.title": "날짜",
+    "date.warning": "저장을 해야 변경되는 경우가 있습니다.",
+    "date.year": "년",
+    "date.season": "계절",
+    "date.day": "일",
 
 
     /*********
