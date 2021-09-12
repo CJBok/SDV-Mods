@@ -205,7 +205,7 @@
 
     // date
     "date.title": "日期",
-    "date.warning": "部分事件需要次日才会更新",
+    "date.warning": "部分事件需要到次日才会更新",
     "date.year": "年",
     "date.season": "季节",
     "date.day": "日",
