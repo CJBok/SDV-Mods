@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Improved translations. Thanks to horizon98 (updated Chinese) and Tenebrosful (updated French)!
+
 ## 1.29.1
 Released 04 September 2021 for SMAPI 3.12.6 or later.
 
