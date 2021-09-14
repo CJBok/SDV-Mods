@@ -55,7 +55,7 @@
     "farm.durable-fences": "Widerstandsfähige Zäune",
     "farm.instant-build": "Sofortiger Bau",
     "farm.auto-feed-animals": "Immer automatisch füttern",
-    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
+    "farm.auto-pet-animals": "Tiere automatisch füttern",
     "farm.infinite-hay": "Unendlich Heu",
 
     // fishing
@@ -133,7 +133,7 @@
     ** Relationships tab
     *********/
     "relationships.title": "Beziehungen",
-    "relationships.give-gifts-anytime": "Geschenke jederzeit hergeben",
+    "relationships.give-gifts-anytime": "Geschenke jederzeit übergeben",
     "relationships.no-decay": "Kein Freundschaftsrückfall",
     "relationships.friends": "Freunde",
 
@@ -178,13 +178,12 @@
     "warp.willy-shop": "Angelbedarf",
 
     // island
-    // TODO
-    "warp-section.island": "Ginger Island",
-    "warp.forge": "Forge",
-    "warp.island-farm": "Island Farm",
-    "warp.dwarf-shop": "Volcano Dwarf Shop",
-    "warp.field-office": "Field Office",
-    "warp.leo-house": "Leo's House",
+    "warp-section.island": "Ingwerinsel",
+    "warp.forge": "Vulkanschmiede",
+    "warp.island-farm": "Insel Farm",
+    "warp.dwarf-shop": "Zwergenladen",
+    "warp.field-office": "Insel-Außenstelle",
+    "warp.leo-house": "Leo's Haus",
 
     // desert
     "warp-section.desert": "Wüste",
@@ -205,12 +204,11 @@
     "time.time-frozen-message": "Zeit gestoppt",
 
     // date
-    // TODO
-    "date.title": "Date",
-    "date.warning": "Some things won't update until a night has passed.",
-    "date.year": "Year",
-    "date.season": "Season",
-    "date.day": "Day",
+    "date.title": "Datum",
+    "date.warning": "Manche Dinge werden erst aktualisiert, wenn man geschlafen hat.",
+    "date.year": "Jahr",
+    "date.season": "Jahreszeit",
+    "date.day": "Tage",
 
 
     /*********
