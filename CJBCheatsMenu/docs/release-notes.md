@@ -2,7 +2,7 @@
 
 # Release notes
 ## Upcoming release
-* Improved translations. Thanks to horizon98 (updated Chinese) and Tenebrosful (updated French)!
+* Improved translations. Thanks to horizon98 (updated Chinese), kelvindules (updated Portuguese), Tenebrosful & Lumisteria (updated French), and Tennix3 (updated German)!
 
 ## 1.29.1
 Released 04 September 2021 for SMAPI 3.12.6 or later.

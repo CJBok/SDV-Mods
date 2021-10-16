@@ -205,7 +205,7 @@
 
     // date
     "date.title": "Date",
-    "date.warning": "Certaines choses ne seront mises à jour qu'après le passage d'une nuit.",//Changed sentence a bit in french to avoid it being too heavier. Meaning : "Some things will only change after a night has passed"
+    "date.warning": "Certaines choses ne seront mises à jour qu'après le passage d'une nuit.",
     "date.year": "Année",
     "date.season": "Saison",
     "date.day": "Jour",
