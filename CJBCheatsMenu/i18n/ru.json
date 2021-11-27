@@ -55,7 +55,7 @@
     "farm.durable-fences": "Прочные ограждения",
     "farm.instant-build": "Мгновенное строительство",
     "farm.auto-feed-animals": "Автоматическая подкормка животных",
-    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
+    "farm.auto-pet-animals": "Автоматическое приласкивание животных",
     "farm.infinite-hay": "Бесконечное сено",
 
     // fishing
@@ -204,12 +204,11 @@
     "time.time-frozen-message": "Время остановлено",
 
     // date
-    // TODO
-    "date.title": "Date",
-    "date.warning": "Some things won't update until a night has passed.",
-    "date.year": "Year",
-    "date.season": "Season",
-    "date.day": "Day",
+    "date.title": "Дата",
+    "date.warning": "Некоторые изменения не сработают пока не пройдет ночь.",
+    "date.year": "Год",
+    "date.season": "Время года",
+    "date.day": "День",
 
 
     /*********

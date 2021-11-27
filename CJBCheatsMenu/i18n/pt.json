@@ -55,8 +55,8 @@
     "farm.durable-fences": "Cercas duráveis",
     "farm.instant-build": "Construções instantâneas",
     "farm.auto-feed-animals": "Alimentação automática para animais",
-    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
-    "farm.infinite-hay": "Palha infinita",
+    "farm.auto-pet-animals": "Acariciar animais automaticamente",
+    "farm.infinite-hay": "Feno infinito",
 
     // fishing
     "fishing.title": "Pesca",
@@ -204,12 +204,11 @@
     "time.time-frozen-message": "Tempo parado",
 
     // date
-    // TODO
-    "date.title": "Date",
-    "date.warning": "Some things won't update until a night has passed.",
-    "date.year": "Year",
-    "date.season": "Season",
-    "date.day": "Day",
+    "date.title": "Data",
+    "date.warning": "Algumas coisas não atualizarão até que a noite passe.",
+    "date.year": "Ano",
+    "date.season": "Estação",
+    "date.day": "Dia",
 
 
     /*********

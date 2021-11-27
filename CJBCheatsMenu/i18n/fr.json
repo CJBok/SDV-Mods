@@ -52,7 +52,7 @@
     // farm
     "farm.title": "Ferme",
     "farm.auto-water": "Arroser les champs automatiquement",
-    "farm.durable-fences": "Clôture durable",
+    "farm.durable-fences": "Clôtures durables",
     "farm.instant-build": "Construction instantanée",
     "farm.always-auto-feed": "Toujours nourrir automatiquement",
     "farm.auto-pet-animals": "Caresser les animaux automatiquement",
@@ -67,7 +67,7 @@
     "fishing.durable-tackles": "Matériel de pêche durable",
 
     // fast machine
-    "fast-machines.title": "Transformation rapide",
+    "fast-machines.title": "Transformations rapides",
     "fast-machines.fruit-trees": "Arbres fruitiers",
     "fast-machines.ready-in-the-morning": "{{machineName}} (prêt le matin)",
 
@@ -157,7 +157,7 @@
     "warp.movie-theater": "Cinéma",
     "warp.museum": "Musée",
     "warp.saloon": "Saloon",
-    "warp.sewer": "Égout",
+    "warp.sewer": "Égouts",
 
     // forest
     "warp-section.forest": "En forêt",
@@ -204,12 +204,11 @@
     "time.time-frozen-message": "Temps figé",
 
     // date
-    // TODO
     "date.title": "Date",
-    "date.warning": "Some things won't update until a night has passed.",
-    "date.year": "Year",
-    "date.season": "Season",
-    "date.day": "Day",
+    "date.warning": "Certaines choses ne seront mises à jour qu'après le passage d'une nuit.",
+    "date.year": "Année",
+    "date.season": "Saison",
+    "date.day": "Jour",
 
 
     /*********
@@ -218,10 +217,10 @@
     "flags.warning": "Utiliser cette section à vos risques et périls !\nCela peut causer des problèmes tels que des mails, événements ou quêtes non déclenchées.",
     "flags.quests": "Quêtes complétées",
     "flags.wallet": "Objets du porte-feuille",
-    "flags.unlocked": "Zone débloquées",
+    "flags.unlocked": "Zones débloquées",
     "flags.unlocked.guild": "Guilde des aventuriers",
     "flags.unlocked.room": "Chambre : {{name}}",
-    "flags.unlocked-content": "Contenu débloqué",
+    "flags.unlocked-content": "Contenus débloqués",
     "flags.unlocked-content.dyes-and-tailoring": "Teintures & couture",
     "flags.community-center": "Centre communautaire",
     "flags.community-center.door-unlocked": "Porte déverrouillée",
@@ -236,7 +235,7 @@
     "controls.open-menu": "Ouvrir ce menu",
     "controls.freeze-time": "Arrêter le temps",
     "controls.grow-tree": "Faire pousser les arbres",
-    "controls.grow-crops": "Faire pousser les culture",
+    "controls.grow-crops": "Faire pousser les cultures",
     "controls.grow-radius": "Distance de croissance autour du joueur",
     "controls.reset-controls": "Réinitialiser",
     "controls.press-new-key": "Appuyer sur la nouvelle touche..."

@@ -54,8 +54,8 @@
     "farm.auto-water": "作物自动灌溉",
     "farm.durable-fences": "围栏不损毁",
     "farm.instant-build": "农场建筑立即完成",
-    "farm.auto-feed-animals": "自动喂食",
-    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
+    "farm.auto-feed-animals": "自动喂食动物",
+    "farm.auto-pet-animals": "自动抚摸动物",
     "farm.infinite-hay": "无限干草",
 
     // fishing
@@ -204,12 +204,11 @@
     "time.time-frozen-message": "时间冻结",
 
     // date
-    // TODO
-    "date.title": "Date",
-    "date.warning": "Some things won't update until a night has passed.",
-    "date.year": "Year",
-    "date.season": "Season",
-    "date.day": "Day",
+    "date.title": "日期",
+    "date.warning": "部分事件需要到次日才会更新",
+    "date.year": "年",
+    "date.season": "季节",
+    "date.day": "日",
 
 
     /*********
