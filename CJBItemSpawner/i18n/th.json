@@ -1,0 +1,31 @@
+{
+    /*********
+    ** Sort button
+    *********/
+    "sort.by-name": "ชื่อ",
+    "sort.by-type": "ประเภท",
+    "sort.by-id": "ID",
+
+
+    /*********
+    ** Category dropdown
+    *********/
+    "filter.all": "ทั้งหมด",
+    "filter.artisan-and-cooking": "ผลิตภัณฑ์ & อาหาร",
+    "filter.crafting.products": "สิ่งประดิษฐ์: สิ่งของเครื่องใช้",
+    "filter.crafting.resources": "สิ่งประดิษฐ์: วัตถุดิบ",
+    "filter.decor.furniture": "ของตกแต่ง: เฟอร์นิเจอร์",
+    "filter.decor.other": "ของตกแต่ง: อื่นๆ",
+    "filter.equipment-boots": "อุปกรณ์สวมใส่: รองเท้า",
+    "filter.equipment-clothes": "อุปกรณ์สวมใส่: เสื้อผ้า",
+    "filter.equipment-hats": "อุปกรณ์สวมใส่: หมวก",
+    "filter.equipment-rings": "อุปกรณ์สวมใส่: แหวน",
+    "filter.equipment-tools": "อุปกรณ์สวมใส่: เครื่องมือ",
+    "filter.equipment-weapons": "อุปกรณ์สวมใส่: อาวุธ",
+    "filter.farm-animal-drops": "ฟาร์ม: ผลิตภัณฑ์จากสัตว์",
+    "filter.farm-crops": "ฟาร์ม: ผืชผัก",
+    "filter.farm-seeds": "ฟาร์ม: เมล็ดพันธุ์",
+    "filter.fish": "ปลา",
+    "filter.minerals-and-artifacts": "แร่ & วัถตุโบราณ",
+    "filter.miscellaneous": "อื่นๆ"
+}
