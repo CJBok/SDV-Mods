@@ -3,7 +3,7 @@ with just a few clicks:
 
 ![](screenshot.png)
 
-Compatible with Stardew Valley 1.5+ on Linux, MacOS, and Windows.
+Compatible with Stardew Valley 1.5.5+ on Linux, macOS, and Windows.
 
 ## Install
 1. [Install the latest version of SMAPI](https://smapi.io/).

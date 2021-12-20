@@ -1,6 +1,13 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 1.29.3
+Released 19 December 2021 for SMAPI 3.13.0 or later.
+
+* Updated for Stardew Valley 1.5.5.
+* Improved sewer warp position.
+* Improved translations. Thanks to ellipszist (added Thai)!
+
 ## 1.29.2
 Released 26 November 2021 for SMAPI 3.12.5 or later.
 

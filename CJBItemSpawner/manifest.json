@@ -1,10 +1,10 @@
 ﻿{
     "Name": "CJB Item Spawner",
     "Author": "CJBok and Pathoschild",
-    "Version": "2.1.4",
+    "Version": "2.1.5",
     "Description": "Simple in-game item spawner!",
     "UniqueID": "CJBok.ItemSpawner",
     "EntryDll": "CJBItemSpawner.dll",
-    "MinimumApiVersion": "3.12.6",
+    "MinimumApiVersion": "3.13.0",
     "UpdateKeys": [ "Nexus:93" ]
 }
