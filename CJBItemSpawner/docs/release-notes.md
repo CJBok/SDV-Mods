@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Improved translations. Thanks to ellipszist (added Thai)!
+
 ## 2.1.4
 Released 04 September 2021 for SMAPI 3.12.6 or later.
 

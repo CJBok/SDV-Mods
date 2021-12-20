@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Improved sewer warp position.
+* Improved translations. Thanks to ellipszist (added Thai)!
 
 ## 1.29.2
 Released 26 November 2021 for SMAPI 3.12.5 or later.
