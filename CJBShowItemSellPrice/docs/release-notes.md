@@ -1,7 +1,10 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.9.13
+Released 19 December 2021 for SMAPI 3.13.0 or later.
+
+* Updated for Stardew Valley 1.5.5.
 * Improved translations. Thanks to ellipszist (added Thai)!
 
 ## 1.9.12
