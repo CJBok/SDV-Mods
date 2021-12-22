@@ -23,13 +23,15 @@ Hungarian  | [↻](CJBCheatsMenu/i18n/hu.json) | [↻](CJBItemSpawner/i18n/hu.js
 Italian    | [✓](CJBCheatsMenu/i18n/it.json) | [✓](CJBItemSpawner/i18n/it.json) | [✓](CJBShowItemSellPrice/i18n/it.json)
 Japanese   | [↻](CJBCheatsMenu/i18n/ja.json) | [↻](CJBItemSpawner/i18n/ja.json) | [✓](CJBShowItemSellPrice/i18n/ja.json)
 Korean     | [✓](CJBCheatsMenu/i18n/ko.json) | [✓](CJBItemSpawner/i18n/ko.json) | [✓](CJBShowItemSellPrice/i18n/ko.json)
+Polish¹    | ❑                              | [✓](CJBItemSpawner/i18n/pl.json) | ❑
 Portuguese | [✓](CJBCheatsMenu/i18n/pt.json) | [✓](CJBItemSpawner/i18n/pt.json) | [✓](CJBShowItemSellPrice/i18n/pt.json)
 Russian    | [✓](CJBCheatsMenu/i18n/ru.json) | [✓](CJBItemSpawner/i18n/ru.json) | [✓](CJBShowItemSellPrice/i18n/ru.json)
 Spanish    | [↻](CJBCheatsMenu/i18n/es.json) | [✓](CJBItemSpawner/i18n/es.json) | [✓](CJBShowItemSellPrice/i18n/es.json)
 Thai¹      | [↻](CJBCheatsMenu/i18n/th.json) | [✓](CJBItemSpawner/i18n/th.json) | [✓](CJBShowItemSellPrice/i18n/th.json)
 Turkish    | [↻](CJBCheatsMenu/i18n/tr.json) | [✓](CJBItemSpawner/i18n/tr.json) | [✓](CJBShowItemSellPrice/i18n/tr.json)
 
-¹ This is a custom language provided by a mod (see [Thai](https://www.nexusmods.com/stardewvalley/mods/7052)).
+¹ This is a custom language provided by a mod (see [Polish](https://www.nexusmods.com/stardewvalley/mods/3616)
+and [Thai](https://www.nexusmods.com/stardewvalley/mods/7052)).
 
 ## Compiling the mods
 Installing stable releases from Nexus Mods is recommended for most users. If you really want to
