@@ -2,8 +2,8 @@
     /*********
     ** Sort button
     *********/
-    "sort.by-name": "Nazwy",
-    "sort.by-type": "Kategorii",
+    "sort.by-name": "Nazwa",
+    "sort.by-type": "Rodzaj",
     "sort.by-id": "ID",
 
 
@@ -11,18 +11,18 @@
     ** Category dropdown
     *********/
     "filter.all": "Wszystko",
-    "filter.artisan-and-cooking": "Wytwarzanie i gotowanie",
-    "filter.crafting.products": "Wytwarzanie : przedmioty",
-    "filter.crafting.resources": "Wytwarzanie : materiały",
+    "filter.artisan-and-cooking": "Wyroby i gotowanie",
+    "filter.crafting.products": "Wytwarzanie: przedmioty",
+    "filter.crafting.resources": "Wytwarzanie: zasoby",
     "filter.decor.furniture": "Dekoracje: meble",
-    "filter.decor.other": "Dekoracje: inne",
-    "filter.equipment-boots": "Ekwipunek: buty",
-    "filter.equipment-clothes": "Ekwipunek: ubranie",
+    "filter.decor.other": "Dekoracje: pozostałe",
+    "filter.equipment-boots": "Ekwipunek: obuwie",
+    "filter.equipment-clothes": "Ekwipunek: ubrania",
     "filter.equipment-hats": "Ekwipunek: czapki",
-    "filter.equipment-rings": "Ekwipunek: pierścieni",
+    "filter.equipment-rings": "Ekwipunek: pierścienie",
     "filter.equipment-tools": "Ekwipunek: narzędzia",
     "filter.equipment-weapons": "Ekwipunek: bronie",
-    "filter.farm-animal-drops": "Farma: produkty zwierzęce",
+    "filter.farm-animal-drops": "Farma: zwierzęta i potwory",
     "filter.farm-crops": "Farma: uprawy",
     "filter.farm-seeds": "Farma: nasiona",
     "filter.fish": "Ryby",
