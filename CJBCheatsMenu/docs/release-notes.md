@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Improved translations. Thanks to Zangorr (added Polish)!
+
 ## 1.29.3
 Released 19 December 2021 for SMAPI 3.13.0 or later.
 
