@@ -117,6 +117,11 @@
                 "Tile": "10, 57"
             },
             {
+                "DisplayText": "warp.mutant-bug-lair",
+                "Location": "Bugland",
+                "Tile": "14, 52"
+            },
+            {
                 "DisplayText": "warp.quarry",
                 "Location": "Mountain",
                 "Tile": "127, 12"

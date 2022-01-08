@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Added warp to the [Mutant Bug Lair](https://stardewvalleywiki.com/Mutant_Bug_Lair).
 * Improved translations. Thanks to ChulkyBow (added Ukrainian) and Zangorr (added Polish)!
 
 ## 1.29.3
