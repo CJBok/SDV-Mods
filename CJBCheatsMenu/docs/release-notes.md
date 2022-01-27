@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Added warp to the [Mutant Bug Lair](https://stardewvalleywiki.com/Mutant_Bug_Lair).
+* Fixed missing translation in French.
 * Improved translations. Thanks to ChulkyBow (added Ukrainian) and Zangorr (added Polish)!
 
 ## 1.29.3
