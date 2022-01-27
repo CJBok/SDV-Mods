@@ -6,6 +6,12 @@ documentation and release notes:
 * [CJB Show Item Sell Price](CJBShowItemSellPrice)
 
 ## Translating the mods
+<!--
+
+    This section is auto-generated using a script, there's no need to edit it manually.
+    https://gist.github.com/Pathoschild/040ff6c8dc863ed2a7a828aa04447033
+
+-->
 The mods can be translated into any language supported by the game, and SMAPI will automatically
 use the right translations.
 
@@ -15,7 +21,7 @@ on the wiki for help contributing translations.
 (❑ = untranslated, ↻ = partly translated, ✓ = fully translated)
 
 &nbsp;      | CJB Cheats Menu                 | CJB Item Spawner                 | CJB Show Item Sell Price
------------ | :------------------------------ | :------------------------------- | :----------------------------------
+:---------- | :------------------------------ | :------------------------------- | :-------------------------------------
 Chinese     | [✓](CJBCheatsMenu/i18n/zh.json) | [✓](CJBItemSpawner/i18n/zh.json) | [✓](CJBShowItemSellPrice/i18n/zh.json)
 French      | [✓](CJBCheatsMenu/i18n/fr.json) | [✓](CJBItemSpawner/i18n/fr.json) | [✓](CJBShowItemSellPrice/i18n/fr.json)
 German      | [✓](CJBCheatsMenu/i18n/de.json) | [✓](CJBItemSpawner/i18n/de.json) | [✓](CJBShowItemSellPrice/i18n/de.json)
