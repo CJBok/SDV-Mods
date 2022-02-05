@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using CJBCheatsMenu.Framework.Components;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -10,9 +11,6 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
     /// <summary>A cheat which automatically pets farm animals.</summary>
     internal class AutoPetAnimalsCheat : BaseCheat
     {
-        /*********
-        ** Fields
-        *********/
         /*********
         ** Public methods
         *********/
@@ -48,8 +46,38 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
             if (!e.IsOneSecond || !Context.IsWorldReady)
                 return;
 
-            foreach (FarmAnimal animal in Game1.getFarm().getAllFarmAnimals())
-                animal.wasPet.Value = true;
+            FarmAnimal[] animalsToPet = Game1
+                .getFarm()
+                .getAllFarmAnimals()
+                .Where(p => !p.wasPet.Value)
+                .ToArray();
+
+            if (animalsToPet.Any())
+            {
+                int wasTime = Game1.timeOfDay;
+                Item wasTemporaryItem = Game1.player.TemporaryItem;
+
+                try
+                {
+                    // avoid feeding hay
+                    if (Utility.IsNormalObjectAtParentSheetIndex(Game1.player.ActiveObject, 178))
+                        Game1.player.TemporaryItem = new Object(0, 1);
+
+                    // avoid 'trying to sleep' dialogue popup
+                    if (Game1.timeOfDay >= 1900)
+                        Game1.timeOfDay = 1850;
+
+                    // pet animals
+                    foreach (FarmAnimal animal in animalsToPet)
+                        animal.pet(Game1.player);
+                }
+                finally
+                {
+                    // restore previous values
+                    Game1.player.TemporaryItem = wasTemporaryItem;
+                    Game1.timeOfDay = wasTime;
+                }
+            }
         }
     }
 }
