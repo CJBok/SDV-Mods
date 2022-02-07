@@ -119,7 +119,7 @@ namespace CJBItemSpawner
             if (!this.Config.AllowProblematicItems && this.ItemData.ProblematicItems.Any())
             {
                 var problematicItems = new HashSet<string>(this.ItemData.ProblematicItems, StringComparer.OrdinalIgnoreCase);
-                items = items.Where(item => !problematicItems.Contains($"{item.Type}:{item.ID}"));
+                items = items.Where(item => !problematicItems.Contains($"{item.Type}:{item.Id}"));
             }
 
             // yield models

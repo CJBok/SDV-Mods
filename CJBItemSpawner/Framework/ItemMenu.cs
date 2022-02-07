@@ -910,8 +910,8 @@ namespace CJBItemSpawner.Framework
             if (item is null)
                 return;
 
-            if (item is SObject obj && Game1.player.specialItems.Contains(obj.ParentSheetIndex))
-                Game1.player.specialItems.Remove(obj.ParentSheetIndex);
+            if (item is SObject obj && Game1.player.specialItems.Contains(obj.ItemId))
+                Game1.player.specialItems.Remove(obj.ItemId);
             if (this.ReclaimPriceInTrashCan)
             {
                 int price = Utility.getTrashReclamationPrice(item, Game1.player);

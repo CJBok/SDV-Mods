@@ -60,8 +60,8 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                 try
                 {
                     // avoid feeding hay
-                    if (Utility.IsNormalObjectAtParentSheetIndex(Game1.player.ActiveObject, 178))
-                        Game1.player.TemporaryItem = new Object(0, 1);
+                    if (Game1.player.ActiveObject?.QualifiedItemId == "(O)178")
+                        Game1.player.TemporaryItem = new Object("0", 1);
 
                     // avoid 'trying to sleep' dialogue popup
                     if (Game1.timeOfDay >= 1900)

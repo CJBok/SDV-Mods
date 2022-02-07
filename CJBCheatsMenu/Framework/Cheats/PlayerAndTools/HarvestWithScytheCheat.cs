@@ -43,11 +43,14 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
             // disable harvest with scythe
             if (!enabled)
             {
-                IDictionary<int, int> cropHarvestMethods = this.GetCropHarvestMethods();
-                foreach (Crop crop in context.GetAllLocations().SelectMany(this.GetCropsIn))
+                IDictionary<string, int> cropHarvestMethods = this.GetCropHarvestMethods();
+                foreach (GameLocation location in context.GetAllLocations())
                 {
-                    if (cropHarvestMethods.TryGetValue(crop.indexOfHarvest.Value, out int harvestMethod))
-                        crop.harvestMethod.Value = harvestMethod;
+                    foreach (Crop crop in this.GetCropsIn(location))
+                    {
+                        if (crop.indexOfHarvest.Value != null && cropHarvestMethods.TryGetValue(crop.indexOfHarvest.Value, out int harvestMethod))
+                            crop.harvestMethod.Value = harvestMethod;
+                    }
                 }
             }
         }
@@ -92,15 +95,15 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         }
 
         /// <summary>Get a crop ID => harvest method lookup.</summary>
-        private IDictionary<int, int> GetCropHarvestMethods()
+        private IDictionary<string, int> GetCropHarvestMethods()
         {
-            IDictionary<int, int> lookup = new Dictionary<int, int>();
+            IDictionary<string, int> lookup = new Dictionary<string, int>();
 
-            IDictionary<int, string> cropData = Game1.content.Load<Dictionary<int, string>>("Data\\Crops");
+            IDictionary<string, string> cropData = Game1.content.Load<Dictionary<string, string>>("Data\\Crops");
             foreach (string entry in cropData.Values)
             {
                 string[] fields = entry.Split('/');
-                int cropID = Convert.ToInt32(fields[3]);
+                string cropID = fields[3];
                 int harvestMethod = Convert.ToInt32(fields[5]);
 
                 if (!lookup.ContainsKey(cropID))

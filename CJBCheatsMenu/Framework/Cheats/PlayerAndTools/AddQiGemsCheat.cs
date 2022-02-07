@@ -33,7 +33,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         /// <param name="amount">The amount to add.</param>
         private void AddGems(int amount)
         {
-            Game1.player.addItemToInventoryBool(new Object(858, amount));
+            Game1.player.addItemToInventoryBool(new Object("858", amount));
         }
     }
 }
