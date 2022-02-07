@@ -225,13 +225,10 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
 
             foreach (GameLocation location in context.GetAllLocations())
             {
-                if (location is BuildableGameLocation buildableLocation)
+                foreach (Building building in location.buildings)
                 {
-                    foreach (Building building in buildableLocation.buildings)
-                    {
-                        if (this.IsFastMachine(context, building))
-                            this.CompleteMachine(location, building);
-                    }
+                    if (this.IsFastMachine(context, building))
+                        this.CompleteMachine(location, building);
                 }
 
                 foreach (SObject obj in location.objects.Values)
