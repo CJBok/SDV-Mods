@@ -16,8 +16,8 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
         {
             yield return new CheatsOptionsCheckbox(
                 label: I18n.Flags_UnlockedContent_DyesAndTailoring(),
-                value: this.HasEvent(992559),
-                setValue: value => this.SetEvent(992559, value)
+                value: this.HasEvent("992559"),
+                setValue: value => this.SetEvent("992559", value)
             );
             yield return new CheatsOptionsCheckbox(
                 label: I18n.Flags_UnlockedContent_JunimoText(),
