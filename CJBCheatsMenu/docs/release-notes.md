@@ -4,6 +4,7 @@
 ## Upcoming release
 * Added warp to the [Mutant Bug Lair](https://stardewvalleywiki.com/Mutant_Bug_Lair).
 * Fixed 'auto-pet animals' cheat not providing full friendship/happiness boost.
+* Fix faded options making menu background semi-transparent.
 * Fixed missing translation in French.
 * Improved translations. Thanks to ChulkyBow (added Ukrainian) and Zangorr (added Polish)!
 
