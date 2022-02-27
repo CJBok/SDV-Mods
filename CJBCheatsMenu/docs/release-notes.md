@@ -1,6 +1,15 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 1.30.0
+Released 26 February 2022 for SMAPI 3.13.0 or later.
+
+* Added warp to the [Mutant Bug Lair](https://stardewvalleywiki.com/Mutant_Bug_Lair).
+* The 'auto-pet animals' cheat now provides the same friendship/happiness boost as petting manually.
+* Fixed menu being semi-transparent behind faded options.
+* Fixed missing translation in French.
+* Improved translations. Thanks to ChulkyBow (added Ukrainian) and Zangorr (added Polish)!
+
 ## 1.29.3
 Released 19 December 2021 for SMAPI 3.13.0 or later.
 

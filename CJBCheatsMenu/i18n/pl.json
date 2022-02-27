@@ -1,0 +1,243 @@
+﻿{
+    /*********
+    ** Main translations
+    *********/
+    // mod name shown in the menu
+    "mod-name": "CJB Cheats Menu",
+
+    // tab names
+    "tabs.player-and-tools": "Gracz i Narzędzia",
+    "tabs.farm-and-fishing": "Farma i Wędkarstwo",
+    "tabs.skills": "Umiejętności",
+    "tabs.weather": "Pogoda",
+    "tabs.relationships": "Relacje",
+    "tabs.warp": "Teleportacja",
+    "tabs.time": "Czas",
+    "tabs.advanced": "Zaawansowane",
+    "tabs.controls": "Sterowanie",
+
+
+    /*********
+    ** Player & Tools tab
+    *********/
+    // player
+    "player.title": "Gracz",
+    "player.infinite-stamina": "Nieskończona Energia",
+    "player.infinite-health": "Nieśmiertelność",
+    "player.instant-cooldowns": "Natychmiastowy Czas Odnowienia Broni",
+    "player.inventory-size": "Rozmiar Ekwipunku",
+    "player.movement-speed": "Szybkość Ruchu",
+    "player.movement-speed.default": "normalna",
+    "player.one-hit-kill": "Zabijaj Jednym Ciosem",
+    "player.max-daily-luck": "Maksymalne Dzienne Szczęście",
+
+    // tools
+    "tools.title": "Narzędzia",
+    "tools.infinite-water": "Nieskończona Woda w Konewce",
+    "tools.one-hit-break": "Rozbijaj Jednym Uderzeniem",
+    "tools.harvest-with-scythe": "Zbieraj Plony za Pomocą Kosy",
+
+    // money
+    "add.money": "Pieniądze",
+    "add.casino-coins": "Monety z Kasyna",
+    "add.golden-walnuts": "Złote Orzechy",
+    "add.qi-gems": "Kryształy Qi",
+    "add.amount-gold": "Dodaj {{amount}}zł",
+    "add.amount-other": "Dodaj {{amount}}",
+
+
+    /*********
+    ** Farm & Fishing tab
+    *********/
+    // farm
+    "farm.title": "Farma",
+    "farm.auto-water": "Automatyczne Podlewanie Upraw",
+    "farm.durable-fences": "Trwałe Płoty",
+    "farm.instant-build": "Natychmiastowa Budowa",
+    "farm.auto-feed-animals": "Automatyczne Karmienie Zwierząt",
+    "farm.auto-pet-animals": "Automatyczne Głaskanie Zwierząt",
+    "farm.infinite-hay": "Nieskończone Siano",
+
+    // fishing
+    "fishing.title": "Wędkarstwo",
+    "fishing.instant-catch": "Natychmiastowe Wyławianie",
+    "fishing.instant-bite": "Natychmiastowe Branie",
+    "fishing.always-throw-max-distance": "Zawsze Rzucaj na Maksymalną Odległość",
+    "fishing.always-treasure": "Nieustanne Skarby",
+    "fishing.durable-tackles": "Trwałe Akcesoria",
+
+    // fast machines
+    "fast-machines.title": "Szybka Produkcja Maszynowa",
+    "fast-machines.fruit-trees": "Drzewa Owocowe",
+    "fast-machines.ready-in-the-morning": "{{machineName}} (gotowe o poranku)",
+
+
+    /*********
+    ** Skills tab
+    *********/
+    // skills
+    "skills.title": "Umiejętności",
+    "skills.increase-farming": "Zwiększ Poziom Rolnictwa: {{currentLevel}}",
+    "skills.increase-mining": "Zwiększ Poziom Górnictwa: {{currentLevel}}",
+    "skills.increase-foraging": "Zwiększ Poziom Zbieractwa: {{currentLevel}}",
+    "skills.increase-fishing": "Zwiększ Poziom Wędkarstwa: {{currentLevel}}",
+    "skills.increase-combat": "Zwiększ Poziom Walki: {{currentLevel}}",
+    "skills.reset": "ZRESETUJ UMIEJĘTNOŚCI!",
+
+    // professions
+    "professions.title": "Profesje",
+    "professions.combat.fighter": "Walka poz. 5 - Wojak",
+    "professions.combat.scout": "Walka poz. 5 - Skaut",
+    "professions.combat.acrobat": "Walka poz. 10 - Akrobata",
+    "professions.combat.brute": "Walka poz. 10 - Brutal",
+    "professions.combat.defender": "Walka poz. 10 - Obrońca",
+    "professions.combat.desperado": "Walka poz. 10 - Desperado",
+    "professions.farming.rancher": "Rolnictwo poz. 5 - Ranczer",
+    "professions.farming.tiller": "Rolnictwo poz. 5 - Rolnik",
+    "professions.farming.agriculturist": "Rolnictwo poz. 10 - Agronom",
+    "professions.farming.artisan": "Rolnictwo poz. 10 - Rzemieślnik",
+    "professions.farming.coopmaster": "Rolnictwo poz. 10 - Mistrz Kurnika",
+    "professions.farming.shepherd": "Rolnictwo poz. 10 - Pasterz",
+    "professions.fishing.fisher": "Wędkarstwo poz. 5 - Wędkarz",
+    "professions.fishing.trapper": "Wędkarstwo poz. 5 - Wyławiacz",
+    "professions.fishing.angler": "Wędkarstwo poz. 10 - Rybak",
+    "professions.fishing.luremaster": "Wędkarstwo poz. 10 - Mistrz Przynęty",
+    "professions.fishing.mariner": "Wędkarstwo poz. 10 - Marynarz",
+    "professions.fishing.pirate": "Wędkarstwo poz. 10 - Pirat",
+    "professions.foraging.forester": "Zbieractwo poz. 5 - Leśniczy",
+    "professions.foraging.gatherer": "Zbieractwo poz. 5 - Zbieracz",
+    "professions.foraging.botanist": "Zbieractwo poz. 10 - Botanik",
+    "professions.foraging.lumberjack": "Zbieractwo poz. 10 - Drwal",
+    "professions.foraging.tapper": "Zbieractwo poz. 10 - Żywiczarz",
+    "professions.foraging.tracker": "Zbieractwo poz. 10 - Tropiciel",
+    "professions.mining.geologist": "Górnictwo poz. 5 - Geolog",
+    "professions.mining.miner": "Górnictwo poz. 5 - Górnik",
+    "professions.mining.blacksmith": "Górnictwo poz. 10 - Kowal",
+    "professions.mining.excavator": "Górnictwo poz. 10 - Wydobywca",
+    "professions.mining.gemologist": "Górnictwo poz. 10 - Gemolog",
+    "professions.mining.prospector": "Górnictwo poz. 10 - Poszukiwacz",
+
+
+    /*********
+    ** Weather tab
+    *********/
+    "weather.title": "Jutrzejsza Pogoda",
+    "weather.current": "Obecnie",
+    "weather.sunny": "Słoneczna",
+    "weather.raining": "Deszczowa",
+    "weather.lightning": "Burzowa",
+    "weather.snowing": "Śnieżna",
+
+
+    /*********
+    ** Relationships tab
+    *********/
+    "relationships.title": "Relacje",
+    "relationships.give-gifts-anytime": "Dawaj Prezenty Kiedykolwiek Chcesz",
+    "relationships.no-decay": "Brak Podupadania Relacji",
+    "relationships.friends": "Przyjaciele",
+
+
+    /*********
+    ** Warps tab
+    *********/
+    // main areas
+    "warp-section.main": "Główne Obszary",
+    "warp.farm": "Farma",
+    "warp.carpenter": "Sklep Stolarski",
+    "warp.desert": "Pustynia",
+    "warp.mines": "Kopalnia",
+    "warp.pierre-shop": "Sklep Pierra",
+
+    // town
+    "warp-section.town": "Miasto",
+    "warp.blacksmith": "Kowal",
+    "warp.community-center": "Centrum Społeczności",
+    "warp.jojamart": "JojaMarket",
+    "warp.movie-theater": "Kino",
+    "warp.museum": "Muzeum",
+    "warp.saloon": "Gwiezdna Knajpa",
+    "warp.sewer": "Ścieki",
+
+    // forest
+    "warp-section.forest": "Las",
+    "warp.hats": "Sklep z Czapkami",
+    "warp.ranch": "Ranczo Marnie",
+    "warp.secret-woods": "Tajemniczy Las",
+    "warp.wizard-tower": "Wieża Czarownika",
+
+    // mountain
+    "warp-section.mountain": "Góra",
+    "warp.adventurers-guild": "Gildia Poszukiwaczy Przygód",
+    "warp.bathhouse": "Spa",
+    "warp.mutant-bug-lair": "Legowisko Zmutowanych Robaków",
+    "warp.quarry": "Kamieniołom",
+
+    // beach
+    "warp-section.beach": "Plaża",
+    "warp.tide-pools": "Baseny Pływowe",
+    "warp.willy-shop": "Sklep Williego",
+
+    // island
+    "warp-section.island": "Imbirowa Wyspa",
+    "warp.forge": "Kuźnia",
+    "warp.island-farm": "Farma na Wyspie",
+    "warp.dwarf-shop": "Sklep Krasnoluda w Wulkanie",
+    "warp.field-office": "Biuro Polowe",
+    "warp.leo-house": "Dom Leo",
+
+    // desert
+    "warp-section.desert": "Pustynia",
+    "warp.casino": "Kasyno",
+    "warp.sandy-shop": "Sklep Sandy",
+    "warp.skull-cavern": "Kościana Pieczara",
+
+
+    /*********
+    ** Time tab
+    *********/
+    // time
+    "time.title": "Czas",
+    "time.freeze-inside": "Zatrzymaj Czas Wewnątrz",
+    "time.freeze-caves": "Zatrzymaj Czas w Jaskiniach",
+    "time.freeze-everywhere": "Zatrzymaj Czas Wszędzie",
+    "time.time": "Czas",
+    "time.time-frozen-message": "Czas Zatrzymany",
+
+    // date
+    "date.title": "Data",
+    "date.warning": "Niektóre rzeczy nie zostaną zaktualizowane, dopóki nie minie noc.",
+    "date.year": "Rok",
+    "date.season": "Sezon",
+    "date.day": "Dzień",
+
+
+    /*********
+    ** Advanced tab
+    *********/
+    "flags.warning": "Korzystaj z tej zakładki na własne ryzyko!\nMoże ona powodować problemy, takie jak pominięte listy, wydarzenia lub zadania.",
+    "flags.quests": "Ukończ Zadania",
+    "flags.wallet": "Przedmioty z Portfela",
+    "flags.unlocked": "Odblokowane Miejsca",
+    "flags.unlocked.guild": "Gildia Poszukiwaczy Przygód",
+    "flags.unlocked.room": "Pokój: {{name}}",
+    "flags.unlocked-content": "Odblokowana Zawartość",
+    "flags.unlocked-content.dyes-and-tailoring": "Barwniki i Krawiectwo",
+    "flags.community-center": "Centrum Społeczności",
+    "flags.community-center.door-unlocked": "Odblokowane Drzwi",
+    "flags.jojamart.membership": "Członkostwo JojaMarket",
+
+
+    /*********
+    ** Controls tab
+    *********/
+    "controls.title": "Sterowanie",
+    "controls.android-config-note": "Możesz zmienić klawisze w plikach config dla modów CJB Cheats Menu i Virtual Keyboard.",
+    "controls.open-menu": "Otwórz Menu",
+    "controls.freeze-time": "Zatrzymaj Czas",
+    "controls.grow-tree": "Wzrost Drzew",
+    "controls.grow-crops": "Wzrost Upraw",
+    "controls.grow-radius": "Zasięg wzrostu wokół gracza",
+    "controls.reset-controls": "Zresetuj",
+    "controls.press-new-key": "Naciśnij nowy klawisz..."
+}

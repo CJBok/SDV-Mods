@@ -54,7 +54,7 @@
     "farm.auto-water": "Arroser les champs automatiquement",
     "farm.durable-fences": "Clôtures durables",
     "farm.instant-build": "Construction instantanée",
-    "farm.always-auto-feed": "Toujours nourrir automatiquement",
+    "farm.auto-feed-animals": "Toujours nourrir automatiquement",
     "farm.auto-pet-animals": "Caresser les animaux automatiquement",
     "farm.infinite-hay": "Foin infini",
 
@@ -170,6 +170,7 @@
     "warp-section.mountain": "En montagne",
     "warp.adventurers-guild": "Guilde des Aventuriers",
     "warp.bathhouse": "Spa",
+    "warp.mutant-bug-lair": "Repaire des insectes mutants",
     "warp.quarry": "Carrière",
 
     // beach

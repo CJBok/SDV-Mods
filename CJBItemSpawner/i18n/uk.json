@@ -1,0 +1,31 @@
+﻿{
+    /*********
+    ** Sort button
+    *********/
+    "sort.by-name": "Назва",
+    "sort.by-type": "Категорія",
+    "sort.by-id": "ID",
+
+
+    /*********
+    ** Category dropdown
+    *********/
+    "filter.all": "Все",
+    "filter.artisan-and-cooking": "Товари власного виробництва та готування",
+    "filter.crafting.products": "Створення: предмети",
+    "filter.crafting.resources": "Створення: ресурси",
+    "filter.decor.furniture": "Декорації: меблі",
+    "filter.decor.other": "Декорації: інше",
+    "filter.equipment-boots": "Обладнання: взуття",
+    "filter.equipment-clothes": "Обладнання: одяг",
+    "filter.equipment-hats": "Обладнання: капелюхи",
+    "filter.equipment-rings": "Обладнання: персні",
+    "filter.equipment-tools": "Обладнання: інструменти",
+    "filter.equipment-weapons": "Обладнання: зброя",
+    "filter.farm-animal-drops": "Ферма: продукти тваринництва",
+    "filter.farm-crops": "Ферма: культури",
+    "filter.farm-seeds": "Ферма: насіння",
+    "filter.fish": "Риба",
+    "filter.minerals-and-artifacts": "Мінерали та артефакти",
+    "filter.miscellaneous": "Різне"
+}

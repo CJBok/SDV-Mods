@@ -1,0 +1,243 @@
+﻿{
+    /*********
+    ** Main translations
+    *********/
+    // mod name shown in the menu
+    "mod-name": "CJB Cheats Menu",
+
+    // tab names
+    "tabs.player-and-tools": "Гравець та Інструменти",
+    "tabs.farm-and-fishing": "Ферма та Рибальство",
+    "tabs.skills": "Навички",
+    "tabs.weather": "Погода",
+    "tabs.relationships": "Стосунки",
+    "tabs.warp": "Телепортація",
+    "tabs.time": "Час",
+    "tabs.advanced": "Інше",
+    "tabs.controls": "Елементи керування",
+
+
+    /*********
+    ** Player & Tools tab
+    *********/
+    // player
+    "player.title": "Гравець",
+    "player.infinite-stamina": "Нескінченна енергія",
+    "player.infinite-health": "Нескінченне здоров'я",
+    "player.instant-cooldowns": "Без затримки при використанні зброї",
+    "player.inventory-size": "Розмір інвентарю",
+    "player.movement-speed": "Швидкість ходи",
+    "player.movement-speed.default": "нормальна",
+    "player.one-hit-kill": "Вбивство з одного удару",
+    "player.max-daily-luck": "Максимальна удача",
+
+    // tools
+    "tools.title": "Інструменти",
+    "tools.infinite-water": "Нескінченна вода у лійці",
+    "tools.one-hit-break": "Знищення з одного удару",
+    "tools.harvest-with-scythe": "Збір культур косою",
+
+    // money
+    "add.money": "Гроші",
+    "add.casino-coins": "Монети Кі",
+    "add.golden-walnuts": "Золоті горіхи",
+    "add.qi-gems": "Кристали Кі",
+    "add.amount-gold": "Додати {{amount}} з",
+    "add.amount-other": "Додати {{amount}}",
+
+
+    /*********
+    ** Farm & Fishing tab
+    *********/
+    // farm
+    "farm.title": "Ферма",
+    "farm.auto-water": "Автоматичний полив культур",
+    "farm.durable-fences": "Міцні огорожі",
+    "farm.instant-build": "Миттєва побудова",
+    "farm.auto-feed-animals": "Авто-годування тварин",
+    "farm.auto-pet-animals": "Авто-пестення тварин",
+    "farm.infinite-hay": "Нескінченне сіно",
+
+    // fishing
+    "fishing.title": "Рибальство",
+    "fishing.instant-catch": "Миттєве виловлення риби",
+    "fishing.instant-bite": "Миттєве клювання риби",
+    "fishing.always-throw-max-distance": "Завжди закидувати на максимальну дистанцію",
+    "fishing.always-treasure": "Завжди трапляються скарби",
+    "fishing.durable-tackles": "Міцне додаткове спорядження",
+
+    // fast machines
+    "fast-machines.title": "Пришвидшення роботи машин",
+    "fast-machines.fruit-trees": "Фруктові дерева",
+    "fast-machines.ready-in-the-morning": "{{machineName}} (буде готово вранці)",
+
+
+    /*********
+    ** Skills tab
+    *********/
+    // skills
+    "skills.title": "Навички",
+    "skills.increase-farming": "Підвищити рів. Фермерства: {{currentLevel}}",
+    "skills.increase-mining": "Підвищити рів. Шахтарства: {{currentLevel}}",
+    "skills.increase-foraging": "Підвищити рів. Збирацтва:{{currentLevel}}",
+    "skills.increase-fishing": "Підвищити рів. Рибальства: {{currentLevel}}",
+    "skills.increase-combat": "Підвищити рів. Бойових Навичок: {{currentLevel}}",
+    "skills.reset": "СКИНУТИ УСІ НАВИЧКИ!",
+
+    // professions
+    "professions.title": "Професії",
+    "professions.combat.fighter": "Бойові навички рів. 5 - Боєць",
+    "professions.combat.scout": "Бойові навички рів. 5 - Бойскаут",
+    "professions.combat.acrobat": "Бойові навички рів. 10 - Акробат",
+    "professions.combat.brute": "Бойові навички рів. 10 - Громило",
+    "professions.combat.defender": "Бойові навички рів. 10 - Захисник",
+    "professions.combat.desperado": "Бойові навички рів. 10 - Паливода",
+    "professions.farming.rancher": "Фермерство рів. 5 - Тваринник",
+    "professions.farming.tiller": "Фермерство рів. 5 - Культиватор",
+    "professions.farming.agriculturist": "Фермерство рів. 10 - Агроном",
+    "professions.farming.artisan": "Фермерство рів. 10 - Золоті руки",
+    "professions.farming.coopmaster": "Фермерство рів. 10 - Птахівник",
+    "professions.farming.shepherd": "Фермерство рів. 10 - Пастух",
+    "professions.fishing.fisher": "Рибальство рів. 5 - Рибак",
+    "professions.fishing.trapper": "Рибальство рів. 5 - Краболов",
+    "professions.fishing.angler": "Рибальство рів. 10 - Рибалка",
+    "professions.fishing.luremaster": "Рибальство рів. 10 - Майстер з наживки",
+    "professions.fishing.mariner": "Рибальство рів. 10 - Мореплавець",
+    "professions.fishing.pirate": "Рибальство рів. 10 - Пірат",
+    "professions.foraging.forester": "Збирацтво рів. 5 - Лісівник",
+    "professions.foraging.gatherer": "Збирацтво рів. 5 - Збирач",
+    "professions.foraging.botanist": "Збирацтво рів. 10 - Ботанік",
+    "professions.foraging.lumberjack": "Збирацтво рів. 10 - Лісоруб",
+    "professions.foraging.tapper": "Збирацтво рів. 10 - Сокознавець",
+    "professions.foraging.tracker": "Збирацтво рів. 10 - Мисливець",
+    "professions.mining.geologist": "Шахтарство рів. 5 - Геолог",
+    "professions.mining.miner": "Шахтарство рів. 5 - Шахтар",
+    "professions.mining.blacksmith": "Шахтарство рів. 10 - Коваль",
+    "professions.mining.excavator": "Шахтарство рів. 10 - Копальник",
+    "professions.mining.gemologist": "Шахтарство рів. 10 - Гемолог",
+    "professions.mining.prospector": "Шахтарство рів. 10 - Розвідник",
+
+
+    /*********
+    ** Weather tab
+    *********/
+    "weather.title": "Погода завтра",
+    "weather.current": "Стан погоди на завтра",
+    "weather.sunny": "Сонячно",
+    "weather.raining": "Дощ",
+    "weather.lightning": "Гроза",
+    "weather.snowing": "Снігопад",
+
+
+    /*********
+    ** Relationships tab
+    *********/
+    "relationships.title": "Стосунки",
+    "relationships.give-gifts-anytime": "Подарунки можно дарувати скільки завгодно",
+    "relationships.no-decay": "Рівень дружби не знижується",
+    "relationships.friends": "Друзі",
+
+
+    /*********
+    ** Warps tab
+    *********/
+    // main areas
+    "warp-section.main": "Головні локації",
+    "warp.farm": "Ферма",
+    "warp.carpenter": "Столярська крамниця",
+    "warp.desert": "Пустеля",
+    "warp.mines": "Шахта",
+    "warp.pierre-shop": "Крамниця У П'єра",
+
+    // town
+    "warp-section.town": "Місто",
+    "warp.blacksmith": "Коваль",
+    "warp.community-center": "Громадський Клуб",
+    "warp.jojamart": "JojaМаркет",
+    "warp.movie-theater": "Кінотеатр",
+    "warp.museum": "Музей",
+    "warp.saloon": "Салун",
+    "warp.sewer": "Каналізація",
+
+    // forest
+    "warp-section.forest": "Ліс",
+    "warp.hats": "Кепкі",
+    "warp.ranch": "Ранчо Марні",
+    "warp.secret-woods": "Таємний ліс",
+    "warp.wizard-tower": "Вежа Чарівника",
+
+    // mountain
+    "warp-section.mountain": "Гори",
+    "warp.adventurers-guild": "Гільдія Шукачів Пригод",
+    "warp.bathhouse": "Сауна",
+    "warp.mutant-bug-lair": "Лігво жуків-мутантів",
+    "warp.quarry": "Кар'єр",
+
+    // beach
+    "warp-section.beach": "Пляж",
+    "warp.tide-pools": "Приливні басейни",
+    "warp.willy-shop": "Рибацька крамниця",
+
+    // island
+    "warp-section.island": "Імбирний острів",
+    "warp.forge": "Кузня",
+    "warp.island-farm": "Острівна ферма",
+    "warp.dwarf-shop": "Дварфівська крамниця",
+    "warp.field-office": "Польовий офіс",
+    "warp.leo-house": "Хатинка Лео",
+
+    // desert
+    "warp-section.desert": "Пустеля",
+    "warp.casino": "Казино",
+    "warp.sandy-shop": "Крамниця Сенді",
+    "warp.skull-cavern": "Печера Черепа",
+
+
+    /*********
+    ** Time tab
+    *********/
+    // time
+    "time.title": "Час",
+    "time.freeze-inside": "Зупинити час у приміщеннях",
+    "time.freeze-caves": "Зупинити час у печерах",
+    "time.freeze-everywhere": "Зупинити час усюди",
+    "time.time": "Поточний час",
+    "time.time-frozen-message": "Час зупинено",
+
+    // date
+    "date.title": "Дата",
+    "date.warning": "Деякі зміни не спрацюють, поки не пройде ніч.",
+    "date.year": "Рік",
+    "date.season": "Пора року",
+    "date.day": "День",
+
+
+    /*********
+    ** Advanced tab
+    *********/
+    "flags.warning": "Використовуйте цей розділ на свій ризик!\nМожуть виникнути проблеми такі як пропущені листи, події та завдання.",
+    "flags.quests": "Завершити завдання",
+    "flags.wallet": "Гаманець",
+    "flags.unlocked": "Розблоковані локації",
+    "flags.unlocked.guild": "Гільдія Шукачів Пригод",
+    "flags.unlocked.room": "Кімната: {{name}}",
+    "flags.unlocked-content": "Розблокувати контен",
+    "flags.unlocked-content.dyes-and-tailoring": "Фарбування та шиття",
+    "flags.community-center": "Громадський Клуб",
+    "flags.community-center.door-unlocked": "Двері відчинено",
+    "flags.jojamart.membership": "Членство у Корпорації JojaМаркет",
+
+
+    /*********
+    ** Controls tab
+    *********/
+    "controls.title": "Керування",
+    "controls.android-config-note": "Ви можете змінити налаштування екранних кнопок у config файлах для CJB Cheats Menu та різних модів віртуальної клавіатури.",
+    "controls.open-menu": "Відкрити меню",
+    "controls.freeze-time": "Зупинити час",
+    "controls.grow-tree": "Виростити дерева",
+    "controls.grow-crops": "Виростити культури",
+    "controls.grow-radius": "Радіус проростання флори від гравця",
+    "controls.reset-controls": "Скинути налаштування",
+    "controls.press-new-key": "Натисніть нову клавішу..."
+}

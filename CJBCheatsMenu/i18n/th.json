@@ -1,4 +1,4 @@
-{
+﻿{
     /*********
     ** Main translations
     *********/
@@ -171,6 +171,7 @@
     "warp-section.mountain": "ภูเขา",
     "warp.adventurers-guild": "กิลด์นักผจญภัย",
     "warp.bathhouse": "โรงอาบน้ำ",
+    "warp.mutant-bug-lair": "Mutant Bug Lair", // TODO
     "warp.quarry": "เหมืองหิน",
 
     // beach
