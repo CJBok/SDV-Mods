@@ -172,6 +172,7 @@
     "warp.bathhouse": "Сауна",
     "warp.mutant-bug-lair": "Лігво жуків-мутантів",
     "warp.quarry": "Кар'єр",
+    "warp.witch-swamp": "Witch's Swamp", // TODO
 
     // beach
     "warp-section.beach": "Пляж",

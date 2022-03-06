@@ -172,6 +172,7 @@
     "warp.bathhouse": "Spa",
     "warp.mutant-bug-lair": "Legowisko Zmutowanych Robaków",
     "warp.quarry": "Kamieniołom",
+    "warp.witch-swamp": "Witch's Swamp", // TODO
 
     // beach
     "warp-section.beach": "Plaża",
