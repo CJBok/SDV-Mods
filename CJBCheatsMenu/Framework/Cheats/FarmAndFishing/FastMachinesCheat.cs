@@ -241,8 +241,12 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                 {
                     foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
                     {
-                        if (terrainFeature is FruitTree tree && tree.growthStage.Value >= FruitTree.treeStage && tree.fruitsOnTree.Value < FruitTree.maxFruitsOnTrees)
-                            tree.fruitsOnTree.Value = FruitTree.maxFruitsOnTrees;
+                        if (terrainFeature is FruitTree tree && tree.growthStage.Value >= FruitTree.treeStage)
+                        {
+                            int addFruit = FruitTree.maxFruitsOnTrees - tree.fruit.Count;
+                            for (int i = 0; i < addFruit; i++)
+                                tree.TryAddFruit();
+                        }
                     }
                 }
             }
