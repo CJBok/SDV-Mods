@@ -88,8 +88,11 @@ namespace CJBCheatsMenu.Framework.Components
         {
             if (this.greyedOut)
                 return;
+
             base.receiveLeftClick(x, y);
             this.leftClickHeld(x, y);
+
+            Game1.playSound("breathin");
         }
 
         /// <summary>Handle the player releasing the left mouse button.</summary>
@@ -99,6 +102,8 @@ namespace CJBCheatsMenu.Framework.Components
         {
             this.ValuePosition = this.GetRangePosition(); // snap to value position
             this.SetValue(this.Value);
+
+            Game1.playSound("drumkit6");
         }
 
         /// <summary>Draw the component to the screen.</summary>

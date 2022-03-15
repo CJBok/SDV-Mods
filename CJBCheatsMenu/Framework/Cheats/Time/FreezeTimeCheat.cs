@@ -50,7 +50,11 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
             ModConfig config = context.Config;
 
             if (config.FreezeTimeKey.JustPressed())
+            {
                 config.FreezeTime = !config.FreezeTime;
+
+                Game1.playSound(config.FreezeTime ? "drumkit6" : "breathin");
+            }
         }
 
         /// <summary>Handle a game update if <see cref="ICheat.OnSaveLoaded"/> indicated updates were needed.</summary>

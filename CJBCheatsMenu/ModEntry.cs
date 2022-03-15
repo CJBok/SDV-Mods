@@ -113,7 +113,7 @@ namespace CJBCheatsMenu
             if (this.Config.OpenMenuKey.JustPressed())
             {
                 if (Context.IsPlayerFree && Game1.currentMinigame == null)
-                    Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Cheats.Value, this.Monitor);
+                    Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Cheats.Value, this.Monitor, isNewMenu: true);
                 else if (Game1.activeClickableMenu is CheatsMenu menu)
                     menu.ExitIfValid();
             }

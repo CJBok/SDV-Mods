@@ -59,13 +59,19 @@ namespace CJBCheatsMenu.Framework
         /// <param name="initialTab">The tab to display by default.</param>
         /// <param name="cheats">The cheats helper.</param>
         /// <param name="monitor">Encapsulates monitoring and logging.</param>
-        public CheatsMenu(MenuTab initialTab, CheatManager cheats, IMonitor monitor)
+        /// <param name="isNewMenu">Whether to play the open-menu sound.</param>
+        public CheatsMenu(MenuTab initialTab, CheatManager cheats, IMonitor monitor, bool isNewMenu)
         {
             this.Cheats = cheats;
             this.Monitor = monitor;
             this.CurrentTab = initialTab;
             this.ResetComponents();
             this.SetOptions();
+
+            Game1.playSound(isNewMenu
+                ? "bigSelect"   // menu open
+                : "smallSelect" // tab select
+            );
         }
 
         /// <summary>Exit the menu if that's allowed for the current state.</summary>
@@ -152,7 +158,7 @@ namespace CJBCheatsMenu.Framework
 
                 // open menu with new index
                 MenuTab tabID = this.GetTabID(this.Tabs[index]);
-                Game1.activeClickableMenu = new CheatsMenu(tabID, this.Cheats, this.Monitor);
+                Game1.activeClickableMenu = new CheatsMenu(tabID, this.Cheats, this.Monitor, isNewMenu: false);
             }
 
             // send to active menu
@@ -234,7 +240,7 @@ namespace CJBCheatsMenu.Framework
                 if (tab.bounds.Contains(x, y))
                 {
                     MenuTab tabID = this.GetTabID(tab);
-                    Game1.activeClickableMenu = new CheatsMenu(tabID, this.Cheats, this.Monitor);
+                    Game1.activeClickableMenu = new CheatsMenu(tabID, this.Cheats, this.Monitor, isNewMenu: false);
                     break;
                 }
             }

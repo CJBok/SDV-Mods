@@ -44,10 +44,12 @@ namespace CJBCheatsMenu.Framework.Components
         {
             if (this.greyedOut)
                 return;
-            Game1.playSound("drumkit6");
+
             base.receiveLeftClick(x, y);
             this.IsChecked = !this.IsChecked;
             this.SetValue(this.IsChecked);
+
+            Game1.playSound(this.IsChecked ? "drumkit6" : "breathin");
         }
 
         /// <summary>Draw the component to the screen.</summary>

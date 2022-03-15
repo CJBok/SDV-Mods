@@ -77,8 +77,21 @@ namespace CJBCheatsMenu.Framework.Components
         {
             if (this.greyedOut)
                 return;
+
             base.receiveLeftClick(x, y);
             this.leftClickHeld(x, y);
+
+            Game1.playSound("breathin");
+        }
+
+        /// <summary>Handle the player releasing the left mouse button.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
+        public override void leftClickReleased(int x, int y)
+        {
+            base.leftClickReleased(x, y);
+
+            Game1.playSound("drumkit6");
         }
 
         /// <summary>Draw the component to the screen.</summary>
