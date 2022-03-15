@@ -74,7 +74,7 @@ namespace CJBCheatsMenu.Framework
             if (this.readyToClose() && !GameMenu.forcePreventClose)
             {
                 Game1.exitActiveMenu();
-                Game1.soundBank.PlayCue("bigDeSelect");
+                Game1.playSound("bigDeSelect");
             }
         }
 
@@ -108,7 +108,7 @@ namespace CJBCheatsMenu.Framework
                 this.SetScrollBarToCurrentIndex();
                 if (num == this.Scrollbar.bounds.Y)
                     return;
-                Game1.soundBank.PlayCue("shiny4");
+                Game1.playSound("shiny4");
             }
             else
             {
@@ -203,12 +203,12 @@ namespace CJBCheatsMenu.Framework
             if (this.DownArrow.containsPoint(x, y) && this.CurrentItemIndex < Math.Max(0, this.Options.Count - CheatsMenu.ItemsPerPage))
             {
                 this.DownArrowPressed();
-                Game1.soundBank.PlayCue("shwip");
+                Game1.playSound("shwip");
             }
             else if (this.UpArrow.containsPoint(x, y) && this.CurrentItemIndex > 0)
             {
                 this.UpArrowPressed();
-                Game1.soundBank.PlayCue("shwip");
+                Game1.playSound("shwip");
             }
             else if (this.Scrollbar.containsPoint(x, y))
                 this.IsScrolling = true;
@@ -694,7 +694,7 @@ namespace CJBCheatsMenu.Framework
             config.OpenMenuKey = ModConfig.Defaults.OpenMenuKey;
             config.GrowRadius = ModConfig.Defaults.GrowRadius;
 
-            Game1.soundBank.PlayCue("bigDeSelect");
+            Game1.playSound("bigDeSelect");
 
             this.SetOptions();
         }

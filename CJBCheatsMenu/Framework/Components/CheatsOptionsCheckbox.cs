@@ -44,7 +44,7 @@ namespace CJBCheatsMenu.Framework.Components
         {
             if (this.greyedOut)
                 return;
-            Game1.soundBank.PlayCue("drumkit6");
+            Game1.playSound("drumkit6");
             base.receiveLeftClick(x, y);
             this.IsChecked = !this.IsChecked;
             this.SetValue(this.IsChecked);

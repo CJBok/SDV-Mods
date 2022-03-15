@@ -34,7 +34,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         private void AddMoney(int amount)
         {
             Game1.player.Money += amount;
-            Game1.soundBank.PlayCue("coin");
+            Game1.playSound("coin");
         }
     }
 }

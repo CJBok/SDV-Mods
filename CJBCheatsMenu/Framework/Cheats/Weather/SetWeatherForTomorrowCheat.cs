@@ -73,7 +73,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Weather
         public void SetWeatherForNextDay(int weatherID)
         {
             Game1.weatherForTomorrow = weatherID;
-            Game1.soundBank.PlayCue("thunder");
+            Game1.playSound("thunder");
         }
     }
 }

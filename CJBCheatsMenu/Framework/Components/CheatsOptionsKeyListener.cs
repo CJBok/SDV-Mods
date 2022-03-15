@@ -93,7 +93,7 @@ namespace CJBCheatsMenu.Framework.Components
                 return;
 
             this.IsListening = true;
-            Game1.soundBank.PlayCue("breathin");
+            Game1.playSound("breathin");
             GameMenu.forcePreventClose = true;
         }
 
@@ -106,12 +106,12 @@ namespace CJBCheatsMenu.Framework.Components
             if (this.InvalidButtons.Contains(button))
             {
                 this.Value = this.ClearToButton;
-                Game1.soundBank.PlayCue("bigDeSelect");
+                Game1.playSound("bigDeSelect");
             }
             else
             {
                 this.Value = button;
-                Game1.soundBank.PlayCue("coin");
+                Game1.playSound("coin");
             }
 
             this.SetValue(this.Value);
