@@ -4,7 +4,7 @@
 ## Upcoming release
 * Added warp to the [Witch's Swamp](https://stardewvalleywiki.com/Witch's_Swamp).
 * Added more menu sounds to improve accessibility.
-* Improved translations. Thanks to Dracoeris (updated Spanish)!
+* Improved translations. Thanks to Dracoeris (updated Spanish) and Zangorr (updated Polish)!
 
 ## 1.30.0
 Released 26 February 2022 for SMAPI 3.13.0 or later.
