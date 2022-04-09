@@ -44,22 +44,10 @@ namespace CJBCheatsMenu
             I18n.Init(helper.Translation);
 
             // load warps
-            try
-            {
-                this.Warps = helper.Data.ReadJsonFile<ModData>("assets/warps.json");
-                if (this.Warps == null)
-                {
-                    this.Monitor.Log("Some of the mod files are missing (assets/warps.json); try reinstalling this mod.", LogLevel.Error);
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
-                this.Monitor.Log($"Some of the mod files are broken or corrupted (assets/warps.json); try reinstalling this mod.\n{ex}", LogLevel.Error);
-            }
+            this.reloadWarps();
 
             // load console commands
-            this.Helper.ConsoleCommands.Add("cjb.reload_warps", "Usage: cjb.reload_warps\nReloading warps will reimport the warps.json file from the assets folder", this.reloadWarps);
+            this.Helper.ConsoleCommands.Add("cjb.reload_warps", "Usage: cjb.reload_warps\nReloading warps will reimport the warps.json file from the assets folder", (_, _) => this.reloadWarps());
 
             // load cheats
             this.ResetLocationCache();
@@ -82,26 +70,6 @@ namespace CJBCheatsMenu
         /*********
         ** Private methods
         *********/
-        /// <summary>Set the player's money when the 'player_setmoney' command is invoked.</summary>
-        /// <param name="command">The name of the command invoked.</param>
-        /// <param name="args">The arguments received by the command. Each word after the command name is a separate argument.</param>
-        private void reloadWarps(string command, string[] args)
-        {
-            try
-            {
-                this.Warps = this.Helper.Data.ReadJsonFile<ModData>("assets/warps.json");
-                if (this.Warps == null)
-                {
-                    this.Monitor.Log("Some of the mod files are missing (assets/warps.json); try reinstalling this mod.", LogLevel.Error);
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
-                this.Monitor.Log($"Some of the mod files are broken or corrupted (assets/warps.json); try reinstalling this mod.\n{ex}", LogLevel.Error);
-            }
-        }
-
         /// <summary>Raised after the player loads a save slot.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
@@ -177,6 +145,24 @@ namespace CJBCheatsMenu
             {
                 this.Helper.WriteConfig(this.Config);
                 this.Cheats.Value.OnOptionsChanged();
+            }
+        }
+
+        /// <summary>Set the player's money when the 'player_setmoney' command is invoked.</summary>
+        private void reloadWarps()
+        {
+            try
+            {
+                this.Warps = this.Helper.Data.ReadJsonFile<ModData>("assets/warps.json");
+                if (this.Warps == null)
+                {
+                    this.Monitor.Log("Some of the mod files are missing (assets/warps.json); try reinstalling this mod.", LogLevel.Error);
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Monitor.Log($"Some of the mod files are broken or corrupted (assets/warps.json); try reinstalling this mod.\n{ex}", LogLevel.Error);
             }
         }
 
