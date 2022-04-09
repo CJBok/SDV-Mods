@@ -28,16 +28,16 @@ namespace CJBCheatsMenu.Framework
         private readonly ICheat[] Cheats;
 
         /// <summary>The cheat implementations which should be notified of update ticks.</summary>
-        private readonly List<ICheat> CheatsWhichNeedUpdate = new List<ICheat>();
+        private readonly List<ICheat> CheatsWhichNeedUpdate = new();
 
         /// <summary>The cheat implementations which should be notified of user input.</summary>
-        private readonly List<ICheat> CheatsWhichNeedInput = new List<ICheat>();
+        private readonly List<ICheat> CheatsWhichNeedInput = new();
 
         /// <summary>The cheat implementations which should be notified of render ticks.</summary>
-        private readonly List<ICheat> CheatsWhichNeedRendering = new List<ICheat>();
+        private readonly List<ICheat> CheatsWhichNeedRendering = new();
 
         /// <summary>The backing field for <see cref="NoFriendshipDecay"/>.</summary>
-        private readonly NoFriendshipDecayCheat NoFriendshipDecayImpl = new NoFriendshipDecayCheat();
+        private readonly NoFriendshipDecayCheat NoFriendshipDecayImpl = new();
 
 
         /*********

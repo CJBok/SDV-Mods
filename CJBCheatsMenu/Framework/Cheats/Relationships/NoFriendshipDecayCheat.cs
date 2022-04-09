@@ -15,7 +15,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Relationships
         ** Fields
         *********/
         /// <summary>The minimum friendship points to maintain for each NPC.</summary>
-        private readonly Dictionary<string, int> PreviousFriendships = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> PreviousFriendships = new();
 
 
         /*********

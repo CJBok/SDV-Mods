@@ -208,7 +208,7 @@ namespace CJB.Common.UI
                     sprites.Draw(CommonSprites.DropDown.Sheet, option.bounds, CommonSprites.DropDown.InactiveBackground, Color.White * opacity);
 
                 // draw text
-                Vector2 position = new Vector2(option.bounds.X + DropdownList<TValue>.DropdownPadding, option.bounds.Y + Game1.tileSize / 16);
+                Vector2 position = new(option.bounds.X + DropdownList<TValue>.DropdownPadding, option.bounds.Y + Game1.tileSize / 16);
                 sprites.DrawString(this.Font, option.label, position, Color.Black * opacity);
             }
 

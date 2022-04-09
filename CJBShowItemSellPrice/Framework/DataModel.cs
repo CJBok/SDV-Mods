@@ -10,6 +10,6 @@ namespace CJBShowItemSellPrice.Framework
         ** Accessors
         *********/
         /// <summary>Item categories that can be sold in shops, regardless of what <see cref="SObject.canBeShipped"/> returns.</summary>
-        public HashSet<int> ForceSellable { get; set; } = new HashSet<int>();
+        public HashSet<int> ForceSellable { get; set; } = new();
     }
 }

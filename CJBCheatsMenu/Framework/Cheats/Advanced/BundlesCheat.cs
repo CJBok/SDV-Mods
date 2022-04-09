@@ -25,7 +25,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
         };
 
         /// <summary>Maps Community Center completion flags to their area ID.</summary>
-        private readonly Dictionary<string, int> CommunityCenterCompletionFlags = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase)
+        private readonly Dictionary<string, int> CommunityCenterCompletionFlags = new(StringComparer.InvariantCultureIgnoreCase)
         {
             ["ccBoilerRoom"] = CommunityCenter.AREA_BoilerRoom,
             ["ccBulletin"] = CommunityCenter.AREA_Bulletin,

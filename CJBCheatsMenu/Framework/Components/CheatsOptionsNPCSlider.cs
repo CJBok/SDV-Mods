@@ -26,10 +26,10 @@ namespace CJBCheatsMenu.Framework.Components
         private readonly Action<int> SetValue;
 
         /// <summary>The spritesheet position for a filled heart.</summary>
-        private readonly Rectangle FilledHeart = new Rectangle(211, 428, 7, 6);
+        private readonly Rectangle FilledHeart = new(211, 428, 7, 6);
 
         /// <summary>The spritesheet position for an empty heart.</summary>
-        private readonly Rectangle EmptyHeart = new Rectangle(218, 428, 7, 6);
+        private readonly Rectangle EmptyHeart = new(218, 428, 7, 6);
 
         /// <summary>The size of one rendered heart, accounting for zoom.</summary>
         private const int HeartSize = 8 * Game1.pixelZoom;

@@ -80,7 +80,7 @@ namespace CJBItemSpawner.Framework
         private readonly SpawnableItem[] AllItems;
 
         /// <summary>The items matching the current search filters, without scrolling.</summary>
-        private readonly List<SpawnableItem> FilteredItems = new List<SpawnableItem>();
+        private readonly List<SpawnableItem> FilteredItems = new();
 
         /// <summary>The items currently visible in the UI.</summary>
         private readonly IList<Item> ItemsInView;
@@ -145,7 +145,7 @@ namespace CJBItemSpawner.Framework
         *********/
         /// <summary>The child components for controller snapping.</summary>
         /// <remarks>This must be public and match a type supported by <see cref="IClickableMenu.populateClickableComponentList"/>.</remarks>
-        public readonly List<ClickableComponent> ChildComponents = new List<ClickableComponent>();
+        public readonly List<ClickableComponent> ChildComponents = new();
 
 
         /*********
@@ -466,11 +466,11 @@ namespace CJBItemSpawner.Framework
 
             // draw category dropdown
             {
-                Vector2 position = new Vector2(
+                Vector2 position = new(
                     x: this.CategoryDropdown.bounds.X + this.CategoryDropdown.bounds.Width - 3 * Game1.pixelZoom,
                     y: this.CategoryDropdown.bounds.Y + 2 * Game1.pixelZoom
                 );
-                Rectangle sourceRect = new Rectangle(437, 450, 10, 11);
+                Rectangle sourceRect = new(437, 450, 10, 11);
                 spriteBatch.Draw(Game1.mouseCursors, position, sourceRect, Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
                 if (this.CategoryDropdown.IsExpanded)
                     spriteBatch.Draw(Game1.mouseCursors, new Vector2(position.X + 2 * Game1.pixelZoom, position.Y + 3 * Game1.pixelZoom), new Rectangle(sourceRect.X + 2, sourceRect.Y + 3, 5, 6), Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.FlipVertically, 1f);  // right triangle

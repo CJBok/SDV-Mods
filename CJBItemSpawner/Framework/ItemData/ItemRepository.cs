@@ -143,7 +143,7 @@ namespace CJBItemSpawner.Framework.ItemData
                                 {
                                     yield return this.TryCreate(ItemType.Object, this.CustomIDOffset + secretNoteId, _ =>
                                     {
-                                        SObject note = new SObject(79, 1);
+                                        SObject note = new(79, 1);
                                         note.name = $"{note.name} #{secretNoteId}";
                                         return note;
                                     });
@@ -224,7 +224,7 @@ namespace CJBItemSpawner.Framework.ItemData
                                     case SObject.flowersCategory:
                                         yield return this.TryCreate(ItemType.Object, this.CustomIDOffset * 5 + item.ParentSheetIndex, _ =>
                                         {
-                                            SObject honey = new SObject(Vector2.Zero, 340, $"{item.Name} Honey", false, true, false, false)
+                                            SObject honey = new(Vector2.Zero, 340, $"{item.Name} Honey", false, true, false, false)
                                             {
                                                 Name = $"{item.Name} Honey",
                                                 preservedParentSheetIndex = { item.ParentSheetIndex }

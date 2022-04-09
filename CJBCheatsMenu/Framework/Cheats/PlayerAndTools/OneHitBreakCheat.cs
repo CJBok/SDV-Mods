@@ -58,7 +58,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
                 return;
 
             // get affected tile
-            Vector2 tile = new Vector2((int)player.GetToolLocation().X / Game1.tileSize, (int)player.GetToolLocation().Y / Game1.tileSize);
+            Vector2 tile = new((int)player.GetToolLocation().X / Game1.tileSize, (int)player.GetToolLocation().Y / Game1.tileSize);
 
             // break stones
             if (tool is Pickaxe && location.objects.TryGetValue(tile, out SObject obj) && obj?.name == "Stone")

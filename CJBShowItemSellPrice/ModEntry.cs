@@ -20,10 +20,10 @@ namespace CJBShowItemSellPrice
         ** Fields
         *********/
         /// <summary>The spritesheet source rectangle for the coin icon.</summary>
-        private readonly Rectangle CoinSourceRect = new Rectangle(5, 69, 6, 6);
+        private readonly Rectangle CoinSourceRect = new(5, 69, 6, 6);
 
         /// <summary>The spritesheet source rectangle for the tooltip box.</summary>
-        private readonly Rectangle TooltipSourceRect = new Rectangle(0, 256, 60, 60);
+        private readonly Rectangle TooltipSourceRect = new(0, 256, 60, 60);
 
         /// <summary>The pixel size of the tooltip box's border (i.e. the number of pixels to offset for text to appear inside the box).</summary>
         private const int TooltipBorderSize = 12;
@@ -32,16 +32,16 @@ namespace CJBShowItemSellPrice
         private const int Padding = 5;
 
         /// <summary>The pixel offset to apply to the tooltip box relative to the cursor position.</summary>
-        private readonly Vector2 TooltipOffset = new Vector2(Game1.tileSize / 2);
+        private readonly Vector2 TooltipOffset = new(Game1.tileSize / 2);
 
         /// <summary>Metadata that isn't available from the game data directly.</summary>
         private DataModel Data;
 
         /// <summary>The cached toolbar instance.</summary>
-        private readonly PerScreen<Toolbar> Toolbar = new PerScreen<Toolbar>();
+        private readonly PerScreen<Toolbar> Toolbar = new();
 
         /// <summary>The cached toolbar slots.</summary>
-        private readonly PerScreen<IList<ClickableComponent>> ToolbarSlots = new PerScreen<IList<ClickableComponent>>();
+        private readonly PerScreen<IList<ClickableComponent>> ToolbarSlots = new();
 
 
         /*********
@@ -197,7 +197,7 @@ namespace CJBShowItemSellPrice
             Vector2 labelSize = font.MeasureString(unitLabel);
             if (showStack)
                 labelSize = new Vector2(Math.Max(labelSize.X, font.MeasureString(stackLabel).X), labelSize.Y * 2);
-            Vector2 innerSize = new Vector2(labelSize.X + padding + Math.Max(unitPriceSize.X, showStack ? stackPriceSize.X : 0) + padding + coinSize, labelSize.Y);
+            Vector2 innerSize = new(labelSize.X + padding + Math.Max(unitPriceSize.X, showStack ? stackPriceSize.X : 0) + padding + coinSize, labelSize.Y);
             Vector2 outerSize = innerSize + new Vector2((borderSize + padding) * 2);
 
             // get position
@@ -205,7 +205,7 @@ namespace CJBShowItemSellPrice
             float y = Game1.getMouseY() + offsetFromCursor.Y + borderSize;
 
             // adjust position to fit on screen
-            Rectangle area = new Rectangle((int)x, (int)y, (int)outerSize.X, (int)outerSize.Y);
+            Rectangle area = new((int)x, (int)y, (int)outerSize.X, (int)outerSize.Y);
             if (area.Right > Game1.uiViewport.Width)
                 x = Game1.uiViewport.Width - area.Width;
             if (area.Bottom > Game1.uiViewport.Height)

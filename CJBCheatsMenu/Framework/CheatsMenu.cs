@@ -27,12 +27,12 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Encapsulates monitoring and logging.</summary>
         private readonly IMonitor Monitor;
 
-        private readonly List<ClickableComponent> OptionSlots = new List<ClickableComponent>();
-        private readonly List<OptionsElement> Options = new List<OptionsElement>();
+        private readonly List<ClickableComponent> OptionSlots = new();
+        private readonly List<OptionsElement> Options = new();
         private ClickableTextureComponent UpArrow;
         private ClickableTextureComponent DownArrow;
         private ClickableTextureComponent Scrollbar;
-        private readonly List<ClickableComponent> Tabs = new List<ClickableComponent>();
+        private readonly List<ClickableComponent> Tabs = new();
         private ClickableComponent Title;
         private const int ItemsPerPage = 10;
 

@@ -24,7 +24,7 @@ namespace CJBCheatsMenu.Framework.Components
         private readonly string PressNewKeyLabel;
 
         /// <summary>The source rectangle for the 'set' button sprite.</summary>
-        private readonly Rectangle SetButtonSprite = new Rectangle(294, 428, 21, 11);
+        private readonly Rectangle SetButtonSprite = new(294, 428, 21, 11);
 
         /// <summary>The button area in screen pixels.</summary>
         private Rectangle SetButtonBounds;
