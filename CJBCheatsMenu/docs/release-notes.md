@@ -4,6 +4,7 @@
 ## Upcoming release
 * Added warp to the [Witch's Swamp](https://stardewvalleywiki.com/Witch's_Swamp).
 * Added more menu sounds to improve accessibility.
+* Fixed Mutant Bug Lair affected by the 'freeze time inside' option.
 * Improved translations. Thanks to Dracoeris (updated Spanish) and Zangorr (updated Polish)!
 
 ## 1.30.0
