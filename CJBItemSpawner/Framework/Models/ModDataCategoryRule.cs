@@ -59,9 +59,9 @@ namespace CJBItemSpawner.Framework.Models
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
-            this.Class = new HashSet<string>(this.Class ?? (IEnumerable<string>)new string[0], StringComparer.OrdinalIgnoreCase);
-            this.ObjType = new HashSet<string>(this.ObjType ?? (IEnumerable<string>)new string[0], StringComparer.OrdinalIgnoreCase);
-            this.ItemId = new HashSet<string>(this.ItemId ?? (IEnumerable<string>)new string[0], StringComparer.OrdinalIgnoreCase);
+            this.Class = new HashSet<string>(this.Class ?? Enumerable.Empty<string>(), StringComparer.OrdinalIgnoreCase);
+            this.ObjType = new HashSet<string>(this.ObjType ?? Enumerable.Empty<string>(), StringComparer.OrdinalIgnoreCase);
+            this.ItemId = new HashSet<string>(this.ItemId ?? Enumerable.Empty<string>(), StringComparer.OrdinalIgnoreCase);
             this.ObjCategory ??= new HashSet<int>();
         }
 

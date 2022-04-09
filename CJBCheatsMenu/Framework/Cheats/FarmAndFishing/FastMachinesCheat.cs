@@ -252,9 +252,9 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
             ModConfig config = context.Config;
             return obj switch
             {
-                Cask _ => config.FastCask,
-                CrabPot _ => config.FastCrabPot,
-                WoodChipper _ => config.FastWoodChipper,
+                Cask => config.FastCask,
+                CrabPot => config.FastCrabPot,
+                WoodChipper => config.FastWoodChipper,
                 _ => obj.name switch
                 {
                     "Bee House" => config.FastBeeHouse,

@@ -242,7 +242,7 @@ namespace CJBShowItemSellPrice
             int price = Utility.getSellToStorePriceOfItem(item, countStack: false);
             return price >= 0
                 ? price
-                : null as int?;
+                : null;
         }
 
         /// <summary>Get whether an item can be sold.</summary>

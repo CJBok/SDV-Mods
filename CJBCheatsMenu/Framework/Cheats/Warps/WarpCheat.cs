@@ -51,13 +51,13 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
         {
             bool isJojaMember = this.HasFlag("JojaMember");
 
-            foreach (var section in this.GetSections(context))
+            foreach (var section in this.GetSections())
             {
                 // section title
                 yield return new OptionsElement(section.Value + ":");
 
                 // warps
-                foreach (var pair in this.GetWarps(context, section.Key))
+                foreach (var pair in this.GetWarps(section.Key))
                 {
                     ModDataWarp warp = pair.Item1;
                     string label = pair.Item2;
@@ -92,8 +92,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
         ** Private methods
         *********/
         /// <summary>Get the section IDs and display names in sorted order.</summary>
-        /// <param name="context">The cheat context.</param>
-        private IEnumerable<KeyValuePair<string, string>> GetSections(CheatContext context)
+        private IEnumerable<KeyValuePair<string, string>> GetSections()
         {
             return
                 (
@@ -106,9 +105,8 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
         }
 
         /// <summary>Get the warps and display names in sorted order.</summary>
-        /// <param name="context">The cheat context.</param>
         /// <param name="section">The section whose warps to get.</param>
-        private IEnumerable<Tuple<ModDataWarp, string>> GetWarps(CheatContext context, string section)
+        private IEnumerable<Tuple<ModDataWarp, string>> GetWarps(string section)
         {
             if (!this.WarpsBySection.TryGetValue(section, out ModDataWarp[] warps))
                 return Enumerable.Empty<Tuple<ModDataWarp, string>>();

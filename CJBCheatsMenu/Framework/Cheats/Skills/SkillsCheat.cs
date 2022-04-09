@@ -43,7 +43,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Skills
         private CheatsOptionsButton GetSkillButton(CheatContext context, string translationKey, int id, int currentLevel)
         {
             return new CheatsOptionsButton(
-                label: I18n.GetByKey($"skills.increase-{translationKey}", new { currentLevel = currentLevel }),
+                label: I18n.GetByKey($"skills.increase-{translationKey}", new { currentLevel }),
                 slotWidth: context.SlotWidth,
                 toggle: () => this.IncreaseSkill(id),
                 disabled: currentLevel >= 10

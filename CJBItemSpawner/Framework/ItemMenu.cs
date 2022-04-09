@@ -161,9 +161,9 @@ namespace CJBItemSpawner.Framework
                 inventory: new List<Item>(),
                 reverseGrab: false,
                 showReceivingMenu: true,
-                highlightFunction: item => true,
-                behaviorOnItemGrab: (item, player) => { },
-                behaviorOnItemSelectFunction: (item, player) => { },
+                highlightFunction: _ => true,
+                behaviorOnItemGrab: (_, _) => { },
+                behaviorOnItemSelectFunction: (_, _) => { },
                 message: null,
                 canBeExitedWithKey: true,
                 showOrganizeButton: false,
@@ -683,8 +683,8 @@ namespace CJBItemSpawner.Framework
         protected void SetDropdown(bool expanded)
         {
             this.CategoryDropdown.IsExpanded = expanded;
-            this.inventory.highlightMethod = item => !expanded;
-            this.ItemsToGrabMenu.highlightMethod = item => !expanded;
+            this.inventory.highlightMethod = _ => !expanded;
+            this.ItemsToGrabMenu.highlightMethod = _ => !expanded;
             if (!expanded && !Game1.lastCursorMotionWasMouse)
             {
                 this.setCurrentlySnappedComponentTo(this.CategoryDropdown.myID);
@@ -735,7 +735,7 @@ namespace CJBItemSpawner.Framework
                 this.TopRowIndex++;
 
             // normalize scroll
-            this.TopRowIndex = (int)MathHelper.Clamp(this.TopRowIndex, 0, this.MaxTopRowIndex);
+            this.TopRowIndex = MathHelper.Clamp(this.TopRowIndex, 0, this.MaxTopRowIndex);
 
             // update view
             if (resetItemView)

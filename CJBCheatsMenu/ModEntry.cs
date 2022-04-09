@@ -169,7 +169,7 @@ namespace CJBCheatsMenu
         {
             return new(() => Context.IsWorldReady
                 ? CommonHelper.GetAllLocations().ToArray()
-                : new GameLocation[0]
+                : Array.Empty<GameLocation>()
             );
         }
     }
