@@ -38,9 +38,12 @@ setting | default | what it affects
 ------- | ------- | ---------------
 `DefaultTab` | `PlayerAndTools` | The tab shown by default when you open the menu. Possible values: `PlayerAndTools`, `FarmAndFishing`, `Skills`, `Weather`, `Relationships`, `WarpLocations`, `Time`, `Controls`.
 
-## Warp format
+## Editing warps
 The Warps tab is populated based on the `assets/warps.json` file. This isn't generally meant to be
 edited by players, but you can edit it to customize the warps shown in the menu.
+
+You can run the `cjb_reload_warps` command in the SMAPI console to reload the warp data
+immediately, without needing to restart the game.
 
 ### Warps
 The `Warps` field defines the warps shown in the menu. The order they're listed in doesn't matter;

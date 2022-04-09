@@ -4,6 +4,7 @@
 ## Upcoming release
 * Added warp to the [Witch's Swamp](https://stardewvalleywiki.com/Witch's_Swamp).
 * Added more menu sounds to improve accessibility.
+* Added `cjb_reload_warps` console command to reload the `assets/warps.json` file in-game (thanks to MattPlays!).
 * Fixed Mutant Bug Lair affected by the 'freeze time inside' option.
 * Improved translations. Thanks to Dracoeris (updated Spanish) and Zangorr (updated Polish)!
 
