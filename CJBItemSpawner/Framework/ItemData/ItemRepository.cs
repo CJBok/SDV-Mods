@@ -106,7 +106,7 @@ namespace CJBItemSpawner.Framework.ItemData
                 {
                     foreach (int id in this.TryLoad<int, string>("Data\\weapons").Keys)
                     {
-                        yield return this.TryCreate(ItemType.Weapon, id, p => (p.ID >= 32 && p.ID <= 34)
+                        yield return this.TryCreate(ItemType.Weapon, id, p => p.ID is >= 32 and <= 34
                             ? (Item)new Slingshot(p.ID)
                             : new MeleeWeapon(p.ID)
                         );

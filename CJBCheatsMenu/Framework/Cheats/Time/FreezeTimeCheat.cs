@@ -88,11 +88,11 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /// <param name="isCave">Whether the given location is a cave.</param>
         private bool ShouldFreezeTime(ModConfig config, GameLocation location, out bool isCave)
         {
-            isCave = location is MineShaft || location is FarmCave || location is VolcanoDungeon;
+            isCave = location is MineShaft or FarmCave or VolcanoDungeon;
             return
                 config.FreezeTime
                 || (config.FreezeTimeCaves && isCave)
-                || (config.FreezeTimeInside && location != null && !location.IsOutdoors && !isCave);
+                || (config.FreezeTimeInside && location?.IsOutdoors == false && !isCave);
         }
 
         /// <summary>Render the 'time frozen' box in the top-left.</summary>

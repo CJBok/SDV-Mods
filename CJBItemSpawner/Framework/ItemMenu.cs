@@ -306,14 +306,14 @@ namespace CJBItemSpawner.Framework
             }
 
             // navigate
-            else if (key == Keys.Left || key == Keys.Right)
+            else if (key is Keys.Left or Keys.Right)
             {
                 int direction = key == Keys.Left ? -1 : 1;
                 this.NextCategory(direction);
             }
 
             // scroll
-            else if (key == Keys.Up || key == Keys.Down)
+            else if (key is Keys.Up or Keys.Down)
             {
                 int direction = key == Keys.Up ? -1 : 1;
 
@@ -336,7 +336,7 @@ namespace CJBItemSpawner.Framework
         /// <param name="button">The button that was pressed.</param>
         public override void receiveGamePadButton(Buttons button)
         {
-            bool isExitKey = button == Buttons.B || button == Buttons.Y || button == Buttons.Start;
+            bool isExitKey = button is Buttons.B or Buttons.Y or Buttons.Start;
             bool inDropdown = this.CategoryDropdown.IsExpanded;
 
             // handle search box
@@ -347,7 +347,7 @@ namespace CJBItemSpawner.Framework
                     Game1.showTextEntry(this.SearchBox);
 
                 // cancel search box
-                else if (isExitKey || button == Buttons.LeftShoulder || button == Buttons.RightShoulder)
+                else if (isExitKey || button is Buttons.LeftShoulder or Buttons.RightShoulder)
                     this.DeselectSearchBox();
             }
 

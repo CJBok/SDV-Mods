@@ -142,7 +142,7 @@ namespace CJBCheatsMenu.Framework
         public override void receiveGamePadButton(Buttons key)
         {
             // navigate tabs
-            if ((key == Buttons.LeftShoulder || key == Buttons.RightShoulder) && !this.IsPressNewKeyActive())
+            if (key is (Buttons.LeftShoulder or Buttons.RightShoulder) && !this.IsPressNewKeyActive())
             {
                 // rotate tab index
                 int index = this.Tabs.FindIndex(p => p.name == this.CurrentTab.ToString());

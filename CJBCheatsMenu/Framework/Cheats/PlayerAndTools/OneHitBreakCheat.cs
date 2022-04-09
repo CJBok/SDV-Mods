@@ -48,7 +48,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         public override void OnUpdated(CheatContext context, UpdateTickedEventArgs e)
         {
             // skip if not using a tool
-            if (!Context.IsPlayerFree || !Game1.player.UsingTool || !(Game1.player.CurrentTool is Axe || Game1.player.CurrentTool is Pickaxe))
+            if (!Context.IsPlayerFree || !Game1.player.UsingTool || Game1.player.CurrentTool is not (Axe or Pickaxe))
                 return;
 
             Farmer player = Game1.player;

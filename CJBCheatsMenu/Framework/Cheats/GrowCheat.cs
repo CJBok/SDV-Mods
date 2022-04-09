@@ -99,7 +99,7 @@ namespace CJBCheatsMenu.Framework.Cheats
                     {
                         if (terrainFeature is HoeDirt dirt)
                             target = dirt.crop;
-                        else if (terrainFeature is Bush || terrainFeature is FruitTree || terrainFeature is Tree)
+                        else if (terrainFeature is Bush or FruitTree or Tree)
                             target = terrainFeature;
                     }
 
