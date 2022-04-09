@@ -54,7 +54,7 @@ namespace CJBCheatsMenu
 
             // load cheats
             this.ResetLocationCache();
-            this.Cheats = new PerScreen<CheatManager>(() => new CheatManager(this.Config, this.Helper.Reflection, () => this.Locations.Value.Value, this.Warps));
+            this.Cheats = new PerScreen<CheatManager>(() => new CheatManager(this.Config, this.Helper.Reflection, () => this.Locations.Value.Value, () => this.Warps));
 
             // hook events
             helper.Events.Display.Rendered += this.OnRendered;
@@ -107,7 +107,7 @@ namespace CJBCheatsMenu
             if (this.Config.OpenMenuKey.JustPressed())
             {
                 if (Context.IsPlayerFree && Game1.currentMinigame == null)
-                    Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Cheats.Value, this.Monitor, isNewMenu: true);
+                    this.OpenCheatsMenu(this.Config.DefaultTab, isNewMenu: true);
                 else if (Game1.activeClickableMenu is CheatsMenu menu)
                     menu.ExitIfValid();
             }
@@ -177,7 +177,19 @@ namespace CJBCheatsMenu
             }
 
             if (isReloadCommand)
+            {
                 this.Monitor.Log($"Successfully reloaded {this.Warps.Warps.Sum(p => p.Value.Length)} warps (in {this.Warps.Warps.Keys.Count} sections) from the {this.WarpsPath} file.", LogLevel.Info);
+                if (Game1.activeClickableMenu is CheatsMenu cheatsMenu)
+                    this.OpenCheatsMenu(cheatsMenu.CurrentTab, isNewMenu: false);
+            }
+        }
+
+        /// <summary>Open the cheats menu.</summary>
+        /// <param name="tab">The tab to preselect.</param>
+        /// <param name="isNewMenu">Whether to play the open-menu sound.</param>
+        private void OpenCheatsMenu(MenuTab tab, bool isNewMenu)
+        {
+            Game1.activeClickableMenu = new CheatsMenu(tab, this.Cheats.Value, this.Monitor, isNewMenu);
         }
 
         /// <summary>Reset the cached location list.</summary>

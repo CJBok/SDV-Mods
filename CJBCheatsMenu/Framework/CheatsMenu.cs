@@ -48,8 +48,12 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Whether the menu was opened in the current tick.</summary>
         private bool JustOpened = true;
 
+
+        /*********
+        ** Accessors
+        *********/
         /// <summary>The currently open tab.</summary>
-        private readonly MenuTab CurrentTab;
+        public MenuTab CurrentTab { get; }
 
 
         /*********
