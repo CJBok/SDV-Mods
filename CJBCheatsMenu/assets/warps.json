@@ -190,6 +190,6 @@
                 "Location": "UndergroundMine121",
                 "Tile": "0, 0" // game places the player next to the ladder automatically
             }
-        ]  
+        ]
     }
 }

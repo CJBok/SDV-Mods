@@ -47,10 +47,10 @@ namespace CJBCheatsMenu
             I18n.Init(helper.Translation);
 
             // load warps
-            this.TryLoadWarps();
+            this.TryLoadWarps(isReloadCommand: false);
 
             // load console commands
-            this.Helper.ConsoleCommands.Add("cjb_reload_warps", $"Usage: cjb_reload_warps\nReload the warps shown in the menu from the mod's {this.WarpsPath} file.", (_, _) => this.TryLoadWarps());
+            this.Helper.ConsoleCommands.Add("cjb_reload_warps", $"Usage: cjb_reload_warps\nReload the warps shown in the menu from the mod's {this.WarpsPath} file.", (_, _) => this.TryLoadWarps(isReloadCommand: true));
 
             // load cheats
             this.ResetLocationCache();
@@ -152,7 +152,8 @@ namespace CJBCheatsMenu
         }
 
         /// <summary>Reload the available warps from the data file, if it's valid.</summary>
-        private void TryLoadWarps()
+        /// <param name="isReloadCommand">Whether the warp is being loaded for the <c>cjb_reload_warps</c> console command.</param>
+        private void TryLoadWarps(bool isReloadCommand)
         {
             string fallbackPhrase = this.Warps == null
                 ? "try reinstalling this mod"
@@ -162,14 +163,21 @@ namespace CJBCheatsMenu
             {
                 ModData warps = this.Helper.Data.ReadJsonFile<ModData>(this.WarpsPath);
                 if (warps == null)
+                {
                     this.Monitor.Log($"Some of the mod files are missing ({this.WarpsPath}); {fallbackPhrase}.", LogLevel.Error);
-                else
-                    this.Warps = warps;
+                    return;
+                }
+
+                this.Warps = warps;
             }
             catch (Exception ex)
             {
                 this.Monitor.Log($"Some of the mod files are broken or corrupted ({this.WarpsPath}); {fallbackPhrase}.\n{ex}", LogLevel.Error);
+                return;
             }
+
+            if (isReloadCommand)
+                this.Monitor.Log($"Successfully reloaded {this.Warps.Warps.Sum(p => p.Value.Length)} warps (in {this.Warps.Warps.Keys.Count} sections) from the {this.WarpsPath} file.", LogLevel.Info);
         }
 
         /// <summary>Reset the cached location list.</summary>
