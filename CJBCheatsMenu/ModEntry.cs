@@ -16,6 +16,9 @@ namespace CJBCheatsMenu
         /*********
         ** Fields
         *********/
+        /// <summary>The relative file to the warps data file.</summary>
+        private readonly string WarpsPath = "assets/warps.json";
+
         /// <summary>The mod settings.</summary>
         private ModConfig Config;
 
@@ -44,10 +47,10 @@ namespace CJBCheatsMenu
             I18n.Init(helper.Translation);
 
             // load warps
-            this.reloadWarps();
+            this.TryLoadWarps();
 
             // load console commands
-            this.Helper.ConsoleCommands.Add("cjb.reload_warps", "Usage: cjb.reload_warps\nReloading warps will reimport the warps.json file from the assets folder", (_, _) => this.reloadWarps());
+            this.Helper.ConsoleCommands.Add("cjb_reload_warps", $"Usage: cjb_reload_warps\nReload the warps shown in the menu from the mod's {this.WarpsPath} file.", (_, _) => this.TryLoadWarps());
 
             // load cheats
             this.ResetLocationCache();
@@ -148,21 +151,24 @@ namespace CJBCheatsMenu
             }
         }
 
-        /// <summary>Set the player's money when the 'player_setmoney' command is invoked.</summary>
-        private void reloadWarps()
+        /// <summary>Reload the available warps from the data file, if it's valid.</summary>
+        private void TryLoadWarps()
         {
+            string fallbackPhrase = this.Warps == null
+                ? "try reinstalling this mod"
+                : "the previous warps will be kept instead";
+
             try
             {
-                this.Warps = this.Helper.Data.ReadJsonFile<ModData>("assets/warps.json");
-                if (this.Warps == null)
-                {
-                    this.Monitor.Log("Some of the mod files are missing (assets/warps.json); try reinstalling this mod.", LogLevel.Error);
-                    return;
-                }
+                ModData warps = this.Helper.Data.ReadJsonFile<ModData>(this.WarpsPath);
+                if (warps == null)
+                    this.Monitor.Log($"Some of the mod files are missing ({this.WarpsPath}); {fallbackPhrase}.", LogLevel.Error);
+                else
+                    this.Warps = warps;
             }
             catch (Exception ex)
             {
-                this.Monitor.Log($"Some of the mod files are broken or corrupted (assets/warps.json); try reinstalling this mod.\n{ex}", LogLevel.Error);
+                this.Monitor.Log($"Some of the mod files are broken or corrupted ({this.WarpsPath}); {fallbackPhrase}.\n{ex}", LogLevel.Error);
             }
         }
 
