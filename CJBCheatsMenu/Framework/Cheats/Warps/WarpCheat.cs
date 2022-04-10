@@ -49,11 +49,8 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
                 yield return new OptionsElement(section.Value + ":");
 
                 // warps
-                foreach (var pair in this.GetWarps(warpsBySection, section.Key))
+                foreach ((ModDataWarp warp, string label) in this.GetWarps(warpsBySection, section.Key))
                 {
-                    ModDataWarp warp = pair.Item1;
-                    string label = pair.Item2;
-
                     // skip warps that don't apply
                     switch (warp.SpecialBehavior)
                     {
@@ -120,17 +117,17 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
         /// <summary>Get the warps and display names in sorted order.</summary>
         /// <param name="warpsBySection">The available warps indexed by section.</param>
         /// <param name="section">The section whose warps to get.</param>
-        private IEnumerable<Tuple<ModDataWarp, string>> GetWarps(IDictionary<string, ModDataWarp[]> warpsBySection, string section)
+        private IEnumerable<(ModDataWarp Warp, string Label)> GetWarps(IDictionary<string, ModDataWarp[]> warpsBySection, string section)
         {
             if (!warpsBySection.TryGetValue(section, out ModDataWarp[] warps))
-                return Enumerable.Empty<Tuple<ModDataWarp, string>>();
+                return Enumerable.Empty<(ModDataWarp, string)>();
 
             return
                 (
                     from warp in warps
                     let label = I18n.GetByKey(warp.DisplayText).Default(warp.DisplayText ?? "???").ToString()
                     orderby warp.Order, label
-                    select Tuple.Create(warp, label)
+                    select (warp, label)
                 );
         }
 

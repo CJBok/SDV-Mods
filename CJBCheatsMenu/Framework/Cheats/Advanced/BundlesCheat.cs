@@ -114,19 +114,19 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
 
                 // fix completion flags
                 this.SetFlag(allAreasDone, "ccComplete");
-                foreach (var pair in this.JojaMartCompletionFlags)
+                foreach ((string jojaFlag, string communityFlag) in this.JojaMartCompletionFlags)
                 {
-                    bool areaDone = isJoja && this.HasFlag(pair.Value);
-                    this.SetFlag(areaDone, pair.Key);
+                    bool areaDone = isJoja && this.HasFlag(communityFlag);
+                    this.SetFlag(areaDone, jojaFlag);
                 }
 
                 // mark areas complete
                 if (Game1.getLocationFromName("CommunityCenter") is CommunityCenter communityCenter)
                 {
-                    foreach (var pair in this.CommunityCenterCompletionFlags)
+                    foreach ((string flag, int areaId) in this.CommunityCenterCompletionFlags)
                     {
-                        if (communityCenter.areasComplete.Length > pair.Value)
-                            communityCenter.areasComplete[pair.Value] = this.HasFlag(pair.Key);
+                        if (communityCenter.areasComplete.Length > areaId)
+                            communityCenter.areasComplete[areaId] = this.HasFlag(flag);
                     }
                 }
 

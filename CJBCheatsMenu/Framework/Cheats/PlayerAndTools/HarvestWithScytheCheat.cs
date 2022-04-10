@@ -97,9 +97,9 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
             IDictionary<int, int> lookup = new Dictionary<int, int>();
 
             IDictionary<int, string> cropData = Game1.content.Load<Dictionary<int, string>>("Data\\Crops");
-            foreach (KeyValuePair<int, string> entry in cropData)
+            foreach (string entry in cropData.Values)
             {
-                string[] fields = entry.Value.Split('/');
+                string[] fields = entry.Split('/');
                 int cropID = Convert.ToInt32(fields[3]);
                 int harvestMethod = Convert.ToInt32(fields[5]);
 
