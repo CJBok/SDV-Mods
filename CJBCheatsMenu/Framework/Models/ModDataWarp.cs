@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 
 namespace CJBCheatsMenu.Framework.Models
@@ -40,15 +39,6 @@ namespace CJBCheatsMenu.Framework.Models
             this.DisplayText = displayText;
             this.Location = location;
             this.Tile = tile;
-        }
-
-        /// <summary>Get whether the <see cref="DisplayText"/> has the given value, compared case-insensitively.</summary>
-        /// <param name="id">The ID to check,</param>
-        public bool HasId(string id)
-        {
-            return
-                this.DisplayText != null
-                && this.DisplayText.Trim().Equals(id?.Trim(), StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

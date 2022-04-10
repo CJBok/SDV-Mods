@@ -163,7 +163,7 @@
                 "Object:535", // geode
                 "Object:536", // frozen geode
                 "Object:537", // magma geode
-                "Object:749" // omni geode
+                "Object:749" // omnigeode
             ]
         }
     },
