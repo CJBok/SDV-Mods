@@ -216,6 +216,9 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Farm animals are pet automatically.</summary>
         public bool AutoPetAnimals { get; set; }
 
+        /// <summary>Pet animals are pet automatically.</summary>
+        public bool AutoPetPets { get; set; }
+
         /// <summary>Crops are watered automatically.</summary>
         public bool AutoWater { get; set; }
 

@@ -55,7 +55,8 @@
     "farm.durable-fences": "울타리 유실 방지",
     "farm.instant-build": "농장 건물 건설 즉시 완성",
     "farm.auto-feed-animals": "사료 자동 급식",
-    "farm.auto-pet-animals": "팻 자동 물그릇 ",
+    "farm.auto-pet-animals": "팻 자동 물그릇",
+    "farm.auto-pet-pets": "Auto-Pet Pets", // TODO
     "farm.infinite-hay": "건초 무한대",
 
     // fishing

@@ -109,6 +109,9 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Automatically pets animals.</summary>
         public ICheat AutoPetAnimals { get; } = new AutoPetAnimalsCheat();
 
+        /// <summary>Automatically pets pets.</summary>
+        public ICheat AutoPetPets { get; } = new AutoPetPetsCheat();
+
         /// <summary>Enables infinite hay.</summary>
         public ICheat InfiniteHay { get; } = new InfiniteHayCheat();
 

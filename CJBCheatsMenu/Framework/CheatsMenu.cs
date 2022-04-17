@@ -436,6 +436,7 @@ namespace CJBCheatsMenu.Framework
                         cheats.InstantBuild,
                         cheats.AutoFeedAnimals,
                         cheats.AutoPetAnimals,
+                        cheats.AutoPetPets,
                         cheats.InfiniteHay
                     );
 
