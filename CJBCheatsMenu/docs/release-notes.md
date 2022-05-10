@@ -1,7 +1,10 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.31.0
+Released 09 May 2022 for SMAPI 3.14.0 or later.
+
+* Updated for SMAPI 3.14.0.
 * Added 'auto-pet pets' cheat.
 * Added warp to the [Witch's Swamp](https://stardewvalleywiki.com/Witch's_Swamp).
 * Added more menu sounds to improve accessibility.
