@@ -1,5 +1,8 @@
+#nullable enable
+
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -99,7 +102,7 @@ namespace CJB.Common.UI
         /// <param name="x">The X-position from which to render the list.</param>
         /// <param name="y">The Y-position from which to render the list.</param>
         /// <param name="font">The font with which to render text.</param>
-        public DropdownList(TValue selectedValue, TValue[] items, Func<TValue, string> getLabel, int x, int y, SpriteFont font)
+        public DropdownList(TValue? selectedValue, TValue[] items, Func<TValue, string> getLabel, int x, int y, SpriteFont font)
             : base(new Rectangle(), nameof(DropdownList<TValue>))
         {
             // save values
@@ -136,7 +139,7 @@ namespace CJB.Common.UI
         public bool TryClick(int x, int y, out bool itemClicked)
         {
             // dropdown value
-            var option = this.Options.FirstOrDefault(p => p.visible && p.containsPoint(x, y));
+            DropListOption? option = this.Options.FirstOrDefault(p => p.visible && p.containsPoint(x, y));
             if (option != null)
             {
                 this.SelectedOption = option;
@@ -165,7 +168,7 @@ namespace CJB.Common.UI
         /// <returns>Returns whether an item was selected.</returns>
         public bool TrySelect(TValue value)
         {
-            var entry = this.Options.FirstOrDefault(p =>
+            DropListOption? entry = this.Options.FirstOrDefault(p =>
                 (p.Value == null && value == null)
                 || p.Value?.Equals(value) == true
             );
@@ -220,6 +223,7 @@ namespace CJB.Common.UI
         }
 
         /// <summary>Recalculate dimensions and components for rendering.</summary>
+        [MemberNotNull(nameof(DropdownList<TValue>.UpArrow), nameof(DropdownList<TValue>.DownArrow))]
         public void ReinitializeComponents()
         {
             int x = this.bounds.X;
@@ -240,7 +244,7 @@ namespace CJB.Common.UI
             // update components
             {
                 int itemY = y;
-                foreach (var option in this.Options)
+                foreach (DropListOption option in this.Options)
                 {
                     option.visible = option.Index >= this.FirstVisibleIndex && option.Index <= this.LastVisibleIndex;
                     if (option.visible)
@@ -271,7 +275,7 @@ namespace CJB.Common.UI
             int lastIndex = this.LastVisibleIndex;
 
             int initialId = 1_100_000;
-            foreach (var option in this.Options)
+            foreach (DropListOption option in this.Options)
             {
                 int index = option.Index;
                 int id = initialId + index;
