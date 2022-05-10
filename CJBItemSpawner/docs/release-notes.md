@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Updated for the upcoming SMAPI 4.0.0.
+* Fixed spawning Journal Scraps and Secret Notes.
 
 ## 2.1.6
 Released 26 February 2022 for SMAPI 3.13.0 or later.
