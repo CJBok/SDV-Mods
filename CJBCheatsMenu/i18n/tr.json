@@ -56,6 +56,7 @@
     "farm.instant-build": "Anında İnşaat",
     "farm.auto-feed-animals": "Her Zaman Otomatik Yemle",
     "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
+    "farm.auto-pet-pets": "Auto-Pet Pets", // TODO
     "farm.infinite-hay": "Sınırsız Saman",
 
     // fishing
@@ -172,6 +173,7 @@
     "warp.bathhouse": "Hamam",
     "warp.mutant-bug-lair": "Mutant Böcek Bölgesi",
     "warp.quarry": "Taş Ocağı",
+    "warp.witch-swamp": "Cadı Bataklığı",
 
     // beach
     "warp-section.beach": "Sahil",

@@ -56,6 +56,7 @@
     "farm.instant-build": "สร้างสิ่งปลูกสร้างทันที",
     "farm.auto-feed-animals": "ให้อาหารสัตว์อัตโนมัติ",
     "farm.auto-pet-animals": "ลูบสัตว์เลี้ยงอัตโนมัติ",
+    "farm.auto-pet-pets": "Auto-Pet Pets", // TODO
     "farm.infinite-hay": "ฟางไม่จำกัด",
 
     // fishing
@@ -173,6 +174,7 @@
     "warp.bathhouse": "โรงอาบน้ำ",
     "warp.mutant-bug-lair": "Mutant Bug Lair", // TODO
     "warp.quarry": "เหมืองหิน",
+    "warp.witch-swamp": "Witch's Swamp", // TODO
 
     // beach
     "warp-section.beach": "ชายหาด",

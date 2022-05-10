@@ -48,7 +48,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         public override void OnUpdated(CheatContext context, UpdateTickedEventArgs e)
         {
             // skip if not using a tool
-            if (!Context.IsPlayerFree || !Game1.player.UsingTool || !(Game1.player.CurrentTool is Axe || Game1.player.CurrentTool is Pickaxe))
+            if (!Context.IsPlayerFree || !Game1.player.UsingTool || Game1.player.CurrentTool is not (Axe or Pickaxe))
                 return;
 
             Farmer player = Game1.player;
@@ -58,7 +58,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
                 return;
 
             // get affected tile
-            Vector2 tile = new Vector2((int)player.GetToolLocation().X / Game1.tileSize, (int)player.GetToolLocation().Y / Game1.tileSize);
+            Vector2 tile = new((int)player.GetToolLocation().X / Game1.tileSize, (int)player.GetToolLocation().Y / Game1.tileSize);
 
             // break stones
             if (tool is Pickaxe && location.objects.TryGetValue(tile, out SObject obj) && obj?.name == "Stone")
@@ -74,7 +74,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
             }
 
             // break resource clumps
-            foreach (ResourceClump clump in this.GetResourceClumps(location))
+            foreach (ResourceClump? clump in this.GetResourceClumps(location))
             {
                 if (clump != null && clump.getBoundingBox(clump.tile.Value).Contains((int)player.GetToolLocation().X, (int)player.GetToolLocation().Y) && clump.health.Value > 0)
                     clump.health.Value = 0;
@@ -87,7 +87,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         *********/
         /// <summary>Get the resource clumps in a location.</summary>
         /// <param name="location">The location to check.</param>
-        private IEnumerable<ResourceClump> GetResourceClumps(GameLocation location)
+        private IEnumerable<ResourceClump?> GetResourceClumps(GameLocation location)
         {
             IEnumerable<ResourceClump> clumps = location.resourceClumps;
 

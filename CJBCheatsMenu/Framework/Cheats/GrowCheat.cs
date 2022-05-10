@@ -92,24 +92,24 @@ namespace CJBCheatsMenu.Framework.Cheats
             foreach (Vector2 tile in CommonHelper.GetTileArea(origin, radius))
             {
                 // get target
-                object target = null;
+                object? target = null;
                 {
                     // terrain feature
                     if (location.terrainFeatures.TryGetValue(tile, out TerrainFeature terrainFeature))
                     {
                         if (terrainFeature is HoeDirt dirt)
                             target = dirt.crop;
-                        else if (terrainFeature is Bush || terrainFeature is FruitTree || terrainFeature is Tree)
+                        else if (terrainFeature is Bush or FruitTree or Tree)
                             target = terrainFeature;
                     }
 
                     // indoor pot
                     if (target == null && location.objects.TryGetValue(tile, out SObject obj) && obj is IndoorPot pot)
                     {
-                        if (pot.hoeDirt.Value is HoeDirt dirt)
+                        if (pot.hoeDirt.Value is { } dirt)
                             target = dirt.crop;
 
-                        if (pot.bush.Value is Bush bush)
+                        if (pot.bush.Value is { } bush)
                             target = bush;
                     }
                 }

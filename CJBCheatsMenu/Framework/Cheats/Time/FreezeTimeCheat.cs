@@ -50,7 +50,11 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
             ModConfig config = context.Config;
 
             if (config.FreezeTimeKey.JustPressed())
+            {
                 config.FreezeTime = !config.FreezeTime;
+
+                Game1.playSound(config.FreezeTime ? "drumkit6" : "breathin");
+            }
         }
 
         /// <summary>Handle a game update if <see cref="ICheat.OnSaveLoaded"/> indicated updates were needed.</summary>
@@ -82,13 +86,18 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /// <param name="config">The mod configuration.</param>
         /// <param name="location">The location to check.</param>
         /// <param name="isCave">Whether the given location is a cave.</param>
-        private bool ShouldFreezeTime(ModConfig config, GameLocation location, out bool isCave)
+        private bool ShouldFreezeTime(ModConfig config, GameLocation? location, out bool isCave)
         {
-            isCave = location is MineShaft || location is FarmCave || location is VolcanoDungeon;
+            isCave = location is MineShaft or FarmCave or VolcanoDungeon;
+            bool isInside =
+                !isCave
+                && location?.IsOutdoors == false
+                && location is not BugLand; // incorrectly marked as indoors
+
             return
                 config.FreezeTime
                 || (config.FreezeTimeCaves && isCave)
-                || (config.FreezeTimeInside && location != null && !location.IsOutdoors && !isCave);
+                || (config.FreezeTimeInside && isInside);
         }
 
         /// <summary>Render the 'time frozen' box in the top-left.</summary>

@@ -28,16 +28,16 @@ namespace CJBCheatsMenu.Framework
         private readonly ICheat[] Cheats;
 
         /// <summary>The cheat implementations which should be notified of update ticks.</summary>
-        private readonly List<ICheat> CheatsWhichNeedUpdate = new List<ICheat>();
+        private readonly List<ICheat> CheatsWhichNeedUpdate = new();
 
         /// <summary>The cheat implementations which should be notified of user input.</summary>
-        private readonly List<ICheat> CheatsWhichNeedInput = new List<ICheat>();
+        private readonly List<ICheat> CheatsWhichNeedInput = new();
 
         /// <summary>The cheat implementations which should be notified of render ticks.</summary>
-        private readonly List<ICheat> CheatsWhichNeedRendering = new List<ICheat>();
+        private readonly List<ICheat> CheatsWhichNeedRendering = new();
 
         /// <summary>The backing field for <see cref="NoFriendshipDecay"/>.</summary>
-        private readonly NoFriendshipDecayCheat NoFriendshipDecayImpl = new NoFriendshipDecayCheat();
+        private readonly NoFriendshipDecayCheat NoFriendshipDecayImpl = new();
 
 
         /*********
@@ -108,6 +108,9 @@ namespace CJBCheatsMenu.Framework
 
         /// <summary>Automatically pets animals.</summary>
         public ICheat AutoPetAnimals { get; } = new AutoPetAnimalsCheat();
+
+        /// <summary>Automatically pets pets.</summary>
+        public ICheat AutoPetPets { get; } = new AutoPetPetsCheat();
 
         /// <summary>Enables infinite hay.</summary>
         public ICheat InfiniteHay { get; } = new InfiniteHayCheat();
@@ -214,12 +217,12 @@ namespace CJBCheatsMenu.Framework
         /// <param name="config">The mod configuration.</param>
         /// <param name="reflection">Simplifies access to private code.</param>
         /// <param name="getAllLocations">Get a cached list of all in-game locations.</param>
-        /// <param name="warps">The available warps.</param>
-        public CheatManager(ModConfig config, IReflectionHelper reflection, Func<IEnumerable<GameLocation>> getAllLocations, ModData warps)
+        /// <param name="getWarps">Get the warp data.</param>
+        public CheatManager(ModConfig config, IReflectionHelper reflection, Func<IEnumerable<GameLocation>> getAllLocations, Func<ModData> getWarps)
         {
             this.Context = new CheatContext(config, reflection, getAllLocations);
             this.Hearts = new HeartsCheat(onPointsChanged: (npc, points) => this.NoFriendshipDecayImpl.UpdateFriendship(npc, points));
-            this.Warps = new WarpCheat(warps);
+            this.Warps = new WarpCheat(getWarps);
 
             this.Cheats = this
                 .GetType()

@@ -56,6 +56,7 @@
     "farm.instant-build": "Costruisci Instantaneamente",
     "farm.auto-feed-animals": "Nutri gli Animali Automaticamente",
     "farm.auto-pet-animals": "Cura degli Animali Automatica",
+    "farm.auto-pet-pets": "Auto-Pet Pets", // TODO
     "farm.infinite-hay": "Fieno Infinito",
 
     // fishing
@@ -172,6 +173,7 @@
     "warp.bathhouse": "Terme",
     "warp.mutant-bug-lair": "Covo di insetti mutanti",
     "warp.quarry": "Cava",
+    "warp.witch-swamp": "Palude della Strega",
 
     // beach
     "warp-section.beach": "Spiaggia",

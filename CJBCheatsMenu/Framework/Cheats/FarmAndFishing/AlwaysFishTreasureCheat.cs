@@ -42,7 +42,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         public override void OnUpdated(CheatContext context, UpdateTickedEventArgs e)
         {
             if (Game1.player?.CurrentTool is FishingRod && Game1.activeClickableMenu is BobberBar bobberMenu)
-                context.Reflection.GetField<bool>(bobberMenu, "treasure").SetValue(true); ;
+                context.Reflection.GetField<bool>(bobberMenu, "treasure").SetValue(true);
         }
     }
 }

@@ -56,6 +56,7 @@
     "farm.instant-build": "Миттєва побудова",
     "farm.auto-feed-animals": "Авто-годування тварин",
     "farm.auto-pet-animals": "Авто-пестення тварин",
+    "farm.auto-pet-pets": "Auto-Pet Pets", // TODO
     "farm.infinite-hay": "Нескінченне сіно",
 
     // fishing
@@ -172,6 +173,7 @@
     "warp.bathhouse": "Сауна",
     "warp.mutant-bug-lair": "Лігво жуків-мутантів",
     "warp.quarry": "Кар'єр",
+    "warp.witch-swamp": "Witch's Swamp", // TODO
 
     // beach
     "warp-section.beach": "Пляж",

@@ -56,6 +56,7 @@
     "farm.instant-build": "Мгновенное строительство",
     "farm.auto-feed-animals": "Автоматическая подкормка животных",
     "farm.auto-pet-animals": "Автоматическое приласкивание животных",
+    "farm.auto-pet-pets": "Auto-Pet Pets", // TODO
     "farm.infinite-hay": "Бесконечное сено",
 
     // fishing
@@ -172,6 +173,7 @@
     "warp.bathhouse": "Баня",
     "warp.mutant-bug-lair": "Логово жуков-мутантов",
     "warp.quarry": "Карьер",
+    "warp.witch-swamp": "Болото ведьмы",
 
     // beach
     "warp-section.beach": "Пляж",

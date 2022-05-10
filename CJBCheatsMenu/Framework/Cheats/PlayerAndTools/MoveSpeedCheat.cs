@@ -65,7 +65,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
 
             // add or update buff
             int buffId = this.BuffUniqueID + context.Config.MoveSpeed;
-            Buff buff = Game1.buffsDisplay.otherBuffs.FirstOrDefault(p => p.which == buffId);
+            Buff? buff = Game1.buffsDisplay.otherBuffs.FirstOrDefault(p => p.which == buffId);
             if (buff == null)
             {
                 Game1.buffsDisplay.addOtherBuff(

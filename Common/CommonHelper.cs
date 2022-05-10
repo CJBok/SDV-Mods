@@ -14,7 +14,7 @@ namespace CJB.Common
         /*********
         ** Accessors
         *********/
-        /// <summary>The width of the borders drawn by <see cref="DrawTab(int,int,Microsoft.Xna.Framework.Graphics.SpriteFont,string,int,float)"/>.</summary>
+        /// <summary>The width of the borders drawn by <c>DrawTab</c>.</summary>
         public const int ButtonBorderWidth = 4 * Game1.pixelZoom;
 
 

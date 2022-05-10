@@ -24,7 +24,7 @@ namespace CJBCheatsMenu.Framework.Components
         private readonly string PressNewKeyLabel;
 
         /// <summary>The source rectangle for the 'set' button sprite.</summary>
-        private readonly Rectangle SetButtonSprite = new Rectangle(294, 428, 21, 11);
+        private readonly Rectangle SetButtonSprite = new(294, 428, 21, 11);
 
         /// <summary>The button area in screen pixels.</summary>
         private Rectangle SetButtonBounds;
@@ -93,7 +93,7 @@ namespace CJBCheatsMenu.Framework.Components
                 return;
 
             this.IsListening = true;
-            Game1.soundBank.PlayCue("breathin");
+            Game1.playSound("breathin");
             GameMenu.forcePreventClose = true;
         }
 
@@ -106,12 +106,12 @@ namespace CJBCheatsMenu.Framework.Components
             if (this.InvalidButtons.Contains(button))
             {
                 this.Value = this.ClearToButton;
-                Game1.soundBank.PlayCue("bigDeSelect");
+                Game1.playSound("bigDeSelect");
             }
             else
             {
                 this.Value = button;
-                Game1.soundBank.PlayCue("coin");
+                Game1.playSound("coin");
             }
 
             this.SetValue(this.Value);
@@ -124,7 +124,7 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
         /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
         /// <param name="context">The menu drawing the component.</param>
-        public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu context = null)
+        public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu? context = null)
         {
             Utility.drawTextWithShadow(spriteBatch, $"{this.label}: {this.Value}", Game1.dialogueFont, new Vector2(this.bounds.X + slotX, this.bounds.Y + slotY), this.greyedOut ? Game1.textColor * 0.33f : Game1.textColor, 1f, 0.15f);
             if (Constants.TargetPlatform != GamePlatform.Android)

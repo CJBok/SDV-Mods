@@ -25,7 +25,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
         };
 
         /// <summary>Maps Community Center completion flags to their area ID.</summary>
-        private readonly Dictionary<string, int> CommunityCenterCompletionFlags = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase)
+        private readonly Dictionary<string, int> CommunityCenterCompletionFlags = new(StringComparer.InvariantCultureIgnoreCase)
         {
             ["ccBoilerRoom"] = CommunityCenter.AREA_BoilerRoom,
             ["ccBulletin"] = CommunityCenter.AREA_Bulletin,
@@ -81,7 +81,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
         /// <param name="areaName">The name used in the translation key for the bundle name.</param>
         /// <param name="rewardName">The name used in the translation key for the reward name (or <c>null</c> to show '???').</param>
         /// <param name="flag">The game flag to toggle.</param>
-        private CheatsOptionsCheckbox GetBundleField(string areaName, string rewardName, string flag)
+        private CheatsOptionsCheckbox GetBundleField(string areaName, string? rewardName, string flag)
         {
             return new CheatsOptionsCheckbox(
                 label: this.GetJunimoRewardText(areaName, rewardName),
@@ -93,7 +93,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
         /// <summary>Get the display text for a toggle to mark a Community Center or JojaMart bundle complete.</summary>
         /// <param name="areaName">The name used in the translation key for the bundle name.</param>
         /// <param name="rewardName">The name used in the translation key for the reward name (or <c>null</c> to show '???').</param>
-        private string GetJunimoRewardText(string areaName, string rewardName = null)
+        private string GetJunimoRewardText(string areaName, string? rewardName = null)
         {
             return $"{Game1.content.LoadString($@"Strings\Locations:CommunityCenter_AreaName_{areaName}")} ({(rewardName != null ? Game1.content.LoadString($@"Strings\UI:JunimoNote_Reward{rewardName}") : "???")})";
         }
@@ -114,19 +114,19 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
 
                 // fix completion flags
                 this.SetFlag(allAreasDone, "ccComplete");
-                foreach (var pair in this.JojaMartCompletionFlags)
+                foreach ((string jojaFlag, string communityFlag) in this.JojaMartCompletionFlags)
                 {
-                    bool areaDone = isJoja && this.HasFlag(pair.Value);
-                    this.SetFlag(areaDone, pair.Key);
+                    bool areaDone = isJoja && this.HasFlag(communityFlag);
+                    this.SetFlag(areaDone, jojaFlag);
                 }
 
                 // mark areas complete
                 if (Game1.getLocationFromName("CommunityCenter") is CommunityCenter communityCenter)
                 {
-                    foreach (var pair in this.CommunityCenterCompletionFlags)
+                    foreach ((string flag, int areaId) in this.CommunityCenterCompletionFlags)
                     {
-                        if (communityCenter.areasComplete.Length > pair.Value)
-                            communityCenter.areasComplete[pair.Value] = this.HasFlag(pair.Key);
+                        if (communityCenter.areasComplete.Length > areaId)
+                            communityCenter.areasComplete[areaId] = this.HasFlag(flag);
                     }
                 }
 

@@ -17,13 +17,13 @@ namespace CJBItemSpawner
         ** Fields
         *********/
         /// <summary>The mod settings.</summary>
-        private ModConfig Config;
+        private ModConfig Config = null!; // set in Entry
 
         /// <summary>The internal mod data about items.</summary>
-        private ModItemData ItemData;
+        private ModItemData ItemData = null!; // set in Entry
 
         /// <summary>The item category filters available in the item spawner menu.</summary>
-        private ModDataCategory[] Categories;
+        private ModDataCategory[] Categories = null!; // set in Entry
 
         /// <summary>Manages the gamepad text entry UI.</summary>
         private readonly TextEntryManager TextEntryManager = new();
@@ -41,14 +41,20 @@ namespace CJBItemSpawner
             this.Monitor.Log($"Started with menu key {this.Config.ShowMenuKey}.");
 
             // read item data
-            this.ItemData = helper.Data.ReadJsonFile<ModItemData>("assets/item-data.json");
-            if (this.ItemData?.ProblematicItems == null)
-                this.Monitor.Log("One of the mod files (assets/item-data.json) is missing or invalid. Some features may not work correctly; consider reinstalling the mod.", LogLevel.Warn);
+            {
+                ModItemData? itemData = helper.Data.ReadJsonFile<ModItemData>("assets/item-data.json");
+                if (itemData?.ProblematicItems == null)
+                    this.Monitor.Log("One of the mod files (assets/item-data.json) is missing or invalid. Some features may not work correctly; consider reinstalling the mod.", LogLevel.Warn);
+                this.ItemData = itemData ?? new ModItemData(null);
+            }
 
             // read categories
-            this.Categories = helper.Data.ReadJsonFile<ModDataCategory[]>("assets/categories.json");
-            if (this.Categories == null)
-                this.Monitor.LogOnce("One of the mod files (assets/categories.json) is missing or invalid. Some features may not work correctly; consider reinstalling the mod.", LogLevel.Warn);
+            {
+                ModDataCategory[]? categories = helper.Data.ReadJsonFile<ModDataCategory[]>("assets/categories.json");
+                if (categories == null)
+                    this.Monitor.LogOnce("One of the mod files (assets/categories.json) is missing or invalid. Some features may not work correctly; consider reinstalling the mod.", LogLevel.Warn);
+                this.Categories = categories ?? Array.Empty<ModDataCategory>();
+            }
 
             // init mod
             I18n.Init(helper.Translation);
@@ -63,7 +69,7 @@ namespace CJBItemSpawner
         /// <summary>Raised after the player presses or releases any buttons on the keyboard, controller, or mouse.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void OnButtonsChanged(object sender, ButtonsChangedEventArgs e)
+        private void OnButtonsChanged(object? sender, ButtonsChangedEventArgs e)
         {
             if (!Context.IsPlayerFree)
                 return;
@@ -75,7 +81,7 @@ namespace CJBItemSpawner
         /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
+        private void OnUpdateTicked(object? sender, UpdateTickedEventArgs e)
         {
             this.TextEntryManager.Update();
         }
@@ -84,7 +90,7 @@ namespace CJBItemSpawner
         private ItemMenu BuildMenu()
         {
             SpawnableItem[] items = this.GetSpawnableItems().ToArray();
-            return new ItemMenu(items, this.TextEntryManager, this.Helper.Content, this.Monitor);
+            return new ItemMenu(items, this.TextEntryManager, this.Helper.ModContent, this.Monitor);
         }
 
         /// <summary>Get the items which can be spawned.</summary>
@@ -93,7 +99,7 @@ namespace CJBItemSpawner
             IEnumerable<SearchableItem> items = new ItemRepository().GetAll();
 
             // apply 'problematic items' filter
-            if (!this.Config.AllowProblematicItems && this.ItemData?.ProblematicItems?.Any() == true)
+            if (!this.Config.AllowProblematicItems && this.ItemData.ProblematicItems.Any())
             {
                 var problematicItems = new HashSet<string>(this.ItemData.ProblematicItems, StringComparer.OrdinalIgnoreCase);
                 items = items.Where(item => !problematicItems.Contains($"{item.Type}:{item.ID}"));
@@ -102,7 +108,7 @@ namespace CJBItemSpawner
             // yield models
             foreach (SearchableItem entry in items)
             {
-                ModDataCategory category = this.Categories?.FirstOrDefault(rule => rule.IsMatch(entry));
+                ModDataCategory? category = this.Categories.FirstOrDefault(rule => rule.IsMatch(entry));
                 string categoryLabel = category != null
                     ? I18n.GetByKey(category.Label).Default(category.Label)
                     : I18n.Filter_Miscellaneous();

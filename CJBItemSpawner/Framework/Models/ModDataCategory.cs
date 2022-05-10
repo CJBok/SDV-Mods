@@ -3,21 +3,11 @@ using CJBItemSpawner.Framework.ItemData;
 namespace CJBItemSpawner.Framework.Models
 {
     /// <summary>An item category filter rule. See the format documentation in the <c>data.json</c> file.</summary>
-    internal class ModDataCategory
+    /// <param name="Label">The translation key or literal text for the category display name.</param>
+    /// <param name="When">The rules for items which match this category.</param>
+    /// <param name="Except">The rules for items to ignore.</param>
+    internal record ModDataCategory(string Label, ModDataCategoryRule? When, ModDataCategoryRule? Except)
     {
-        /*********
-        ** Accessors
-        *********/
-        /// <summary>The translation key or literal text for the category display name.</summary>
-        public string Label { get; set; }
-
-        /// <summary>The rules for items which match this category.</summary>
-        public ModDataCategoryRule When { get; set; }
-
-        /// <summary>The rules for items to ignore.</summary>
-        public ModDataCategoryRule Except { get; set; }
-
-
         /*********
         ** Public methods
         *********/

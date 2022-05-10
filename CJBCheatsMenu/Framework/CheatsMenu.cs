@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using CJB.Common;
 using CJBCheatsMenu.Framework.Cheats;
@@ -27,12 +28,12 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Encapsulates monitoring and logging.</summary>
         private readonly IMonitor Monitor;
 
-        private readonly List<ClickableComponent> OptionSlots = new List<ClickableComponent>();
-        private readonly List<OptionsElement> Options = new List<OptionsElement>();
+        private readonly List<ClickableComponent> OptionSlots = new();
+        private readonly List<OptionsElement> Options = new();
         private ClickableTextureComponent UpArrow;
         private ClickableTextureComponent DownArrow;
         private ClickableTextureComponent Scrollbar;
-        private readonly List<ClickableComponent> Tabs = new List<ClickableComponent>();
+        private readonly List<ClickableComponent> Tabs = new();
         private ClickableComponent Title;
         private const int ItemsPerPage = 10;
 
@@ -48,8 +49,12 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Whether the menu was opened in the current tick.</summary>
         private bool JustOpened = true;
 
+
+        /*********
+        ** Accessors
+        *********/
         /// <summary>The currently open tab.</summary>
-        private readonly MenuTab CurrentTab;
+        public MenuTab CurrentTab { get; }
 
 
         /*********
@@ -59,13 +64,21 @@ namespace CJBCheatsMenu.Framework
         /// <param name="initialTab">The tab to display by default.</param>
         /// <param name="cheats">The cheats helper.</param>
         /// <param name="monitor">Encapsulates monitoring and logging.</param>
-        public CheatsMenu(MenuTab initialTab, CheatManager cheats, IMonitor monitor)
+        /// <param name="isNewMenu">Whether to play the open-menu sound.</param>
+        public CheatsMenu(MenuTab initialTab, CheatManager cheats, IMonitor monitor, bool isNewMenu)
         {
             this.Cheats = cheats;
             this.Monitor = monitor;
             this.CurrentTab = initialTab;
             this.ResetComponents();
             this.SetOptions();
+
+            Game1.playSound(isNewMenu
+                ? "bigSelect"   // menu open
+                : "smallSelect" // tab select
+            );
+
+            this.ResetComponents();
         }
 
         /// <summary>Exit the menu if that's allowed for the current state.</summary>
@@ -74,7 +87,7 @@ namespace CJBCheatsMenu.Framework
             if (this.readyToClose() && !GameMenu.forcePreventClose)
             {
                 Game1.exitActiveMenu();
-                Game1.soundBank.PlayCue("bigDeSelect");
+                Game1.playSound("bigDeSelect");
             }
         }
 
@@ -108,7 +121,7 @@ namespace CJBCheatsMenu.Framework
                 this.SetScrollBarToCurrentIndex();
                 if (num == this.Scrollbar.bounds.Y)
                     return;
-                Game1.soundBank.PlayCue("shiny4");
+                Game1.playSound("shiny4");
             }
             else
             {
@@ -136,7 +149,7 @@ namespace CJBCheatsMenu.Framework
         public override void receiveGamePadButton(Buttons key)
         {
             // navigate tabs
-            if ((key == Buttons.LeftShoulder || key == Buttons.RightShoulder) && !this.IsPressNewKeyActive())
+            if (key is (Buttons.LeftShoulder or Buttons.RightShoulder) && !this.IsPressNewKeyActive())
             {
                 // rotate tab index
                 int index = this.Tabs.FindIndex(p => p.name == this.CurrentTab.ToString());
@@ -152,7 +165,7 @@ namespace CJBCheatsMenu.Framework
 
                 // open menu with new index
                 MenuTab tabID = this.GetTabID(this.Tabs[index]);
-                Game1.activeClickableMenu = new CheatsMenu(tabID, this.Cheats, this.Monitor);
+                Game1.activeClickableMenu = new CheatsMenu(tabID, this.Cheats, this.Monitor, isNewMenu: false);
             }
 
             // send to active menu
@@ -203,12 +216,12 @@ namespace CJBCheatsMenu.Framework
             if (this.DownArrow.containsPoint(x, y) && this.CurrentItemIndex < Math.Max(0, this.Options.Count - CheatsMenu.ItemsPerPage))
             {
                 this.DownArrowPressed();
-                Game1.soundBank.PlayCue("shwip");
+                Game1.playSound("shwip");
             }
             else if (this.UpArrow.containsPoint(x, y) && this.CurrentItemIndex > 0)
             {
                 this.UpArrowPressed();
-                Game1.soundBank.PlayCue("shwip");
+                Game1.playSound("shwip");
             }
             else if (this.Scrollbar.containsPoint(x, y))
                 this.IsScrolling = true;
@@ -229,12 +242,12 @@ namespace CJBCheatsMenu.Framework
                 }
             }
 
-            foreach (var tab in this.Tabs)
+            foreach (ClickableComponent tab in this.Tabs)
             {
                 if (tab.bounds.Contains(x, y))
                 {
                     MenuTab tabID = this.GetTabID(tab);
-                    Game1.activeClickableMenu = new CheatsMenu(tabID, this.Cheats, this.Monitor);
+                    Game1.activeClickableMenu = new CheatsMenu(tabID, this.Cheats, this.Monitor, isNewMenu: false);
                     break;
                 }
             }
@@ -264,14 +277,14 @@ namespace CJBCheatsMenu.Framework
             Game1.drawDialogueBox(this.xPositionOnScreen, this.yPositionOnScreen, this.width, this.height, false, true);
             CommonHelper.DrawTab(this.Title.bounds.X, this.Title.bounds.Y, Game1.dialogueFont, this.Title.name, 1);
             spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
             for (int index = 0; index < this.OptionSlots.Count; ++index)
             {
                 if (this.CurrentItemIndex >= 0 && this.CurrentItemIndex + index < this.Options.Count)
                     this.Options[this.CurrentItemIndex + index].draw(spriteBatch, this.OptionSlots[index].bounds.X, this.OptionSlots[index].bounds.Y + 5);
             }
             spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
             if (!GameMenu.forcePreventClose)
             {
                 foreach (ClickableComponent tab in this.Tabs)
@@ -308,6 +321,7 @@ namespace CJBCheatsMenu.Framework
         ** Private methods
         *********/
         /// <summary>Initialize or reinitialize the UI components.</summary>
+        [MemberNotNull(nameof(CheatsMenu.DownArrow), nameof(CheatsMenu.Scrollbar), nameof(CheatsMenu.ScrollbarRunner), nameof(CheatsMenu.Title), nameof(CheatsMenu.UpArrow))]
         private void ResetComponents()
         {
             // set dimensions
@@ -426,6 +440,7 @@ namespace CJBCheatsMenu.Framework
                         cheats.InstantBuild,
                         cheats.AutoFeedAnimals,
                         cheats.AutoPetAnimals,
+                        cheats.AutoPetPets,
                         cheats.InfiniteHay
                     );
 
@@ -601,7 +616,7 @@ namespace CJBCheatsMenu.Framework
         }
 
         /// <summary>Get the currently active option, if any.</summary>
-        private OptionsElement GetActiveOption()
+        private OptionsElement? GetActiveOption()
         {
             if (this.OptionsSlotHeld == -1)
                 return null;
@@ -670,7 +685,7 @@ namespace CJBCheatsMenu.Framework
         /// <param name="cheats">The cheats to add.</param>
         private void AddOptions(params ICheat[] cheats)
         {
-            foreach (var field in cheats.SelectMany(p => p.GetFields(this.Cheats.Context)))
+            foreach (OptionsElement field in cheats.SelectMany(p => p.GetFields(this.Cheats.Context)))
                 this.Options.Add(field);
         }
 
@@ -686,7 +701,7 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Reset all controls to their default value.</summary>
         private void ResetControls()
         {
-            var config = this.Cheats.Context.Config;
+            ModConfig config = this.Cheats.Context.Config;
 
             config.FreezeTimeKey = ModConfig.Defaults.FreezeTimeKey;
             config.GrowCropsKey = ModConfig.Defaults.GrowCropsKey;
@@ -694,7 +709,7 @@ namespace CJBCheatsMenu.Framework
             config.OpenMenuKey = ModConfig.Defaults.OpenMenuKey;
             config.GrowRadius = ModConfig.Defaults.GrowRadius;
 
-            Game1.soundBank.PlayCue("bigDeSelect");
+            Game1.playSound("bigDeSelect");
 
             this.SetOptions();
         }

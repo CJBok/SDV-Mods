@@ -56,6 +56,7 @@
     "farm.instant-build": "建設がすぐに終わる",
     "farm.auto-feed-animals": "エサやり自動化",
     "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
+    "farm.auto-pet-pets": "Auto-Pet Pets", // TODO
     "farm.infinite-hay": "干し草が無くならない",
 
     // fishing
@@ -172,6 +173,7 @@
     "warp.bathhouse": "温泉",
     "warp.mutant-bug-lair": "ミュータントバグのすみか",
     "warp.quarry": "石切り場",
+    "warp.witch-swamp": "魔女の沼",
 
     // beach
     "warp-section.beach": "ビーチ",

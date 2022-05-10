@@ -26,10 +26,10 @@ namespace CJBCheatsMenu.Framework.Components
         private readonly Action<int> SetValue;
 
         /// <summary>The spritesheet position for a filled heart.</summary>
-        private readonly Rectangle FilledHeart = new Rectangle(211, 428, 7, 6);
+        private readonly Rectangle FilledHeart = new(211, 428, 7, 6);
 
         /// <summary>The spritesheet position for an empty heart.</summary>
-        private readonly Rectangle EmptyHeart = new Rectangle(218, 428, 7, 6);
+        private readonly Rectangle EmptyHeart = new(218, 428, 7, 6);
 
         /// <summary>The size of one rendered heart, accounting for zoom.</summary>
         private const int HeartSize = 8 * Game1.pixelZoom;
@@ -77,8 +77,21 @@ namespace CJBCheatsMenu.Framework.Components
         {
             if (this.greyedOut)
                 return;
+
             base.receiveLeftClick(x, y);
             this.leftClickHeld(x, y);
+
+            Game1.playSound("breathin");
+        }
+
+        /// <summary>Handle the player releasing the left mouse button.</summary>
+        /// <param name="x">The cursor's X pixel position.</param>
+        /// <param name="y">The cursor's Y pixel position.</param>
+        public override void leftClickReleased(int x, int y)
+        {
+            base.leftClickReleased(x, y);
+
+            Game1.playSound("drumkit6");
         }
 
         /// <summary>Draw the component to the screen.</summary>
@@ -86,19 +99,15 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
         /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
         /// <param name="context">The menu drawing the component.</param>
-        public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu context = null)
+        public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu? context = null)
         {
             base.draw(spriteBatch, slotX + this.GetOffsetX(), slotY, context);
 
             Color tint = this.greyedOut ? (Color.White * 0.5f) : Color.White;
 
             // draw mugshot
-            if (this.Mugshot != null)
-            {
-                this.Mugshot.bounds = new Rectangle(slotX + 32, slotY, Game1.tileSize, Game1.tileSize);
-                this.Mugshot.draw(spriteBatch, tint, 0.88f);
-            }
-
+            this.Mugshot.bounds = new Rectangle(slotX + 32, slotY, Game1.tileSize, Game1.tileSize);
+            this.Mugshot.draw(spriteBatch, tint, 0.88f);
 
             // draw hearts
             for (int i = 0; i < this.MaxValue; i++)

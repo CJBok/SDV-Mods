@@ -43,7 +43,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Skills
         private CheatsOptionsButton GetSkillButton(CheatContext context, string translationKey, int id, int currentLevel)
         {
             return new CheatsOptionsButton(
-                label: I18n.GetByKey($"skills.increase-{translationKey}", new { currentLevel = currentLevel }),
+                label: I18n.GetByKey($"skills.increase-{translationKey}", new { currentLevel }),
                 slotWidth: context.SlotWidth,
                 toggle: () => this.IncreaseSkill(id),
                 disabled: currentLevel >= 10
@@ -54,7 +54,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Skills
         /// <param name="level">The next skill level.</param>
         private int GetExperiencePoints(int level)
         {
-            if (level < 0 || level > 9)
+            if (level is < 0 or > 9)
                 return 0;
 
             int[] exp = { 100, 280, 390, 530, 850, 1150, 1500, 2100, 3100, 5000 };

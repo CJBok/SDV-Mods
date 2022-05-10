@@ -147,7 +147,7 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Mayonnaise machines finish instantly.</summary>
         public bool FastMayonnaiseMachine { get; set; }
 
-        /// <summary>Mushroom boxs finish instantly.</summary>
+        /// <summary>Mushroom boxes finish instantly.</summary>
         public bool FastMushroomBox { get; set; }
 
         /// <summary>Oil makers finish instantly.</summary>
@@ -215,6 +215,9 @@ namespace CJBCheatsMenu.Framework.Models
 
         /// <summary>Farm animals are pet automatically.</summary>
         public bool AutoPetAnimals { get; set; }
+
+        /// <summary>Pet animals are pet automatically.</summary>
+        public bool AutoPetPets { get; set; }
 
         /// <summary>Crops are watered automatically.</summary>
         public bool AutoWater { get; set; }

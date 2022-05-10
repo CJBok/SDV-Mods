@@ -16,7 +16,7 @@ namespace CJBCheatsMenu.Framework.Components
         private readonly Action Toggle;
 
         /// <summary>The source rectangle for the 'set' button sprite.</summary>
-        private readonly Rectangle SetButtonSprite = new Rectangle(294, 428, 21, 11);
+        private readonly Rectangle SetButtonSprite = new(294, 428, 21, 11);
 
         /// <summary>The button area in screen pixels.</summary>
         private Rectangle SetButtonBounds;
@@ -55,7 +55,7 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
         /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
         /// <param name="context">The menu drawing the component.</param>
-        public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu context = null)
+        public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu? context = null)
         {
             Utility.drawTextWithShadow(spriteBatch, this.label, Game1.dialogueFont, new Vector2(this.bounds.X + slotX, this.bounds.Y + slotY), this.greyedOut ? Game1.textColor * 0.33f : Game1.textColor, 1f, 0.15f);
             Utility.drawWithShadow(spriteBatch, Game1.mouseCursors, new Vector2(this.SetButtonBounds.X + slotX, this.SetButtonBounds.Y + slotY), this.SetButtonSprite, Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom, false, 0.15f);

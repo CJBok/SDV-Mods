@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using CJBCheatsMenu.Framework.Components;
 using CJBCheatsMenu.Framework.Models;
@@ -241,20 +242,19 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         /// <summary>Get whether an object is a machine with 'fast processing' enabled.</summary>
         /// <param name="context">The cheat context.</param>
         /// <param name="obj">The machine to check.</param>
-        private bool IsFastMachine(CheatContext context, SObject obj)
+        private bool IsFastMachine(CheatContext context, [NotNullWhen(true)] SObject? obj)
         {
             // quick initial check
-            bool mayBeMachine = obj != null && (obj.bigCraftable.Value || obj is CrabPot);
-            if (!mayBeMachine)
+            if (obj is not (CrabPot or { bigCraftable.Value: true }))
                 return false;
 
             // specific check
             ModConfig config = context.Config;
             return obj switch
             {
-                Cask _ => config.FastCask,
-                CrabPot _ => config.FastCrabPot,
-                WoodChipper _ => config.FastWoodChipper,
+                Cask => config.FastCask,
+                CrabPot => config.FastCrabPot,
+                WoodChipper => config.FastWoodChipper,
                 _ => obj.name switch
                 {
                     "Bee House" => config.FastBeeHouse,

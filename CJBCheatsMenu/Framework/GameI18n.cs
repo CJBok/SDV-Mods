@@ -17,7 +17,7 @@ namespace CJBCheatsMenu.Framework
         {
             if (Game1.bigCraftablesInformation == null)
                 return "(missing translation: game hasn't loaded big craftable data yet)";
-            if (!Game1.bigCraftablesInformation.TryGetValue(id, out string value))
+            if (!Game1.bigCraftablesInformation.TryGetValue(id, out string? value))
                 return $"(missing translation: no big craftable #{id})";
 
             return value.Split('/').Last();
@@ -29,7 +29,7 @@ namespace CJBCheatsMenu.Framework
         {
             if (Game1.objectInformation == null)
                 return "(missing translation: game hasn't loaded object data yet)";
-            if (!Game1.objectInformation.TryGetValue(id, out string value))
+            if (!Game1.objectInformation.TryGetValue(id, out string? value))
                 return $"(missing translation: no object #{id})";
 
             string[] parts = value.Split('/');

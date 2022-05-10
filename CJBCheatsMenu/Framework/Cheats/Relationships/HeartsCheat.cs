@@ -60,7 +60,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Relationships
         private OptionsElement GetField(NPC npc)
         {
             // get friendship info
-            Game1.player.friendshipData.TryGetValue(npc.Name, out Friendship friendship);
+            Game1.player.friendshipData.TryGetValue(npc.Name, out Friendship? friendship);
             bool isSpouse = friendship?.IsMarried() ?? false;
             int curHearts = (friendship?.Points ?? 0) / NPC.friendshipPointsPerHeartLevel;
             int maxHearts = isSpouse ? 14 : NPC.maxFriendshipPoints / NPC.friendshipPointsPerHeartLevel;
@@ -85,7 +85,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Relationships
             {
                 friendship = new Friendship();
                 Game1.player.friendshipData.Add(npc.Name, friendship);
-                SocializeQuest socialQuest = Game1.player.questLog.OfType<SocializeQuest>().FirstOrDefault();
+                SocializeQuest? socialQuest = Game1.player.questLog.OfType<SocializeQuest>().FirstOrDefault();
                 if (socialQuest != null && !socialQuest.completed.Value)
                     socialQuest.checkIfComplete(npc);
             }

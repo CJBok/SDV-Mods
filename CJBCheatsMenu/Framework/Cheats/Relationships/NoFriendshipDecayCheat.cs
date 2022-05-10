@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CJBCheatsMenu.Framework.Components;
+using Netcode;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -15,7 +16,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Relationships
         ** Fields
         *********/
         /// <summary>The minimum friendship points to maintain for each NPC.</summary>
-        private readonly Dictionary<string, int> PreviousFriendships = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> PreviousFriendships = new();
 
 
         /*********
@@ -72,8 +73,8 @@ namespace CJBCheatsMenu.Framework.Cheats.Relationships
 
             // update friendship tracking
             this.PreviousFriendships.Clear();
-            foreach (var pair in Game1.player.friendshipData.FieldDict)
-                this.PreviousFriendships[pair.Key] = pair.Value.Value.Points;
+            foreach ((string name, NetRef<Friendship> friendship) in Game1.player.friendshipData.FieldDict)
+                this.PreviousFriendships[name] = friendship.Value.Points;
         }
 
         /// <summary>Update the tracked friendship points for an NPC.</summary>

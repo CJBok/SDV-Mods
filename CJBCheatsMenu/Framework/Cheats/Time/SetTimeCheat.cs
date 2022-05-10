@@ -46,7 +46,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
             {
                 for (int i = 0; i > intervals; i--)
                 {
-                    Game1.timeOfDay = Utility.ModifyTime(Game1.timeOfDay, -20); // offset 20 mins so game updates to next interval
+                    Game1.timeOfDay = Utility.ModifyTime(Game1.timeOfDay, -20); // offset 20 minutes so game updates to next interval
                     Game1.performTenMinuteClockUpdate();
                 }
             }

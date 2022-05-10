@@ -55,7 +55,8 @@
     "farm.durable-fences": "Vallas Duraderas",
     "farm.instant-build": "Construcciones Instantáneas",
     "farm.auto-feed-animals": "Siempre Auto Alimentar",
-    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
+    "farm.auto-pet-animals": "Acariciar Animales Automticamente",
+    "farm.auto-pet-pets": "Auto-Pet Pets", // TODO
     "farm.infinite-hay": "Heno Infinito",
 
     // fishing
@@ -172,6 +173,7 @@
     "warp.bathhouse": "Spa",
     "warp.mutant-bug-lair": "Madriguera de bichos mutantes",
     "warp.quarry": "Cantera",
+    "warp.witch-swamp": "Pantano de la Bruja",
 
     // beach
     "warp-section.beach": "Playa",

@@ -23,13 +23,13 @@ namespace CJB.Common.UI
             public static readonly Texture2D Sheet = Game1.mouseCursors;
 
             /// <summary>The background for the selected item.</summary>
-            public static readonly Rectangle ActiveBackground = new Rectangle(258, 258, 4, 4);
+            public static readonly Rectangle ActiveBackground = new(258, 258, 4, 4);
 
             /// <summary>The background for a non-selected, non-hovered item.</summary>
-            public static readonly Rectangle InactiveBackground = new Rectangle(269, 258, 4, 4);
+            public static readonly Rectangle InactiveBackground = new(269, 258, 4, 4);
 
             /// <summary>The background for an item under the cursor.</summary>
-            public static readonly Rectangle HoverBackground = new Rectangle(161, 340, 4, 4);
+            public static readonly Rectangle HoverBackground = new(161, 340, 4, 4);
         }
 
         /// <summary>Sprites used to draw icons.</summary>
@@ -39,10 +39,10 @@ namespace CJB.Common.UI
             public static Texture2D Sheet => Game1.mouseCursors;
 
             /// <summary>A down arrow for scrolling content.</summary>
-            public static readonly Rectangle DownArrow = new Rectangle(12, 76, 40, 44);
+            public static readonly Rectangle DownArrow = new(12, 76, 40, 44);
 
             /// <summary>An up arrow for scrolling content.</summary>
-            public static readonly Rectangle UpArrow = new Rectangle(76, 72, 40, 44);
+            public static readonly Rectangle UpArrow = new(76, 72, 40, 44);
         }
 
         /// <summary>Sprites used to draw a tab.</summary>
@@ -52,31 +52,31 @@ namespace CJB.Common.UI
             public static readonly Texture2D Sheet = Game1.mouseCursors;
 
             /// <summary>The top-left corner.</summary>
-            public static readonly Rectangle TopLeft = new Rectangle(0, 384, 5, 5);
+            public static readonly Rectangle TopLeft = new(0, 384, 5, 5);
 
             /// <summary>The top-right corner.</summary>
-            public static readonly Rectangle TopRight = new Rectangle(11, 384, 5, 5);
+            public static readonly Rectangle TopRight = new(11, 384, 5, 5);
 
             /// <summary>The bottom-left corner.</summary>
-            public static readonly Rectangle BottomLeft = new Rectangle(0, 395, 5, 5);
+            public static readonly Rectangle BottomLeft = new(0, 395, 5, 5);
 
             /// <summary>The bottom-right corner.</summary>
-            public static readonly Rectangle BottomRight = new Rectangle(11, 395, 5, 5);
+            public static readonly Rectangle BottomRight = new(11, 395, 5, 5);
 
             /// <summary>The top edge.</summary>
-            public static readonly Rectangle Top = new Rectangle(4, 384, 1, 3);
+            public static readonly Rectangle Top = new(4, 384, 1, 3);
 
             /// <summary>The left edge.</summary>
-            public static readonly Rectangle Left = new Rectangle(0, 388, 3, 1);
+            public static readonly Rectangle Left = new(0, 388, 3, 1);
 
             /// <summary>The right edge.</summary>
-            public static readonly Rectangle Right = new Rectangle(13, 388, 3, 1);
+            public static readonly Rectangle Right = new(13, 388, 3, 1);
 
             /// <summary>The bottom edge.</summary>
-            public static readonly Rectangle Bottom = new Rectangle(4, 397, 1, 3);
+            public static readonly Rectangle Bottom = new(4, 397, 1, 3);
 
             /// <summary>The tab background.</summary>
-            public static readonly Rectangle Background = new Rectangle(5, 387, 1, 1);
+            public static readonly Rectangle Background = new(5, 387, 1, 1);
         }
     }
 }

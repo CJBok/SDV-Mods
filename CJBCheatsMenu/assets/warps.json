@@ -125,6 +125,11 @@
                 "DisplayText": "warp.quarry",
                 "Location": "Mountain",
                 "Tile": "127, 12"
+            },
+            {
+                "DisplayText": "warp.witch-swamp",
+                "Location": "WitchSwamp",
+                "Tile": "20, 23"
             }
         ],
         "warp-section.beach": [
@@ -185,6 +190,6 @@
                 "Location": "UndergroundMine121",
                 "Tile": "0, 0" // game places the player next to the ladder automatically
             }
-        ]  
+        ]
     }
 }

@@ -47,7 +47,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
             if (!e.IsOneSecond || !Context.IsWorldReady)
                 return;
 
-            Farm farm = Game1.getFarm();
+            Farm? farm = Game1.getFarm();
             if (farm == null || !this.HasHay(farm, context))
                 return;
 
@@ -67,7 +67,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
 
                             for (int i = 0; i < animalCount && this.HasHay(farm, context); i++)
                             {
-                                Vector2 tile = new Vector2(tileX + i, 3);
+                                Vector2 tile = new(tileX + i, 3);
                                 if (!animalHouse.objects.ContainsKey(tile))
                                 {
                                     animalHouse.objects.Add(tile, new Object(178, 1));
