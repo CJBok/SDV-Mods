@@ -46,7 +46,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
             if (!Context.IsWorldReady)
                 return;
 
-            var monsters = Game1.currentLocation?.characters?.OfType<Monster>();
+            IEnumerable<Monster>? monsters = Game1.currentLocation?.characters?.OfType<Monster>();
             if (monsters != null) // some custom locations can have null characters list
             {
                 foreach (Monster monster in monsters)

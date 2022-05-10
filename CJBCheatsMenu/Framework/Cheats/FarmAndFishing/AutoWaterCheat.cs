@@ -54,7 +54,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
 
                 foreach (IndoorPot pot in location.objects.Values.OfType<IndoorPot>())
                 {
-                    HoeDirt dirt = pot.hoeDirt.Value;
+                    HoeDirt? dirt = pot.hoeDirt.Value;
                     if (dirt?.crop != null)
                     {
                         dirt.state.Value = HoeDirt.watered;

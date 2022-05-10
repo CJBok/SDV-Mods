@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using CJB.Common;
 using CJBCheatsMenu.Framework;
@@ -20,13 +21,13 @@ namespace CJBCheatsMenu
         private readonly string WarpsPath = "assets/warps.json";
 
         /// <summary>The mod settings.</summary>
-        private ModConfig Config;
+        private ModConfig Config = null!; // set in Entry
 
         /// <summary>The warps to show in the menu.</summary>
-        private ModData Warps;
+        private ModData Warps = new(null, null);
 
         /// <summary>Manages the cheat implementations.</summary>
-        private PerScreen<CheatManager> Cheats;
+        private PerScreen<CheatManager> Cheats = null!; // set in Entry
 
         /// <summary>The known in-game location.</summary>
         private readonly PerScreen<Lazy<GameLocation[]>> Locations = new(ModEntry.GetLocationsForCache);
@@ -76,7 +77,7 @@ namespace CJBCheatsMenu
         /// <summary>Raised after the player loads a save slot.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
+        private void OnSaveLoaded(object? sender, SaveLoadedEventArgs e)
         {
             this.ResetLocationCache();
             this.Cheats.Value.OnSaveLoaded();
@@ -85,7 +86,7 @@ namespace CJBCheatsMenu
         /// <summary>Raised after the player returns to the title screen.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void OnReturnedToTitle(object sender, ReturnedToTitleEventArgs e)
+        private void OnReturnedToTitle(object? sender, ReturnedToTitleEventArgs e)
         {
             this.ResetLocationCache();
         }
@@ -93,7 +94,7 @@ namespace CJBCheatsMenu
         /// <summary>Raised after a game location is added or removed.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void OnLocationListChanged(object sender, LocationListChangedEventArgs e)
+        private void OnLocationListChanged(object? sender, LocationListChangedEventArgs e)
         {
             this.ResetLocationCache();
         }
@@ -101,7 +102,7 @@ namespace CJBCheatsMenu
         /// <summary>Raised after the player presses or releases any keys on the keyboard, controller, or mouse.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void OnButtonChanged(object sender, ButtonsChangedEventArgs e)
+        private void OnButtonChanged(object? sender, ButtonsChangedEventArgs e)
         {
             // open menu
             if (this.Config.OpenMenuKey.JustPressed())
@@ -119,7 +120,7 @@ namespace CJBCheatsMenu
         /// <summary>Raised after the game draws to the sprite patch in a draw tick, just before the final sprite batch is rendered to the screen.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void OnRendered(object sender, RenderedEventArgs e)
+        private void OnRendered(object? sender, RenderedEventArgs e)
         {
             if (!Context.IsWorldReady)
                 return;
@@ -130,7 +131,7 @@ namespace CJBCheatsMenu
         /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
+        private void OnUpdateTicked(object? sender, UpdateTickedEventArgs e)
         {
             if (!Context.IsWorldReady)
                 return;
@@ -141,7 +142,7 @@ namespace CJBCheatsMenu
         /// <summary>Raised after a game menu is opened, closed, or replaced.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void OnMenuChanged(object sender, MenuChangedEventArgs e)
+        private void OnMenuChanged(object? sender, MenuChangedEventArgs e)
         {
             // save config
             if (e.OldMenu is CheatsMenu)
@@ -153,15 +154,16 @@ namespace CJBCheatsMenu
 
         /// <summary>Reload the available warps from the data file, if it's valid.</summary>
         /// <param name="isReloadCommand">Whether the warp is being loaded for the <c>cjb_reload_warps</c> console command.</param>
+        [SuppressMessage("ReSharper", "ConstantNullCoalescingCondition", Justification = "The warps field is initialized in this method.")]
         private void TryLoadWarps(bool isReloadCommand)
         {
-            string fallbackPhrase = this.Warps == null
+            string fallbackPhrase = !this.Warps.Warps.Any()
                 ? "try reinstalling this mod"
                 : "the previous warps will be kept instead";
 
             try
             {
-                ModData warps = this.Helper.Data.ReadJsonFile<ModData>(this.WarpsPath);
+                ModData? warps = this.Helper.Data.ReadJsonFile<ModData>(this.WarpsPath);
                 if (warps == null)
                 {
                     this.Monitor.Log($"Some of the mod files are missing ({this.WarpsPath}); {fallbackPhrase}.", LogLevel.Error);

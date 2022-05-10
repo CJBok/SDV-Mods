@@ -86,7 +86,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /// <param name="config">The mod configuration.</param>
         /// <param name="location">The location to check.</param>
         /// <param name="isCave">Whether the given location is a cave.</param>
-        private bool ShouldFreezeTime(ModConfig config, GameLocation location, out bool isCave)
+        private bool ShouldFreezeTime(ModConfig config, GameLocation? location, out bool isCave)
         {
             isCave = location is MineShaft or FarmCave or VolcanoDungeon;
             bool isInside =

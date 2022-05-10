@@ -8,6 +8,7 @@
 
     <!-- build settings -->
     <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <ModZipPath>$(SolutionDir)\_releases</ModZipPath>
   </PropertyGroup>

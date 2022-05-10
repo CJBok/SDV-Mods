@@ -124,7 +124,7 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
         /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
         /// <param name="context">The menu drawing the component.</param>
-        public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu context = null)
+        public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu? context = null)
         {
             Utility.drawTextWithShadow(spriteBatch, $"{this.label}: {this.Value}", Game1.dialogueFont, new Vector2(this.bounds.X + slotX, this.bounds.Y + slotY), this.greyedOut ? Game1.textColor * 0.33f : Game1.textColor, 1f, 0.15f);
             if (Constants.TargetPlatform != GamePlatform.Android)

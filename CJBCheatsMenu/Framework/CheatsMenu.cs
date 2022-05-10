@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using CJB.Common;
 using CJBCheatsMenu.Framework.Cheats;
@@ -76,6 +77,8 @@ namespace CJBCheatsMenu.Framework
                 ? "bigSelect"   // menu open
                 : "smallSelect" // tab select
             );
+
+            this.ResetComponents();
         }
 
         /// <summary>Exit the menu if that's allowed for the current state.</summary>
@@ -239,7 +242,7 @@ namespace CJBCheatsMenu.Framework
                 }
             }
 
-            foreach (var tab in this.Tabs)
+            foreach (ClickableComponent tab in this.Tabs)
             {
                 if (tab.bounds.Contains(x, y))
                 {
@@ -318,6 +321,7 @@ namespace CJBCheatsMenu.Framework
         ** Private methods
         *********/
         /// <summary>Initialize or reinitialize the UI components.</summary>
+        [MemberNotNull(nameof(CheatsMenu.DownArrow), nameof(CheatsMenu.Scrollbar), nameof(CheatsMenu.ScrollbarRunner), nameof(CheatsMenu.Title), nameof(CheatsMenu.UpArrow))]
         private void ResetComponents()
         {
             // set dimensions
@@ -612,7 +616,7 @@ namespace CJBCheatsMenu.Framework
         }
 
         /// <summary>Get the currently active option, if any.</summary>
-        private OptionsElement GetActiveOption()
+        private OptionsElement? GetActiveOption()
         {
             if (this.OptionsSlotHeld == -1)
                 return null;
@@ -681,7 +685,7 @@ namespace CJBCheatsMenu.Framework
         /// <param name="cheats">The cheats to add.</param>
         private void AddOptions(params ICheat[] cheats)
         {
-            foreach (var field in cheats.SelectMany(p => p.GetFields(this.Cheats.Context)))
+            foreach (OptionsElement field in cheats.SelectMany(p => p.GetFields(this.Cheats.Context)))
                 this.Options.Add(field);
         }
 
@@ -697,7 +701,7 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Reset all controls to their default value.</summary>
         private void ResetControls()
         {
-            var config = this.Cheats.Context.Config;
+            ModConfig config = this.Cheats.Context.Config;
 
             config.FreezeTimeKey = ModConfig.Defaults.FreezeTimeKey;
             config.GrowCropsKey = ModConfig.Defaults.GrowCropsKey;

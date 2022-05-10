@@ -21,10 +21,9 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
         /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
         /// <param name="context">The menu drawing the component.</param>
-        public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu context = null)
+        public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu? context = null)
         {
-            int yOffset = 0;
-            spriteBatch.DrawString(Game1.smallFont, this.label, new Vector2(slotX + this.bounds.X, slotY + this.bounds.Y + yOffset), Color.Black);
+            spriteBatch.DrawString(Game1.smallFont, this.label, new Vector2(slotX + this.bounds.X, slotY + this.bounds.Y), Color.Black);
         }
     }
 }

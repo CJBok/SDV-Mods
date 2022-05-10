@@ -81,7 +81,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
         /// <param name="areaName">The name used in the translation key for the bundle name.</param>
         /// <param name="rewardName">The name used in the translation key for the reward name (or <c>null</c> to show '???').</param>
         /// <param name="flag">The game flag to toggle.</param>
-        private CheatsOptionsCheckbox GetBundleField(string areaName, string rewardName, string flag)
+        private CheatsOptionsCheckbox GetBundleField(string areaName, string? rewardName, string flag)
         {
             return new CheatsOptionsCheckbox(
                 label: this.GetJunimoRewardText(areaName, rewardName),
@@ -93,7 +93,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
         /// <summary>Get the display text for a toggle to mark a Community Center or JojaMart bundle complete.</summary>
         /// <param name="areaName">The name used in the translation key for the bundle name.</param>
         /// <param name="rewardName">The name used in the translation key for the reward name (or <c>null</c> to show '???').</param>
-        private string GetJunimoRewardText(string areaName, string rewardName = null)
+        private string GetJunimoRewardText(string areaName, string? rewardName = null)
         {
             return $"{Game1.content.LoadString($@"Strings\Locations:CommunityCenter_AreaName_{areaName}")} ({(rewardName != null ? Game1.content.LoadString($@"Strings\UI:JunimoNote_Reward{rewardName}") : "???")})";
         }

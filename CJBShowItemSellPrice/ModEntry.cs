@@ -35,13 +35,13 @@ namespace CJBShowItemSellPrice
         private readonly Vector2 TooltipOffset = new(Game1.tileSize / 2);
 
         /// <summary>Metadata that isn't available from the game data directly.</summary>
-        private DataModel Data;
+        private DataModel Data = null!; // set in Entry
 
         /// <summary>The cached toolbar instance.</summary>
-        private readonly PerScreen<Toolbar> Toolbar = new();
+        private readonly PerScreen<Toolbar?> Toolbar = new();
 
         /// <summary>The cached toolbar slots.</summary>
-        private readonly PerScreen<IList<ClickableComponent>> ToolbarSlots = new();
+        private readonly PerScreen<IList<ClickableComponent>?> ToolbarSlots = new();
 
 
         /*********
@@ -55,8 +55,7 @@ namespace CJBShowItemSellPrice
             I18n.Init(helper.Translation);
 
             // load data
-            this.Data = helper.Data.ReadJsonFile<DataModel>("assets/data.json") ?? new DataModel();
-            this.Data.ForceSellable ??= new HashSet<int>();
+            this.Data = helper.Data.ReadJsonFile<DataModel>("assets/data.json") ?? new DataModel(null);
 
             // hook events
             helper.Events.Display.RenderedActiveMenu += this.OnRenderedActiveMenu;
@@ -71,7 +70,7 @@ namespace CJBShowItemSellPrice
         /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
+        private void OnUpdateTicked(object? sender, UpdateTickedEventArgs e)
         {
             // cache the toolbar & slots
             if (e.IsOneSecond)
@@ -94,10 +93,10 @@ namespace CJBShowItemSellPrice
         /// <summary>When a menu is open (<see cref="Game1.activeClickableMenu"/> isn't null), raised after that menu is drawn to the sprite batch but before it's rendered to the screen.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void OnRenderedActiveMenu(object sender, RenderedActiveMenuEventArgs e)
+        private void OnRenderedActiveMenu(object? sender, RenderedActiveMenuEventArgs e)
         {
             // get item
-            Item item = this.GetItemFromMenu(Game1.activeClickableMenu);
+            Item? item = this.GetItemFromMenu(Game1.activeClickableMenu);
             if (item == null)
                 return;
 
@@ -108,13 +107,13 @@ namespace CJBShowItemSellPrice
         /// <summary>Raised after drawing the HUD (item toolbar, clock, etc) to the sprite batch, but before it's rendered to the screen. The vanilla HUD may be hidden at this point (e.g. because a menu is open).</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void OnRenderedHud(object sender, EventArgs e)
+        private void OnRenderedHud(object? sender, EventArgs e)
         {
             if (!Context.IsPlayerFree)
                 return;
 
             // get item
-            Item item = this.GetItemFromToolbar();
+            Item? item = this.GetItemFromToolbar();
             if (item == null)
                 return;
 
@@ -124,7 +123,7 @@ namespace CJBShowItemSellPrice
 
         /// <summary>Get the hovered item from an arbitrary menu.</summary>
         /// <param name="menu">The menu whose hovered item to find.</param>
-        private Item GetItemFromMenu(IClickableMenu menu)
+        private Item? GetItemFromMenu(IClickableMenu menu)
         {
             // game menu
             if (menu is GameMenu gameMenu)
@@ -144,15 +143,15 @@ namespace CJBShowItemSellPrice
         }
 
         /// <summary>Get the hovered item from the on-screen toolbar.</summary>
-        private Item GetItemFromToolbar()
+        private Item? GetItemFromToolbar()
         {
-            if (!Context.IsPlayerFree || this.Toolbar?.Value == null || this.ToolbarSlots == null || !Game1.displayHUD)
+            if (!Context.IsPlayerFree || this.Toolbar.Value == null || this.ToolbarSlots.Value == null || !Game1.displayHUD)
                 return null;
 
             // find hovered slot
             int x = Game1.getMouseX();
             int y = Game1.getMouseY();
-            ClickableComponent hoveredSlot = this.ToolbarSlots.Value.FirstOrDefault(slot => slot.containsPoint(x, y));
+            ClickableComponent? hoveredSlot = this.ToolbarSlots.Value.FirstOrDefault(slot => slot.containsPoint(x, y));
             if (hoveredSlot == null)
                 return null;
 
@@ -187,9 +186,9 @@ namespace CJBShowItemSellPrice
 
             // prepare text
             string unitLabel = I18n.Labels_SinglePrice() + ":";
-            string unitPrice = price.ToString();
+            string unitPrice = price.ToString()!;
             string stackLabel = I18n.Labels_StackPrice() + ":";
-            string stackPrice = (price * stack).ToString();
+            string stackPrice = (price * stack).ToString()!;
 
             // get dimensions
             Vector2 unitPriceSize = font.MeasureString(unitPrice);

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using CJB.Common;
@@ -137,7 +138,7 @@ namespace CJBItemSpawner.Framework
         private float SearchIconOpacity = 1f;
 
         /// <summary>Whether the search icon is transitioning between the selected/unselected states.</summary>
-        private bool IsSearchBoxSelectionChanging => this.SearchIconOpacity > 0 && this.SearchIconOpacity < 1;
+        private bool IsSearchBoxSelectionChanging => this.SearchIconOpacity is > 0 and < 1;
 
 
         /*********
@@ -323,7 +324,7 @@ namespace CJBItemSpawner.Framework
                     this.ScrollView(direction);
             }
 
-            // default behavior (unless we're already handling a searchbox selection change)
+            // default behavior (unless we're already handling a search box selection change)
             else
             {
                 bool isIgnoredExitKey = this.SearchBox.Selected && isExitButton && !isEscape;
@@ -428,7 +429,7 @@ namespace CJBItemSpawner.Framework
             }
 
             // fix empty spots on Android
-            if (this.IsAndroid && this.ItemsInView.Any(p => p == null))
+            if (this.IsAndroid && this.ItemsInView.Any(p => p == null!)) // deliberate null-check to fix edge case
                 this.ResetItemView();
 
             base.update(time);
@@ -538,6 +539,17 @@ namespace CJBItemSpawner.Framework
         }
 
         /// <summary>Initialize the custom UI components.</summary>
+        [MemberNotNull(
+            nameof(ItemMenu.CategoryDropdown),
+            nameof(ItemMenu.DownArrow),
+            nameof(ItemMenu.QualityButton),
+            nameof(ItemMenu.SearchBox),
+            nameof(ItemMenu.SearchBoxArea),
+            nameof(ItemMenu.SearchIcon),
+            nameof(ItemMenu.SortButton),
+            nameof(ItemMenu.SortIcon),
+            nameof(ItemMenu.UpArrow)
+        )]
         private void InitializeComponents()
         {
             // get basic positions
@@ -787,7 +799,7 @@ namespace CJBItemSpawner.Framework
 
             // update items in view
             this.ItemsInView.Clear();
-            foreach (var match in this.FilteredItems.Skip(this.TopRowIndex * this.ItemsPerRow).Take(this.ItemsPerView))
+            foreach (SpawnableItem match in this.FilteredItems.Skip(this.TopRowIndex * this.ItemsPerRow).Take(this.ItemsPerView))
             {
                 Item item = match.CreateItem();
                 item.Stack = item.maximumStackSize();
@@ -819,8 +831,8 @@ namespace CJBItemSpawner.Framework
             if (search != "")
             {
                 items = items.Where(item =>
-                    item.Name.IndexOf(search, StringComparison.InvariantCultureIgnoreCase) >= 0
-                    || item.DisplayName.IndexOf(search, StringComparison.InvariantCultureIgnoreCase) >= 0
+                    item.Name.Contains(search, StringComparison.InvariantCultureIgnoreCase)
+                    || item.DisplayName.Contains(search, StringComparison.InvariantCultureIgnoreCase)
                 );
             }
 
@@ -874,7 +886,7 @@ namespace CJBItemSpawner.Framework
         {
             MethodInfo method = typeof(ItemGrabMenu).GetMethod("draw", BindingFlags.Instance | BindingFlags.Public, null, new[] { typeof(SpriteBatch) }, null) ?? throw new InvalidOperationException($"Can't find {nameof(ItemGrabMenu)}.{nameof(ItemGrabMenu.draw)} method.");
             IntPtr pointer = method.MethodHandle.GetFunctionPointer();
-            return (Action<SpriteBatch>)Activator.CreateInstance(typeof(Action<SpriteBatch>), this, pointer);
+            return (Action<SpriteBatch>)Activator.CreateInstance(typeof(Action<SpriteBatch>), this, pointer)!;
         }
 
         /// <summary>Get whether two strings are equal, ignoring case differences.</summary>

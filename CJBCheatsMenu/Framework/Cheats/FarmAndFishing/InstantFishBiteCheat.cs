@@ -41,7 +41,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         /// <param name="e">The update event arguments.</param>
         public override void OnUpdated(CheatContext context, UpdateTickedEventArgs e)
         {
-            if (Game1.player?.CurrentTool is FishingRod rod && rod.isFishing && !rod.hit && rod.timeUntilFishingBite > 0)
+            if (Game1.player?.CurrentTool is FishingRod { isFishing: true, hit: false, timeUntilFishingBite: > 0 } rod)
                 rod.timeUntilFishingBite = 0;
         }
     }

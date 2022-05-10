@@ -70,7 +70,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         *********/
         /// <summary>Get all crops in a location.</summary>
         /// <param name="location">The location to scan.</param>
-        private IEnumerable<Crop> GetCropsIn(GameLocation location)
+        private IEnumerable<Crop> GetCropsIn(GameLocation? location)
         {
             if (location == null)
                 yield break;
@@ -85,7 +85,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
             // garden pots
             foreach (IndoorPot pot in location.objects.Values.OfType<IndoorPot>())
             {
-                var crop = pot.hoeDirt.Value?.crop;
+                Crop? crop = pot.hoeDirt.Value?.crop;
                 if (crop != null)
                     yield return crop;
             }

@@ -74,7 +74,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
             }
 
             // break resource clumps
-            foreach (ResourceClump clump in this.GetResourceClumps(location))
+            foreach (ResourceClump? clump in this.GetResourceClumps(location))
             {
                 if (clump != null && clump.getBoundingBox(clump.tile.Value).Contains((int)player.GetToolLocation().X, (int)player.GetToolLocation().Y) && clump.health.Value > 0)
                     clump.health.Value = 0;
@@ -87,7 +87,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         *********/
         /// <summary>Get the resource clumps in a location.</summary>
         /// <param name="location">The location to check.</param>
-        private IEnumerable<ResourceClump> GetResourceClumps(GameLocation location)
+        private IEnumerable<ResourceClump?> GetResourceClumps(GameLocation location)
         {
             IEnumerable<ResourceClump> clumps = location.resourceClumps;
 

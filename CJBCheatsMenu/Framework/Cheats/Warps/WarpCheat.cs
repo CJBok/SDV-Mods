@@ -43,13 +43,13 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
             IDictionary<string, int> sectionOrder = this.GetSectionOrder(warpData);
             IDictionary<string, ModDataWarp[]> warpsBySection = this.GetWarpsBySection(warpData);
 
-            foreach (var section in this.GetSections(sectionOrder, warpsBySection))
+            foreach ((string sectionKey, string sectionLabel) in this.GetSections(sectionOrder, warpsBySection))
             {
                 // section title
-                yield return new OptionsElement(section.Value + ":");
+                yield return new OptionsElement($"{sectionLabel}:");
 
                 // warps
-                foreach ((ModDataWarp warp, string label) in this.GetWarps(warpsBySection, section.Key))
+                foreach ((ModDataWarp warp, string warpLabel) in this.GetWarps(warpsBySection, sectionKey))
                 {
                     // skip warps that don't apply
                     switch (warp.SpecialBehavior)
@@ -64,7 +64,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
 
                     // get warp button
                     yield return new CheatsOptionsButton(
-                        label: label,
+                        label: warpLabel,
                         slotWidth: context.SlotWidth,
                         toggle: warp.SpecialBehavior switch
                         {
@@ -119,7 +119,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
         /// <param name="section">The section whose warps to get.</param>
         private IEnumerable<(ModDataWarp Warp, string Label)> GetWarps(IDictionary<string, ModDataWarp[]> warpsBySection, string section)
         {
-            if (!warpsBySection.TryGetValue(section, out ModDataWarp[] warps))
+            if (!warpsBySection.TryGetValue(section, out ModDataWarp[]? warps))
                 return Enumerable.Empty<(ModDataWarp, string)>();
 
             return

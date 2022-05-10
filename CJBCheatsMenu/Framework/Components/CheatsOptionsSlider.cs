@@ -53,7 +53,7 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="disabled">Whether the slider should be disabled.</param>
         /// <param name="format">Format the display label.</param>
         /// <param name="width">The field width.</param>
-        public CheatsOptionsSlider(string label, int value, int maxValue, Action<int> setValue, int minValue = 0, Func<bool> disabled = null, Func<int, string> format = null, int width = 48)
+        public CheatsOptionsSlider(string label, int value, int maxValue, Action<int> setValue, int minValue = 0, Func<bool>? disabled = null, Func<int, string>? format = null, int width = 48)
             : base(label, -1, -1, width * Game1.pixelZoom, 6 * Game1.pixelZoom, 0)
         {
             this.Label = label;
@@ -111,7 +111,7 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
         /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
         /// <param name="context">The menu drawing the component.</param>
-        public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu context = null)
+        public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu? context = null)
         {
             this.label = $"{this.Label}: {this.Format(this.Value)}";
             this.greyedOut = this.IsDisabled();
