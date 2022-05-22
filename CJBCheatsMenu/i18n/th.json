@@ -1,4 +1,4 @@
-﻿{
+{
     /*********
     ** Main translations
     *********/
@@ -55,8 +55,8 @@
     "farm.durable-fences": "รั้วไม่ถูกทำลาย",
     "farm.instant-build": "สร้างสิ่งปลูกสร้างทันที",
     "farm.auto-feed-animals": "ให้อาหารสัตว์อัตโนมัติ",
-    "farm.auto-pet-animals": "ลูบสัตว์เลี้ยงอัตโนมัติ",
-    "farm.auto-pet-pets": "Auto-Pet Pets", // TODO
+    "farm.auto-pet-animals": "ลูบสัตว์ในฟาร์มอัตโนมัติ",
+    "farm.auto-pet-pets": "ลูบสัตว์เลี้ยงอัตโนมัติ",
     "farm.infinite-hay": "ฟางไม่จำกัด",
 
     // fishing
@@ -172,9 +172,9 @@
     "warp-section.mountain": "ภูเขา",
     "warp.adventurers-guild": "กิลด์นักผจญภัย",
     "warp.bathhouse": "โรงอาบน้ำ",
-    "warp.mutant-bug-lair": "Mutant Bug Lair", // TODO
+    "warp.mutant-bug-lair": "รังแมลงกลายพันธุ์",
     "warp.quarry": "เหมืองหิน",
-    "warp.witch-swamp": "Witch's Swamp", // TODO
+    "warp.witch-swamp": "บึงแม่มด",
 
     // beach
     "warp-section.beach": "ชายหาด",
@@ -220,7 +220,7 @@
     *********/
     "flags.warning": "โปรดใช้เมนนี้ ด้วยความระมัดระวัง!\nนี่อาจทำให้จดหมาย, เหตุการณ์พิเศษ, เควส ถูกข้ามได้",
     "flags.quests": "ทำเควสให้สำเร็จ",
-    "flags.wallet": "ไอเท็มติดตัวในกระเป๋า",
+    "flags.wallet": "ไอเทมติดตัวในกระเป๋า",
     "flags.unlocked": "ปลดล็อกเนื้อหา",
     "flags.unlocked.guild": "กิลด์นักผจญภัย",
     "flags.unlocked.room": "ห้องของ: {{name}}",
