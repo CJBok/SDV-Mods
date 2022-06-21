@@ -51,12 +51,12 @@
     *********/
     // farm
     "farm.title": "Farma",
-    "farm.auto-water": "Automatyczne Podlewanie Upraw",
+    "farm.auto-water": "Auto-Podlewanie Upraw",
     "farm.durable-fences": "Trwałe Płoty",
     "farm.instant-build": "Natychmiastowa Budowa",
-    "farm.auto-feed-animals": "Automatyczne Karmienie Zwierząt",
-    "farm.auto-pet-animals": "Automatyczne Głaskanie Zwierząt",
-    "farm.auto-pet-pets": "Automatyczne Głaskanie Zwierzaków Domowych",
+    "farm.auto-feed-animals": "Auto-Karmienie Zwierząt",
+    "farm.auto-pet-animals": "Auto-Głaskanie Zwierząt",
+    "farm.auto-pet-pets": "Auto-Głaskanie Zwierzaków Domowych",
     "farm.infinite-hay": "Nieskończone Siano",
 
     // fishing
