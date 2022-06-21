@@ -3,6 +3,7 @@
     ** Sort button
     *********/
     "sort.by-name": "Name",
+    "sort.by-price": "Sell Price", // TODO
     "sort.by-type": "Kategorie",
     "sort.by-id": "ID",
 

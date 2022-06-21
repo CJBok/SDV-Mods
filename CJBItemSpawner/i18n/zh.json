@@ -3,6 +3,7 @@
     ** Sort button
     *********/
     "sort.by-name": "按名称排序",
+    "sort.by-price": "Sell Price", // TODO
     "sort.by-type": "按类型排序",
     "sort.by-id": "按ID排序",
 

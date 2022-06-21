@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Added option to sort by sell price.
+
 ## 2.1.7
 Released 09 May 2022 for SMAPI 3.14.0 or later.
 

@@ -6,6 +6,7 @@ using System.Reflection;
 using CJB.Common;
 using CJB.Common.UI;
 using CJBItemSpawner.Framework.Constants;
+using CJBItemSpawner.Framework.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -48,6 +49,9 @@ namespace CJBItemSpawner.Framework
 
         /// <summary>Indented spaces to add to sort labels to make room for the sort icon.</summary>
         private readonly string SortLabelIndent;
+
+        /// <summary>Predefined data about items.</summary>
+        private readonly ModItemData Data;
 
         /****
         ** State
@@ -155,9 +159,10 @@ namespace CJBItemSpawner.Framework
         /// <summary>Construct an instance.</summary>
         /// <param name="spawnableItems">The items available to spawn.</param>
         /// <param name="textEntryManager">Manages the gamepad text entry UI.</param>
+        /// <param name="data">Predefined data about items.</param>
         /// <param name="content">The content helper for loading assets.</param>
         /// <param name="monitor">Handles writing to the SMAPI console and log.</param>
-        public ItemMenu(SpawnableItem[] spawnableItems, TextEntryManager textEntryManager, IModContentHelper content, IMonitor monitor)
+        public ItemMenu(SpawnableItem[] spawnableItems, TextEntryManager textEntryManager, ModItemData data, IModContentHelper content, IMonitor monitor)
             : base(
                 inventory: new List<Item>(),
                 reverseGrab: false,
@@ -173,6 +178,7 @@ namespace CJBItemSpawner.Framework
         {
             // init settings
             this.TextEntryManager = textEntryManager;
+            this.Data = data;
             this.Monitor = monitor;
             this.BaseDraw = this.GetBaseDraw();
             this.ItemsInView = this.ItemsToGrabMenu.actualInventory;
@@ -486,6 +492,14 @@ namespace CJBItemSpawner.Framework
         /*********
         ** Private methods
         *********/
+        /// <summary>Get the sell price for an item.</summary>
+        /// <param name="item">The item to check.</param>
+        /// <returns>Returns the sell price, or <c>null</c> if it can't be sold.</returns>
+        private int? GetSellPrice(Item item)
+        {
+            return CommonHelper.GetSellPrice(item, this.Data.ForceSellable);
+        }
+
         /// <summary>Get the icon to draw on the quality button.</summary>
         /// <param name="texture">The texture containing the icon.</param>
         /// <param name="sourceRect">The icon's pixel area within the texture.</param>
@@ -817,6 +831,7 @@ namespace CJBItemSpawner.Framework
             IEnumerable<SpawnableItem> items = this.AllItems;
             items = this.SortBy switch
             {
+                ItemSort.Price => items.OrderByDescending(p => this.GetSellPrice(p.Item) ?? -1).ThenBy(p => p.Item.DisplayName),
                 ItemSort.Type => items.OrderBy(p => p.Item.Category),
                 ItemSort.ID => items.OrderBy(p => p.Item.ParentSheetIndex),
                 _ => items.OrderBy(p => p.Item.DisplayName)
@@ -861,6 +876,7 @@ namespace CJBItemSpawner.Framework
             return this.SortLabelIndent + sort switch
             {
                 ItemSort.DisplayName => I18n.Sort_ByName(),
+                ItemSort.Price => I18n.Sort_ByPrice(),
                 ItemSort.Type => I18n.Sort_ByType(),
                 ItemSort.ID => I18n.Sort_ById(),
                 _ => throw new NotSupportedException($"Invalid sort type {sort}.")

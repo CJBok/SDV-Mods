@@ -3,6 +3,7 @@
     ** Sort button
     *********/
     "sort.by-name": "名前",
+    "sort.by-price": "Sell Price", // TODO
     "sort.by-type": "種類",
     "sort.by-id": "ID",
 

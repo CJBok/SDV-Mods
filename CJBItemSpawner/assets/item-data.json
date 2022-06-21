@@ -9,5 +9,52 @@
         "BigCraftable:128", // Mushroom Box (can't be removed once placed)
         "BigCraftable:29", // Obelisk (once placed, it runs a glitched animation when the player is near that eventually starts switching between the Obelisk and a chicken statue sprite. Picking it up after that point can cause an immediate game crash or result in an unremovable inventory item.)
         "BigCraftable:84" // Wicked Statue, lit eyes version (can't be removed once placed)
+    ],
+
+    /**
+     * Item categories that can be sold in shops, regardless of what SObject.canBeShipped() returns.
+     */
+    "ForceSellable": [
+        // adventure guild
+        -28,
+        -98,
+        -97,
+        -96,
+
+        // blacksmith
+        -12,
+        -2,
+        -15,
+
+        // Marnie's shop
+        -18,
+        -6,
+        -5,
+        -14,
+
+        // pierre's shop
+        -81,
+        -75,
+        -79,
+        -80,
+        -74,
+        -17,
+        -18,
+        -6,
+        -26,
+        -5,
+        -14,
+        -19,
+        -7,
+        -25,
+
+        // Robin's shop
+        -16,
+
+        // Willy's shop
+        -4,
+        -23,
+        -21,
+        -22
     ]
 }

@@ -43,9 +43,9 @@ namespace CJBItemSpawner
             // read item data
             {
                 ModItemData? itemData = helper.Data.ReadJsonFile<ModItemData>("assets/item-data.json");
-                if (itemData?.ProblematicItems == null)
+                if (itemData?.ProblematicItems is null || itemData?.ForceSellable is null)
                     this.Monitor.Log("One of the mod files (assets/item-data.json) is missing or invalid. Some features may not work correctly; consider reinstalling the mod.", LogLevel.Warn);
-                this.ItemData = itemData ?? new ModItemData(null);
+                this.ItemData = itemData ?? new ModItemData(null, null);
             }
 
             // read categories
@@ -90,7 +90,7 @@ namespace CJBItemSpawner
         private ItemMenu BuildMenu()
         {
             SpawnableItem[] items = this.GetSpawnableItems().ToArray();
-            return new ItemMenu(items, this.TextEntryManager, this.Helper.ModContent, this.Monitor);
+            return new ItemMenu(items, this.TextEntryManager, this.ItemData, this.Helper.ModContent, this.Monitor);
         }
 
         /// <summary>Get the items which can be spawned.</summary>

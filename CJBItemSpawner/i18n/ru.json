@@ -3,6 +3,7 @@
     ** Sort button
     *********/
     "sort.by-name": "Имени",
+    "sort.by-price": "Sell Price", // TODO
     "sort.by-type": "Категории",
     "sort.by-id": "ID",
 

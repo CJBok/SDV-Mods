@@ -9,5 +9,6 @@
     <PackageReference Include="Pathoschild.Stardew.ModTranslationClassBuilder" Version="2.0.1" />
   </ItemGroup>
 
+  <Import Project="..\Common\Common.projitems" Label="Shared" />
   <Import Project="$(SolutionDir)\common.targets" />
 </Project>
