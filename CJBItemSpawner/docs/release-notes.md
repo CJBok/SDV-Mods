@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Added option to sort by sell price.
+* Fixed error rendering menu if some translations are very long.
 
 ## 2.1.7
 Released 09 May 2022 for SMAPI 3.14.0 or later.

@@ -31,6 +31,9 @@ namespace CJB.Common.UI
         /// <summary>The size of the rendered button borders.</summary>
         private readonly int BorderWidth = CommonSprites.Tab.TopLeft.Width * 2 * Game1.pixelZoom;
 
+        /// <summary>The maximum width of the form field, if any. This has no effect on the width of the expanded list shown under it.</summary>
+        private readonly int? MaxTabWidth;
+
         /// <summary>The backing field for <see cref="IsExpanded"/>.</summary>
         private bool IsExpandedImpl;
 
@@ -51,6 +54,8 @@ namespace CJB.Common.UI
                 this.downNeighborID = value
                     ? this.List.TopComponentId
                     : this.DefaultDownNeighborId;
+
+                this.bounds.Width = (value ? this.List.MaxLabelWidth : this.GetTabWidth()) + this.BorderWidth;
             }
         }
 
@@ -71,13 +76,15 @@ namespace CJB.Common.UI
         /// <param name="selectedItem">The selected item.</param>
         /// <param name="items">The items in the list.</param>
         /// <param name="getLabel">Get the display label for an item.</param>
-        public Dropdown(int x, int y, SpriteFont font, TItem? selectedItem, TItem[] items, Func<TItem, string> getLabel)
+        /// <param name="maxTabWidth">The maximum width of the form field, if any. This has no effect on the width of the expanded list shown under it.</param>
+        public Dropdown(int x, int y, SpriteFont font, TItem? selectedItem, TItem[] items, Func<TItem, string> getLabel, int? maxTabWidth = null)
             : base(Rectangle.Empty, selectedItem != null ? getLabel(selectedItem) : string.Empty)
         {
             this.Font = font;
             this.List = new DropdownList<TItem>(selectedItem, items, getLabel, x, y, font);
             this.bounds.X = x;
             this.bounds.Y = y;
+            this.MaxTabWidth = maxTabWidth;
 
             this.ReinitializeComponents();
         }
@@ -157,8 +164,18 @@ namespace CJB.Common.UI
         public void Draw(SpriteBatch sprites, float opacity = 1)
         {
             // draw tab
-            CommonHelper.DrawTab(this.bounds.X, this.bounds.Y, this.List.MaxLabelWidth, this.List.MaxLabelHeight, out Vector2 textPos, drawShadow: this.IsAndroid);
+            int tabWidth = this.GetTabWidth();
+            CommonHelper.DrawTab(this.bounds.X, this.bounds.Y, tabWidth, this.List.MaxLabelHeight, out Vector2 textPos, drawShadow: this.IsAndroid);
             sprites.DrawString(this.Font, this.List.SelectedLabel, textPos, Color.Black * opacity);
+
+            // draw triangle icon
+            {
+                Vector2 position = new(x: this.bounds.X + tabWidth + this.BorderWidth - 3 * Game1.pixelZoom, y: this.bounds.Y + 2 * Game1.pixelZoom);
+                Rectangle sourceRect = new(437, 450, 10, 11);
+                sprites.Draw(Game1.mouseCursors, position, sourceRect, Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
+                if (this.IsExpanded)
+                    sprites.Draw(Game1.mouseCursors, new Vector2(position.X + 2 * Game1.pixelZoom, position.Y + 3 * Game1.pixelZoom), new Rectangle(sourceRect.X + 2, sourceRect.Y + 3, 5, 6), Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.FlipVertically, 1f);  // right triangle
+            }
 
             // draw dropdown
             if (this.IsExpanded)
@@ -169,7 +186,8 @@ namespace CJB.Common.UI
         public void ReinitializeComponents()
         {
             this.bounds.Height = (int)this.Font.MeasureString("ABCDEFGHIJKLMNOPQRSTUVWXYZ").Y - 10 + this.BorderWidth; // adjust for font's broken measurement
-            this.bounds.Width = this.List.MaxLabelWidth + this.BorderWidth;
+
+            this.bounds.Width = this.GetTabWidth() + this.BorderWidth;
 
             this.List.bounds.X = this.bounds.X;
             this.List.bounds.Y = this.bounds.Bottom;
@@ -189,6 +207,16 @@ namespace CJB.Common.UI
         public IEnumerable<ClickableComponent> GetChildComponents()
         {
             return this.List.GetChildComponents();
+        }
+
+        /// <summary>Get the display width for the tab component.</summary>
+        private int GetTabWidth()
+        {
+            int tabWidth = this.List.MaxLabelWidth;
+            if (tabWidth > this.MaxTabWidth)
+                tabWidth = this.MaxTabWidth.Value;
+
+            return tabWidth;
         }
     }
 }
