@@ -54,6 +54,12 @@ namespace CJBItemSpawner.Framework
         private readonly ModItemData Data;
 
         /****
+        ** Config
+        ****/
+        /// <summary>Whether the trash can upgrade which reclaims part of the price of the destroyed items is applied in the item spawner menu too.</summary>
+        private readonly bool ReclaimPriceInTrashCan;
+
+        /****
         ** State
         ****/
         /// <summary>Handles writing to the SMAPI console and log.</summary>
@@ -162,7 +168,8 @@ namespace CJBItemSpawner.Framework
         /// <param name="data">Predefined data about items.</param>
         /// <param name="content">The content helper for loading assets.</param>
         /// <param name="monitor">Handles writing to the SMAPI console and log.</param>
-        public ItemMenu(SpawnableItem[] spawnableItems, TextEntryManager textEntryManager, ModItemData data, IModContentHelper content, IMonitor monitor)
+        /// <param name="reclaimPriceInTrashCan">Whether the trash can upgrade which reclaims part of the price of the destroyed items is applied in the item spawner menu too.</param>
+        public ItemMenu(SpawnableItem[] spawnableItems, TextEntryManager textEntryManager, ModItemData data, IModContentHelper content, IMonitor monitor, bool reclaimPriceInTrashCan)
             : base(
                 inventory: new List<Item>(),
                 reverseGrab: false,
@@ -184,6 +191,7 @@ namespace CJBItemSpawner.Framework
             this.ItemsInView = this.ItemsToGrabMenu.actualInventory;
             this.AllItems = spawnableItems;
             this.Categories = this.GetDisplayCategories(spawnableItems).ToArray();
+            this.ReclaimPriceInTrashCan = reclaimPriceInTrashCan;
 
             // init assets
             this.StarOutlineTexture = content.Load<Texture2D>("assets/empty-quality.png");
@@ -896,12 +904,23 @@ namespace CJBItemSpawner.Framework
         }
 
         /// <summary>Destroy the held item through the in-game trash can.</summary>
+        /// <remarks>Derived from <see cref="Utility.trashItem"/>, with the option to avoid reclaiming the price.</remarks>
         private void TrashHeldItem()
         {
-            if (this.heldItem is null)
+            Item item = this.heldItem;
+            if (item is null)
                 return;
 
-            Utility.trashItem(this.heldItem);
+            if (item is SObject obj && Game1.player.specialItems.Contains(obj.ParentSheetIndex))
+                Game1.player.specialItems.Remove(obj.ParentSheetIndex);
+            if (this.ReclaimPriceInTrashCan)
+            {
+                int price = Utility.getTrashReclamationPrice(item, Game1.player);
+                if (price > 0)
+                    Game1.player.Money += price;
+            }
+            Game1.playSound("trashcan");
+
             this.heldItem = null;
         }
 

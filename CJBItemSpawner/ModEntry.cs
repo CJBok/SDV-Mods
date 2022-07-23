@@ -90,7 +90,7 @@ namespace CJBItemSpawner
         private ItemMenu BuildMenu()
         {
             SpawnableItem[] items = this.GetSpawnableItems().ToArray();
-            return new ItemMenu(items, this.TextEntryManager, this.ItemData, this.Helper.ModContent, this.Monitor);
+            return new ItemMenu(items, this.TextEntryManager, this.ItemData, this.Helper.ModContent, this.Monitor, this.Config.ReclaimPriceInMenuTrashCan);
         }
 
         /// <summary>Get the items which can be spawned.</summary>

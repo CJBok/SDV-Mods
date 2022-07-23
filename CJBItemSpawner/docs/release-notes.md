@@ -2,7 +2,8 @@
 
 # Release notes
 ## Upcoming release
-* Added option to sort by sell price.
+* Added menu option to sort by sell price.
+* Added `config.json` option to not apply trash can upgrades in the menu.
 * Fixed error rendering menu if some translations are very long.
 * Improved translations. Thanks to ellipszist (updated Thai) and Zangorr (updated Polish)!
 
