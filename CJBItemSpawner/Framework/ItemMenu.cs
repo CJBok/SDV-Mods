@@ -208,10 +208,7 @@ namespace CJBItemSpawner.Framework
         {
             // allow trashing any item
             if (this.trashCan.containsPoint(x, y) && this.heldItem != null)
-            {
-                Utility.trashItem(this.heldItem);
-                this.heldItem = null;
-            }
+                this.TrashHeldItem();
 
             // sort button
             else if (this.SortButton.bounds.Contains(x, y))
@@ -261,7 +258,6 @@ namespace CJBItemSpawner.Framework
                 // default behavior
                 base.receiveLeftClick(x, y, playSound);
             }
-
         }
 
         /// <summary>Handle a right-click by the player.</summary>
@@ -897,6 +893,16 @@ namespace CJBItemSpawner.Framework
             MethodInfo method = typeof(ItemGrabMenu).GetMethod("draw", BindingFlags.Instance | BindingFlags.Public, null, new[] { typeof(SpriteBatch) }, null) ?? throw new InvalidOperationException($"Can't find {nameof(ItemGrabMenu)}.{nameof(ItemGrabMenu.draw)} method.");
             IntPtr pointer = method.MethodHandle.GetFunctionPointer();
             return (Action<SpriteBatch>)Activator.CreateInstance(typeof(Action<SpriteBatch>), this, pointer)!;
+        }
+
+        /// <summary>Destroy the held item through the in-game trash can.</summary>
+        private void TrashHeldItem()
+        {
+            if (this.heldItem is null)
+                return;
+
+            Utility.trashItem(this.heldItem);
+            this.heldItem = null;
         }
 
         /// <summary>Get whether two strings are equal, ignoring case differences.</summary>
