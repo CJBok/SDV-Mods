@@ -3,7 +3,7 @@
     ** Sort button
     *********/
     "sort.by-name": "ชื่อ",
-    "sort.by-price": "Sell Price", // TODO
+    "sort.by-price": "ราคาขาย",
     "sort.by-type": "ประเภท",
     "sort.by-id": "ID",
 
