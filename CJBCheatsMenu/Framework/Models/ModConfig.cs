@@ -147,6 +147,9 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>Mayonnaise machines finish instantly.</summary>
         public bool FastMayonnaiseMachine { get; set; }
 
+        /// <summary>Mills finish instantly.</summary>
+        public bool FastMillMachine { get; set; }
+
         /// <summary>Mushroom boxes finish instantly.</summary>
         public bool FastMushroomBox { get; set; }
 

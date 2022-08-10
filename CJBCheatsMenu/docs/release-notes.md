@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Added fast mills cheat.
 * Improved translations. Thanks to ChulkyBow (updated Ukrainian), ellipszist (updated Thai), matheuslacet (updated Portuguese), riazaia (updated Spanish), and Zangorr (updated Polish)!
 
 ## 1.31.0

@@ -6,6 +6,8 @@ using CJBCheatsMenu.Framework.Models;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
+using StardewValley.Buildings;
+using StardewValley.Locations;
 using StardewValley.Menus;
 using StardewValley.Objects;
 using StardewValley.TerrainFeatures;
@@ -108,6 +110,11 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                     label: GameI18n.GetBigCraftableName(24),
                     value: context.Config.FastMayonnaiseMachine,
                     setValue: value => context.Config.FastMayonnaiseMachine = value
+                ),
+                new CheatsOptionsCheckbox(
+                    label: GameI18n.GetBuildingName("Mill"),
+                    value: context.Config.FastMillMachine,
+                    setValue: value => context.Config.FastMillMachine = value
                 ),
                 new CheatsOptionsCheckbox(
                     label: GameI18n.GetBigCraftableName(128),
@@ -218,6 +225,15 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
 
             foreach (GameLocation location in context.GetAllLocations())
             {
+                if (location is BuildableGameLocation buildableLocation)
+                {
+                    foreach (Building building in buildableLocation.buildings)
+                    {
+                        if (this.IsFastMachine(context, building))
+                            this.CompleteMachine(location, building);
+                    }
+                }
+
                 foreach (SObject obj in location.objects.Values)
                 {
                     if (this.IsFastMachine(context, obj))
@@ -239,6 +255,19 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         /*********
         ** Private methods
         *********/
+        /// <summary>Get whether a building is a machine with 'fast processing' enabled.</summary>
+        /// <param name="context">The cheat context.</param>
+        /// <param name="building">The machine to check.</param>
+        private bool IsFastMachine(CheatContext context, [NotNullWhen(true)] Building? building)
+        {
+            ModConfig config = context.Config;
+            return building?.buildingType.Value switch
+            {
+                "Mill" => config.FastMillMachine,
+                _ => false
+            };
+        }
+
         /// <summary>Get whether an object is a machine with 'fast processing' enabled.</summary>
         /// <param name="context">The cheat context.</param>
         /// <param name="obj">The machine to check.</param>
@@ -290,6 +319,17 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                     _ => false
                 }
             };
+        }
+
+        /// <summary>Finish a machine's processing.</summary>
+        /// <param name="location">The machine's location.</param>
+        /// <param name="machine">The machine to complete.</param>
+        private void CompleteMachine(GameLocation location, Building machine)
+        {
+            if (machine.isUnderConstruction())
+                return;
+
+            machine.dayUpdate(Game1.dayOfMonth);
         }
 
         /// <summary>Finish a machine's processing.</summary>
