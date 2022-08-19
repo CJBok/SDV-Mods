@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>1.9.15</Version>
+    <Version>1.9.16</Version>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
@@ -9,5 +9,6 @@
     <PackageReference Include="Pathoschild.Stardew.ModTranslationClassBuilder" Version="2.0.1" />
   </ItemGroup>
 
+  <Import Project="..\Common\Common.projitems" Label="Shared" />
   <Import Project="$(SolutionDir)\common.targets" />
 </Project>

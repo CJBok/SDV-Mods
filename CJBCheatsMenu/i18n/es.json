@@ -55,8 +55,8 @@
     "farm.durable-fences": "Vallas Duraderas",
     "farm.instant-build": "Construcciones Instantáneas",
     "farm.auto-feed-animals": "Siempre Auto Alimentar",
-    "farm.auto-pet-animals": "Acariciar Animales Automticamente",
-    "farm.auto-pet-pets": "Auto-Pet Pets", // TODO
+    "farm.auto-pet-animals": "Acariciar Animales Automáticamente",
+    "farm.auto-pet-pets": "Acariciar Mascotas Automáticamente",
     "farm.infinite-hay": "Heno Infinito",
 
     // fishing
@@ -79,11 +79,11 @@
     // skills
     "skills.title": "Habilidades",
     "skills.increase-farming": "Incr. Agricultura Lvl: {{currentLevel}}",
-    "skills.increase-mining": "Incr. Mineria Lvl: {{currentLevel}}",
+    "skills.increase-mining": "Incr. Minería Lvl: {{currentLevel}}",
     "skills.increase-foraging": "Incr. Recolección Lvl: {{currentLevel}}",
     "skills.increase-fishing": "Incr. Pesca Lvl: {{currentLevel}}",
     "skills.increase-combat": "Incr. Combate Lvl: {{currentLevel}}",
-    "skills.reset": "RESTABLECER HABILIADES!",
+    "skills.reset": "RESTABLECER HABILIDADES!",
 
     // professions
     "professions.title": "Profesiones",
@@ -111,12 +111,12 @@
     "professions.foraging.lumberjack": "Recolección lvl 10 - Leñador",
     "professions.foraging.tapper": "Recolección lvl 10 - Resinador",
     "professions.foraging.tracker": "Recolección lvl 10 - Rastreador",
-    "professions.mining.geologist": "Mineria lvl 5 - Geólogo",
-    "professions.mining.miner": "Mineria lvl 5 - Minero",
-    "professions.mining.blacksmith": "Mineria lvl 10 - Herrero",
-    "professions.mining.excavator": "Mineria lvl 10 - Excavador",
-    "professions.mining.gemologist": "Mineria lvl 10 - Gemólogo",
-    "professions.mining.prospector": "Mineria lvl 10 - Buscador",
+    "professions.mining.geologist": "Minería lvl 5 - Geólogo",
+    "professions.mining.miner": "Minería lvl 5 - Minero",
+    "professions.mining.blacksmith": "Minería lvl 10 - Herrero",
+    "professions.mining.excavator": "Minería lvl 10 - Excavador",
+    "professions.mining.gemologist": "Minería lvl 10 - Gemólogo",
+    "professions.mining.prospector": "Minería lvl 10 - Buscador",
 
 
     /*********
@@ -227,7 +227,7 @@
     "flags.unlocked-content.dyes-and-tailoring": "Tintes y sastrería",
     "flags.community-center": "Centro Cívico",
     "flags.community-center.door-unlocked": "Puerta Abierta",
-    "flags.jojamart.membership": "Membresía de JojaMart",
+    "flags.jojamart.membership": "Membresía de MercaJoja",
 
 
     /*********

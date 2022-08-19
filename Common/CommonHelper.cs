@@ -127,6 +127,33 @@ namespace CJB.Common
             return Game1.MasterPlayer.mailReceived.Contains("ccIsComplete") || Game1.MasterPlayer.hasCompletedCommunityCenter();
         }
 
+        /// <summary>Get the sell price for an item.</summary>
+        /// <param name="item">The item to check.</param>
+        /// <param name="forceSellable">Item categories that can be sold in shops, regardless of what <see cref="StardewValley.Object.canBeShipped"/> returns.</param>
+        /// <returns>Returns the sell price, or <c>null</c> if it can't be sold.</returns>
+        public static int? GetSellPrice(Item item, ISet<int> forceSellable)
+        {
+            // skip unsellable item
+            if (!CommonHelper.CanBeSold(item, forceSellable))
+                return null;
+
+            // get price
+            int price = Utility.getSellToStorePriceOfItem(item, countStack: false);
+            return price >= 0
+                ? price
+                : null;
+        }
+
+        /// <summary>Get whether an item can be sold.</summary>
+        /// <param name="item">The item to check.</param>
+        /// <param name="forceSellable">Item categories that can be sold in shops, regardless of what <see cref="StardewValley.Object.canBeShipped"/> returns.</param>
+        public static bool CanBeSold(Item item, ISet<int> forceSellable)
+        {
+            return
+                (item is Object obj && obj.canBeShipped())
+                || forceSellable.Contains(item.Category);
+        }
+
 
         /****
         ** Math helpers

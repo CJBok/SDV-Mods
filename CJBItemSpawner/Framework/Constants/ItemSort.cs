@@ -8,6 +8,9 @@ namespace CJBItemSpawner.Framework.Constants
         /// <summary>Sort by the item's display name.</summary>
         DisplayName,
 
+        /// <summary>Sort by the item's sell price.</summary>
+        Price,
+
         /// <summary>Sort by the item's category name.</summary>
         Type,
 
@@ -25,13 +28,10 @@ namespace CJBItemSpawner.Framework.Constants
         /// <param name="current">The current sort value.</param>
         public static ItemSort GetNext(this ItemSort current)
         {
-            return current switch
-            {
-                ItemSort.DisplayName => ItemSort.Type,
-                ItemSort.Type => ItemSort.ID,
-                ItemSort.ID => ItemSort.DisplayName,
-                _ => throw new NotSupportedException($"Unknown sort '{current}'.")
-            };
+            ItemSort next = current + 1;
+            return Enum.IsDefined(next)
+                ? next
+                : ItemSort.DisplayName;
         }
     }
 }

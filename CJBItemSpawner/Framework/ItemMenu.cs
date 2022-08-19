@@ -6,6 +6,7 @@ using System.Reflection;
 using CJB.Common;
 using CJB.Common.UI;
 using CJBItemSpawner.Framework.Constants;
+using CJBItemSpawner.Framework.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -48,6 +49,15 @@ namespace CJBItemSpawner.Framework
 
         /// <summary>Indented spaces to add to sort labels to make room for the sort icon.</summary>
         private readonly string SortLabelIndent;
+
+        /// <summary>Predefined data about items.</summary>
+        private readonly ModItemData Data;
+
+        /****
+        ** Config
+        ****/
+        /// <summary>Whether the trash can upgrade which reclaims part of the price of the destroyed items is applied in the item spawner menu too.</summary>
+        private readonly bool ReclaimPriceInTrashCan;
 
         /****
         ** State
@@ -155,9 +165,11 @@ namespace CJBItemSpawner.Framework
         /// <summary>Construct an instance.</summary>
         /// <param name="spawnableItems">The items available to spawn.</param>
         /// <param name="textEntryManager">Manages the gamepad text entry UI.</param>
+        /// <param name="data">Predefined data about items.</param>
         /// <param name="content">The content helper for loading assets.</param>
         /// <param name="monitor">Handles writing to the SMAPI console and log.</param>
-        public ItemMenu(SpawnableItem[] spawnableItems, TextEntryManager textEntryManager, IModContentHelper content, IMonitor monitor)
+        /// <param name="reclaimPriceInTrashCan">Whether the trash can upgrade which reclaims part of the price of the destroyed items is applied in the item spawner menu too.</param>
+        public ItemMenu(SpawnableItem[] spawnableItems, TextEntryManager textEntryManager, ModItemData data, IModContentHelper content, IMonitor monitor, bool reclaimPriceInTrashCan)
             : base(
                 inventory: new List<Item>(),
                 reverseGrab: false,
@@ -173,11 +185,13 @@ namespace CJBItemSpawner.Framework
         {
             // init settings
             this.TextEntryManager = textEntryManager;
+            this.Data = data;
             this.Monitor = monitor;
             this.BaseDraw = this.GetBaseDraw();
             this.ItemsInView = this.ItemsToGrabMenu.actualInventory;
             this.AllItems = spawnableItems;
             this.Categories = this.GetDisplayCategories(spawnableItems).ToArray();
+            this.ReclaimPriceInTrashCan = reclaimPriceInTrashCan;
 
             // init assets
             this.StarOutlineTexture = content.Load<Texture2D>("assets/empty-quality.png");
@@ -202,10 +216,7 @@ namespace CJBItemSpawner.Framework
         {
             // allow trashing any item
             if (this.trashCan.containsPoint(x, y) && this.heldItem != null)
-            {
-                Utility.trashItem(this.heldItem);
-                this.heldItem = null;
-            }
+                this.TrashHeldItem();
 
             // sort button
             else if (this.SortButton.bounds.Contains(x, y))
@@ -255,7 +266,6 @@ namespace CJBItemSpawner.Framework
                 // default behavior
                 base.receiveLeftClick(x, y, playSound);
             }
-
         }
 
         /// <summary>Handle a right-click by the player.</summary>
@@ -466,17 +476,7 @@ namespace CJBItemSpawner.Framework
             }
 
             // draw category dropdown
-            {
-                Vector2 position = new(
-                    x: this.CategoryDropdown.bounds.X + this.CategoryDropdown.bounds.Width - 3 * Game1.pixelZoom,
-                    y: this.CategoryDropdown.bounds.Y + 2 * Game1.pixelZoom
-                );
-                Rectangle sourceRect = new(437, 450, 10, 11);
-                spriteBatch.Draw(Game1.mouseCursors, position, sourceRect, Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
-                if (this.CategoryDropdown.IsExpanded)
-                    spriteBatch.Draw(Game1.mouseCursors, new Vector2(position.X + 2 * Game1.pixelZoom, position.Y + 3 * Game1.pixelZoom), new Rectangle(sourceRect.X + 2, sourceRect.Y + 3, 5, 6), Color.White, 0, Vector2.Zero, Game1.pixelZoom, SpriteEffects.FlipVertically, 1f);  // right triangle
-                this.CategoryDropdown.Draw(spriteBatch);
-            }
+            this.CategoryDropdown.Draw(spriteBatch);
 
             // redraw cursor over new UI
             this.drawMouse(spriteBatch);
@@ -486,6 +486,14 @@ namespace CJBItemSpawner.Framework
         /*********
         ** Private methods
         *********/
+        /// <summary>Get the sell price for an item.</summary>
+        /// <param name="item">The item to check.</param>
+        /// <returns>Returns the sell price, or <c>null</c> if it can't be sold.</returns>
+        private int? GetSellPrice(Item item)
+        {
+            return CommonHelper.GetSellPrice(item, this.Data.ForceSellable);
+        }
+
         /// <summary>Get the icon to draw on the quality button.</summary>
         /// <param name="texture">The texture containing the icon.</param>
         /// <param name="sourceRect">The icon's pixel area within the texture.</param>
@@ -552,6 +560,11 @@ namespace CJBItemSpawner.Framework
         )]
         private void InitializeComponents()
         {
+            // get text sizes
+            int minSearchWidth = (int)Game1.smallFont.MeasureString("ABCDEF").X;
+            int maxSearchWidth = (int)Game1.smallFont.MeasureString("ABCDEFGHIJKLMNOPQRSTUVWXYZ").X;
+            int maxDropdownWidth = (int)Game1.smallFont.MeasureString("ABCDEFGHIJKLMNOPQRSTUVW").X;
+
             // get basic positions
             int x = this.xPositionOnScreen;
             int y = this.yPositionOnScreen;
@@ -564,20 +577,19 @@ namespace CJBItemSpawner.Framework
             this.QualityButton = new ClickableComponent(new Rectangle(x - 2 * Game1.pixelZoom, top, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth - 2), ""); // manually tweak height to align with sort button
             this.SortButton = new ClickableComponent(new Rectangle(this.QualityButton.bounds.Right + 20, top, this.GetMaxSortLabelWidth(Game1.smallFont) + CommonHelper.ButtonBorderWidth, Game1.tileSize), this.GetSortLabel(this.SortBy));
             this.SortIcon = new ClickableTextureComponent(new Rectangle(this.SortButton.bounds.X + CommonHelper.ButtonBorderWidth, top + CommonHelper.ButtonBorderWidth, this.SortTexture.Width, Game1.tileSize), this.SortTexture, new Rectangle(0, 0, this.SortTexture.Width, this.SortTexture.Height), 1f);
-            this.CategoryDropdown = new Dropdown<string>(this.SortButton.bounds.Right + 20, this.SortButton.bounds.Y, Game1.smallFont, this.CategoryDropdown?.Selected ?? I18n.Filter_All(), this.Categories, p => p);
+            this.CategoryDropdown = new Dropdown<string>(this.SortButton.bounds.Right + 20, this.SortButton.bounds.Y, Game1.smallFont, this.CategoryDropdown?.Selected ?? I18n.Filter_All(), this.Categories, p => p, maxTabWidth: maxDropdownWidth);
             this.UpArrow = new ClickableTextureComponent(new Rectangle(right - 32, y - 64, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
             this.DownArrow = new ClickableTextureComponent(new Rectangle(this.UpArrow.bounds.X, this.UpArrow.bounds.Y + this.height / 2 - 64, this.UpArrow.bounds.Width, this.UpArrow.bounds.Height), Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
 
             // search box
             // aligned to the right, stretched to fit space between category dropdown and right margin up to a max width
             {
-                int maxWidth = (int)Game1.smallFont.MeasureString("ABCDEFGHIJKLMNOPQRSTUVWXYZ").X;
                 int leftSpacing = 10 * Game1.pixelZoom; // min space between category dropdown and search box
                 int searchRight = this.IsAndroid
                     ? this.upperRightCloseButton.bounds.X - 5 * Game1.pixelZoom
                     : right - 13 * Game1.pixelZoom;
 
-                int searchWidth = Math.Min(searchRight - this.CategoryDropdown.bounds.Right - leftSpacing + 10, maxWidth);
+                int searchWidth = Math.Clamp(searchRight - this.CategoryDropdown.bounds.Right - leftSpacing + 10, min: minSearchWidth, max: maxSearchWidth);
                 int searchX = searchRight - searchWidth;
 
                 this.SearchBox = new TextBox(Game1.content.Load<Texture2D>("LooseSprites\\textBox"), null, Game1.smallFont, Game1.textColor)
@@ -817,6 +829,7 @@ namespace CJBItemSpawner.Framework
             IEnumerable<SpawnableItem> items = this.AllItems;
             items = this.SortBy switch
             {
+                ItemSort.Price => items.OrderByDescending(p => this.GetSellPrice(p.Item) ?? -1).ThenBy(p => p.Item.DisplayName),
                 ItemSort.Type => items.OrderBy(p => p.Item.Category),
                 ItemSort.ID => items.OrderBy(p => p.Item.ParentSheetIndex),
                 _ => items.OrderBy(p => p.Item.DisplayName)
@@ -861,6 +874,7 @@ namespace CJBItemSpawner.Framework
             return this.SortLabelIndent + sort switch
             {
                 ItemSort.DisplayName => I18n.Sort_ByName(),
+                ItemSort.Price => I18n.Sort_ByPrice(),
                 ItemSort.Type => I18n.Sort_ByType(),
                 ItemSort.ID => I18n.Sort_ById(),
                 _ => throw new NotSupportedException($"Invalid sort type {sort}.")
@@ -887,6 +901,27 @@ namespace CJBItemSpawner.Framework
             MethodInfo method = typeof(ItemGrabMenu).GetMethod("draw", BindingFlags.Instance | BindingFlags.Public, null, new[] { typeof(SpriteBatch) }, null) ?? throw new InvalidOperationException($"Can't find {nameof(ItemGrabMenu)}.{nameof(ItemGrabMenu.draw)} method.");
             IntPtr pointer = method.MethodHandle.GetFunctionPointer();
             return (Action<SpriteBatch>)Activator.CreateInstance(typeof(Action<SpriteBatch>), this, pointer)!;
+        }
+
+        /// <summary>Destroy the held item through the in-game trash can.</summary>
+        /// <remarks>Derived from <see cref="Utility.trashItem"/>, with the option to avoid reclaiming the price.</remarks>
+        private void TrashHeldItem()
+        {
+            Item item = this.heldItem;
+            if (item is null)
+                return;
+
+            if (item is SObject obj && Game1.player.specialItems.Contains(obj.ParentSheetIndex))
+                Game1.player.specialItems.Remove(obj.ParentSheetIndex);
+            if (this.ReclaimPriceInTrashCan)
+            {
+                int price = Utility.getTrashReclamationPrice(item, Game1.player);
+                if (price > 0)
+                    Game1.player.Money += price;
+            }
+            Game1.playSound("trashcan");
+
+            this.heldItem = null;
         }
 
         /// <summary>Get whether two strings are equal, ignoring case differences.</summary>

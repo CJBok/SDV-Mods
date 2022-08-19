@@ -55,8 +55,8 @@
     "farm.durable-fences": "รั้วไม่ถูกทำลาย",
     "farm.instant-build": "สร้างสิ่งปลูกสร้างทันที",
     "farm.auto-feed-animals": "ให้อาหารสัตว์อัตโนมัติ",
-    "farm.auto-pet-animals": "ลูบสัตว์เลี้ยงอัตโนมัติ",
-    "farm.auto-pet-pets": "Auto-Pet Pets", // TODO
+    "farm.auto-pet-animals": "ลูบสัตว์ในฟาร์มอัตโนมัติ",
+    "farm.auto-pet-pets": "ลูบสัตว์เลี้ยงอัตโนมัติ",
     "farm.infinite-hay": "ฟางไม่จำกัด",
 
     // fishing
@@ -86,38 +86,37 @@
     "skills.reset": "รีเซ็ต ค่าทักษะ!",
 
     // professions
-    // TODO
     "professions.title": "อาชีพ",
-    "professions.combat.fighter": "Combat lvl 5 - Fighter",
-    "professions.combat.scout": "Combat lvl 5 - Scout",
-    "professions.combat.acrobat": "Combat lvl 10 - Acrobat",
-    "professions.combat.brute": "Combat lvl 10 - Brute",
-    "professions.combat.defender": "Combat lvl 10 - Defender",
-    "professions.combat.desperado": "Combat lvl 10 - Desperado",
-    "professions.farming.rancher": "Farming lvl 5 - Rancher",
-    "professions.farming.tiller": "Farming lvl 5 - Tiller",
-    "professions.farming.agriculturist": "Farming lvl 10 - Agriculturist",
-    "professions.farming.artisan": "Farming lvl 10 - Artisan",
-    "professions.farming.coopmaster": "Farming lvl 10 - Coopmaster",
-    "professions.farming.shepherd": "Farming lvl 10 - Shepherd",
-    "professions.fishing.fisher": "Fishing lvl 5 - Fisher",
-    "professions.fishing.trapper": "Fishing lvl 5 - Trapper",
-    "professions.fishing.angler": "Fishing lvl 10 - Angler",
-    "professions.fishing.luremaster": "Fishing lvl 10 - Luremaster",
-    "professions.fishing.mariner": "Fishing lvl 10 - Mariner",
-    "professions.fishing.pirate": "Fishing lvl 10 - Pirate",
-    "professions.foraging.forester": "Foraging lvl 5 - Forester",
-    "professions.foraging.gatherer": "Foraging lvl 5 - Gatherer",
-    "professions.foraging.botanist": "Foraging lvl 10 - Botanist",
-    "professions.foraging.lumberjack": "Foraging lvl 10 - Lumberjack",
-    "professions.foraging.tapper": "Foraging lvl 10 - Tapper",
-    "professions.foraging.tracker": "Foraging lvl 10 - Tracker",
-    "professions.mining.geologist": "Mining lvl 5 - Geologist",
-    "professions.mining.miner": "Mining lvl 5 - Miner",
-    "professions.mining.blacksmith": "Mining lvl 10 - Blacksmith",
-    "professions.mining.excavator": "Mining lvl 10 - Excavator",
-    "professions.mining.gemologist": "Mining lvl 10 - Gemologist",
-    "professions.mining.prospector": "Mining lvl 10 - Prospector",
+    "professions.combat.fighter": "การต่อสู้ เลเวล 5 - นักสู้",
+    "professions.combat.scout": "การต่อสู้ เลเวล 5 - นักสอดแนม",
+    "professions.combat.acrobat": "การต่อสู้ เลเวล 10 - นักกายกรรม",
+    "professions.combat.brute": "การต่อสู้ เลเวล 10 - นักเลง",
+    "professions.combat.defender": "การต่อสู้ เลเวล 10 - ผู้พิทักษ์",
+    "professions.combat.desperado": "การต่อสู้ เลเวล 10 - อาชญากร",
+    "professions.farming.rancher": "การทำฟาร์ม เลเวล 5 - คนเลี้ยงสัตว์",
+    "professions.farming.tiller": "การทำฟาร์ม เลเวล 5 - ชาวไร่",
+    "professions.farming.agriculturist": "การทำฟาร์ม เลเวล 10 - เกษตรกร",
+    "professions.farming.artisan": "การทำฟาร์ม เลเวล 10 - สายหมัก",
+    "professions.farming.coopmaster": "การทำฟาร์ม เลเวล 10 - คนดูแลเล้า",
+    "professions.farming.shepherd": "การทำฟาร์ม เลเวล 10 - คนเลี้ยงแกะ",
+    "professions.fishing.fisher": "การตกปลา เลเวล 5 - ชาวประมง",
+    "professions.fishing.trapper": "การตกปลา เลเวล 5 - นักวางกับดัก",
+    "professions.fishing.angler": "การตกปลา เลเวล 10 - นักตกปลา",
+    "professions.fishing.luremaster": "การตกปลา เลเวล 10 - นักล่อมือฉมัง",
+    "professions.fishing.mariner": "การตกปลา เลเวล 10 - กะลาสี",
+    "professions.fishing.pirate": "การตกปลา เลเวล 10 - โจรสลัด",
+    "professions.foraging.forester": "การหาของป่า เลเวล 5 - ชาวป่า",
+    "professions.foraging.gatherer": "การหาของป่า เลเวล 5 - นักเก็บของป่า",
+    "professions.foraging.botanist": "การหาของป่า เลเวล 10 - นักพฤกษศาสตร์",
+    "professions.foraging.lumberjack": "การหาของป่า เลเวล 10 - นักตัดไม้",
+    "professions.foraging.tapper": "การหาของป่า เลเวล 10 - คนกรีดยาง",
+    "professions.foraging.tracker": "การหาของป่า เลเวล 10 - นักแกะรอย",
+    "professions.mining.geologist": "การทำเหมือง เลเวล 5 - นักธรณีวิทยา",
+    "professions.mining.miner": "การทำเหมือง เลเวล 5 - นักขุดแร่",
+    "professions.mining.blacksmith": "การทำเหมือง เลเวล 10 - ช่างตีเหล็ก",
+    "professions.mining.excavator": "การทำเหมือง เลเวล 10 - นักสกัดแร่",
+    "professions.mining.gemologist": "การทำเหมือง เลเวล 10 - นักอัญมณีศาสตร์",
+    "professions.mining.prospector": "การทำเหมือง เลเวล 10 - นักสำรวจแร่",
 
 
     /*********
@@ -172,9 +171,9 @@
     "warp-section.mountain": "ภูเขา",
     "warp.adventurers-guild": "กิลด์นักผจญภัย",
     "warp.bathhouse": "โรงอาบน้ำ",
-    "warp.mutant-bug-lair": "Mutant Bug Lair", // TODO
+    "warp.mutant-bug-lair": "รังแมลงกลายพันธุ์",
     "warp.quarry": "เหมืองหิน",
-    "warp.witch-swamp": "Witch's Swamp", // TODO
+    "warp.witch-swamp": "บึงแม่มด",
 
     // beach
     "warp-section.beach": "ชายหาด",
@@ -218,9 +217,9 @@
     /*********
     ** Advanced tab
     *********/
-    "flags.warning": "โปรดใช้เมนนี้ ด้วยความระมัดระวัง!\nนี่อาจทำให้จดหมาย, เหตุการณ์พิเศษ, เควส ถูกข้ามได้",
+    "flags.warning": "โปรดใช้เมนูนี้ ด้วยความระมัดระวัง!\nนี่อาจทำให้จดหมาย, เหตุการณ์พิเศษ, เควส ถูกข้ามได้",
     "flags.quests": "ทำเควสให้สำเร็จ",
-    "flags.wallet": "ไอเท็มติดตัวในกระเป๋า",
+    "flags.wallet": "ไอเทมติดตัวในกระเป๋า",
     "flags.unlocked": "ปลดล็อกเนื้อหา",
     "flags.unlocked.guild": "กิลด์นักผจญภัย",
     "flags.unlocked.room": "ห้องของ: {{name}}",
@@ -235,7 +234,7 @@
     ** Controls tab
     *********/
     "controls.title": "เมนูควบคุม",
-    "controls.android-config-note": "คุณสามารถเปลี่ยนปุ่มกดที่หน้าจอ ได้ที่ไฟล์ config ของมอด CJB Cheat Menu และมอด virtual Keyboard",
+    "controls.android-config-note": "คุณสามารถเปลี่ยนปุ่มกดที่หน้าจอ ได้ที่ไฟล์ config ของม็อด CJB Cheats Menu และม็อด Virtual Keyboard",
     "controls.open-menu": "ปุ่มเปิดเมนู",
     "controls.freeze-time": "ปุ่มหยุดเวลา",
     "controls.grow-tree": "ปุ่มเร่งโต - ต้นไม้",

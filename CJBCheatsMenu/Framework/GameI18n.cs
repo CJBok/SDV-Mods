@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using StardewValley;
@@ -21,6 +22,22 @@ namespace CJBCheatsMenu.Framework
                 return $"(missing translation: no big craftable #{id})";
 
             return value.Split('/').Last();
+        }
+
+        /// <summary>Get the translated name for a building.</summary>
+        /// <param name="id">The building ID.</param>
+        public static string GetBuildingName(string id)
+        {
+            var data = Game1.content.Load<Dictionary<string, string>>("Data\\Blueprints");
+
+            if (!data.TryGetValue(id, out string? rawData))
+                return $"(missing translation: no building with ID '{id}')";
+
+            string[] fields = rawData.Split('/');
+            if (fields.Length <= 8)
+                return $"(missing translation: building with ID '{id}' has invalid data)";
+
+            return fields[8];
         }
 
         /// <summary>Get the translated name for an object.</summary>

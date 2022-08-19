@@ -27,6 +27,7 @@ setting | default | what it affects
 ------- | ------- | ---------------
 `ShowMenuKey` | `i` | The keybind which opens the menu (see [valid key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings)). This supports multi-key bindings.
 `AllowProblematicItems` | `false` | Whether to show items which may cause bugs or crashes when spawned.
+`ReclaimPriceInMenuTrashCan` | `true` | When you [upgrade your trash can](https://stardewvalleywiki.com/Trash_Cans) to reclaim part of the price of destroyed items, whether that upgrade applies in the item spawner menu too.
 
 ## FAQs
 ### What are 'problematic items'?

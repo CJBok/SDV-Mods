@@ -3,6 +3,7 @@
     ** Sort button
     *********/
     "sort.by-name": "이름",
+    "sort.by-price": "Sell Price", // TODO
     "sort.by-type": "종류",
     "sort.by-id": "ID",
 
