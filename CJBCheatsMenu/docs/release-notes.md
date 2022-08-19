@@ -1,7 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.32.0
+Released 18 August 2022 for SMAPI 3.14.0 or later.
+
 * Added fast mills cheat.
 * Improved translations. Thanks to ChulkyBow (updated Ukrainian), ellipszist (updated Thai), matheuslacet (updated Portuguese), riazaia (updated Spanish), and Zangorr (updated Polish)!
 
