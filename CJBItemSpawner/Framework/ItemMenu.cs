@@ -311,10 +311,7 @@ namespace CJBItemSpawner.Framework
 
             // allow trashing any item
             else if (key == Keys.Delete && this.heldItem != null)
-            {
-                Utility.trashItem(this.heldItem);
-                this.heldItem = null;
-            }
+                this.TrashHeldItem();
 
             // navigate
             else if (key is Keys.Left or Keys.Right)
