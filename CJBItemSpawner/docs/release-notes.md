@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Added logs to simplify troubleshooting when the menu doesn't open.
 * Fixed option to not apply trash can upgrades not affecting items trashed with the `delete` key.
 * Fixed search box too small in some languages.
 

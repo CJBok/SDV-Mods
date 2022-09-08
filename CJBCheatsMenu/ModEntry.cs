@@ -107,10 +107,28 @@ namespace CJBCheatsMenu
             // open menu
             if (this.Config.OpenMenuKey.JustPressed())
             {
-                if (Context.IsPlayerFree && Game1.currentMinigame == null)
-                    this.OpenCheatsMenu(this.Config.DefaultTab, isNewMenu: true);
-                else if (Game1.activeClickableMenu is CheatsMenu menu)
+                if (Game1.activeClickableMenu is CheatsMenu menu)
                     menu.ExitIfValid();
+
+                else if (!Context.IsPlayerFree || Game1.currentMinigame != null)
+                {
+                    // Players often ask for help due to the menu not opening when expected. To
+                    // simplify troubleshooting, log when the key is ignored.
+                    if (Game1.currentMinigame != null)
+                        this.Monitor.Log($"Received menu open key, but a '{Game1.currentMinigame.GetType().Name}' minigame is active.");
+                    else if (Game1.eventUp)
+                        this.Monitor.Log("Received menu open key, but an event is active.");
+                    else if (Game1.activeClickableMenu != null)
+                        this.Monitor.Log($"Received menu open key, but a '{Game1.activeClickableMenu.GetType().Name}' menu is already open.");
+                    else
+                        this.Monitor.Log("Received menu open key, but the player isn't free.");
+                }
+
+                else
+                {
+                    this.Monitor.Log("Received menu open key.");
+                    this.OpenCheatsMenu(this.Config.DefaultTab, isNewMenu: true);
+                }
             }
 
             // handle button if applicable
