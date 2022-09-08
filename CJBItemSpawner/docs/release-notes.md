@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Fixed option to not apply trash can upgrades not affecting items trashed with the `delete` key.
+* Fixed search box too small in some languages.
 
 ## 2.2.0
 Released 18 August 2022 for SMAPI 3.14.0 or later.
