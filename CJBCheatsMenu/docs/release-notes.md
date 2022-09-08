@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Added logs to simplify troubleshooting when the menu doesn't open.
+* Improved translations. Thanks to ellipszist (updated Thai)!
 
 ## 1.32.0
 Released 18 August 2022 for SMAPI 3.14.0 or later.
