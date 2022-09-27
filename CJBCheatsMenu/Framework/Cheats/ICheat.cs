@@ -17,7 +17,7 @@ namespace CJBCheatsMenu.Framework.Cheats
 
         /// <summary>Handle the cheat options being loaded or changed.</summary>
         /// <param name="context">The cheat context.</param>
-        /// <param name="needsUpdate">Whether the cheat should be notified of game updates.</param>
+        /// <param name="needsUpdate">Whether the cheat should be notified of game updates and saves.</param>
         /// <param name="needsInput">Whether the cheat should be notified of button presses.</param>
         /// <param name="needsRendering">Whether the cheat should be notified of render ticks.</param>
         void OnConfig(CheatContext context, out bool needsInput, out bool needsUpdate, out bool needsRendering);
@@ -35,6 +35,10 @@ namespace CJBCheatsMenu.Framework.Cheats
         /// <param name="context">The cheat context.</param>
         /// <param name="e">The update event arguments.</param>
         void OnUpdated(CheatContext context, UpdateTickedEventArgs e);
+
+        /// <summary>Raised before the game begins writing data to the save file (except the initial save creation).</summary>
+        /// <param name="context">The cheat context.</param>
+        void OnSaving(CheatContext context);
 
         /// <summary>Handle the game draws to the sprite patch in a draw tick, just before the final sprite batch is rendered to the screen.</summary>
         /// <param name="context">The cheat context.</param>

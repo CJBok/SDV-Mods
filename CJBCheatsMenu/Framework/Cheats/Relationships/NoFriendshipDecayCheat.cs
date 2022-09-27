@@ -57,9 +57,32 @@ namespace CJBCheatsMenu.Framework.Cheats.Relationships
         /// <param name="e">The update event arguments.</param>
         public override void OnUpdated(CheatContext context, UpdateTickedEventArgs e)
         {
-            if (!e.IsOneSecond || !Context.IsWorldReady)
-                return;
+            if (e.IsOneSecond && Context.IsWorldReady)
+                this.ResetDecay();
+        }
 
+        /// <summary>Raised before the game begins writing data to the save file (except the initial save creation).</summary>
+        /// <param name="context">The cheat context.</param>
+        public override void OnSaving(CheatContext context)
+        {
+            this.ResetDecay();
+        }
+
+        /// <summary>Update the tracked friendship points for an NPC.</summary>
+        /// <param name="npc">The NPC whose friendship to update.</param>
+        /// <param name="points">The new friendship points value.</param>
+        public void UpdateFriendship(NPC npc, int points)
+        {
+            this.PreviousFriendships[npc.Name] = points;
+        }
+
+
+        /*********
+        ** Private methods
+        *********/
+        /// <summary>Undo any reduction in friendship points and update the tracked values.</summary>
+        protected void ResetDecay()
+        {
             // undo any friendships decreases
             if (this.PreviousFriendships.Any())
             {
@@ -75,14 +98,6 @@ namespace CJBCheatsMenu.Framework.Cheats.Relationships
             this.PreviousFriendships.Clear();
             foreach ((string name, NetRef<Friendship> friendship) in Game1.player.friendshipData.FieldDict)
                 this.PreviousFriendships[name] = friendship.Value.Points;
-        }
-
-        /// <summary>Update the tracked friendship points for an NPC.</summary>
-        /// <param name="npc">The NPC whose friendship to update.</param>
-        /// <param name="points">The new friendship points value.</param>
-        public void UpdateFriendship(NPC npc, int points)
-        {
-            this.PreviousFriendships[npc.Name] = points;
         }
     }
 }

@@ -63,6 +63,7 @@ namespace CJBCheatsMenu
 
             helper.Events.GameLoop.ReturnedToTitle += this.OnReturnedToTitle;
             helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
+            helper.Events.GameLoop.Saving += this.OnSaving;
             helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
 
             helper.Events.Input.ButtonsChanged += this.OnButtonChanged;
@@ -155,6 +156,14 @@ namespace CJBCheatsMenu
                 return;
 
             this.Cheats.Value.OnUpdateTicked(e);
+        }
+
+        /// <inheritdoc cref="IGameLoopEvents.Saving"/>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnSaving(object? sender, SavingEventArgs e)
+        {
+            this.Cheats.Value.OnSaving();
         }
 
         /// <summary>Raised after a game menu is opened, closed, or replaced.</summary>

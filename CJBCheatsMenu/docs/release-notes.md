@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Added logs to simplify troubleshooting when the menu doesn't open.
+* Fixed 'no friendship decay' sometimes not applied to the overnight friendship decay when you quit after saving.
 * Improved translations. Thanks to ellipszist (updated Thai)!
 
 ## 1.32.0
