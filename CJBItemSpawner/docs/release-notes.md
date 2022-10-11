@@ -1,8 +1,10 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
-* Added logs to simplify troubleshooting when the menu doesn't open.
+## 2.2.1
+Released 10 October 2022 for SMAPI 3.14.0 or later.
+
+* Added log messages to simplify troubleshooting when the menu doesn't open.
 * Fixed option to not apply trash can upgrades not affecting items trashed with the `delete` key.
 * Fixed search box too small in some languages.
 * Improved translations. Thanks to ChulkyBow (updated Ukrainian)!
