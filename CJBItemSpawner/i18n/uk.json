@@ -3,7 +3,7 @@
     ** Sort button
     *********/
     "sort.by-name": "Назва",
-    "sort.by-price": "Sell Price", // TODO
+    "sort.by-price": "Ціна продажу",
     "sort.by-type": "Категорія",
     "sort.by-id": "ID",
 

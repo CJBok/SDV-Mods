@@ -311,10 +311,7 @@ namespace CJBItemSpawner.Framework
 
             // allow trashing any item
             else if (key == Keys.Delete && this.heldItem != null)
-            {
-                Utility.trashItem(this.heldItem);
-                this.heldItem = null;
-            }
+                this.TrashHeldItem();
 
             // navigate
             else if (key is Keys.Left or Keys.Right)
@@ -560,11 +557,6 @@ namespace CJBItemSpawner.Framework
         )]
         private void InitializeComponents()
         {
-            // get text sizes
-            int minSearchWidth = (int)Game1.smallFont.MeasureString("ABCDEF").X;
-            int maxSearchWidth = (int)Game1.smallFont.MeasureString("ABCDEFGHIJKLMNOPQRSTUVWXYZ").X;
-            int maxDropdownWidth = (int)Game1.smallFont.MeasureString("ABCDEFGHIJKLMNOPQRSTUVW").X;
-
             // get basic positions
             int x = this.xPositionOnScreen;
             int y = this.yPositionOnScreen;
@@ -573,8 +565,15 @@ namespace CJBItemSpawner.Framework
                 ? y - (CommonSprites.Tab.Top.Height * Game1.pixelZoom) // at top of screen, moved up slightly to reduce overlap over items
                 : y - Game1.tileSize * 2 + 10; // above menu
 
+            // get tab sizes
+            const int qualityButtonWidth = 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth;
+            int maxTabWidth = (this.width - qualityButtonWidth) / 3;
+            int minSearchWidth = Math.Min((int)Game1.smallFont.MeasureString("ABCDEF").X, maxTabWidth);
+            int maxSearchWidth = Math.Min((int)Game1.smallFont.MeasureString("ABCDEFGHIJKLMNOPQRSTUVWXYZ").X, maxTabWidth);
+            int maxDropdownWidth = Math.Min((int)Game1.smallFont.MeasureString("ABCDEFGHIJKLMNOPQRSTUVW").X, maxTabWidth);
+
             // basic UI
-            this.QualityButton = new ClickableComponent(new Rectangle(x - 2 * Game1.pixelZoom, top, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth, 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth - 2), ""); // manually tweak height to align with sort button
+            this.QualityButton = new ClickableComponent(new Rectangle(x - 2 * Game1.pixelZoom, top, qualityButtonWidth, qualityButtonWidth - 2), ""); // manually tweak height to align with sort button
             this.SortButton = new ClickableComponent(new Rectangle(this.QualityButton.bounds.Right + 20, top, this.GetMaxSortLabelWidth(Game1.smallFont) + CommonHelper.ButtonBorderWidth, Game1.tileSize), this.GetSortLabel(this.SortBy));
             this.SortIcon = new ClickableTextureComponent(new Rectangle(this.SortButton.bounds.X + CommonHelper.ButtonBorderWidth, top + CommonHelper.ButtonBorderWidth, this.SortTexture.Width, Game1.tileSize), this.SortTexture, new Rectangle(0, 0, this.SortTexture.Width, this.SortTexture.Height), 1f);
             this.CategoryDropdown = new Dropdown<string>(this.SortButton.bounds.Right + 20, this.SortButton.bounds.Y, Game1.smallFont, this.CategoryDropdown?.Selected ?? I18n.Filter_All(), this.Categories, p => p, maxTabWidth: maxDropdownWidth);

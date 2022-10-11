@@ -71,11 +71,25 @@ namespace CJBItemSpawner
         /// <param name="e">The event arguments.</param>
         private void OnButtonsChanged(object? sender, ButtonsChangedEventArgs e)
         {
-            if (!Context.IsPlayerFree)
-                return;
-
             if (this.Config.ShowMenuKey.JustPressed())
+            {
+                if (!Context.IsPlayerFree)
+                {
+                    // Players often ask for help due to the menu not opening when expected. To
+                    // simplify troubleshooting, log when the key is ignored.
+                    if (Game1.activeClickableMenu != null)
+                        this.Monitor.Log($"Received menu open key, but a '{Game1.activeClickableMenu.GetType().Name}' menu is already open.");
+                    else if (Game1.eventUp)
+                        this.Monitor.Log("Received menu open key, but an event is active.");
+                    else
+                        this.Monitor.Log("Received menu open key, but the player isn't free.");
+
+                    return;
+                }
+
+                this.Monitor.Log("Received menu open key.");
                 Game1.activeClickableMenu = this.BuildMenu();
+            }
         }
 
         /// <summary>Raised after the game state is updated (≈60 times per second).</summary>

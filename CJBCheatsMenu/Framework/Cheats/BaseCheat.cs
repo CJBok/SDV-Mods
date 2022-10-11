@@ -43,6 +43,10 @@ namespace CJBCheatsMenu.Framework.Cheats
         /// <param name="e">The update event arguments.</param>
         public virtual void OnUpdated(CheatContext context, UpdateTickedEventArgs e) { }
 
+        /// <summary>Raised before the game begins writing data to the save file (except the initial save creation).</summary>
+        /// <param name="context">The cheat context.</param>
+        public virtual void OnSaving(CheatContext context) { }
+
         /// <summary>Handle the game draws to the sprite patch in a draw tick, just before the final sprite batch is rendered to the screen.</summary>
         /// <param name="context">The cheat context.</param>
         /// <param name="spriteBatch">The sprite batch being drawn.</param>

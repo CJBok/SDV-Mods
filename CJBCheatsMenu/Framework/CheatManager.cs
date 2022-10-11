@@ -27,7 +27,7 @@ namespace CJBCheatsMenu.Framework
         /// <summary>The available cheat implementations.</summary>
         private readonly ICheat[] Cheats;
 
-        /// <summary>The cheat implementations which should be notified of update ticks.</summary>
+        /// <summary>The cheat implementations which should be notified of update ticks and saves.</summary>
         private readonly List<ICheat> CheatsWhichNeedUpdate = new();
 
         /// <summary>The cheat implementations which should be notified of user input.</summary>
@@ -273,6 +273,13 @@ namespace CJBCheatsMenu.Framework
         {
             foreach (ICheat cheat in this.CheatsWhichNeedUpdate)
                 cheat.OnUpdated(this.Context, e);
+        }
+
+        /// <summary>Raised before the game begins writing data to the save file (except the initial save creation).</summary>
+        public void OnSaving()
+        {
+            foreach (ICheat cheat in this.CheatsWhichNeedUpdate)
+                cheat.OnSaving(this.Context);
         }
 
         /// <summary>Raised after the player presses or releases any buttons if <see cref="OnSaveLoaded"/> indicated input was needed.</summary>
