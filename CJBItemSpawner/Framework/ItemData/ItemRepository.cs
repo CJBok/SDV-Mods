@@ -107,7 +107,7 @@ namespace CJBItemSpawner.Framework.ItemData
                     var weaponsData = this.TryLoad<int, string>("Data\\weapons");
                     foreach (int id in weaponsData.Keys)
                     {
-                        yield return this.TryCreate(ItemType.Weapon, id, p => weaponsData[p.ID].Split('/')[8] == '4'
+                        yield return this.TryCreate(ItemType.Weapon, id, p => weaponsData[p.ID].Split('/')[8] == "4"
                             ? new Slingshot(p.ID)
                             : new MeleeWeapon(p.ID)
                         );
