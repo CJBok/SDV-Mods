@@ -55,15 +55,15 @@
     "farm.durable-fences": "울타리 유실 방지",
     "farm.instant-build": "농장 건물 건설 즉시 완성",
     "farm.auto-feed-animals": "사료 자동 급식",
-    "farm.auto-pet-animals": "팻 자동 물그릇",
-    "farm.auto-pet-pets": "Auto-Pet Pets", // TODO
+    "farm.auto-pet-animals": "애완동물 자동 물그릇",
+    "farm.auto-pet-pets": "애완동물 자동 쓰다듬기",
     "farm.infinite-hay": "건초 무한대",
 
     // fishing
     "fishing.title": "낚시",
     "fishing.instant-catch": "물고기 즉시 낚음",
-    "fishing.instant-bite": "물고기가 즉시 입질",
-    "fishing.always-throw-max-distance": "낚싯대 최대로 멀리 던짐",
+    "fishing.instant-bite": "물고기 즉시 입질",
+    "fishing.always-throw-max-distance": "낚싯대 최대 멀리 던짐",
     "fishing.always-treasure": "보물상자 항상 나옴",
     "fishing.durable-tackles": "낚시찌 소모되지 않음",
 
