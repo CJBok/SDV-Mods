@@ -66,7 +66,7 @@ namespace CJBCheatsMenu.Framework.Cheats
             if (!Context.IsPlayerFree || (!this.ShouldGrowCrops && !this.ShouldGrowTrees))
                 return;
 
-            Vector2 playerTile = Game1.player.getTileLocation();
+            Vector2 playerTile = Game1.player.Tile;
             if (playerTile != this.LastGrowOrigin || e.IsMultipleOf(30))
             {
                 this.Grow(playerTile, radius: context.Config.GrowRadius);
