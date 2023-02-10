@@ -57,9 +57,11 @@ namespace CJBCheatsMenu
 
             // load cheats
             this.ResetLocationCache();
-            this.Cheats = new PerScreen<CheatManager>(() => new CheatManager(this.Config, this.Helper.Reflection, () => this.Locations.Value.Value, () => this.Warps));
+            this.Cheats = new PerScreen<CheatManager>(() => new CheatManager(this.Config, this.Helper.GameContent, this.Helper.Reflection, () => this.Locations.Value.Value, () => this.Warps));
 
             // hook events
+            helper.Events.Content.AssetRequested += this.OnAssetRequested;
+
             helper.Events.Display.Rendered += this.OnRendered;
             helper.Events.Display.MenuChanged += this.OnMenuChanged;
 
@@ -136,6 +138,15 @@ namespace CJBCheatsMenu
 
             // handle button if applicable
             this.Cheats.Value.OnButtonsChanged(e);
+        }
+
+        /// <inheritdoc cref="IContentEvents.AssetRequested"/>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnAssetRequested(object? sender, AssetRequestedEventArgs e)
+        {
+            if (this.Cheats.IsActiveForScreen()) // skip if not initialized yet
+                this.Cheats.Value.HarvestWithScythe.OnAssetRequested(this.Cheats.Value.Context, e);
         }
 
         /// <summary>Raised after the game draws to the sprite patch in a draw tick, just before the final sprite batch is rendered to the screen.</summary>

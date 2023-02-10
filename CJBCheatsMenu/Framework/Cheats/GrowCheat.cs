@@ -122,7 +122,7 @@ namespace CJBCheatsMenu.Framework.Cheats
                         Crop crop = dirt.crop;
                         // grow crop using newDay to apply full logic like giant crops, wild seed randomization, etc
                         for (int i = 0; i < 100 && !crop.fullyGrown.Value; i++)
-                            crop.newDay(HoeDirt.watered, dirt.fertilizer.Value, (int)tile.X, (int)tile.Y, location);
+                            crop.newDay(HoeDirt.watered);
 
                         // trigger regrowth logic for multi-harvest crops
                         crop.growCompletely();
