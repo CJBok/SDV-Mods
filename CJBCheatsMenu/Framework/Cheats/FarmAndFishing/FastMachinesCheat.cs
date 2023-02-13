@@ -7,7 +7,6 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Buildings;
-using StardewValley.Locations;
 using StardewValley.Menus;
 using StardewValley.Objects;
 using StardewValley.TerrainFeatures;
@@ -112,7 +111,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                     setValue: value => context.Config.FastMayonnaiseMachine = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBuildingName("Mill"),
+                    label: Game1.content.LoadString("Strings\\Buildings:Mill_Name"),
                     value: context.Config.FastMillMachine,
                     setValue: value => context.Config.FastMillMachine = value
                 ),
