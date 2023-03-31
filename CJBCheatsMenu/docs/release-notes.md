@@ -1,6 +1,10 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Adjusted grow-crops cheat for compatibility with some crop mods (thanks to atravita!).
+* Improved translations. Thanks to BruceWu03 (updated Chinese)!
+
 ## 1.32.2
 Released 09 January 2023 for SMAPI 3.14.0 or later.
 
