@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Added option for 'can read Junimo text' in advanced section.
 * Adjusted grow-crops cheat for compatibility with some crop mods (thanks to atravita!).
 * Improved translations. Thanks to BruceWu03 (updated Chinese)!
 

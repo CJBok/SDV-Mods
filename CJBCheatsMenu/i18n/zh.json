@@ -225,6 +225,7 @@
     "flags.unlocked.room": "{{name}} 的房间",
     "flags.unlocked-content": "解锁内容",
     "flags.unlocked-content.dyes-and-tailoring": "染色 & 缝纫",
+    "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
     "flags.community-center": "社区中心",
     "flags.community-center.door-unlocked": "社区中心解锁",
     "flags.jojamart.membership": "Joja超市会员资格",

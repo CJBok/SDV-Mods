@@ -226,6 +226,7 @@
     "flags.unlocked.room": "Odası: {{name}}",
     "flags.unlocked-content": "Açılmış İçerik",
     "flags.unlocked-content.dyes-and-tailoring": "Boyama ve Dikiş",
+    "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
     "flags.community-center": "Halkevi",
     "flags.community-center.door-unlocked": "Kapı Açıldı",
     "flags.jojamart.membership": "JojaMart Üyeliği",

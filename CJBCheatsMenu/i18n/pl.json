@@ -225,6 +225,7 @@
     "flags.unlocked.room": "Pokój: {{name}}",
     "flags.unlocked-content": "Odblokowana Zawartość",
     "flags.unlocked-content.dyes-and-tailoring": "Barwniki i Krawiectwo",
+    "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
     "flags.community-center": "Centrum Społeczności",
     "flags.community-center.door-unlocked": "Odblokowane Drzwi",
     "flags.jojamart.membership": "Członkostwo JojaMarket",

@@ -19,6 +19,11 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
                 value: this.HasEvent(992559),
                 setValue: value => this.SetEvent(992559, value)
             );
+            yield return new CheatsOptionsCheckbox(
+                label: I18n.Flags_UnlockedContent_JunimoText(),
+                value: this.HasFlag("canReadJunimoText"),
+                setValue: value => this.SetFlag(value, "canReadJunimoText")
+            );
         }
     }
 }
