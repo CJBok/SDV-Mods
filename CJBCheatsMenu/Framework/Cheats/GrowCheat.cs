@@ -92,13 +92,13 @@ namespace CJBCheatsMenu.Framework.Cheats
             foreach (Vector2 tile in CommonHelper.GetTileArea(origin, radius))
             {
                 // get target
-                object? target = null;
+                TerrainFeature? target = null;
                 {
                     // terrain feature
                     if (location.terrainFeatures.TryGetValue(tile, out TerrainFeature terrainFeature))
                     {
-                        if (terrainFeature is HoeDirt dirt)
-                            target = dirt.crop;
+                        if (terrainFeature is HoeDirt dirt && dirt.crop is not null)
+                            target = dirt;
                         else if (terrainFeature is Bush or FruitTree or Tree)
                             target = terrainFeature;
                     }
@@ -106,8 +106,8 @@ namespace CJBCheatsMenu.Framework.Cheats
                     // indoor pot
                     if (target == null && location.objects.TryGetValue(tile, out SObject obj) && obj is IndoorPot pot)
                     {
-                        if (pot.hoeDirt.Value is { } dirt)
-                            target = dirt.crop;
+                        if (pot.hoeDirt.Value is HoeDirt dirt && dirt.crop is not null)
+                            target = dirt;
 
                         if (pot.bush.Value is { } bush)
                             target = bush;
@@ -117,15 +117,17 @@ namespace CJBCheatsMenu.Framework.Cheats
                 // grow target
                 switch (target)
                 {
-                    case Crop crop when this.ShouldGrowCrops:
+                    case HoeDirt dirt when this.ShouldGrowCrops:
+                    {
+                        Crop crop = dirt.crop;
                         // grow crop using newDay to apply full logic like giant crops, wild seed randomization, etc
                         for (int i = 0; i < 100 && !crop.fullyGrown.Value; i++)
-                            crop.newDay(HoeDirt.watered, HoeDirt.fertilizerHighQuality, (int)tile.X, (int)tile.Y, location);
+                            crop.newDay(HoeDirt.watered, dirt.fertilizer.Value, (int)tile.X, (int)tile.Y, location);
 
                         // trigger regrowth logic for multi-harvest crops
                         crop.growCompletely();
                         break;
-
+                    }
                     case Bush bush when this.ShouldGrowCrops && bush.size.Value == Bush.greenTeaBush && bush.getAge() < Bush.daysToMatureGreenTeaBush:
                         bush.datePlanted.Value = (int)(Game1.stats.DaysPlayed - Bush.daysToMatureGreenTeaBush);
                         bush.dayUpdate(location, tile); // update source rect, grow tea leaves, etc
