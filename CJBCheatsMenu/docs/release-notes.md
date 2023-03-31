@@ -1,7 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.33.0
+Released 30 March 2023 for SMAPI 3.14.0 or later.
+
 * Added option for 'can read Junimo text' in advanced section.
 * Adjusted grow-crops cheat for compatibility with some crop mods (thanks to atravita!).
 * Improved translations. Thanks to BruceWu03 (updated Chinese)!
