@@ -225,6 +225,7 @@
     "flags.unlocked.room": "방: {{name}}",
     "flags.unlocked-content": "해제되지 않은 콘텐츠",
     "flags.unlocked-content.dyes-and-tailoring": "염색&코팅",
+    "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
     "flags.community-center": "마을 회관",
     "flags.community-center.door-unlocked": "잠긴 문 열기",
     "flags.jojamart.membership": "조자마트 회원권",

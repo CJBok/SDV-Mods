@@ -225,6 +225,7 @@
     "flags.unlocked.room": "Stanza: {{name}}",
     "flags.unlocked-content": "Contenuto Sbloccato",
     "flags.unlocked-content.dyes-and-tailoring": "Colorante e Sartoria",
+    "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
     "flags.community-center": "Centro Sociale",
     "flags.community-center.door-unlocked": "Porta Sbloccata",
     "flags.jojamart.membership": "Membro di JojaMart",

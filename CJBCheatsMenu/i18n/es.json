@@ -225,6 +225,7 @@
     "flags.unlocked.room": "Habitación: {{name}}",
     "flags.unlocked-content": "Contenido desbloqueado",
     "flags.unlocked-content.dyes-and-tailoring": "Tintes y sastrería",
+    "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
     "flags.community-center": "Centro Cívico",
     "flags.community-center.door-unlocked": "Puerta Abierta",
     "flags.jojamart.membership": "Membresía de MercaJoja",

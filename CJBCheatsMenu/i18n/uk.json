@@ -225,6 +225,7 @@
     "flags.unlocked.room": "Кімната: {{name}}",
     "flags.unlocked-content": "Розблокувати контен",
     "flags.unlocked-content.dyes-and-tailoring": "Фарбування та шиття",
+    "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
     "flags.community-center": "Громадський Клуб",
     "flags.community-center.door-unlocked": "Двері відчинено",
     "flags.jojamart.membership": "Членство у Корпорації JojaМаркет",

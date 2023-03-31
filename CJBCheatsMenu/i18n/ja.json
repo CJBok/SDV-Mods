@@ -227,6 +227,7 @@
     "flags.unlocked.room": "寝室: {{name}}",
     "flags.unlocked-content": "ロック解除されたコンテンツ",
     "flags.unlocked-content.dyes-and-tailoring": "染色と仕立て",
+    "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
     "flags.community-center": "コミュニティ復興",
     "flags.community-center.door-unlocked": "公民館へ入館",
     "flags.jojamart.membership": "Jojaマート 会員権",
