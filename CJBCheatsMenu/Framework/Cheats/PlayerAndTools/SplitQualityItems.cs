@@ -50,7 +50,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
             yield return new CheatsOptionsButton(
                 label: I18n.SplitQualityItems_HeldItems(),
                 slotWidth: context.SlotWidth,
-                toggle: () => this.SplitInventoryStack(Game1.player.CurrentToolIndex)
+                toggle: () => this.SplitCurrentHeldStack()
             );
             yield return new CheatsOptionsButton(
                 label: I18n.SplitQualityItems_WholeInventory(),
@@ -73,17 +73,20 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
             }
         }
 
-        private void SplitInventoryStack(int inventoryIndex)
+        private bool SplitInventoryStack(int inventoryIndex)
         {
             Farmer player = Game1.player;
             IList<Item> inventory = player.Items;
 
             StardewValley.Object? stack = inventory[inventoryIndex] as StardewValley.Object;
 
-            if (stack == null || stack.Quality == 0) return;
+            if (stack == null || stack.Quality == 0) return false;
 
             this.Log($"Processing {stack.Stack} {stack.DisplayName} @{inventoryIndex} #{stack.ParentSheetIndex}/{stack.preservedParentSheetIndex} of quality {stack.Quality}", LogLevel.Trace);
             ConvertibleQuantity(stack.Stack, stack.Quality, out int toConsume, out int toProduce);
+
+            if (toProduce <= 0) return false;
+
             this.Log($"Will consume {toConsume} to produce {toProduce}", LogLevel.Trace);
             StardewValley.Object result = (StardewValley.Object)stack.getOne();
             stack.Stack -= toConsume;
@@ -99,6 +102,13 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
                 this.Log($"Dropping excess {remainder.Stack} {remainder.DisplayName}", LogLevel.Trace);
                 Game1.createItemDebris(remainder, new Vector2(Game1.player.position.X, Game1.player.position.Y), -1);
             }
+            return true;
+        }
+
+        private void SplitCurrentHeldStack()
+        {
+            bool doneAnything = this.SplitInventoryStack(Game1.player.CurrentToolIndex);
+            Game1.playSound(doneAnything ? "crafting" : "breathin");
         }
 
         private void SplitWholeInventory()
@@ -108,14 +118,18 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
             // index what can be split in inventory first, as we may use several quality levels for a single output
             Farmer farmer = Game1.player;
 
+            bool doneAnything = false;
+
             for (int i = 0; i < farmer.Items.Count; ++i)
             {
                 StardewValley.Object? obj = farmer.Items[i] as StardewValley.Object;
                 if (obj != null)
                 {
-                    this.SplitInventoryStack(i);
+                    doneAnything |= this.SplitInventoryStack(i);
                 }
             }
+
+            Game1.playSound(doneAnything ? "crafting" : "breathin");
         }
     }
 }
