@@ -45,6 +45,11 @@
     "add.amount-gold": "Add {{amount}}g",
     "add.amount-other": "Add {{amount}}",
 
+    //quality items splitter
+    "split-quality-items": "Split quality items",
+    "split-quality-items.whole-inventory": "Process whole inventory",
+    "split-quality-items.held-items": "Process held items",
+
 
     /*********
     ** Farm & Fishing tab

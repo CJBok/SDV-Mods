@@ -429,6 +429,12 @@ namespace CJBCheatsMenu.Framework
                         $"{I18n.Add_QiGems()}:",
                         cheats.AddQiGems
                     );
+
+                    // Split quality items
+                    this.AddOptions(
+                        $"{I18n.SplitQualityItems()}:",
+                        cheats.SplitQualityItems
+                    );
                     break;
 
                 case MenuTab.FarmAndFishing:

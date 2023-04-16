@@ -55,7 +55,7 @@ namespace CJBCheatsMenu
 
             // load cheats
             this.ResetLocationCache();
-            this.Cheats = new PerScreen<CheatManager>(() => new CheatManager(this.Config, this.Helper.Reflection, () => this.Locations.Value.Value, () => this.Warps));
+            this.Cheats = new PerScreen<CheatManager>(() => new CheatManager(this.Config, this.Helper.Reflection, this.Monitor, () => this.Locations.Value.Value, () => this.Warps));
 
             // hook events
             helper.Events.Display.Rendered += this.OnRendered;

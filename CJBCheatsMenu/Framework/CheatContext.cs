@@ -25,6 +25,9 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Simplifies access to private code.</summary>
         public IReflectionHelper Reflection { get; }
 
+        /// <summary>Provides logging ability.</summary>
+        public IMonitor Monitor { get; }
+
         /// <summary>The display width of an option slot during the last cheats menu render.</summary>
         public int SlotWidth { get; set; }
 
@@ -35,11 +38,13 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Construct an instance.</summary>
         /// <param name="config">The mod configuration.</param>
         /// <param name="reflection">Simplifies access to private code.</param>
+        /// <param name="monitor">Provides logging ability.</param>
         /// <param name="getAllLocations">Get a cached list of all in-game locations.</param>
-        public CheatContext(ModConfig config, IReflectionHelper reflection, Func<IEnumerable<GameLocation>> getAllLocations)
+        public CheatContext(ModConfig config, IReflectionHelper reflection, IMonitor monitor, Func<IEnumerable<GameLocation>> getAllLocations)
         {
             this.Config = config;
             this.Reflection = reflection;
+            this.Monitor = monitor;
             this.GetAllLocationsImpl = getAllLocations;
         }
 

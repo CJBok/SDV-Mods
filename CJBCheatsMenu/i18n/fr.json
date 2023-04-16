@@ -45,6 +45,10 @@
     "add.amount-gold": "Ajouter {{amount}}po",
     "add.amount-other": "Ajouter {{amount}}",
 
+    //quality items splitter
+    "split-quality-items": "Convertir les objects de qualité",
+    "split-quality-items.whole-inventory": "Tout l'inventaire",
+    "split-quality-items.held-items": "Objets en main",
 
     /*********
     ** Farm & Fishing tab

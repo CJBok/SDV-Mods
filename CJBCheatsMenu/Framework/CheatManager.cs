@@ -91,6 +91,9 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Adds various numbers of Qi gems to the player.</summary>
         public ICheat AddQiGems { get; } = new AddQiGemsCheat();
 
+        /// <summary>Allows converting quality items to normal items.</summary>
+        public ICheat SplitQualityItems { get; } = new SplitQualityItems();
+
         /****
         ** Farming & fishing
         ****/
@@ -216,11 +219,12 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Construct an instance.</summary>
         /// <param name="config">The mod configuration.</param>
         /// <param name="reflection">Simplifies access to private code.</param>
+        /// <param name="monitor">Provides logging ability.</param>
         /// <param name="getAllLocations">Get a cached list of all in-game locations.</param>
         /// <param name="getWarps">Get the warp data.</param>
-        public CheatManager(ModConfig config, IReflectionHelper reflection, Func<IEnumerable<GameLocation>> getAllLocations, Func<ModData> getWarps)
+        public CheatManager(ModConfig config, IReflectionHelper reflection, IMonitor monitor, Func<IEnumerable<GameLocation>> getAllLocations, Func<ModData> getWarps)
         {
-            this.Context = new CheatContext(config, reflection, getAllLocations);
+            this.Context = new CheatContext(config, reflection, monitor, getAllLocations);
             this.Hearts = new HeartsCheat(onPointsChanged: (npc, points) => this.NoFriendshipDecayImpl.UpdateFriendship(npc, points));
             this.Warps = new WarpCheat(getWarps);
 
