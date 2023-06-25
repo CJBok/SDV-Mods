@@ -40,6 +40,8 @@ namespace CJBCheatsMenu
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
         {
+            CommonHelper.RemoveObsoleteFiles(this, "CJBCheatsMenu.pdb");
+
             // load config
             this.Config = helper.ReadConfig<ModConfig>();
             this.Monitor.Log($"Started with menu key {this.Config.OpenMenuKey}.");
