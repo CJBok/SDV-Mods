@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CJB.Common;
 using CJBItemSpawner.Framework;
 using CJBItemSpawner.Framework.ItemData;
 using CJBItemSpawner.Framework.Models;
@@ -36,6 +37,8 @@ namespace CJBItemSpawner
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
         {
+            CommonHelper.RemoveObsoleteFiles(this, "CJBItemSpawner.pdb");
+
             // read config
             this.Config = helper.ReadConfig<ModConfig>();
             this.Monitor.Log($"Started with menu key {this.Config.ShowMenuKey}.");

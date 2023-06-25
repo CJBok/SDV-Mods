@@ -51,6 +51,8 @@ namespace CJBShowItemSellPrice
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
         {
+            CommonHelper.RemoveObsoleteFiles(this, "CJBShowItemSellPrice.pdb");
+
             // init text
             I18n.Init(helper.Translation);
 

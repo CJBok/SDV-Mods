@@ -1,10 +1,14 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Buildings;
 using StardewValley.Locations;
 using StardewValley.Menus;
+using SObject = StardewValley.Object;
 
 namespace CJB.Common
 {
@@ -129,7 +133,7 @@ namespace CJB.Common
 
         /// <summary>Get the sell price for an item.</summary>
         /// <param name="item">The item to check.</param>
-        /// <param name="forceSellable">Item categories that can be sold in shops, regardless of what <see cref="StardewValley.Object.canBeShipped"/> returns.</param>
+        /// <param name="forceSellable">Item categories that can be sold in shops, regardless of what <see cref="SObject.canBeShipped"/> returns.</param>
         /// <returns>Returns the sell price, or <c>null</c> if it can't be sold.</returns>
         public static int? GetSellPrice(Item item, ISet<int> forceSellable)
         {
@@ -146,11 +150,11 @@ namespace CJB.Common
 
         /// <summary>Get whether an item can be sold.</summary>
         /// <param name="item">The item to check.</param>
-        /// <param name="forceSellable">Item categories that can be sold in shops, regardless of what <see cref="StardewValley.Object.canBeShipped"/> returns.</param>
+        /// <param name="forceSellable">Item categories that can be sold in shops, regardless of what <see cref="SObject.canBeShipped"/> returns.</param>
         public static bool CanBeSold(Item item, ISet<int> forceSellable)
         {
             return
-                (item is Object obj && obj.canBeShipped())
+                (item is SObject obj && obj.canBeShipped())
                 || forceSellable.Contains(item.Category);
         }
 
@@ -176,6 +180,35 @@ namespace CJB.Common
         {
             float value = position * (maxValue - minValue) + minValue;
             return (int)MathHelper.Clamp(value, minValue, maxValue);
+        }
+
+
+        /****
+        ** File handling
+        ****/
+        /// <summary>Remove one or more obsolete files from the mod folder, if they exist.</summary>
+        /// <param name="mod">The mod for which to delete files.</param>
+        /// <param name="relativePaths">The relative file path within the mod's folder.</param>
+        public static void RemoveObsoleteFiles(IMod mod, params string[] relativePaths)
+        {
+            string basePath = mod.Helper.DirectoryPath;
+
+            foreach (string relativePath in relativePaths)
+            {
+                string fullPath = Path.Combine(basePath, relativePath);
+                if (File.Exists(fullPath))
+                {
+                    try
+                    {
+                        File.Delete(fullPath);
+                        mod.Monitor.Log($"Removed obsolete file '{relativePath}'.");
+                    }
+                    catch (Exception ex)
+                    {
+                        mod.Monitor.Log($"Failed deleting obsolete file '{relativePath}':\n{ex}");
+                    }
+                }
+            }
         }
     }
 }
