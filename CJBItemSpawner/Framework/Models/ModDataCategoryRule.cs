@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CJBItemSpawner.Framework.ItemData;
 using StardewValley;
-using Object = StardewValley.Object;
+using SObject = StardewValley.Object;
 
 namespace CJBItemSpawner.Framework.Models
 {
@@ -14,16 +14,16 @@ namespace CJBItemSpawner.Framework.Models
         ** Accessors
         *********/
         /// <summary>The full name of the item's C# instance type.</summary>
-        public ISet<string> Class { get; }
+        public HashSet<string> Class { get; }
 
-        /// <summary>The object's type (i.e. <see cref="Object.Type"/>).</summary>
-        public ISet<string> ObjType { get; }
+        /// <summary>The object's type (i.e. <see cref="SObject.Type"/>).</summary>
+        public HashSet<string> ObjType { get; }
 
         /// <summary>The object's category (i.e. <see cref="Item.Category"/>).</summary>
-        public ISet<int> ObjCategory { get; }
+        public HashSet<int> ObjCategory { get; }
 
         /// <summary>The item's unique ID (i.e. <see cref="Item.ParentSheetIndex"/>).</summary>
-        public ISet<string> ItemId { get; }
+        public HashSet<string> ItemId { get; }
 
 
         /*********
@@ -31,10 +31,10 @@ namespace CJBItemSpawner.Framework.Models
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="class">The full name of the item's C# instance type.</param>
-        /// <param name="objType">The object's type (i.e. <see cref="Object.Type"/>).</param>
+        /// <param name="objType">The object's type (i.e. <see cref="SObject.Type"/>).</param>
         /// <param name="objCategory">The object's category (i.e. <see cref="Item.Category"/>).</param>
         /// <param name="itemId">The item's unique ID (i.e. <see cref="Item.ParentSheetIndex"/>).</param>
-        public ModDataCategoryRule(ISet<string>? @class, ISet<string>? objType, ISet<int>? objCategory, ISet<string>? itemId)
+        public ModDataCategoryRule(HashSet<string>? @class, HashSet<string>? objType, HashSet<int>? objCategory, HashSet<string>? itemId)
         {
             IEnumerable<string> empty = Enumerable.Empty<string>();
 
@@ -49,7 +49,7 @@ namespace CJBItemSpawner.Framework.Models
         public bool IsMatch(SearchableItem entry)
         {
             Item item = entry.Item;
-            Object? obj = item as Object;
+            SObject? obj = item as SObject;
 
             // match criteria
             if (this.Class.Any() && this.GetClassFullNames(item).Any(className => this.Class.Contains(className)))

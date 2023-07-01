@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed error loading data on Android after the Stardew Valley 1.5.6 + SMAPI updates.
+
 ## 2.2.4
 Released 25 June 2023 for SMAPI 3.14.0 or later.
 
