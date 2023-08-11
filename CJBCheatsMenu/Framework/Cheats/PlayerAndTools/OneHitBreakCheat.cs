@@ -74,7 +74,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
             // break resource clumps
             foreach (ResourceClump? clump in location.resourceClumps)
             {
-                if (clump != null && clump.getBoundingBox(clump.tile.Value).Contains((int)player.GetToolLocation().X, (int)player.GetToolLocation().Y) && clump.health.Value > 0)
+                if (clump != null && clump.getBoundingBox().Contains((int)player.GetToolLocation().X, (int)player.GetToolLocation().Y) && clump.health.Value > 0)
                     clump.health.Value = 0;
             }
         }

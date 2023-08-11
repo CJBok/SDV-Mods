@@ -130,7 +130,7 @@ namespace CJBCheatsMenu.Framework.Cheats
                     }
                     case Bush bush when this.ShouldGrowCrops && bush.size.Value == Bush.greenTeaBush && bush.getAge() < Bush.daysToMatureGreenTeaBush:
                         bush.datePlanted.Value = (int)(Game1.stats.DaysPlayed - Bush.daysToMatureGreenTeaBush);
-                        bush.dayUpdate(location, tile); // update source rect, grow tea leaves, etc
+                        bush.dayUpdate(); // update source rect, grow tea leaves, etc
                         break;
 
                     case FruitTree fruitTree when this.ShouldGrowTrees && !fruitTree.stump.Value && fruitTree.growthStage.Value < FruitTree.treeStage:

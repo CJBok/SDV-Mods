@@ -227,13 +227,13 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                 foreach (Building building in location.buildings)
                 {
                     if (this.IsFastMachine(context, building))
-                        this.CompleteMachine(location, building);
+                        this.CompleteMachine(building);
                 }
 
                 foreach (SObject obj in location.objects.Values)
                 {
                     if (this.IsFastMachine(context, obj))
-                        this.CompleteMachine(location, obj);
+                        this.CompleteMachine(obj);
                 }
 
                 if (context.Config.FastFruitTree)
@@ -322,9 +322,8 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         }
 
         /// <summary>Finish a machine's processing.</summary>
-        /// <param name="location">The machine's location.</param>
         /// <param name="machine">The machine to complete.</param>
-        private void CompleteMachine(GameLocation location, Building machine)
+        private void CompleteMachine(Building machine)
         {
             if (machine.isUnderConstruction())
                 return;
@@ -333,9 +332,8 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         }
 
         /// <summary>Finish a machine's processing.</summary>
-        /// <param name="location">The machine's location.</param>
         /// <param name="machine">The machine to complete.</param>
-        private void CompleteMachine(GameLocation location, SObject machine)
+        private void CompleteMachine(SObject machine)
         {
             bool hasItem = machine.heldObject.Value != null;
             bool processing = machine.MinutesUntilReady > 0;
@@ -349,13 +347,13 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                         cask.heldObject.Value.Quality = SObject.bestQuality;
                         cask.daysToMature.Value = 0;
                         cask.MinutesUntilReady = 1;
-                        machine.minutesElapsed(machine.MinutesUntilReady, location);
+                        machine.minutesElapsed(machine.MinutesUntilReady);
                     }
                     break;
 
                 case CrabPot pot:
                     if (!hasItem)
-                        pot.DayUpdate(location);
+                        pot.DayUpdate();
                     break;
 
                 // by name
@@ -370,8 +368,8 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                         case "Statue Of True Perfection":
                             if (!hasItem)
                             {
-                                machine.DayUpdate(location);
-                                machine.minutesElapsed(1, location);
+                                machine.DayUpdate();
+                                machine.minutesElapsed(1);
                             }
                             break;
 
@@ -379,13 +377,13 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                         case "Solar Panel":
                             if (machine.MinutesUntilReady > 1)
                                 machine.MinutesUntilReady = 1;
-                            machine.DayUpdate(location); // complete machine if conditions are correct (e.g. outdoors and sunny)
+                            machine.DayUpdate(); // complete machine if conditions are correct (e.g. outdoors and sunny)
                             break;
 
                         // input processing machines
                         default:
                             if (hasItem && processing)
-                                machine.minutesElapsed(machine.MinutesUntilReady, location);
+                                machine.minutesElapsed(machine.MinutesUntilReady);
                             break;
                     }
                     break;
@@ -396,7 +394,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
             {
                 case "Mushroom Box" when !hasItem:
                 case "Slime Incubator" when hasItem:
-                    machine.DayUpdate(location);
+                    machine.DayUpdate();
                     break;
             }
         }
