@@ -63,14 +63,14 @@
     "fishing.title": "Рибальство",
     "fishing.instant-catch": "Миттєве виловлення риби",
     "fishing.instant-bite": "Миттєве клювання риби",
-    "fishing.always-throw-max-distance": "Завжди закидувати на максимальну дистанцію",
+    "fishing.always-throw-max-distance": "Завжди закидувати на макс. дистанцію",
     "fishing.always-treasure": "Завжди трапляються скарби",
     "fishing.durable-tackles": "Міцне додаткове спорядження",
 
     // fast machines
     "fast-machines.title": "Пришвидшення роботи машин",
     "fast-machines.fruit-trees": "Фруктові дерева",
-    "fast-machines.ready-in-the-morning": "{{machineName}} (буде готово вранці)",
+    "fast-machines.ready-in-the-morning": "{{machineName}}(буде готово вранці)",
 
 
     /*********
@@ -134,7 +134,7 @@
     ** Relationships tab
     *********/
     "relationships.title": "Стосунки",
-    "relationships.give-gifts-anytime": "Подарунки можно дарувати скільки завгодно",
+    "relationships.give-gifts-anytime": "Подарунки можна дарувати досхочу",
     "relationships.no-decay": "Рівень дружби не знижується",
     "relationships.friends": "Друзі",
 
@@ -223,9 +223,9 @@
     "flags.unlocked": "Розблоковані локації",
     "flags.unlocked.guild": "Гільдія Шукачів Пригод",
     "flags.unlocked.room": "Кімната: {{name}}",
-    "flags.unlocked-content": "Розблокувати контен",
+    "flags.unlocked-content": "Розблокувати контент",
     "flags.unlocked-content.dyes-and-tailoring": "Фарбування та шиття",
-    "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
+    "flags.unlocked-content.junimo-text": "Ви вмієте читати текcт Джунімо",
     "flags.community-center": "Громадський Клуб",
     "flags.community-center.door-unlocked": "Двері відчинено",
     "flags.jojamart.membership": "Членство у Корпорації JojaМаркет",
@@ -240,7 +240,7 @@
     "controls.freeze-time": "Зупинити час",
     "controls.grow-tree": "Виростити дерева",
     "controls.grow-crops": "Виростити культури",
-    "controls.grow-radius": "Радіус проростання флори від гравця",
+    "controls.grow-radius": "Радіус прор. флори від гравця",
     "controls.reset-controls": "Скинути налаштування",
     "controls.press-new-key": "Натисніть нову клавішу..."
 }
