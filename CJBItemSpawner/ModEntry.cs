@@ -46,9 +46,9 @@ namespace CJBItemSpawner
             // read item data
             {
                 ModItemData? itemData = helper.Data.ReadJsonFile<ModItemData>("assets/item-data.json");
-                if (itemData?.ProblematicItems is null || itemData?.ForceSellable is null)
+                if (itemData?.ForceSellable is null)
                     this.Monitor.Log("One of the mod files (assets/item-data.json) is missing or invalid. Some features may not work correctly; consider reinstalling the mod.", LogLevel.Warn);
-                this.ItemData = itemData ?? new ModItemData(null, null);
+                this.ItemData = itemData ?? new ModItemData(null);
             }
 
             // read categories
@@ -113,17 +113,7 @@ namespace CJBItemSpawner
         /// <summary>Get the items which can be spawned.</summary>
         private IEnumerable<SpawnableItem> GetSpawnableItems()
         {
-            IEnumerable<SearchableItem> items = new ItemRepository().GetAll();
-
-            // apply 'problematic items' filter
-            if (!this.Config.AllowProblematicItems && this.ItemData.ProblematicItems.Any())
-            {
-                var problematicItems = new HashSet<string>(this.ItemData.ProblematicItems, StringComparer.OrdinalIgnoreCase);
-                items = items.Where(item => !problematicItems.Contains($"{item.Type}:{item.Id}"));
-            }
-
-            // yield models
-            foreach (SearchableItem entry in items)
+            foreach (SearchableItem entry in new ItemRepository().GetAll())
             {
                 ModDataCategory? category = this.Categories.FirstOrDefault(rule => rule.IsMatch(entry));
 
@@ -142,9 +132,6 @@ namespace CJBItemSpawner
         private void LogCustomConfig()
         {
             List<string> phrases = new() { $"menu key {this.Config.ShowMenuKey}" };
-
-            if (this.Config.AllowProblematicItems)
-                phrases.Add("problematic items visible");
 
             if (!this.Config.ReclaimPriceInMenuTrashCan)
                 phrases.Add("reclaim trash can price disabled");

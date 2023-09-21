@@ -1,17 +1,5 @@
 ﻿{
     /**
-     * Items which are hidden by default because they cause in-game bugs or crashes.
-     */
-    "ProblematicItems": [
-        "BigCraftable:101", // Incubator (can't be removed once placed)
-        "BigCraftable:81", // Locked Door, two orientations (can't be removed once placed)
-        "BigCraftable:82", // ditto
-        "BigCraftable:128", // Mushroom Box (can't be removed once placed)
-        "BigCraftable:29", // Obelisk (once placed, it runs a glitched animation when the player is near that eventually starts switching between the Obelisk and a chicken statue sprite. Picking it up after that point can cause an immediate game crash or result in an unremovable inventory item.)
-        "BigCraftable:84" // Wicked Statue, lit eyes version (can't be removed once placed)
-    ],
-
-    /**
      * Item categories that can be sold in shops, regardless of what SObject.canBeShipped() returns.
      */
     "ForceSellable": [

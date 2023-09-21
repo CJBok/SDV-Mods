@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release for Stardew Valley 1.6
 * Updated for Stardew Valley 1.6.
+* Removed problematic item filtering. (All problematic items were fixed in Stardew Valley 1.6.)
 
 ## 1.33.5
 Released 01 December 2023 for SMAPI 3.14.0 or later.
