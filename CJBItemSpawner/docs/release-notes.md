@@ -2,6 +2,9 @@
 
 # Release notes
 ## Upcoming release
+* Fixed Pickled Ginger not listed.
+* Fixed 'Honey' listed instead of 'Wild Honey'.
+* Fixed support for custom slingshots (thanks to DaLion via the SMAPI repo!).
 * Improved translations. Thanks to CoolRabbit123 (updated German)!
 
 ## 2.2.6
