@@ -1,6 +1,14 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 2.2.7
+Released 03 October 2023 for SMAPI 3.14.0 or later.
+
+* Fixed Pickled Ginger not listed.
+* Fixed 'Honey' listed instead of 'Wild Honey'.
+* Fixed support for custom slingshots (thanks to DaLion via the SMAPI repo!).
+* Improved translations. Thanks to CoolRabbit123 (updated German)!
+
 ## 2.2.6
 Released 27 August 2023 for SMAPI 3.14.0 or later.
 
