@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Added `HideCategories` config option to hide certain item types in the item spawner menu.
 * Added more detailed config summary to SMAPI log to simplify troubleshooting.
 
 ## 2.2.7
