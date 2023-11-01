@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>2.2.7</Version>
-    <TargetFramework>net5.0</TargetFramework>
+    <Version>2.3.0</Version>
 
     <TranslationClassBuilder_AddGetByKey>true</TranslationClassBuilder_AddGetByKey>
   </PropertyGroup>
@@ -12,5 +11,4 @@
   </ItemGroup>
 
   <Import Project="..\Common\Common.projitems" Label="Shared" />
-  <Import Project="$(SolutionDir)\common.targets" />
 </Project>

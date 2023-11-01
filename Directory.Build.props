@@ -7,6 +7,7 @@
     <RepositoryType>git</RepositoryType>
 
     <!-- build settings -->
+    <TargetFramework>net5.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>

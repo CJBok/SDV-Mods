@@ -56,7 +56,7 @@
     "farm.instant-build": "Мгновенное строительство",
     "farm.auto-feed-animals": "Автоматическая подкормка животных",
     "farm.auto-pet-animals": "Автоматическое приласкивание животных",
-    "farm.auto-pet-pets": "Auto-Pet Pets", // TODO
+    "farm.auto-pet-pets": "Автоматическое приласкивание домашних животных",
     "farm.infinite-hay": "Бесконечное сено",
 
     // fishing
@@ -225,7 +225,7 @@
     "flags.unlocked.room": "Комната: {{name}}",
     "flags.unlocked-content": "Разблокировать контент",
     "flags.unlocked-content.dyes-and-tailoring": "Перекраска и шитьё",
-    "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
+    "flags.unlocked-content.junimo-text": "Изучен язык Джунимо",
     "flags.community-center": "Клуб",
     "flags.community-center.door-unlocked": "Открыть дверь",
     "flags.jojamart.membership": "Членство в корпорации \"ДжоджаМарт\"",

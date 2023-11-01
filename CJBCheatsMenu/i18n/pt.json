@@ -225,7 +225,7 @@
     "flags.unlocked.room": "Quarto: {{name}}",
     "flags.unlocked-content": "Conteúdo desbloqueado",
     "flags.unlocked-content.dyes-and-tailoring": "Corantes e alfaiataria",
-    "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
+    "flags.unlocked-content.junimo-text": "Pode ler texto dos Junimos",
     "flags.community-center": "Centro Comunitário",
     "flags.community-center.door-unlocked": "Destrancar porta",
     "flags.jojamart.membership": "Associar ao Mercado Joja",

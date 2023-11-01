@@ -23,11 +23,57 @@ In the menu you can...
 The mod will work fine out of the box, but you can tweak its settings by editing the `config.json`
 file. These are the available settings.
 
-setting | default | what it affects
-------- | ------- | ---------------
-`ShowMenuKey` | `i` | The keybind which opens the menu (see [valid key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings)). This supports multi-key bindings.
-`AllowProblematicItems` | `false` | Whether to show items which may cause bugs or crashes when spawned.
-`ReclaimPriceInMenuTrashCan` | `true` | When you [upgrade your trash can](https://stardewvalleywiki.com/Trash_Cans) to reclaim part of the price of destroyed items, whether that upgrade applies in the item spawner menu too.
+<table>
+<tr>
+  <th>setting</th>
+  <th>default</th>
+  <th>what it affects</th>
+</tr>
+<tr>
+  <td><code>ShowMenuKey</code></td>
+  <td><code>i</code></td>
+  <td>
+
+The keybind which opens the menu (see [valid key bindings](https://stardewvalleywiki.com/Modding:Player_Guide/Key_Bindings)).
+This supports multi-key bindings.
+
+  </td>
+</tr>
+<tr>
+  <td><code>AllowProblematicItems</code></td>
+  <td><code>false</code></td>
+  <td>
+
+Whether to show items which may cause bugs or crashes when spawned.
+
+  </td>
+</tr>
+<tr>
+  <td><code>ReclaimPriceInMenuTrashCan</code></td>
+  <td><code>true</code></td>
+  <td>
+
+When you [upgrade your trash can](https://stardewvalleywiki.com/Trash_Cans) to reclaim part of the
+price of destroyed items, whether that upgrade applies in the item spawner menu too.
+
+  </td>
+</tr>
+<tr>
+  <td><code>HideCategories</code></td>
+  <td><em>none</em></td>
+  <td>
+
+The categories to hide in the UI. Items in these categories will not be accessible through the
+spawn menu. You can see the category keys in the `assets/categories` file.
+
+For example, this will hide tools and weapons:
+```json
+"HideCategories": [ "filter.equipment-tools", "filter.equipment-weapons" ]
+```
+
+  </td>
+</tr>
+</table>
 
 ## FAQs
 ### What are 'problematic items'?

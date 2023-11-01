@@ -41,7 +41,7 @@ namespace CJBItemSpawner
 
             // read config
             this.Config = helper.ReadConfig<ModConfig>();
-            this.Monitor.Log($"Started with menu key {this.Config.ShowMenuKey}.");
+            this.LogCustomConfig();
 
             // read item data
             {
@@ -126,12 +126,33 @@ namespace CJBItemSpawner
             foreach (SearchableItem entry in items)
             {
                 ModDataCategory? category = this.Categories.FirstOrDefault(rule => rule.IsMatch(entry));
+
+                if (category?.Label != null && this.Config.HideCategories.Contains(category.Label))
+                    continue;
+
                 string categoryLabel = category != null
                     ? I18n.GetByKey(category.Label).Default(category.Label)
                     : I18n.Filter_Miscellaneous();
 
                 yield return new SpawnableItem(entry, categoryLabel);
             }
+        }
+
+        /// <summary>Log a trace message which summarizes the user's current config.</summary>
+        private void LogCustomConfig()
+        {
+            List<string> phrases = new() { $"menu key {this.Config.ShowMenuKey}" };
+
+            if (this.Config.AllowProblematicItems)
+                phrases.Add("problematic items visible");
+
+            if (!this.Config.ReclaimPriceInMenuTrashCan)
+                phrases.Add("reclaim trash can price disabled");
+
+            if (this.Config.HideCategories.Any())
+                phrases.Add($"hidden categories {string.Join(", ", this.Config.HideCategories)}");
+
+            this.Monitor.Log($"Started with {string.Join(", ", phrases)}.");
         }
     }
 }

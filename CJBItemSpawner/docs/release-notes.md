@@ -1,6 +1,13 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 2.3.0
+Released 01 November 2023 for SMAPI 3.14.0 or later.
+
+* Added `HideCategories` config option to hide certain item types in the item spawner menu.
+* Added more detailed config summary to SMAPI log to simplify troubleshooting.
+* Improved translations. Thanks to theRealDuda (updated Russian)!
+
 ## 2.2.7
 Released 03 October 2023 for SMAPI 3.14.0 or later.
 
