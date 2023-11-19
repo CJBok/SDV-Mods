@@ -55,8 +55,8 @@
     "farm.durable-fences": "Dayanıklı Çitler",
     "farm.instant-build": "Anında İnşaat",
     "farm.auto-feed-animals": "Her Zaman Otomatik Yemle",
-    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
-    "farm.auto-pet-pets": "Auto-Pet Pets", // TODO
+    "farm.auto-pet-animals": "Hayvanları Otomatik Sev",
+    "farm.auto-pet-pets": "Evcil Hayvanları Otomatik Sev",
     "farm.infinite-hay": "Sınırsız Saman",
 
     // fishing
@@ -207,12 +207,11 @@
     "time.time-frozen-message": "Zaman Dondu",
 
     // date
-    // TODO
-    "date.title": "Date",
-    "date.warning": "Some things won't update until a night has passed.",
-    "date.year": "Year",
-    "date.season": "Season",
-    "date.day": "Day",
+    "date.title": "Tarih",
+    "date.warning": "Bazı şeyler bir gece geçmeden güncellenmez.",
+    "date.year": "Yıl",
+    "date.season": "Sezon",
+    "date.day": "Gün",
 
 
     /*********
@@ -226,7 +225,7 @@
     "flags.unlocked.room": "Odası: {{name}}",
     "flags.unlocked-content": "Açılmış İçerik",
     "flags.unlocked-content.dyes-and-tailoring": "Boyama ve Dikiş",
-    "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
+    "flags.unlocked-content.junimo-text": "Junimo yazılarını okuyabilme",
     "flags.community-center": "Halkevi",
     "flags.community-center.door-unlocked": "Kapı Açıldı",
     "flags.jojamart.membership": "JojaMart Üyeliği",
