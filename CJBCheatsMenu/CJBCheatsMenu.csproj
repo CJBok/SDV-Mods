@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>1.33.4</Version>
+    <Version>1.33.5</Version>
 
     <TranslationClassBuilder_AddGetByKey>true</TranslationClassBuilder_AddGetByKey>
   </PropertyGroup>
