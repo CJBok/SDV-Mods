@@ -34,7 +34,7 @@ Portuguese  | [✓](CJBCheatsMenu/i18n/pt.json) | [✓](CJBItemSpawner/i18n/pt.j
 Russian     | [✓](CJBCheatsMenu/i18n/ru.json) | [✓](CJBItemSpawner/i18n/ru.json) | [✓](CJBShowItemSellPrice/i18n/ru.json)
 Spanish     | [↻](CJBCheatsMenu/i18n/es.json) | [↻](CJBItemSpawner/i18n/es.json) | [✓](CJBShowItemSellPrice/i18n/es.json)
 [Thai]      | [↻](CJBCheatsMenu/i18n/th.json) | [✓](CJBItemSpawner/i18n/th.json) | [✓](CJBShowItemSellPrice/i18n/th.json)
-Turkish     | [↻](CJBCheatsMenu/i18n/tr.json) | [↻](CJBItemSpawner/i18n/tr.json) | [✓](CJBShowItemSellPrice/i18n/tr.json)
+Turkish     | [✓](CJBCheatsMenu/i18n/tr.json) | [✓](CJBItemSpawner/i18n/tr.json) | [✓](CJBShowItemSellPrice/i18n/tr.json)
 [Ukrainian] | [✓](CJBCheatsMenu/i18n/uk.json) | [✓](CJBItemSpawner/i18n/uk.json) | [✓](CJBShowItemSellPrice/i18n/uk.json)
 
 [Polish]: https://www.nexusmods.com/stardewvalley/mods/3616
