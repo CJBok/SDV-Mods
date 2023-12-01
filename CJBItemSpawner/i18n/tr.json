@@ -3,7 +3,7 @@
     ** Sort button
     *********/
     "sort.by-name": "İsme",
-    "sort.by-price": "Sell Price", // TODO
+    "sort.by-price": "Satış Fiyatına",
     "sort.by-type": "Kategoriye",
     "sort.by-id": "ID'ye",
 
