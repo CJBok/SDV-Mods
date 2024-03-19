@@ -100,14 +100,11 @@ namespace CJB.Common
                 yield return location;
 
                 // buildings
-                if (location is BuildableGameLocation buildableLocation)
+                foreach (Building building in location.buildings)
                 {
-                    foreach (Building building in buildableLocation.buildings)
-                    {
-                        GameLocation indoors = building.indoors.Value;
-                        if (indoors != null)
-                            yield return indoors;
-                    }
+                    GameLocation indoors = building.indoors.Value;
+                    if (indoors != null)
+                        yield return indoors;
                 }
             }
         }

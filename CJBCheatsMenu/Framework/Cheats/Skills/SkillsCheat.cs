@@ -89,11 +89,11 @@ namespace CJBCheatsMenu.Framework.Cheats.Skills
             player.experiencePoints[2] = 0;
             player.experiencePoints[3] = 0;
             player.experiencePoints[4] = 0;
-            player.FarmingLevel = 0;
-            player.MiningLevel = 0;
-            player.ForagingLevel = 0;
-            player.FishingLevel = 0;
-            player.CombatLevel = 0;
+            player.farmingLevel.Value = 0;
+            player.miningLevel.Value = 0;
+            player.foragingLevel.Value = 0;
+            player.fishingLevel.Value = 0;
+            player.combatLevel.Value = 0;
             if (player.professions.Contains(24))
                 player.maxHealth -= 15;
             if (player.professions.Contains(27))

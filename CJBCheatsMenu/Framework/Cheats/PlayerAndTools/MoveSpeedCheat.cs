@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
 using CJBCheatsMenu.Framework.Components;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
+using StardewValley.Buffs;
 using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
@@ -14,8 +14,14 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
         /*********
         ** Fields
         *********/
-        /// <summary>The unique buff ID for the player speed.</summary>
-        private readonly int BuffUniqueID = 58012398;
+        /// <summary>The unique ID for the movement buff.</summary>
+        private const string BuffId = "CJBok.CheatsMenu/MoveSpeed";
+
+        /// <summary>The duration to set for the movement buff.</summary>
+        private const int BuffDuration = 60000;
+
+        /// <summary>The minimum duration remaining on the buff timer before it should be renewed.</summary>
+        private const int BuffMinDurationBeforeRenew = 10000; // this should be >10% of BuffDuration to avoid the buff icon blinking before it's renewed
 
 
         /*********
@@ -46,6 +52,8 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
             needsInput = false;
             needsUpdate = context.Config.MoveSpeed > 0;
             needsRendering = false;
+
+            Game1.player.buffs.Remove(MoveSpeedCheat.BuffId); // remove buff if disabled, or reset on next tick if still enabled
         }
 
         /// <summary>Handle a game update if <see cref="ICheat.OnSaveLoaded"/> indicated updates were needed.</summary>
@@ -63,16 +71,22 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
             if (!runEnabled)
                 return;
 
-            // add or update buff
-            int buffId = this.BuffUniqueID + context.Config.MoveSpeed;
-            Buff? buff = Game1.buffsDisplay.otherBuffs.FirstOrDefault(p => p.which == buffId);
-            if (buff == null)
+            // add or extend buff
+            if (!Game1.player.buffs.AppliedBuffs.TryGetValue(MoveSpeedCheat.BuffId, out Buff? buff) || buff.millisecondsDuration <= MoveSpeedCheat.BuffMinDurationBeforeRenew)
             {
-                Game1.buffsDisplay.addOtherBuff(
-                    buff = new Buff(0, 0, 0, 0, 0, 0, 0, 0, 0, speed: context.Config.MoveSpeed, 0, 0, minutesDuration: 1, source: "CJB Cheats Menu", displaySource: I18n.ModName()) { which = buffId }
+                Game1.player.applyBuff(
+                    new Buff(
+                        id: MoveSpeedCheat.BuffId,
+                        source: "CJB Cheats Menu",
+                        displaySource: I18n.ModName(),
+                        duration: MoveSpeedCheat.BuffDuration,
+                        effects: new BuffEffects
+                        {
+                            Speed = { context.Config.MoveSpeed }
+                        }
+                    )
                 );
             }
-            buff.millisecondsDuration = 50;
         }
     }
 }

@@ -7,7 +7,6 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Buildings;
-using StardewValley.Locations;
 using StardewValley.Menus;
 using StardewValley.Objects;
 using StardewValley.TerrainFeatures;
@@ -27,47 +26,47 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         {
             return this.SortFields(
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(10),
+                    label: GameI18n.GetBigCraftableName("10"),
                     value: context.Config.FastBeeHouse,
                     setValue: value => context.Config.FastBeeHouse = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(90),
+                    label: GameI18n.GetBigCraftableName("90"),
                     value: context.Config.FastBoneMill,
                     setValue: value => context.Config.FastBoneMill = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(163),
+                    label: GameI18n.GetBigCraftableName("163"),
                     value: context.Config.FastCask,
                     setValue: value => context.Config.FastCask = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(114),
+                    label: GameI18n.GetBigCraftableName("114"),
                     value: context.Config.FastCharcoalKiln,
                     setValue: value => context.Config.FastCharcoalKiln = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(16),
+                    label: GameI18n.GetBigCraftableName("16"),
                     value: context.Config.FastCheesePress,
                     setValue: value => context.Config.FastCheesePress = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(246),
+                    label: GameI18n.GetBigCraftableName("246"),
                     value: context.Config.FastCoffeeMaker,
                     setValue: value => context.Config.FastCoffeeMaker = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetObjectName(710),
+                    label: GameI18n.GetObjectName("710"),
                     value: context.Config.FastCrabPot,
                     setValue: value => context.Config.FastCrabPot = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(21),
+                    label: GameI18n.GetBigCraftableName("21"),
                     value: context.Config.FastCrystalarium,
                     setValue: value => context.Config.FastCrystalarium = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(265),
+                    label: GameI18n.GetBigCraftableName("265"),
                     value: context.Config.FastDeconstructor,
                     setValue: value => context.Config.FastDeconstructor = value
                 ),
@@ -77,123 +76,123 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                     setValue: value => context.Config.FastFruitTree = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(13),
+                    label: GameI18n.GetBigCraftableName("13"),
                     value: context.Config.FastFurnace,
                     setValue: value => context.Config.FastFurnace = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(182),
+                    label: GameI18n.GetBigCraftableName("182"),
                     value: context.Config.FastGeodeCrusher,
                     setValue: value => context.Config.FastGeodeCrusher = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: I18n.FastMachines_ReadyInTheMorning(machineName: GameI18n.GetBigCraftableName(101)),
+                    label: I18n.FastMachines_ReadyInTheMorning(machineName: GameI18n.GetBigCraftableName("101")),
                     value: context.Config.FastIncubator,
                     setValue: value => context.Config.FastIncubator = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(12),
+                    label: GameI18n.GetBigCraftableName("12"),
                     value: context.Config.FastKeg,
                     setValue: value => context.Config.FastKeg = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(9),
+                    label: GameI18n.GetBigCraftableName("9"),
                     value: context.Config.FastLightningRod,
                     setValue: value => context.Config.FastLightningRod = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(17),
+                    label: GameI18n.GetBigCraftableName("17"),
                     value: context.Config.FastLoom,
                     setValue: value => context.Config.FastLoom = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(24),
+                    label: GameI18n.GetBigCraftableName("24"),
                     value: context.Config.FastMayonnaiseMachine,
                     setValue: value => context.Config.FastMayonnaiseMachine = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBuildingName("Mill"),
+                    label: Game1.content.LoadString("Strings\\Buildings:Mill_Name"),
                     value: context.Config.FastMillMachine,
                     setValue: value => context.Config.FastMillMachine = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(128),
+                    label: GameI18n.GetBigCraftableName("128"),
                     value: context.Config.FastMushroomBox,
                     setValue: value => context.Config.FastMushroomBox = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(19),
+                    label: GameI18n.GetBigCraftableName("19"),
                     value: context.Config.FastOilMaker,
                     setValue: value => context.Config.FastOilMaker = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: I18n.FastMachines_ReadyInTheMorning(GameI18n.GetBigCraftableName(254)),
+                    label: I18n.FastMachines_ReadyInTheMorning(GameI18n.GetBigCraftableName("254")),
                     value: context.Config.FastOstrichIncubator,
                     setValue: value => context.Config.FastOstrichIncubator = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(15),
+                    label: GameI18n.GetBigCraftableName("15"),
                     value: context.Config.FastPreservesJar,
                     setValue: value => context.Config.FastPreservesJar = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(20),
+                    label: GameI18n.GetBigCraftableName("20"),
                     value: context.Config.FastRecyclingMachine,
                     setValue: value => context.Config.FastRecyclingMachine = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(25),
+                    label: GameI18n.GetBigCraftableName("25"),
                     value: context.Config.FastSeedMaker,
                     setValue: value => context.Config.FastSeedMaker = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(158),
+                    label: GameI18n.GetBigCraftableName("158"),
                     value: context.Config.FastSlimeEggPress,
                     setValue: value => context.Config.FastSlimeEggPress = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(156),
+                    label: GameI18n.GetBigCraftableName("156"),
                     value: context.Config.FastSlimeIncubator,
                     setValue: value => context.Config.FastSlimeIncubator = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(117),
+                    label: GameI18n.GetBigCraftableName("117"),
                     value: context.Config.FastSodaMachine,
                     setValue: value => context.Config.FastSodaMachine = value
                 ),
 
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(231),
+                    label: GameI18n.GetBigCraftableName("231"),
                     value: context.Config.FastSolarPanel,
                     setValue: value => context.Config.FastSolarPanel = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(127),
+                    label: GameI18n.GetBigCraftableName("127"),
                     value: context.Config.FastStatueOfEndlessFortune,
                     setValue: value => context.Config.FastStatueOfEndlessFortune = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(160),
+                    label: GameI18n.GetBigCraftableName("160"),
                     value: context.Config.FastStatueOfPerfection,
                     setValue: value => context.Config.FastStatueOfPerfection = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(280),
+                    label: GameI18n.GetBigCraftableName("280"),
                     value: context.Config.FastStatueOfTruePerfection,
                     setValue: value => context.Config.FastStatueOfTruePerfection = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(105),
+                    label: GameI18n.GetBigCraftableName("105"),
                     value: context.Config.FastTapper,
                     setValue: value => context.Config.FastTapper = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(211),
+                    label: GameI18n.GetBigCraftableName("211"),
                     value: context.Config.FastWoodChipper,
                     setValue: value => context.Config.FastWoodChipper = value
                 ),
                 new CheatsOptionsCheckbox(
-                    label: GameI18n.GetBigCraftableName(154),
+                    label: GameI18n.GetBigCraftableName("154"),
                     value: context.Config.FastWormBin,
                     setValue: value => context.Config.FastWormBin = value
                 )
@@ -225,27 +224,28 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
 
             foreach (GameLocation location in context.GetAllLocations())
             {
-                if (location is BuildableGameLocation buildableLocation)
+                foreach (Building building in location.buildings)
                 {
-                    foreach (Building building in buildableLocation.buildings)
-                    {
-                        if (this.IsFastMachine(context, building))
-                            this.CompleteMachine(location, building);
-                    }
+                    if (this.IsFastMachine(context, building))
+                        this.CompleteMachine(building);
                 }
 
                 foreach (SObject obj in location.objects.Values)
                 {
                     if (this.IsFastMachine(context, obj))
-                        this.CompleteMachine(location, obj);
+                        this.CompleteMachine(obj);
                 }
 
                 if (context.Config.FastFruitTree)
                 {
                     foreach (TerrainFeature terrainFeature in location.terrainFeatures.Values)
                     {
-                        if (terrainFeature is FruitTree tree && tree.growthStage.Value >= FruitTree.treeStage && tree.fruitsOnTree.Value < FruitTree.maxFruitsOnTrees)
-                            tree.fruitsOnTree.Value = FruitTree.maxFruitsOnTrees;
+                        if (terrainFeature is FruitTree tree && tree.growthStage.Value >= FruitTree.treeStage)
+                        {
+                            int addFruit = FruitTree.maxFruitsOnTrees - tree.fruit.Count;
+                            for (int i = 0; i < addFruit; i++)
+                                tree.TryAddFruit();
+                        }
                     }
                 }
             }
@@ -322,9 +322,8 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         }
 
         /// <summary>Finish a machine's processing.</summary>
-        /// <param name="location">The machine's location.</param>
         /// <param name="machine">The machine to complete.</param>
-        private void CompleteMachine(GameLocation location, Building machine)
+        private void CompleteMachine(Building machine)
         {
             if (machine.isUnderConstruction())
                 return;
@@ -333,9 +332,8 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         }
 
         /// <summary>Finish a machine's processing.</summary>
-        /// <param name="location">The machine's location.</param>
         /// <param name="machine">The machine to complete.</param>
-        private void CompleteMachine(GameLocation location, SObject machine)
+        private void CompleteMachine(SObject machine)
         {
             bool hasItem = machine.heldObject.Value != null;
             bool processing = machine.MinutesUntilReady > 0;
@@ -349,13 +347,13 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                         cask.heldObject.Value.Quality = SObject.bestQuality;
                         cask.daysToMature.Value = 0;
                         cask.MinutesUntilReady = 1;
-                        machine.minutesElapsed(machine.MinutesUntilReady, location);
+                        machine.minutesElapsed(machine.MinutesUntilReady);
                     }
                     break;
 
                 case CrabPot pot:
                     if (!hasItem)
-                        pot.DayUpdate(location);
+                        pot.DayUpdate();
                     break;
 
                 // by name
@@ -370,8 +368,8 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                         case "Statue Of True Perfection":
                             if (!hasItem)
                             {
-                                machine.DayUpdate(location);
-                                machine.minutesElapsed(1, location);
+                                machine.DayUpdate();
+                                machine.minutesElapsed(1);
                             }
                             break;
 
@@ -379,13 +377,13 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                         case "Solar Panel":
                             if (machine.MinutesUntilReady > 1)
                                 machine.MinutesUntilReady = 1;
-                            machine.DayUpdate(location); // complete machine if conditions are correct (e.g. outdoors and sunny)
+                            machine.DayUpdate(); // complete machine if conditions are correct (e.g. outdoors and sunny)
                             break;
 
                         // input processing machines
                         default:
                             if (hasItem && processing)
-                                machine.minutesElapsed(machine.MinutesUntilReady, location);
+                                machine.minutesElapsed(machine.MinutesUntilReady);
                             break;
                     }
                     break;
@@ -396,7 +394,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
             {
                 case "Mushroom Box" when !hasItem:
                 case "Slime Incubator" when hasItem:
-                    machine.DayUpdate(location);
+                    machine.DayUpdate();
                     break;
             }
         }

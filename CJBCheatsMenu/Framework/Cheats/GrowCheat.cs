@@ -66,7 +66,7 @@ namespace CJBCheatsMenu.Framework.Cheats
             if (!Context.IsPlayerFree || (!this.ShouldGrowCrops && !this.ShouldGrowTrees))
                 return;
 
-            Vector2 playerTile = Game1.player.getTileLocation();
+            Vector2 playerTile = Game1.player.Tile;
             if (playerTile != this.LastGrowOrigin || e.IsMultipleOf(30))
             {
                 this.Grow(playerTile, radius: context.Config.GrowRadius);
@@ -97,7 +97,7 @@ namespace CJBCheatsMenu.Framework.Cheats
                     // terrain feature
                     if (location.terrainFeatures.TryGetValue(tile, out TerrainFeature terrainFeature))
                     {
-                        if (terrainFeature is HoeDirt dirt && dirt.crop is not null)
+                        if (terrainFeature is HoeDirt { crop: not null } dirt)
                             target = dirt;
                         else if (terrainFeature is Bush or FruitTree or Tree)
                             target = terrainFeature;
@@ -106,7 +106,7 @@ namespace CJBCheatsMenu.Framework.Cheats
                     // indoor pot
                     if (target == null && location.objects.TryGetValue(tile, out SObject obj) && obj is IndoorPot pot)
                     {
-                        if (pot.hoeDirt.Value is HoeDirt dirt && dirt.crop is not null)
+                        if (pot.hoeDirt.Value is { crop: not null } dirt)
                             target = dirt;
 
                         if (pot.bush.Value is { } bush)
@@ -117,29 +117,55 @@ namespace CJBCheatsMenu.Framework.Cheats
                 // grow target
                 switch (target)
                 {
-                    case HoeDirt dirt when this.ShouldGrowCrops:
-                    {
-                        Crop crop = dirt.crop;
-                        // grow crop using newDay to apply full logic like giant crops, wild seed randomization, etc
-                        for (int i = 0; i < 100 && !crop.fullyGrown.Value; i++)
-                            crop.newDay(HoeDirt.watered, dirt.fertilizer.Value, (int)tile.X, (int)tile.Y, location);
+                    case HoeDirt dirt:
+                        if (this.ShouldGrowCrops)
+                        {
+                            Crop crop = dirt.crop;
+                            // grow crop using newDay to apply full logic like giant crops, wild seed randomization, etc
+                            for (int i = 0; i < 100 && !crop.fullyGrown.Value; i++)
+                                crop.newDay(HoeDirt.watered);
 
-                        // trigger regrowth logic for multi-harvest crops
-                        crop.growCompletely();
-                        break;
-                    }
-                    case Bush bush when this.ShouldGrowCrops && bush.size.Value == Bush.greenTeaBush && bush.getAge() < Bush.daysToMatureGreenTeaBush:
-                        bush.datePlanted.Value = (int)(Game1.stats.DaysPlayed - Bush.daysToMatureGreenTeaBush);
-                        bush.dayUpdate(location, tile); // update source rect, grow tea leaves, etc
+                            // trigger regrowth logic for multi-harvest crops
+                            crop.growCompletely();
+                        }
                         break;
 
-                    case FruitTree fruitTree when this.ShouldGrowTrees && !fruitTree.stump.Value && fruitTree.growthStage.Value < FruitTree.treeStage:
-                        fruitTree.growthStage.Value = Tree.treeStage;
-                        fruitTree.daysUntilMature.Value = 0;
+                    case Bush bush:
+                        if (this.ShouldGrowCrops && bush.size.Value == Bush.greenTeaBush)
+                        {
+                            if (bush.getAge() < Bush.daysToMatureGreenTeaBush)
+                            {
+                                bush.datePlanted.Value = (int)(Game1.stats.DaysPlayed - Bush.daysToMatureGreenTeaBush);
+                                bush.dayUpdate(); // update sprite, etc
+                            }
+
+                            if (bush.inBloom() && bush.tileSheetOffset.Value == 0)
+                                bush.dayUpdate(); // grow tea leaves
+                        }
                         break;
 
-                    case Tree tree when this.ShouldGrowTrees && !tree.stump.Value && tree.growthStage.Value < Tree.treeStage:
-                        tree.growthStage.Value = Tree.treeStage;
+                    case FruitTree fruitTree:
+                        if (this.ShouldGrowTrees && !fruitTree.stump.Value)
+                        {
+                            if (fruitTree.growthStage.Value < FruitTree.treeStage)
+                            {
+                                fruitTree.growthStage.Value = Tree.treeStage;
+                                fruitTree.daysUntilMature.Value = 0;
+                            }
+
+                            if (fruitTree.IsInSeasonHere())
+                                fruitTree.TryAddFruit();
+                        }
+                        break;
+
+                    case Tree tree:
+                        if (this.ShouldGrowTrees && !tree.stump.Value)
+                        {
+                            if (tree.growthStage.Value < Tree.treeStage)
+                                tree.growthStage.Value = Tree.treeStage;
+
+                            tree.wasShakenToday.Value = false;
+                        }
                         break;
                 }
             }

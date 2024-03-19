@@ -70,7 +70,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                                 Vector2 tile = new(tileX + i, 3);
                                 if (!animalHouse.objects.ContainsKey(tile))
                                 {
-                                    animalHouse.objects.Add(tile, new Object(178, 1));
+                                    animalHouse.objects.Add(tile, new Object("178", 1));
                                     this.ConsumeHay(farm);
                                 }
                             }

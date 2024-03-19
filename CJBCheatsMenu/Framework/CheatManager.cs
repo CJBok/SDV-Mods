@@ -71,7 +71,7 @@ namespace CJBCheatsMenu.Framework
         public ICheat InventorySize { get; } = new InventorySizeCheat();
 
         /// <summary>Harvests all crops with the scythe.</summary>
-        public ICheat HarvestWithScythe { get; } = new HarvestWithScytheCheat();
+        public HarvestWithScytheCheat HarvestWithScythe { get; }
 
         /// <summary>Enables infinite water in watering cans.</summary>
         public ICheat InfiniteWater { get; } = new InfiniteWaterCheat();
@@ -215,14 +215,16 @@ namespace CJBCheatsMenu.Framework
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="config">The mod configuration.</param>
+        /// <param name="gameContent">An API for managing the game's content assets.</param>
         /// <param name="reflection">Simplifies access to private code.</param>
         /// <param name="getAllLocations">Get a cached list of all in-game locations.</param>
         /// <param name="getWarps">Get the warp data.</param>
-        public CheatManager(ModConfig config, IReflectionHelper reflection, Func<IEnumerable<GameLocation>> getAllLocations, Func<ModData> getWarps)
+        public CheatManager(ModConfig config, IGameContentHelper gameContent, IReflectionHelper reflection, Func<IEnumerable<GameLocation>> getAllLocations, Func<ModData> getWarps)
         {
             this.Context = new CheatContext(config, reflection, getAllLocations);
             this.Hearts = new HeartsCheat(onPointsChanged: (npc, points) => this.NoFriendshipDecayImpl.UpdateFriendship(npc, points));
             this.Warps = new WarpCheat(getWarps);
+            this.HarvestWithScythe = new HarvestWithScytheCheat(gameContent);
 
             this.Cheats = this
                 .GetType()

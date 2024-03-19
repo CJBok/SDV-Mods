@@ -25,8 +25,8 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
                 new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Objects:MagnifyingGlass"), Game1.player.hasMagnifyingGlass, value => Game1.player.hasMagnifyingGlass = value),
                 new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Objects:DarkTalisman"), Game1.player.hasDarkTalisman, value => Game1.player.hasDarkTalisman = value),
                 new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Objects:MagicInk"), Game1.player.hasMagicInk, value => Game1.player.hasMagicInk = value),
-                new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Objects:BearPaw"), this.HasEvent(2120303), value => this.SetEvent(2120303, value)),
-                new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Objects:SpringOnionBugs"), this.HasEvent(3910979), value => this.SetEvent(3910979, value))
+                new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Objects:BearPaw"), this.HasEvent("2120303"), value => this.SetEvent("2120303", value)),
+                new CheatsOptionsCheckbox(Game1.content.LoadString(@"Strings\Objects:SpringOnionBugs"), this.HasEvent("3910979"), value => this.SetEvent("3910979", value))
             );
         }
     }

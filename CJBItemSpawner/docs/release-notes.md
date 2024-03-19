@@ -1,6 +1,11 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 2.3.2
+Released 19 March 2024 for SMAPI 4.0.0 or later.
+
+* Updated for Stardew Valley 1.6.
+
 ## 2.3.1
 Released 01 December 2023 for SMAPI 3.14.0 or later.
 

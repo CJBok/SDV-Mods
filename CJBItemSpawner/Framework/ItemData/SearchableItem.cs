@@ -1,5 +1,6 @@
 using System;
 using StardewValley;
+using StardewValley.ItemTypeDefinitions;
 
 namespace CJBItemSpawner.Framework.ItemData
 {
@@ -10,8 +11,8 @@ namespace CJBItemSpawner.Framework.ItemData
         /*********
         ** Accessors
         *********/
-        /// <summary>The item type.</summary>
-        public ItemType Type { get; }
+        /// <summary>The <see cref="IItemDataDefinition.Identifier"/> value for the item type.</summary>
+        public string Type { get; }
 
         /// <summary>A sample item instance.</summary>
         public Item Item { get; }
@@ -19,8 +20,11 @@ namespace CJBItemSpawner.Framework.ItemData
         /// <summary>Create an item instance.</summary>
         public Func<Item> CreateItem { get; }
 
-        /// <summary>The item's unique ID for its type.</summary>
-        public int ID { get; }
+        /// <summary>The unqualified item ID.</summary>
+        public string Id { get; }
+
+        /// <summary>The qualified item ID.</summary>
+        public string QualifiedItemId { get; }
 
         /// <summary>The item's default name.</summary>
         public string Name => this.Item.Name;
@@ -34,12 +38,13 @@ namespace CJBItemSpawner.Framework.ItemData
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="type">The item type.</param>
-        /// <param name="id">The unique ID (if different from the item's parent sheet index).</param>
+        /// <param name="id">The unqualified item ID.</param>
         /// <param name="createItem">Create an item instance.</param>
-        public SearchableItem(ItemType type, int id, Func<SearchableItem, Item> createItem)
+        public SearchableItem(string type, string id, Func<SearchableItem, Item> createItem)
         {
             this.Type = type;
-            this.ID = id;
+            this.Id = id;
+            this.QualifiedItemId = this.Type + this.Id;
             this.CreateItem = () => createItem(this);
             this.Item = createItem(this);
         }
@@ -49,7 +54,8 @@ namespace CJBItemSpawner.Framework.ItemData
         public SearchableItem(SearchableItem item)
         {
             this.Type = item.Type;
-            this.ID = item.ID;
+            this.Id = item.Id;
+            this.QualifiedItemId = item.QualifiedItemId;
             this.CreateItem = item.CreateItem;
             this.Item = item.Item;
         }

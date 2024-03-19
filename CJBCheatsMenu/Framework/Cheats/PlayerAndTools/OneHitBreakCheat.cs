@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
 using CJBCheatsMenu.Framework.Components;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
-using StardewValley.Locations;
 using StardewValley.Menus;
 using StardewValley.TerrainFeatures;
 using StardewValley.Tools;
@@ -58,7 +56,7 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
                 return;
 
             // get affected tile
-            Vector2 tile = new((int)player.GetToolLocation().X / Game1.tileSize, (int)player.GetToolLocation().Y / Game1.tileSize);
+            Vector2 tile = new((int)(player.GetToolLocation().X / Game1.tileSize), (int)(player.GetToolLocation().Y / Game1.tileSize));
 
             // break stones
             if (tool is Pickaxe && location.objects.TryGetValue(tile, out SObject obj) && obj?.name == "Stone")
@@ -74,35 +72,11 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
             }
 
             // break resource clumps
-            foreach (ResourceClump? clump in this.GetResourceClumps(location))
+            foreach (ResourceClump? clump in location.resourceClumps)
             {
-                if (clump != null && clump.getBoundingBox(clump.tile.Value).Contains((int)player.GetToolLocation().X, (int)player.GetToolLocation().Y) && clump.health.Value > 0)
+                if (clump != null && clump.getBoundingBox().Contains((int)player.GetToolLocation().X, (int)player.GetToolLocation().Y) && clump.health.Value > 0)
                     clump.health.Value = 0;
             }
-        }
-
-
-        /*********
-        ** Private methods
-        *********/
-        /// <summary>Get the resource clumps in a location.</summary>
-        /// <param name="location">The location to check.</param>
-        private IEnumerable<ResourceClump?> GetResourceClumps(GameLocation location)
-        {
-            IEnumerable<ResourceClump> clumps = location.resourceClumps;
-
-            switch (location)
-            {
-                case Forest forest when forest.log != null:
-                    clumps = clumps.Concat(new[] { forest.log });
-                    break;
-
-                case Woods woods when woods.stumps.Any():
-                    clumps = clumps.Concat(woods.stumps);
-                    break;
-            }
-
-            return clumps;
         }
     }
 }

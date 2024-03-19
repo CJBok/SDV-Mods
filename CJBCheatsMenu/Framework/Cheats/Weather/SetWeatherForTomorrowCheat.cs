@@ -17,7 +17,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Weather
         {
             return new OptionsElement[]
             {
-                new CheatsOptionsWeatherElement(I18n.Weather_Current(), () => this.GetWeatherForNextDay(context)),
+                new CheatsOptionsWeatherElement(I18n.Weather_Current(), this.GetWeatherForNextDay),
                 this.GetWeatherField(context, I18n.Weather_Sunny(), Game1.weather_sunny),
                 this.GetWeatherField(context, I18n.Weather_Raining(), Game1.weather_rain),
                 this.GetWeatherField(context, I18n.Weather_Lightning(), Game1.weather_lightning),
@@ -33,7 +33,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Weather
         /// <param name="context">The cheat context.</param>
         /// <param name="label">The option label text.</param>
         /// <param name="id">The game's weather ID.</param>
-        private CheatsOptionsButton GetWeatherField(CheatContext context, string label, int id)
+        private CheatsOptionsButton GetWeatherField(CheatContext context, string label, string id)
         {
             return new CheatsOptionsButton(
                 label: label,
@@ -43,8 +43,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Weather
         }
 
         /// <summary>Get the display text for the current weather for tomorrow.</summary>
-        /// <param name="context">The cheat context.</param>
-        public string GetWeatherForNextDay(CheatContext context)
+        private string GetWeatherForNextDay()
         {
             switch (Game1.weatherForTomorrow)
             {
@@ -70,7 +69,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Weather
 
         /// <summary>Set the weather for tomorrow.</summary>
         /// <param name="weatherID">The game's weather ID.</param>
-        public void SetWeatherForNextDay(int weatherID)
+        public void SetWeatherForNextDay(string weatherID)
         {
             Game1.weatherForTomorrow = weatherID;
             Game1.playSound("thunder");

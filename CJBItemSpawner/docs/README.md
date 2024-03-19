@@ -40,15 +40,6 @@ This supports multi-key bindings.
   </td>
 </tr>
 <tr>
-  <td><code>AllowProblematicItems</code></td>
-  <td><code>false</code></td>
-  <td>
-
-Whether to show items which may cause bugs or crashes when spawned.
-
-  </td>
-</tr>
-<tr>
   <td><code>ReclaimPriceInMenuTrashCan</code></td>
   <td><code>true</code></td>
   <td>
@@ -74,20 +65,6 @@ For example, this will hide tools and weapons:
   </td>
 </tr>
 </table>
-
-## FAQs
-### What are 'problematic items'?
-You can [edit `config.json`](#configure) to enable problematic items, which are normally hidden
-because they cause in-game issues, glitches, or crashes. These are the items considered problematic:
-
-item | issue
----- | -----
-Crystal Chair | (Unreleased version.) Glitches and causes crashes once rotated / picked up.
-Incubator | Can't be removed once placed.
-Locked Door | Can't be removed once placed.
-Mushroom Box | Can't be removed once placed (unless you install the [Craftable Mushroom Boxes](https://www.nexusmods.com/stardewvalley/mods/2899) mod _before_ spawning them).
-Obelisk | Once placed, it runs a glitched animation when the player is near that eventually starts switching between the Obelisk and a chicken statue sprite. Picking it up after that point can cause an immediate game crash or result in an unremovable inventory item.
-Wicked Statue | (Lit eyes version.) Can't be removed once placed.
 
 ## See also
 * [Release notes](release-notes.md)

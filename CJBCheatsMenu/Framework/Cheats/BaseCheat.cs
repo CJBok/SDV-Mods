@@ -104,7 +104,7 @@ namespace CJBCheatsMenu.Framework.Cheats
 
         /// <summary>Get whether the player has seen the given event.</summary>
         /// <param name="id">The event ID to check.</param>
-        protected bool HasEvent(int id)
+        protected bool HasEvent(string id)
         {
             return Game1.player.eventsSeen.Contains(id);
         }
@@ -112,7 +112,7 @@ namespace CJBCheatsMenu.Framework.Cheats
         /// <summary>Set whether the player has seen the given event.</summary>
         /// <param name="id">The event to set.</param>
         /// <param name="enable">Whether to add the event, as opposed to removing it.</param>
-        protected void SetEvent(int id, bool enable)
+        protected void SetEvent(string id, bool enable)
         {
             if (enable)
             {
