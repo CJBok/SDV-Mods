@@ -1,7 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release for Stardew Valley 1.6
+## 1.34.0
+Released 19 March 2024 for SMAPI 4.0.0 or later.
+
 * Updated for Stardew Valley 1.6.
 * Removed problematic item filtering. (All problematic items were fixed in Stardew Valley 1.6.)
 * Using the grow hotkey on a full-grown tea bush or fruit tree now produces tea leaves or fruit if it's in season.
