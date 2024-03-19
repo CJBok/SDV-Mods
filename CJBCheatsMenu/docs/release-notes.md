@@ -5,6 +5,7 @@
 * Updated for Stardew Valley 1.6.
 * Removed problematic item filtering. (All problematic items were fixed in Stardew Valley 1.6.)
 * Using the grow hotkey on a full-grown tea bush or fruit tree now produces tea leaves or fruit if it's in season.
+* Improved translations. Thanks to ellipszist (updated Thai)!
 
 ## 1.33.5
 Released 01 December 2023 for SMAPI 3.14.0 or later.
