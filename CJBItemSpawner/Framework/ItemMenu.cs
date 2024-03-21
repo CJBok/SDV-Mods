@@ -846,8 +846,8 @@ namespace CJBItemSpawner.Framework
             if (search != "")
             {
                 items = items.Where(item =>
-                    item.Name.Contains(search, StringComparison.InvariantCultureIgnoreCase)
-                    || item.DisplayName.Contains(search, StringComparison.InvariantCultureIgnoreCase)
+                    item.Name?.Contains(search, StringComparison.InvariantCultureIgnoreCase) is true
+                    || item.DisplayName?.Contains(search, StringComparison.InvariantCultureIgnoreCase) is true
                 );
             }
 
