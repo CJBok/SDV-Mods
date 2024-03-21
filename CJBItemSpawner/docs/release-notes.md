@@ -1,6 +1,11 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 2.3.3
+Released 21 March 2024 for SMAPI 4.0.0 or later.
+
+* Fixed error when searching if the game data has broken items with no name.
+
 ## 2.3.2
 Released 19 March 2024 for SMAPI 4.0.0 or later.
 
