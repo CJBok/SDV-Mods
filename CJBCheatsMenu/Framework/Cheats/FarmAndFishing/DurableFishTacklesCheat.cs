@@ -41,8 +41,15 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         /// <param name="e">The update event arguments.</param>
         public override void OnUpdated(CheatContext context, UpdateTickedEventArgs e)
         {
-            if (Game1.player?.CurrentTool is FishingRod rod && rod.attachments[1] != null)
-                rod.attachments[1].uses.Value = 0;
+            if (Game1.player?.CurrentTool is FishingRod rod)
+            {
+                for (int i = FishingRod.TackleIndex; i < rod.attachments.Count; i++)
+                {
+                    var tackle = rod.attachments[i];
+                    if (tackle != null)
+                        tackle.uses.Value = 0;
+                }
+            }
         }
     }
 }

@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed 'durable tackle' option not applied to the new second slot.
+
 ## 1.34.0
 Released 19 March 2024 for SMAPI 4.0.0 or later.
 
