@@ -163,6 +163,7 @@
     // forest
     "warp-section.forest": "Foresta",
     "warp.hats": "Cappelli",
+    "warp.mastery-cave": "Mastery Cave", // TODO
     "warp.ranch": "Ranch di Marnie",
     "warp.secret-woods": "Foresta Segreta",
     "warp.wizard-tower": "Torre del Mago",

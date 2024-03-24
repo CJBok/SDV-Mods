@@ -163,6 +163,7 @@
     // forest
     "warp-section.forest": "Erdő",
     "warp.hats": "Romos Ház",
+    "warp.mastery-cave": "Mastery Cave", // TODO
     "warp.ranch": "Marnie Tanyája",
     "warp.secret-woods": "Titkos Erdő",
     "warp.wizard-tower": "Varázsló Torony",

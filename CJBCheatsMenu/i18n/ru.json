@@ -163,6 +163,7 @@
     // forest
     "warp-section.forest": "Лес",
     "warp.hats": "Разрушенный дом",
+    "warp.mastery-cave": "Mastery Cave", // TODO
     "warp.ranch": "Ранчо Марни",
     "warp.secret-woods": "Тайный лес",
     "warp.wizard-tower": "Башня волшебника",

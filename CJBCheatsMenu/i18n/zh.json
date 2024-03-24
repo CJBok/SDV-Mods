@@ -163,6 +163,7 @@
     // forest
     "warp-section.forest": "南部森林",
     "warp.hats": "帽子店",
+    "warp.mastery-cave": "Mastery Cave", // TODO
     "warp.ranch": "玛妮的牧场",
     "warp.secret-woods": "秘密森林",
     "warp.wizard-tower": "法师塔",

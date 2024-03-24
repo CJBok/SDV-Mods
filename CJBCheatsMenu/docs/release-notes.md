@@ -7,6 +7,7 @@
   * all custom machines added to the new `Data/Machines` asset;
   * all custom buildings with item conversion rules in the new `Data/Buildings` asset;
   * lightning rods.
+* Added mastery cave warp.
 
 ## 1.34.1
 Released 21 March 2024 for SMAPI 4.0.0 or later.

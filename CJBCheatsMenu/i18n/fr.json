@@ -163,6 +163,7 @@
     // forest
     "warp-section.forest": "En forêt",
     "warp.hats": "Chapeaux",
+    "warp.mastery-cave": "Mastery Cave", // TODO
     "warp.ranch": "Ferme de Marnie",
     "warp.secret-woods": "Forêt secrète",
     "warp.wizard-tower": "Tour du sorcier",

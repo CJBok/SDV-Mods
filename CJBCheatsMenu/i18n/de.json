@@ -163,6 +163,7 @@
     // forest
     "warp-section.forest": "Wald",
     "warp.hats": "Hüte",
+    "warp.mastery-cave": "Mastery Cave", // TODO
     "warp.ranch": "Marnies Ranch",
     "warp.secret-woods": "Geheimer Wald",
     "warp.wizard-tower": "Turm des Zauberers",

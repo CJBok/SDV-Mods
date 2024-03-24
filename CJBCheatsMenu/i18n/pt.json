@@ -163,6 +163,7 @@
     // forest
     "warp-section.forest": "Floresta",
     "warp.hats": "Chapéus",
+    "warp.mastery-cave": "Mastery Cave", // TODO
     "warp.ranch": "Rancho da Marnie",
     "warp.secret-woods": "Bosque Secreto",
     "warp.wizard-tower": "Torre do Mago",

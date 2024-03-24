@@ -163,6 +163,7 @@
     // forest
     "warp-section.forest": "Las",
     "warp.hats": "Sklep z Czapkami",
+    "warp.mastery-cave": "Mastery Cave", // TODO
     "warp.ranch": "Ranczo Marnie",
     "warp.secret-woods": "Tajemniczy Las",
     "warp.wizard-tower": "Wieża Czarodzieja",
