@@ -28,14 +28,14 @@ German      | [↻](CJBCheatsMenu/i18n/de.json) | [✓](CJBItemSpawner/i18n/de.j
 Hungarian   | [↻](CJBCheatsMenu/i18n/hu.json) | [↻](CJBItemSpawner/i18n/hu.json) | [✓](CJBShowItemSellPrice/i18n/hu.json)
 Italian     | [↻](CJBCheatsMenu/i18n/it.json) | [↻](CJBItemSpawner/i18n/it.json) | [✓](CJBShowItemSellPrice/i18n/it.json)
 Japanese    | [↻](CJBCheatsMenu/i18n/ja.json) | [↻](CJBItemSpawner/i18n/ja.json) | [✓](CJBShowItemSellPrice/i18n/ja.json)
-Korean      | [✓](CJBCheatsMenu/i18n/ko.json) | [✓](CJBItemSpawner/i18n/ko.json) | [✓](CJBShowItemSellPrice/i18n/ko.json)
+Korean      | [↻](CJBCheatsMenu/i18n/ko.json) | [✓](CJBItemSpawner/i18n/ko.json) | [✓](CJBShowItemSellPrice/i18n/ko.json)
 [Polish]    | [↻](CJBCheatsMenu/i18n/pl.json) | [✓](CJBItemSpawner/i18n/pl.json) | [✓](CJBShowItemSellPrice/i18n/pl.json)
-Portuguese  | [✓](CJBCheatsMenu/i18n/pt.json) | [✓](CJBItemSpawner/i18n/pt.json) | [✓](CJBShowItemSellPrice/i18n/pt.json)
-Russian     | [✓](CJBCheatsMenu/i18n/ru.json) | [✓](CJBItemSpawner/i18n/ru.json) | [✓](CJBShowItemSellPrice/i18n/ru.json)
+Portuguese  | [↻](CJBCheatsMenu/i18n/pt.json) | [✓](CJBItemSpawner/i18n/pt.json) | [✓](CJBShowItemSellPrice/i18n/pt.json)
+Russian     | [↻](CJBCheatsMenu/i18n/ru.json) | [✓](CJBItemSpawner/i18n/ru.json) | [✓](CJBShowItemSellPrice/i18n/ru.json)
 Spanish     | [↻](CJBCheatsMenu/i18n/es.json) | [↻](CJBItemSpawner/i18n/es.json) | [✓](CJBShowItemSellPrice/i18n/es.json)
-[Thai]      | [✓](CJBCheatsMenu/i18n/th.json) | [✓](CJBItemSpawner/i18n/th.json) | [✓](CJBShowItemSellPrice/i18n/th.json)
-Turkish     | [✓](CJBCheatsMenu/i18n/tr.json) | [✓](CJBItemSpawner/i18n/tr.json) | [✓](CJBShowItemSellPrice/i18n/tr.json)
-[Ukrainian] | [✓](CJBCheatsMenu/i18n/uk.json) | [✓](CJBItemSpawner/i18n/uk.json) | [✓](CJBShowItemSellPrice/i18n/uk.json)
+[Thai]      | [↻](CJBCheatsMenu/i18n/th.json) | [✓](CJBItemSpawner/i18n/th.json) | [✓](CJBShowItemSellPrice/i18n/th.json)
+Turkish     | [↻](CJBCheatsMenu/i18n/tr.json) | [✓](CJBItemSpawner/i18n/tr.json) | [✓](CJBShowItemSellPrice/i18n/tr.json)
+[Ukrainian] | [↻](CJBCheatsMenu/i18n/uk.json) | [✓](CJBItemSpawner/i18n/uk.json) | [✓](CJBShowItemSellPrice/i18n/uk.json)
 
 [Polish]: https://www.nexusmods.com/stardewvalley/mods/3616
 [Thai]: https://www.nexusmods.com/stardewvalley/mods/7052
