@@ -8,6 +8,7 @@
   * all custom buildings with item conversion rules in the new `Data/Buildings` asset;
   * lightning rods.
 * Added mastery cave warp.
+* Added explanation to weather tab to dispel common misconception that it has persistent effects on weather.
 
 ## 1.34.1
 Released 21 March 2024 for SMAPI 4.0.0 or later.
