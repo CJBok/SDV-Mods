@@ -476,10 +476,9 @@ namespace CJBCheatsMenu.Framework
                     break;
 
                 case MenuTab.Weather:
-                    this.AddOptions(
-                        $"{I18n.Weather_Title()}:",
-                        cheats.SetWeatherForTomorrow
-                    );
+                    this.AddTitle($"{I18n.Weather_Title()}:");
+                    this.AddDescription(I18n.Weather_Explanation());
+                    this.AddOptions(cheats.SetWeatherForTomorrow);
                     break;
 
                 case MenuTab.Relationships:

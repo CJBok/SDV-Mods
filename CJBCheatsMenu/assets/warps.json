@@ -103,6 +103,11 @@
                 "DisplayText": "warp.wizard-tower",
                 "Location": "Forest",
                 "Tile": "5, 27"
+            },
+            {
+                "DisplayText": "warp.mastery-cave",
+                "Location": "MasteryCave",
+                "Tile": "7, 10"
             }
         ],
         "warp-section.mountain": [

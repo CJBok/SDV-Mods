@@ -1,3 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using StardewModdingAPI;
 using StardewModdingAPI.Utilities;
 
@@ -96,107 +101,15 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>The game clock doesn't change when you're inside the mines, Skull Cavern, or farm cave.</summary>
         public bool FreezeTimeCaves { get; set; }
 
-        /// <summary>Bee houses finish instantly.</summary>
-        public bool FastBeeHouse { get; set; }
-
-        /// <summary>Bone mills finish instantly.</summary>
-        public bool FastBoneMill { get; set; }
-
-        /// <summary>Casks finish instantly.</summary>
-        public bool FastCask { get; set; }
-
-        /// <summary>Charcoal kilns finish instantly.</summary>
-        public bool FastCharcoalKiln { get; set; }
-
-        /// <summary>Cheese presses finish instantly.</summary>
-        public bool FastCheesePress { get; set; }
-
-        /// <summary>Coffee makers finish instantly.</summary>
-        public bool FastCoffeeMaker { get; set; }
-
-        /// <summary>Crab pots finish instantly.</summary>
-        public bool FastCrabPot { get; set; }
-
-        /// <summary>Crystalariums finish instantly.</summary>
-        public bool FastCrystalarium { get; set; }
-
-        /// <summary>Deconstructors finish instantly.</summary>
-        public bool FastDeconstructor { get; set; }
-
-        /// <summary>Fruit trees bear fruit instantly.</summary>
+        /// <summary>Whether fruit trees bear fruit instantly.</summary>
         public bool FastFruitTree { get; set; }
 
-        /// <summary>Furnaces finish instantly.</summary>
-        public bool FastFurnace { get; set; }
+        /// <summary>The building machines which finish instantly, indexed by building type.</summary>
+        public HashSet<string> FastBuildings { get; set; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-        /// <summary>Geode crushers finish instantly.</summary>
-        public bool FastGeodeCrusher { get; set; }
+        /// <summary>The item machines which finish instantly, indexed by qualified item ID.</summary>
+        public HashSet<string> FastMachines { get; set; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-        /// <summary>Egg incubators finish overnight.</summary>
-        public bool FastIncubator { get; set; }
-
-        /// <summary>Kegs finish instantly.</summary>
-        public bool FastKeg { get; set; }
-
-        /// <summary>Lightning rods finish instantly.</summary>
-        public bool FastLightningRod { get; set; }
-
-        /// <summary>Looms finish instantly.</summary>
-        public bool FastLoom { get; set; }
-
-        /// <summary>Mayonnaise machines finish instantly.</summary>
-        public bool FastMayonnaiseMachine { get; set; }
-
-        /// <summary>Mills finish instantly.</summary>
-        public bool FastMillMachine { get; set; }
-
-        /// <summary>Mushroom boxes finish instantly.</summary>
-        public bool FastMushroomBox { get; set; }
-
-        /// <summary>Oil makers finish instantly.</summary>
-        public bool FastOilMaker { get; set; }
-
-        /// <summary>Ostrich incubators finish overnight.</summary>
-        public bool FastOstrichIncubator { get; set; }
-
-        /// <summary>Preserves jars finish instantly.</summary>
-        public bool FastPreservesJar { get; set; }
-
-        /// <summary>Recycling machines finish instantly.</summary>
-        public bool FastRecyclingMachine { get; set; }
-
-        /// <summary>Seed makers finish instantly.</summary>
-        public bool FastSeedMaker { get; set; }
-
-        /// <summary>Slime egg press finish instantly.</summary>
-        public bool FastSlimeEggPress { get; set; }
-
-        /// <summary>Slime incubators finish instantly.</summary>
-        public bool FastSlimeIncubator { get; set; }
-
-        /// <summary>Soda machines finish instantly.</summary>
-        public bool FastSodaMachine { get; set; }
-
-        /// <summary>Solar panels finish instantly.</summary>
-        public bool FastSolarPanel { get; set; }
-
-        /// <summary>Statues of endless fortune finish instantly.</summary>
-        public bool FastStatueOfEndlessFortune { get; set; }
-
-        /// <summary>Statues of perfection finish instantly.</summary>
-        public bool FastStatueOfPerfection { get; set; }
-
-        /// <summary>Statues of true perfection finish instantly.</summary>
-        public bool FastStatueOfTruePerfection { get; set; }
-
-        /// <summary>Tappers finish instantly.</summary>
-        public bool FastTapper { get; set; }
-
-        /// <summary>Wood Chippers finish instantly.</summary>
-        public bool FastWoodChipper { get; set; }
-
-        /// <summary>Worm bins finish instantly.</summary>
-        public bool FastWormBin { get; set; }
 
         /****
         ** Other cheats
@@ -227,5 +140,85 @@ namespace CJBCheatsMenu.Framework.Models
 
         /// <summary>Hay silos are always full.</summary>
         public bool InfiniteHay { get; set; }
+
+        /// <summary>The JSON data fields which don't have a corresponding property.</summary>
+        [JsonExtensionData]
+        public Dictionary<string, object>? ExtensionData { get; set; }
+
+
+        /*********
+        ** Public methods
+        *********/
+        /// <summary>Normalize the model after it's deserialized.</summary>
+        /// <param name="context">The deserialization context.</param>
+        [OnDeserialized]
+        [SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract", Justification = "This is the method which ensures the annotations are correct.")]
+        public void OnDeserialized(StreamingContext context)
+        {
+            // make machine IDs case-insensitive
+            this.FastBuildings = this.FastBuildings is not null
+                ? new HashSet<string>(this.FastBuildings, StringComparer.OrdinalIgnoreCase)
+                : new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            this.FastMachines = this.FastMachines is not null
+                ? new HashSet<string>(this.FastMachines, StringComparer.OrdinalIgnoreCase)
+                : new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            // migrate pre-1.35 fast machine options
+            if (this.ExtensionData != null)
+            {
+                foreach ((string name, object value) in this.ExtensionData)
+                {
+                    // fast buildings
+                    if (name == "FastMillMachine")
+                    {
+                        this.FastBuildings.Add("Mill");
+                        continue;
+                    }
+
+                    // fast machines
+                    string? machineItemId = name switch
+                    {
+                        "FastBeeHouse" => "(BC)10",
+                        "FastBoneMill" => "(BC)90",
+                        "FastCask" => "(BC)163",
+                        "FastCharcoalKiln" => "(BC)114",
+                        "FastCheesePress" => "(BC)16",
+                        "FastCoffeeMaker" => "(BC)246",
+                        "FastCrabPot" => "(O)710",
+                        "FastCrystalarium" => "(BC)21",
+                        "FastDeconstructor" => "(BC)265",
+                        "FastFurnace" => "(BC)13",
+                        "FastGeodeCrusher" => "(BC)182",
+                        "FastIncubator" => "(BC)101",
+                        "FastKeg" => "(BC)12",
+                        "FastLightningRod" => "(BC)9",
+                        "FastLoom" => "(BC)17",
+                        "FastMayonnaiseMachine" => "(BC)24",
+                        "FastMushroomBox" => "(BC)128",
+                        "FastOilMaker" => "(BC)19",
+                        "FastOstrichIncubator" => "(BC)254",
+                        "FastPreservesJar" => "(BC)15",
+                        "FastRecyclingMachine" => "(BC)20",
+                        "FastSeedMaker" => "(BC)25",
+                        "FastSlimeEggPress" => "(BC)158",
+                        "FastSlimeIncubator" => "(BC)156",
+                        "FastSodaMachine" => "(BC)117",
+                        "FastSolarPanel" => "(BC)231",
+                        "FastStatueOfEndlessFortune" => "(BC)127",
+                        "FastStatueOfPerfection" => "(BC)160",
+                        "FastStatueOfTruePerfection" => "(BC)280",
+                        "FastTapper" => "(BC)105",
+                        "FastWoodChipper" => "(BC)211",
+                        "FastWormBin" => "(BC)154",
+                        _ => null
+                    };
+
+                    if (machineItemId is not null && value is bool enabled && enabled)
+                        this.FastMachines.Add(machineItemId);
+                }
+
+                this.ExtensionData = null;
+            }
+        }
     }
 }

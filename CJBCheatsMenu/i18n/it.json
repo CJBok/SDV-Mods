@@ -124,6 +124,7 @@
     *********/
     "weather.title": "Meteo di Domani",
     "weather.current": "Corrente",
+    "weather.explanation": "Click a button below to set the weather for tomorrow (and only tomorrow). This tab has zero effect on weather otherwise.", // TODO
     "weather.sunny": "Soleggiato",
     "weather.raining": "Pioggia",
     "weather.lightning": "Fulmini",
@@ -163,6 +164,7 @@
     // forest
     "warp-section.forest": "Foresta",
     "warp.hats": "Cappelli",
+    "warp.mastery-cave": "Mastery Cave", // TODO
     "warp.ranch": "Ranch di Marnie",
     "warp.secret-woods": "Foresta Segreta",
     "warp.wizard-tower": "Torre del Mago",

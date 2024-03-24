@@ -1,6 +1,17 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 1.35.0
+Released 24 March 2024 for SMAPI 4.0.0 or later.
+
+* Overhauled machine support. This adds 'fast machines' options for...
+  * all new machines in Stardew Valley 1.6;
+  * all custom machines added to the new `Data/Machines` asset;
+  * all custom buildings with item conversion rules in the new `Data/Buildings` asset;
+  * lightning rods.
+* Added mastery cave warp.
+* Added explanation to weather tab to dispel common misconception that it has persistent effects on weather.
+
 ## 1.34.1
 Released 21 March 2024 for SMAPI 4.0.0 or later.
 
