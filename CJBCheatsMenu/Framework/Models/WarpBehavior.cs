@@ -22,6 +22,9 @@ namespace CJBCheatsMenu.Framework.Models
         MovieTheaterCommunity,
 
         /// <summary>Apply special logic for the movie theater warp when built through the Joja path.</summary>
-        MovieTheaterJoja
+        MovieTheaterJoja,
+
+        /// <summary>Apply special logic for the mines selected floor warp</summary>
+        MinesFloor
     }
 }

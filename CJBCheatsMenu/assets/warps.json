@@ -29,7 +29,8 @@
             {
                 "DisplayText": "warp.mines",
                 "Location": "Mine",
-                "Tile": "13, 10"
+                "Tile": "13, 10",
+                "SpecialBehavior": "MinesFloor"
             },
             {
                 "DisplayText": "warp.pierre-shop",
@@ -192,8 +193,9 @@
             },
             {
                 "DisplayText": "warp.skull-cavern",
-                "Location": "UndergroundMine121",
-                "Tile": "0, 0" // game places the player next to the ladder automatically
+                "Location": "SkullCave",
+                "Tile": "3, 4",
+                "SpecialBehavior": "MinesFloor"
             }
         ]
     }

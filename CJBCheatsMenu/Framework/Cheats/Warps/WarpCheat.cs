@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Buildings;
+using StardewValley.Locations;
 using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Warps
@@ -58,6 +59,10 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
                         case WarpBehavior.JojaMart when !isJojaMember && CommonHelper.GetIsCommunityCenterComplete():
                         case WarpBehavior.MovieTheaterCommunity when isJojaMember || !this.HasFlag("ccMovieTheater"):
                         case WarpBehavior.MovieTheaterJoja when !isJojaMember || !this.HasFlag("ccMovieTheater"):
+                            continue;
+                        case WarpBehavior.MinesFloor:
+                            // override warp button for mines
+                            yield return this.CreateMinesButton(warp, warpLabel, context.SlotWidth);
                             continue;
                     }
 
@@ -170,6 +175,52 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
             // else farmhouse
             Point farmhousePos = Game1.getFarm().GetMainFarmHouseEntry();
             this.Warp("Farm", farmhousePos.X, farmhousePos.Y);
+        }
+
+        /// <summary>Create warp button and number input for a mines warp.</summary>
+        /// <param name="warp">The warp data.</param>
+        /// <param name="warpLabel">The translated warp name.</param>
+        /// <param name="slotWidth">The width of the component to create.</param>
+        private CheatsOptionsNumberWheel CreateMinesButton(ModDataWarp warp, string warpLabel, int slotWidth)
+        {
+            const int mineEnd = MineShaft.bottomOfMineLevel;
+            bool IsSkullCavern() => warp.Location == "SkullCave";
+            bool inQuarryMine = Game1.currentLocation is MineShaft mine &&
+                                mine.getMineArea() == MineShaft.quarryMineShaft;
+            // this will be 0 when not in the mines or in quarry mine
+            int currentLevel = inQuarryMine ? 0 :
+                Game1.CurrentMineLevel > mineEnd ? Game1.CurrentMineLevel - mineEnd : Game1.CurrentMineLevel;
+            bool currentlyInSkull = Game1.CurrentMineLevel > mineEnd;
+
+            return new CheatsOptionsNumberWheel(
+                label: warpLabel,
+                slotWidth: slotWidth,
+                action: floor =>
+                {
+                    if (floor == 0)
+                    {
+                        this.Warp(warp.Location ?? "Mine", (int)warp.Tile.X, (int)warp.Tile.Y);
+                        return;
+                    }
+
+                    int offset = IsSkullCavern() ? mineEnd : 0;
+                    int targetFloor = floor + offset;
+                    if (targetFloor == MineShaft.quarryMineShaft)
+                    {
+                        // don't send the player to the quarry mine with the menu
+                        // descending using a ladder/staircase from skull caverns
+                        // floor 77256 sends the player there anyway
+                        targetFloor++;
+                    }
+
+                    Game1.enterMine(targetFloor);
+                },
+                value: IsSkullCavern() == currentlyInSkull ? currentLevel : 0,
+                // 999_999 could be int.MaxValue, but the game behaves weirdly on very high floors
+                // and we don't want the gap between - and + buttons to be obscenely large
+                // floor 100_000 is already 100% iridium with the occasional 2x2 rock
+                maxValue: IsSkullCavern() ? 999_999 : mineEnd
+            );
         }
     }
 }
