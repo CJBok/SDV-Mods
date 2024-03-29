@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Restored pre-1.35 fast lightning rod behavior, so they can still be used to intercept lightning.
 * Improved translations. Thanks to BernieAteUsername (updated Chinese)!
 
 ## 1.35.0
