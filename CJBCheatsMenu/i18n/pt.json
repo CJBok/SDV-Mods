@@ -83,7 +83,6 @@
     "skills.increase-foraging": "Aumentar Nível de Coleta: {{currentLevel}}",
     "skills.increase-fishing": "Aumentar Nível de Pesca: {{currentLevel}}",
     "skills.increase-combat": "Aumentar Nível de Combate: {{currentLevel}}",
-    "skills.reset": "REDEFINIR HABILIDADES!",
 
     // professions
     "professions.title": "Profissões",

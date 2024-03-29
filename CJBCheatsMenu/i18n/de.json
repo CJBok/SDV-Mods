@@ -83,7 +83,6 @@
     "skills.increase-foraging": "Erhöhe Sammeln Lvl: {{currentLevel}}",
     "skills.increase-fishing": "Erhöhe Fischen Lvl: {{currentLevel}}",
     "skills.increase-combat": "Erhöhe Kampf Lvl: {{currentLevel}}",
-    "skills.reset": "FÄHIGKEITEN ZURÜCKSETZEN!",
 
     // professions
     "professions.title": "Berufe",

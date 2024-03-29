@@ -83,7 +83,6 @@
     "skills.increase-foraging": " 採取レベル: {{currentLevel}}",
     "skills.increase-fishing": "釣りレベル: {{currentLevel}}",
     "skills.increase-combat": "戦闘レベル: {{currentLevel}}",
-    "skills.reset": "スキルリセット",
 
     // professions
     "professions.title": "職業",

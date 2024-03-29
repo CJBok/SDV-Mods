@@ -83,7 +83,6 @@
     "skills.increase-foraging": "觅食增加1级 当前等级: {{currentLevel}}",
     "skills.increase-fishing": "钓鱼增加1级 当前等级: {{currentLevel}}",
     "skills.increase-combat": "战斗增加1级 当前等级: {{currentLevel}}",
-    "skills.reset": "重设技能!",
 
     // professions
     "professions.title": "职业",

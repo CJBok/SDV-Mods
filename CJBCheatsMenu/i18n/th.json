@@ -83,7 +83,6 @@
     "skills.increase-foraging": "เพิ่มค่าทักษะ การหาของป่า: {{currentLevel}}",
     "skills.increase-fishing": "เพิ่มค่าทักษะ การตกปลา: {{currentLevel}}",
     "skills.increase-combat": "เพิ่มค่าทักษะ การต่อสู้: {{currentLevel}}",
-    "skills.reset": "รีเซ็ต ค่าทักษะ!",
 
     // professions
     "professions.title": "อาชีพ",

@@ -83,7 +83,6 @@
     "skills.increase-foraging": "Gyűjtögetés Szint Növelése: {{currentLevel}}",
     "skills.increase-fishing": "Horgászás Szint Növelése: {{currentLevel}}",
     "skills.increase-combat": "Harc Szint Növelése: {{currentLevel}}",
-    "skills.reset": "KÉPESSÉGEK LENULLÁZÁSA!",
 
     // professions
     "professions.title": "Szakmák",

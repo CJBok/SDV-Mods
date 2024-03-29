@@ -83,7 +83,6 @@
     "skills.increase-foraging": "Toplayıcılık Seviyesini Yükselt: {{currentLevel}}",
     "skills.increase-fishing": "Balıkçılık Seviyesini Yükselt: {{currentLevel}}",
     "skills.increase-combat": "Savaşma Seviyesini Yükselt: {{currentLevel}}",
-    "skills.reset": "BECERİLERİ SIFIRLA!",
 
     // professions
     "professions.title": "Uzmanlık Alanları",

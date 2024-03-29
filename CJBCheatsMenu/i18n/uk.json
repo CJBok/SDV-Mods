@@ -83,7 +83,6 @@
     "skills.increase-foraging": "Підвищити рів. Збирацтва:{{currentLevel}}",
     "skills.increase-fishing": "Підвищити рів. Рибальства: {{currentLevel}}",
     "skills.increase-combat": "Підвищити рів. Бойових Навичок: {{currentLevel}}",
-    "skills.reset": "СКИНУТИ УСІ НАВИЧКИ!",
 
     // professions
     "professions.title": "Професії",

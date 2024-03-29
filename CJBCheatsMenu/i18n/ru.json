@@ -83,7 +83,6 @@
     "skills.increase-foraging": "Увеличить ур. Собирательства: {{currentLevel}}",
     "skills.increase-fishing": "Увеличить ур. Рыбалки: {{currentLevel}}",
     "skills.increase-combat": "Увеличить ур. Боевых навыков: {{currentLevel}}",
-    "skills.reset": "СБРОСИТЬ ВСЕ НАВЫКИ!",
 
     // professions
     "professions.title": "Профессии",
