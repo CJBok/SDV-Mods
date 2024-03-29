@@ -83,7 +83,6 @@
     "skills.increase-foraging": "觅食增加1级 当前等级: {{currentLevel}}",
     "skills.increase-fishing": "钓鱼增加1级 当前等级: {{currentLevel}}",
     "skills.increase-combat": "战斗增加1级 当前等级: {{currentLevel}}",
-    "skills.reset": "重设技能!",
 
     // professions
     "professions.title": "职业",
@@ -124,7 +123,7 @@
     *********/
     "weather.title": "明日天气",
     "weather.current": "目前",
-    "weather.explanation": "Click a button below to set the weather for tomorrow (and only tomorrow). This tab has zero effect on weather otherwise.", // TODO
+    "weather.explanation": "点击下方按钮设置明日天气（仅限明日）。除此之外本页面不会对天气有任何影响。",
     "weather.sunny": "晴天",
     "weather.raining": "雨天",
     "weather.lightning": "雷雨",
@@ -164,7 +163,7 @@
     // forest
     "warp-section.forest": "南部森林",
     "warp.hats": "帽子店",
-    "warp.mastery-cave": "Mastery Cave", // TODO
+    "warp.mastery-cave": "精通山洞",
     "warp.ranch": "玛妮的牧场",
     "warp.secret-woods": "秘密森林",
     "warp.wizard-tower": "法师塔",
@@ -227,7 +226,7 @@
     "flags.unlocked.room": "{{name}} 的房间",
     "flags.unlocked-content": "解锁内容",
     "flags.unlocked-content.dyes-and-tailoring": "染色 & 缝纫",
-    "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
+    "flags.unlocked-content.junimo-text": "可以读懂祝尼魔文字",
     "flags.community-center": "社区中心",
     "flags.community-center.door-unlocked": "社区中心解锁",
     "flags.jojamart.membership": "Joja超市会员资格",

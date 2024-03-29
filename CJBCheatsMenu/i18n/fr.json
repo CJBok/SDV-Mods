@@ -83,7 +83,6 @@
     "skills.increase-foraging": "Augm. Niveau de Cueillette: {{currentLevel}}",
     "skills.increase-fishing": "Augm. Niveau de Pêche: {{currentLevel}}",
     "skills.increase-combat": "Augm. Niveau de Combat: {{currentLevel}}",
-    "skills.reset": "RÉINITIALISER LES COMPÉTENCES !",
 
     // professions
     "professions.title": "Professions",

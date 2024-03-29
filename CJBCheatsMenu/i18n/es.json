@@ -83,7 +83,6 @@
     "skills.increase-foraging": "Incr. Recolección Lvl: {{currentLevel}}",
     "skills.increase-fishing": "Incr. Pesca Lvl: {{currentLevel}}",
     "skills.increase-combat": "Incr. Combate Lvl: {{currentLevel}}",
-    "skills.reset": "RESTABLECER HABILIDADES!",
 
     // professions
     "professions.title": "Profesiones",

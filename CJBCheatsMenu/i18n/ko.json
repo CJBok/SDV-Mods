@@ -83,7 +83,6 @@
     "skills.increase-foraging": "채집 레벨 UP: {{currentLevel}}",
     "skills.increase-fishing": "낚시 레벨 UP: {{currentLevel}}",
     "skills.increase-combat": "전투 레벨 UP: {{currentLevel}}",
-    "skills.reset": "스킬 초기화!",
 
     // professions
     "professions.title": "직업 변경",

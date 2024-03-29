@@ -83,7 +83,6 @@
     "skills.increase-foraging": "Zwiększ Poziom Zbieractwa: {{currentLevel}}",
     "skills.increase-fishing": "Zwiększ Poziom Wędkarstwa: {{currentLevel}}",
     "skills.increase-combat": "Zwiększ Poziom Walki: {{currentLevel}}",
-    "skills.reset": "ZRESETUJ UMIEJĘTNOŚCI!",
 
     // professions
     "professions.title": "Profesje",

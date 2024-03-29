@@ -204,22 +204,8 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                     break;
 
                 default:
-                    switch (machine.QualifiedItemId)
-                    {
-                        case "(BC)9": // lightning rod
-                            if (!hasItem)
-                                machine.heldObject.Value = ItemRegistry.Create<SObject>("(O)787");
-
-                            machine.MinutesUntilReady = 1;
-                            machine.shakeTimer = 1000;
-                            machine.minutesElapsed(machine.MinutesUntilReady);
-                            break;
-
-                        default:
-                            if (hasItem && processing)
-                                machine.minutesElapsed(machine.MinutesUntilReady);
-                            break;
-                    }
+                    if (hasItem && processing)
+                        machine.minutesElapsed(machine.MinutesUntilReady);
                     break;
             }
 
