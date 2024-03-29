@@ -1,7 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.35.1
+Released 29 March 2024 for SMAPI 4.0.0 or later.
+
 * Removed 'reset skills' option.  
   _This was risky (since there's no record of the level perks previously applied) and didn't really work correctly._
 * Restored pre-1.35 fast lightning rod behavior, so they can still be used to intercept lightning.
