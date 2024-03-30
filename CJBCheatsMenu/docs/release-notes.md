@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed 'one-hit kill' cheat causing grubs to instantly start turning into flies.
+
 ## 1.35.1
 Released 29 March 2024 for SMAPI 4.0.0 or later.
 
