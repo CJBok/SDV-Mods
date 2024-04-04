@@ -115,16 +115,18 @@ namespace CJBItemSpawner
         {
             foreach (SearchableItem entry in new ItemRepository().GetAll())
             {
-                ModDataCategory? category = this.Categories.FirstOrDefault(rule => rule.IsMatch(entry));
+                ModDataCategory[] categories = Array.FindAll(this.Categories, rule => rule.IsMatch(entry));
 
-                if (category?.Label != null && this.Config.HideCategories.Contains(category.Label))
+                // should this be categories.All(...) (hide only if all matching categories are hidden)
+                // or categories.Any(...) (hide if any matching categories are hidden)
+                if (categories.All(cat => this.Config.HideCategories.Contains(cat.Label)))
                     continue;
 
-                string categoryLabel = category != null
-                    ? I18n.GetByKey(category.Label).Default(category.Label)
-                    : I18n.Filter_Miscellaneous();
+                string[] categoryLabels = categories.Length != 0 ?
+                    categories.Select(cat => I18n.GetByKey(cat.Label).Default(cat.Label).ToString()).ToArray()
+                    : new []{I18n.Filter_Miscellaneous()};
 
-                yield return new SpawnableItem(entry, categoryLabel);
+                yield return new SpawnableItem(entry, categoryLabels);
             }
         }
 

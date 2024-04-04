@@ -8,8 +8,8 @@ namespace CJBItemSpawner.Framework
         /*********
         ** Accessors
         *********/
-        /// <summary>The item's category filter label for the spawn menu.</summary>
-        public string Category { get; }
+        /// <summary>The item's category filter labels for the spawn menu.</summary>
+        public string[] Categories { get; }
 
 
         /*********
@@ -17,11 +17,11 @@ namespace CJBItemSpawner.Framework
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="item">The item metadata.</param>
-        /// <param name="category">The item's category filter label for the spawn menu.</param>
-        public SpawnableItem(SearchableItem item, string category)
+        /// <param name="categories">The item's category filter labels for the spawn menu.</param>
+        public SpawnableItem(SearchableItem item, string[] categories)
             : base(item)
         {
-            this.Category = category;
+            this.Categories = categories;
         }
     }
 }

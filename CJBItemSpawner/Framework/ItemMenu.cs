@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewValley;
+using StardewValley.Extensions;
 using StardewValley.Menus;
 using StardewValley.Objects;
 using SConstants = StardewModdingAPI.Constants;
@@ -532,9 +533,9 @@ namespace CJBItemSpawner.Framework
             HashSet<string> categories = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (SpawnableItem item in items)
             {
-                if (this.EqualsCaseInsensitive(item.Category, all) || this.EqualsCaseInsensitive(item.Category, misc))
+                if (item.Categories.Contains(all) || item.Categories.Contains(misc))
                     continue;
-                categories.Add(item.Category);
+                categories.AddRange(item.Categories);
             }
 
             yield return all;
@@ -839,7 +840,7 @@ namespace CJBItemSpawner.Framework
 
             // apply menu tab
             if (!this.EqualsCaseInsensitive(this.CategoryDropdown.Selected, I18n.Filter_All()))
-                items = items.Where(item => this.EqualsCaseInsensitive(item.Category, this.CategoryDropdown.Selected));
+                items = items.Where(item => item.Categories.Contains(this.CategoryDropdown.Selected));
 
             // apply search
             string search = this.SearchBox.Text.Trim();
