@@ -28,5 +28,6 @@
     "filter.farm-seeds": "Granja: semillas",
     "filter.fish": "Peces",
     "filter.minerals-and-artifacts": "Minerales & artefactos",
+    "filter.museum.undonated": "Museum undonated", // TODO
     "filter.miscellaneous": "Miscelánea"
 }

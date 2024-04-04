@@ -28,5 +28,6 @@
     "filter.farm-seeds": "Fazenda: sementes",
     "filter.fish": "Peixes",
     "filter.minerals-and-artifacts": "Minerais e artefatos",
+    "filter.museum.undonated": "Museum undonated", // TODO
     "filter.miscellaneous": "Outros"
 }

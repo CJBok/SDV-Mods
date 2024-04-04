@@ -25,6 +25,13 @@ namespace CJBItemSpawner.Framework.Models
         /// <summary>The item's unique ID (i.e. <see cref="Item.ParentSheetIndex"/>).</summary>
         public HashSet<string> ItemId { get; }
 
+        /// <summary>
+        /// Any special filters requiring more bespoke code to implement.
+        /// Valid entries:
+        ///  - museumUndonated
+        /// </summary>
+        public HashSet<string> Special { get; }
+
 
         /*********
         ** Public methods
@@ -34,7 +41,9 @@ namespace CJBItemSpawner.Framework.Models
         /// <param name="objType">The object's type (i.e. <see cref="SObject.Type"/>).</param>
         /// <param name="objCategory">The object's category (i.e. <see cref="Item.Category"/>).</param>
         /// <param name="itemId">The item's unique ID (i.e. <see cref="Item.ParentSheetIndex"/>).</param>
-        public ModDataCategoryRule(HashSet<string>? @class, HashSet<string>? objType, HashSet<int>? objCategory, HashSet<string>? itemId)
+        /// <param name="special">Any special filters requiring more bespoke code to implement.</param>
+        public ModDataCategoryRule(HashSet<string>? @class, HashSet<string>? objType, HashSet<int>? objCategory,
+            HashSet<string>? itemId, HashSet<string>? special)
         {
             IEnumerable<string> empty = Enumerable.Empty<string>();
 
@@ -42,6 +51,7 @@ namespace CJBItemSpawner.Framework.Models
             this.ObjType = new HashSet<string>(objType ?? empty, StringComparer.OrdinalIgnoreCase);
             this.ObjCategory = new HashSet<int>(objCategory ?? Enumerable.Empty<int>());
             this.ItemId = new HashSet<string>(itemId ?? empty, StringComparer.OrdinalIgnoreCase);
+            this.Special = new HashSet<string>(special ?? empty, StringComparer.OrdinalIgnoreCase);
         }
 
         /// <summary>Get whether a given item matches the rules for this category.</summary>
@@ -60,6 +70,8 @@ namespace CJBItemSpawner.Framework.Models
                 return true;
             if (this.ItemId.Any() && this.ItemId.Contains($"{entry.Type}:{item.ParentSheetIndex}"))
                 return true;
+            if (this.Special.Any() && this.CheckSpecialFilters(item, obj))
+                return true;
 
             return false;
         }
@@ -74,6 +86,21 @@ namespace CJBItemSpawner.Framework.Models
         {
             for (Type? type = item.GetType(); type != null; type = type.BaseType)
                 yield return type.FullName!;
+        }
+
+        /// <summary>
+        /// Checks for and special filters that match the given item and optional SObject
+        /// </summary>
+        /// <param name="item">The item instance.</param>
+        /// <param name="obj">The item instance casted to SObject if applicable</param>
+        /// <exception cref="ArgumentException">If an unknown filter type is encountered</exception>
+        private bool CheckSpecialFilters(Item item, SObject? obj)
+        {
+            return this.Special.Any(filter => filter switch
+            {
+                "museumUndonated" => obj != null && obj.needsToBeDonated(),
+                _ => throw new ArgumentException($"Unknown filter type: {filter}")
+            });
         }
     }
 }

@@ -28,5 +28,6 @@
     "filter.farm-seeds": "Farma: nasiona",
     "filter.fish": "Ryby",
     "filter.minerals-and-artifacts": "Minerały i artefakty",
+    "filter.museum.undonated": "Museum undonated", // TODO
     "filter.miscellaneous": "Różne"
 }

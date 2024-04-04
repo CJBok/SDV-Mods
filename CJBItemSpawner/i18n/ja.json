@@ -29,5 +29,6 @@
     "filter.farm-seeds": "Farm: seeds",
     "filter.fish": "Fish",
     "filter.minerals-and-artifacts": "Minerals & artifacts",
+    "filter.museum.undonated": "Museum undonated", // TODO
     "filter.miscellaneous": "Misc"
 }

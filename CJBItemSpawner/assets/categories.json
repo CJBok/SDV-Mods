@@ -233,5 +233,15 @@
                 -24 // furniture (excluding those with the Furniture class above)
             ]
         }
+    },
+
+    // undonated museum items
+    {
+        "Label": "filter.museum.undonated",
+        "When": {
+            "Special": [
+                "museumUndonated"
+            ]
+        }
     }
 ]

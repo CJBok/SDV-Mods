@@ -28,5 +28,6 @@
     "filter.farm-seeds": "Ферма: насіння",
     "filter.fish": "Риба",
     "filter.minerals-and-artifacts": "Мінерали і артефакти",
+    "filter.museum.undonated": "Museum undonated", // TODO
     "filter.miscellaneous": "Різне"
 }

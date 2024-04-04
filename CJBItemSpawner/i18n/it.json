@@ -28,5 +28,6 @@
     "filter.farm-seeds": "Fattoria: semi",
     "filter.fish": "Pesci",
     "filter.minerals-and-artifacts": "Minerali & artefatti",
+    "filter.museum.undonated": "Museum undonated", // TODO
     "filter.miscellaneous": "Vari"
 }

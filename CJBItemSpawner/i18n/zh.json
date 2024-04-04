@@ -28,5 +28,6 @@
     "filter.farm-seeds": "农场：种子",
     "filter.fish": "鱼类",
     "filter.minerals-and-artifacts": "矿石与古物",
+    "filter.museum.undonated": "Museum undonated", // TODO
     "filter.miscellaneous": "杂项"
 }

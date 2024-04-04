@@ -28,5 +28,6 @@
     "filter.farm-seeds": "ฟาร์ม: เมล็ดพันธุ์",
     "filter.fish": "ปลา",
     "filter.minerals-and-artifacts": "แร่ & วัถตุโบราณ",
+    "filter.museum.undonated": "Museum undonated", // TODO
     "filter.miscellaneous": "อื่นๆ"
 }

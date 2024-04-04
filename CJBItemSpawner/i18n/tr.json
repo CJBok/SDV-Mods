@@ -28,5 +28,6 @@
     "filter.farm-seeds": "Çiftlik: tohumlar",
     "filter.fish": "Balık",
     "filter.minerals-and-artifacts": "Mineraller ve eserler",
+    "filter.museum.undonated": "Museum undonated", // TODO
     "filter.miscellaneous": "Diğer"
 }
