@@ -29,5 +29,6 @@
     "filter.fish": "Peixes",
     "filter.minerals-and-artifacts": "Minerais e artefatos",
     "filter.museum.undonated": "Museum undonated", // TODO
+    "filter.communitycenter": "Community Center", // TODO
     "filter.miscellaneous": "Outros"
 }

@@ -29,5 +29,6 @@
     "filter.fish": "鱼类",
     "filter.minerals-and-artifacts": "矿石与古物",
     "filter.museum.undonated": "Museum undonated", // TODO
+    "filter.communitycenter": "Community Center", // TODO
     "filter.miscellaneous": "杂项"
 }

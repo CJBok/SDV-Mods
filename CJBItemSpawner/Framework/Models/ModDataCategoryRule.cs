@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CJBItemSpawner.Framework.ItemData;
+using StardewModdingAPI;
 using StardewValley;
+using StardewValley.Extensions;
+using StardewValley.Locations;
 using SObject = StardewValley.Object;
 
 namespace CJBItemSpawner.Framework.Models
@@ -32,6 +35,8 @@ namespace CJBItemSpawner.Framework.Models
         /// </summary>
         public HashSet<string> Special { get; }
 
+        /// <summary>List of missing community center items</summary>
+        private static HashSet<string> CommunityCenterItems { get; } = new();
 
         /*********
         ** Public methods
@@ -76,6 +81,19 @@ namespace CJBItemSpawner.Framework.Models
             return false;
         }
 
+        /// <summary>Refreshes the internal community center item lists</summary>
+        public static void RefreshCommunityCenter(IReflectionHelper reflection)
+        {
+            ModDataCategoryRule.CommunityCenterItems.Clear();
+            if (Game1.getLocationFromName("CommunityCenter") is not CommunityCenter center)
+                return;
+
+            center.refreshBundlesIngredientsInfo();
+            Dictionary<string, List<List<int>>> info =
+                reflection.GetField<Dictionary<string, List<List<int>>>>(center, "bundlesIngredientsInfo").GetValue();
+            ModDataCategoryRule.CommunityCenterItems.AddRange(info.Keys);
+        }
+
 
         /*********
         ** Private methods
@@ -99,6 +117,9 @@ namespace CJBItemSpawner.Framework.Models
             return this.Special.Any(filter => filter switch
             {
                 "museumUndonated" => obj != null && obj.needsToBeDonated(),
+                "communityCenter" => obj != null && !obj.bigCraftable.Value &&
+                                     (ModDataCategoryRule.CommunityCenterItems.Contains(obj.QualifiedItemId) ||
+                                     ModDataCategoryRule.CommunityCenterItems.Contains(obj.Category.ToString())),
                 _ => throw new ArgumentException($"Unknown filter type: {filter}")
             });
         }

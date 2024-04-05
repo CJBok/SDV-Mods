@@ -113,6 +113,8 @@ namespace CJBItemSpawner
         /// <summary>Get the items which can be spawned.</summary>
         private IEnumerable<SpawnableItem> GetSpawnableItems()
         {
+            ModDataCategoryRule.RefreshCommunityCenter(this.Helper.Reflection);
+
             foreach (SearchableItem entry in new ItemRepository().GetAll())
             {
                 ModDataCategory[] categories = Array.FindAll(this.Categories, rule => rule.IsMatch(entry));

@@ -29,5 +29,6 @@
     "filter.fish": "Рыба",
     "filter.minerals-and-artifacts": "Минералы и артефакты",
     "filter.museum.undonated": "Museum undonated", // TODO
+    "filter.communitycenter": "Community Center", // TODO
     "filter.miscellaneous": "Разное"
 }

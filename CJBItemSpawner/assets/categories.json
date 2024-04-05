@@ -243,5 +243,15 @@
                 "museumUndonated"
             ]
         }
+    },
+
+    // community center bundles
+    {
+        "Label": "filter.communitycenter",
+        "When": {
+            "Special": [
+                "communityCenter"
+            ]
+        }
     }
 ]

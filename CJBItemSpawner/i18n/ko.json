@@ -29,5 +29,6 @@
     "filter.fish": "기타 : 물고기 & 어란",
     "filter.minerals-and-artifacts": "기타 : 광물 & 유물",
     "filter.museum.undonated": "Museum undonated", // TODO
+    "filter.communitycenter": "Community Center", // TODO
     "filter.miscellaneous": "기타 & 퀘스트"
 }

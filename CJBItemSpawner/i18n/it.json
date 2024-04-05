@@ -29,5 +29,6 @@
     "filter.fish": "Pesci",
     "filter.minerals-and-artifacts": "Minerali & artefatti",
     "filter.museum.undonated": "Museum undonated", // TODO
+    "filter.communitycenter": "Community Center", // TODO
     "filter.miscellaneous": "Vari"
 }
