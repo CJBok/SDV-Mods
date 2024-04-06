@@ -47,63 +47,45 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
             if (!e.IsOneSecond || !Context.IsWorldReady)
                 return;
 
-            Farm? farm = Game1.getFarm();
-            if (farm == null || !this.HasHay(farm, context))
-                return;
-
-            foreach (GameLocation location in context.GetAllLocations())
-            {
-                switch (location)
+            Utility.ForEachLocation(
+                location =>
                 {
-                    case AnimalHouse animalHouse:
-                        {
-                            int animalCount = Math.Min(animalHouse.animalsThatLiveHere.Count, animalHouse.animalLimit.Value);
-                            if (animalHouse.numberOfObjectsWithName("Hay") >= animalCount)
-                                continue;
-
-                            int tileX = animalHouse.Name.Contains("Barn")
-                                ? 8
-                                : 6;
-
-                            for (int i = 0; i < animalCount && this.HasHay(farm, context); i++)
+                    switch (location)
+                    {
+                        case AnimalHouse animalHouse:
                             {
-                                Vector2 tile = new(tileX + i, 3);
-                                if (!animalHouse.objects.ContainsKey(tile))
+                                int animalCount = Math.Min(animalHouse.animalsThatLiveHere.Count, animalHouse.animalLimit.Value);
+                                if (animalHouse.numberOfObjectsWithName("Hay") >= animalCount)
+                                    break;
+
+                                int tileX = animalHouse.Name.Contains("Barn")
+                                    ? 8
+                                    : 6;
+
+                                for (int i = 0; i < animalCount; i++)
                                 {
-                                    animalHouse.objects.Add(tile, new Object("178", 1));
-                                    this.ConsumeHay(farm);
+                                    Vector2 tile = new(tileX + i, 3);
+                                    if (!animalHouse.objects.ContainsKey(tile))
+                                    {
+                                        Object hay = GameLocation.GetHayFromAnySilo(animalHouse);
+                                        if (hay is null)
+                                            return false; // no more hay available
+
+                                        animalHouse.objects.Add(tile, hay);
+                                    }
                                 }
                             }
-                        }
-                        break;
+                            break;
 
-                    case SlimeHutch slimeHutch:
-                        for (int i = 0; i < slimeHutch.waterSpots.Length; i++)
-                            slimeHutch.waterSpots[i] = true;
-                        break;
+                        case SlimeHutch slimeHutch:
+                            for (int i = 0; i < slimeHutch.waterSpots.Length; i++)
+                                slimeHutch.waterSpots[i] = true;
+                            break;
+                    }
+
+                    return true;
                 }
-            }
-        }
-
-
-        /*********
-        ** Private methods
-        *********/
-        /// <summary>Get whether hay is available for animal feed.</summary>
-        /// <param name="farm">The farm instance.</param>
-        /// <param name="context">The cheat context.</param>
-        private bool HasHay(Farm farm, CheatContext context)
-        {
-            return
-                context.Config.InfiniteHay
-                || farm.piecesOfHay.Value > 0;
-        }
-
-        /// <summary>Reduce the hay count by one if possible.</summary>
-        /// <param name="farm">The farm instance.</param>
-        private void ConsumeHay(Farm farm)
-        {
-            farm.piecesOfHay.Value = Math.Max(0, farm.piecesOfHay.Value - 1);
+            );
         }
     }
 }

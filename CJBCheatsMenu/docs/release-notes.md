@@ -3,6 +3,9 @@
 # Release notes
 ## Upcoming release
 * Fixed 'one-hit kill' cheat causing grubs to instantly start turning into flies.
+* Fixed 'auto-feed animals' only using hay stored on the farm.
+* Fixed 'auto-feed animals' not watering slimes if you have no more hay.
+* Fixed 'auto-pet animals' and 'auto-feed animals' not applied to animals outside the farm.
 
 ## 1.35.1
 Released 29 March 2024 for SMAPI 4.0.0 or later.
