@@ -14,7 +14,14 @@ _releases/
 # Visual Studio cache/options
 .vs/
 
+# Visual Studio Code options
+/.vscode
+
 # ReSharper
 _ReSharper*/
 *.[Rr]e[Ss]harper
 *.DotSettings.user
+
+# Operating System Files
+.DS_Store
+Thumbs.db

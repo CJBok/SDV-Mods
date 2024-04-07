@@ -28,5 +28,18 @@
     "filter.farm-seeds": "Farm: seeds",
     "filter.fish": "Fish",
     "filter.minerals-and-artifacts": "Minerals & artifacts",
-    "filter.miscellaneous": "Misc"
+    "filter.miscellaneous": "Misc",
+
+    /*********
+    ** Generic Mod Config Menu UI
+    *********/
+    "config.title.main-options": "Main options",
+    "config.reclaim-price-in-menu-trash-can.name": "Reclaim Price in Menu Trash Can",
+    "config.reclaim-price-in-menu-trash-can.desc": "Whether the trash can upgrade which reclaims part of the price of the destroyed items is applied in the item spawner menu too.",
+
+    "config.title.hide-categories": "Hide Categories",
+
+    "config.title.controls": "Controls",
+    "config.show-menu-key.name": "Show Menu Key",
+    "config.show-menu-key.desc": "The keybind which opens the menu (when no other menu is open)."
 }

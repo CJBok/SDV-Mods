@@ -28,5 +28,18 @@
     "filter.farm-seeds": "농장 : 씨앗",
     "filter.fish": "기타 : 물고기 & 어란",
     "filter.minerals-and-artifacts": "기타 : 광물 & 유물",
-    "filter.miscellaneous": "기타 & 퀘스트"
+    "filter.miscellaneous": "기타 & 퀘스트",
+
+    /*********
+    ** Generic Mod Config Menu UI
+    *********/
+    "config.title.main-options": "Main options", // TODO
+    "config.reclaim-price-in-menu-trash-can.name": "Reclaim Price in Menu Trash Can", // TODO
+    "config.reclaim-price-in-menu-trash-can.desc": "Whether the trash can upgrade which reclaims part of the price of the destroyed items is applied in the item spawner menu too.", // TODO
+
+    "config.title.hide-categories": "Hide Categories", // TODO
+
+    "config.title.controls": "Controls", // TODO
+    "config.show-menu-key.name": "Show Menu Key", // TODO
+    "config.show-menu-key.desc": "The keybind which opens the menu (when no other menu is open)." // TODO
 }

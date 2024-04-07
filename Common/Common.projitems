@@ -13,5 +13,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\CommonSprites.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Dropdown.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\DropdownList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integrations\IGenericModConfigMenuApi.cs" />
   </ItemGroup>
 </Project>

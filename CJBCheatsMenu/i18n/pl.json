@@ -243,5 +243,18 @@
     "controls.grow-crops": "Wzrost Upraw",
     "controls.grow-radius": "Zasięg wzrostu wokół gracza",
     "controls.reset-controls": "Zresetuj",
-    "controls.press-new-key": "Naciśnij nowy klawisz..."
+    "controls.press-new-key": "Naciśnij nowy klawisz...",
+
+    /*********
+    ** Generic Mod Config Menu UI
+    *********/
+    "config.title.main-options": "Main options", // TODO
+    "config.default-tab.name": "Default tab", // TODO
+    "config.default-tab.desc": "The tab shown by default when you open the menu.", // TODO
+    "config.grow-radius.desc": "The number of tiles in each direction around the player to cover when pressing the GrowCropsKey or GrowTreeKey.", // TODO
+
+    "config.open-menu.desc": "The keybind which opens the menu (when no other menu is open).", // TODO
+    "config.freeze-time.desc": "The keybind which freezes the game clock.", // TODO
+    "config.grow-tree.desc": "The keybind held to grow trees around the player.", // TODO
+    "config.grow-crops.desc": "The keybind held to grow crops around the player." // TODO
 }

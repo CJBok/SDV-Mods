@@ -28,5 +28,18 @@
     "filter.farm-seeds": "农场：种子",
     "filter.fish": "鱼类",
     "filter.minerals-and-artifacts": "矿石与古物",
-    "filter.miscellaneous": "杂项"
+    "filter.miscellaneous": "杂项",
+
+    /*********
+    ** Generic Mod Config Menu UI
+    *********/
+    "config.title.main-options": "Main options", // TODO
+    "config.reclaim-price-in-menu-trash-can.name": "Reclaim Price in Menu Trash Can", // TODO
+    "config.reclaim-price-in-menu-trash-can.desc": "Whether the trash can upgrade which reclaims part of the price of the destroyed items is applied in the item spawner menu too.", // TODO
+
+    "config.title.hide-categories": "Hide Categories", // TODO
+
+    "config.title.controls": "Controls", // TODO
+    "config.show-menu-key.name": "Show Menu Key", // TODO
+    "config.show-menu-key.desc": "The keybind which opens the menu (when no other menu is open)." // TODO
 }

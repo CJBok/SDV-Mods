@@ -1,10 +1,14 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+
+* Added Support for [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098).
+
 ## 1.35.1
 Released 29 March 2024 for SMAPI 4.0.0 or later.
 
-* Removed 'reset skills' option.  
+* Removed 'reset skills' option.
   _This was risky (since there's no record of the level perks previously applied) and didn't really work correctly._
 * Restored pre-1.35 fast lightning rod behavior, so they can still be used to intercept lightning.
 * Improved translations. Thanks to BernieAteUsername (updated Chinese)!
