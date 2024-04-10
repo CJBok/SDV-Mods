@@ -48,7 +48,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
 
             Utility.ForEachCharacter(npc =>
             {
-                if (npc is Pet pet && (!pet.lastPetDay.TryGetValue(Game1.player.UniqueMultiplayerID, out int lastPetDay) || lastPetDay < Game1.Date.TotalDays))
+                if (npc is Pet pet && (!pet.lastPetDay.TryGetValue(Game1.player.UniqueMultiplayerID, out int lastPetDay) || lastPetDay != Game1.Date.TotalDays))
                     pet.checkAction(Game1.player, pet.currentLocation);
 
                 return true;

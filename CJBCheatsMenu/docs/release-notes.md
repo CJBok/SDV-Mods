@@ -6,6 +6,7 @@
 * Fixed 'auto-feed animals' only using hay stored on the farm.
 * Fixed 'auto-feed animals' not watering slimes if you have no more hay.
 * Fixed 'auto-pet animals' and 'auto-feed animals' not applied to animals outside the farm.
+* Fixed 'auto-pet pets' sometimes no longer applied to saves whose date was edited.
 
 ## 1.35.1
 Released 29 March 2024 for SMAPI 4.0.0 or later.
