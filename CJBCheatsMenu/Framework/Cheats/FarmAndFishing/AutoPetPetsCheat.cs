@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using CJBCheatsMenu.Framework.Components;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -47,28 +46,13 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
             if (!e.IsOneSecond || !Context.IsWorldReady)
                 return;
 
-            foreach (Pet pet in this.GetAllPets())
+            Utility.ForEachCharacter(npc =>
             {
-                if (!pet.lastPetDay.TryGetValue(Game1.player.UniqueMultiplayerID, out int lastPetDay) || lastPetDay < Game1.Date.TotalDays)
+                if (npc is Pet pet && (!pet.lastPetDay.TryGetValue(Game1.player.UniqueMultiplayerID, out int lastPetDay) || lastPetDay < Game1.Date.TotalDays))
                     pet.checkAction(Game1.player, pet.currentLocation);
-            }
-        }
 
-
-        /*********
-        ** Private methods
-        *********/
-        /// <summary>Get all pets in the game.</summary>
-        /// <remarks>Derived from <see cref="Farmer.getPet"/>.</remarks>
-        private IEnumerable<Pet> GetAllPets()
-        {
-            return
-                Game1.getFarm().characters.OfType<Pet>()
-                .Concat(
-                    from player in Game1.getAllFarmers()
-                    from pet in Utility.getHomeOfFarmer(player).characters.OfType<Pet>()
-                    select pet
-                );
+                return true;
+            });
         }
     }
 }
