@@ -1,6 +1,11 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 2.4.1
+Released 14 April 2024 for SMAPI 4.0.0 or later.
+
+* Fixed 'no longer compatible' error.
+
 ## 2.4.0
 Released 14 April 2024 for SMAPI 4.0.0 or later.
 
