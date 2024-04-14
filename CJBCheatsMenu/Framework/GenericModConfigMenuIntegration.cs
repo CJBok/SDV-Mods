@@ -54,11 +54,39 @@ namespace CJBCheatsMenu.Framework
 
             menu.Register(this.Manifest, this.Reset, this.Save, titleScreenOnly: true);
 
-            // ---------------------------- //
-            // Main options
-            // ---------------------------- //
-            menu.AddSectionTitle(this.Manifest, I18n.Config_Title_MainOptions);
+            // controls
+            menu.AddSectionTitle(this.Manifest, I18n.Controls_Title);
+            menu.AddKeybindList(
+                mod: this.Manifest,
+                name: I18n.Controls_OpenMenu,
+                tooltip: I18n.Config_OpenMenu_Desc,
+                getValue: () => this.Config.OpenMenuKey,
+                setValue: value => this.Config.OpenMenuKey = value
+            );
+            menu.AddKeybindList(
+                mod: this.Manifest,
+                name: I18n.Controls_FreezeTime,
+                tooltip: I18n.Config_FreezeTime_Desc,
+                getValue: () => this.Config.FreezeTimeKey,
+                setValue: value => this.Config.FreezeTimeKey = value
+            );
+            menu.AddKeybindList(
+                mod: this.Manifest,
+                name: I18n.Controls_GrowTree,
+                tooltip: I18n.Config_GrowTree_Desc,
+                getValue: () => this.Config.GrowTreeKey,
+                setValue: value => this.Config.GrowTreeKey = value
+            );
+            menu.AddKeybindList(
+                mod: this.Manifest,
+                name: I18n.Controls_GrowCrops,
+                tooltip: I18n.Config_GrowCrops_Desc,
+                getValue: () => this.Config.GrowCropsKey,
+                setValue: value => this.Config.GrowCropsKey = value
+            );
 
+            // other options
+            menu.AddSectionTitle(this.Manifest, I18n.Config_Title_OtherOptions);
             menu.AddTextOption(
                 mod: this.Manifest,
                 name: I18n.Config_DefaultTab_Name,
@@ -71,54 +99,7 @@ namespace CJBCheatsMenu.Framework
                 },
                 allowedValues: ["PlayerAndTools", "FarmAndFishing", "Skills", "Weather", "Relationships", "WarpLocations", "Time", "Advanced", "Controls"]
             );
-
-            // add grow radious from 1 to 10 integer
-            menu.AddNumberOption(
-                mod: this.Manifest,
-                name: I18n.Controls_GrowRadius,
-                tooltip: I18n.Config_GrowRadius_Desc,
-                getValue: () => this.Config.GrowRadius,
-                setValue: value => this.Config.GrowRadius = (int)value,
-                min: 1,
-                max: 10
-            );
-
-            // ---------------------------- //
-            // Controls
-            // ---------------------------- //
-            menu.AddSectionTitle(this.Manifest, I18n.Controls_Title);
-
-            menu.AddKeybindList(
-                mod: this.Manifest,
-                name: I18n.Controls_OpenMenu,
-                tooltip: I18n.Config_OpenMenu_Desc,
-                getValue: () => this.Config.OpenMenuKey,
-                setValue: value => this.Config.OpenMenuKey = value
-            );
-
-            menu.AddKeybindList(
-                mod: this.Manifest,
-                name: I18n.Controls_FreezeTime,
-                tooltip: I18n.Config_FreezeTime_Desc,
-                getValue: () => this.Config.FreezeTimeKey,
-                setValue: value => this.Config.FreezeTimeKey = value
-            );
-
-            menu.AddKeybindList(
-                mod: this.Manifest,
-                name: I18n.Controls_GrowTree,
-                tooltip: I18n.Config_GrowTree_Desc,
-                getValue: () => this.Config.GrowTreeKey,
-                setValue: value => this.Config.GrowTreeKey = value
-            );
-
-            menu.AddKeybindList(
-                mod: this.Manifest,
-                name: I18n.Controls_GrowCrops,
-                tooltip: I18n.Config_GrowCrops_Desc,
-                getValue: () => this.Config.GrowCropsKey,
-                setValue: value => this.Config.GrowCropsKey = value
-            );
+            menu.AddParagraph(this.Manifest, I18n.Config_OtherOptions);
         }
     }
 }
