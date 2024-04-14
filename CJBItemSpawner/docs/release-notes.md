@@ -1,9 +1,10 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 2.4.0
+Released 14 April 2024 for SMAPI 4.0.0 or later.
 
-* Added Support for [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098).
+* Added support for [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098) (thanks to Tocseoj!).
 
 ## 2.3.3
 Released 21 March 2024 for SMAPI 4.0.0 or later.
