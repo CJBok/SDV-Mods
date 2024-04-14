@@ -89,7 +89,6 @@ namespace CJBCheatsMenu
                 manifest: this.ModManifest,
                 modRegistry: this.Helper.ModRegistry,
                 config: this.Config,
-                reset: () => this.Config = new ModConfig(),
                 save: () => this.Helper.WriteConfig(this.Config)
             );
             configMenu.Register();
