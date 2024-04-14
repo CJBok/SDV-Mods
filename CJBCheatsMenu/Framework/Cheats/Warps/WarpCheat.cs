@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CJB.Common;
 using CJBCheatsMenu.Framework.Components;
-using CJBCheatsMenu.Framework.Models;
+using CJBCheatsMenu.Framework.ContentModels;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Buildings;
+using StardewValley.Locations;
 using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Warps
@@ -18,18 +18,18 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
         /*********
         ** Fields
         *********/
-        /// <summary>Get the warp data.</summary>
-        private readonly Func<ModData> GetWarpData;
+        /// <summary>Manages building and loading the warp data assets.</summary>
+        private readonly WarpContentLoader WarpContentLoader;
 
 
         /*********
         ** Public methods
         *********/
         /// <summary>Construct an instance.</summary>
-        /// <param name="getWarps">Get the warp data.</param>
-        public WarpCheat(Func<ModData> getWarps)
+        /// <param name="warpContentLoader">Manages building and loading the warp data assets.</param>
+        public WarpCheat(WarpContentLoader warpContentLoader)
         {
-            this.GetWarpData = getWarps;
+            this.WarpContentLoader = warpContentLoader;
         }
 
         /// <summary>Get the config UI fields to show in the cheats menu.</summary>
@@ -38,39 +38,43 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
         {
             bool isJojaMember = this.HasFlag("JojaMember");
 
-            ModData warpData = this.GetWarpData();
-            IDictionary<string, int> sectionOrder = this.GetSectionOrder(warpData);
-            IDictionary<string, ModDataWarp[]> warpsBySection = this.GetWarpsBySection(warpData);
+            IReadOnlyList<WarpSectionContentModel> rawSections = this.WarpContentLoader.LoadWarpSections();
+            IReadOnlyList<WarpContentModel> rawWarps = this.WarpContentLoader.LoadWarps();
 
-            foreach ((string sectionKey, string sectionLabel) in this.GetSections(sectionOrder, warpsBySection))
+            Dictionary<string, string> sectionNames = rawSections.ToDictionary(p => p.Id, p => p.DisplayName);
+            Dictionary<string, List<WarpContentModel>> warps = this.GetWarpsBySection(rawSections, rawWarps);
+
+            if (this.WarpContentLoader.IsCustomizedWarpList(rawWarps))
+                yield return new DescriptionElement(I18n.Warp_CustomizedWarning());
+
+            foreach ((string sectionKey, List<WarpContentModel> sectionWarps) in warps)
             {
                 // section title
-                yield return new OptionsElement($"{sectionLabel}:");
+                yield return new OptionsElement($"{sectionNames.GetValueOrDefault(sectionKey, sectionKey)}:");
 
                 // warps
-                foreach ((ModDataWarp warp, string warpLabel) in this.GetWarps(warpsBySection, sectionKey))
+                foreach (WarpContentModel warp in sectionWarps)
                 {
                     // skip warps that don't apply
-                    switch (warp.SpecialBehavior)
-                    {
-                        case WarpBehavior.Casino when !Game1.player.hasClubCard:
-                        case WarpBehavior.CommunityCenter when isJojaMember:
-                        case WarpBehavior.JojaMart when !isJojaMember && CommonHelper.GetIsCommunityCenterComplete():
-                        case WarpBehavior.MovieTheaterCommunity when isJojaMember || !this.HasFlag("ccMovieTheater"):
-                        case WarpBehavior.MovieTheaterJoja when !isJojaMember || !this.HasFlag("ccMovieTheater"):
-                            continue;
-                    }
+                    if (!GameStateQuery.CheckConditions(warp.Condition))
+                        continue;
 
                     // get warp button
-                    yield return new CheatsOptionsButton(
-                        label: warpLabel,
-                        slotWidth: context.SlotWidth,
-                        toggle: warp.SpecialBehavior switch
-                        {
-                            WarpBehavior.Farm => this.WarpToFarm,
-                            _ => () => this.Warp(warp.Location ?? "Farm", (int)warp.Tile.X, (int)warp.Tile.Y)
-                        }
-                    );
+                    switch (warp.Location)
+                    {
+                        case "Farm" when warp.Tile == Vector2.Zero:
+                            yield return new CheatsOptionsButton(warp.DisplayName, context.SlotWidth, this.WarpToFarm);
+                            break;
+
+                        case "Mine":
+                        case "SkullCave":
+                            yield return this.CreateMinesButton(warp, context.SlotWidth);
+                            break;
+
+                        default:
+                            yield return new CheatsOptionsButton(warp.DisplayName, context.SlotWidth, toggle: () => this.Warp(warp.Location, (int)warp.Tile.X, (int)warp.Tile.Y));
+                            break;
+                    }
                 }
             }
         }
@@ -79,55 +83,27 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
         /*********
         ** Private methods
         *********/
-        /// <summary>Get the order in which sections should be rendered based on the <see cref="ModData.SectionOrder"/> data.</summary>
-        /// <param name="warpData">The underlying warp data.</param>
-        private IDictionary<string, int> GetSectionOrder(ModData warpData)
+        /// <summary>Get the warps to show in the menu grouped by section.</summary>
+        /// <param name="warpSections">The raw warp sections to show in the menu.</param>
+        /// <param name="warps">The raw warps to show in the menu.</param>
+        private Dictionary<string, List<WarpContentModel>> GetWarpsBySection(IReadOnlyList<WarpSectionContentModel> warpSections, IReadOnlyList<WarpContentModel> warps)
         {
-            return warpData.SectionOrder
-                .Distinct(StringComparer.OrdinalIgnoreCase)
-                .Select((section, index) => new { section, index })
-                .ToDictionary(p => p.section, p => p.index, StringComparer.OrdinalIgnoreCase);
-        }
+            Dictionary<string, List<WarpContentModel>> sections = new(StringComparer.OrdinalIgnoreCase);
 
-        /// <summary>Get the available warps indexed by section.</summary>
-        /// <param name="warpData">The underlying warp data.</param>
-        private IDictionary<string, ModDataWarp[]> GetWarpsBySection(ModData warpData)
-        {
-            return warpData.Warps
-                .GroupBy(p => p.Key, p => p.Value, StringComparer.OrdinalIgnoreCase)
-                .ToDictionary(p => p.Key, p => p.SelectMany(x => x).ToArray(), StringComparer.OrdinalIgnoreCase);
-        }
+            // add sections
+            foreach (WarpSectionContentModel section in warpSections)
+                sections.TryAdd(section.Id, new());
 
-        /// <summary>Get the section IDs and display names in sorted order.</summary>
-        /// <param name="sectionOrder">The order in which sections should be rendered based on the <see cref="ModData.SectionOrder"/> data.</param>
-        /// <param name="warpsBySection">The available warps indexed by section.</param>
-        private IEnumerable<KeyValuePair<string, string>> GetSections(IDictionary<string, int> sectionOrder, IDictionary<string, ModDataWarp[]> warpsBySection)
-        {
-            return
-                (
-                    from key in warpsBySection.Keys
-                    let label = I18n.GetByKey(key).Default(key)
-                    let order = sectionOrder.TryGetValue(key, out int order) ? order : int.MaxValue
-                    orderby order, label
-                    select new KeyValuePair<string, string>(key, label)
-                );
-        }
+            // add warps
+            foreach (WarpContentModel warp in warps)
+            {
+                if (!sections.TryGetValue(warp.SectionId, out List<WarpContentModel>? list))
+                    sections[warp.SectionId] = list = new();
 
-        /// <summary>Get the warps and display names in sorted order.</summary>
-        /// <param name="warpsBySection">The available warps indexed by section.</param>
-        /// <param name="section">The section whose warps to get.</param>
-        private IEnumerable<(ModDataWarp Warp, string Label)> GetWarps(IDictionary<string, ModDataWarp[]> warpsBySection, string section)
-        {
-            if (!warpsBySection.TryGetValue(section, out ModDataWarp[]? warps))
-                return Enumerable.Empty<(ModDataWarp, string)>();
+                list.Add(warp);
+            }
 
-            return
-                (
-                    from warp in warps
-                    let label = I18n.GetByKey(warp.DisplayText).Default(warp.DisplayText ?? "???").ToString()
-                    orderby warp.Order, label
-                    select (warp, label)
-                );
+            return sections;
         }
 
         /// <summary>Warp the player to the given location.</summary>
@@ -170,6 +146,51 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
             // else farmhouse
             Point farmhousePos = Game1.getFarm().GetMainFarmHouseEntry();
             this.Warp("Farm", farmhousePos.X, farmhousePos.Y);
+        }
+
+        /// <summary>Create a warp option with a mine level selector.</summary>
+        /// <param name="warp">The warp data.</param>
+        /// <param name="slotWidth">The width of the component to create.</param>
+        private CheatsOptionsNumberWheel CreateMinesButton(WarpContentModel warp, int slotWidth)
+        {
+            const int bottomOfMine = MineShaft.bottomOfMineLevel;
+            bool isSkullCavern = warp.Location == "SkullCave";
+            bool inQuarryMine = (Game1.currentLocation as MineShaft)?.getMineArea() == MineShaft.quarryMineShaft;
+
+            Func<int, string> formatValue = isSkullCavern
+                ? value => (value - bottomOfMine).ToString()
+                : value => value.ToString();
+
+            return new CheatsOptionsNumberWheel(
+                label: warp.DisplayName,
+                slotWidth: slotWidth,
+                action: field =>
+                {
+                    int floor = field.Value;
+                    switch (floor)
+                    {
+                        case 0:
+                            this.Warp(warp.Location ?? "Mine", (int)warp.Tile.X, (int)warp.Tile.Y);
+                            break;
+
+                        case bottomOfMine when isSkullCavern:
+                            this.Warp(warp.Location!, (int)warp.Tile.X, (int)warp.Tile.Y);
+                            break;
+
+                        case MineShaft.quarryMineShaft:
+                            Game1.enterMine(floor + 1); // skip quarry mine (player can still get there by descending from the previous level though)
+                            break;
+
+                        default:
+                            Game1.enterMine(floor);
+                            break;
+                    }
+                },
+                initialValue: inQuarryMine ? 0 : Game1.CurrentMineLevel,
+                minValue: isSkullCavern ? bottomOfMine : 0,
+                maxValue: isSkullCavern ? 999_999 : bottomOfMine, // the game behaves weirdly with high numbers and we have limited space, so set a semi-reasonable limit
+                formatValue: formatValue
+            );
         }
     }
 }

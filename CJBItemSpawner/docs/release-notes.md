@@ -1,6 +1,11 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 2.4.0
+Released 14 April 2024 for SMAPI 4.0.0 or later.
+
+* Added support for [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098) (thanks to Tocseoj!).
+
 ## 2.3.3
 Released 21 March 2024 for SMAPI 4.0.0 or later.
 
@@ -253,7 +258,7 @@ Released 05 April 2017 for SMAPI 1.9 or later.
 * Fixed tab selection broken in 1.7.
 
 ## 1.7
-Released 05 April 2017 for SMAPI 1.9 or later. 
+Released 05 April 2017 for SMAPI 1.9 or later.
 
 * Updated to SMAPI 1.9.
 * Now only shows item sell price if you have the CJB Show Item Sell Price mod installed.

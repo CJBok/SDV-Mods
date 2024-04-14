@@ -123,7 +123,7 @@
     *********/
     "weather.title": "Météo de demain",
     "weather.current": "Actuelle",
-    "weather.explanation": "Click a button below to set the weather for tomorrow (and only tomorrow). This tab has zero effect on weather otherwise.", // TODO
+    "weather.explanation": "Cliquer sur un bouton changera la météo pour demain (et uniquement demain). Cet onglet n'aura aucun effect sur la météo autrement.",
     "weather.sunny": "Soleil",
     "weather.raining": "Pluie",
     "weather.lightning": "Orage",
@@ -142,6 +142,8 @@
     /*********
     ** Warps tab
     *********/
+    "warp.customized-warning": "These warps were edited by your mods. Please report warp issues to the mods which added them if applicable.", // TODO
+
     // main areas
     "warp-section.main": "Zones principales",
     "warp.farm": "Ferme",
@@ -163,7 +165,7 @@
     // forest
     "warp-section.forest": "En forêt",
     "warp.hats": "Chapeaux",
-    "warp.mastery-cave": "Mastery Cave", // TODO
+    "warp.mastery-cave": "Caverne de Maitrise",
     "warp.ranch": "Ferme de Marnie",
     "warp.secret-woods": "Forêt secrète",
     "warp.wizard-tower": "Tour du sorcier",
@@ -226,7 +228,7 @@
     "flags.unlocked.room": "Chambre : {{name}}",
     "flags.unlocked-content": "Contenus débloqués",
     "flags.unlocked-content.dyes-and-tailoring": "Teintures & couture",
-    "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
+    "flags.unlocked-content.junimo-text": "Vous pouvez lire le texte Jumino",
     "flags.community-center": "Centre communautaire",
     "flags.community-center.door-unlocked": "Porte déverrouillée",
     "flags.jojamart.membership": "Adhérant au Marché Joja",
@@ -243,5 +245,20 @@
     "controls.grow-crops": "Faire pousser les cultures",
     "controls.grow-radius": "Distance de croissance autour du joueur",
     "controls.reset-controls": "Réinitialiser",
-    "controls.press-new-key": "Appuyer sur la nouvelle touche..."
+    "controls.press-new-key": "Appuyer sur la nouvelle touche...",
+
+
+    /*********
+    ** Generic Mod Config Menu UI
+    *********/
+    // TODO
+    "config.open-menu.desc": "The keybind which opens the menu (when no other menu is open).",
+    "config.freeze-time.desc": "The keybind which freezes the game clock.",
+    "config.grow-tree.desc": "The keybind held to grow trees around the player.",
+    "config.grow-crops.desc": "The keybind held to grow crops around the player.",
+
+    "config.title.other-options": "Other options",
+    "config.default-tab.name": "Default tab",
+    "config.default-tab.desc": "The tab shown by default when you open the menu.",
+    "config.other-options": "To configure cheats, press the 'open menu' key shown above in-game. Make sure you press it after loading the save, when no other menu or dialogue is open."
 }

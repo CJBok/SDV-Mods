@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using CJBCheatsMenu.Framework.Components;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -46,38 +45,46 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
             if (!e.IsOneSecond || !Context.IsWorldReady)
                 return;
 
-            FarmAnimal[] animalsToPet = Game1
-                .getFarm()
-                .getAllFarmAnimals()
-                .Where(p => !p.wasPet.Value)
-                .ToArray();
-
-            if (animalsToPet.Any())
-            {
-                int wasTime = Game1.timeOfDay;
-                Item wasTemporaryItem = Game1.player.TemporaryItem;
-
-                try
+            Utility.ForEachLocation(
+                location =>
                 {
-                    // avoid feeding hay
-                    if (Game1.player.ActiveObject?.QualifiedItemId == "(O)178")
-                        Game1.player.TemporaryItem = new Object("0", 1);
+                    if (location.animals.Length > 0 || location.buildings.Count > 0)
+                    {
+                        List<FarmAnimal> animalsToPet = location.getAllFarmAnimals();
+                        animalsToPet.RemoveAll(animal => animal.wasPet.Value);
 
-                    // avoid 'trying to sleep' dialogue popup
-                    if (Game1.timeOfDay >= 1900)
-                        Game1.timeOfDay = 1850;
+                        if (animalsToPet.Count > 0)
+                        {
+                            int wasTime = Game1.timeOfDay;
+                            Item wasTemporaryItem = Game1.player.TemporaryItem;
 
-                    // pet animals
-                    foreach (FarmAnimal animal in animalsToPet)
-                        animal.pet(Game1.player);
-                }
-                finally
-                {
-                    // restore previous values
-                    Game1.player.TemporaryItem = wasTemporaryItem;
-                    Game1.timeOfDay = wasTime;
-                }
-            }
+                            try
+                            {
+                                // avoid feeding hay
+                                if (Game1.player.ActiveObject?.QualifiedItemId == "(O)178")
+                                    Game1.player.TemporaryItem = new Object("0", 1);
+
+                                // avoid 'trying to sleep' dialogue popup
+                                if (Game1.timeOfDay >= 1900)
+                                    Game1.timeOfDay = 1850;
+
+                                // pet animals
+                                foreach (FarmAnimal animal in animalsToPet)
+                                    animal.pet(Game1.player);
+                            }
+                            finally
+                            {
+                                // restore previous values
+                                Game1.player.TemporaryItem = wasTemporaryItem;
+                                Game1.timeOfDay = wasTime;
+                            }
+                        }
+                    }
+
+                    return true;
+                },
+                includeInteriors: false
+            );
         }
     }
 }

@@ -1,7 +1,53 @@
 ﻿/*
 
-   The warps to show in the cheats menu. See "Warp format" in the CJB Cheats Menu readme at
-   https://github.com/CJBok/SDV-Mods/tree/master/CJBCheatsMenu#readme for more info.
+    The default warps to show in the cheats menu.
+
+    EDITING THIS FILE IS NOT RECOMMENDED.
+    Your changes will be reset each time the mod is updated. For mod authors, see
+    https://github.com/CJBok/SDV-Mods/blob/master/CJBCheatsMenu/docs/author-guide.md to add custom
+    warps through content edits instead.
+
+
+    --------------------------------------
+
+
+    If you *really* want to edit this file, the format is documented below.
+
+
+    ### Warps
+    The `Warps` field defines the warps shown in the menu. The order they're listed in doesn't
+    matter; they'll be sorted alphabetically by section and display name.
+
+    Warps are grouped by the section under which to list the warp in the menu. This can match a
+    translation ID in the i18n files, else it'll be shown as-is. See also section order below.
+
+    Each warp has four main fields:
+
+      - `DisplayText`
+        The text to show in the menu. This can match a translation ID in the i18n files, else it'll
+        be shown as-is.
+
+      - `Location`
+        The internal name of the target location (not the translated name). You can use the [Debug
+        Mode](https://www.nexusmods.com/stardewvalley/mods/679) mod to see location names in-game.
+
+      - `Tile`
+        The target tile coordinate. You can use the [Debug Mode](https://www.nexusmods.com/stardewvalley/mods/679)
+        mod to see tile coordinates in-game.
+
+      - `Order`
+        The relative order in which to list it in the warp menu (default 0). Lower values are
+        listed first. Warps with the same order are sorted alphabetically.
+
+      - `Condition`
+        A game state query which indicates whether the warp should be visible, or omit if it should
+        always be visible.
+
+
+    ### Section order
+    Warps are grouped into UI sections for easier navigation. The `SectionOrder` field lists
+    sections that should be listed at the top in the listed order. Any other sections will be
+    listed alphabetically after these sections.
 
 */
 {
@@ -11,15 +57,17 @@
         "warp-section.forest",
         "warp-section.mountain",
         "warp-section.beach",
-        "warp-section.desert"
+        "warp-section.desert",
+        "warp-section.island"
     ],
 
     "Warps": {
         "warp-section.main": [
             {
                 "DisplayText": "warp.farm",
-                "Order": -1,
-                "SpecialBehavior": "Farm"
+                "Location": "Farm",
+                "Tile": "0, 0", // Farm (0, 0) will be replaced with the tile in front of their home door
+                "Order": -1
             },
             {
                 "DisplayText": "warp.carpenter",
@@ -47,25 +95,26 @@
                 "DisplayText": "warp.community-center",
                 "Location": "Town",
                 "Tile": "52, 20",
-                "SpecialBehavior": "CommunityCenter"
+                "Condition": "IS_COMMUNITY_CENTER_COMPLETE"
             },
             {
                 "DisplayText": "warp.jojamart",
                 "Location": "Town",
                 "Tile": "95, 51",
-                "SpecialBehavior": "JojaMart"
+                "Condition": "!IS_COMMUNITY_CENTER_COMPLETE"
             },
             {
                 "DisplayText": "warp.movie-theater",
                 "Location": "Town",
                 "Tile": "95, 51",
-                "SpecialBehavior": "MovieTheaterCommunity"
+                "Condition": "PLAYER_HAS_MAIL Host ccMovieTheater, !PLAYER_HAS_MAIL Host ccMovieTheaterJoja"
             },
             {
+                "Id": "movie-theater-joja",
                 "DisplayText": "warp.movie-theater",
                 "Location": "Town",
                 "Tile": "52, 20",
-                "SpecialBehavior": "MovieTheaterJoja"
+                "Condition": "PLAYER_HAS_MAIL Host ccMovieTheater, PLAYER_HAS_MAIL Host ccMovieTheaterJoja"
             },
             {
                 "DisplayText": "warp.museum",
@@ -183,7 +232,7 @@
                 "DisplayText": "warp.casino",
                 "Location": "Club",
                 "Tile": "8, 11",
-                "SpecialBehavior": "Casino"
+                "Condition": "PLAYER_HAS_MAIL Current HasClubCard"
             },
             {
                 "DisplayText": "warp.sandy-shop",
@@ -192,8 +241,8 @@
             },
             {
                 "DisplayText": "warp.skull-cavern",
-                "Location": "UndergroundMine121",
-                "Tile": "0, 0" // game places the player next to the ladder automatically
+                "Location": "SkullCave",
+                "Tile": "3, 4"
             }
         ]
     }

@@ -45,7 +45,7 @@ This supports multi-key bindings.
   <td>
 
 When you [upgrade your trash can](https://stardewvalleywiki.com/Trash_Cans) to reclaim part of the
-price of destroyed items, whether that upgrade applies in the item spawner menu too.
+price of trashed items, whether that upgrade applies in the item spawner menu too.
 
   </td>
 </tr>

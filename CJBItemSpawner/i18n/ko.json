@@ -28,5 +28,21 @@
     "filter.farm-seeds": "농장 : 씨앗",
     "filter.fish": "기타 : 물고기 & 어란",
     "filter.minerals-and-artifacts": "기타 : 광물 & 유물",
-    "filter.miscellaneous": "기타 & 퀘스트"
+    "filter.miscellaneous": "기타 & 퀘스트",
+
+
+    /*********
+    ** Generic Mod Config Menu UI
+    *********/
+    // TODO
+    "config.title.controls": "Controls",
+    "config.show-menu-key.name": "Show menu key",
+    "config.show-menu-key.desc": "The keybind which opens the menu (when no other menu is open).",
+
+    "config.title.options": "Options",
+    "config.apply-trash-can-upgrade.name": "Apply trash can upgrade",
+    "config.apply-trash-can-upgrade.desc": "When you upgrade your trash can to reclaim part of the price of trashed items, whether that upgrade applies in the item spawner menu too.",
+
+    "config.title.hide-categories": "Hide categories",
+    "config.hide-category.desc": "Whether to hide the '{{name}}' category in the UI. If it's hidden, items in this category will not be accessible through the spawn menu."
 }

@@ -142,6 +142,8 @@
     /*********
     ** Warps tab
     *********/
+    "warp.customized-warning": "These warps were edited by your mods. Please report warp issues to the mods which added them if applicable.", // TODO
+
     // main areas
     "warp-section.main": "주요 지역",
     "warp.farm": "농장",
@@ -243,5 +245,20 @@
     "controls.grow-crops": "작물 즉시 성장",
     "controls.grow-radius": "플레이어 주변 거리 증가",
     "controls.reset-controls": "초기화 하기",
-    "controls.press-new-key": "새로운 단축키를 입력하세요..."
+    "controls.press-new-key": "새로운 단축키를 입력하세요...",
+
+
+    /*********
+    ** Generic Mod Config Menu UI
+    *********/
+    // TODO
+    "config.open-menu.desc": "The keybind which opens the menu (when no other menu is open).",
+    "config.freeze-time.desc": "The keybind which freezes the game clock.",
+    "config.grow-tree.desc": "The keybind held to grow trees around the player.",
+    "config.grow-crops.desc": "The keybind held to grow crops around the player.",
+
+    "config.title.other-options": "Other options",
+    "config.default-tab.name": "Default tab",
+    "config.default-tab.desc": "The tab shown by default when you open the menu.",
+    "config.other-options": "To configure cheats, press the 'open menu' key shown above in-game. Make sure you press it after loading the save, when no other menu or dialogue is open."
 }

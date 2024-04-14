@@ -217,13 +217,13 @@ namespace CJBCheatsMenu.Framework
         /// <param name="config">The mod configuration.</param>
         /// <param name="gameContent">An API for managing the game's content assets.</param>
         /// <param name="reflection">Simplifies access to private code.</param>
+        /// <param name="warpContentLoader">Manages building and loading the warp data assets.</param>
         /// <param name="getAllLocations">Get a cached list of all in-game locations.</param>
-        /// <param name="getWarps">Get the warp data.</param>
-        public CheatManager(ModConfig config, IGameContentHelper gameContent, IReflectionHelper reflection, Func<IEnumerable<GameLocation>> getAllLocations, Func<ModData> getWarps)
+        public CheatManager(ModConfig config, IGameContentHelper gameContent, IReflectionHelper reflection, WarpContentLoader warpContentLoader, Func<IEnumerable<GameLocation>> getAllLocations)
         {
             this.Context = new CheatContext(config, reflection, getAllLocations);
             this.Hearts = new HeartsCheat(onPointsChanged: (npc, points) => this.NoFriendshipDecayImpl.UpdateFriendship(npc, points));
-            this.Warps = new WarpCheat(getWarps);
+            this.Warps = new WarpCheat(warpContentLoader);
             this.HarvestWithScythe = new HarvestWithScytheCheat(gameContent);
 
             this.Cheats = this

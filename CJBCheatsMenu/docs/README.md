@@ -33,50 +33,13 @@ setting | default | what it affects
 `GrowRadius` | `1` | The number of tiles in each direction around the player to cover when pressing the `GrowCropsKey` or `GrowTreeKey`.
 
 ### Menu settings
-
 setting | default | what it affects
 ------- | ------- | ---------------
-`DefaultTab` | `PlayerAndTools` | The tab shown by default when you open the menu. Possible values: `PlayerAndTools`, `FarmAndFishing`, `Skills`, `Weather`, `Relationships`, `WarpLocations`, `Time`, `Controls`.
+`DefaultTab` | `PlayerAndTools` | The tab shown by default when you open the menu. Possible values: `PlayerAndTools`, `FarmAndFishing`, `Skills`, `Weather`, `Relationships`, `WarpLocations`, `Time`, `Advanced`, `Controls`.
 
 ## Editing warps
-The Warps tab is populated based on the `assets/warps.json` file. This isn't generally meant to be
-edited by players, but you can edit it to customize the warps shown in the menu.
-
-You can run the `cjb_reload_warps` command in the SMAPI console to reload the warp data
-immediately, without needing to restart the game.
-
-### Warps
-The `Warps` field defines the warps shown in the menu. The order they're listed in doesn't matter;
-they'll be sorted alphabetically by section and display name.
-
-Warps are grouped by the section under which to list the warp in the menu. This can match a
-translation ID in the i18n files, else it'll be shown as-is. See also [_section order_](#section-order).
-
-Each warp has four main fields:
-
-field | purpose
------ | -------
-`DisplayText` | The text to show in the menu. This can match a translation ID in the i18n files, else it'll be shown as-is.
-`Location` | The internal name of the target location (not the translated name). You can use the [Debug Mode](https://www.nexusmods.com/stardewvalley/mods/679) mod to see location names in-game.
-`Tile` | The target tile coordinate. You can use the [Debug Mode](https://www.nexusmods.com/stardewvalley/mods/679) mod to see tile coordinates in-game.
-`Order` | The relative order in which to list it in the warp menu (default 0). Lower values are listed first. Warps with the same order are sorted alphabetically.
-
-### Section order
-Warps are grouped into UI sections for easier navigation (see [_warps_](#warps)). The `SectionOrder`
-field lists sections that should be listed at the top in the listed order. Any other sections will
-be listed alphabetically after these sections.
-
-### Special warp behavior
-Warps can set the `SpecialBehavior` field to enable special warp logic. The valid values are:
-
-value             | effect
------------------ | ------
-`Casino`          | Hide warp if the player doesn't have the club card.
-`CommunityCenter` | Hide warp if the community center is demolished.
-`Farm`            | Warp to the current player's cabin or farmhouse. The `Location` and `Tile` fields are ignored.
-`JojaMart`        | Hide warp if the JojaMart is demolished.
-`MovieTheaterCommunity` | Hide warp if the movie theater isn't built, or was built through the Joja route.
-`MovieTheaterJoja`      | Hide warp if the movie theater isn't built, or was built through the community route.
+For mod authors, see the [author guide](author-guide.md) to add/edit/remove warps in the menu to
+match your map edits and custom locations.
 
 ## See also
 * [Release notes](release-notes.md)

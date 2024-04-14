@@ -61,6 +61,7 @@ namespace CJBItemSpawner
 
             // init mod
             I18n.Init(helper.Translation);
+            helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
             helper.Events.Input.ButtonsChanged += this.OnButtonsChanged;
             helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
         }
@@ -69,6 +70,20 @@ namespace CJBItemSpawner
         /*********
         ** Private methods
         *********/
+        /// <summary>Raised after the game is launched, right before the first update tick. This happens once per game session (unrelated to loading saves). All mods are loaded and initialised at this point, so this is a good time to set up mod integrations.</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
+        {
+            var configMenu = new GenericModConfigMenuIntegration(
+                manifest: this.ModManifest,
+                modRegistry: this.Helper.ModRegistry,
+                config: this.Config,
+                save: () => this.Helper.WriteConfig(this.Config)
+            );
+            configMenu.Register();
+        }
+
         /// <summary>Raised after the player presses or releases any buttons on the keyboard, controller, or mouse.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>

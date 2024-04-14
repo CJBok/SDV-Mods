@@ -52,7 +52,10 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
                 foreach (Monster monster in monsters)
                 {
                     if (monster.Health > 1)
+                    {
                         monster.Health = 1;
+                        monster.MaxHealth = 1;
+                    }
                 }
             }
         }
