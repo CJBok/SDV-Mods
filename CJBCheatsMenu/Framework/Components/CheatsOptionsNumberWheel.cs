@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -7,7 +7,7 @@ using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Components
 {
-    internal class CheatsOptionsNumberWheel : BaseButtonElement<int>
+    internal class CheatsOptionsNumberWheel : CheatsOptionsButton<CheatsOptionsNumberWheel>
     {
         /*********
         ** Fields
@@ -17,9 +17,6 @@ namespace CJBCheatsMenu.Framework.Components
 
         /// <summary>The maximum value that can be selected using the field.</summary>
         private readonly int MaxValue;
-
-        /// <summary>The current value.</summary>
-        private int Value;
 
         /// <summary>The minus button area in screen pixels.</summary>
         private readonly Rectangle CurrentValueBounds;
@@ -36,6 +33,17 @@ namespace CJBCheatsMenu.Framework.Components
         /// <summary>The source rectangle for the 'plus' button sprite.</summary>
         private readonly Rectangle PlusButtonSource = new Rectangle(184, 345, 7, 8);
 
+
+        /*********
+        ** Accessors
+        *********/
+        /// <summary>The current value.</summary>
+        public int Value { get; private set; }
+
+
+        /*********
+        ** Public methods
+        *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="label">The field label.</param>
         /// <param name="slotWidth">The field width.</param>
@@ -43,7 +51,7 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="value">The starting value of the number.</param>
         /// <param name="maxValue">The maximum value of the number.</param>
         /// <param name="minValue">The minimum value of the number.</param>
-        public CheatsOptionsNumberWheel(string label, int slotWidth, Action<int> action, int value, int maxValue,
+        public CheatsOptionsNumberWheel(string label, int slotWidth, Action<CheatsOptionsNumberWheel> action, int value, int maxValue,
             int minValue = 0)
             : base(label, slotWidth, action)
         {
@@ -105,13 +113,16 @@ namespace CJBCheatsMenu.Framework.Components
                 this.ChangeValue(1 * multiplier);
         }
 
+
+        /*********
+        ** Protected methods
+        *********/
         /// <summary>Draw the component to the screen.</summary>
         /// <param name="spriteBatch">The sprite batch being drawn.</param>
         /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
         /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
         /// <param name="context">The menu drawing the component.</param>
-        protected override void DrawElement(SpriteBatch spriteBatch, int slotX, int slotY,
-            IClickableMenu? context = null)
+        protected override void DrawElement(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu? context = null)
         {
             // draw label
             Utility.drawTextWithShadow(spriteBatch, this.label, Game1.dialogueFont,
@@ -135,12 +146,6 @@ namespace CJBCheatsMenu.Framework.Components
                 new Vector2(this.bounds.X + this.PlusButtonBounds.X + slotX,
                     this.bounds.Y + this.PlusButtonBounds.Y + slotY), this.PlusButtonSource,
                 Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom, false, 0.15f);
-        }
-
-        /// <summary>Get the current value of the component.</summary>
-        protected override int GetValue()
-        {
-            return this.Value;
         }
 
         /// <summary>Change the current value of the component, and play a sound to signal success.</summary>

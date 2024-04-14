@@ -195,8 +195,10 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
             return new CheatsOptionsNumberWheel(
                 label: warpLabel,
                 slotWidth: slotWidth,
-                action: floor =>
+                action: field =>
                 {
+                    int floor = field.Value;
+
                     if (floor == 0)
                     {
                         this.Warp(warp.Location ?? "Mine", (int)warp.Tile.X, (int)warp.Tile.Y);
