@@ -247,7 +247,7 @@ namespace CJBCheatsMenu.Framework
                         Location = warp.Location ?? "Farm",
                         Tile = warp.Tile,
                         Order = warp.Order,
-                        SpecialBehavior = warp.SpecialBehavior
+                        Condition = warp.Condition
                     });
                 }
             }

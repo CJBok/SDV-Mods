@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CJB.Common;
 using CJBCheatsMenu.Framework.Components;
 using CJBCheatsMenu.Framework.ContentModels;
 using Microsoft.Xna.Framework;
@@ -56,25 +55,16 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
                 foreach (WarpContentModel warp in sectionWarps)
                 {
                     // skip warps that don't apply
-                    switch (warp.SpecialBehavior)
-                    {
-                        case WarpBehavior.Casino when !Game1.player.hasClubCard:
-                        case WarpBehavior.CommunityCenter when isJojaMember:
-                        case WarpBehavior.JojaMart when !isJojaMember && CommonHelper.GetIsCommunityCenterComplete():
-                        case WarpBehavior.MovieTheaterCommunity when isJojaMember || !this.HasFlag("ccMovieTheater"):
-                        case WarpBehavior.MovieTheaterJoja when !isJojaMember || !this.HasFlag("ccMovieTheater"):
-                            continue;
-                    }
+                    if (!GameStateQuery.CheckConditions(warp.Condition))
+                        continue;
 
                     // get warp button
                     yield return new CheatsOptionsButton(
                         label: warp.DisplayName,
                         slotWidth: context.SlotWidth,
-                        toggle: warp.SpecialBehavior switch
-                        {
-                            WarpBehavior.Farm => this.WarpToFarm,
-                            _ => () => this.Warp(warp.Location, (int)warp.Tile.X, (int)warp.Tile.Y)
-                        }
+                        toggle: warp.Location == "Farm" && warp.Tile == Vector2.Zero
+                            ? this.WarpToFarm
+                            : () => this.Warp(warp.Location, (int)warp.Tile.X, (int)warp.Tile.Y)
                     );
                 }
             }

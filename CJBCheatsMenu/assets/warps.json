@@ -39,16 +39,15 @@
         The relative order in which to list it in the warp menu (default 0). Lower values are
         listed first. Warps with the same order are sorted alphabetically.
 
+      - `Condition`
+        A game state query which indicates whether the warp should be visible, or omit if it should
+        always be visible.
+
 
     ### Section order
     Warps are grouped into UI sections for easier navigation. The `SectionOrder` field lists
     sections that should be listed at the top in the listed order. Any other sections will be
     listed alphabetically after these sections.
-
-    ### Special warp behavior
-    Warps can set the `SpecialBehavior` field to enable special warp logic. See
-    https://github.com/CJBok/SDV-Mods/blob/master/CJBCheatsMenu/docs/author-guide.md for valid
-    values.
 
 */
 {
@@ -66,8 +65,9 @@
         "warp-section.main": [
             {
                 "DisplayText": "warp.farm",
-                "Order": -1,
-                "SpecialBehavior": "Farm"
+                "Location": "Farm",
+                "Tile": "0, 0", // Farm (0, 0) will be replaced with the tile in front of their home door
+                "Order": -1
             },
             {
                 "DisplayText": "warp.carpenter",
@@ -95,26 +95,26 @@
                 "DisplayText": "warp.community-center",
                 "Location": "Town",
                 "Tile": "52, 20",
-                "SpecialBehavior": "CommunityCenter"
+                "Condition": "IS_COMMUNITY_CENTER_COMPLETE"
             },
             {
                 "DisplayText": "warp.jojamart",
                 "Location": "Town",
                 "Tile": "95, 51",
-                "SpecialBehavior": "JojaMart"
+                "Condition": "!IS_COMMUNITY_CENTER_COMPLETE"
             },
             {
                 "DisplayText": "warp.movie-theater",
                 "Location": "Town",
                 "Tile": "95, 51",
-                "SpecialBehavior": "MovieTheaterCommunity"
+                "Condition": "PLAYER_HAS_MAIL Host ccMovieTheater, !PLAYER_HAS_MAIL Host ccMovieTheaterJoja"
             },
             {
                 "Id": "movie-theater-joja",
                 "DisplayText": "warp.movie-theater",
                 "Location": "Town",
                 "Tile": "52, 20",
-                "SpecialBehavior": "MovieTheaterJoja"
+                "Condition": "PLAYER_HAS_MAIL Host ccMovieTheater, PLAYER_HAS_MAIL Host ccMovieTheaterJoja"
             },
             {
                 "DisplayText": "warp.museum",
@@ -232,7 +232,7 @@
                 "DisplayText": "warp.casino",
                 "Location": "Club",
                 "Tile": "8, 11",
-                "SpecialBehavior": "Casino"
+                "Condition": "PLAYER_HAS_MAIL Current HasClubCard"
             },
             {
                 "DisplayText": "warp.sandy-shop",

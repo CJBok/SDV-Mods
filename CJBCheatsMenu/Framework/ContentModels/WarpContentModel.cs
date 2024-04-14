@@ -26,8 +26,8 @@ namespace CJBCheatsMenu.Framework.ContentModels
         /// <summary>The relative order in which to list it in the warp menu (default 0).</summary>
         public int Order { get; set; }
 
-        /// <summary>The special behavior to apply.</summary>
-        public WarpBehavior SpecialBehavior { get; set; } = WarpBehavior.Default;
+        /// <summary>A game state query which indicates whether the warp should be visible, or <c>null</c> if it should always be visible.</summary>
+        public string? Condition { get; set; }
 
 
         /*********
@@ -44,7 +44,7 @@ namespace CJBCheatsMenu.Framework.ContentModels
                 && this.Location == other.Location
                 && this.Tile == other.Tile
                 && this.Order == other.Order
-                && this.SpecialBehavior == other.SpecialBehavior;
+                && this.Condition == other.Condition;
         }
     }
 }
