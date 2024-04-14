@@ -7,6 +7,7 @@ using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Components
 {
+    /// <summary>A button with a label and number selector which invokes a callback when clicked.</summary>
     internal class CheatsOptionsNumberWheel : CheatsOptionsButton<CheatsOptionsNumberWheel>
     {
         /*********
@@ -18,8 +19,11 @@ namespace CJBCheatsMenu.Framework.Components
         /// <summary>The maximum value that can be selected using the field.</summary>
         private readonly int MaxValue;
 
-        /// <summary>The minus button area in screen pixels.</summary>
-        private readonly Rectangle CurrentValueBounds;
+        /// <summary>Format the value for display.</summary>
+        private readonly Func<int, string> FormatValue;
+
+        /// <summary>The current value's area in screen pixels.</summary>
+        private Rectangle CurrentValueBounds;
 
         /// <summary>The minus button area in screen pixels.</summary>
         private Rectangle MinusButtonBounds;
@@ -28,10 +32,10 @@ namespace CJBCheatsMenu.Framework.Components
         private Rectangle PlusButtonBounds;
 
         /// <summary>The source rectangle for the 'minus' button sprite.</summary>
-        private readonly Rectangle MinusButtonSource = new Rectangle(177, 345, 7, 8);
+        private readonly Rectangle MinusButtonSource = new(177, 345, 7, 8);
 
         /// <summary>The source rectangle for the 'plus' button sprite.</summary>
-        private readonly Rectangle PlusButtonSource = new Rectangle(184, 345, 7, 8);
+        private readonly Rectangle PlusButtonSource = new(184, 345, 7, 8);
 
 
         /*********
@@ -48,45 +52,19 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="label">The field label.</param>
         /// <param name="slotWidth">The field width.</param>
         /// <param name="action">The action to perform when the set button is clicked.</param>
-        /// <param name="value">The starting value of the number.</param>
+        /// <param name="initialValue">The starting value of the number.</param>
         /// <param name="maxValue">The maximum value of the number.</param>
         /// <param name="minValue">The minimum value of the number.</param>
-        public CheatsOptionsNumberWheel(string label, int slotWidth, Action<CheatsOptionsNumberWheel> action, int value, int maxValue,
-            int minValue = 0)
+        /// <param name="formatValue">Format the value for display.</param>
+        public CheatsOptionsNumberWheel(string label, int slotWidth, Action<CheatsOptionsNumberWheel> action, int initialValue, int minValue, int maxValue, Func<int, string>? formatValue = null)
             : base(label, slotWidth, action)
         {
-            if (value < minValue || value > maxValue)
-            {
-                value = minValue;
-            }
-            this.Value = value;
+            this.Value = Math.Clamp(initialValue, minValue, maxValue);
             this.MaxValue = maxValue;
             this.MinValue = minValue;
+            this.FormatValue = formatValue ?? (value => value.ToString());
 
-            // calculate the correct height for the button to be in the middle of the line
-            int buttonY =
-                (int) ((double)this.bounds.Height / Game1.pixelZoom / 2d + this.MinusButtonSource.Height / 2d);
-
-            // leave space for the label at the front
-            int labelWidth = (int)Game1.dialogueFont.MeasureString(label).X / Game1.pixelZoom;
-            int xOffset = labelWidth + 4;
-
-            this.MinusButtonBounds = new Rectangle(xOffset * Game1.pixelZoom, buttonY, 7 * Game1.pixelZoom,
-                8 * Game1.pixelZoom);
-            xOffset += this.MinusButtonSource.Width + 2;
-
-            // get the maximum width the value label can be
-            string maxSizeValue = new('9', maxValue.ToString().Length);
-            Vector2 maxValueSize = Game1.dialogueFont.MeasureString(maxSizeValue);
-            int maxValueWidth = (int)(maxValueSize.X / Game1.pixelZoom) + 1;
-            int maxValueHeight = (int)maxValueSize.Y;
-
-            // leave enough space to draw the value without overlapping the plus button
-            this.CurrentValueBounds = new Rectangle(xOffset * Game1.pixelZoom, Game1.pixelZoom,
-                maxValueWidth * Game1.pixelZoom, maxValueHeight);
-            xOffset += maxValueWidth + 2;
-            this.PlusButtonBounds = new Rectangle(xOffset * Game1.pixelZoom, buttonY, 7 * Game1.pixelZoom,
-                8 * Game1.pixelZoom);
+            this.PrepareLayout();
         }
 
         /// <summary>Handle the player clicking the left mouse button.</summary>
@@ -124,41 +102,58 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="context">The menu drawing the component.</param>
         protected override void DrawElement(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu? context = null)
         {
+            int x = this.bounds.X + slotX;
+            int y = this.bounds.Y + slotY;
+
             // draw label
-            Utility.drawTextWithShadow(spriteBatch, this.label, Game1.dialogueFont,
-                new Vector2(this.bounds.X + slotX, this.bounds.Y + slotY),
-                this.greyedOut ? Game1.textColor * 0.33f : Game1.textColor, 1f, 0.15f);
+            Utility.drawTextWithShadow(spriteBatch, this.label, Game1.dialogueFont, new Vector2(x, y), this.greyedOut ? Game1.textColor * 0.33f : Game1.textColor);
 
             // draw minus button
-            Utility.drawWithShadow(spriteBatch, Game1.mouseCursors,
-                new Vector2(this.bounds.X + this.MinusButtonBounds.X + slotX,
-                    this.bounds.Y + this.MinusButtonBounds.Y + slotY), this.MinusButtonSource,
-                Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom, false, 0.15f);
+            Utility.drawWithShadow(spriteBatch, Game1.mouseCursors, new Vector2(x + this.MinusButtonBounds.X, y + this.MinusButtonBounds.Y), this.MinusButtonSource, Color.White, 0f, Vector2.Zero, Game1.pixelZoom);
 
             // draw value
-            Utility.drawTextWithShadow(spriteBatch, this.Value.ToString(), Game1.dialogueFont,
-                new Vector2(this.bounds.X + this.CurrentValueBounds.X + slotX,
-                    this.bounds.Y + this.CurrentValueBounds.Y + slotY), Game1.textColor,
-                1f, 0.15f);
+            Utility.drawTextWithShadow(spriteBatch, this.FormatValue(this.Value), Game1.dialogueFont, new Vector2(x + this.CurrentValueBounds.X, y + this.CurrentValueBounds.Y), Game1.textColor);
 
             // draw plus button
-            Utility.drawWithShadow(spriteBatch, Game1.mouseCursors,
-                new Vector2(this.bounds.X + this.PlusButtonBounds.X + slotX,
-                    this.bounds.Y + this.PlusButtonBounds.Y + slotY), this.PlusButtonSource,
-                Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom, false, 0.15f);
+            Utility.drawWithShadow(spriteBatch, Game1.mouseCursors, new Vector2(x + this.PlusButtonBounds.X, y + this.PlusButtonBounds.Y), this.PlusButtonSource, Color.White, 0.0f, Vector2.Zero, Game1.pixelZoom);
         }
 
-        /// <summary>Change the current value of the component, and play a sound to signal success.</summary>
+        /// <summary>Calculate the element positions and dimensions.</summary>
+        private void PrepareLayout()
+        {
+            // calculate the correct height for the button to be in the middle of the line
+            int buttonY = (int)((double)this.bounds.Height / Game1.pixelZoom / 2d + this.MinusButtonSource.Height / 2d);
+
+            // leave space for the label at the front
+            int labelWidth = (int)Game1.dialogueFont.MeasureString(this.label).X / Game1.pixelZoom;
+            int xOffset = labelWidth + 4;
+
+            this.MinusButtonBounds = new Rectangle(xOffset * Game1.pixelZoom, buttonY, 7 * Game1.pixelZoom, 8 * Game1.pixelZoom);
+            xOffset += this.MinusButtonSource.Width + 2;
+
+            // get the maximum width the value label can be
+            string maxSizeValue = new('9', this.MaxValue.ToString().Length);
+            Vector2 maxValueSize = Game1.dialogueFont.MeasureString(maxSizeValue);
+            int maxValueWidth = (int)(maxValueSize.X / Game1.pixelZoom) + 1;
+            int maxValueHeight = (int)maxValueSize.Y;
+
+            // leave enough space to draw the value without overlapping the plus button
+            this.CurrentValueBounds = new Rectangle(xOffset * Game1.pixelZoom, Game1.pixelZoom, maxValueWidth * Game1.pixelZoom, maxValueHeight);
+            xOffset += maxValueWidth + 2;
+            this.PlusButtonBounds = new Rectangle(xOffset * Game1.pixelZoom, buttonY, 7 * Game1.pixelZoom, 8 * Game1.pixelZoom);
+        }
+
+        /// <summary>Change the selected number, and play a sound to signal success.</summary>
+        /// <param name="delta">The amount to add to the current value.</param>
         private void ChangeValue(int delta)
         {
             int newValue = Math.Clamp(this.Value + delta, this.MinValue, this.MaxValue);
-            if (newValue == this.Value)
-            {
-                return;
-            }
 
-            this.Value = newValue;
-            Game1.playSound("drumkit6");
+            if (newValue != this.Value)
+            {
+                this.Value = newValue;
+                Game1.playSound("drumkit6");
+            }
         }
     }
 }

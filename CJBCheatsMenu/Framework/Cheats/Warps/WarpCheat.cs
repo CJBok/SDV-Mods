@@ -60,6 +60,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
                         case WarpBehavior.MovieTheaterCommunity when isJojaMember || !this.HasFlag("ccMovieTheater"):
                         case WarpBehavior.MovieTheaterJoja when !isJojaMember || !this.HasFlag("ccMovieTheater"):
                             continue;
+
                         case WarpBehavior.MinesFloor:
                             // override warp button for mines
                             yield return this.CreateMinesButton(warp, warpLabel, context.SlotWidth);
@@ -177,20 +178,19 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
             this.Warp("Farm", farmhousePos.X, farmhousePos.Y);
         }
 
-        /// <summary>Create warp button and number input for a mines warp.</summary>
+        /// <summary>Create a warp option with a mine level selector.</summary>
         /// <param name="warp">The warp data.</param>
         /// <param name="warpLabel">The translated warp name.</param>
         /// <param name="slotWidth">The width of the component to create.</param>
         private CheatsOptionsNumberWheel CreateMinesButton(ModDataWarp warp, string warpLabel, int slotWidth)
         {
-            const int mineEnd = MineShaft.bottomOfMineLevel;
-            bool IsSkullCavern() => warp.Location == "SkullCave";
-            bool inQuarryMine = Game1.currentLocation is MineShaft mine &&
-                                mine.getMineArea() == MineShaft.quarryMineShaft;
-            // this will be 0 when not in the mines or in quarry mine
-            int currentLevel = inQuarryMine ? 0 :
-                Game1.CurrentMineLevel > mineEnd ? Game1.CurrentMineLevel - mineEnd : Game1.CurrentMineLevel;
-            bool currentlyInSkull = Game1.CurrentMineLevel > mineEnd;
+            const int bottomOfMine = MineShaft.bottomOfMineLevel;
+            bool isSkullCavern = warp.Location == "SkullCave";
+            bool inQuarryMine = (Game1.currentLocation as MineShaft)?.getMineArea() == MineShaft.quarryMineShaft;
+
+            Func<int, string> formatValue = isSkullCavern
+                ? value => (value - bottomOfMine).ToString()
+                : value => value.ToString();
 
             return new CheatsOptionsNumberWheel(
                 label: warpLabel,
@@ -198,30 +198,25 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
                 action: field =>
                 {
                     int floor = field.Value;
-
-                    if (floor == 0)
+                    switch (floor)
                     {
-                        this.Warp(warp.Location ?? "Mine", (int)warp.Tile.X, (int)warp.Tile.Y);
-                        return;
-                    }
+                        case 0:
+                            this.Warp(warp.Location ?? "Mine", (int)warp.Tile.X, (int)warp.Tile.Y);
+                            break;
 
-                    int offset = IsSkullCavern() ? mineEnd : 0;
-                    int targetFloor = floor + offset;
-                    if (targetFloor == MineShaft.quarryMineShaft)
-                    {
-                        // don't send the player to the quarry mine with the menu
-                        // descending using a ladder/staircase from skull caverns
-                        // floor 77256 sends the player there anyway
-                        targetFloor++;
-                    }
+                        case MineShaft.quarryMineShaft:
+                            Game1.enterMine(floor + 1); // skip quarry mine (player can still get there by descending from the previous level though)
+                            break;
 
-                    Game1.enterMine(targetFloor);
+                        default:
+                            Game1.enterMine(floor);
+                            break;
+                    }
                 },
-                value: IsSkullCavern() == currentlyInSkull ? currentLevel : 0,
-                // 999_999 could be int.MaxValue, but the game behaves weirdly on very high floors
-                // and we don't want the gap between - and + buttons to be obscenely large
-                // floor 100_000 is already 100% iridium with the occasional 2x2 rock
-                maxValue: IsSkullCavern() ? 999_999 : mineEnd
+                initialValue: inQuarryMine ? 0 : Game1.CurrentMineLevel,
+                minValue: isSkullCavern ? bottomOfMine : 0,
+                maxValue: isSkullCavern ? 999_999 : bottomOfMine, // the game behaves weirdly with high numbers and we have limited space, so set a semi-reasonable limit
+                formatValue: formatValue
             );
         }
     }
