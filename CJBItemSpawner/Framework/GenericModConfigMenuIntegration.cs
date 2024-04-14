@@ -50,11 +50,8 @@ namespace CJBItemSpawner.Framework
 
             menu.Register(this.Manifest, this.Reset, this.Save);
 
-            // ---------------------------- //
-            // Main options
-            // ---------------------------- //
+            // main options
             menu.AddSectionTitle(this.Manifest, I18n.Config_Title_MainOptions);
-
             menu.AddBoolOption(
                 mod: this.Manifest,
                 name: I18n.Config_ReclaimPriceInMenuTrashCan_Name,
@@ -63,209 +60,27 @@ namespace CJBItemSpawner.Framework
                 setValue: value => this.Config.ReclaimPriceInMenuTrashCan = value
             );
 
-            // ---------------------------- //
-            // Hide categories
-            // ---------------------------- //
+            // hide categories
             menu.AddSectionTitle(this.Manifest, I18n.Config_Title_HideCategories);
+            this.AddHideCategoryOption(menu, "filter.artisan-and-cooking", I18n.Filter_ArtisanAndCooking);
+            this.AddHideCategoryOption(menu, "filter.crafting.products", I18n.Filter_Crafting_Products);
+            this.AddHideCategoryOption(menu, "filter.crafting.resources", I18n.Filter_Crafting_Resources);
+            this.AddHideCategoryOption(menu, "filter.decor.furniture", I18n.Filter_Decor_Furniture);
+            this.AddHideCategoryOption(menu, "filter.decor.other", I18n.Filter_Decor_Other);
+            this.AddHideCategoryOption(menu, "filter.equipment-boots", I18n.Filter_EquipmentBoots);
+            this.AddHideCategoryOption(menu, "filter.equipment-clothes", I18n.Filter_EquipmentClothes);
+            this.AddHideCategoryOption(menu, "filter.equipment-hats", I18n.Filter_EquipmentHats);
+            this.AddHideCategoryOption(menu, "filter.equipment-rings", I18n.Filter_EquipmentRings);
+            this.AddHideCategoryOption(menu, "filter.equipment-tools", I18n.Filter_EquipmentTools);
+            this.AddHideCategoryOption(menu, "filter.equipment-weapons", I18n.Filter_EquipmentWeapons);
+            this.AddHideCategoryOption(menu, "filter.farm-animal-drops", I18n.Filter_FarmAnimalDrops);
+            this.AddHideCategoryOption(menu, "filter.farm-crops", I18n.Filter_FarmCrops);
+            this.AddHideCategoryOption(menu, "filter.farm-seeds", I18n.Filter_FarmSeeds);
+            this.AddHideCategoryOption(menu, "filter.fish", I18n.Filter_Fish);
+            this.AddHideCategoryOption(menu, "filter.minerals-and-artifacts", I18n.Filter_MineralsAndArtifacts);
 
-            menu.AddBoolOption(
-                mod: this.Manifest,
-                name: I18n.Filter_ArtisanAndCooking,
-                getValue: () => this.Config.HideCategories.Contains("filter.artisan-and-cooking"),
-                setValue: value =>
-                {
-                    if (value)
-                        this.Config.HideCategories = this.Config.HideCategories.Append("filter.artisan-and-cooking").Distinct().ToArray();
-                    else
-                        this.Config.HideCategories = this.Config.HideCategories.Where(p => p != "filter.artisan-and-cooking").ToArray();
-                }
-            );
-            menu.AddBoolOption(
-                mod: this.Manifest,
-                name: I18n.Filter_Crafting_Products,
-                getValue: () => this.Config.HideCategories.Contains("filter.crafting.products"),
-                setValue: value =>
-                {
-                    if (value)
-                        this.Config.HideCategories = this.Config.HideCategories.Append("filter.crafting.products").Distinct().ToArray();
-                    else
-                        this.Config.HideCategories = this.Config.HideCategories.Where(p => p != "filter.crafting.products").ToArray();
-                }
-            );
-            menu.AddBoolOption(
-                mod: this.Manifest,
-                name: I18n.Filter_Crafting_Resources,
-                getValue: () => this.Config.HideCategories.Contains("filter.crafting.resources"),
-                setValue: value =>
-                {
-                    if (value)
-                        this.Config.HideCategories = this.Config.HideCategories.Append("filter.crafting.resources").Distinct().ToArray();
-                    else
-                        this.Config.HideCategories = this.Config.HideCategories.Where(p => p != "filter.crafting.resources").ToArray();
-                }
-            );
-            menu.AddBoolOption(
-                mod: this.Manifest,
-                name: I18n.Filter_Decor_Furniture,
-                getValue: () => this.Config.HideCategories.Contains("filter.decor.furniture"),
-                setValue: value =>
-                {
-                    if (value)
-                        this.Config.HideCategories = this.Config.HideCategories.Append("filter.decor.furniture").Distinct().ToArray();
-                    else
-                        this.Config.HideCategories = this.Config.HideCategories.Where(p => p != "filter.decor.furniture").ToArray();
-                }
-            );
-            menu.AddBoolOption(
-                mod: this.Manifest,
-                name: I18n.Filter_Decor_Other,
-                getValue: () => this.Config.HideCategories.Contains("filter.decor.other"),
-                setValue: value =>
-                {
-                    if (value)
-                        this.Config.HideCategories = this.Config.HideCategories.Append("filter.decor.other").Distinct().ToArray();
-                    else
-                        this.Config.HideCategories = this.Config.HideCategories.Where(p => p != "filter.decor.other").ToArray();
-                }
-            );
-            menu.AddBoolOption(
-                mod: this.Manifest,
-                name: I18n.Filter_EquipmentBoots,
-                getValue: () => this.Config.HideCategories.Contains("filter.equipment-boots"),
-                setValue: value =>
-                {
-                    if (value)
-                        this.Config.HideCategories = this.Config.HideCategories.Append("filter.equipment-boots").Distinct().ToArray();
-                    else
-                        this.Config.HideCategories = this.Config.HideCategories.Where(p => p != "filter.equipment-boots").ToArray();
-                }
-            );
-            menu.AddBoolOption(
-                mod: this.Manifest,
-                name: I18n.Filter_EquipmentClothes,
-                getValue: () => this.Config.HideCategories.Contains("filter.equipment-clothes"),
-                setValue: value =>
-                {
-                    if (value)
-                        this.Config.HideCategories = this.Config.HideCategories.Append("filter.equipment-clothes").Distinct().ToArray();
-                    else
-                        this.Config.HideCategories = this.Config.HideCategories.Where(p => p != "filter.equipment-clothes").ToArray();
-                }
-            );
-            menu.AddBoolOption(
-                mod: this.Manifest,
-                name: I18n.Filter_EquipmentHats,
-                getValue: () => this.Config.HideCategories.Contains("filter.equipment-hats"),
-                setValue: value =>
-                {
-                    if (value)
-                        this.Config.HideCategories = this.Config.HideCategories.Append("filter.equipment-hats").Distinct().ToArray();
-                    else
-                        this.Config.HideCategories = this.Config.HideCategories.Where(p => p != "filter.equipment-hats").ToArray();
-                }
-            );
-            menu.AddBoolOption(
-                mod: this.Manifest,
-                name: I18n.Filter_EquipmentRings,
-                getValue: () => this.Config.HideCategories.Contains("filter.equipment-rings"),
-                setValue: value =>
-                {
-                    if (value)
-                        this.Config.HideCategories = this.Config.HideCategories.Append("filter.equipment-rings").Distinct().ToArray();
-                    else
-                        this.Config.HideCategories = this.Config.HideCategories.Where(p => p != "filter.equipment-rings").ToArray();
-                }
-            );
-            menu.AddBoolOption(
-                mod: this.Manifest,
-                name: I18n.Filter_EquipmentTools,
-                getValue: () => this.Config.HideCategories.Contains("filter.equipment-tools"),
-                setValue: value =>
-                {
-                    if (value)
-                        this.Config.HideCategories = this.Config.HideCategories.Append("filter.equipment-tools").Distinct().ToArray();
-                    else
-                        this.Config.HideCategories = this.Config.HideCategories.Where(p => p != "filter.equipment-tools").ToArray();
-                }
-            );
-            menu.AddBoolOption(
-                mod: this.Manifest,
-                name: I18n.Filter_EquipmentWeapons,
-                getValue: () => this.Config.HideCategories.Contains("filter.equipment-weapons"),
-                setValue: value =>
-                {
-                    if (value)
-                        this.Config.HideCategories = this.Config.HideCategories.Append("filter.equipment-weapons").Distinct().ToArray();
-                    else
-                        this.Config.HideCategories = this.Config.HideCategories.Where(p => p != "filter.equipment-weapons").ToArray();
-                }
-            );
-            menu.AddBoolOption(
-                mod: this.Manifest,
-                name: I18n.Filter_FarmAnimalDrops,
-                getValue: () => this.Config.HideCategories.Contains("filter.farm-animal-drops"),
-                setValue: value =>
-                {
-                    if (value)
-                        this.Config.HideCategories = this.Config.HideCategories.Append("filter.farm-animal-drops").Distinct().ToArray();
-                    else
-                        this.Config.HideCategories = this.Config.HideCategories.Where(p => p != "filter.farm-animal-drops").ToArray();
-                }
-            );
-            menu.AddBoolOption(
-                mod: this.Manifest,
-                name: I18n.Filter_FarmCrops,
-                getValue: () => this.Config.HideCategories.Contains("filter.farm-crops"),
-                setValue: value =>
-                {
-                    if (value)
-                        this.Config.HideCategories = this.Config.HideCategories.Append("filter.farm-crops").Distinct().ToArray();
-                    else
-                        this.Config.HideCategories = this.Config.HideCategories.Where(p => p != "filter.farm-crops").ToArray();
-                }
-            );
-            menu.AddBoolOption(
-                mod: this.Manifest,
-                name: I18n.Filter_FarmSeeds,
-                getValue: () => this.Config.HideCategories.Contains("filter.farm-seeds"),
-                setValue: value =>
-                {
-                    if (value)
-                        this.Config.HideCategories = this.Config.HideCategories.Append("filter.farm-seeds").Distinct().ToArray();
-                    else
-                        this.Config.HideCategories = this.Config.HideCategories.Where(p => p != "filter.farm-seeds").ToArray();
-                }
-            );
-            menu.AddBoolOption(
-                mod: this.Manifest,
-                name: I18n.Filter_Fish,
-                getValue: () => this.Config.HideCategories.Contains("filter.fish"),
-                setValue: value =>
-                {
-                    if (value)
-                        this.Config.HideCategories = this.Config.HideCategories.Append("filter.fish").Distinct().ToArray();
-                    else
-                        this.Config.HideCategories = this.Config.HideCategories.Where(p => p != "filter.fish").ToArray();
-                }
-            );
-            menu.AddBoolOption(
-                mod: this.Manifest,
-                name: I18n.Filter_MineralsAndArtifacts,
-                getValue: () => this.Config.HideCategories.Contains("filter.minerals-and-artifacts"),
-                setValue: value =>
-                {
-                    if (value)
-                        this.Config.HideCategories = this.Config.HideCategories.Append("filter.minerals-and-artifacts").Distinct().ToArray();
-                    else
-                        this.Config.HideCategories = this.Config.HideCategories.Where(p => p != "filter.minerals-and-artifacts").ToArray();
-                }
-            );
-
-            // ---------------------------- //
-            // Controls
-            // ---------------------------- //
+            // controls
             menu.AddSectionTitle(this.Manifest, I18n.Config_Title_Controls);
-
             menu.AddKeybindList(
                 mod: this.Manifest,
                 name: I18n.Config_ShowMenuKey_Name,
@@ -288,6 +103,29 @@ namespace CJBItemSpawner.Framework
             config.ReclaimPriceInMenuTrashCan = defaults.ReclaimPriceInMenuTrashCan;
             config.HideCategories = defaults.HideCategories.ToArray();
             config.ShowMenuKey = defaults.ShowMenuKey;
+        }
+
+        /// <summary>Add a checkbox to set whether a category is hidden.</summary>
+        /// <param name="menu">The config menu to update.</param>
+        /// <param name="id">The category ID.</param>
+        /// <param name="displayName">Get the category's translated display name.</param>
+        private void AddHideCategoryOption(IGenericModConfigMenuApi menu, string id, Func<string> displayName)
+        {
+            menu.AddBoolOption(
+                mod: this.Manifest,
+                name: displayName,
+                getValue: () => this.Config.HideCategories.Contains(id),
+                setValue: hide =>
+                {
+                    bool wasHidden = Array.IndexOf(this.Config.HideCategories, id) != -1;
+                    if (hide != wasHidden)
+                    {
+                        this.Config.HideCategories = hide
+                            ? this.Config.HideCategories.Append(id).Distinct().ToArray()
+                            : this.Config.HideCategories.Where(p => p != id).ToArray();
+                    }
+                }
+            );
         }
     }
 }
