@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using CJB.Common;
-using CJB.Common.Integrations;
 using CJBCheatsMenu.Framework;
 using CJBCheatsMenu.Framework.Models;
 using StardewModdingAPI;
@@ -86,83 +85,14 @@ namespace CJBCheatsMenu
         /// <param name="e">The event arguments.</param>
         private void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
         {
-            // get Generic Mod Config Menu's API (if it's installed)
-            var configMenu = this.Helper.ModRegistry.GetApi<IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
-            if (configMenu is null)
-                return;
-
-            // register mod
-            configMenu.Register(
-                mod: this.ModManifest,
+            var configMenu = new GenericModConfigMenuIntegration(
+                manifest: this.ModManifest,
+                modRegistry: this.Helper.ModRegistry,
+                config: this.Config,
                 reset: () => this.Config = new ModConfig(),
-                save: () => this.Helper.WriteConfig(this.Config),
-                titleScreenOnly: true
+                save: () => this.Helper.WriteConfig(this.Config)
             );
-
-            // ---------------------------- //
-            // Main options
-            // ---------------------------- //
-            configMenu.AddSectionTitle(this.ModManifest, I18n.Config_Title_MainOptions);
-
-            configMenu.AddTextOption(
-                mod: this.ModManifest,
-                name: I18n.Config_DefaultTab_Name,
-                tooltip: I18n.Config_DefaultTab_Desc,
-                getValue: () => this.Config.DefaultTab.ToString(),
-                setValue: value => {
-                    if (Enum.TryParse(value, out MenuTab tab))
-                        this.Config.DefaultTab = tab;
-                },
-                allowedValues: ["PlayerAndTools", "FarmAndFishing", "Skills", "Weather", "Relationships", "WarpLocations", "Time", "Advanced", "Controls"]
-            );
-
-            // add grow radious from 1 to 10 integer
-            configMenu.AddNumberOption(
-                mod: this.ModManifest,
-                name: I18n.Controls_GrowRadius,
-                tooltip: I18n.Config_GrowRadius_Desc,
-                getValue: () => this.Config.GrowRadius,
-                setValue: value => this.Config.GrowRadius = (int)value,
-                min: 1,
-                max: 10
-            );
-
-            // ---------------------------- //
-            // Controls
-            // ---------------------------- //
-            configMenu.AddSectionTitle(this.ModManifest, I18n.Controls_Title);
-
-            configMenu.AddKeybindList(
-                mod: this.ModManifest,
-                name: I18n.Controls_OpenMenu,
-                tooltip: I18n.Config_OpenMenu_Desc,
-                getValue: () => this.Config.OpenMenuKey,
-                setValue: value => this.Config.OpenMenuKey = value
-            );
-
-            configMenu.AddKeybindList(
-                mod: this.ModManifest,
-                name: I18n.Controls_FreezeTime,
-                tooltip: I18n.Config_FreezeTime_Desc,
-                getValue: () => this.Config.FreezeTimeKey,
-                setValue: value => this.Config.FreezeTimeKey = value
-            );
-
-            configMenu.AddKeybindList(
-                mod: this.ModManifest,
-                name: I18n.Controls_GrowTree,
-                tooltip: I18n.Config_GrowTree_Desc,
-                getValue: () => this.Config.GrowTreeKey,
-                setValue: value => this.Config.GrowTreeKey = value
-            );
-
-            configMenu.AddKeybindList(
-                mod: this.ModManifest,
-                name: I18n.Controls_GrowCrops,
-                tooltip: I18n.Config_GrowCrops_Desc,
-                getValue: () => this.Config.GrowCropsKey,
-                setValue: value => this.Config.GrowCropsKey = value
-            );
+            configMenu.Register();
         }
 
         /// <summary>Raised after the player loads a save slot.</summary>
