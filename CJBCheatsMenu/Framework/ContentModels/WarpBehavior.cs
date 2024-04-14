@@ -1,4 +1,4 @@
-namespace CJBCheatsMenu.Framework.Models
+namespace CJBCheatsMenu.Framework.ContentModels
 {
     /// <summary>Indicates special behavior that should override the normal warp logic.</summary>
     internal enum WarpBehavior

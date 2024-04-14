@@ -2,11 +2,15 @@
 
 # Release notes
 ## Upcoming release
+* Other mods [can now edit the warps through Content Patcher](author-guide.md). That means:
+   * players no longer need to manually download warps files;
+   * players can now have custom warps for multiple mods at once.
 * Fixed 'one-hit kill' cheat causing grubs to instantly start turning into flies.
 * Fixed 'auto-feed animals' only using hay stored on the farm.
 * Fixed 'auto-feed animals' not watering slimes if you have no more hay.
 * Fixed 'auto-pet animals' and 'auto-feed animals' not applied to animals outside the farm.
 * Fixed 'auto-pet pets' sometimes no longer applied to saves whose date was edited.
+* Removed `cjb_reload_warps` console command, which is no longer needed with the new warp assets.
 
 ## 1.35.1
 Released 29 March 2024 for SMAPI 4.0.0 or later.

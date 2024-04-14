@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CJB.Common;
 using CJBCheatsMenu.Framework.Components;
-using CJBCheatsMenu.Framework.Models;
+using CJBCheatsMenu.Framework.ContentModels;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
@@ -18,18 +18,18 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
         /*********
         ** Fields
         *********/
-        /// <summary>Get the warp data.</summary>
-        private readonly Func<ModData> GetWarpData;
+        /// <summary>Manages building and loading the warp data assets.</summary>
+        private readonly WarpContentLoader WarpContentLoader;
 
 
         /*********
         ** Public methods
         *********/
         /// <summary>Construct an instance.</summary>
-        /// <param name="getWarps">Get the warp data.</param>
-        public WarpCheat(Func<ModData> getWarps)
+        /// <param name="warpContentLoader">Manages building and loading the warp data assets.</param>
+        public WarpCheat(WarpContentLoader warpContentLoader)
         {
-            this.GetWarpData = getWarps;
+            this.WarpContentLoader = warpContentLoader;
         }
 
         /// <summary>Get the config UI fields to show in the cheats menu.</summary>
@@ -38,17 +38,22 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
         {
             bool isJojaMember = this.HasFlag("JojaMember");
 
-            ModData warpData = this.GetWarpData();
-            IDictionary<string, int> sectionOrder = this.GetSectionOrder(warpData);
-            IDictionary<string, ModDataWarp[]> warpsBySection = this.GetWarpsBySection(warpData);
+            IReadOnlyList<WarpSectionContentModel> rawSections = this.WarpContentLoader.LoadWarpSections();
+            IReadOnlyList<WarpContentModel> rawWarps = this.WarpContentLoader.LoadWarps();
 
-            foreach ((string sectionKey, string sectionLabel) in this.GetSections(sectionOrder, warpsBySection))
+            Dictionary<string, string> sectionNames = rawSections.ToDictionary(p => p.Id, p => p.DisplayName);
+            Dictionary<string, List<WarpContentModel>> warps = this.GetWarpsBySection(rawSections, rawWarps);
+
+            if (this.WarpContentLoader.IsCustomizedWarpList(rawWarps))
+                yield return new DescriptionElement(I18n.Warp_CustomizedWarning());
+
+            foreach ((string sectionKey, List<WarpContentModel> sectionWarps) in warps)
             {
                 // section title
-                yield return new OptionsElement($"{sectionLabel}:");
+                yield return new OptionsElement($"{sectionNames.GetValueOrDefault(sectionKey, sectionKey)}:");
 
                 // warps
-                foreach ((ModDataWarp warp, string warpLabel) in this.GetWarps(warpsBySection, sectionKey))
+                foreach (WarpContentModel warp in sectionWarps)
                 {
                     // skip warps that don't apply
                     switch (warp.SpecialBehavior)
@@ -63,12 +68,12 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
 
                     // get warp button
                     yield return new CheatsOptionsButton(
-                        label: warpLabel,
+                        label: warp.DisplayName,
                         slotWidth: context.SlotWidth,
                         toggle: warp.SpecialBehavior switch
                         {
                             WarpBehavior.Farm => this.WarpToFarm,
-                            _ => () => this.Warp(warp.Location ?? "Farm", (int)warp.Tile.X, (int)warp.Tile.Y)
+                            _ => () => this.Warp(warp.Location, (int)warp.Tile.X, (int)warp.Tile.Y)
                         }
                     );
                 }
@@ -79,55 +84,27 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
         /*********
         ** Private methods
         *********/
-        /// <summary>Get the order in which sections should be rendered based on the <see cref="ModData.SectionOrder"/> data.</summary>
-        /// <param name="warpData">The underlying warp data.</param>
-        private IDictionary<string, int> GetSectionOrder(ModData warpData)
+        /// <summary>Get the warps to show in the menu grouped by section.</summary>
+        /// <param name="warpSections">The raw warp sections to show in the menu.</param>
+        /// <param name="warps">The raw warps to show in the menu.</param>
+        private Dictionary<string, List<WarpContentModel>> GetWarpsBySection(IReadOnlyList<WarpSectionContentModel> warpSections, IReadOnlyList<WarpContentModel> warps)
         {
-            return warpData.SectionOrder
-                .Distinct(StringComparer.OrdinalIgnoreCase)
-                .Select((section, index) => new { section, index })
-                .ToDictionary(p => p.section, p => p.index, StringComparer.OrdinalIgnoreCase);
-        }
+            Dictionary<string, List<WarpContentModel>> sections = new(StringComparer.OrdinalIgnoreCase);
 
-        /// <summary>Get the available warps indexed by section.</summary>
-        /// <param name="warpData">The underlying warp data.</param>
-        private IDictionary<string, ModDataWarp[]> GetWarpsBySection(ModData warpData)
-        {
-            return warpData.Warps
-                .GroupBy(p => p.Key, p => p.Value, StringComparer.OrdinalIgnoreCase)
-                .ToDictionary(p => p.Key, p => p.SelectMany(x => x).ToArray(), StringComparer.OrdinalIgnoreCase);
-        }
+            // add sections
+            foreach (WarpSectionContentModel section in warpSections)
+                sections.TryAdd(section.Id, new());
 
-        /// <summary>Get the section IDs and display names in sorted order.</summary>
-        /// <param name="sectionOrder">The order in which sections should be rendered based on the <see cref="ModData.SectionOrder"/> data.</param>
-        /// <param name="warpsBySection">The available warps indexed by section.</param>
-        private IEnumerable<KeyValuePair<string, string>> GetSections(IDictionary<string, int> sectionOrder, IDictionary<string, ModDataWarp[]> warpsBySection)
-        {
-            return
-                (
-                    from key in warpsBySection.Keys
-                    let label = I18n.GetByKey(key).Default(key)
-                    let order = sectionOrder.TryGetValue(key, out int order) ? order : int.MaxValue
-                    orderby order, label
-                    select new KeyValuePair<string, string>(key, label)
-                );
-        }
+            // add warps
+            foreach (WarpContentModel warp in warps)
+            {
+                if (!sections.TryGetValue(warp.SectionId, out List<WarpContentModel>? list))
+                    sections[warp.SectionId] = list = new();
 
-        /// <summary>Get the warps and display names in sorted order.</summary>
-        /// <param name="warpsBySection">The available warps indexed by section.</param>
-        /// <param name="section">The section whose warps to get.</param>
-        private IEnumerable<(ModDataWarp Warp, string Label)> GetWarps(IDictionary<string, ModDataWarp[]> warpsBySection, string section)
-        {
-            if (!warpsBySection.TryGetValue(section, out ModDataWarp[]? warps))
-                return Enumerable.Empty<(ModDataWarp, string)>();
+                list.Add(warp);
+            }
 
-            return
-                (
-                    from warp in warps
-                    let label = I18n.GetByKey(warp.DisplayText).Default(warp.DisplayText ?? "???").ToString()
-                    orderby warp.Order, label
-                    select (warp, label)
-                );
+            return sections;
         }
 
         /// <summary>Warp the player to the given location.</summary>

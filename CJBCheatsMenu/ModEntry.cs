@@ -23,8 +23,8 @@ namespace CJBCheatsMenu
         /// <summary>The mod settings.</summary>
         private ModConfig Config = null!; // set in Entry
 
-        /// <summary>The warps to show in the menu.</summary>
-        private ModData Warps = new(null, null);
+        /// <summary>Manages building and loading the warp data assets.</summary>
+        private WarpContentLoader WarpContentLoader = null!; // set in Entry
 
         /// <summary>Manages the cheat implementations.</summary>
         private PerScreen<CheatManager> Cheats = null!; // set in Entry
@@ -49,15 +49,12 @@ namespace CJBCheatsMenu
             // init translations
             I18n.Init(helper.Translation);
 
-            // load warps
-            this.TryLoadWarps(isReloadCommand: false);
-
-            // load console commands
-            this.Helper.ConsoleCommands.Add("cjb_reload_warps", $"Usage: cjb_reload_warps\nReload the warps shown in the menu from the mod's {this.WarpsPath} file.", (_, _) => this.TryLoadWarps(isReloadCommand: true));
+            // init warp content loader
+            this.WarpContentLoader = new WarpContentLoader(this.ModManifest.UniqueID, this.LoadModData(), this.Monitor, this.Helper.ModRegistry);
 
             // load cheats
             this.ResetLocationCache();
-            this.Cheats = new PerScreen<CheatManager>(() => new CheatManager(this.Config, this.Helper.GameContent, this.Helper.Reflection, () => this.Locations.Value.Value, () => this.Warps));
+            this.Cheats = new PerScreen<CheatManager>(() => new CheatManager(this.Config, this.Helper.GameContent, this.Helper.Reflection, this.WarpContentLoader, () => this.Locations.Value.Value));
 
             // hook events
             helper.Events.Content.AssetRequested += this.OnAssetRequested;
@@ -132,7 +129,7 @@ namespace CJBCheatsMenu
                 else
                 {
                     this.Monitor.Log("Received menu open key.");
-                    this.OpenCheatsMenu(this.Config.DefaultTab, isNewMenu: true);
+                    Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Cheats.Value, this.Monitor, isNewMenu: true);
                 }
             }
 
@@ -145,8 +142,12 @@ namespace CJBCheatsMenu
         /// <param name="e">The event arguments.</param>
         private void OnAssetRequested(object? sender, AssetRequestedEventArgs e)
         {
-            if (this.Cheats.IsActiveForScreen()) // skip if not initialized yet
+            // apply cheats
+            if (this.Cheats.IsActiveForScreen())
                 this.Cheats.Value.HarvestWithScythe.OnAssetRequested(this.Cheats.Value.Context, e);
+
+            // load warp sections
+            this.WarpContentLoader.OnAssetRequested(e);
         }
 
         /// <summary>Raised after the game draws to the sprite patch in a draw tick, just before the final sprite batch is rendered to the screen.</summary>
@@ -192,46 +193,24 @@ namespace CJBCheatsMenu
             }
         }
 
-        /// <summary>Reload the available warps from the data file, if it's valid.</summary>
-        /// <param name="isReloadCommand">Whether the warp is being loaded for the <c>cjb_reload_warps</c> console command.</param>
+        /// <summary>Load the default warps from the data file, if it's valid.</summary>
         [SuppressMessage("ReSharper", "ConstantNullCoalescingCondition", Justification = "The warps field is initialized in this method.")]
-        private void TryLoadWarps(bool isReloadCommand)
+        private ModData LoadModData()
         {
-            string fallbackPhrase = !this.Warps.Warps.Any()
-                ? "try reinstalling this mod"
-                : "the previous warps will be kept instead";
-
             try
             {
-                ModData? warps = this.Helper.Data.ReadJsonFile<ModData>(this.WarpsPath);
-                if (warps == null)
-                {
-                    this.Monitor.Log($"Some of the mod files are missing ({this.WarpsPath}); {fallbackPhrase}.", LogLevel.Error);
-                    return;
-                }
+                ModData? modData = this.Helper.Data.ReadJsonFile<ModData>(this.WarpsPath);
+                if (modData != null)
+                    return modData;
 
-                this.Warps = warps;
+                this.Monitor.Log($"Some of the mod files are missing ({this.WarpsPath}); try reinstalling this mod.", LogLevel.Error);
             }
             catch (Exception ex)
             {
-                this.Monitor.Log($"Some of the mod files are broken or corrupted ({this.WarpsPath}); {fallbackPhrase}.\n{ex}", LogLevel.Error);
-                return;
+                this.Monitor.Log($"Some of the mod files are broken or corrupted ({this.WarpsPath}); try reinstalling this mod.\n{ex}", LogLevel.Error);
             }
 
-            if (isReloadCommand)
-            {
-                this.Monitor.Log($"Successfully reloaded {this.Warps.Warps.Sum(p => p.Value.Length)} warps (in {this.Warps.Warps.Keys.Count} sections) from the {this.WarpsPath} file.", LogLevel.Info);
-                if (Game1.activeClickableMenu is CheatsMenu cheatsMenu)
-                    this.OpenCheatsMenu(cheatsMenu.CurrentTab, isNewMenu: false);
-            }
-        }
-
-        /// <summary>Open the cheats menu.</summary>
-        /// <param name="tab">The tab to preselect.</param>
-        /// <param name="isNewMenu">Whether to play the open-menu sound.</param>
-        private void OpenCheatsMenu(MenuTab tab, bool isNewMenu)
-        {
-            Game1.activeClickableMenu = new CheatsMenu(tab, this.Cheats.Value, this.Monitor, isNewMenu);
+            return new ModData(null, null);
         }
 
         /// <summary>Reset the cached location list.</summary>
