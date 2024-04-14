@@ -123,7 +123,7 @@
     *********/
     "weather.title": "Météo de demain",
     "weather.current": "Actuelle",
-    "weather.explanation": "Cliquer sur un bouton changera la météo pour demain (et uniquement demain). Cet onglet n'aura aucun effect sur la météo actuelle.",
+    "weather.explanation": "Cliquer sur un bouton changera la météo pour demain (et uniquement demain). Cet onglet n'aura aucun effect sur la météo autrement.",
     "weather.sunny": "Soleil",
     "weather.raining": "Pluie",
     "weather.lightning": "Orage",
@@ -163,7 +163,7 @@
     // forest
     "warp-section.forest": "En forêt",
     "warp.hats": "Chapeaux",
-    "warp.mastery-cave": "Caverne de Maitrise", // Literral translation need in-game verification
+    "warp.mastery-cave": "Caverne de Maitrise",
     "warp.ranch": "Ferme de Marnie",
     "warp.secret-woods": "Forêt secrète",
     "warp.wizard-tower": "Tour du sorcier",
