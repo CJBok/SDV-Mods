@@ -30,16 +30,19 @@
     "filter.minerals-and-artifacts": "Minerales & artefactos",
     "filter.miscellaneous": "Miscelánea",
 
+
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    "config.title.main-options": "Main options", // TODO
-    "config.reclaim-price-in-menu-trash-can.name": "Reclaim Price in Menu Trash Can", // TODO
-    "config.reclaim-price-in-menu-trash-can.desc": "Whether the trash can upgrade which reclaims part of the price of the destroyed items is applied in the item spawner menu too.", // TODO
+    // TODO
+    "config.title.controls": "Controls",
+    "config.show-menu-key.name": "Show menu key",
+    "config.show-menu-key.desc": "The keybind which opens the menu (when no other menu is open).",
 
-    "config.title.hide-categories": "Hide Categories", // TODO
+    "config.title.options": "Options",
+    "config.apply-trash-can-upgrade.name": "Apply trash can upgrade",
+    "config.apply-trash-can-upgrade.desc": "When you upgrade your trash can to reclaim part of the price of trashed items, whether that upgrade applies in the item spawner menu too.",
 
-    "config.title.controls": "Controls", // TODO
-    "config.show-menu-key.name": "Show Menu Key", // TODO
-    "config.show-menu-key.desc": "The keybind which opens the menu (when no other menu is open)." // TODO
+    "config.title.hide-categories": "Hide categories",
+    "config.hide-category.desc": "Whether to hide the '{{name}}' category in the UI. If it's hidden, items in this category will not be accessible through the spawn menu."
 }

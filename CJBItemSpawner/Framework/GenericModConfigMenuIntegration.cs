@@ -50,12 +50,22 @@ namespace CJBItemSpawner.Framework
 
             menu.Register(this.Manifest, this.Reset, this.Save);
 
+            // controls
+            menu.AddSectionTitle(this.Manifest, I18n.Config_Title_Controls);
+            menu.AddKeybindList(
+                mod: this.Manifest,
+                name: I18n.Config_ShowMenuKey_Name,
+                tooltip: I18n.Config_ShowMenuKey_Desc,
+                getValue: () => this.Config.ShowMenuKey,
+                setValue: value => this.Config.ShowMenuKey = value
+            );
+
             // main options
-            menu.AddSectionTitle(this.Manifest, I18n.Config_Title_MainOptions);
+            menu.AddSectionTitle(this.Manifest, I18n.Config_Title_Options);
             menu.AddBoolOption(
                 mod: this.Manifest,
-                name: I18n.Config_ReclaimPriceInMenuTrashCan_Name,
-                tooltip: I18n.Config_ReclaimPriceInMenuTrashCan_Desc,
+                name: I18n.Config_ApplyTrashCanUpgrade_Name,
+                tooltip: I18n.Config_ApplyTrashCanUpgrade_Desc,
                 getValue: () => this.Config.ReclaimPriceInMenuTrashCan,
                 setValue: value => this.Config.ReclaimPriceInMenuTrashCan = value
             );
@@ -78,16 +88,6 @@ namespace CJBItemSpawner.Framework
             this.AddHideCategoryOption(menu, "filter.farm-seeds", I18n.Filter_FarmSeeds);
             this.AddHideCategoryOption(menu, "filter.fish", I18n.Filter_Fish);
             this.AddHideCategoryOption(menu, "filter.minerals-and-artifacts", I18n.Filter_MineralsAndArtifacts);
-
-            // controls
-            menu.AddSectionTitle(this.Manifest, I18n.Config_Title_Controls);
-            menu.AddKeybindList(
-                mod: this.Manifest,
-                name: I18n.Config_ShowMenuKey_Name,
-                tooltip: I18n.Config_ShowMenuKey_Desc,
-                getValue: () => this.Config.ShowMenuKey,
-                setValue: value => this.Config.ShowMenuKey = value
-            );
         }
 
 
@@ -114,6 +114,7 @@ namespace CJBItemSpawner.Framework
             menu.AddBoolOption(
                 mod: this.Manifest,
                 name: displayName,
+                tooltip: () => I18n.Config_HideCategory_Desc(displayName()),
                 getValue: () => this.Config.HideCategories.Contains(id),
                 setValue: hide =>
                 {
