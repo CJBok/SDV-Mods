@@ -9,12 +9,23 @@ namespace CJBCheatsMenu.Framework.Components
     internal class DescriptionElement : BaseOptionsElement
     {
         /*********
+        ** Accessors
+        *********/
+        /// <summary>Whether to split the element into multiple lines if needed to fit the page.</summary>
+        public bool SplitLinesIfNeeded { get; }
+
+
+        /*********
         ** Public methods
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="label">The checkbox label.</param>
-        public DescriptionElement(string label)
-          : base(label, -1, -1, 0, 0, 0) { }
+        /// <param name="splitLinesIfNeeded">Whether to split the element into multiple lines if needed to fit the page.</param>
+        public DescriptionElement(string label, bool splitLinesIfNeeded = true)
+            : base(label, -1, -1, 0, 0, 0)
+        {
+            this.SplitLinesIfNeeded = splitLinesIfNeeded;
+        }
 
         /// <summary>Draw the component to the screen.</summary>
         /// <param name="spriteBatch">The sprite batch being drawn.</param>
