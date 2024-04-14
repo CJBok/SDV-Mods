@@ -5,6 +5,7 @@
 * Other mods [can now edit the warps through Content Patcher](author-guide.md). That means:
    * players no longer need to manually download warps files;
    * players can now have custom warps for multiple mods at once.
+* Added support for [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098).
 * Fixed 'one-hit kill' cheat causing grubs to instantly start turning into flies.
 * Fixed 'auto-feed animals' only using hay stored on the farm.
 * Fixed 'auto-feed animals' not watering slimes if you have no more hay.

@@ -57,6 +57,7 @@ namespace CJBCheatsMenu
             this.Cheats = new PerScreen<CheatManager>(() => new CheatManager(this.Config, this.Helper.GameContent, this.Helper.Reflection, this.WarpContentLoader, () => this.Locations.Value.Value));
 
             // hook events
+            helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
             helper.Events.Content.AssetRequested += this.OnAssetRequested;
 
             helper.Events.Display.Rendered += this.OnRendered;
@@ -76,6 +77,20 @@ namespace CJBCheatsMenu
         /*********
         ** Private methods
         *********/
+        /// <summary>Raised after the game is launched, right before the first update tick. This happens once per game session (unrelated to loading saves). All mods are loaded and initialised at this point, so this is a good time to set up mod integrations.</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
+        {
+            var configMenu = new GenericModConfigMenuIntegration(
+                manifest: this.ModManifest,
+                modRegistry: this.Helper.ModRegistry,
+                config: this.Config,
+                save: () => this.Helper.WriteConfig(this.Config)
+            );
+            configMenu.Register();
+        }
+
         /// <summary>Raised after the player loads a save slot.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>

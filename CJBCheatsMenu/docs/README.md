@@ -35,7 +35,7 @@ setting | default | what it affects
 ### Menu settings
 setting | default | what it affects
 ------- | ------- | ---------------
-`DefaultTab` | `PlayerAndTools` | The tab shown by default when you open the menu. Possible values: `PlayerAndTools`, `FarmAndFishing`, `Skills`, `Weather`, `Relationships`, `WarpLocations`, `Time`, `Controls`.
+`DefaultTab` | `PlayerAndTools` | The tab shown by default when you open the menu. Possible values: `PlayerAndTools`, `FarmAndFishing`, `Skills`, `Weather`, `Relationships`, `WarpLocations`, `Time`, `Advanced`, `Controls`.
 
 ## Editing warps
 For mod authors, see the [author guide](author-guide.md) to add/edit/remove warps in the menu to
