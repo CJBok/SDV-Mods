@@ -204,6 +204,10 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
                             this.Warp(warp.Location ?? "Mine", (int)warp.Tile.X, (int)warp.Tile.Y);
                             break;
 
+                        case bottomOfMine when isSkullCavern:
+                            this.Warp(warp.Location!, (int)warp.Tile.X, (int)warp.Tile.Y);
+                            break;
+
                         case MineShaft.quarryMineShaft:
                             Game1.enterMine(floor + 1); // skip quarry mine (player can still get there by descending from the previous level though)
                             break;
