@@ -64,7 +64,7 @@ namespace CJBCheatsMenu.Framework.Components
             this.MinValue = minValue;
             this.FormatValue = formatValue ?? (value => value.ToString());
 
-            this.PrepareLayout();
+            this.UpdateLayout();
         }
 
         /// <summary>Handle the player clicking the left mouse button.</summary>
@@ -119,7 +119,7 @@ namespace CJBCheatsMenu.Framework.Components
         }
 
         /// <summary>Calculate the element positions and dimensions.</summary>
-        private void PrepareLayout()
+        private void UpdateLayout()
         {
             // calculate the correct height for the button to be in the middle of the line
             int buttonY = (int)((double)this.bounds.Height / Game1.pixelZoom / 2d + this.MinusButtonSource.Height / 2d);
@@ -132,10 +132,9 @@ namespace CJBCheatsMenu.Framework.Components
             xOffset += this.MinusButtonSource.Width + 2;
 
             // get the maximum width the value label can be
-            string maxSizeValue = new('9', this.MaxValue.ToString().Length);
-            Vector2 maxValueSize = Game1.dialogueFont.MeasureString(maxSizeValue);
-            int maxValueWidth = (int)(maxValueSize.X / Game1.pixelZoom) + 1;
-            int maxValueHeight = (int)maxValueSize.Y;
+            Vector2 valueSize = Game1.dialogueFont.MeasureString(new string('0', this.FormatValue(this.Value).Length));
+            int maxValueWidth = (int)(valueSize.X / Game1.pixelZoom) + 1;
+            int maxValueHeight = (int)valueSize.Y;
 
             // leave enough space to draw the value without overlapping the plus button
             this.CurrentValueBounds = new Rectangle(xOffset * Game1.pixelZoom, Game1.pixelZoom, maxValueWidth * Game1.pixelZoom, maxValueHeight);
@@ -147,12 +146,15 @@ namespace CJBCheatsMenu.Framework.Components
         /// <param name="delta">The amount to add to the current value.</param>
         private void ChangeValue(int delta)
         {
-            int newValue = Math.Clamp(this.Value + delta, this.MinValue, this.MaxValue);
+            int oldValue = this.Value;
+            this.Value = Math.Clamp(this.Value + delta, this.MinValue, this.MaxValue);
 
-            if (newValue != this.Value)
+            if (this.Value != oldValue)
             {
-                this.Value = newValue;
                 Game1.playSound("drumkit6");
+
+                if (this.FormatValue(this.Value).Length != this.FormatValue(oldValue).Length)
+                    this.UpdateLayout();
             }
         }
     }
