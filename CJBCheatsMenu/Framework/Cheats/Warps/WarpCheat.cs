@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Buildings;
+using StardewValley.Locations;
 using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Warps
@@ -59,13 +60,21 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
                         continue;
 
                     // get warp button
-                    yield return new CheatsOptionsButton(
-                        label: warp.DisplayName,
-                        slotWidth: context.SlotWidth,
-                        toggle: warp.Location == "Farm" && warp.Tile == Vector2.Zero
-                            ? this.WarpToFarm
-                            : () => this.Warp(warp.Location, (int)warp.Tile.X, (int)warp.Tile.Y)
-                    );
+                    switch (warp.Location)
+                    {
+                        case "Farm" when warp.Tile == Vector2.Zero:
+                            yield return new CheatsOptionsButton(warp.DisplayName, context.SlotWidth, this.WarpToFarm);
+                            break;
+
+                        case "Mine":
+                        case "SkullCave":
+                            yield return this.CreateMinesButton(warp, context.SlotWidth);
+                            break;
+
+                        default:
+                            yield return new CheatsOptionsButton(warp.DisplayName, context.SlotWidth, toggle: () => this.Warp(warp.Location, (int)warp.Tile.X, (int)warp.Tile.Y));
+                            break;
+                    }
                 }
             }
         }
@@ -137,6 +146,51 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
             // else farmhouse
             Point farmhousePos = Game1.getFarm().GetMainFarmHouseEntry();
             this.Warp("Farm", farmhousePos.X, farmhousePos.Y);
+        }
+
+        /// <summary>Create a warp option with a mine level selector.</summary>
+        /// <param name="warp">The warp data.</param>
+        /// <param name="slotWidth">The width of the component to create.</param>
+        private CheatsOptionsNumberWheel CreateMinesButton(WarpContentModel warp, int slotWidth)
+        {
+            const int bottomOfMine = MineShaft.bottomOfMineLevel;
+            bool isSkullCavern = warp.Location == "SkullCave";
+            bool inQuarryMine = (Game1.currentLocation as MineShaft)?.getMineArea() == MineShaft.quarryMineShaft;
+
+            Func<int, string> formatValue = isSkullCavern
+                ? value => (value - bottomOfMine).ToString()
+                : value => value.ToString();
+
+            return new CheatsOptionsNumberWheel(
+                label: warp.DisplayName,
+                slotWidth: slotWidth,
+                action: field =>
+                {
+                    int floor = field.Value;
+                    switch (floor)
+                    {
+                        case 0:
+                            this.Warp(warp.Location ?? "Mine", (int)warp.Tile.X, (int)warp.Tile.Y);
+                            break;
+
+                        case bottomOfMine when isSkullCavern:
+                            this.Warp(warp.Location!, (int)warp.Tile.X, (int)warp.Tile.Y);
+                            break;
+
+                        case MineShaft.quarryMineShaft:
+                            Game1.enterMine(floor + 1); // skip quarry mine (player can still get there by descending from the previous level though)
+                            break;
+
+                        default:
+                            Game1.enterMine(floor);
+                            break;
+                    }
+                },
+                initialValue: inQuarryMine ? 0 : Game1.CurrentMineLevel,
+                minValue: isSkullCavern ? bottomOfMine : 0,
+                maxValue: isSkullCavern ? 999_999 : bottomOfMine, // the game behaves weirdly with high numbers and we have limited space, so set a semi-reasonable limit
+                formatValue: formatValue
+            );
         }
     }
 }
