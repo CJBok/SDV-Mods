@@ -1,12 +1,14 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.36.2
+Released 15 April 2024 for SMAPI 4.0.0 or later.
+
 * Fixed 'auto-feed animals' no longer applied if you have no silos with hay available.
 * Fixed 'auto-pet animals' petting animals not owned by players, which caused issues like repeating dialogues.
-* Fixed 'auto-pet pets' petting pets outside the farm in 1.36.0, which conflicted with mods that add non-player pets outside the farm.
+* Fixed 'auto-pet pets' petting pets outside the farm in 1.36.0, which conflicted with mods that add pet NPCs.
 * Fixed community center warp sometimes hidden in 1.36.0.
-* Fixed menu not closed when warping into mines.
+* Fixed menu not closed when warping into the mines.
 
 ## 1.36.1
 Released 14 April 2024 for SMAPI 4.0.0 or later.
