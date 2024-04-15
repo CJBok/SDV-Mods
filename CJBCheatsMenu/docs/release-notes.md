@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Fixed 'auto-feed animals' no longer applied if you have no silos with hay available.
 * Fixed community center warp sometimes hidden in 1.36.0.
 * Fixed menu not closed when warping into mines.
 
