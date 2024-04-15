@@ -67,10 +67,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                                     Vector2 tile = new(tileX + i, 3);
                                     if (!animalHouse.objects.ContainsKey(tile))
                                     {
-                                        Object hay = GameLocation.GetHayFromAnySilo(animalHouse);
-                                        if (hay is null)
-                                            return false; // no more hay available
-
+                                        Object hay = GameLocation.GetHayFromAnySilo(animalHouse) ?? ItemRegistry.Create<Object>("(O)178"); // if no hay is available, this is a cheat mod so spawn some anyway
                                         animalHouse.objects.Add(tile, hay);
                                     }
                                 }

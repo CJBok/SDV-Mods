@@ -106,11 +106,18 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
             return sections;
         }
 
-        /// <summary>Warp the player to the given location.</summary>
+        /// <summary>Exit the menu and warp the player to the given location.</summary>
         /// <param name="locationName">The location name.</param>
         /// <param name="tileX">The tile X position.</param>
         /// <param name="tileY">The tile Y position.</param>
         private void Warp(string locationName, int tileX, int tileY)
+        {
+            this.Warp(() => Game1.warpFarmer(locationName, tileX, tileY, false));
+        }
+
+        /// <summary>Exit the menu and warp the player to the given location.</summary>
+        /// <param name="warp">Perform the actual warp.</param>
+        private void Warp(Action warp)
         {
             // reset state
             Game1.exitActiveMenu();
@@ -118,7 +125,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
             Game1.player.changeOutOfSwimSuit();
 
             // warp
-            Game1.warpFarmer(locationName, tileX, tileY, false);
+            warp();
         }
 
         /// <summary>Warp the player to the farm.</summary>
@@ -178,11 +185,11 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
                             break;
 
                         case MineShaft.quarryMineShaft:
-                            Game1.enterMine(floor + 1); // skip quarry mine (player can still get there by descending from the previous level though)
+                            this.Warp(() => Game1.enterMine(floor + 1)); // skip quarry mine (player can still get there by descending from the previous level though)
                             break;
 
                         default:
-                            Game1.enterMine(floor);
+                            this.Warp(() => Game1.enterMine(floor));
                             break;
                     }
                 },

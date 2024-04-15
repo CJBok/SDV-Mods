@@ -48,7 +48,7 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
             Utility.ForEachLocation(
                 location =>
                 {
-                    if (location.animals.Length > 0 || location.buildings.Count > 0)
+                    if (this.ShouldPetAnimalsHere(location))
                     {
                         List<FarmAnimal> animalsToPet = location.getAllFarmAnimals();
                         animalsToPet.RemoveAll(animal => animal.wasPet.Value);
@@ -85,6 +85,23 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
                 },
                 includeInteriors: false
             );
+        }
+
+
+        /*********
+        ** Private methods
+        *********/
+        /// <summary>Get whether to try petting any animals in a location or its buildings.</summary>
+        /// <param name="location">The location to check.</param>
+        private bool ShouldPetAnimalsHere(GameLocation location)
+        {
+            // skip if there are no animals here
+            if (location.animals.Length is 0 && location.buildings.Count is 0)
+                return false;
+
+            // skip if players can't build here
+            // Animals in a non-buildable location may be mod NPCs, which can react to being pet with dialogue.
+            return location.IsBuildableLocation();
         }
     }
 }

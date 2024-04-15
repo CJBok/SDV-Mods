@@ -95,7 +95,7 @@
                 "DisplayText": "warp.community-center",
                 "Location": "Town",
                 "Tile": "52, 20",
-                "Condition": "IS_COMMUNITY_CENTER_COMPLETE"
+                "Condition": "!IS_JOJA_MART_COMPLETE"
             },
             {
                 "DisplayText": "warp.jojamart",
