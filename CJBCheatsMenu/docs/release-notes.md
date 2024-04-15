@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Fixed 'auto-feed animals' no longer applied if you have no silos with hay available.
+* Fixed 'auto-pet pets' petting pets outside the farm in 1.36.0, which conflicted with mods that add non-player pets outside the farm.
 * Fixed community center warp sometimes hidden in 1.36.0.
 * Fixed menu not closed when warping into mines.
 
