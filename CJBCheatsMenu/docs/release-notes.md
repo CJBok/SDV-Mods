@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Fixed community center warp sometimes hidden in 1.36.0.
+* Fixed menu not closed when warping into mines.
 
 ## 1.36.1
 Released 14 April 2024 for SMAPI 4.0.0 or later.
