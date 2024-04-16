@@ -142,7 +142,7 @@
     /*********
     ** Warps tab
     *********/
-    "warp.customized-warning": "These warps were edited by your mods. Please report warp issues to the mods which added them if applicable.", // TODO
+    "warp.customized-warning": "您安装的其他mod可能更改了以下传送地点。如有传送问题，请向对应的mod报告。",
 
     // main areas
     "warp-section.main": "主要区域",
@@ -251,14 +251,13 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.open-menu.desc": "The keybind which opens the menu (when no other menu is open).",
-    "config.freeze-time.desc": "The keybind which freezes the game clock.",
-    "config.grow-tree.desc": "The keybind held to grow trees around the player.",
-    "config.grow-crops.desc": "The keybind held to grow crops around the player.",
+    "config.open-menu.desc": "开启菜单的按键（请确保当前没有其他打开的菜单）。",
+    "config.freeze-time.desc": "冻结游戏时间的按键。",
+    "config.grow-tree.desc": "在玩家周围种树的按键。",
+    "config.grow-crops.desc": "在玩家周围种植农作物的按键。",
 
-    "config.title.other-options": "Other options",
-    "config.default-tab.name": "Default tab",
-    "config.default-tab.desc": "The tab shown by default when you open the menu.",
-    "config.other-options": "To configure cheats, press the 'open menu' key shown above in-game. Make sure you press it after loading the save, when no other menu or dialogue is open."
+    "config.title.other-options": "其它选项",
+    "config.default-tab.name": "默认界面",
+    "config.default-tab.desc": "打开菜单时默认显示的界面。",
+    "config.other-options": "如需配置作弊设置，请在游戏中按下上方显示的“打开菜单”按键。请先加载存档后再按下按键，且确保当前没有开启其他菜单或对话。"
 }
