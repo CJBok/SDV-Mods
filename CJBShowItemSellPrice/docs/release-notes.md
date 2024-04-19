@@ -1,6 +1,10 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Added option to show the sell-price UI always or before/after unlocking the [price catalogue](https://stardewvalleywiki.com/Price_Catalogue).
+* Added support for [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098).
+
 ## 1.9.18
 Released 19 March 2024 for SMAPI 4.0.0 or later.
 

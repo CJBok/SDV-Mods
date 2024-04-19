@@ -9,6 +9,7 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 using StardewValley;
+using StardewValley.Constants;
 using StardewValley.Menus;
 
 namespace CJBShowItemSellPrice
@@ -33,6 +34,9 @@ namespace CJBShowItemSellPrice
 
         /// <summary>The pixel offset to apply to the tooltip box relative to the cursor position.</summary>
         private readonly Vector2 TooltipOffset = new(Game1.tileSize / 2);
+
+        /// <summary>The mod settings.</summary>
+        private ModConfig Config = null!; // set in Entry
 
         /// <summary>Metadata that isn't available from the game data directly.</summary>
         private DataModel Data = null!; // set in Entry
@@ -59,7 +63,22 @@ namespace CJBShowItemSellPrice
             // load data
             this.Data = helper.Data.ReadJsonFile<DataModel>("assets/data.json") ?? new DataModel(null);
 
+            // load config
+            try
+            {
+                this.Config = this.Helper.ReadConfig<ModConfig>();
+                if (this.Config.ShowWhen != ActivateCondition.Always)
+                    this.Monitor.Log($"Loaded with option {this.Config.ShowWhen}");
+            }
+            catch (Exception ex)
+            {
+                this.Monitor.Log($"The mod's `config.json` couldn't be loaded; the file will be reset.\n\n{ex}", LogLevel.Error);
+                this.Config = new();
+                this.Helper.WriteConfig(this.Config);
+            }
+
             // hook events
+            helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
             helper.Events.Display.RenderedActiveMenu += this.OnRenderedActiveMenu;
             helper.Events.Display.RenderedHud += this.OnRenderedHud;
             helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
@@ -69,7 +88,21 @@ namespace CJBShowItemSellPrice
         /*********
         ** Private methods
         *********/
-        /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
+        /// <inheritdoc cref="IGameLoopEvents.GameLaunched"/>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
+        {
+            var configMenu = new GenericModConfigMenuIntegration(
+                manifest: this.ModManifest,
+                modRegistry: this.Helper.ModRegistry,
+                config: this.Config,
+                save: () => this.Helper.WriteConfig(this.Config)
+            );
+            configMenu.Register();
+        }
+
+        /// <inheritdoc cref="IGameLoopEvents.UpdateTicked"/>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
         private void OnUpdateTicked(object? sender, UpdateTickedEventArgs e)
@@ -92,7 +125,7 @@ namespace CJBShowItemSellPrice
             }
         }
 
-        /// <summary>When a menu is open (<see cref="Game1.activeClickableMenu"/> isn't null), raised after that menu is drawn to the sprite batch but before it's rendered to the screen.</summary>
+        /// <inheritdoc cref="IDisplayEvents.RenderedActiveMenu"/>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
         private void OnRenderedActiveMenu(object? sender, RenderedActiveMenuEventArgs e)
@@ -106,7 +139,7 @@ namespace CJBShowItemSellPrice
             this.DrawPriceTooltip(Game1.spriteBatch, Game1.smallFont, item);
         }
 
-        /// <summary>Raised after drawing the HUD (item toolbar, clock, etc) to the sprite batch, but before it's rendered to the screen. The vanilla HUD may be hidden at this point (e.g. because a menu is open).</summary>
+        /// <inheritdoc cref="IDisplayEvents.RenderedHud"/>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
         private void OnRenderedHud(object? sender, EventArgs e)
@@ -177,6 +210,16 @@ namespace CJBShowItemSellPrice
             int? price = this.GetSellPrice(item);
             if (price == null)
                 return;
+
+            // skip if not enabled
+            if (this.Config.ShowWhen is ActivateCondition.AfterPriceCatalogue or ActivateCondition.BeforePriceCatalogue)
+            {
+                bool hasCatalogue = Game1.player.stats.Get(StatKeys.Book_PriceCatalogue) > 0;
+                bool needCatalogue = this.Config.ShowWhen is ActivateCondition.AfterPriceCatalogue;
+
+                if (hasCatalogue != needCatalogue)
+                    return;
+            }
 
             // basic measurements
             const int borderSize = ModEntry.TooltipBorderSize;
