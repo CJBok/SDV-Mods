@@ -259,5 +259,5 @@
     "config.title.other-options": "Outras opções",
     "config.default-tab.name": "Aba padrão",
     "config.default-tab.desc": "A aba mostrada por padrão quando você abre o menu.",
-    "config.other-options": "Para configurar cheats, pressione a tecla de 'Abrir menu' mostrada acima durante o jogo. Tenha certeza de pressionar após você carregar o save, quando nenhum outro menu ou diálogo esteja aberto."
+    "config.other-options": "Para configurar cheats, pressione a tecla de 'Abrir menu' mostrada acima, durante o jogo. Tenha certeza de pressionar após você carregar o save, quando nenhum outro menu ou diálogo esteja aberto."
 }
