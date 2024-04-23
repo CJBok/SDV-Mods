@@ -179,6 +179,11 @@ namespace CJBItemSpawner.Framework.ItemData
                     yield return this.TryCreate(itemType.Identifier, $"344/{id}", _ => objectDataDefinition.CreateFlavoredJelly(item));
                     break;
 
+                // greens
+                case SObject.GreensCategory:
+                    yield return this.TryCreate(itemType.Identifier, $"342/{id}", _ => objectDataDefinition.CreateFlavoredPickle(item));
+                    break;
+
                 // vegetable products
                 case SObject.VegetableCategory:
                     yield return this.TryCreate(itemType.Identifier, $"350/{id}", _ => objectDataDefinition.CreateFlavoredJuice(item));
@@ -223,7 +228,7 @@ namespace CJBItemSpawner.Framework.ItemData
             }
 
             // by context tag
-            if (item.HasContextTag("preserves_pickle") && item.Category != SObject.VegetableCategory)
+            if (item.HasContextTag("preserves_pickle") && item.Category is not (SObject.GreensCategory or SObject.VegetableCategory))
                 yield return this.TryCreate(itemType.Identifier, $"342/{id}", _ => objectDataDefinition.CreateFlavoredPickle(item));
         }
 
