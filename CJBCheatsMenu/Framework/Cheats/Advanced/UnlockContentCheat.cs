@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
+using StardewValley;
 using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Advanced
@@ -24,6 +25,24 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
                 value: this.HasFlag("canReadJunimoText"),
                 setValue: value => this.SetFlag(value, "canReadJunimoText")
             );
+            yield return new CheatsOptionsCheckbox(
+                label: I18n.Flags_UnlockedContent_Perfection(),
+                value: Game1.player.team.farmPerfect.Value,
+                setValue: value => this.SetPerfection(value)
+            );
+        }
+
+        /*********
+        ** Private methods
+        *********/
+        /// <summary>Sets the player's perfection status.</summary>
+        /// <param name="achieved">Whether to enable or disable perfection.</param>
+        private void SetPerfection(bool achieved)
+        {
+            Game1.player.team.farmPerfect.Value = achieved;
+            this.SetFlag(achieved, "Farm_Eternal");
+            this.SetFlag(achieved, "SummitBoulder");
+            this.SetFlag(false, "Summit_event");
         }
     }
 }
