@@ -23,9 +23,9 @@
     "filter.equipment-rings": "装備：指輪",
     "filter.equipment-tools": "装備：どうぐ",
     "filter.equipment-weapons": "装備：武器",
-    "filter.farm-animal-drops": "牧場：動物生産品",
-    "filter.farm-crops": "牧場：作物",
-    "filter.farm-seeds": "牧場：種",
+    "filter.farm-animal-drops": "農業：動物生産品",
+    "filter.farm-crops": "農業：作物",
+    "filter.farm-seeds": "農業：タネ",
     "filter.fish": "魚",
     "filter.minerals-and-artifacts": "鉱物と発掘品",
     "filter.miscellaneous": "その他",
@@ -34,13 +34,13 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    "config.title.controls": "コントロール",
+    "config.title.controls": "操作",
     "config.show-menu-key.name": "メニューを表示",
-    "config.show-menu-key.desc": "メニューを開くキーを設定する(他のメニューが開かれていない時有効)",
+    "config.show-menu-key.desc": "メニューを開くキーを設定する（他のメニューが開かれていない時有効）",
 
     "config.title.options": "オプション",
     "config.apply-trash-can-upgrade.name": "ゴミ箱のアップグレードを適用",
-    "config.apply-trash-can-upgrade.desc": "ゴミ箱をアップグレード後のゴールドの還元を、CJBItemSpawnerのメニューでも適用するかどうか。",
+    "config.apply-trash-can-upgrade.desc": "ゴミ箱をアップグレード後のゴールドの還元を、CJB Item Spawnerのメニューでも適用するかどうか。",
 
     "config.title.hide-categories": "カテゴリの非表示",
     "config.hide-category.desc": "UIで「{{name}}」のカテゴリを非表示にするかどうか。非表示にすると、そのカテゴリーのアイテムはメニューからアクセスできなくなる。"
