@@ -6,8 +6,8 @@
     "mod-name": "CJB Cheats Menu",
 
     // tab names
-    "tabs.player-and-tools": "プレイヤー＆ツール",
-    "tabs.farm-and-fishing": "農場＆釣り",
+    "tabs.player-and-tools": "プレイヤー＆どうぐ",
+    "tabs.farm-and-fishing": "農業＆釣り",
     "tabs.skills": "スキル",
     "tabs.weather": "天気",
     "tabs.relationships": "人間関係",
@@ -32,7 +32,7 @@
     "player.max-daily-luck": "幸運になる",
 
     // tools
-    "tools.title": "ツール",
+    "tools.title": "どうぐ",
     "tools.infinite-water": "ジョウロの水無限",
     "tools.one-hit-break": "1度のアクションで目的達成",
     "tools.harvest-with-scythe": "カマで収穫",
@@ -42,30 +42,30 @@
     "add.casino-coins": "カジノのコイン",
     "add.golden-walnuts": "金のクルミ",
     "add.qi-gems": "Qiジェム",
-    "add.amount-gold": "増やす {{amount}}g",
-    "add.amount-other": "増やす {{amount}}",
+    "add.amount-gold": "{{amount}} G増やす",
+    "add.amount-other": "{{amount}} 増やす",
 
 
     /*********
     ** Farm & Fishing tab
     *********/
     // farm
-    "farm.title": "農場",
+    "farm.title": "農業",
     "farm.auto-water": "自動水やり",
     "farm.durable-fences": "柵を強化",
-    "farm.instant-build": "建設がすぐに終わる",
+    "farm.instant-build": "建築がすぐに終わる",
     "farm.auto-feed-animals": "エサやり自動化",
     "farm.auto-pet-animals": "なでるのを自動化",
-    "farm.auto-pet-pets": "なでるのを自動化(ペット)",
-    "farm.infinite-hay": "干し草が無くならない",
+    "farm.auto-pet-pets": "なでるのを自動化（ペット）",
+    "farm.infinite-hay": "ほし草が無くならない",
 
     // fishing
     "fishing.title": "釣り",
-    "fishing.instant-catch": "簡単に釣り成功",
+    "fishing.instant-catch": "自動釣り上げ",
     "fishing.instant-bite": "獲物がすぐにかかる",
-    "fishing.always-throw-max-distance": "最大距離で釣り糸を投げる",
+    "fishing.always-throw-max-distance": "最大距離でキャストする",
     "fishing.always-treasure": "常に宝箱が釣れる",
-    "fishing.durable-tackles": "釣り具の強化",
+    "fishing.durable-tackles": "釣り具の耐久無限",
 
     // fast machines
     "fast-machines.title": "作成時間の短縮",
@@ -126,7 +126,7 @@
     "weather.explanation": "明日の天気を設定するには、せっていボタンをクリックしてください。\nこのタブはそれ以外の天気に影響を与えません。",
     "weather.sunny": "晴れ",
     "weather.raining": "雨",
-    "weather.lightning": "雷雨",
+    "weather.lightning": "嵐",
     "weather.snowing": "雪",
 
 
@@ -135,7 +135,7 @@
     *********/
     "relationships.title": "人間関係",
     "relationships.give-gifts-anytime": "何度もプレゼントできる",
-    "relationships.no-decay": "好感度が減らない",
+    "relationships.no-decay": "友好度が減らない",
     "relationships.friends": "友人",
 
 
@@ -148,9 +148,9 @@
     "warp-section.main": "主要な場所",
     "warp.farm": "牧場",
     "warp.carpenter": "大工作業場",
-    "warp.desert": "砂漠",
+    "warp.desert": "カリコ砂漠",
     "warp.mines": "鉱山",
-    "warp.pierre-shop": "商店",
+    "warp.pierre-shop": "ピエール商店",
 
     // town
     "warp-section.town": "ペリカンタウン",
@@ -159,28 +159,28 @@
     "warp.jojamart": "Jojaマート",
     "warp.movie-theater": "映画館",
     "warp.museum": "博物館",
-    "warp.saloon": "酒場",
+    "warp.saloon": "サルーン",
     "warp.sewer": "下水道",
 
     // forest
     "warp-section.forest": "シンダーサップの森",
     "warp.hats": "ぼうしや",
-    "warp.mastery-cave": "秘密の部屋",
-    "warp.ranch": "牧場商店",
+    "warp.mastery-cave": "おじいちゃんの秘密の部屋",
+    "warp.ranch": "マーニーの牧場",
     "warp.secret-woods": "秘密の森",
     "warp.wizard-tower": "魔術師の塔",
 
     // mountain
     "warp-section.mountain": "山",
     "warp.adventurers-guild": "冒険者ギルド",
-    "warp.bathhouse": "温泉",
+    "warp.bathhouse": "スパ",
     "warp.mutant-bug-lair": "ミュータントバグのすみか",
-    "warp.quarry": "石切り場",
-    "warp.witch-swamp": "魔女の沼",
+    "warp.quarry": "石切場",
+    "warp.witch-swamp": "魔女の小屋",
 
     // beach
     "warp-section.beach": "ビーチ",
-    "warp.tide-pools": "タイドプール",
+    "warp.tide-pools": "潮だまり",
     "warp.willy-shop": "釣具店",
 
     // island
@@ -194,7 +194,7 @@
     // desert
     "warp-section.desert": "カリコ砂漠",
     "warp.casino": "カジノ",
-    "warp.sandy-shop": "砂漠商店",
+    "warp.sandy-shop": "オアシス",
     "warp.skull-cavern": "ドクロの洞窟",
 
 
@@ -204,7 +204,7 @@
     // time
     "time.title": "時間停止",
     "time.freeze-inside": "屋内で時間が止まる",
-    "time.freeze-caves": "洞窟の中で時間が止まる",
+    "time.freeze-caves": "洞窟やダンジョンで時間が止まる",
     "time.freeze-everywhere": "どこでも時間が止まる",
     "time.time": "時間",
     "time.time-frozen-message": "時間停止！",
@@ -222,28 +222,28 @@
     *********/
     "flags.warning": "これらの設定の変更はあなたの自己責任です！\n手紙の配達、イベントやクエストの進行に問題が起きる場合があります。",
     "flags.quests": "クエストの完了",
-    "flags.wallet": "財布のアイテム",
-    "flags.unlocked": "侵入可能エリア",
+    "flags.wallet": "スペシャルアイテム",
+    "flags.unlocked": "ロック解除されたエリア",
     "flags.unlocked.guild": "冒険者ギルド",
-    "flags.unlocked.room": "寝室: {{name}}",
+    "flags.unlocked.room": "部屋：{{name}}",
     "flags.unlocked-content": "ロック解除されたコンテンツ",
     "flags.unlocked-content.dyes-and-tailoring": "染色と仕立て",
     "flags.unlocked-content.junimo-text": "ジュニモの言葉を読めるようにする",
-    "flags.community-center": "コミュニティ復興",
+    "flags.community-center": "公民館の復興",
     "flags.community-center.door-unlocked": "公民館へ入館",
-    "flags.jojamart.membership": "Jojaマート 会員権",
+    "flags.jojamart.membership": "Jojaマートの会員権",
 
 
     /*********
     ** Controls tab
     *********/
-    "controls.title": "コントロール",
+    "controls.title": "操作",
     "controls.android-config-note": "画面上のボタンは、CJB Cheats MenuとVirtual Keyboard Modsの設定ファイルで変更できます。",
     "controls.open-menu": "チートメニューを表示",
     "controls.freeze-time": "時間を止める",
     "controls.grow-tree": "周りの樹木や果樹を生長させる",
-    "controls.grow-crops": "周りの作物が収穫できるようになる",
-    "controls.grow-radius": "生長や収穫できるようになる範囲",
+    "controls.grow-crops": "周りの作物が収穫状態にする",
+    "controls.grow-radius": "生長や収穫を適用する範囲",
     "controls.reset-controls": "リセット",
     "controls.press-new-key": "新しいキーを押してね",
 
@@ -251,10 +251,10 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    "config.open-menu.desc": "チートメニューを開くキーを設定する(他のメニューが開かれていない時有効)",
+    "config.open-menu.desc": "チートメニューを開くキーを設定する（他のメニューが開かれていない時有効）",
     "config.freeze-time.desc": "時間停止のキーを設定する",
     "config.grow-tree.desc": "プレイヤーの周りの樹木や果樹を生長させるキーを設定する",
-    "config.grow-crops.desc": "プレイヤーの周りの作物を生長させるキーを設定する",
+    "config.grow-crops.desc": "プレイヤーの周りの作物を収穫状態にするキーを設定する",
 
     "config.title.other-options": "その他オプション",
     "config.default-tab.name": "デフォルトタブ",
