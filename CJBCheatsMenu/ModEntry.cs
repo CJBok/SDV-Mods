@@ -149,7 +149,8 @@ namespace CJBCheatsMenu
             }
 
             // handle button if applicable
-            this.Cheats.Value.OnButtonsChanged(e);
+            if (Game1.keyboardDispatcher?.Subscriber is null)
+                this.Cheats.Value.OnButtonsChanged(e);
         }
 
         /// <inheritdoc cref="IContentEvents.AssetRequested"/>

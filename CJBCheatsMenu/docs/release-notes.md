@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed 'freeze time' and 'grow' keybinds still triggered when typing into a text field.
+
 ## 1.36.2
 Released 15 April 2024 for SMAPI 4.0.0 or later.
 
