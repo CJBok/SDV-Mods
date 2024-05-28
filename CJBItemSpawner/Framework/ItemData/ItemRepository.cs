@@ -75,9 +75,25 @@ namespace CJBItemSpawner.Framework.ItemData
                                     // object
                                     else
                                     {
-                                        yield return result?.QualifiedItemId == "(O)340"
-                                            ? this.TryCreate(itemType.Identifier, result.Id, _ => objectDataDefinition.CreateFlavoredHoney(null)) // game creates "Wild Honey" when there's no ingredient, instead of the base Honey item
-                                            : result;
+                                        switch (result?.QualifiedItemId)
+                                        {
+                                            // honey should be "Wild Honey" when there's no ingredient, instead of the base Honey item
+                                            case "(O)340":
+                                                yield return this.TryCreate(itemType.Identifier, result.Id, _ => objectDataDefinition.CreateFlavoredHoney(null));
+                                                break;
+
+                                            // don't return placeholder items
+                                            case "(O)DriedFruit":
+                                            case "(O)DriedMushrooms":
+                                            case "(O)SmokedFish":
+                                            case "(O)SpecificBait":
+                                                break;
+
+                                            default:
+                                                if (result != null)
+                                                    yield return result;
+                                                break;
+                                        }
 
                                         if (includeVariants)
                                         {
@@ -173,10 +189,18 @@ namespace CJBItemSpawner.Framework.ItemData
             // by category
             switch (item.Category)
             {
+                // fish
+                case SObject.FishCategory:
+                    yield return this.TryCreate(itemType.Identifier, $"SmokedFish/{id}", _ => objectDataDefinition.CreateFlavoredSmokedFish(item));
+                    yield return this.TryCreate(itemType.Identifier, $"SpecificBait/{id}", _ => objectDataDefinition.CreateFlavoredBait(item));
+                    break;
+
                 // fruit products
                 case SObject.FruitsCategory:
                     yield return this.TryCreate(itemType.Identifier, $"348/{id}", _ => objectDataDefinition.CreateFlavoredWine(item));
                     yield return this.TryCreate(itemType.Identifier, $"344/{id}", _ => objectDataDefinition.CreateFlavoredJelly(item));
+                    if (item.QualifiedItemId != "(O)398") // raisins are their own item
+                        yield return this.TryCreate(itemType.Identifier, $"398/{id}", _ => objectDataDefinition.CreateFlavoredDriedFruit(item));
                     break;
 
                 // greens
@@ -230,6 +254,9 @@ namespace CJBItemSpawner.Framework.ItemData
             // by context tag
             if (item.HasContextTag("preserves_pickle") && item.Category is not (SObject.GreensCategory or SObject.VegetableCategory))
                 yield return this.TryCreate(itemType.Identifier, $"342/{id}", _ => objectDataDefinition.CreateFlavoredPickle(item));
+
+            if (item.HasContextTag("edible_mushroom"))
+                yield return this.TryCreate(itemType.Identifier, $"DriedMushrooms/{id}", _ => objectDataDefinition.CreateFlavoredDriedMushroom(item));
         }
 
         /// <summary>Get optimized lookups to match items which produce roe in a fish pond.</summary>
