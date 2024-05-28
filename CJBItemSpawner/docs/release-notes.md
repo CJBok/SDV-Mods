@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Fixed dried items, pickled forage, smoked fish, and specific bait not shown in menu.
+* Improved translations. Thanks to Caranud (updated French)!
 
 ## 2.4.1
 Released 14 April 2024 for SMAPI 4.0.0 or later.
