@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Fixed dried items, pickled forage, smoked fish, and specific bait not shown in menu.
+* Fixed some wallpaper/flooring items shown twice.
 * Improved translations. Thanks to Caranud (updated French)!
 
 ## 2.4.1

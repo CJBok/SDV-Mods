@@ -112,20 +112,6 @@ namespace CJBItemSpawner.Framework.ItemData
                             break;
                     }
                 }
-
-                // wallpapers
-                if (onlyType is null or "(WP)")
-                {
-                    for (int id = 0; id < 112; id++)
-                        yield return this.TryCreate("(WP)", id.ToString(), p => new Wallpaper(int.Parse(p.Id)) { Category = SObject.furnitureCategory });
-                }
-
-                // flooring
-                if (onlyType is null or "(FL)")
-                {
-                    for (int id = 0; id < 56; id++)
-                        yield return this.TryCreate("(FL)", id.ToString(), p => new Wallpaper(int.Parse(p.Id), isFloor: true) { Category = SObject.furnitureCategory });
-                }
             }
 
             return (
