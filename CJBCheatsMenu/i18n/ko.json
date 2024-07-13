@@ -255,6 +255,7 @@
     "config.freeze-time.desc": "게임 시간을 멈추는 키입니다.",
     "config.grow-tree.desc": "플레이어 주변에 나무를 성장시키는 키입니다.",
     "config.grow-crops.desc": "플레이어 주변에 작물을 성장시키는 키입니다.",
+
     "config.title.other-options": "기타 옵션",
     "config.default-tab.name": "기본 탭",
     "config.default-tab.desc": "메뉴를 열 때 기본으로 표시되는 탭입니다.",
