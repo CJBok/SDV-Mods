@@ -251,14 +251,12 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.open-menu.desc": "The keybind which opens the menu (when no other menu is open).",
-    "config.freeze-time.desc": "The keybind which freezes the game clock.",
-    "config.grow-tree.desc": "The keybind held to grow trees around the player.",
-    "config.grow-crops.desc": "The keybind held to grow crops around the player.",
-
-    "config.title.other-options": "Other options",
-    "config.default-tab.name": "Default tab",
-    "config.default-tab.desc": "The tab shown by default when you open the menu.",
-    "config.other-options": "To configure cheats, press the 'open menu' key shown above in-game. Make sure you press it after loading the save, when no other menu or dialogue is open."
+    "config.open-menu.desc": "메뉴를 여는 키입니다(다른 메뉴가 열려 있지 않을 때).",
+    "config.freeze-time.desc": "게임 시간을 멈추는 키입니다.",
+    "config.grow-tree.desc": "플레이어 주변에 나무를 성장시키는 키입니다.",
+    "config.grow-crops.desc": "플레이어 주변에 작물을 성장시키는 키입니다.",
+    "config.title.other-options": "기타 옵션",
+    "config.default-tab.name": "기본 탭",
+    "config.default-tab.desc": "메뉴를 열 때 기본으로 표시되는 탭입니다.",
+    "config.other-options": "치트 설정을 위해 게임 내에서 위에 표시된 '메뉴 열기' 키를 누르세요. 저장 후에, 다른 메뉴나 대화창이 열려 있지 않을 때 눌러야 합니다."
 }
