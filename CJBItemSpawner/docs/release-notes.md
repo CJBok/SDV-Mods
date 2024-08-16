@@ -4,7 +4,7 @@
 ## Upcoming release
 * Fixed dried items, pickled forage, smoked fish, and specific bait not shown in menu.
 * Fixed some wallpaper/flooring items shown twice.
-* Improved translations. Thanks to Caranud (updated French)!
+* Improved translations. Thanks to Caranud (updated French), mitekano23 (updated Japanese), MagoSupremo123 (updated Portuguese), and therealmate (updated Hungarian)!
 
 ## 2.4.1
 Released 14 April 2024 for SMAPI 4.0.0 or later.
