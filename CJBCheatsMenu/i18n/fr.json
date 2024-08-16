@@ -14,7 +14,7 @@
     "tabs.warp": "Téléportation",
     "tabs.time": "Temps",
     "tabs.advanced": "Avancé",
-    "tabs.controls": "Contrôles",
+    "tabs.controls": "Raccourcis",
 
 
     /*********
@@ -237,7 +237,7 @@
     /*********
     ** Controls tab
     *********/
-    "controls.title": "Contrôles",
+    "controls.title": "Raccourcis",
     "controls.android-config-note": "Vous pouvez modifier les boutons affichés à l'écran dans les fichiers de configuration des mods CJB Menu de triche et Menu du clavier virtuel.",
     "controls.open-menu": "Ouvrir ce menu",
     "controls.freeze-time": "Arrêter le temps",
@@ -251,14 +251,13 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.open-menu.desc": "The keybind which opens the menu (when no other menu is open).",
-    "config.freeze-time.desc": "The keybind which freezes the game clock.",
-    "config.grow-tree.desc": "The keybind held to grow trees around the player.",
-    "config.grow-crops.desc": "The keybind held to grow crops around the player.",
+    "config.open-menu.desc": "Le raccourci clavier qui ouvre le menu (lorsqu’aucun autre menu n’est ouvert).",
+    "config.freeze-time.desc": "Le raccourci clavier qui arrête l’horloge du jeu.",
+    "config.grow-tree.desc": "Le raccourci clavier qui fait pousser les arbres autour du joueur.",
+    "config.grow-crops.desc": "Le raccourci clavier qui fait pousser les cultures autour du joueur.",
 
-    "config.title.other-options": "Other options",
-    "config.default-tab.name": "Default tab",
-    "config.default-tab.desc": "The tab shown by default when you open the menu.",
-    "config.other-options": "To configure cheats, press the 'open menu' key shown above in-game. Make sure you press it after loading the save, when no other menu or dialogue is open."
+    "config.title.other-options": "Autres options",
+    "config.default-tab.name": "Onglet par défaut\n(Traduction dans l’infobulle)",
+    "config.default-tab.desc": "L’onglet par défaut ouvert lorsque vous ouvrez le menu.\n\" PlayerAndTools\" -> Joueur & Outils\n\" FarmAndFishing\" -> Ferme & Pêche\n\" Skills \" -> Compétences\n\" Weather \" -> Météo\n\" Relationships \" ->  Social \n\" WarpLocations \" ->  Téléportation\n\" Time \" -> Temps\n\" Advanced \" -> Avancé\n\" Controls \" -> Raccourcis",
+    "config.other-options": "Pour configurer les triches, appuyez sur le raccourci « Ouvrir le menu » affiché ci-dessus dans le jeu. Faîtes attention à l’appuyer après avoir chargé une sauvegarde, lorsqu’aucun autre menu ou dialogue n’est ouvert."
 }
