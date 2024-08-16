@@ -229,6 +229,7 @@
     "flags.unlocked-content": "해제되지 않은 콘텐츠",
     "flags.unlocked-content.dyes-and-tailoring": "염색&재봉틀",
     "flags.unlocked-content.junimo-text": "주니모 글씨 읽기 가능",
+    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
     "flags.community-center": "마을 회관",
     "flags.community-center.door-unlocked": "마을회관 잠긴 문 열기",
     "flags.jojamart.membership": "조자마트 회원권",

@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Added cheat to toggle whether perfection has been achieved (thanks to PrimmR!).
 * Fixed 'freeze time' and 'grow' keybinds still triggered when typing into a text field.
 * Improved translations. Thanks to BernieAteUsername (updated Chinese), CaranudLapin (updated French), mitekano23 (updated Japanese), and MagoSupremo123 (updated Portuguese)!
 

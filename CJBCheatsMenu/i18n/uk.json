@@ -229,6 +229,7 @@
     "flags.unlocked-content": "Розблокувати контент",
     "flags.unlocked-content.dyes-and-tailoring": "Фарбування та шиття",
     "flags.unlocked-content.junimo-text": "Ви вмієте читати текcт Джунімо",
+    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
     "flags.community-center": "Громадський Клуб",
     "flags.community-center.door-unlocked": "Двері відчинено",
     "flags.jojamart.membership": "Членство у Корпорації JojaМаркет",

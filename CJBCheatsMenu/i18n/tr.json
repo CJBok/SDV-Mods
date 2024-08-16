@@ -229,6 +229,7 @@
     "flags.unlocked-content": "Açılmış İçerik",
     "flags.unlocked-content.dyes-and-tailoring": "Boyama ve Dikiş",
     "flags.unlocked-content.junimo-text": "Junimo yazılarını okuyabilme",
+    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
     "flags.community-center": "Halkevi",
     "flags.community-center.door-unlocked": "Kapı Açıldı",
     "flags.jojamart.membership": "JojaMart Üyeliği",

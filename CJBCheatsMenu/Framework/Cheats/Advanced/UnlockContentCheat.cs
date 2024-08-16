@@ -28,9 +28,10 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
             yield return new CheatsOptionsCheckbox(
                 label: I18n.Flags_UnlockedContent_Perfection(),
                 value: Game1.player.team.farmPerfect.Value,
-                setValue: value => this.SetPerfection(value)
+                setValue: this.SetPerfection
             );
         }
+
 
         /*********
         ** Private methods
@@ -42,7 +43,8 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
             Game1.player.team.farmPerfect.Value = achieved;
             this.SetFlag(achieved, "Farm_Eternal");
             this.SetFlag(achieved, "SummitBoulder");
-            this.SetFlag(false, "Summit_event");
+            if (!achieved)
+                this.SetFlag(false, "Summit_event"); // forget event was seen when disabling perfection
         }
     }
 }

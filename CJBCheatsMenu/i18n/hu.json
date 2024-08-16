@@ -231,6 +231,7 @@
     "flags.unlocked-content": "Feloldott Tartalmak",
     "flags.unlocked-content.dyes-and-tailoring": "Festékek & Szabás",
     "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
+    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
     "flags.community-center": "Közösségi Központ",
     "flags.community-center.door-unlocked": "Ajtó Kinyitva",
     "flags.jojamart.membership": "JojaMart Tagság",
