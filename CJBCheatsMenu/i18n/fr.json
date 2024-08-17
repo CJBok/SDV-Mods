@@ -265,7 +265,7 @@
     "config.grow-crops.desc": "Le raccourci clavier qui fait pousser les cultures autour du joueur.",
 
     "config.title.other-options": "Autres options",
-    "config.default-tab.name": "Onglet par défaut\n(Traduction dans l’infobulle)",
-    "config.default-tab.desc": "L’onglet par défaut ouvert lorsque vous ouvrez le menu.\n\" PlayerAndTools\" -> Joueur & Outils\n\" FarmAndFishing\" -> Ferme & Pêche\n\" Skills \" -> Compétences\n\" Weather \" -> Météo\n\" Relationships \" ->  Social \n\" WarpLocations \" ->  Téléportation\n\" Time \" -> Temps\n\" Advanced \" -> Avancé\n\" Controls \" -> Raccourcis",
+    "config.default-tab.name": "Onglet par défaut",
+    "config.default-tab.desc": "L’onglet par défaut ouvert lorsque vous ouvrez le menu.",
     "config.other-options": "Pour configurer les triches, appuyez sur le raccourci « Ouvrir le menu » affiché ci-dessus dans le jeu. Faîtes attention à l’appuyer après avoir chargé une sauvegarde, lorsqu’aucun autre menu ou dialogue n’est ouvert."
 }

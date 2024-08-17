@@ -92,8 +92,28 @@ namespace CJBCheatsMenu.Framework
                     if (Enum.TryParse(value, out MenuTab tab))
                         this.Config.DefaultTab = tab;
                 },
-                allowedValues: ["PlayerAndTools", "FarmAndFishing", "Skills", "Weather", "Relationships", "WarpLocations", "Time", "Advanced", "Controls"]
-            );
+                allowedValues: Enum.GetNames<MenuTab>(),
+                formatAllowedValue: value =>
+                {
+                    if (Enum.TryParse(value, out MenuTab tab))
+                    {
+                        return tab switch
+                        {
+                            MenuTab.PlayerAndTools => I18n.Tabs_PlayerAndTools(),
+                            MenuTab.FarmAndFishing => I18n.Tabs_FarmAndFishing(),
+                            MenuTab.Skills => I18n.Tabs_Skills(),
+                            MenuTab.Weather => I18n.Tabs_Weather(),
+                            MenuTab.Relationships => I18n.Tabs_Relationships(),
+                            MenuTab.WarpLocations => I18n.Tabs_Warp(),
+                            MenuTab.Time => I18n.Tabs_Time(),
+                            MenuTab.Advanced => I18n.Tabs_Advanced(),
+                            MenuTab.Controls => I18n.Tabs_Controls(),
+                            _ => value
+                        };
+                    }
+
+                    return value;
+                });
             menu.AddParagraph(this.Manifest, I18n.Config_OtherOptions);
         }
 

@@ -6,6 +6,7 @@
 * Added cheat to toggle perfection (thanks to PrimmR!).
 * You can now [make personal edits to the warp list](README.md#personal-warps).
 * Fixed 'freeze time' and 'grow' keybinds still triggered when typing into a text field.
+* Fixed missing translations for default tab names in Generic Mod Confgi Menu UI.
 * Improved translations. Thanks to BernieAteUsername (updated Chinese), CaranudLapin (updated French), mitekano23 (updated Japanese), and MagoSupremo123 (updated Portuguese)!
 
 ## 1.36.2
