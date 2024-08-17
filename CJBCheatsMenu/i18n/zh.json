@@ -37,6 +37,13 @@
     "tools.one-hit-break": "一砍即倒（一击即碎）",
     "tools.harvest-with-scythe": "镰刀收获",
 
+    // tool enchantments
+    // TODO
+    "tool-enchantments.title": "Tool Enchantments",
+    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
+    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
+    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+
     // money
     "add.money": "金钱",
     "add.casino-coins": "赌场代币",

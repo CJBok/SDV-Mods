@@ -37,6 +37,13 @@
     "tools.one-hit-break": "한방에 쪼개기/부수기",
     "tools.harvest-with-scythe": "낫으로 수확",
 
+    // tool enchantments
+    // TODO
+    "tool-enchantments.title": "Tool Enchantments",
+    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
+    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
+    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+
     // money
     "add.money": "돈",
     "add.casino-coins": "카지노 코인",

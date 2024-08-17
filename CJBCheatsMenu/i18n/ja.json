@@ -37,6 +37,13 @@
     "tools.one-hit-break": "1度のアクションで目的達成",
     "tools.harvest-with-scythe": "カマで収穫",
 
+    // tool enchantments
+    // TODO
+    "tool-enchantments.title": "Tool Enchantments",
+    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
+    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
+    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+
     // money
     "add.money": "お金",
     "add.casino-coins": "カジノのコイン",

@@ -79,6 +79,9 @@ namespace CJBCheatsMenu.Framework
         /// <summary>Enables one-hit break.</summary>
         public ICheat OneHitBreak { get; } = new OneHitBreakCheat();
 
+        /// <summary>Configures enchantments for the currently equipped tool.</summary>
+        public ICheat ToolEnchantments { get; } = new ToolEnchantmentsCheat();
+
         /// <summary>Adds various amounts of money to the player.</summary>
         public ICheat AddMoney { get; } = new AddMoneyCheat();
 

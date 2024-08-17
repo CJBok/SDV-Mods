@@ -2,7 +2,8 @@
 
 # Release notes
 ## Upcoming release
-* Added cheat to toggle whether perfection has been achieved (thanks to PrimmR!).
+* Added support for adding/removing tool enchantments.
+* Added cheat to toggle perfection (thanks to PrimmR!).
 * You can now [make personal edits to the warp list](README.md#personal-warps).
 * Fixed 'freeze time' and 'grow' keybinds still triggered when typing into a text field.
 * Improved translations. Thanks to BernieAteUsername (updated Chinese), CaranudLapin (updated French), mitekano23 (updated Japanese), and MagoSupremo123 (updated Portuguese)!

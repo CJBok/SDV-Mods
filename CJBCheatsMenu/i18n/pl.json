@@ -37,6 +37,13 @@
     "tools.one-hit-break": "Rozbijaj Jednym Uderzeniem",
     "tools.harvest-with-scythe": "Zbieraj Plony za Pomocą Kosy",
 
+    // tool enchantments
+    // TODO
+    "tool-enchantments.title": "Tool Enchantments",
+    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
+    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
+    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+
     // money
     "add.money": "Pieniądze",
     "add.casino-coins": "Monety z Kasyna",

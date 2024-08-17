@@ -406,6 +406,12 @@ namespace CJBCheatsMenu.Framework
                         cheats.HarvestWithScythe
                     );
 
+                    // enchantments
+                    this.AddOptions(
+                        $"{I18n.ToolEnchantments_Title()}:",
+                        cheats.ToolEnchantments
+                    );
+
                     // money
                     this.AddOptions(
                         $"{I18n.Add_Money()}:",

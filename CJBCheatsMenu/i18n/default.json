@@ -37,6 +37,12 @@
     "tools.one-hit-break": "One Hit Break",
     "tools.harvest-with-scythe": "Harvest With Scythe",
 
+    // tool enchantments
+    "tool-enchantments.title": "Tool Enchantments",
+    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
+    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
+    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+
     // money
     "add.money": "Money",
     "add.casino-coins": "Casino Coins",
