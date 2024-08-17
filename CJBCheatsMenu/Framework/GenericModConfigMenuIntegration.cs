@@ -79,6 +79,13 @@ namespace CJBCheatsMenu.Framework
                 getValue: () => this.Config.GrowCropsKey,
                 setValue: value => this.Config.GrowCropsKey = value
             );
+            menu.AddKeybindList(
+                mod: this.Manifest,
+                name: I18n.Controls_ReloadConfig,
+                tooltip: I18n.Controls_ReloadConfig_Desc,
+                getValue: () => this.Config.ReloadConfigKey,
+                setValue: value => this.Config.ReloadConfigKey = value
+            );
 
             // other options
             menu.AddSectionTitle(this.Manifest, I18n.Config_Title_OtherOptions);

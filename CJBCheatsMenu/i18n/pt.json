@@ -264,6 +264,10 @@
     "config.grow-tree.desc": "A tecla que apertada faz crescer árvores em torno do jogador.",
     "config.grow-crops.desc": "A tecla que apertada faz crescer plantações em torno do jogador.",
 
+    // TODO
+    "controls.reload-config": "Reload settings from file",
+    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+
     "config.title.other-options": "Outras opções",
     "config.default-tab.name": "Aba padrão",
     "config.default-tab.desc": "A aba mostrada por padrão quando você abre o menu.",

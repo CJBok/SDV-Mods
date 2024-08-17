@@ -4,6 +4,7 @@
 ## Upcoming release
 * Added support for adding/removing tool enchantments.
 * Added cheat to toggle perfection (thanks to PrimmR!).
+* Added keybind to reload settings from `config.json`.
 * You can now [make personal edits to the warp list](README.md#personal-warps).
 * Fixed 'freeze time' and 'grow' keybinds still triggered when typing into a text field.
 * Fixed missing translations for default tab names in Generic Mod Confgi Menu UI.

@@ -264,6 +264,10 @@
     "config.grow-tree.desc": "在玩家周围种树的按键。",
     "config.grow-crops.desc": "在玩家周围种植农作物的按键。",
 
+    // TODO
+    "controls.reload-config": "Reload settings from file",
+    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+
     "config.title.other-options": "其它选项",
     "config.default-tab.name": "默认界面",
     "config.default-tab.desc": "打开菜单时默认显示的界面。",

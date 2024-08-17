@@ -263,6 +263,9 @@
     "config.grow-tree.desc": "The keybind held to grow trees around the player.",
     "config.grow-crops.desc": "The keybind held to grow crops around the player.",
 
+    "controls.reload-config": "Reload settings from file",
+    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+
     "config.title.other-options": "Other options",
     "config.default-tab.name": "Default tab",
     "config.default-tab.desc": "The tab shown by default when you open the menu.",

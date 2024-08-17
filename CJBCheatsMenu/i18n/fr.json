@@ -264,6 +264,10 @@
     "config.grow-tree.desc": "Le raccourci clavier qui fait pousser les arbres autour du joueur.",
     "config.grow-crops.desc": "Le raccourci clavier qui fait pousser les cultures autour du joueur.",
 
+    // TODO
+    "controls.reload-config": "Reload settings from file",
+    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+
     "config.title.other-options": "Autres options",
     "config.default-tab.name": "Onglet par défaut",
     "config.default-tab.desc": "L’onglet par défaut ouvert lorsque vous ouvrez le menu.",

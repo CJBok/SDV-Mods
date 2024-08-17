@@ -264,6 +264,10 @@
     "config.grow-tree.desc": "プレイヤーの周りの樹木や果樹を生長させるキーを設定する",
     "config.grow-crops.desc": "プレイヤーの周りの作物を収穫状態にするキーを設定する",
 
+    // TODO
+    "controls.reload-config": "Reload settings from file",
+    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+
     "config.title.other-options": "その他オプション",
     "config.default-tab.name": "デフォルトタブ",
     "config.default-tab.desc": "メニューを開いたときにデフォルトで表示されるタブ",

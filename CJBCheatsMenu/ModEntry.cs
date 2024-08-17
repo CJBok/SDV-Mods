@@ -121,6 +121,13 @@ namespace CJBCheatsMenu
         /// <param name="e">The event arguments.</param>
         private void OnButtonChanged(object? sender, ButtonsChangedEventArgs e)
         {
+            // reload config
+            if (this.Config.ReloadConfigKey.JustPressed())
+            {
+                this.Config = this.Helper.ReadConfig<ModConfig>();
+                this.Monitor.Log($"Reloaded config; menu key is {this.Config.OpenMenuKey}.");
+            }
+
             // open menu
             if (this.Config.OpenMenuKey.JustPressed())
             {

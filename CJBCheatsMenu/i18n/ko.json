@@ -264,6 +264,10 @@
     "config.grow-tree.desc": "플레이어 주변에 나무를 성장시키는 키입니다.",
     "config.grow-crops.desc": "플레이어 주변에 작물을 성장시키는 키입니다.",
 
+    // TODO
+    "controls.reload-config": "Reload settings from file",
+    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+
     "config.title.other-options": "기타 옵션",
     "config.default-tab.name": "기본 탭",
     "config.default-tab.desc": "메뉴를 열 때 기본으로 표시되는 탭입니다.",

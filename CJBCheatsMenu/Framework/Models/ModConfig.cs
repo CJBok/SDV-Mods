@@ -24,6 +24,9 @@ namespace CJBCheatsMenu.Framework.Models
         /// <summary>The button which opens the menu.</summary>
         public KeybindList OpenMenuKey { get; set; } = new(SButton.P);
 
+        /// <summary>The button which causes the mod settings to be reloaded.</summary>
+        public KeybindList ReloadConfigKey { get; set; } = new();
+
         /// <summary>The button which freezes the game clock.</summary>
         public KeybindList FreezeTimeKey { get; set; } = new();
 
