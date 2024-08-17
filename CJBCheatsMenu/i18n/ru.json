@@ -135,6 +135,7 @@
     "weather.raining": "Дождь",
     "weather.lightning": "Гроза",
     "weather.snowing": "Снегопад",
+    "weather.green-rain": "Green Raining", // TODO
 
 
     /*********

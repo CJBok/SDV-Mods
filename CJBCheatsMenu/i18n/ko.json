@@ -135,6 +135,7 @@
     "weather.raining": "비",
     "weather.lightning": "폭풍(번개)",
     "weather.snowing": "눈",
+    "weather.green-rain": "Green Raining", // TODO
 
 
     /*********

@@ -135,6 +135,7 @@
     "weather.raining": "Eső",
     "weather.lightning": "Vihar",
     "weather.snowing": "Havazás",
+    "weather.green-rain": "Green Raining", // TODO
 
 
     /*********

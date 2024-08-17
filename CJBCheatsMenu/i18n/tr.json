@@ -135,6 +135,7 @@
     "weather.raining": "Yağmurlu",
     "weather.lightning": "Fırtınalı",
     "weather.snowing": "Karlı",
+    "weather.green-rain": "Green Raining", // TODO
 
 
     /*********

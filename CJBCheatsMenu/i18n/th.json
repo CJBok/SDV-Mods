@@ -135,6 +135,7 @@
     "weather.raining": "ฝนตก",
     "weather.lightning": "มีฟ้าผ่า",
     "weather.snowing": "หิมะตก",
+    "weather.green-rain": "Green Raining", // TODO
 
 
     /*********

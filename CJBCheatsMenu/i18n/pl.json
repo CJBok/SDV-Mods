@@ -135,6 +135,7 @@
     "weather.raining": "Deszczowa",
     "weather.lightning": "Burzowa",
     "weather.snowing": "Śnieżna",
+    "weather.green-rain": "Green Raining", // TODO
 
 
     /*********

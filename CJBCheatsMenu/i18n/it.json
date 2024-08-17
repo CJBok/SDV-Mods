@@ -135,6 +135,7 @@
     "weather.raining": "Pioggia",
     "weather.lightning": "Fulmini",
     "weather.snowing": "Neve",
+    "weather.green-rain": "Green Raining", // TODO
 
 
     /*********

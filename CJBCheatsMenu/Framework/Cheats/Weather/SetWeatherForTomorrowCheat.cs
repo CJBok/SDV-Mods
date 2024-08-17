@@ -21,7 +21,8 @@ namespace CJBCheatsMenu.Framework.Cheats.Weather
                 this.GetWeatherField(context, I18n.Weather_Sunny(), Game1.weather_sunny),
                 this.GetWeatherField(context, I18n.Weather_Raining(), Game1.weather_rain),
                 this.GetWeatherField(context, I18n.Weather_Lightning(), Game1.weather_lightning),
-                this.GetWeatherField(context, I18n.Weather_Snowing(), Game1.weather_snow)
+                this.GetWeatherField(context, I18n.Weather_Snowing(), Game1.weather_snow),
+                this.GetWeatherField(context, I18n.Weather_GreenRain(), Game1.weather_green_rain)
             };
         }
 
@@ -62,8 +63,11 @@ namespace CJBCheatsMenu.Framework.Cheats.Weather
                 case Game1.weather_snow:
                     return I18n.Weather_Snowing();
 
+                case Game1.weather_green_rain:
+                    return I18n.Weather_GreenRain();
+
                 default:
-                    return "";
+                    return Game1.weatherForTomorrow;
             }
         }
 

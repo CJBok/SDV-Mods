@@ -135,6 +135,7 @@
     "weather.raining": "雨",
     "weather.lightning": "嵐",
     "weather.snowing": "雪",
+    "weather.green-rain": "Green Raining", // TODO
 
 
     /*********
