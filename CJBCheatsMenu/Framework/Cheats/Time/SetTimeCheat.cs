@@ -16,14 +16,17 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /// <param name="context">The cheat context.</param>
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
+            int ToValue(int time) => Utility.ConvertTimeToMinutes(time) / 10;
+            int FromValue(int value) => Utility.ConvertMinutesToTime(value * 10);
+
             yield return new CheatsOptionsSlider(
                 label: I18n.Time_Time(),
-                value: Game1.timeOfDay / 100,
-                minValue: 6,
-                maxValue: 25,
-                setValue: value => this.SafelySetTime(value * 100),
+                value: ToValue(Game1.timeOfDay),
+                minValue: ToValue(600),
+                maxValue: ToValue(2550),
+                setValue: value => this.SafelySetTime(FromValue(value)),
                 width: 100,
-                format: value => Game1.getTimeOfDayString(value * 100)
+                format: value => Game1.getTimeOfDayString(FromValue(value))
             );
         }
 

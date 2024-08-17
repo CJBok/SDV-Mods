@@ -7,6 +7,7 @@
 * Added keybind to reload settings from `config.json`.
 * You can now [make personal edits to the warp list](README.md#personal-warps).
 * You can now set tomorrow's weather to green rain.
+* The time slider can now be set at 10-minute intervals instead of 1-hour intervals.
 * Fixed 'freeze time' and 'grow' keybinds still triggered when typing into a text field.
 * Fixed missing translations for default tab names in Generic Mod Config Menu UI.
 * Fixed unknown weathers shown as blank in the weather tab; it'll now show the weather ID instead.
