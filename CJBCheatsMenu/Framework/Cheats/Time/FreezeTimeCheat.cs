@@ -108,7 +108,9 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         {
             // get default draw settings
             int x = 5;
-            int y = isCave ? 100 : 5;
+            int y = isCave || Game1.currentLocation?.Name is "Club"
+                ? 100
+                : 5;
             SpriteFont font = Game1.smallFont;
             string text = I18n.Time_TimeFrozenMessage();
 
