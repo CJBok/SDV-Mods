@@ -129,7 +129,7 @@
     ** Weather tab
     *********/
     "weather.title": "明日の天気",
-    "weather.current": "現在の天気",
+    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
     "weather.explanation": "明日の天気を設定するには、せっていボタンをクリックしてください。\nこのタブはそれ以外の天気に影響を与えません。",
     "weather.sunny": "晴れ",
     "weather.raining": "雨",

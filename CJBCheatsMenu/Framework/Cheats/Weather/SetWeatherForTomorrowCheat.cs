@@ -17,7 +17,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Weather
         {
             return new OptionsElement[]
             {
-                new CheatsOptionsWeatherElement(I18n.Weather_Current(), this.GetWeatherForNextDay),
+                new DescriptionElement(() => I18n.Weather_CurrentValue(this.GetWeatherForNextDay())),
                 this.GetWeatherField(context, I18n.Weather_Sunny(), Game1.weather_sunny),
                 this.GetWeatherField(context, I18n.Weather_Raining(), Game1.weather_rain),
                 this.GetWeatherField(context, I18n.Weather_Lightning(), Game1.weather_lightning),

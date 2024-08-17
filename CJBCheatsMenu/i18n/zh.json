@@ -129,7 +129,7 @@
     ** Weather tab
     *********/
     "weather.title": "明日天气",
-    "weather.current": "目前",
+    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
     "weather.explanation": "点击下方按钮设置明日天气（仅限明日）。除此之外本页面不会对天气有任何影响。",
     "weather.sunny": "晴天",
     "weather.raining": "雨天",

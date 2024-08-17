@@ -129,7 +129,7 @@
     ** Weather tab
     *********/
     "weather.title": "Clima Amanhã",
-    "weather.current": "Atual",
+    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
     "weather.explanation": "Clique em um botão para definir o clima de amanhã (e apenas de amanhã). Essa aba não tem efeito sobre sobre o clima de outro modo.",
     "weather.sunny": "Ensolarado",
     "weather.raining": "Chuva",
