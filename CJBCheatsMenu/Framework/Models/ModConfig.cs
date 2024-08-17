@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
+using CJBCheatsMenu.Framework.ContentModels;
 using Newtonsoft.Json;
 using StardewModdingAPI;
 using StardewModdingAPI.Utilities;
@@ -105,11 +106,25 @@ namespace CJBCheatsMenu.Framework.Models
         public bool FastFruitTree { get; set; }
 
         /// <summary>The building machines which finish instantly, indexed by building type.</summary>
-        public HashSet<string> FastBuildings { get; set; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        public HashSet<string> FastBuildings { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>The item machines which finish instantly, indexed by qualified item ID.</summary>
-        public HashSet<string> FastMachines { get; set; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        public HashSet<string> FastMachines { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 
+        /****
+        ** Custom warps
+        ****/
+        /// <summary>The warp section IDs to hide when building the warp list. This can contain wildcard patterns.</summary>
+        public HashSet<string> HideWarpSections { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>The warp IDs to hide when building the warp list. This can contain wildcard patterns.</summary>
+        public HashSet<string> HideWarps { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>The custom warp sections to add to the list.</summary>
+        public List<WarpSectionContentModel> AddWarpSections { get; set; } = new();
+
+        /// <summary>The custom warps to add to the list.</summary>
+        public List<WarpContentModel> AddWarps { get; set; } = new();
 
         /****
         ** Other cheats
@@ -155,13 +170,11 @@ namespace CJBCheatsMenu.Framework.Models
         [SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract", Justification = "This is the method which ensures the annotations are correct.")]
         public void OnDeserialized(StreamingContext context)
         {
-            // make machine IDs case-insensitive
-            this.FastBuildings = this.FastBuildings is not null
-                ? new HashSet<string>(this.FastBuildings, StringComparer.OrdinalIgnoreCase)
-                : new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            this.FastMachines = this.FastMachines is not null
-                ? new HashSet<string>(this.FastMachines, StringComparer.OrdinalIgnoreCase)
-                : new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            // make sets case-insensitive
+            this.FastBuildings = this.ToCaseInsensitive(this.FastBuildings);
+            this.FastMachines = this.ToCaseInsensitive(this.FastMachines);
+            this.HideWarpSections = this.ToCaseInsensitive(this.HideWarpSections);
+            this.HideWarps = this.ToCaseInsensitive(this.HideWarps);
 
             // migrate pre-1.35 fast machine options
             if (this.ExtensionData != null)
@@ -219,6 +232,15 @@ namespace CJBCheatsMenu.Framework.Models
 
                 this.ExtensionData = null;
             }
+        }
+
+        /// <summary>Get a case-insensitive hash set containing the given data.</summary>
+        /// <param name="set">The data to add to the set, or <c>null</c> to create an empty set.</param>
+        private HashSet<string> ToCaseInsensitive(HashSet<string>? set)
+        {
+            return set is not null
+                ? new HashSet<string>(set, StringComparer.OrdinalIgnoreCase)
+                : new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         }
     }
 }

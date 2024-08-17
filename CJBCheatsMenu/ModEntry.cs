@@ -50,7 +50,7 @@ namespace CJBCheatsMenu
             I18n.Init(helper.Translation);
 
             // init warp content loader
-            this.WarpContentLoader = new WarpContentLoader(this.ModManifest.UniqueID, this.LoadModData(), this.Monitor, this.Helper.ModRegistry);
+            this.WarpContentLoader = new WarpContentLoader(this.ModManifest.UniqueID, () => this.Config, this.LoadModData(), this.Monitor, this.Helper.ModRegistry);
 
             // load cheats
             this.ResetLocationCache();

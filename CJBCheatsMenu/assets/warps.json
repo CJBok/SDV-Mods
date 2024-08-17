@@ -3,9 +3,12 @@
     The default warps to show in the cheats menu.
 
     EDITING THIS FILE IS NOT RECOMMENDED.
-    Your changes will be reset each time the mod is updated. For mod authors, see
-    https://github.com/CJBok/SDV-Mods/blob/master/CJBCheatsMenu/docs/author-guide.md to add custom
-    warps through content edits instead.
+    Your changes will be reset each time the mod is updated.
+
+    Instead, see:
+      - For players: https://github.com/CJBok/SDV-Mods/tree/master/CJBCheatsMenu#personal-warps to edit the warp list.
+      - For mod authors: https://github.com/CJBok/SDV-Mods/blob/master/CJBCheatsMenu/docs/author-guide.md to add custom
+        warps through content edits.
 
 
     --------------------------------------

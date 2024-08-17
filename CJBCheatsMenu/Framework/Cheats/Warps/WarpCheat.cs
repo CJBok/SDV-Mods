@@ -38,8 +38,8 @@ namespace CJBCheatsMenu.Framework.Cheats.Warps
         {
             bool isJojaMember = this.HasFlag("JojaMember");
 
-            IReadOnlyList<WarpSectionContentModel> rawSections = this.WarpContentLoader.LoadWarpSections();
-            IReadOnlyList<WarpContentModel> rawWarps = this.WarpContentLoader.LoadWarps();
+            WarpSectionContentModel[] rawSections = this.WarpContentLoader.LoadWarpSections();
+            WarpContentModel[] rawWarps = this.WarpContentLoader.LoadWarps();
 
             Dictionary<string, string> sectionNames = rawSections.ToDictionary(p => p.Id, p => p.DisplayName);
             Dictionary<string, List<WarpContentModel>> warps = this.GetWarpsBySection(rawSections, rawWarps);
