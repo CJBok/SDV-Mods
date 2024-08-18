@@ -16,6 +16,25 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
     internal class FreezeTimeCheat : BaseCheat
     {
         /*********
+        ** Fields
+        *********/
+        /// <summary>The number of milliseconds for which to show time-frozen messages on screen.</summary>
+        private const int FrozenMessageDefaultTime = 1000;
+
+        /// <summary>The opacity to reduce per tick when the time-frozen message is fading.</summary>
+        private const float FrozenMessageFadeRate = 0.01f;
+
+        /// <summary>The last location name for which the time-frozen message was shown.</summary>
+        private string? FrozenMessageShownFor;
+
+        /// <summary>The number of milliseconds until the time-frozen message should start fading.</summary>
+        private int FrozenMessageTime;
+
+        /// <summary>The opacity at which to draw the time-frozen message, as a value between 0 (transparent) and 1 (opaque).</summary>
+        private float FrozenMessageAlpha;
+
+
+        /*********
         ** Public methods
         *********/
         /// <summary>Get the config UI fields to show in the cheats menu.</summary>
@@ -66,7 +85,22 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
                 return;
 
             if (this.ShouldFreezeTime(context.Config, Game1.currentLocation, out bool _))
+            {
                 Game1.gameTimeInterval = 0;
+
+                if (this.FrozenMessageShownFor != Game1.currentLocation.NameOrUniqueName)
+                {
+                    this.FrozenMessageShownFor = Game1.currentLocation.NameOrUniqueName;
+                    this.FrozenMessageTime = FreezeTimeCheat.FrozenMessageDefaultTime;
+                    this.FrozenMessageAlpha = 1f;
+                }
+            }
+            else if (this.FrozenMessageShownFor != null)
+            {
+                this.FrozenMessageShownFor = null;
+                this.FrozenMessageTime = 0;
+                this.FrozenMessageAlpha = 0;
+            }
         }
 
         /// <summary>Handle the game draws to the sprite patch in a draw tick, just before the final sprite batch is rendered to the screen.</summary>
@@ -74,8 +108,16 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /// <param name="spriteBatch">The sprite batch being drawn.</param>
         public override void OnRendered(CheatContext context, SpriteBatch spriteBatch)
         {
-            if (Game1.displayHUD && !Game1.game1.takingMapScreenshot && this.ShouldFreezeTime(context.Config, Game1.currentLocation, out bool isCave))
-                this.RenderTimeFrozenBox(context, spriteBatch, isCave);
+            if ((this.FrozenMessageTime > 0 || this.FrozenMessageAlpha > 0) && this.ShouldFreezeTime(context.Config, Game1.currentLocation, out bool isCave))
+            {
+                if (Game1.displayHUD && !Game1.game1.takingMapScreenshot)
+                    this.RenderTimeFrozenBox(context, spriteBatch, isCave);
+
+                if (this.FrozenMessageTime > 0)
+                    this.FrozenMessageTime -= (int)Game1.currentGameTime.ElapsedGameTime.TotalMilliseconds;
+                else
+                    this.FrozenMessageAlpha -= FreezeTimeCheat.FrozenMessageFadeRate;
+            }
         }
 
 
@@ -129,7 +171,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
                     spriteBatch.End();
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(nativeZoomLevel));
                 }
-                CommonHelper.DrawTab(x: 80 + (hasVerticalToolbar ? 160 : 80), y, font, text);
+                CommonHelper.DrawTab(x: 80 + (hasVerticalToolbar ? 160 : 80), y, font, text, alpha: this.FrozenMessageAlpha);
                 if (Constants.TargetPlatform == GamePlatform.Android)
                 {
                     spriteBatch.End();
@@ -137,7 +179,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
                 }
             }
             else
-                CommonHelper.DrawTab(x, y, font, text);
+                CommonHelper.DrawTab(x, y, font, text, alpha: this.FrozenMessageAlpha);
         }
     }
 }

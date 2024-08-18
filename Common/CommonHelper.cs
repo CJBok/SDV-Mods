@@ -56,7 +56,7 @@ namespace CJB.Common
             Vector2 bounds = font.MeasureString(text);
 
             CommonHelper.DrawTab(x, y, (int)bounds.X, (int)bounds.Y, out Vector2 drawPos, align, alpha, drawShadow: drawShadow);
-            Utility.drawTextWithShadow(spriteBatch, text, font, drawPos, Game1.textColor);
+            Game1.spriteBatch.DrawString(font, text, drawPos, Game1.textColor * alpha);
         }
 
         /// <summary>Draw a button texture to the screen.</summary>
