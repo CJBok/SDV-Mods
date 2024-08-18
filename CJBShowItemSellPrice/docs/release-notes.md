@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Updated for Stardew Valley 1.6.9.
 * Added option to show the sell-price UI always or before/after unlocking the [price catalogue](https://stardewvalleywiki.com/Price_Catalogue).
 * Added support for [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098).
 

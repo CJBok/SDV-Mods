@@ -5,6 +5,6 @@
     "Description": "Simple in-game cheats menu!",
     "UniqueID": "CJBok.CheatsMenu",
     "EntryDll": "CJBCheatsMenu.dll",
-    "MinimumApiVersion": "4.0.0",
+    "MinimumApiVersion": "4.1.0-beta",
     "UpdateKeys": [ "Nexus:4" ]
 }

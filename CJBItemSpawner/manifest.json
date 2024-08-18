@@ -5,6 +5,6 @@
     "Description": "Simple in-game item spawner!",
     "UniqueID": "CJBok.ItemSpawner",
     "EntryDll": "CJBItemSpawner.dll",
-    "MinimumApiVersion": "4.0.0",
+    "MinimumApiVersion": "4.1.0-beta",
     "UpdateKeys": [ "Nexus:93" ]
 }

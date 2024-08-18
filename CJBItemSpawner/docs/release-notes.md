@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Updated for Stardew Valley 1.6.9.
 * Fixed dried items, pickled forage, smoked fish, and specific bait not shown in menu.
 * Fixed some wallpaper/flooring items shown twice.
 * Improved translations. Thanks to Caranud (updated French), mitekano23 (updated Japanese), MagoSupremo123 (updated Portuguese), and therealmate (updated Hungarian)!

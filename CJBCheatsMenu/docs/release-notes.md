@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Updated for Stardew Valley 1.6.9.
 * Added support for adding/removing tool enchantments.
 * Added cheat to toggle perfection (thanks to PrimmR!).
 * Added keybind to reload settings from `config.json`.
