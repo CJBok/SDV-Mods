@@ -87,7 +87,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Relationships
                 Game1.player.friendshipData.Add(npc.Name, friendship);
                 SocializeQuest? socialQuest = Game1.player.questLog.OfType<SocializeQuest>().FirstOrDefault();
                 if (socialQuest != null && !socialQuest.completed.Value)
-                    socialQuest.checkIfComplete(npc);
+                    socialQuest.OnNpcSocialized(npc);
             }
 
             // update friendship points
