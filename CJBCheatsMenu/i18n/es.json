@@ -130,7 +130,7 @@
     *********/
     "weather.title": "Clima para Mañana",
     "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
-    "weather.explanation": "Haz clic en un botón para establecer el clima para mañana (y sólo para MAÑANA). Esto no tiene ningún efecto sobre el clima de hoy.", // TODO
+    "weather.explanation": "Haz clic en un botón para establecer el clima para mañana (y sólo para MAÑANA). Esto no tiene ningún efecto sobre el clima de hoy.",
     "weather.sunny": "Sol",
     "weather.raining": "Lluvia",
     "weather.lightning": "Tormenta",
@@ -150,7 +150,7 @@
     /*********
     ** Warps tab
     *********/
-    "warp.customized-warning": "Estos teletransportes han sido añadidos por tus Mods. Debes informar de los problemas al creador del Mod que los añadieron, sólo si procede.", // TODO
+    "warp.customized-warning": "Estos teletransportes han sido añadidos por tus Mods. Debes informar de los problemas al creador del Mod que los añadieron, sólo si procede.",
 
     // main areas
     "warp-section.main": "Áreas Principales",
@@ -173,7 +173,7 @@
     // forest
     "warp-section.forest": "Bosque",
     "warp.hats": "Sombreros",
-    "warp.mastery-cave": "Cueva de la Maestría", // TODO
+    "warp.mastery-cave": "Cueva de la Maestría",
     "warp.ranch": "Rancho de Marnie",
     "warp.secret-woods": "Bosque Secreto",
     "warp.wizard-tower": "Torre del Mago",
@@ -236,7 +236,7 @@
     "flags.unlocked.room": "Habitación de: {{name}}",
     "flags.unlocked-content": "Contenido Desbloqueado",
     "flags.unlocked-content.dyes-and-tailoring": "Tintes y sastrería",
-    "flags.unlocked-content.junimo-text": "Leer Texto Junimo", // TODO
+    "flags.unlocked-content.junimo-text": "Leer Texto Junimo",
     "flags.unlocked-content.perfection": "Perfection achieved", // TODO
     "flags.community-center": "Centro Cívico",
     "flags.community-center.door-unlocked": "Puerta Abierta",
@@ -260,7 +260,6 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
     "config.open-menu.desc": "La tecla que abre el menú (cuando no hay ningún otro menú abierto).",
     "config.freeze-time.desc": "La tecla que detiene el reloj del juego.",
     "config.grow-tree.desc": "La tecla que hace crecer los árboles alrededor del jugador.",
