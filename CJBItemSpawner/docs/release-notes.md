@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * Updated for Stardew Valley 1.6.9.
+* Added warning if you use the same key to open the item spawner menu and game menu, which won't work correctly.
 * Fixed dried items, pickled forage, smoked fish, and specific bait not shown in menu.
 * Fixed some wallpaper/flooring items shown twice.
 * Improved translations. Thanks to Caranud (updated French), CuongNguyen0903 (added Vietnamese), mitekano23 (updated Japanese), MagoSupremo123 (updated Portuguese), and therealmate (updated Hungarian)!

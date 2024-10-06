@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Buildings;
 using StardewValley.Locations;
@@ -52,7 +55,6 @@ namespace CJB.Common
         /// <param name="drawShadow">Whether to draw a shadow under the tab.</param>
         public static void DrawTab(int x, int y, SpriteFont font, string text, int align = 0, float alpha = 1, bool drawShadow = true)
         {
-            SpriteBatch spriteBatch = Game1.spriteBatch;
             Vector2 bounds = font.MeasureString(text);
 
             CommonHelper.DrawTab(x, y, (int)bounds.X, (int)bounds.Y, out Vector2 drawPos, align, alpha, drawShadow: drawShadow);
@@ -87,6 +89,54 @@ namespace CJB.Common
             innerDrawPosition = new Vector2(x + CommonHelper.ButtonBorderWidth + offsetX, y + CommonHelper.ButtonBorderWidth);
         }
 
+        /****
+        ** Key bindings
+        ****/
+        /// <summary>Get whether a current mod keybind press will trigger a game keybind.</summary>
+        /// <param name="inputHelper">The SMAPI input API.</param>
+        /// <param name="pressedModKeys">The mod's key bind that's currently pressed.</param>
+        /// <param name="boundGameKeys">The game's key bindings to check.</param>
+        /// <param name="conflictingModKey">The conflicting mod key binding.</param>
+        /// <param name="conflictingGameKey">The conflicting game key binding.</param>
+        /// <returns>Returns whether the key bindings conflict.</returns>
+        public static bool WillThisPressConflict(IInputHelper inputHelper, KeybindList pressedModKeys, InputButton[] boundGameKeys, [NotNullWhen(true)] out Keybind? conflictingModKey, out SButton conflictingGameKey)
+        {
+            HashSet<SButton> gameKeys = new(boundGameKeys.Select(p => p.ToSButton()));
+
+            foreach (Keybind keybind in pressedModKeys.Keybinds)
+            {
+                foreach (SButton button in keybind.Buttons)
+                {
+                    if (gameKeys.Contains(button) && inputHelper.IsDown(button))
+                    {
+                        conflictingModKey = keybind;
+                        conflictingGameKey = button;
+                        return true;
+                    }
+                }
+            }
+
+            conflictingModKey = null;
+            conflictingGameKey = SButton.None;
+            return false;
+        }
+
+        /// <summary>Log a warning once if a mod's pressed menu keybind will also trigger the game's "access menu" key, so the mod menu will likely be closed immediately.</summary>
+        /// <param name="inputHelper">The SMAPI input API.</param>
+        /// <param name="monitor">The SMAPI logging API.</param>
+        /// <param name="modKeybind">The mod's key bind that's currently pressed.</param>
+        /// <param name="modMenuName">The name of the mod menu (like "item spawner menu" or "cheats menu") for the logged warning.</param>
+        public static void WarnOnGameMenuKeyConflict(IInputHelper inputHelper, IMonitor monitor, KeybindList modKeybind, string modMenuName)
+        {
+            if (CommonHelper.WillThisPressConflict(inputHelper, modKeybind, Game1.options.menuButton, out Keybind? conflictingModKey, out SButton conflictingGameKey))
+            {
+                string errorPhrase = conflictingModKey.Buttons.Length == 1
+                    ? $"Your {modMenuName} keybind ({conflictingModKey}) matches the game's \"access menu\" key"
+                    : $"Your {modMenuName} keybind ({conflictingModKey}) overlaps the game's \"access menu\" key ({conflictingGameKey})";
+
+                monitor.LogOnce($"{errorPhrase}, which won't work correctly. You should change one of the key binds to avoid that.", LogLevel.Warn);
+            }
+        }
 
         /****
         ** Game helpers

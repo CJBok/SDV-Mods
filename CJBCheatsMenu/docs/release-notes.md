@@ -6,6 +6,7 @@
 * Added support for adding/removing tool enchantments.
 * Added cheat to toggle perfection (thanks to PrimmR!).
 * Added keybind to reload settings from `config.json`.
+* Added warning if you use the same key to open the cheats menu and game menu, which won't work correctly.
 * You can now [make personal edits to the warp list](README.md#personal-warps).
 * You can now set tomorrow's weather to green rain.
 * The time slider can now be set at 10-minute intervals instead of 1-hour intervals.

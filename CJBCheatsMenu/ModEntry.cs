@@ -151,6 +151,7 @@ namespace CJBCheatsMenu
                 else
                 {
                     this.Monitor.Log("Received menu open key.");
+                    CommonHelper.WarnOnGameMenuKeyConflict(this.Helper.Input, this.Monitor, this.Config.OpenMenuKey, "cheats menu");
                     Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Cheats.Value, this.Monitor, isNewMenu: true);
                 }
             }

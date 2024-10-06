@@ -106,6 +106,7 @@ namespace CJBItemSpawner
                 }
 
                 this.Monitor.Log("Received menu open key.");
+                CommonHelper.WarnOnGameMenuKeyConflict(this.Helper.Input, this.Monitor, this.Config.ShowMenuKey, "item spawner menu");
                 Game1.activeClickableMenu = this.BuildMenu();
             }
         }
