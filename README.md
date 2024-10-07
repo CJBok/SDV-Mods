@@ -36,7 +36,7 @@ Spanish      | [↻](CJBCheatsMenu/i18n/es.json) | [↻](CJBItemSpawner/i18n/es.
 [Thai]       | [↻](CJBCheatsMenu/i18n/th.json) | [↻](CJBItemSpawner/i18n/th.json) | [↻](CJBShowItemSellPrice/i18n/th.json)
 Turkish      | [↻](CJBCheatsMenu/i18n/tr.json) | [↻](CJBItemSpawner/i18n/tr.json) | [↻](CJBShowItemSellPrice/i18n/tr.json)
 [Ukrainian]  | [↻](CJBCheatsMenu/i18n/uk.json) | [↻](CJBItemSpawner/i18n/uk.json) | [↻](CJBShowItemSellPrice/i18n/uk.json)
-[Vietnamese] | [❑](CJBCheatsMenu/i18n)         | [✓](CJBItemSpawner/i18n/vi.json) | [❑](CJBShowItemSellPrice/i18n)
+[Vietnamese] | [↻](CJBCheatsMenu/i18n/vi.json) | [✓](CJBItemSpawner/i18n/vi.json) | [❑](CJBShowItemSellPrice/i18n)
 
 [Polish]: https://www.nexusmods.com/stardewvalley/mods/3616
 [Thai]: https://www.nexusmods.com/stardewvalley/mods/7052

@@ -1,0 +1,276 @@
+﻿{
+    /*********
+    ** Main translations
+    *********/
+    // mod name shown in the menu
+    "mod-name": "CJB Cheats Menu",
+
+    // tab names
+    "tabs.player-and-tools": "Người chơi & công cụ",
+    "tabs.farm-and-fishing": "Nông trại & Câu cá",
+    "tabs.skills": "Kĩ năng",
+    "tabs.weather": "Thời tiết",
+    "tabs.relationships": "Mối quan hệ",
+    "tabs.warp": "Dịch chuyển",
+    "tabs.time": "Thời gian",
+    "tabs.advanced": "Mở rộng",
+    "tabs.controls": "Điều khiển",
+
+
+    /*********
+    ** Player & Tools tab
+    *********/
+    // player
+    "player.title": "Người chơi",
+    "player.infinite-stamina": "Vô hạn năng lượng",
+    "player.infinite-health": "Vô hạn HP",
+    "player.instant-cooldowns": "Giảm thời gian hồi chiêu vũ khí",
+    "player.inventory-size": "Tăng diện tích túi đồ",
+    "player.movement-speed": "Tốc độ di chuyển",
+    "player.movement-speed.default": "bình thường",
+    "player.one-hit-kill": "1 phát chết luôn",
+    "player.max-daily-luck": "may mắn tối đa",
+
+    // tools
+    "tools.title": "Công cụ",
+    "tools.infinite-water": "Vô hạn nước tới cây",
+    "tools.one-hit-break": "1 đập bể đá & chặt cây",
+    "tools.harvest-with-scythe": "Thu hoạch bằng lưỡi hái",
+
+    // tool enchantments
+    // TODO
+    "tool-enchantments.title": "Tool Enchantments",
+    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
+    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
+    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+
+    // money
+    "add.money": "Tiền",
+    "add.casino-coins": "Xu Casino",
+    "add.golden-walnuts": "Hạt óc chó vàng",
+    "add.qi-gems": "Đá quý",
+    "add.amount-gold": "Thêm {{amount}}g",
+    "add.amount-other": "Thêm {{amount}}",
+
+
+    /*********
+    ** Farm & Fishing tab
+    *********/
+    // farm
+    "farm.title": "Nông trại",
+    "farm.auto-water": "Tự động tưới nước",
+    "farm.durable-fences": "Hàng rào không bị hỏng",
+    "farm.instant-build": "Xây nhanh",
+    "farm.auto-feed-animals": "Tự động cho vật nuôi ăn",
+    "farm.auto-pet-animals": "Tự động vuốt ve vật nuôi",
+    "farm.auto-pet-pets": "tự động vuốt ve thú cưng",
+    "farm.infinite-hay": "Vô hạn cỏ khô",
+
+    // fishing
+    "fishing.title": "Câu cá",
+    "fishing.instant-catch": "câu được luôn",
+    "fishing.instant-bite": "Cắn câu ngay lập tức",
+    "fishing.always-throw-max-distance": "Tầm quăng cần tối đa",
+    "fishing.always-treasure": "Luôn được rương kho báu",
+    "fishing.durable-tackles": "Phao câu vĩnh cửu",
+
+    // fast machines
+    "fast-machines.title": "Máy hoạt động nhanh hơn",
+    "fast-machines.fruit-trees": "Cây ăn quả",
+    "fast-machines.ready-in-the-morning": "{{machineName}} (Sẵn sàng vào buổi sáng)",
+
+
+    /*********
+    ** Skills tab
+    *********/
+    // skills
+    "skills.title": "Kĩ năng",
+    "skills.increase-farming": "Nâng cấp. Nông trại Lvl: {{currentLevel}}",
+    "skills.increase-mining": "Nâng cấp. Khai khoáng Lvl: {{currentLevel}}",
+    "skills.increase-foraging": "Nâng cấp. Hái lượm Lvl: {{currentLevel}}",
+    "skills.increase-fishing": "Nâng cấp. Câu cá Lvl: {{currentLevel}}",
+    "skills.increase-combat": "Nâng cấp. Chiến đấu Lvl: {{currentLevel}}",
+
+    // professions
+    "professions.title": "Nghề nghiệp",
+    "professions.combat.fighter": "Chiến đấu lvl 5 - Đấu sĩ",
+    "professions.combat.scout": "Chiến đấu lvl 5 - Lính tiên phong",
+    "professions.combat.acrobat": "Chiến đấu lvl 10 - Nhào lộn",
+    "professions.combat.brute": "Chiến đấu lvl 10 - Vũ phu",
+    "professions.combat.defender": "Chiến đấu lvl 10 - Hộ vệ",
+    "professions.combat.desperado": "Chiến đấu lvl 10 - Liều mạng",
+    "professions.farming.rancher": "Nông trại lvl 5 - Quản trại",
+    "professions.farming.tiller": "Nông trại lvl 5 - Thợ cày",
+    "professions.farming.agriculturist": "Nông trại lvl 10 - Nhà nông học",
+    "professions.farming.artisan": "Nông trại lvl 10 - Nghệ nhân",
+    "professions.farming.coopmaster": "Nông trại lvl 10 - Chủ trang trại",
+    "professions.farming.shepherd": "Nông trại lvl 10 - Chăn cừu",
+    "professions.fishing.fisher": "Câu cá lvl 5 - Dân chài",
+    "professions.fishing.trapper": "Câu cá lvl 5 - Thợ bẫy",
+    "professions.fishing.angler": "Câu cá lvl 10 - Thợ câu",
+    "professions.fishing.luremaster": "Câu cá lvl 10 - Bậc thầy mồi chài",
+    "professions.fishing.mariner": "Câu cá lvl 10 - Thủy thủ",
+    "professions.fishing.pirate": "Câu cá lvl 10 - Hải tặc",
+    "professions.foraging.forester": "Hái lượm lvl 5 - Kiểm lâm",
+    "professions.foraging.gatherer": "Hái lượm lvl 5 - Dân hái lượm",
+    "professions.foraging.botanist": "Hái lượm lvl 10 - Dân khai thác",
+    "professions.foraging.lumberjack": "Hái lượm lvl 10 - Nhà thực vật học",
+    "professions.foraging.tapper": "Hái lượm lvl 10 - Thợ rừng",
+    "professions.foraging.tracker": "Hái lượm lvl 10 - Truy dấu",
+    "professions.mining.geologist": "Khai khoáng lvl 5 - Nhà địa chất",
+    "professions.mining.miner": "Khai khoáng lvl 5 - Thợ mỏ",
+    "professions.mining.blacksmith": "Khai khoáng lvl 10 - Thợ rèn",
+    "professions.mining.excavator": "Khai khoáng lvl 10 - Thợ thăm dò",
+    "professions.mining.gemologist": "Khai khoáng lvl 10 - Nghệ nhân đá quý",
+    "professions.mining.prospector": "Khai khoáng lvl 10 - Thợ đào",
+
+
+    /*********
+    ** Weather tab
+    *********/
+    "weather.title": "Thời tiết ngày mai",
+    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
+    "weather.explanation": "Nhấp vào nút bên dưới để đặt thời tiết cho ngày mai (và chỉ ngày mai). Tab này không có tác dụng gì đối với thời tiết.",
+    "weather.sunny": "Nắng",
+    "weather.raining": "Mưa",
+    "weather.lightning": "Mưa kèm sấm sét",
+    "weather.snowing": "Tuyết rơi",
+    "weather.green-rain": "Green Raining", // TODO
+
+
+    /*********
+    ** Relationships tab
+    *********/
+    "relationships.title": "Mối quan hệ",
+    "relationships.give-gifts-anytime": "Tặng quà mọi lúc",
+    "relationships.no-decay": "Tình bạn không bị giảm",
+    "relationships.friends": "Bạn bè",
+
+
+    /*********
+    ** Warps tab
+    *********/
+    "warp.customized-warning": "These warps were edited by your mods. Please report warp issues to the mods which added them if applicable.",
+
+    // main areas
+    "warp-section.main": "nơi muốn dịch chuyển",
+    "warp.farm": "Nông trại",
+    "warp.carpenter": "Cửa hàng của Robin",
+    "warp.desert": "Sa mạc",
+    "warp.mines": "Hầm mỏ",
+    "warp.pierre-shop": "Cửa hàng của Pierre",
+
+    // town
+    "warp-section.town": "Thị trấn",
+    "warp.blacksmith": "Thợ rèn Clint",
+    "warp.community-center": "Nhà văn hóa",
+    "warp.jojamart": "Siêu thị Joja",
+    "warp.movie-theater": "Rạp phim",
+    "warp.museum": "Bảo tàng",
+    "warp.saloon": "Quán rượu",
+    "warp.sewer": "Cống thị trấn",
+
+    // forest
+    "warp-section.forest": "Khu rừng",
+    "warp.hats": "Cửa hàng bán nón",
+    "warp.mastery-cave": "Hang Bậc thầy",
+    "warp.ranch": "Cửa hàng thú nuôi của Marnie",
+    "warp.secret-woods": "Khu rừng bí mật",
+    "warp.wizard-tower": "Tháp phù thủy",
+
+    // mountain
+    "warp-section.mountain": "Núi",
+    "warp.adventurers-guild": "Hội mạo hiểm giả",
+    "warp.bathhouse": "Nhà tắm",
+    "warp.mutant-bug-lair": "Hang ổ bọ đột biến",
+    "warp.quarry": "Khu mỏ",
+    "warp.witch-swamp": "Đầm lầy phù thủy",
+
+    // beach
+    "warp-section.beach": "Bãi biển",
+    "warp.tide-pools": "khu vực bên phải bãi biển",
+    "warp.willy-shop": "Cửa hàng của Willy",
+
+    // island
+    "warp-section.island": "Đảo gừng",
+    "warp.forge": "Máy rèn trên miệng núi lửa",
+    "warp.island-farm": "Nông trại trên đảo",
+    "warp.dwarf-shop": "Cửa hàng núi lửa",
+    "warp.field-office": "Văn phòng khảo cổ",
+    "warp.leo-house": "Nhà của Leo",
+
+    // desert
+    "warp-section.desert": "Sa mạc",
+    "warp.casino": "Sòng bạc Casino",
+    "warp.sandy-shop": "Cửa hàng của Sandy",
+    "warp.skull-cavern": "Hang đầu lâu",
+
+
+    /*********
+    ** Time tab
+    *********/
+    // time
+    "time.title": "Thời gian",
+    "time.freeze-inside": "Đóng băng thời gian trong nhà",
+    "time.freeze-caves": "Đóng băng thời gian chỉ trong hang động",
+    "time.freeze-everywhere": "Đóng băng thời gian mọi nơi",
+    "time.time": "Thời gian",
+    "time.time-frozen-message": "Đóng băng thời gian",
+
+    // date
+    "date.title": "Chu kì ngày",
+    "date.warning": "Một số thứ sẽ không cập nhật cho đến khi một đêm trôi qua.",
+    "date.year": "Năm",
+    "date.season": "Mùa",
+    "date.day": "Ngày",
+
+
+    /*********
+    ** Advanced tab
+    *********/
+    "flags.warning": "Sử dụng phần này có nguy cơ gây ra rủi ro! Điều này có thể gây ra các vấn đề như bỏ lỡ thư, sự kiện hoặc nhiệm vụ.",
+    "flags.quests": "Hoàn thành nhiệm vụ",
+    "flags.wallet": "Túi vật phẩm",
+    "flags.unlocked": "Mở khóa khu vực",
+    "flags.unlocked.guild": "Hội mạo hiểm giả",
+    "flags.unlocked.room": "Phòng: {{name}}",
+    "flags.unlocked-content": "Mở khóa vật phẩm",
+    "flags.unlocked-content.dyes-and-tailoring": "Thuốc nhuộm & may đồ",
+    "flags.unlocked-content.junimo-text": "Có thể đọc được chữ của Junimo",
+    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
+    "flags.community-center": "Nhà văn hóa",
+    "flags.community-center.door-unlocked": "Mở khóa cửa",
+    "flags.jojamart.membership": "Thành viên của siêu thị Joja",
+
+
+    /*********
+    ** Controls tab
+    *********/
+    "controls.title": "Điều khiển",
+    "controls.android-config-note": "Bạn có thể thay đổi các nút hiển thị trên màn hình trong các tệp cấu hình của mod CJB Cheats Menu và mod Virtual Keyboard.",
+    "controls.open-menu": "Mở menu",
+    "controls.freeze-time": "Đóng băng thời gian",
+    "controls.grow-tree": "Cây ăn quả & cây lấy gỗ trưởng thành ngay lập tức",
+    "controls.grow-crops": "Công nông sản trưởng thành ngay lập tức",
+    "controls.grow-radius": "Khoảng cách tăng trưởng cây trồng",
+    "controls.reset-controls": "Cài lại",
+    "controls.press-new-key": "Chọn phím mới...",
+
+
+    /*********
+    ** Generic Mod Config Menu UI
+    *********/
+    "config.open-menu.desc": "Phím tắt mở menu (khi không có menu nào khác đang mở).",
+    "config.freeze-time.desc": "Phím tắt đóng băng đồng hồ trò chơi.",
+    "config.grow-tree.desc": "Phím tắt để phát triển cây xung quanh người chơi.",
+    "config.grow-crops.desc": "Phím tắt để phát triển cây trồng xung quanh người chơi.",
+
+    // TODO
+    "controls.reload-config": "Reload settings from file",
+    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+
+    "config.title.other-options": "Các tùy chọn khác",
+    "config.default-tab.name": "Tab mặc định",
+    "config.default-tab.desc": "Tab được hiển thị mặc định khi bạn mở menu.",
+    "config.other-options": "Để cấu hình Cheats Menu, hãy nhấn phím 'mở menu' được hiển thị ở trên trong trò chơi. Hãy chắc chắn nhấn sau khi tải bản lưu, khi không có menu hoặc hộp thoại nào khác đang mở."
+}

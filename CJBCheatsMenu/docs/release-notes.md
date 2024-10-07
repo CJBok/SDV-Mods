@@ -16,7 +16,7 @@
 * Fixed unknown weathers shown as blank in the weather tab; it'll now show the weather ID instead.
 * Fixed 'time frozen' message overlapping casino club coin display.
 * Tweaked weather tab's current-value format for clarity.
-* Improved translations. Thanks to BernieAteUsername (updated Chinese), CaranudLapin (updated French), Juanpa98ar (updated Spanish), mitekano23 (updated Japanese), and MagoSupremo123 (updated Portuguese)!
+* Improved translations. Thanks to BernieAteUsername (updated Chinese), CaranudLapin (updated French), CuongNguyen0903 (added Vietnamese), Juanpa98ar (updated Spanish), mitekano23 (updated Japanese), and MagoSupremo123 (updated Portuguese)!
 
 ## 1.36.2
 Released 15 April 2024 for SMAPI 4.0.0 or later.
