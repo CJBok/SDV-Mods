@@ -84,9 +84,7 @@ namespace CJBCheatsMenu.Framework.Components
             this.ClearToButton = clearToButton;
         }
 
-        /// <summary>Handle the player clicking the left mouse button.</summary>
-        /// <param name="x">The cursor's X pixel position.</param>
-        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <inheritdoc />
         public override void receiveLeftClick(int x, int y)
         {
             if (this.greyedOut || this.IsListening || !this.SetButtonBounds.Contains(x, y) || Constants.TargetPlatform == GamePlatform.Android)
@@ -119,11 +117,7 @@ namespace CJBCheatsMenu.Framework.Components
             GameMenu.forcePreventClose = false;
         }
 
-        /// <summary>Draw the component to the screen.</summary>
-        /// <param name="spriteBatch">The sprite batch being drawn.</param>
-        /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
-        /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
-        /// <param name="context">The menu drawing the component.</param>
+        /// <inheritdoc />
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu? context = null)
         {
             Utility.drawTextWithShadow(spriteBatch, $"{this.label}: {this.Value}", Game1.dialogueFont, new Vector2(this.bounds.X + slotX, this.bounds.Y + slotY), this.greyedOut ? Game1.textColor * 0.33f : Game1.textColor, 1f, 0.15f);

@@ -37,8 +37,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /*********
         ** Public methods
         *********/
-        /// <summary>Get the config UI fields to show in the cheats menu.</summary>
-        /// <param name="context">The cheat context.</param>
+        /// <inheritdoc />
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             return new[]
@@ -49,11 +48,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
             };
         }
 
-        /// <summary>Handle the cheat options being loaded or changed.</summary>
-        /// <param name="context">The cheat context.</param>
-        /// <param name="needsUpdate">Whether the cheat should be notified of game updates.</param>
-        /// <param name="needsInput">Whether the cheat should be notified of button presses.</param>
-        /// <param name="needsRendering">Whether the cheat should be notified of render ticks.</param>
+        /// <inheritdoc />
         public override void OnConfig(CheatContext context, out bool needsInput, out bool needsUpdate, out bool needsRendering)
         {
             needsInput = context.Config.FreezeTimeKey.IsBound;
@@ -61,9 +56,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
             needsRendering = needsUpdate;
         }
 
-        /// <summary>Handle the player pressing or releasing any buttons if <see cref="ICheat.OnSaveLoaded"/> indicated input was needed.</summary>
-        /// <param name="context">The cheat context.</param>
-        /// <param name="e">The input event arguments.</param>
+        /// <inheritdoc />
         public override void OnButtonsChanged(CheatContext context, ButtonsChangedEventArgs e)
         {
             ModConfig config = context.Config;
@@ -76,9 +69,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
             }
         }
 
-        /// <summary>Handle a game update if <see cref="ICheat.OnSaveLoaded"/> indicated updates were needed.</summary>
-        /// <param name="context">The cheat context.</param>
-        /// <param name="e">The update event arguments.</param>
+        /// <inheritdoc />
         public override void OnUpdated(CheatContext context, UpdateTickedEventArgs e)
         {
             if (!Context.IsWorldReady)
@@ -103,9 +94,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
             }
         }
 
-        /// <summary>Handle the game draws to the sprite patch in a draw tick, just before the final sprite batch is rendered to the screen.</summary>
-        /// <param name="context">The cheat context.</param>
-        /// <param name="spriteBatch">The sprite batch being drawn.</param>
+        /// <inheritdoc />
         public override void OnRendered(CheatContext context, SpriteBatch spriteBatch)
         {
             if ((this.FrozenMessageTime > 0 || this.FrozenMessageAlpha > 0) && this.ShouldFreezeTime(context.Config, Game1.currentLocation, out bool isCave))

@@ -12,8 +12,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Time
         /*********
         ** Public methods
         *********/
-        /// <summary>Get the config UI fields to show in the cheats menu.</summary>
-        /// <param name="context">The cheat context.</param>
+        /// <inheritdoc />
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             int ToValue(int time) => Utility.ConvertTimeToMinutes(time) / 10;

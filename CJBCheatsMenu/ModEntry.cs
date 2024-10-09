@@ -36,8 +36,7 @@ namespace CJBCheatsMenu
         /*********
         ** Public methods
         *********/
-        /// <summary>The mod entry point, called after the mod is first loaded.</summary>
-        /// <param name="helper">Provides simplified APIs for writing mods.</param>
+        /// <inheritdoc />
         public override void Entry(IModHelper helper)
         {
             CommonHelper.RemoveObsoleteFiles(this, "CJBCheatsMenu.pdb");
@@ -68,7 +67,7 @@ namespace CJBCheatsMenu
             helper.Events.GameLoop.Saving += this.OnSaving;
             helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
 
-            helper.Events.Input.ButtonsChanged += this.OnButtonChanged;
+            helper.Events.Input.ButtonsChanged += this.OnButtonsChanged;
 
             helper.Events.World.LocationListChanged += this.OnLocationListChanged;
         }
@@ -77,9 +76,7 @@ namespace CJBCheatsMenu
         /*********
         ** Private methods
         *********/
-        /// <summary>Raised after the game is launched, right before the first update tick. This happens once per game session (unrelated to loading saves). All mods are loaded and initialised at this point, so this is a good time to set up mod integrations.</summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event arguments.</param>
+        /// <inheritdoc cref="IGameLoopEvents.GameLaunched" />
         private void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
         {
             var configMenu = new GenericModConfigMenuIntegration(
@@ -91,35 +88,27 @@ namespace CJBCheatsMenu
             configMenu.Register();
         }
 
-        /// <summary>Raised after the player loads a save slot.</summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event arguments.</param>
+        /// <inheritdoc cref="IGameLoopEvents.SaveLoaded" />
         private void OnSaveLoaded(object? sender, SaveLoadedEventArgs e)
         {
             this.ResetLocationCache();
             this.Cheats.Value.OnSaveLoaded();
         }
 
-        /// <summary>Raised after the player returns to the title screen.</summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event arguments.</param>
+        /// <inheritdoc cref="IGameLoopEvents.ReturnedToTitle" />
         private void OnReturnedToTitle(object? sender, ReturnedToTitleEventArgs e)
         {
             this.ResetLocationCache();
         }
 
-        /// <summary>Raised after a game location is added or removed.</summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event arguments.</param>
+        /// <inheritdoc cref="IWorldEvents.LocationListChanged" />
         private void OnLocationListChanged(object? sender, LocationListChangedEventArgs e)
         {
             this.ResetLocationCache();
         }
 
-        /// <summary>Raised after the player presses or releases any keys on the keyboard, controller, or mouse.</summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event arguments.</param>
-        private void OnButtonChanged(object? sender, ButtonsChangedEventArgs e)
+        /// <inheritdoc cref="IInputEvents.ButtonsChanged" />
+        private void OnButtonsChanged(object? sender, ButtonsChangedEventArgs e)
         {
             // reload config
             if (this.Config.ReloadConfigKey.JustPressed())
@@ -162,8 +151,6 @@ namespace CJBCheatsMenu
         }
 
         /// <inheritdoc cref="IContentEvents.AssetRequested"/>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event arguments.</param>
         private void OnAssetRequested(object? sender, AssetRequestedEventArgs e)
         {
             // apply cheats
@@ -174,9 +161,7 @@ namespace CJBCheatsMenu
             this.WarpContentLoader.OnAssetRequested(e);
         }
 
-        /// <summary>Raised after the game draws to the sprite patch in a draw tick, just before the final sprite batch is rendered to the screen.</summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event arguments.</param>
+        /// <inheritdoc cref="IDisplayEvents.Rendered"/>
         private void OnRendered(object? sender, RenderedEventArgs e)
         {
             if (!Context.IsWorldReady)
@@ -185,9 +170,7 @@ namespace CJBCheatsMenu
             this.Cheats.Value.OnRendered();
         }
 
-        /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event arguments.</param>
+        /// <inheritdoc cref="IGameLoopEvents.UpdateTicked"/>
         private void OnUpdateTicked(object? sender, UpdateTickedEventArgs e)
         {
             if (!Context.IsWorldReady)
@@ -197,16 +180,12 @@ namespace CJBCheatsMenu
         }
 
         /// <inheritdoc cref="IGameLoopEvents.Saving"/>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event arguments.</param>
         private void OnSaving(object? sender, SavingEventArgs e)
         {
             this.Cheats.Value.OnSaving();
         }
 
-        /// <summary>Raised after a game menu is opened, closed, or replaced.</summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event arguments.</param>
+        /// <inheritdoc cref="IDisplayEvents.MenuChanged"/>
         private void OnMenuChanged(object? sender, MenuChangedEventArgs e)
         {
             // save config

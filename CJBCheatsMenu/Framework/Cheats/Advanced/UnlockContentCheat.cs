@@ -11,8 +11,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Advanced
         /*********
         ** Public methods
         *********/
-        /// <summary>Get the config UI fields to show in the cheats menu.</summary>
-        /// <param name="context">The cheat context.</param>
+        /// <inheritdoc />
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(

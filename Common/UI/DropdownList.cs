@@ -178,9 +178,7 @@ namespace CJB.Common.UI
             return true;
         }
 
-        /// <summary>Get whether the dropdown list contains the given UI pixel position.</summary>
-        /// <param name="x">The UI X position.</param>
-        /// <param name="y">The UI Y position.</param>
+        /// <inheritdoc />
         public override bool containsPoint(int x, int y)
         {
             return

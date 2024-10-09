@@ -55,9 +55,7 @@ namespace CJBCheatsMenu.Framework.Components
             this.MaxValue = maxValue;
         }
 
-        /// <summary>Handle the player holding the left mouse button.</summary>
-        /// <param name="x">The cursor's X pixel position.</param>
-        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <inheritdoc />
         public override void leftClickHeld(int x, int y)
         {
             base.leftClickHeld(x, y);
@@ -70,9 +68,7 @@ namespace CJBCheatsMenu.Framework.Components
             this.SetValue(this.Value);
         }
 
-        /// <summary>Handle the player clicking the left mouse button.</summary>
-        /// <param name="x">The cursor's X pixel position.</param>
-        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <inheritdoc />
         public override void receiveLeftClick(int x, int y)
         {
             if (this.greyedOut)
@@ -84,9 +80,7 @@ namespace CJBCheatsMenu.Framework.Components
             Game1.playSound("breathin");
         }
 
-        /// <summary>Handle the player releasing the left mouse button.</summary>
-        /// <param name="x">The cursor's X pixel position.</param>
-        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <inheritdoc />
         public override void leftClickReleased(int x, int y)
         {
             base.leftClickReleased(x, y);
@@ -94,11 +88,7 @@ namespace CJBCheatsMenu.Framework.Components
             Game1.playSound("drumkit6");
         }
 
-        /// <summary>Draw the component to the screen.</summary>
-        /// <param name="spriteBatch">The sprite batch being drawn.</param>
-        /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
-        /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
-        /// <param name="context">The menu drawing the component.</param>
+        /// <inheritdoc />
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu? context = null)
         {
             base.draw(spriteBatch, slotX + this.GetOffsetX(), slotY, context);

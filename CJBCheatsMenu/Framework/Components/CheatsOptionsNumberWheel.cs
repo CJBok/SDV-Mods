@@ -67,9 +67,7 @@ namespace CJBCheatsMenu.Framework.Components
             this.UpdateLayout();
         }
 
-        /// <summary>Handle the player clicking the left mouse button.</summary>
-        /// <param name="x">The cursor's X pixel position.</param>
-        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <inheritdoc />
         public override void receiveLeftClick(int x, int y)
         {
             base.receiveLeftClick(x, y);
@@ -95,11 +93,7 @@ namespace CJBCheatsMenu.Framework.Components
         /*********
         ** Protected methods
         *********/
-        /// <summary>Draw the component to the screen.</summary>
-        /// <param name="spriteBatch">The sprite batch being drawn.</param>
-        /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
-        /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
-        /// <param name="context">The menu drawing the component.</param>
+        /// <inheritdoc />
         protected override void DrawElement(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu? context = null)
         {
             int x = this.bounds.X + slotX;

@@ -47,9 +47,7 @@ namespace CJBCheatsMenu.Framework.Components
         public CheatsOptionsButton(string label, int slotWidth, Action toggle, bool disabled = false)
             : this(label, slotWidth, _ => toggle(), disabled) { }
 
-        /// <summary>Handle the player clicking the left mouse button.</summary>
-        /// <param name="x">The cursor's X pixel position.</param>
-        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <inheritdoc />
         public override void receiveLeftClick(int x, int y)
         {
             if (this.greyedOut || !this.SetButtonBounds.Contains(x, y))
@@ -59,11 +57,7 @@ namespace CJBCheatsMenu.Framework.Components
             this.Toggle((TButton)this);
         }
 
-        /// <summary>Draw the component to the screen.</summary>
-        /// <param name="spriteBatch">The sprite batch being drawn.</param>
-        /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
-        /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
-        /// <param name="context">The menu drawing the component.</param>
+        /// <inheritdoc />
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu? context = null)
         {
             this.DrawElement(spriteBatch, slotX, slotY, context);

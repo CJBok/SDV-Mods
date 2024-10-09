@@ -91,23 +91,19 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
-        /// <summary>Whether controller-style menus should be disabled for this menu.</summary>
+        /// <inheritdoc />
         public override bool overrideSnappyMenuCursorMovementBan()
         {
             return true;
         }
 
-        /// <summary>Handle the game window being resized.</summary>
-        /// <param name="oldBounds">The previous window bounds.</param>
-        /// <param name="newBounds">The new window bounds.</param>
+        /// <inheritdoc />
         public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)
         {
             this.ResetComponents();
         }
 
-        /// <summary>Handle the player holding the left mouse button.</summary>
-        /// <param name="x">The cursor's X pixel position.</param>
-        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <inheritdoc />
         public override void leftClickHeld(int x, int y)
         {
             if (GameMenu.forcePreventClose)
@@ -131,8 +127,7 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
-        /// <summary>Handle the player pressing a keyboard button.</summary>
-        /// <param name="key">The key that was pressed.</param>
+        /// <inheritdoc />
         public override void receiveKeyPress(Keys key)
         {
             // exit menu
@@ -144,18 +139,17 @@ namespace CJBCheatsMenu.Framework
                 this.GetActiveOption()?.receiveKeyPress(key);
         }
 
-        /// <summary>Handle the player pressing a controller button.</summary>
-        /// <param name="key">The key that was pressed.</param>
-        public override void receiveGamePadButton(Buttons key)
+        /// <inheritdoc />
+        public override void receiveGamePadButton(Buttons button)
         {
             // navigate tabs
-            if (key is (Buttons.LeftShoulder or Buttons.RightShoulder) && !this.IsPressNewKeyActive())
+            if (button is (Buttons.LeftShoulder or Buttons.RightShoulder) && !this.IsPressNewKeyActive())
             {
                 // rotate tab index
                 int index = this.Tabs.FindIndex(p => p.name == this.CurrentTab.ToString());
-                if (key == Buttons.LeftShoulder)
+                if (button == Buttons.LeftShoulder)
                     index--;
-                if (key == Buttons.RightShoulder)
+                if (button == Buttons.RightShoulder)
                     index++;
 
                 if (index >= this.Tabs.Count)
@@ -169,11 +163,10 @@ namespace CJBCheatsMenu.Framework
             }
 
             // send to active menu
-            (this.GetActiveOption() as BaseOptionsElement)?.ReceiveButtonPress(key.ToSButton());
+            (this.GetActiveOption() as BaseOptionsElement)?.ReceiveButtonPress(button.ToSButton());
         }
 
-        /// <summary>Handle the player scrolling the mouse wheel.</summary>
-        /// <param name="direction">The scroll direction.</param>
+        /// <inheritdoc />
         public override void receiveScrollWheelAction(int direction)
         {
             if (GameMenu.forcePreventClose)
@@ -189,9 +182,7 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
-        /// <summary>Handle the player releasing the left mouse button.</summary>
-        /// <param name="x">The cursor's X pixel position.</param>
-        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <inheritdoc />
         public override void releaseLeftClick(int x, int y)
         {
             if (GameMenu.forcePreventClose)
@@ -203,10 +194,7 @@ namespace CJBCheatsMenu.Framework
             this.IsScrolling = false;
         }
 
-        /// <summary>Handle the player clicking the left mouse button.</summary>
-        /// <param name="x">The cursor's X pixel position.</param>
-        /// <param name="y">The cursor's Y pixel position.</param>
-        /// <param name="playSound">Whether to play a sound if needed.</param>
+        /// <inheritdoc />
         public override void receiveLeftClick(int x, int y, bool playSound = true)
         {
             if (GameMenu.forcePreventClose)
@@ -253,9 +241,7 @@ namespace CJBCheatsMenu.Framework
             }
         }
 
-        /// <summary>Handle the player hovering the cursor over the menu.</summary>
-        /// <param name="x">The cursor's X pixel position.</param>
-        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <inheritdoc />
         public override void performHoverAction(int x, int y)
         {
             if (GameMenu.forcePreventClose)
@@ -266,25 +252,24 @@ namespace CJBCheatsMenu.Framework
             this.Scrollbar.tryHover(x, y);
         }
 
-        /// <summary>Draw the menu to the screen.</summary>
-        /// <param name="spriteBatch">The sprite batch being drawn.</param>
-        public override void draw(SpriteBatch spriteBatch)
+        /// <inheritdoc />
+        public override void draw(SpriteBatch b)
         {
             if (!Game1.options.showMenuBackground)
-                spriteBatch.Draw(Game1.fadeToBlackRect, Game1.graphics.GraphicsDevice.Viewport.Bounds, Color.Black * 0.4f);
-            base.draw(spriteBatch);
+                b.Draw(Game1.fadeToBlackRect, Game1.graphics.GraphicsDevice.Viewport.Bounds, Color.Black * 0.4f);
+            base.draw(b);
 
             Game1.drawDialogueBox(this.xPositionOnScreen, this.yPositionOnScreen, this.width, this.height, false, true);
             CommonHelper.DrawTab(this.Title.bounds.X, this.Title.bounds.Y, Game1.dialogueFont, this.Title.name, 1);
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
+            b.End();
+            b.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp);
             for (int index = 0; index < this.OptionSlots.Count; ++index)
             {
                 if (this.CurrentItemIndex >= 0 && this.CurrentItemIndex + index < this.Options.Count)
-                    this.Options[this.CurrentItemIndex + index].draw(spriteBatch, this.OptionSlots[index].bounds.X, this.OptionSlots[index].bounds.Y + 5);
+                    this.Options[this.CurrentItemIndex + index].draw(b, this.OptionSlots[index].bounds.X, this.OptionSlots[index].bounds.Y + 5);
             }
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
+            b.End();
+            b.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
             if (!GameMenu.forcePreventClose)
             {
                 foreach (ClickableComponent tab in this.Tabs)
@@ -293,19 +278,19 @@ namespace CJBCheatsMenu.Framework
                     CommonHelper.DrawTab(tab.bounds.X + tab.bounds.Width, tab.bounds.Y, Game1.smallFont, tab.label, 2, this.CurrentTab == tabID ? 1F : 0.7F);
                 }
 
-                this.UpArrow.draw(spriteBatch);
-                this.DownArrow.draw(spriteBatch);
+                this.UpArrow.draw(b);
+                this.DownArrow.draw(b);
                 if (this.Options.Count > CheatsMenu.ItemsPerPage)
                 {
-                    IClickableMenu.drawTextureBox(spriteBatch, Game1.mouseCursors, new Rectangle(403, 383, 6, 6), this.ScrollbarRunner.X, this.ScrollbarRunner.Y, this.ScrollbarRunner.Width, this.ScrollbarRunner.Height, Color.White, Game1.pixelZoom, false);
-                    this.Scrollbar.draw(spriteBatch);
+                    IClickableMenu.drawTextureBox(b, Game1.mouseCursors, new Rectangle(403, 383, 6, 6), this.ScrollbarRunner.X, this.ScrollbarRunner.Y, this.ScrollbarRunner.Width, this.ScrollbarRunner.Height, Color.White, Game1.pixelZoom, false);
+                    this.Scrollbar.draw(b);
                 }
             }
             if (this.HoverText != "")
-                IClickableMenu.drawHoverText(spriteBatch, this.HoverText, Game1.smallFont);
+                IClickableMenu.drawHoverText(b, this.HoverText, Game1.smallFont);
 
             if (!Game1.options.hardwareCursor && !this.IsAndroid)
-                spriteBatch.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, Game1.options.gamepadControls ? 44 : 0, 16, 16), Color.White, 0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
+                b.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, Game1.options.gamepadControls ? 44 : 0, 16, 16), Color.White, 0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
 
             // reinitialize the UI to fix Android pinch-zoom scaling issues
             if (this.JustOpened)

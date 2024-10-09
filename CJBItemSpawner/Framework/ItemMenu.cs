@@ -207,11 +207,7 @@ namespace CJBItemSpawner.Framework
             this.ResetItemView(rebuild: true);
         }
 
-        /// <summary>Handle a left-click by the player.</summary>
-        /// <param name="x">The X-position of the cursor.</param>
-        /// <param name="y">The Y-position of the cursor.</param>
-        /// <param name="playSound">Whether to play interaction sounds.</param>
-        /// <returns>Whether the event has been handled and shouldn't be propagated further.</returns>
+        /// <inheritdoc />
         public override void receiveLeftClick(int x, int y, bool playSound = true)
         {
             // allow trashing any item
@@ -268,10 +264,7 @@ namespace CJBItemSpawner.Framework
             }
         }
 
-        /// <summary>Handle a right-click by the player.</summary>
-        /// <param name="x">The X-position of the cursor.</param>
-        /// <param name="y">The Y-position of the cursor.</param>
-        /// <param name="playSound">Whether to play interaction sounds.</param>
+        /// <inheritdoc />
         public override void receiveRightClick(int x, int y, bool playSound = true)
         {
             // clear search box
@@ -287,8 +280,7 @@ namespace CJBItemSpawner.Framework
                 base.receiveRightClick(x, y, playSound);
         }
 
-        /// <summary>Handle a button press by the player.</summary>
-        /// <param name="key">The button that was pressed.</param>
+        /// <inheritdoc />
         public override void receiveKeyPress(Keys key)
         {
             bool inDropdown = this.CategoryDropdown.IsExpanded;
@@ -340,8 +332,7 @@ namespace CJBItemSpawner.Framework
             }
         }
 
-        /// <summary>Handle a controller button press by the player.</summary>
-        /// <param name="button">The button that was pressed.</param>
+        /// <inheritdoc />
         public override void receiveGamePadButton(Buttons button)
         {
             bool isExitKey = button is Buttons.B or Buttons.Y or Buttons.Start;
@@ -369,8 +360,7 @@ namespace CJBItemSpawner.Framework
                 base.receiveGamePadButton(button);
         }
 
-        /// <summary>Handle the player scrolling the mouse wheel.</summary>
-        /// <param name="direction">The scroll direction.</param>
+        /// <inheritdoc />
         public override void receiveScrollWheelAction(int direction)
         {
             base.receiveScrollWheelAction(direction);
@@ -384,9 +374,7 @@ namespace CJBItemSpawner.Framework
                 this.ScrollView(-direction); // higher scroll value = scroll down
         }
 
-        /// <summary>Handle the player hovering the cursor over the menu.</summary>
-        /// <param name="x">The cursor's X pixel position.</param>
-        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <inheritdoc />
         public override void performHoverAction(int x, int y)
         {
             // handle search box selected
@@ -406,8 +394,7 @@ namespace CJBItemSpawner.Framework
             base.performHoverAction(x, y);
         }
 
-        /// <summary>Update the menu if needed.</summary>
-        /// <param name="time">The current game time.</param>
+        /// <inheritdoc />
         public override void update(GameTime time)
         {
             // deselect textbox when text entry closes
@@ -442,8 +429,7 @@ namespace CJBItemSpawner.Framework
             base.update(time);
         }
 
-        /// <summary>Draw the menu to the screen.</summary>
-        /// <param name="spriteBatch">The sprite batch being drawn.</param>
+        /// <inheritdoc />
         public override void draw(SpriteBatch spriteBatch)
         {
             // draw background overlay

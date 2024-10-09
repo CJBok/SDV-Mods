@@ -67,9 +67,7 @@ namespace CJBCheatsMenu.Framework.Components
             this.ValuePosition = this.GetRangePosition();
         }
 
-        /// <summary>Handle the player holding the left mouse button.</summary>
-        /// <param name="x">The cursor's X pixel position.</param>
-        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <inheritdoc />
         public override void leftClickHeld(int x, int y)
         {
             if (this.greyedOut)
@@ -81,9 +79,7 @@ namespace CJBCheatsMenu.Framework.Components
             this.Value = CommonHelper.GetValueAtPosition(this.ValuePosition, this.MinValue, this.MaxValue);
         }
 
-        /// <summary>Handle the player clicking the left mouse button.</summary>
-        /// <param name="x">The cursor's X pixel position.</param>
-        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <inheritdoc />
         public override void receiveLeftClick(int x, int y)
         {
             if (this.greyedOut)
@@ -95,9 +91,7 @@ namespace CJBCheatsMenu.Framework.Components
             Game1.playSound("breathin");
         }
 
-        /// <summary>Handle the player releasing the left mouse button.</summary>
-        /// <param name="x">The cursor's X pixel position.</param>
-        /// <param name="y">The cursor's Y pixel position.</param>
+        /// <inheritdoc />
         public override void leftClickReleased(int x, int y)
         {
             this.ValuePosition = this.GetRangePosition(); // snap to value position
@@ -106,11 +100,7 @@ namespace CJBCheatsMenu.Framework.Components
             Game1.playSound("drumkit6");
         }
 
-        /// <summary>Draw the component to the screen.</summary>
-        /// <param name="spriteBatch">The sprite batch being drawn.</param>
-        /// <param name="slotX">The X position at which to draw, relative to the bounds.</param>
-        /// <param name="slotY">The Y position at which to draw, relative to the bounds.</param>
-        /// <param name="context">The menu drawing the component.</param>
+        /// <inheritdoc />
         public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu? context = null)
         {
             this.label = $"{this.Label}: {this.Format(this.Value)}";

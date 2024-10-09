@@ -22,8 +22,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Relationships
         /*********
         ** Public methods
         *********/
-        /// <summary>Get the config UI fields to show in the cheats menu.</summary>
-        /// <param name="context">The cheat context.</param>
+        /// <inheritdoc />
         public override IEnumerable<OptionsElement> GetFields(CheatContext context)
         {
             yield return new CheatsOptionsCheckbox(
@@ -33,11 +32,7 @@ namespace CJBCheatsMenu.Framework.Cheats.Relationships
             );
         }
 
-        /// <summary>Handle the cheat options being loaded or changed.</summary>
-        /// <param name="context">The cheat context.</param>
-        /// <param name="needsUpdate">Whether the cheat should be notified of game updates.</param>
-        /// <param name="needsInput">Whether the cheat should be notified of button presses.</param>
-        /// <param name="needsRendering">Whether the cheat should be notified of render ticks.</param>
+        /// <inheritdoc />
         public override void OnConfig(CheatContext context, out bool needsInput, out bool needsUpdate, out bool needsRendering)
         {
             needsInput = false;
@@ -45,24 +40,20 @@ namespace CJBCheatsMenu.Framework.Cheats.Relationships
             needsRendering = false;
         }
 
-        /// <summary>Handle the player loading a save file.</summary>
-        /// <param name="context">The cheat context.</param>
+        /// <inheritdoc />
         public override void OnSaveLoaded(CheatContext context)
         {
             this.PreviousFriendships.Clear();
         }
 
-        /// <summary>Handle a game update if <see cref="ICheat.OnSaveLoaded"/> indicated updates were needed.</summary>
-        /// <param name="context">The cheat context.</param>
-        /// <param name="e">The update event arguments.</param>
+        /// <inheritdoc />
         public override void OnUpdated(CheatContext context, UpdateTickedEventArgs e)
         {
             if (e.IsOneSecond && Context.IsWorldReady)
                 this.ResetDecay();
         }
 
-        /// <summary>Raised before the game begins writing data to the save file (except the initial save creation).</summary>
-        /// <param name="context">The cheat context.</param>
+        /// <inheritdoc />
         public override void OnSaving(CheatContext context)
         {
             this.ResetDecay();

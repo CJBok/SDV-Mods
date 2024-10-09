@@ -51,8 +51,7 @@ namespace CJBShowItemSellPrice
         /*********
         ** Public methods
         *********/
-        /// <summary>The mod entry point, called after the mod is first loaded.</summary>
-        /// <param name="helper">Provides simplified APIs for writing mods.</param>
+        /// <inheritdoc />
         public override void Entry(IModHelper helper)
         {
             CommonHelper.RemoveObsoleteFiles(this, "CJBShowItemSellPrice.pdb");
@@ -89,8 +88,6 @@ namespace CJBShowItemSellPrice
         ** Private methods
         *********/
         /// <inheritdoc cref="IGameLoopEvents.GameLaunched"/>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event arguments.</param>
         private void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
         {
             var configMenu = new GenericModConfigMenuIntegration(
@@ -103,8 +100,6 @@ namespace CJBShowItemSellPrice
         }
 
         /// <inheritdoc cref="IGameLoopEvents.UpdateTicked"/>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event arguments.</param>
         private void OnUpdateTicked(object? sender, UpdateTickedEventArgs e)
         {
             // cache the toolbar & slots
@@ -126,8 +121,6 @@ namespace CJBShowItemSellPrice
         }
 
         /// <inheritdoc cref="IDisplayEvents.RenderedActiveMenu"/>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event arguments.</param>
         private void OnRenderedActiveMenu(object? sender, RenderedActiveMenuEventArgs e)
         {
             // get item
@@ -140,8 +133,6 @@ namespace CJBShowItemSellPrice
         }
 
         /// <inheritdoc cref="IDisplayEvents.RenderedHud"/>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event arguments.</param>
         private void OnRenderedHud(object? sender, EventArgs e)
         {
             if (!Context.IsPlayerFree)
