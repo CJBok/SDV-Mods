@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
 using StardewModdingAPI.Events;
 using StardewValley;
+using StardewValley.Constants;
 using StardewValley.Menus;
 using StardewValley.Tools;
 
@@ -34,8 +35,11 @@ namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing
         /// <inheritdoc />
         public override void OnUpdated(CheatContext context, UpdateTickedEventArgs e)
         {
-            if (Game1.player?.CurrentTool is FishingRod && Game1.activeClickableMenu is BobberBar bobberMenu)
-                context.Reflection.GetField<bool>(bobberMenu, "treasure").SetValue(true);
+            if (Game1.player?.CurrentTool is FishingRod && Game1.activeClickableMenu is BobberBar { treasure: false } bobberMenu)
+            {
+                bobberMenu.treasure = true;
+                bobberMenu.goldenTreasure = Game1.player.stats.Get(StatKeys.Mastery(Farmer.fishingSkill)) > 0 && Game1.random.NextDouble() < .25 + Game1.player.team.AverageDailyLuck();
+            }
         }
     }
 }
