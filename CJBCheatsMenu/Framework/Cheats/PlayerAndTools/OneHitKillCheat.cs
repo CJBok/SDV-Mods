@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using CJBCheatsMenu.Framework.Components;
+using Netcode;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -39,17 +39,14 @@ namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
             if (!Context.IsWorldReady)
                 return;
 
-            IEnumerable<Monster>? monsters = Game1.currentLocation?.characters?.OfType<Monster>();
-            if (monsters != null) // some custom locations can have null characters list
+            NetCollection<NPC>? characters = Game1.currentLocation?.characters;
+            if (characters is null)
+                return; // some custom locations can have null characters list
+
+            foreach (NPC character in characters)
             {
-                foreach (Monster monster in monsters)
-                {
-                    if (monster.Health > 1)
-                    {
-                        monster.Health = 1;
-                        monster.MaxHealth = 1;
-                    }
-                }
+                if (character is Monster { Health: > 1 } monster)
+                    monster.Health = 1;
             }
         }
     }

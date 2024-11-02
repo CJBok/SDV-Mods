@@ -11,6 +11,7 @@
 * You can now set tomorrow's weather to green rain.
 * The time slider can now be set at 10-minute intervals instead of 1-hour intervals.
 * The "time frozen" message now fades out after a few seconds in a location, to reduce conflicts with other mods' UIs in the top-left corner.
+* Fixed 'one hit kill' reducing vampiric enchantment's heal amount.
 * Fixed 'always treasure' fishing cheat never producing golden treasure chests once unlocked.
 * Fixed 'freeze time' and 'grow' keybinds still triggered when typing into a text field.
 * Fixed missing translations for default tab names in Generic Mod Config Menu UI.
