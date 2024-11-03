@@ -3,36 +3,35 @@ using CJBCheatsMenu.Framework.Components;
 using StardewValley;
 using StardewValley.Menus;
 
-namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools
+namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools;
+
+/// <summary>A cheat which adds various numbers of golden walnuts to the player.</summary>
+internal class AddGoldenWalnutsCheat : BaseCheat
 {
-    /// <summary>A cheat which adds various numbers of golden walnuts to the player.</summary>
-    internal class AddGoldenWalnutsCheat : BaseCheat
+    /*********
+    ** Public methods
+    *********/
+    /// <inheritdoc />
+    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        /*********
-        ** Public methods
-        *********/
-        /// <inheritdoc />
-        public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+        foreach (int amount in new[] { 1, 10, 100 })
         {
-            foreach (int amount in new[] { 1, 10, 100 })
-            {
-                yield return new CheatsOptionsButton(
-                    label: I18n.Add_AmountOther(amount: amount),
-                    slotWidth: context.SlotWidth,
-                    toggle: () => this.AddGems(amount)
-                );
-            }
+            yield return new CheatsOptionsButton(
+                label: I18n.Add_AmountOther(amount: amount),
+                slotWidth: context.SlotWidth,
+                toggle: () => this.AddGems(amount)
+            );
         }
+    }
 
 
-        /*********
-        ** Private methods
-        *********/
-        /// <summary>Add an amount to the player's golden walnuts balance.</summary>
-        /// <param name="amount">The amount to add.</param>
-        private void AddGems(int amount)
-        {
-            Game1.player.addItemToInventoryBool(new Object("73", amount));
-        }
+    /*********
+    ** Private methods
+    *********/
+    /// <summary>Add an amount to the player's golden walnuts balance.</summary>
+    /// <param name="amount">The amount to add.</param>
+    private void AddGems(int amount)
+    {
+        Game1.player.addItemToInventoryBool(new Object("73", amount));
     }
 }

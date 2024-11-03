@@ -9,299 +9,298 @@ using StardewValley.ItemTypeDefinitions;
 using StardewValley.Objects;
 using SObject = StardewValley.Object;
 
-namespace CJBItemSpawner.Framework.ItemData
+namespace CJBItemSpawner.Framework.ItemData;
+
+/// <summary>Provides methods for searching and constructing items.</summary>
+/// <remarks>This is copied from the SMAPI source code and should be kept in sync with it.</remarks>
+internal class ItemRepository
 {
-    /// <summary>Provides methods for searching and constructing items.</summary>
-    /// <remarks>This is copied from the SMAPI source code and should be kept in sync with it.</remarks>
-    internal class ItemRepository
+    /*********
+    ** Public methods
+    *********/
+    /// <summary>Get all spawnable items.</summary>
+    /// <param name="onlyType">Only include items for the given <see cref="IItemDataDefinition.Identifier"/>.</param>
+    /// <param name="includeVariants">Whether to include flavored variants like "Sunflower Honey".</param>
+    [SuppressMessage("ReSharper", "AccessToModifiedClosure", Justification = $"{nameof(ItemRepository.TryCreate)} invokes the lambda immediately.")]
+    public IEnumerable<SearchableItem> GetAll(string? onlyType = null, bool includeVariants = true)
     {
-        /*********
-        ** Public methods
-        *********/
-        /// <summary>Get all spawnable items.</summary>
-        /// <param name="onlyType">Only include items for the given <see cref="IItemDataDefinition.Identifier"/>.</param>
-        /// <param name="includeVariants">Whether to include flavored variants like "Sunflower Honey".</param>
-        [SuppressMessage("ReSharper", "AccessToModifiedClosure", Justification = $"{nameof(ItemRepository.TryCreate)} invokes the lambda immediately.")]
-        public IEnumerable<SearchableItem> GetAll(string? onlyType = null, bool includeVariants = true)
+        //
+        //
+        // Be careful about closure variable capture here!
+        //
+        // SearchableItem stores the Func<Item> to create new instances later. Loop variables passed into the
+        // function will be captured, so every func in the loop will use the value from the last iteration. Use the
+        // TryCreate(type, id, entity => item) form to avoid the issue, or create a local variable to pass in.
+        //
+        //
+
+        IEnumerable<SearchableItem?> GetAllRaw()
         {
-            //
-            //
-            // Be careful about closure variable capture here!
-            //
-            // SearchableItem stores the Func<Item> to create new instances later. Loop variables passed into the
-            // function will be captured, so every func in the loop will use the value from the last iteration. Use the
-            // TryCreate(type, id, entity => item) form to avoid the issue, or create a local variable to pass in.
-            //
-            //
-
-            IEnumerable<SearchableItem?> GetAllRaw()
+            // get from item data definitions
+            foreach (IItemDataDefinition itemType in ItemRegistry.ItemTypes)
             {
-                // get from item data definitions
-                foreach (IItemDataDefinition itemType in ItemRegistry.ItemTypes)
+                if (onlyType != null && itemType.Identifier != onlyType)
+                    continue;
+
+                switch (itemType.Identifier)
                 {
-                    if (onlyType != null && itemType.Identifier != onlyType)
-                        continue;
+                    // objects
+                    case "(O)":
+                        {
+                            ObjectDataDefinition objectDataDefinition = (ObjectDataDefinition)ItemRegistry.GetTypeDefinition(ItemRegistry.type_object);
 
-                    switch (itemType.Identifier)
-                    {
-                        // objects
-                        case "(O)":
+                            foreach (string id in itemType.GetAllIds())
                             {
-                                ObjectDataDefinition objectDataDefinition = (ObjectDataDefinition)ItemRegistry.GetTypeDefinition(ItemRegistry.type_object);
+                                // base item
+                                SearchableItem? result = this.TryCreate(itemType.Identifier, id, p => ItemRegistry.Create(itemType.Identifier + p.Id));
 
-                                foreach (string id in itemType.GetAllIds())
+                                // ring
+                                if (result?.Item is Ring)
+                                    yield return result;
+
+                                // journal scraps
+                                else if (result?.QualifiedItemId == "(O)842")
                                 {
-                                    // base item
-                                    SearchableItem? result = this.TryCreate(itemType.Identifier, id, p => ItemRegistry.Create(itemType.Identifier + p.Id));
+                                    foreach (SearchableItem? journalScrap in this.GetSecretNotes(itemType, isJournalScrap: true))
+                                        yield return journalScrap;
+                                }
 
-                                    // ring
-                                    if (result?.Item is Ring)
-                                        yield return result;
+                                // secret notes
+                                else if (result?.QualifiedItemId == "(O)79")
+                                {
+                                    foreach (SearchableItem? secretNote in this.GetSecretNotes(itemType, isJournalScrap: false))
+                                        yield return secretNote;
+                                }
 
-                                    // journal scraps
-                                    else if (result?.QualifiedItemId == "(O)842")
+                                // object
+                                else
+                                {
+                                    switch (result?.QualifiedItemId)
                                     {
-                                        foreach (SearchableItem? journalScrap in this.GetSecretNotes(itemType, isJournalScrap: true))
-                                            yield return journalScrap;
+                                        // honey should be "Wild Honey" when there's no ingredient, instead of the base Honey item
+                                        case "(O)340":
+                                            yield return this.TryCreate(itemType.Identifier, result.Id, _ => objectDataDefinition.CreateFlavoredHoney(null));
+                                            break;
+
+                                        // don't return placeholder items
+                                        case "(O)DriedFruit":
+                                        case "(O)DriedMushrooms":
+                                        case "(O)SmokedFish":
+                                        case "(O)SpecificBait":
+                                            break;
+
+                                        default:
+                                            if (result != null)
+                                                yield return result;
+                                            break;
                                     }
 
-                                    // secret notes
-                                    else if (result?.QualifiedItemId == "(O)79")
+                                    if (includeVariants)
                                     {
-                                        foreach (SearchableItem? secretNote in this.GetSecretNotes(itemType, isJournalScrap: false))
-                                            yield return secretNote;
-                                    }
-
-                                    // object
-                                    else
-                                    {
-                                        switch (result?.QualifiedItemId)
-                                        {
-                                            // honey should be "Wild Honey" when there's no ingredient, instead of the base Honey item
-                                            case "(O)340":
-                                                yield return this.TryCreate(itemType.Identifier, result.Id, _ => objectDataDefinition.CreateFlavoredHoney(null));
-                                                break;
-
-                                            // don't return placeholder items
-                                            case "(O)DriedFruit":
-                                            case "(O)DriedMushrooms":
-                                            case "(O)SmokedFish":
-                                            case "(O)SpecificBait":
-                                                break;
-
-                                            default:
-                                                if (result != null)
-                                                    yield return result;
-                                                break;
-                                        }
-
-                                        if (includeVariants)
-                                        {
-                                            foreach (SearchableItem? variant in this.GetFlavoredObjectVariants(objectDataDefinition, result?.Item as SObject, itemType))
-                                                yield return variant;
-                                        }
+                                        foreach (SearchableItem? variant in this.GetFlavoredObjectVariants(objectDataDefinition, result?.Item as SObject, itemType))
+                                            yield return variant;
                                     }
                                 }
                             }
-                            break;
+                        }
+                        break;
 
-                        // no special handling needed
-                        default:
-                            foreach (string id in itemType.GetAllIds())
-                                yield return this.TryCreate(itemType.Identifier, id, p => ItemRegistry.Create(itemType.Identifier + p.Id));
-                            break;
-                    }
+                    // no special handling needed
+                    default:
+                        foreach (string id in itemType.GetAllIds())
+                            yield return this.TryCreate(itemType.Identifier, id, p => ItemRegistry.Create(itemType.Identifier + p.Id));
+                        break;
                 }
             }
+        }
 
-            return (
-                from item in GetAllRaw()
-                where item != null
-                select item
+        return (
+            from item in GetAllRaw()
+            where item != null
+            select item
+        );
+    }
+
+
+    /*********
+    ** Private methods
+    *********/
+    /// <summary>Get the individual secret note or journal scrap items.</summary>
+    /// <param name="itemType">The object data definition.</param>
+    /// <param name="isJournalScrap">Whether to get journal scraps.</param>
+    /// <remarks>Derived from <see cref="GameLocation.tryToCreateUnseenSecretNote"/>.</remarks>
+    private IEnumerable<SearchableItem?> GetSecretNotes(IItemDataDefinition itemType, bool isJournalScrap)
+    {
+        // get base item ID
+        string baseId = isJournalScrap ? "842" : "79";
+
+        // get secret note IDs
+        var ids = this
+            .TryLoad(() => DataLoader.SecretNotes(Game1.content))
+            .Keys
+            .Where(isJournalScrap
+                ? id => (id >= GameLocation.JOURNAL_INDEX)
+                : id => (id < GameLocation.JOURNAL_INDEX)
+            )
+            .Select<int, int>(isJournalScrap
+                ? id => (id - GameLocation.JOURNAL_INDEX)
+                : id => id
             );
-        }
 
-
-        /*********
-        ** Private methods
-        *********/
-        /// <summary>Get the individual secret note or journal scrap items.</summary>
-        /// <param name="itemType">The object data definition.</param>
-        /// <param name="isJournalScrap">Whether to get journal scraps.</param>
-        /// <remarks>Derived from <see cref="GameLocation.tryToCreateUnseenSecretNote"/>.</remarks>
-        private IEnumerable<SearchableItem?> GetSecretNotes(IItemDataDefinition itemType, bool isJournalScrap)
+        // build items
+        foreach (int i in ids)
         {
-            // get base item ID
-            string baseId = isJournalScrap ? "842" : "79";
+            int id = i; // avoid closure capture
 
-            // get secret note IDs
-            var ids = this
-                .TryLoad(() => DataLoader.SecretNotes(Game1.content))
-                .Keys
-                .Where(isJournalScrap
-                    ? id => (id >= GameLocation.JOURNAL_INDEX)
-                    : id => (id < GameLocation.JOURNAL_INDEX)
-                )
-                .Select<int, int>(isJournalScrap
-                    ? id => (id - GameLocation.JOURNAL_INDEX)
-                    : id => id
-                );
-
-            // build items
-            foreach (int i in ids)
+            yield return this.TryCreate(itemType.Identifier, $"{baseId}/{id}", _ =>
             {
-                int id = i; // avoid closure capture
-
-                yield return this.TryCreate(itemType.Identifier, $"{baseId}/{id}", _ =>
-                {
-                    Item note = ItemRegistry.Create(itemType.Identifier + baseId);
-                    note.Name = $"{note.Name} #{id}";
-                    return note;
-                });
-            }
+                Item note = ItemRegistry.Create(itemType.Identifier + baseId);
+                note.Name = $"{note.Name} #{id}";
+                return note;
+            });
         }
+    }
 
-        /// <summary>Get flavored variants of a base item (like Blueberry Wine for Blueberry), if any.</summary>
-        /// <param name="objectDataDefinition">The item data definition for object items.</param>
-        /// <param name="item">A sample of the base item.</param>
-        /// <param name="itemType">The object data definition.</param>
-        private IEnumerable<SearchableItem?> GetFlavoredObjectVariants(ObjectDataDefinition objectDataDefinition, SObject? item, IItemDataDefinition itemType)
+    /// <summary>Get flavored variants of a base item (like Blueberry Wine for Blueberry), if any.</summary>
+    /// <param name="objectDataDefinition">The item data definition for object items.</param>
+    /// <param name="item">A sample of the base item.</param>
+    /// <param name="itemType">The object data definition.</param>
+    private IEnumerable<SearchableItem?> GetFlavoredObjectVariants(ObjectDataDefinition objectDataDefinition, SObject? item, IItemDataDefinition itemType)
+    {
+        if (item is null)
+            yield break;
+
+        string id = item.ItemId;
+
+        // by category
+        switch (item.Category)
         {
-            if (item is null)
-                yield break;
+            // fish
+            case SObject.FishCategory:
+                yield return this.TryCreate(itemType.Identifier, $"SmokedFish/{id}", _ => objectDataDefinition.CreateFlavoredSmokedFish(item));
+                yield return this.TryCreate(itemType.Identifier, $"SpecificBait/{id}", _ => objectDataDefinition.CreateFlavoredBait(item));
+                break;
 
-            string id = item.ItemId;
+            // fruit products
+            case SObject.FruitsCategory:
+                yield return this.TryCreate(itemType.Identifier, $"348/{id}", _ => objectDataDefinition.CreateFlavoredWine(item));
+                yield return this.TryCreate(itemType.Identifier, $"344/{id}", _ => objectDataDefinition.CreateFlavoredJelly(item));
+                if (item.QualifiedItemId != "(O)398") // raisins are their own item
+                    yield return this.TryCreate(itemType.Identifier, $"398/{id}", _ => objectDataDefinition.CreateFlavoredDriedFruit(item));
+                break;
 
-            // by category
-            switch (item.Category)
-            {
-                // fish
-                case SObject.FishCategory:
-                    yield return this.TryCreate(itemType.Identifier, $"SmokedFish/{id}", _ => objectDataDefinition.CreateFlavoredSmokedFish(item));
-                    yield return this.TryCreate(itemType.Identifier, $"SpecificBait/{id}", _ => objectDataDefinition.CreateFlavoredBait(item));
-                    break;
-
-                // fruit products
-                case SObject.FruitsCategory:
-                    yield return this.TryCreate(itemType.Identifier, $"348/{id}", _ => objectDataDefinition.CreateFlavoredWine(item));
-                    yield return this.TryCreate(itemType.Identifier, $"344/{id}", _ => objectDataDefinition.CreateFlavoredJelly(item));
-                    if (item.QualifiedItemId != "(O)398") // raisins are their own item
-                        yield return this.TryCreate(itemType.Identifier, $"398/{id}", _ => objectDataDefinition.CreateFlavoredDriedFruit(item));
-                    break;
-
-                // greens
-                case SObject.GreensCategory:
-                    yield return this.TryCreate(itemType.Identifier, $"342/{id}", _ => objectDataDefinition.CreateFlavoredPickle(item));
-                    break;
-
-                // vegetable products
-                case SObject.VegetableCategory:
-                    yield return this.TryCreate(itemType.Identifier, $"350/{id}", _ => objectDataDefinition.CreateFlavoredJuice(item));
-                    yield return this.TryCreate(itemType.Identifier, $"342/{id}", _ => objectDataDefinition.CreateFlavoredPickle(item));
-                    break;
-
-                // flower honey
-                case SObject.flowersCategory:
-                    yield return this.TryCreate(itemType.Identifier, $"340/{id}", _ => objectDataDefinition.CreateFlavoredHoney(item));
-                    break;
-
-                // roe and aged roe (derived from FishPond.GetFishProduce)
-                case SObject.sellAtFishShopCategory when item.QualifiedItemId == "(O)812":
-                    {
-                        this.GetRoeContextTagLookups(out HashSet<string> simpleTags, out List<List<string>> complexTags);
-
-                        foreach (string key in Game1.objectData.Keys)
-                        {
-                            // get input
-                            SObject? input = this.TryCreate(itemType.Identifier, key, p => new SObject(p.Id, 1))?.Item as SObject;
-                            if (input == null)
-                                continue;
-
-                            HashSet<string> inputTags = input.GetContextTags();
-                            if (!inputTags.Any())
-                                continue;
-
-                            // check if roe-producing fish
-                            if (!inputTags.Any(tag => simpleTags.Contains(tag)) && !complexTags.Any(set => set.All(tag => input.HasContextTag(tag))))
-                                continue;
-
-                            // create roe
-                            SearchableItem? roe = this.TryCreate(itemType.Identifier, $"812/{input.ItemId}", _ => objectDataDefinition.CreateFlavoredRoe(input));
-                            yield return roe;
-
-                            // create aged roe
-                            if (roe?.Item is SObject roeObj && input.QualifiedItemId != "(O)698") // skip aged sturgeon roe (which is a separate caviar item)
-                                yield return this.TryCreate(itemType.Identifier, $"447/{input.ItemId}", _ => objectDataDefinition.CreateFlavoredAgedRoe(roeObj));
-                        }
-                    }
-                    break;
-            }
-
-            // by context tag
-            if (item.HasContextTag("preserves_pickle") && item.Category is not (SObject.GreensCategory or SObject.VegetableCategory))
+            // greens
+            case SObject.GreensCategory:
                 yield return this.TryCreate(itemType.Identifier, $"342/{id}", _ => objectDataDefinition.CreateFlavoredPickle(item));
+                break;
 
-            if (item.HasContextTag("edible_mushroom"))
-                yield return this.TryCreate(itemType.Identifier, $"DriedMushrooms/{id}", _ => objectDataDefinition.CreateFlavoredDriedMushroom(item));
+            // vegetable products
+            case SObject.VegetableCategory:
+                yield return this.TryCreate(itemType.Identifier, $"350/{id}", _ => objectDataDefinition.CreateFlavoredJuice(item));
+                yield return this.TryCreate(itemType.Identifier, $"342/{id}", _ => objectDataDefinition.CreateFlavoredPickle(item));
+                break;
+
+            // flower honey
+            case SObject.flowersCategory:
+                yield return this.TryCreate(itemType.Identifier, $"340/{id}", _ => objectDataDefinition.CreateFlavoredHoney(item));
+                break;
+
+            // roe and aged roe (derived from FishPond.GetFishProduce)
+            case SObject.sellAtFishShopCategory when item.QualifiedItemId == "(O)812":
+                {
+                    this.GetRoeContextTagLookups(out HashSet<string> simpleTags, out List<List<string>> complexTags);
+
+                    foreach (string key in Game1.objectData.Keys)
+                    {
+                        // get input
+                        SObject? input = this.TryCreate(itemType.Identifier, key, p => new SObject(p.Id, 1))?.Item as SObject;
+                        if (input == null)
+                            continue;
+
+                        HashSet<string> inputTags = input.GetContextTags();
+                        if (!inputTags.Any())
+                            continue;
+
+                        // check if roe-producing fish
+                        if (!inputTags.Any(tag => simpleTags.Contains(tag)) && !complexTags.Any(set => set.All(tag => input.HasContextTag(tag))))
+                            continue;
+
+                        // create roe
+                        SearchableItem? roe = this.TryCreate(itemType.Identifier, $"812/{input.ItemId}", _ => objectDataDefinition.CreateFlavoredRoe(input));
+                        yield return roe;
+
+                        // create aged roe
+                        if (roe?.Item is SObject roeObj && input.QualifiedItemId != "(O)698") // skip aged sturgeon roe (which is a separate caviar item)
+                            yield return this.TryCreate(itemType.Identifier, $"447/{input.ItemId}", _ => objectDataDefinition.CreateFlavoredAgedRoe(roeObj));
+                    }
+                }
+                break;
         }
 
-        /// <summary>Get optimized lookups to match items which produce roe in a fish pond.</summary>
-        /// <param name="simpleTags">A lookup of simple singular tags which match a roe-producing fish.</param>
-        /// <param name="complexTags">A list of tag sets which match roe-producing fish.</param>
-        private void GetRoeContextTagLookups(out HashSet<string> simpleTags, out List<List<string>> complexTags)
+        // by context tag
+        if (item.HasContextTag("preserves_pickle") && item.Category is not (SObject.GreensCategory or SObject.VegetableCategory))
+            yield return this.TryCreate(itemType.Identifier, $"342/{id}", _ => objectDataDefinition.CreateFlavoredPickle(item));
+
+        if (item.HasContextTag("edible_mushroom"))
+            yield return this.TryCreate(itemType.Identifier, $"DriedMushrooms/{id}", _ => objectDataDefinition.CreateFlavoredDriedMushroom(item));
+    }
+
+    /// <summary>Get optimized lookups to match items which produce roe in a fish pond.</summary>
+    /// <param name="simpleTags">A lookup of simple singular tags which match a roe-producing fish.</param>
+    /// <param name="complexTags">A list of tag sets which match roe-producing fish.</param>
+    private void GetRoeContextTagLookups(out HashSet<string> simpleTags, out List<List<string>> complexTags)
+    {
+        simpleTags = new HashSet<string>();
+        complexTags = new List<List<string>>();
+
+        foreach (FishPondData data in this.TryLoad(() => DataLoader.FishPondData(Game1.content)))
         {
-            simpleTags = new HashSet<string>();
-            complexTags = new List<List<string>>();
+            if (data.ProducedItems.All(p => p.ItemId is not ("812" or "(O)812")))
+                continue; // doesn't produce roe
 
-            foreach (FishPondData data in this.TryLoad(() => DataLoader.FishPondData(Game1.content)))
-            {
-                if (data.ProducedItems.All(p => p.ItemId is not ("812" or "(O)812")))
-                    continue; // doesn't produce roe
-
-                if (data.RequiredTags.Count == 1 && !data.RequiredTags[0].StartsWith("!"))
-                    simpleTags.Add(data.RequiredTags[0]);
-                else
-                    complexTags.Add(data.RequiredTags);
-            }
+            if (data.RequiredTags.Count == 1 && !data.RequiredTags[0].StartsWith("!"))
+                simpleTags.Add(data.RequiredTags[0]);
+            else
+                complexTags.Add(data.RequiredTags);
         }
+    }
 
-        /// <summary>Try to load a data asset, and return empty data if it's invalid.</summary>
-        /// <typeparam name="TAsset">The asset type.</typeparam>
-        /// <param name="load">A callback which loads the asset.</param>
-        private TAsset TryLoad<TAsset>(Func<TAsset> load)
-            where TAsset : new()
+    /// <summary>Try to load a data asset, and return empty data if it's invalid.</summary>
+    /// <typeparam name="TAsset">The asset type.</typeparam>
+    /// <param name="load">A callback which loads the asset.</param>
+    private TAsset TryLoad<TAsset>(Func<TAsset> load)
+        where TAsset : new()
+    {
+        try
         {
-            try
-            {
-                return load();
-            }
-            catch (ContentLoadException)
-            {
-                // generally due to a player incorrectly replacing a data file with an XNB mod
-                return new TAsset();
-            }
+            return load();
         }
-
-        /// <summary>Create a searchable item if valid.</summary>
-        /// <param name="type">The item type.</param>
-        /// <param name="key">The locally unique item key.</param>
-        /// <param name="createItem">Create an item instance.</param>
-        private SearchableItem? TryCreate(string type, string key, Func<SearchableItem, Item> createItem)
+        catch (ContentLoadException)
         {
-            try
-            {
-                SearchableItem item = new SearchableItem(type, key, createItem);
-                item.Item.getDescription(); // force-load item data, so it crashes here if it's invalid
+            // generally due to a player incorrectly replacing a data file with an XNB mod
+            return new TAsset();
+        }
+    }
 
-                if (item.Item.Name is null or "Error Item")
-                    return null;
+    /// <summary>Create a searchable item if valid.</summary>
+    /// <param name="type">The item type.</param>
+    /// <param name="key">The locally unique item key.</param>
+    /// <param name="createItem">Create an item instance.</param>
+    private SearchableItem? TryCreate(string type, string key, Func<SearchableItem, Item> createItem)
+    {
+        try
+        {
+            SearchableItem item = new SearchableItem(type, key, createItem);
+            item.Item.getDescription(); // force-load item data, so it crashes here if it's invalid
 
-                return item;
-            }
-            catch
-            {
-                return null; // if some item data is invalid, just don't include it
-            }
+            if (item.Item.Name is null or "Error Item")
+                return null;
+
+            return item;
+        }
+        catch
+        {
+            return null; // if some item data is invalid, just don't include it
         }
     }
 }
