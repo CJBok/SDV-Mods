@@ -37,9 +37,66 @@ setting | default | what it affects
 ------- | ------- | ---------------
 `DefaultTab` | `PlayerAndTools` | The tab shown by default when you open the menu. Possible values: `PlayerAndTools`, `FarmAndFishing`, `Skills`, `Weather`, `Relationships`, `WarpLocations`, `Time`, `Advanced`, `Controls`.
 
+### Personal warps
+<table>
+  <tr>
+    <th>setting</th>
+    <th>default</th>
+    <th>what it affects</th
+  </tr>
+  <tr>
+        <td><code>HideWarps</code><br /><code>HideWarpSections</code></td>
+        <td><code>[]</code></td>
+<td>
+
+The warp IDs (`HideWarps`) or section IDs (`HideWarpSections`) to hide in the warp menu. Each ID can optionally contain
+`*` wildcards.
+
+For example, this hides the warp to Robin's shop and every warp from Stardew Valley Expanded:
+
+```json
+"HideWarps": [ "carpenter", "FlashShifter.StardewValleyExpandedCP_*" ]
+```
+
+To see warp IDs:
+1. Enter `patch export Mods/CJBok.CheatsMenu/Warps` in the SMAPI console window.
+2. Open the file it creates in a text editor.
+3. Use the ID from the `Id` field (for warps) or `SectionId` (for sections).
+
+</td>
+  </tr>
+  <tr>
+        <td><code>AddWarps</code><br /><code>AddWarpSections</code></td>
+        <td><code>[]</code></td>
+<td>
+
+Add custom warps or sections to the list. These use the same fields as [_edit warps_ in the author guide](author-guide.md#edit-warps).
+
+For example, this adds a warp to Abigail's room:
+
+```json
+"AddWarps": [
+    {
+        "DisplayName": "Abigail's Room",
+        "SectionId": "town",
+        "Location": "SeedShop",
+        "Tile": "3, 6"
+    }
+]
+```
+
+You can use the [Debug Mode](https://www.nexusmods.com/stardewvalley/mods/679) mod to see location names and tile
+coordinates in-game.
+
+</td>
+  </tr>
+</table>
+
+
 ## Editing warps
-For mod authors, see the [author guide](author-guide.md) to add/edit/remove warps in the menu to
-match your map edits and custom locations.
+* For players, see [_personal warps_](#personal-warps) above.
+* For mod authors, see the [author guide](author-guide.md) to add/edit/remove warps in the menu to match your map edits
+  and custom locations.
 
 ## See also
 * [Release notes](release-notes.md)

@@ -37,6 +37,12 @@
     "tools.one-hit-break": "One Hit Break",
     "tools.harvest-with-scythe": "Harvest With Scythe",
 
+    // tool enchantments
+    "tool-enchantments.title": "Tool Enchantments",
+    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
+    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
+    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+
     // money
     "add.money": "Money",
     "add.casino-coins": "Casino Coins",
@@ -122,12 +128,13 @@
     ** Weather tab
     *********/
     "weather.title": "Weather Tomorrow",
-    "weather.current": "Current",
+    "weather.current-value": "Tomorrow's weather is set to {{weather}}.",
     "weather.explanation": "Click a button below to set the weather for tomorrow (and only tomorrow). This tab has zero effect on weather otherwise.",
     "weather.sunny": "Sunny",
     "weather.raining": "Raining",
     "weather.lightning": "Lightning",
     "weather.snowing": "Snowing",
+    "weather.green-rain": "Green Raining",
 
 
     /*********
@@ -229,6 +236,7 @@
     "flags.unlocked-content": "Unlocked content",
     "flags.unlocked-content.dyes-and-tailoring": "Dyes & tailoring",
     "flags.unlocked-content.junimo-text": "Can read Junimo text",
+    "flags.unlocked-content.perfection": "Perfection achieved",
     "flags.community-center": "Community Center",
     "flags.community-center.door-unlocked": "Door Unlocked",
     "flags.jojamart.membership": "JojaMart Membership",
@@ -255,6 +263,9 @@
     "config.freeze-time.desc": "The keybind which freezes the game clock.",
     "config.grow-tree.desc": "The keybind held to grow trees around the player.",
     "config.grow-crops.desc": "The keybind held to grow crops around the player.",
+
+    "controls.reload-config": "Reload settings from file",
+    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
 
     "config.title.other-options": "Other options",
     "config.default-tab.name": "Default tab",

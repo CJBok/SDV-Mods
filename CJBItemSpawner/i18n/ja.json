@@ -3,7 +3,7 @@
     ** Sort button
     *********/
     "sort.by-name": "名前",
-    "sort.by-price": "Sell Price", // TODO
+    "sort.by-price": "売価",
     "sort.by-type": "種類",
     "sort.by-id": "ID",
 
@@ -11,39 +11,37 @@
     /*********
     ** Category dropdown
     *********/
-    // TODO
     "filter.all": "All",
-    "filter.artisan-and-cooking": "Artisan & cooking",
-    "filter.crafting.products": "Crafting: products",
-    "filter.crafting.resources": "Crafting: resources",
-    "filter.decor.furniture": "Decor: furniture",
-    "filter.decor.other": "Decor: other",
-    "filter.equipment-boots": "Equipment: boots",
-    "filter.equipment-clothes": "Equipment: clothes",
-    "filter.equipment-hats": "Equipment: hats",
-    "filter.equipment-rings": "Equipment: rings",
-    "filter.equipment-tools": "Equipment: tools",
-    "filter.equipment-weapons": "Equipment: weapons",
-    "filter.farm-animal-drops": "Farm: animal drops",
-    "filter.farm-crops": "Farm: crops",
-    "filter.farm-seeds": "Farm: seeds",
-    "filter.fish": "Fish",
-    "filter.minerals-and-artifacts": "Minerals & artifacts",
-    "filter.miscellaneous": "Misc",
+    "filter.artisan-and-cooking": "加工品と料理",
+    "filter.crafting.products": "クラフト：完成品",
+    "filter.crafting.resources": "クラフト：素材",
+    "filter.decor.furniture": "装飾：家具",
+    "filter.decor.other": "装飾：床材や壁紙",
+    "filter.equipment-boots": "装備：はき物",
+    "filter.equipment-clothes": "装備：服",
+    "filter.equipment-hats": "装備：帽子",
+    "filter.equipment-rings": "装備：指輪",
+    "filter.equipment-tools": "装備：どうぐ",
+    "filter.equipment-weapons": "装備：武器",
+    "filter.farm-animal-drops": "農業：動物生産品",
+    "filter.farm-crops": "農業：作物",
+    "filter.farm-seeds": "農業：タネ",
+    "filter.fish": "魚",
+    "filter.minerals-and-artifacts": "鉱物と発掘品",
+    "filter.miscellaneous": "その他",
 
 
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.title.controls": "Controls",
-    "config.show-menu-key.name": "Show menu key",
-    "config.show-menu-key.desc": "The keybind which opens the menu (when no other menu is open).",
+    "config.title.controls": "操作",
+    "config.show-menu-key.name": "メニューを表示",
+    "config.show-menu-key.desc": "メニューを開くキーを設定する（他のメニューが開かれていない時有効）",
 
-    "config.title.options": "Options",
-    "config.apply-trash-can-upgrade.name": "Apply trash can upgrade",
-    "config.apply-trash-can-upgrade.desc": "When you upgrade your trash can to reclaim part of the price of trashed items, whether that upgrade applies in the item spawner menu too.",
+    "config.title.options": "オプション",
+    "config.apply-trash-can-upgrade.name": "ゴミ箱のアップグレードを適用",
+    "config.apply-trash-can-upgrade.desc": "ゴミ箱をアップグレード後のゴールドの還元を、CJB Item Spawnerのメニューでも適用するかどうか。",
 
-    "config.title.hide-categories": "Hide categories",
-    "config.hide-category.desc": "Whether to hide the '{{name}}' category in the UI. If it's hidden, items in this category will not be accessible through the spawn menu."
+    "config.title.hide-categories": "カテゴリの非表示",
+    "config.hide-category.desc": "UIで「{{name}}」のカテゴリを非表示にするかどうか。非表示にすると、そのカテゴリーのアイテムはメニューからアクセスできなくなる。"
 }

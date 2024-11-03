@@ -1,0 +1,47 @@
+﻿{
+    /*********
+    ** Sort button
+    *********/
+    "sort.by-name": "Tên",
+    "sort.by-price": "Giá bán",
+    "sort.by-type": "Loại",
+    "sort.by-id": "ID",
+
+
+    /*********
+    ** Category dropdown
+    *********/
+    "filter.all": "Tất cả",
+    "filter.artisan-and-cooking": "Nguyên liệu & nấu ăn",
+    "filter.crafting.products": "Chế tạo: sản phẩm",
+    "filter.crafting.resources": "Chế tạo: nguyên liệu",
+    "filter.decor.furniture": "Trang trí: nội thất",
+    "filter.decor.other": "Trang trí: khác",
+    "filter.equipment-boots": "Giày",
+    "filter.equipment-clothes": "Quần áo",
+    "filter.equipment-hats": "Mũ",
+    "filter.equipment-rings": "Nhẫn",
+    "filter.equipment-tools": "Công cụ",
+    "filter.equipment-weapons": "Vũ khí",
+    "filter.farm-animal-drops": "vật phẩm động vật",
+    "filter.farm-crops": "Nông sản",
+    "filter.farm-seeds": "Hạt giống",
+    "filter.fish": "Cá",
+    "filter.minerals-and-artifacts": "Khoáng sản & đồ cổ",
+    "filter.miscellaneous": "Linh tinh",
+
+
+    /*********
+    ** Generic Mod Config Menu UI
+    *********/
+    "config.title.controls": "Bảng điều khiển",
+    "config.show-menu-key.name": "Hiển thị phím mở menu",
+    "config.show-menu-key.desc": "Phím tắt mở menu (khi không có menu nào khác đang mở).",
+
+    "config.title.options": "Tùy chọn",
+    "config.apply-trash-can-upgrade.name": "Áp dụng nâng cấp thùng rác",
+    "config.apply-trash-can-upgrade.desc": "Khi bạn nâng cấp thùng rác để thu hồi một phần giá trị của các vật phẩm đã bị vứt, liệu nâng cấp đó có áp dụng trong menu spawn item không.",
+
+    "config.title.hide-categories": "Ẩn các danh mục",
+    "config.hide-category.desc": "Xác định liệu có ẩn danh mục '{{name}}' trong giao diện người dùng hay không. Nếu nó bị ẩn, các mục trong danh mục này sẽ không thể truy cập thông qua menu spawn."
+}

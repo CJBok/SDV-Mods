@@ -1,6 +1,27 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 1.37.0
+Released 04 November 2024 for SMAPI 4.1.0 or later.
+
+* Updated for Stardew Valley 1.6.9.
+* Added support for adding/removing tool enchantments.
+* Added cheat to toggle perfection (thanks to PrimmR!).
+* Added keybind to reload settings from `config.json`.
+* Added warning if you use the same key to open the cheats menu and game menu, which won't work correctly.
+* You can now [make personal edits to the warp list](README.md#personal-warps).
+* You can now set tomorrow's weather to green rain.
+* The time slider can now be set at 10-minute intervals instead of 1-hour intervals.
+* The "time frozen" message now fades out after a few seconds in a location, to reduce conflicts with other mods' UIs in the top-left corner.
+* Fixed 'one hit kill' reducing vampiric enchantment's heal amount.
+* Fixed 'always treasure' fishing cheat never producing golden treasure chests once unlocked.
+* Fixed 'freeze time' and 'grow' keybinds still triggered when typing into a text field.
+* Fixed missing translations for default tab names in Generic Mod Config Menu UI.
+* Fixed unknown weathers shown as blank in the weather tab; it'll now show the weather ID instead.
+* Fixed 'time frozen' message overlapping casino club coin display.
+* Tweaked weather tab's current-value format for clarity.
+* Improved translations. Thanks to BernieAteUsername (updated Chinese), CaranudLapin (updated French), CuongNguyen0903 (added Vietnamese), Juanpa98ar (updated Spanish), mitekano23 (updated Japanese), and MagoSupremo123 (updated Portuguese)!
+
 ## 1.36.2
 Released 15 April 2024 for SMAPI 4.0.0 or later.
 

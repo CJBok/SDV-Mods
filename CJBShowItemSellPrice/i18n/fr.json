@@ -1,4 +1,19 @@
 ﻿{
+    /*********
+    ** In-game UI
+    *********/
     "labels.single-price": "Un seul",
-    "labels.stack-price": "Total"
+    "labels.stack-price": "Total",
+
+
+    /*********
+    ** Generic Mod Config Menu UI
+    *********/
+    // TODO
+    "config.show-when.name": "Show price",
+    "config.show-when.desc": "Choose when the sell price UI should be shown.",
+
+    "config.show-when.Always": "Always show",
+    "config.show-when.BeforePriceCatalogue": "Before price catalogue is unlocked",
+    "config.show-when.AfterPriceCatalogue": "After price catalogue is unlocked"
 }

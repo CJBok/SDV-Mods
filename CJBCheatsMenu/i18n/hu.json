@@ -37,6 +37,13 @@
     "tools.one-hit-break": "Egy Ütéses Bányászás",
     "tools.harvest-with-scythe": "Betakarítás Kaszával",
 
+    // tool enchantments
+    // TODO
+    "tool-enchantments.title": "Tool Enchantments",
+    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
+    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
+    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+
     // money
     "add.money": "Pénz",
     "add.casino-coins": "Klub Érme",
@@ -122,12 +129,13 @@
     ** Weather tab
     *********/
     "weather.title": "Holnapi Időjárás",
-    "weather.current": "Jelenlegi",
+    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
     "weather.explanation": "Click a button below to set the weather for tomorrow (and only tomorrow). This tab has zero effect on weather otherwise.", // TODO
     "weather.sunny": "Napos",
     "weather.raining": "Eső",
     "weather.lightning": "Vihar",
     "weather.snowing": "Havazás",
+    "weather.green-rain": "Green Raining", // TODO
 
 
     /*********
@@ -231,6 +239,7 @@
     "flags.unlocked-content": "Feloldott Tartalmak",
     "flags.unlocked-content.dyes-and-tailoring": "Festékek & Szabás",
     "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
+    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
     "flags.community-center": "Közösségi Központ",
     "flags.community-center.door-unlocked": "Ajtó Kinyitva",
     "flags.jojamart.membership": "JojaMart Tagság",
@@ -258,6 +267,10 @@
     "config.freeze-time.desc": "The keybind which freezes the game clock.",
     "config.grow-tree.desc": "The keybind held to grow trees around the player.",
     "config.grow-crops.desc": "The keybind held to grow crops around the player.",
+
+    // TODO
+    "controls.reload-config": "Reload settings from file",
+    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
 
     "config.title.other-options": "Other options",
     "config.default-tab.name": "Default tab",

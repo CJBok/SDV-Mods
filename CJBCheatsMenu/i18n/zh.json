@@ -37,6 +37,13 @@
     "tools.one-hit-break": "一砍即倒（一击即碎）",
     "tools.harvest-with-scythe": "镰刀收获",
 
+    // tool enchantments
+    // TODO
+    "tool-enchantments.title": "Tool Enchantments",
+    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
+    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
+    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+
     // money
     "add.money": "金钱",
     "add.casino-coins": "赌场代币",
@@ -122,12 +129,13 @@
     ** Weather tab
     *********/
     "weather.title": "明日天气",
-    "weather.current": "目前",
+    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
     "weather.explanation": "点击下方按钮设置明日天气（仅限明日）。除此之外本页面不会对天气有任何影响。",
     "weather.sunny": "晴天",
     "weather.raining": "雨天",
     "weather.lightning": "雷雨",
     "weather.snowing": "下雪",
+    "weather.green-rain": "Green Raining", // TODO
 
 
     /*********
@@ -142,7 +150,7 @@
     /*********
     ** Warps tab
     *********/
-    "warp.customized-warning": "These warps were edited by your mods. Please report warp issues to the mods which added them if applicable.", // TODO
+    "warp.customized-warning": "您安装的其他mod可能更改了以下传送地点。如有传送问题，请向对应的mod报告。",
 
     // main areas
     "warp-section.main": "主要区域",
@@ -229,6 +237,7 @@
     "flags.unlocked-content": "解锁内容",
     "flags.unlocked-content.dyes-and-tailoring": "染色 & 缝纫",
     "flags.unlocked-content.junimo-text": "可以读懂祝尼魔文字",
+    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
     "flags.community-center": "社区中心",
     "flags.community-center.door-unlocked": "社区中心解锁",
     "flags.jojamart.membership": "Joja超市会员资格",
@@ -251,14 +260,17 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.open-menu.desc": "The keybind which opens the menu (when no other menu is open).",
-    "config.freeze-time.desc": "The keybind which freezes the game clock.",
-    "config.grow-tree.desc": "The keybind held to grow trees around the player.",
-    "config.grow-crops.desc": "The keybind held to grow crops around the player.",
+    "config.open-menu.desc": "开启菜单的按键（请确保当前没有其他打开的菜单）。",
+    "config.freeze-time.desc": "冻结游戏时间的按键。",
+    "config.grow-tree.desc": "在玩家周围种树的按键。",
+    "config.grow-crops.desc": "在玩家周围种植农作物的按键。",
 
-    "config.title.other-options": "Other options",
-    "config.default-tab.name": "Default tab",
-    "config.default-tab.desc": "The tab shown by default when you open the menu.",
-    "config.other-options": "To configure cheats, press the 'open menu' key shown above in-game. Make sure you press it after loading the save, when no other menu or dialogue is open."
+    // TODO
+    "controls.reload-config": "Reload settings from file",
+    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+
+    "config.title.other-options": "其它选项",
+    "config.default-tab.name": "默认界面",
+    "config.default-tab.desc": "打开菜单时默认显示的界面。",
+    "config.other-options": "如需配置作弊设置，请在游戏中按下上方显示的“打开菜单”按键。请先加载存档后再按下按键，且确保当前没有开启其他菜单或对话。"
 }

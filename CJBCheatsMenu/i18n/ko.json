@@ -37,6 +37,13 @@
     "tools.one-hit-break": "한방에 쪼개기/부수기",
     "tools.harvest-with-scythe": "낫으로 수확",
 
+    // tool enchantments
+    // TODO
+    "tool-enchantments.title": "Tool Enchantments",
+    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
+    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
+    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+
     // money
     "add.money": "돈",
     "add.casino-coins": "카지노 코인",
@@ -122,12 +129,13 @@
     ** Weather tab
     *********/
     "weather.title": "내일의 날씨",
-    "weather.current": "현재 설정된 내일의 날씨",
+    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
     "weather.explanation": "Click a button below to set the weather for tomorrow (and only tomorrow). This tab has zero effect on weather otherwise.", // TODO
     "weather.sunny": "맑음",
     "weather.raining": "비",
     "weather.lightning": "폭풍(번개)",
     "weather.snowing": "눈",
+    "weather.green-rain": "Green Raining", // TODO
 
 
     /*********
@@ -229,6 +237,7 @@
     "flags.unlocked-content": "해제되지 않은 콘텐츠",
     "flags.unlocked-content.dyes-and-tailoring": "염색&재봉틀",
     "flags.unlocked-content.junimo-text": "주니모 글씨 읽기 가능",
+    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
     "flags.community-center": "마을 회관",
     "flags.community-center.door-unlocked": "마을회관 잠긴 문 열기",
     "flags.jojamart.membership": "조자마트 회원권",
@@ -251,14 +260,17 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.open-menu.desc": "The keybind which opens the menu (when no other menu is open).",
-    "config.freeze-time.desc": "The keybind which freezes the game clock.",
-    "config.grow-tree.desc": "The keybind held to grow trees around the player.",
-    "config.grow-crops.desc": "The keybind held to grow crops around the player.",
+    "config.open-menu.desc": "메뉴를 여는 키입니다(다른 메뉴가 열려 있지 않을 때).",
+    "config.freeze-time.desc": "게임 시간을 멈추는 키입니다.",
+    "config.grow-tree.desc": "플레이어 주변에 나무를 성장시키는 키입니다.",
+    "config.grow-crops.desc": "플레이어 주변에 작물을 성장시키는 키입니다.",
 
-    "config.title.other-options": "Other options",
-    "config.default-tab.name": "Default tab",
-    "config.default-tab.desc": "The tab shown by default when you open the menu.",
-    "config.other-options": "To configure cheats, press the 'open menu' key shown above in-game. Make sure you press it after loading the save, when no other menu or dialogue is open."
+    // TODO
+    "controls.reload-config": "Reload settings from file",
+    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+
+    "config.title.other-options": "기타 옵션",
+    "config.default-tab.name": "기본 탭",
+    "config.default-tab.desc": "메뉴를 열 때 기본으로 표시되는 탭입니다.",
+    "config.other-options": "치트 설정을 위해 게임 내에서 위에 표시된 '메뉴 열기' 키를 누르세요. 저장 후에, 다른 메뉴나 대화창이 열려 있지 않을 때 눌러야 합니다."
 }

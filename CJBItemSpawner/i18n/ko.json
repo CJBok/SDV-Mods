@@ -34,15 +34,14 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.title.controls": "Controls",
-    "config.show-menu-key.name": "Show menu key",
-    "config.show-menu-key.desc": "The keybind which opens the menu (when no other menu is open).",
+    "config.title.controls": "조작",
+    "config.show-menu-key.name": "메뉴 열기 키",
+    "config.show-menu-key.desc": "메뉴를 여는 키 (다른 메뉴가 열려있지 않을 때).",
 
-    "config.title.options": "Options",
-    "config.apply-trash-can-upgrade.name": "Apply trash can upgrade",
-    "config.apply-trash-can-upgrade.desc": "When you upgrade your trash can to reclaim part of the price of trashed items, whether that upgrade applies in the item spawner menu too.",
+    "config.title.options": "옵션",
+    "config.apply-trash-can-upgrade.name": "쓰레기통 업그레이드 적용",
+    "config.apply-trash-can-upgrade.desc": "업그레이드된 쓰레기통으로 버린 아이템의 일부 가격을 회수할 수 있을 때, 그 업그레이드가 아이템 스포너 메뉴에서도 적용되는지 여부.",
 
-    "config.title.hide-categories": "Hide categories",
-    "config.hide-category.desc": "Whether to hide the '{{name}}' category in the UI. If it's hidden, items in this category will not be accessible through the spawn menu."
+    "config.title.hide-categories": "카테고리 숨기기",
+    "config.hide-category.desc": "UI에서 '{{name}}' 카테고리를 숨길지 여부. 숨기면 이 카테고리의 아이템을 스폰 메뉴를 통해 접근할 수 없습니다."
 }

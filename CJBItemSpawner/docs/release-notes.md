@@ -1,6 +1,15 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 2.5.0
+Released 04 November 2024 for SMAPI 4.1.0 or later.
+
+* Updated for Stardew Valley 1.6.9.
+* Added dried items, pickled forage, smoked fish, and specific bait to menu.
+* Added warning if you use the same key to open the item spawner menu and game menu, which won't work correctly.
+* Fixed some wallpaper/flooring items shown twice.
+* Improved translations. Thanks to Caranud (updated French), CuongNguyen0903 (added Vietnamese), mitekano23 (updated Japanese), MagoSupremo123 (updated Portuguese), and therealmate (updated Hungarian)!
+
 ## 2.4.1
 Released 14 April 2024 for SMAPI 4.0.0 or later.
 

@@ -14,7 +14,7 @@
     "tabs.warp": "Téléportation",
     "tabs.time": "Temps",
     "tabs.advanced": "Avancé",
-    "tabs.controls": "Contrôles",
+    "tabs.controls": "Raccourcis",
 
 
     /*********
@@ -36,6 +36,13 @@
     "tools.infinite-water": "Arrosoir - Eau infinie pour l'arrosoir",
     "tools.one-hit-break": "Casse en un coup",
     "tools.harvest-with-scythe": "Récolter avec la faux",
+
+    // tool enchantments
+    // TODO
+    "tool-enchantments.title": "Tool Enchantments",
+    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
+    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
+    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
 
     // money
     "add.money": "Argent",
@@ -122,12 +129,13 @@
     ** Weather tab
     *********/
     "weather.title": "Météo de demain",
-    "weather.current": "Actuelle",
+    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
     "weather.explanation": "Cliquer sur un bouton changera la météo pour demain (et uniquement demain). Cet onglet n'aura aucun effect sur la météo autrement.",
     "weather.sunny": "Soleil",
     "weather.raining": "Pluie",
     "weather.lightning": "Orage",
     "weather.snowing": "Neige",
+    "weather.green-rain": "Green Raining", // TODO
 
 
     /*********
@@ -229,6 +237,7 @@
     "flags.unlocked-content": "Contenus débloqués",
     "flags.unlocked-content.dyes-and-tailoring": "Teintures & couture",
     "flags.unlocked-content.junimo-text": "Vous pouvez lire le texte Jumino",
+    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
     "flags.community-center": "Centre communautaire",
     "flags.community-center.door-unlocked": "Porte déverrouillée",
     "flags.jojamart.membership": "Adhérant au Marché Joja",
@@ -237,7 +246,7 @@
     /*********
     ** Controls tab
     *********/
-    "controls.title": "Contrôles",
+    "controls.title": "Raccourcis",
     "controls.android-config-note": "Vous pouvez modifier les boutons affichés à l'écran dans les fichiers de configuration des mods CJB Menu de triche et Menu du clavier virtuel.",
     "controls.open-menu": "Ouvrir ce menu",
     "controls.freeze-time": "Arrêter le temps",
@@ -251,14 +260,17 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.open-menu.desc": "The keybind which opens the menu (when no other menu is open).",
-    "config.freeze-time.desc": "The keybind which freezes the game clock.",
-    "config.grow-tree.desc": "The keybind held to grow trees around the player.",
-    "config.grow-crops.desc": "The keybind held to grow crops around the player.",
+    "config.open-menu.desc": "Le raccourci clavier qui ouvre le menu (lorsqu’aucun autre menu n’est ouvert).",
+    "config.freeze-time.desc": "Le raccourci clavier qui arrête l’horloge du jeu.",
+    "config.grow-tree.desc": "Le raccourci clavier qui fait pousser les arbres autour du joueur.",
+    "config.grow-crops.desc": "Le raccourci clavier qui fait pousser les cultures autour du joueur.",
 
-    "config.title.other-options": "Other options",
-    "config.default-tab.name": "Default tab",
-    "config.default-tab.desc": "The tab shown by default when you open the menu.",
-    "config.other-options": "To configure cheats, press the 'open menu' key shown above in-game. Make sure you press it after loading the save, when no other menu or dialogue is open."
+    // TODO
+    "controls.reload-config": "Reload settings from file",
+    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+
+    "config.title.other-options": "Autres options",
+    "config.default-tab.name": "Onglet par défaut",
+    "config.default-tab.desc": "L’onglet par défaut ouvert lorsque vous ouvrez le menu.",
+    "config.other-options": "Pour configurer les triches, appuyez sur le raccourci « Ouvrir le menu » affiché ci-dessus dans le jeu. Faîtes attention à l’appuyer après avoir chargé une sauvegarde, lorsqu’aucun autre menu ou dialogue n’est ouvert."
 }

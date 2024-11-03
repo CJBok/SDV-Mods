@@ -9,7 +9,7 @@
     "tabs.player-and-tools": "Jogador e Ferramentas",
     "tabs.farm-and-fishing": "Cultivo e Pesca",
     "tabs.skills": "Habilidades",
-    "tabs.weather": "Tempo",
+    "tabs.weather": "Clima",
     "tabs.relationships": "Relacionamentos",
     "tabs.warp": "Teletransporte",
     "tabs.time": "Horário",
@@ -36,6 +36,13 @@
     "tools.infinite-water": "Água infinita no regador",
     "tools.one-hit-break": "Quebrar tudo com um golpe",
     "tools.harvest-with-scythe": "Colher com a foice",
+
+    // tool enchantments
+    // TODO
+    "tool-enchantments.title": "Tool Enchantments",
+    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
+    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
+    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
 
     // money
     "add.money": "Dinheiro",
@@ -121,13 +128,14 @@
     /*********
     ** Weather tab
     *********/
-    "weather.title": "Tempo Amanhã",
-    "weather.current": "Atual",
-    "weather.explanation": "Click a button below to set the weather for tomorrow (and only tomorrow). This tab has zero effect on weather otherwise.", // TODO
+    "weather.title": "Clima Amanhã",
+    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
+    "weather.explanation": "Clique em um botão para definir o clima de amanhã (e apenas de amanhã). Essa aba não tem efeito sobre sobre o clima de outro modo.",
     "weather.sunny": "Ensolarado",
     "weather.raining": "Chuva",
     "weather.lightning": "Tempestade",
     "weather.snowing": "Neve",
+    "weather.green-rain": "Green Raining", // TODO
 
 
     /*********
@@ -142,7 +150,7 @@
     /*********
     ** Warps tab
     *********/
-    "warp.customized-warning": "These warps were edited by your mods. Please report warp issues to the mods which added them if applicable.", // TODO
+    "warp.customized-warning": "Esses teletransportes foram editados pelos seus mods. Por favor reporte problemas de teletransporte para os mods que os adicionaram, se possível.",
 
     // main areas
     "warp-section.main": "Áreas principais",
@@ -165,7 +173,7 @@
     // forest
     "warp-section.forest": "Floresta",
     "warp.hats": "Chapéus",
-    "warp.mastery-cave": "Mastery Cave", // TODO
+    "warp.mastery-cave": "Caverna de Maestria",
     "warp.ranch": "Rancho da Marnie",
     "warp.secret-woods": "Bosque Secreto",
     "warp.wizard-tower": "Torre do Mago",
@@ -229,6 +237,7 @@
     "flags.unlocked-content": "Conteúdo desbloqueado",
     "flags.unlocked-content.dyes-and-tailoring": "Corantes e alfaiataria",
     "flags.unlocked-content.junimo-text": "Pode ler texto dos Junimos",
+    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
     "flags.community-center": "Centro Comunitário",
     "flags.community-center.door-unlocked": "Destrancar porta",
     "flags.jojamart.membership": "Associar ao Mercado Joja",
@@ -251,14 +260,17 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.open-menu.desc": "The keybind which opens the menu (when no other menu is open).",
-    "config.freeze-time.desc": "The keybind which freezes the game clock.",
-    "config.grow-tree.desc": "The keybind held to grow trees around the player.",
-    "config.grow-crops.desc": "The keybind held to grow crops around the player.",
+    "config.open-menu.desc": "A tecla que abre o menu (quando nenhum outro menu está aberto).",
+    "config.freeze-time.desc": "A tecla que para o relógio do jogo.",
+    "config.grow-tree.desc": "A tecla que apertada faz crescer árvores em torno do jogador.",
+    "config.grow-crops.desc": "A tecla que apertada faz crescer plantações em torno do jogador.",
 
-    "config.title.other-options": "Other options",
-    "config.default-tab.name": "Default tab",
-    "config.default-tab.desc": "The tab shown by default when you open the menu.",
-    "config.other-options": "To configure cheats, press the 'open menu' key shown above in-game. Make sure you press it after loading the save, when no other menu or dialogue is open."
+    // TODO
+    "controls.reload-config": "Reload settings from file",
+    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+
+    "config.title.other-options": "Outras opções",
+    "config.default-tab.name": "Aba padrão",
+    "config.default-tab.desc": "A aba mostrada por padrão quando você abre o menu.",
+    "config.other-options": "Para configurar cheats, pressione a tecla de 'Abrir menu' mostrada acima, durante o jogo. Tenha certeza de pressionar após você carregar o save, quando nenhum outro menu ou diálogo esteja aberto."
 }

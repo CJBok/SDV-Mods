@@ -1,33 +1,32 @@
-namespace CJBCheatsMenu.Framework
+namespace CJBCheatsMenu.Framework;
+
+/// <summary>A tab in the cheat menu.</summary>
+internal enum MenuTab
 {
-    /// <summary>A tab in the cheat menu.</summary>
-    internal enum MenuTab
-    {
-        /// <summary>The 'player &amp; tools' tab.</summary>
-        PlayerAndTools,
+    /// <summary>The 'player &amp; tools' tab.</summary>
+    PlayerAndTools,
 
-        /// <summary>The 'farm &amp; fishing' tab.</summary>
-        FarmAndFishing,
+    /// <summary>The 'farm &amp; fishing' tab.</summary>
+    FarmAndFishing,
 
-        /// <summary>The 'skills' tab.</summary>
-        Skills,
+    /// <summary>The 'skills' tab.</summary>
+    Skills,
 
-        /// <summary>The 'weather' tab.</summary>
-        Weather,
+    /// <summary>The 'weather' tab.</summary>
+    Weather,
 
-        /// <summary>The 'relationships' tab.</summary>
-        Relationships,
+    /// <summary>The 'relationships' tab.</summary>
+    Relationships,
 
-        /// <summary>The 'warp locations' tab.</summary>
-        WarpLocations,
+    /// <summary>The 'warp locations' tab.</summary>
+    WarpLocations,
 
-        /// <summary>The 'time' tab.</summary>
-        Time,
+    /// <summary>The 'time' tab.</summary>
+    Time,
 
-        /// <summary>The 'advanced' tab.</summary>
-        Advanced,
+    /// <summary>The 'advanced' tab.</summary>
+    Advanced,
 
-        /// <summary>The 'controls' tab.</summary>
-        Controls
-    }
+    /// <summary>The 'controls' tab.</summary>
+    Controls
 }
