@@ -214,6 +214,7 @@
     "time.freeze-inside": "실내에서 시간 정지",
     "time.freeze-caves": "광산/해골동굴 안에서 시간 정지",
     "time.freeze-everywhere": "모든 장소에서 시간 정지",
+    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
     "time.time": "시간",
     "time.time-frozen-message": "시간 멈춤",
 

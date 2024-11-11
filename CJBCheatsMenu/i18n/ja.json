@@ -214,6 +214,7 @@
     "time.freeze-inside": "屋内で時間が止まる",
     "time.freeze-caves": "洞窟やダンジョンで時間が止まる",
     "time.freeze-everywhere": "どこでも時間が止まる",
+    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
     "time.time": "時間",
     "time.time-frozen-message": "時間停止！",
 

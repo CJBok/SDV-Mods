@@ -44,7 +44,8 @@ internal class FreezeTimeCheat : BaseCheat
         {
             new CheatsOptionsCheckbox(I18n.Time_FreezeInside(), context.Config.FreezeTimeInside, value => context.Config.FreezeTimeInside = value),
             new CheatsOptionsCheckbox(I18n.Time_FreezeCaves(), context.Config.FreezeTimeCaves, value => context.Config.FreezeTimeCaves = value),
-            new CheatsOptionsCheckbox(I18n.Time_FreezeEverywhere(), context.Config.FreezeTime, value => context.Config.FreezeTime = value)
+            new CheatsOptionsCheckbox(I18n.Time_FreezeEverywhere(), context.Config.FreezeTime, value => context.Config.FreezeTime = value),
+            new CheatsOptionsCheckbox(I18n.Time_FadeTimeFrozenMessage(I18n.Time_TimeFrozenMessage()), context.Config.FadeTimeFrozenMessage, value => context.Config.FadeTimeFrozenMessage = value),
         };
     }
 
@@ -75,18 +76,20 @@ internal class FreezeTimeCheat : BaseCheat
         if (!Context.IsWorldReady)
             return;
 
+        bool fadeMessage = context.Config.FadeTimeFrozenMessage;
+
         if (this.ShouldFreezeTime(context.Config, Game1.currentLocation, out bool _))
         {
             Game1.gameTimeInterval = 0;
 
-            if (this.FrozenMessageShownFor != Game1.currentLocation.NameOrUniqueName)
+            if (!fadeMessage || this.FrozenMessageShownFor != Game1.currentLocation.NameOrUniqueName)
             {
                 this.FrozenMessageShownFor = Game1.currentLocation.NameOrUniqueName;
                 this.FrozenMessageTime = FreezeTimeCheat.FrozenMessageDefaultTime;
                 this.FrozenMessageAlpha = 1f;
             }
         }
-        else if (this.FrozenMessageShownFor != null)
+        else if (fadeMessage && this.FrozenMessageShownFor != null)
         {
             this.FrozenMessageShownFor = null;
             this.FrozenMessageTime = 0;
@@ -102,10 +105,13 @@ internal class FreezeTimeCheat : BaseCheat
             if (Game1.displayHUD && !Game1.game1.takingMapScreenshot)
                 this.RenderTimeFrozenBox(context, spriteBatch, isCave);
 
-            if (this.FrozenMessageTime > 0)
-                this.FrozenMessageTime -= (int)Game1.currentGameTime.ElapsedGameTime.TotalMilliseconds;
-            else
-                this.FrozenMessageAlpha -= FreezeTimeCheat.FrozenMessageFadeRate;
+            if (context.Config.FadeTimeFrozenMessage)
+            {
+                if (this.FrozenMessageTime > 0)
+                    this.FrozenMessageTime -= (int)Game1.currentGameTime.ElapsedGameTime.TotalMilliseconds;
+                else
+                    this.FrozenMessageAlpha -= FreezeTimeCheat.FrozenMessageFadeRate;
+            }
         }
     }
 

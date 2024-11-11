@@ -105,6 +105,9 @@ internal class ModConfig
     /// <summary>The game clock doesn't change when you're inside the mines, Skull Cavern, or farm cave.</summary>
     public bool FreezeTimeCaves { get; set; }
 
+    /// <summary>Whether the 'time frozen' message should fade away after a few seconds.</summary>
+    public bool FadeTimeFrozenMessage { get; set; } = false;
+
     /// <summary>Whether fruit trees bear fruit instantly.</summary>
     public bool FastFruitTree { get; set; }
 
