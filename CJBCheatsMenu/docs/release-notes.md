@@ -3,6 +3,7 @@
 # Release notes
 ## Upcoming release
 * The "time frozen" message now stays on-screen (like it did before 1.37). A new option on the 'time' tab lets you re-enable the new behavior.
+* Fixed 'one-hit kill' cheat causing grubs to instantly start turning into flies again.
 
 ## 1.37.1
 Released 04 November 2024 for SMAPI 4.1.2 or later.
