@@ -620,15 +620,18 @@ internal class ItemMenu : ItemGrabMenu
         if (this.IsAndroid)
         {
             const int arrowUpDownBetweenOffset = 60;
-            //align position from trash can
-            int arrowPosX = this.trashCan.bounds.Right;
+            //align position
+            var trashCan = typeof(InventoryMenu).GetField("trashCan", BindingFlags.Instance | BindingFlags.Public)
+                .GetValue(this.inventory) as ClickableTextureComponent;
+            int arrowPosX = trashCan.bounds.Center.X;
+            arrowPosX -= (int)(this.UpArrow.bounds.Width / 2f);
+            this.UpArrow.bounds.X = arrowPosX;
+            this.DownArrow.bounds.X = arrowPosX;
+
             //pick item slot row 2
             var itemSlotCenter = this.ItemsToGrabMenu.inventory[23].bounds;
             int arrowPosY = itemSlotCenter.Y + (int)(itemSlotCenter.Height / 2f);
             arrowPosY -= (int)(this.UpArrow.bounds.Height / 2f);
-
-            this.UpArrow.bounds.X = arrowPosX;
-            this.DownArrow.bounds.X = arrowPosX;
 
             this.UpArrow.bounds.Y = arrowPosY - arrowUpDownBetweenOffset;
             this.DownArrow.bounds.Y = arrowPosY + arrowUpDownBetweenOffset;
