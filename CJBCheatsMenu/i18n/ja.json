@@ -1,4 +1,4 @@
-﻿{
+{
     /*********
     ** Main translations
     *********/
@@ -38,11 +38,10 @@
     "tools.harvest-with-scythe": "カマで収穫",
 
     // tool enchantments
-    // TODO
-    "tool-enchantments.title": "Tool Enchantments",
-    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
-    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
-    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+    "tool-enchantments.title": "どうぐのエンチャント",
+    "tool-enchantments.select-tool": "スロットのどうぐを選択した状態で、チートメニューを表示してください。",
+    "tool-enchantments.none-for-tool": "選択中の{{toolName}}に使用できるエンチャントがありません。",
+    "tool-enchantments.for-tool": "選択中のどうぐ：{{toolName}}",
 
     // money
     "add.money": "お金",
@@ -129,13 +128,13 @@
     ** Weather tab
     *********/
     "weather.title": "明日の天気",
-    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
+    "weather.current-value": "明日の天気は{{weather}}です。",
     "weather.explanation": "明日の天気を設定するには、せっていボタンをクリックしてください。\nこのタブはそれ以外の天気に影響を与えません。",
     "weather.sunny": "晴れ",
     "weather.raining": "雨",
     "weather.lightning": "嵐",
     "weather.snowing": "雪",
-    "weather.green-rain": "Green Raining", // TODO
+    "weather.green-rain": "緑の雨",
 
 
     /*********
@@ -238,7 +237,7 @@
     "flags.unlocked-content": "ロック解除されたコンテンツ",
     "flags.unlocked-content.dyes-and-tailoring": "染色と仕立て",
     "flags.unlocked-content.junimo-text": "ジュニモの言葉を読めるようにする",
-    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
+    "flags.unlocked-content.perfection": "パーフェクションの達成",
     "flags.community-center": "公民館の復興",
     "flags.community-center.door-unlocked": "公民館へ入館",
     "flags.jojamart.membership": "Jojaマートの会員権",
@@ -266,9 +265,8 @@
     "config.grow-tree.desc": "プレイヤーの周りの樹木や果樹を生長させるキーを設定する",
     "config.grow-crops.desc": "プレイヤーの周りの作物を収穫状態にするキーを設定する",
 
-    // TODO
-    "controls.reload-config": "Reload settings from file",
-    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+    "controls.reload-config": "ファイルからの設定の再読み込み",
+    "controls.reload-config.desc": "modの設定をmodのconfig.jsonファイルからリロードするキー設定。メニューが現在開かれている場合、変更はメニューが再び開かれたときにのみ有効になります。",
 
     "config.title.other-options": "その他オプション",
     "config.default-tab.name": "デフォルトタブ",
