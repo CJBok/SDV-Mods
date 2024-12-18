@@ -15,8 +15,8 @@ namespace CJBCheatsMenu;
 internal class ModEntry : Mod
 {
     /*********
-     ** Fields
-     *********/
+    ** Fields
+    *********/
     /// <summary>The relative file to the warps data file.</summary>
     private readonly string WarpsPath = "assets/warps.json";
 
@@ -34,8 +34,8 @@ internal class ModEntry : Mod
 
 
     /*********
-     ** Public methods
-     *********/
+    ** Public methods
+    *********/
     /// <inheritdoc />
     public override void Entry(IModHelper helper)
     {
@@ -74,8 +74,8 @@ internal class ModEntry : Mod
 
 
     /*********
-     ** Private methods
-     *********/
+    ** Private methods
+    *********/
     /// <inheritdoc cref="IGameLoopEvents.GameLaunched" />
     private void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
     {
@@ -140,8 +140,7 @@ internal class ModEntry : Mod
             else
             {
                 this.Monitor.Log("Received menu open key.");
-                CommonHelper.WarnOnGameMenuKeyConflict(this.Helper.Input, this.Monitor, this.Config.OpenMenuKey,
-                    "cheats menu");
+                CommonHelper.WarnOnGameMenuKeyConflict(this.Helper.Input, this.Monitor, this.Config.OpenMenuKey, "cheats menu");
                 this.OpenCheatsMenu();
             }
         }
@@ -197,11 +196,6 @@ internal class ModEntry : Mod
         }
     }
 
-    private void OpenCheatsMenu()
-    {
-        Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Cheats.Value, this.Monitor, true);
-    }
-
     /// <summary>Load the default warps from the data file, if it's valid.</summary>
     [SuppressMessage("ReSharper", "ConstantNullCoalescingCondition", Justification = "The warps field is initialized in this method.")]
     private ModData LoadModData()
@@ -220,6 +214,11 @@ internal class ModEntry : Mod
         }
 
         return new ModData(null, null);
+    }
+
+    private void OpenCheatsMenu()
+    {
+        Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Cheats.Value, this.Monitor, true);
     }
 
     /// <summary>Reset the cached location list.</summary>
