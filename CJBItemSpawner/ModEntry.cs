@@ -65,6 +65,11 @@ internal class ModEntry : Mod
         helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
     }
 
+    /// <inheritdoc />
+    public override object GetApi()
+    {
+        return new CJBItemSpawnerAPI(this.BuildMenu);
+    }
 
     /*********
     ** Private methods
