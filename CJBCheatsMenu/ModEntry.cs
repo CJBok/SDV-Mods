@@ -141,7 +141,7 @@ internal class ModEntry : Mod
             {
                 this.Monitor.Log("Received menu open key.");
                 CommonHelper.WarnOnGameMenuKeyConflict(this.Helper.Input, this.Monitor, this.Config.OpenMenuKey, "cheats menu");
-                Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Cheats.Value, this.Monitor, isNewMenu: true);
+                this.OpenCheatsMenu();
             }
         }
 
@@ -214,6 +214,11 @@ internal class ModEntry : Mod
         }
 
         return new ModData(null, null);
+    }
+
+    private void OpenCheatsMenu()
+    {
+        Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Cheats.Value, this.Monitor, true);
     }
 
     /// <summary>Reset the cached location list.</summary>
