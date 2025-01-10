@@ -35,14 +35,14 @@
     ** Generic Mod Config Menu UI
     *********/
     // TODO
-    "config.title.controls": "Controls",
-    "config.show-menu-key.name": "Show menu key",
-    "config.show-menu-key.desc": "The keybind which opens the menu (when no other menu is open).",
+    "config.title.controls": "控制",
+    "config.show-menu-key.name": "显示更多菜单",
+    "config.show-menu-key.desc": "绑定打开菜单的快捷键（当没有其他菜单打开时）。",
 
-    "config.title.options": "Options",
-    "config.apply-trash-can-upgrade.name": "Apply trash can upgrade",
-    "config.apply-trash-can-upgrade.desc": "When you upgrade your trash can to reclaim part of the price of trashed items, whether that upgrade applies in the item spawner menu too.",
+    "config.title.options": "选项",
+    "config.apply-trash-can-upgrade.name": "垃圾桶升级是否同步物品生成器",
+    "config.apply-trash-can-upgrade.desc": "当您升级垃圾桶以回收部分被丢弃物品的价格时，该升级是否也适用于_物品生成器_菜单。",
 
-    "config.title.hide-categories": "Hide categories",
-    "config.hide-category.desc": "Whether to hide the '{{name}}' category in the UI. If it's hidden, items in this category will not be accessible through the spawn menu."
+    "config.title.hide-categories": "隐藏目录",
+    "config.hide-category.desc": "是否在用户界面中隐藏“{{name}}”类别。如果隐藏，则无法通过生成菜单访问该类别中的项目。"
 }

@@ -38,11 +38,10 @@
     "tools.harvest-with-scythe": "镰刀收获",
 
     // tool enchantments
-    // TODO
-    "tool-enchantments.title": "Tool Enchantments",
-    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
-    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
-    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+    "tool-enchantments.title": "工具强化",
+    "tool-enchantments.select-tool": "在工具栏选中你要强化的工具。",
+    "tool-enchantments.none-for-tool": "没有针对 {{toolName}} 的可用的强化。",
+    "tool-enchantments.for-tool": "针对选中的 {{toolName}}。",
 
     // money
     "add.money": "金钱",
@@ -129,13 +128,13 @@
     ** Weather tab
     *********/
     "weather.title": "明日天气",
-    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
+    "weather.current-value": "设置明天天气为 {{weather}}。",
     "weather.explanation": "点击下方按钮设置明日天气（仅限明日）。除此之外本页面不会对天气有任何影响。",
     "weather.sunny": "晴天",
     "weather.raining": "雨天",
     "weather.lightning": "雷雨",
     "weather.snowing": "下雪",
-    "weather.green-rain": "Green Raining", // TODO
+    "weather.green-rain": "绿雨", 
 
 
     /*********
@@ -237,7 +236,7 @@
     "flags.unlocked-content": "解锁内容",
     "flags.unlocked-content.dyes-and-tailoring": "染色 & 缝纫",
     "flags.unlocked-content.junimo-text": "可以读懂祝尼魔文字",
-    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
+    "flags.unlocked-content.perfection": "完美成就", 
     "flags.community-center": "社区中心",
     "flags.community-center.door-unlocked": "社区中心解锁",
     "flags.jojamart.membership": "Joja超市会员资格",
@@ -265,9 +264,9 @@
     "config.grow-tree.desc": "在玩家周围种树的按键。",
     "config.grow-crops.desc": "在玩家周围种植农作物的按键。",
 
-    // TODO
-    "controls.reload-config": "Reload settings from file",
-    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+
+    "controls.reload-config": "重新加载配置文件",
+    "controls.reload-config.desc": "从 mod 的 config.json 文件重新加载 mod 设置的按键绑定。如果菜单当前处于打开状态，则只有重新打开时更改才会生效。",
 
     "config.title.other-options": "其它选项",
     "config.default-tab.name": "默认界面",
