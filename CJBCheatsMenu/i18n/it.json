@@ -214,6 +214,7 @@
     "time.freeze-inside": "Ferma il Tempo all'Interno",
     "time.freeze-caves": "Ferma il Tempo nelle Grotte",
     "time.freeze-everywhere": "Ferma il Tempo Ovunque",
+    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
     "time.time": "Tempo",
     "time.time-frozen-message": "Ferma l'Orologio",
 

@@ -214,6 +214,7 @@
     "time.freeze-inside": "Đóng băng thời gian trong nhà",
     "time.freeze-caves": "Đóng băng thời gian chỉ trong hang động",
     "time.freeze-everywhere": "Đóng băng thời gian mọi nơi",
+    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
     "time.time": "Thời gian",
     "time.time-frozen-message": "Đóng băng thời gian",
 

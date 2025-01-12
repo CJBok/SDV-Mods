@@ -214,6 +214,7 @@
     "time.freeze-inside": "Zeit in Gebäuden stoppen",
     "time.freeze-caves": "Zeit in Höhlen stoppen",
     "time.freeze-everywhere": "Zeit überall stoppen",
+    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
     "time.time": "Zeit",
     "time.time-frozen-message": "Zeit gestoppt",
 

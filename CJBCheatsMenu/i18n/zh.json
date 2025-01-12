@@ -38,11 +38,10 @@
     "tools.harvest-with-scythe": "镰刀收获",
 
     // tool enchantments
-    // TODO
-    "tool-enchantments.title": "Tool Enchantments",
-    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
-    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
-    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+    "tool-enchantments.title": "工具附魔",
+    "tool-enchantments.select-tool": "选择工具栏上的工具编辑附魔",
+    "tool-enchantments.none-for-tool": "所选 {{toolName}} 没有可用的附魔",
+    "tool-enchantments.for-tool": "对于所选 {{toolName}}",
 
     // money
     "add.money": "金钱",
@@ -129,13 +128,13 @@
     ** Weather tab
     *********/
     "weather.title": "明日天气",
-    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
+    "weather.current-value": "明日天气设置为 {{weather}}",
     "weather.explanation": "点击下方按钮设置明日天气（仅限明日）。除此之外本页面不会对天气有任何影响。",
     "weather.sunny": "晴天",
     "weather.raining": "雨天",
     "weather.lightning": "雷雨",
     "weather.snowing": "下雪",
-    "weather.green-rain": "Green Raining", // TODO
+    "weather.green-rain": "苔雨",
 
 
     /*********
@@ -214,6 +213,7 @@
     "time.freeze-inside": "在建筑内冻结时间",
     "time.freeze-caves": "在矿井内冻结时间",
     "time.freeze-everywhere": "任何地方都冻结时间",
+    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
     "time.time": "时间",
     "time.time-frozen-message": "时间冻结",
 
@@ -237,7 +237,7 @@
     "flags.unlocked-content": "解锁内容",
     "flags.unlocked-content.dyes-and-tailoring": "染色 & 缝纫",
     "flags.unlocked-content.junimo-text": "可以读懂祝尼魔文字",
-    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
+    "flags.unlocked-content.perfection": "达到完美",
     "flags.community-center": "社区中心",
     "flags.community-center.door-unlocked": "社区中心解锁",
     "flags.jojamart.membership": "Joja超市会员资格",
@@ -265,9 +265,8 @@
     "config.grow-tree.desc": "在玩家周围种树的按键。",
     "config.grow-crops.desc": "在玩家周围种植农作物的按键。",
 
-    // TODO
-    "controls.reload-config": "Reload settings from file",
-    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+    "controls.reload-config": "从文件中重新加载模组设置",
+    "controls.reload-config.desc": "从模组的配置（config.json）文件中重新加载模组设置的按键。如果菜单当前处于打开状态，则只有重新打开菜单时更改才会生效。",
 
     "config.title.other-options": "其它选项",
     "config.default-tab.name": "默认界面",

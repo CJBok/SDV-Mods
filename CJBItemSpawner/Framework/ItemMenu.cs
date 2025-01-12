@@ -430,10 +430,17 @@ internal class ItemMenu : ItemGrabMenu
     }
 
     /// <inheritdoc />
+    public override bool showWithoutTransparencyIfOptionIsSet()
+    {
+        return true;
+    }
+
+    /// <inheritdoc />
     public override void draw(SpriteBatch spriteBatch)
     {
         // draw background overlay
-        spriteBatch.Draw(Game1.fadeToBlackRect, new Rectangle(0, 0, Game1.uiViewport.Width, Game1.uiViewport.Height), Color.Black * 0.5f);
+        if (!Game1.options.showMenuBackground && !Game1.options.showClearBackgrounds)
+            spriteBatch.Draw(Game1.fadeToBlackRect, Game1.graphics.GraphicsDevice.Viewport.Bounds, Color.Black * .4f);
 
         // draw arrows under base UI, so tooltips are drawn over them
         if (this.CanScrollUp)

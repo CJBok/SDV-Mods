@@ -214,6 +214,7 @@
     "time.freeze-inside": "Detener Tiempo en Interiores",
     "time.freeze-caves": "Detener Tiempo en Cuevas & Minas",
     "time.freeze-everywhere": "Detener Tiempo en Todas Partes",
+    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
     "time.time": "Hora",
     "time.time-frozen-message": "Tiempo Detenido",
 
