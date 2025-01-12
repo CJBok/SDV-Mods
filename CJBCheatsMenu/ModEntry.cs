@@ -216,9 +216,22 @@ internal class ModEntry : Mod
         return new ModData(null, null);
     }
 
+    /// <summary>Open the cheats menu.</summary>
     private void OpenCheatsMenu()
     {
-        Game1.activeClickableMenu = new CheatsMenu(this.Config.DefaultTab, this.Cheats.Value, this.Monitor, true);
+        // This method simplifies reflection when another mod wants to open the menu.
+
+        this.OpenCheatsMenu(this.Config.DefaultTab, isNewMenu: true);
+    }
+
+    /// <summary>Open the cheats menu.</summary>
+    /// <param name="tab">The tab to preselect.</param>
+    /// <param name="isNewMenu">Whether to play the open-menu sound.</param>
+    private void OpenCheatsMenu(MenuTab tab, bool isNewMenu)
+    {
+        Game1.activeClickableMenu = new CheatsMenu(tab, this.Cheats.Value, this.Monitor, isNewMenu, ReopenForTab);
+
+        void ReopenForTab(MenuTab newTab) => this.OpenCheatsMenu(newTab, isNewMenu: false);
     }
 
     /// <summary>Reset the cached location list.</summary>
