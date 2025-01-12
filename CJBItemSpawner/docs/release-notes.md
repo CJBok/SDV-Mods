@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Fixed 'menu background' game option not correctly applied to cheats menu.
 * Improved translations. Thanks to xionkq (updated Chinese)!
 
 ## 2.5.1

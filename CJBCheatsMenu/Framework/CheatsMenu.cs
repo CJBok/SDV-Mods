@@ -258,10 +258,17 @@ internal class CheatsMenu : IClickableMenu
     }
 
     /// <inheritdoc />
+    public override bool showWithoutTransparencyIfOptionIsSet()
+    {
+        return true;
+    }
+
+    /// <inheritdoc />
     public override void draw(SpriteBatch b)
     {
-        if (!Game1.options.showMenuBackground)
-            b.Draw(Game1.fadeToBlackRect, Game1.graphics.GraphicsDevice.Viewport.Bounds, Color.Black * 0.4f);
+        if (!Game1.options.showMenuBackground && !Game1.options.showClearBackgrounds)
+            b.Draw(Game1.fadeToBlackRect, Game1.graphics.GraphicsDevice.Viewport.Bounds, Color.Black * .75f);
+
         base.draw(b);
 
         Game1.drawDialogueBox(this.xPositionOnScreen, this.yPositionOnScreen, this.width, this.height, false, true);

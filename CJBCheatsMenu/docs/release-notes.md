@@ -4,6 +4,7 @@
 ## Upcoming release
 * The "time frozen" message now stays on-screen (like it did before 1.37). A new option on the 'time' tab lets you re-enable the new behavior.
 * Fixed 'one-hit kill' cheat causing grubs to instantly start turning into flies again.
+* Fixed 'menu background' game option not correctly applied to cheats menu.
 * Re-added `OpenCheatsMenu` method for mods which access it via reflection.
 * Improved translations. Thanks to mitekano23 (updated Japanese) and xionkq (updated Chinese)!
 
