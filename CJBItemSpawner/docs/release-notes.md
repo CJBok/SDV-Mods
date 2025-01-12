@@ -1,7 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 2.5.2
+Released 11 January 2025 for SMAPI 4.1.10 or later.
+
 * Fixed 'menu background' game option not correctly applied to cheats menu.
 * Improved translations. Thanks to xionkq (updated Chinese)!
 

@@ -1,7 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.38.0
+Released 11 January 2025 for SMAPI 4.1.10 or later.
+
 * The "time frozen" message now stays on-screen (like it did before 1.37). A new option on the 'time' tab lets you re-enable the new behavior.
 * Fixed 'one-hit kill' cheat causing grubs to instantly start turning into flies again.
 * Fixed 'menu background' game option not correctly applied to cheats menu.
