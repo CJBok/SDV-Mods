@@ -13,12 +13,14 @@ namespace CJBItemSpawner.Framework.ItemData;
 
 /// <summary>Provides methods for searching and constructing items.</summary>
 /// <remarks>This is copied from the SMAPI source code and should be kept in sync with it.</remarks>
-internal class ItemRepository : IItemRepository
+internal class ItemRepository
 {
     /*********
     ** Public methods
     *********/
-    /// <inheritdoc />
+    /// <summary>Get all spawnable items.</summary>
+    /// <param name="onlyType">Only include items for the given <see cref="IItemDataDefinition.Identifier"/>.</param>
+    /// <param name="includeVariants">Whether to include flavored variants like "Sunflower Honey".</param>
     [SuppressMessage("ReSharper", "AccessToModifiedClosure", Justification = $"{nameof(ItemRepository.TryCreate)} invokes the lambda immediately.")]
     public IEnumerable<ISearchableItem> GetAll(string? onlyType = null, bool includeVariants = true)
     {

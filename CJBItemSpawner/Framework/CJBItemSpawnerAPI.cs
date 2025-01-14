@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using StardewValley;
+using static CJBItemSpawner.ICJBItemSpawnerAPI;
 
 namespace CJBItemSpawner.Framework;
 
@@ -14,14 +15,14 @@ public sealed class CJBItemSpawnerAPI : ICJBItemSpawnerAPI
     private readonly Func<ItemMenu> BuildMenu;
 
     /// <summary>The item repositories which returns all spawnable items.</summary>
-    private readonly IList<IItemRepository> ItemRepositories;
+    private readonly IList<Repository> ItemRepositories;
 
     /*********
      ** Public methods
      *********/
     /// <summary>Construct an instance.</summary>
     /// <param name="buildMenu">Method for building an item spawner menu.</param>
-    internal CJBItemSpawnerAPI(Func<ItemMenu> buildMenu, IList<IItemRepository> itemRepositories)
+    internal CJBItemSpawnerAPI(Func<ItemMenu> buildMenu, IList<Repository> itemRepositories)
     {
         this.BuildMenu = buildMenu;
         this.ItemRepositories = itemRepositories;
@@ -34,7 +35,7 @@ public sealed class CJBItemSpawnerAPI : ICJBItemSpawnerAPI
     }
 
     /// <inheritdoc />
-    public void AddRepository(IItemRepository repository)
+    public void AddRepository(Repository repository)
     {
         this.ItemRepositories.Add(repository);
     }

@@ -8,6 +8,7 @@ using CJBItemSpawner.Framework.Models;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
+using static CJBItemSpawner.ICJBItemSpawnerAPI;
 
 namespace CJBItemSpawner;
 
@@ -27,7 +28,7 @@ internal class ModEntry : Mod
     private ModDataCategory[] Categories = null!; // set in Entry
 
     /// <summary>The item repositories which returns all spawnable items.</summary>
-    private readonly IList<IItemRepository> ItemRepositories = new List<IItemRepository>();
+    private readonly IList<Repository> ItemRepositories = new List<Repository>();
 
     /// <summary>Manages the gamepad text entry UI.</summary>
     private readonly TextEntryManager TextEntryManager = new();
@@ -127,35 +128,37 @@ internal class ModEntry : Mod
         return new ItemMenu(items, this.TextEntryManager, this.ItemData, this.Helper.ModContent, this.Monitor, this.Config.ReclaimPriceInMenuTrashCan);
     }
 
-    /// <summary>Get the item repositories.</summary>
-    private IEnumerable<IItemRepository> GetRepositories()
-    {
-        yield return new ItemRepository();
-
-        foreach (IItemRepository repository in this.ItemRepositories)
-        {
-            yield return repository;
-        }
-    }
-
     /// <summary>Get the items which can be spawned.</summary>
     private IEnumerable<SpawnableItem> GetSpawnableItems()
     {
-        foreach (IItemRepository repository in this.GetRepositories())
+        IEnumerable<ISearchableItem> GetSpawnableItemsRaw()
         {
-            foreach (ISearchableItem entry in repository.GetAll())
+            foreach (ISearchableItem entry in new ItemRepository().GetAll())
             {
-                ModDataCategory? category = this.Categories.FirstOrDefault(rule => rule.IsMatch(entry));
-
-                if (category?.Label != null && this.Config.HideCategories.Contains(category.Label))
-                    continue;
-
-                string categoryLabel = category != null
-                    ? I18n.GetByKey(category.Label).Default(category.Label)
-                    : I18n.Filter_Miscellaneous();
-
-                yield return new SpawnableItem(entry, categoryLabel);
+                yield return entry;
             }
+
+            foreach (Repository getAll in this.ItemRepositories)
+            {
+                foreach ((string type, string id, CreateItem createItem) in getAll())
+                {
+                    yield return new SearchableItem(type, id, p => createItem(p.Type, p.Id));
+                }
+            }
+        }
+
+        foreach (ISearchableItem entry in GetSpawnableItemsRaw())
+        {
+            ModDataCategory? category = this.Categories.FirstOrDefault(rule => rule.IsMatch(entry));
+
+            if (category?.Label != null && this.Config.HideCategories.Contains(category.Label))
+                continue;
+
+            string categoryLabel = category != null
+                ? I18n.GetByKey(category.Label).Default(category.Label)
+                : I18n.Filter_Miscellaneous();
+
+            yield return new SpawnableItem(entry, categoryLabel);
         }
     }
 
