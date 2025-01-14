@@ -214,6 +214,7 @@
     "time.freeze-inside": "İçerideyken Zamanı Dondur",
     "time.freeze-caves": "Mağaradayken Zamanı Dondur",
     "time.freeze-everywhere": "Zamanı Her Yerde Dondur",
+    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
     "time.time": "Saat",
     "time.time-frozen-message": "Zaman Dondu",
 

@@ -214,6 +214,7 @@
     "time.freeze-inside": "หยุดเวลาเมื่ออยู่ในอาคาร",
     "time.freeze-caves": "หยุดเวลาเมื่ออยู่ในถ้ำ",
     "time.freeze-everywhere": "หยุดเวลาใน ทุกๆ ที่",
+    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
     "time.time": "เวลา",
     "time.time-frozen-message": "หยุดเวลา",
 

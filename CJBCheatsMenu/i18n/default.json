@@ -213,6 +213,7 @@
     "time.freeze-inside": "Freeze Time Inside",
     "time.freeze-caves": "Freeze Time In Caves",
     "time.freeze-everywhere": "Freeze Time Everywhere",
+    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds",
     "time.time": "Time",
     "time.time-frozen-message": "Time Frozen",
 

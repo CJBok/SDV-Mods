@@ -46,7 +46,17 @@ internal class OneHitKillCheat : BaseCheat
         foreach (NPC character in characters)
         {
             if (character is Monster { Health: > 1 } monster)
+            {
                 monster.Health = 1;
+                if (monster is Grub)
+                {
+                    // We deliberately avoid setting MaxHealth in most cases, since that determines
+                    // the amount of healing from the vampiric enchantment. Grubs are the exception
+                    // since they turn into flies at low health, unless their max health is set to
+                    // the same value.
+                    monster.MaxHealth = 1;
+                }
+            }
         }
     }
 }

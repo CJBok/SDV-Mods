@@ -28,6 +28,9 @@ internal class CheatsMenu : IClickableMenu
     /// <summary>Encapsulates monitoring and logging.</summary>
     private readonly IMonitor Monitor;
 
+    /// <summary>Reopen the cheats menu with the selected tab.</summary>
+    private readonly Action<MenuTab> ReopenMenu;
+
     private readonly List<ClickableComponent> OptionSlots = new();
     private readonly List<OptionsElement> Options = new();
     private ClickableTextureComponent UpArrow;
@@ -65,10 +68,12 @@ internal class CheatsMenu : IClickableMenu
     /// <param name="cheats">The cheats helper.</param>
     /// <param name="monitor">Encapsulates monitoring and logging.</param>
     /// <param name="isNewMenu">Whether to play the open-menu sound.</param>
-    public CheatsMenu(MenuTab initialTab, CheatManager cheats, IMonitor monitor, bool isNewMenu)
+    /// <param name="reopenMenu">Reopen the cheats menu with the selected tab.</param>
+    public CheatsMenu(MenuTab initialTab, CheatManager cheats, IMonitor monitor, bool isNewMenu, Action<MenuTab> reopenMenu)
     {
         this.Cheats = cheats;
         this.Monitor = monitor;
+        this.ReopenMenu = reopenMenu;
         this.CurrentTab = initialTab;
         this.ResetComponents();
         this.SetOptions();
@@ -158,12 +163,12 @@ internal class CheatsMenu : IClickableMenu
                 index = this.Tabs.Count - 1;
 
             // open menu with new index
-            MenuTab tabID = this.GetTabID(this.Tabs[index]);
-            Game1.activeClickableMenu = new CheatsMenu(tabID, this.Cheats, this.Monitor, isNewMenu: false);
+            MenuTab tabId = this.GetTabID(this.Tabs[index]);
+            this.ReopenMenu(tabId);
         }
 
-            // send to active menu
-            (this.GetActiveOption() as BaseOptionsElement)?.ReceiveButtonPress(button.ToSButton());
+        // send to active menu
+        (this.GetActiveOption() as BaseOptionsElement)?.ReceiveButtonPress(button.ToSButton());
     }
 
     /// <inheritdoc />
@@ -234,8 +239,8 @@ internal class CheatsMenu : IClickableMenu
         {
             if (tab.bounds.Contains(x, y))
             {
-                MenuTab tabID = this.GetTabID(tab);
-                Game1.activeClickableMenu = new CheatsMenu(tabID, this.Cheats, this.Monitor, isNewMenu: false);
+                MenuTab tabId = this.GetTabID(tab);
+                this.ReopenMenu(tabId);
                 break;
             }
         }
@@ -253,10 +258,17 @@ internal class CheatsMenu : IClickableMenu
     }
 
     /// <inheritdoc />
+    public override bool showWithoutTransparencyIfOptionIsSet()
+    {
+        return true;
+    }
+
+    /// <inheritdoc />
     public override void draw(SpriteBatch b)
     {
-        if (!Game1.options.showMenuBackground)
-            b.Draw(Game1.fadeToBlackRect, Game1.graphics.GraphicsDevice.Viewport.Bounds, Color.Black * 0.4f);
+        if (!Game1.options.showMenuBackground && !Game1.options.showClearBackgrounds)
+            b.Draw(Game1.fadeToBlackRect, Game1.graphics.GraphicsDevice.Viewport.Bounds, Color.Black * .75f);
+
         base.draw(b);
 
         Game1.drawDialogueBox(this.xPositionOnScreen, this.yPositionOnScreen, this.width, this.height, false, true);

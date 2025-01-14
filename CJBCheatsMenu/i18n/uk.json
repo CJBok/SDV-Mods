@@ -214,6 +214,7 @@
     "time.freeze-inside": "Зупинити час у приміщеннях",
     "time.freeze-caves": "Зупинити час у печерах",
     "time.freeze-everywhere": "Зупинити час усюди",
+    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
     "time.time": "Поточний час",
     "time.time-frozen-message": "Час зупинено",
 

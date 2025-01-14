@@ -214,6 +214,7 @@
     "time.freeze-inside": "Zatrzymaj Czas Wewnątrz",
     "time.freeze-caves": "Zatrzymaj Czas w Jaskiniach",
     "time.freeze-everywhere": "Zatrzymaj Czas Wszędzie",
+    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
     "time.time": "Czas",
     "time.time-frozen-message": "Czas Zatrzymany",
 
