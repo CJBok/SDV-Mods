@@ -18,7 +18,7 @@ internal class SpawnableItem : SearchableItem
     /// <summary>Construct an instance.</summary>
     /// <param name="item">The item metadata.</param>
     /// <param name="category">The item's category filter label for the spawn menu.</param>
-    public SpawnableItem(SearchableItem item, string category)
+    public SpawnableItem(ISearchableItem item, string category)
         : base(item)
     {
         this.Category = category;

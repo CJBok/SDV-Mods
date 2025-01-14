@@ -127,7 +127,7 @@ internal class ModEntry : Mod
     /// <summary>Get the items which can be spawned.</summary>
     private IEnumerable<SpawnableItem> GetSpawnableItems()
     {
-        foreach (SearchableItem entry in new ItemRepository().GetAll())
+        foreach (ISearchableItem entry in new ItemRepository().GetAll())
         {
             ModDataCategory? category = this.Categories.FirstOrDefault(rule => rule.IsMatch(entry));
 
@@ -140,6 +140,8 @@ internal class ModEntry : Mod
 
             yield return new SpawnableItem(entry, categoryLabel);
         }
+
+        // TODO: get items from api
     }
 
     /// <summary>Log a trace message which summarizes the user's current config.</summary>

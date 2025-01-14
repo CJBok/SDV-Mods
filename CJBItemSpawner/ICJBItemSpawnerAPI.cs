@@ -7,4 +7,8 @@ internal interface ICJBItemSpawnerAPI
     /// Open the item spawner menu.
     /// </summary>
     void OpenItemSpawnerMenu();
+
+    /// <summary>Add an item repository.</summary>
+    /// <param name="repository">An item repository which returns all spawnable items.</param>
+    void AddRepository(IItemRepository repository);
 }
