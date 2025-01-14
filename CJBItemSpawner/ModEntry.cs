@@ -26,6 +26,9 @@ internal class ModEntry : Mod
     /// <summary>The item category filters available in the item spawner menu.</summary>
     private ModDataCategory[] Categories = null!; // set in Entry
 
+    /// <summary>The item repositories which returns all spawnable items.</summary>
+    private readonly IList<IItemRepository> ItemRepositories = new List<IItemRepository>();
+
     /// <summary>Manages the gamepad text entry UI.</summary>
     private readonly TextEntryManager TextEntryManager = new();
 
@@ -68,7 +71,7 @@ internal class ModEntry : Mod
     /// <inheritdoc />
     public override object GetApi()
     {
-        return new CJBItemSpawnerAPI(this.BuildMenu);
+        return new CJBItemSpawnerAPI(this.BuildMenu, this.ItemRepositories);
     }
 
     /*********
@@ -124,24 +127,36 @@ internal class ModEntry : Mod
         return new ItemMenu(items, this.TextEntryManager, this.ItemData, this.Helper.ModContent, this.Monitor, this.Config.ReclaimPriceInMenuTrashCan);
     }
 
+    /// <summary>Get the item repositories.</summary>
+    private IEnumerable<IItemRepository> GetRepositories()
+    {
+        yield return new ItemRepository();
+
+        foreach (IItemRepository repository in this.ItemRepositories)
+        {
+            yield return repository;
+        }
+    }
+
     /// <summary>Get the items which can be spawned.</summary>
     private IEnumerable<SpawnableItem> GetSpawnableItems()
     {
-        foreach (ISearchableItem entry in new ItemRepository().GetAll())
+        foreach (IItemRepository repository in this.GetRepositories())
         {
-            ModDataCategory? category = this.Categories.FirstOrDefault(rule => rule.IsMatch(entry));
+            foreach (ISearchableItem entry in repository.GetAll())
+            {
+                ModDataCategory? category = this.Categories.FirstOrDefault(rule => rule.IsMatch(entry));
 
-            if (category?.Label != null && this.Config.HideCategories.Contains(category.Label))
-                continue;
+                if (category?.Label != null && this.Config.HideCategories.Contains(category.Label))
+                    continue;
 
-            string categoryLabel = category != null
-                ? I18n.GetByKey(category.Label).Default(category.Label)
-                : I18n.Filter_Miscellaneous();
+                string categoryLabel = category != null
+                    ? I18n.GetByKey(category.Label).Default(category.Label)
+                    : I18n.Filter_Miscellaneous();
 
-            yield return new SpawnableItem(entry, categoryLabel);
+                yield return new SpawnableItem(entry, categoryLabel);
+            }
         }
-
-        // TODO: get items from api
     }
 
     /// <summary>Log a trace message which summarizes the user's current config.</summary>
