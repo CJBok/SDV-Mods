@@ -46,7 +46,7 @@ internal record ModDataCategoryRule
 
     /// <summary>Get whether a given item matches the rules for this category.</summary>
     /// <param name="entry">The searchable item to check.</param>
-    public bool IsMatch(ISearchableItem entry)
+    public bool IsMatch(SearchableItem entry)
     {
         Item item = entry.Item;
         SObject? obj = item as SObject;

@@ -131,9 +131,9 @@ internal class ModEntry : Mod
     /// <summary>Get the items which can be spawned.</summary>
     private IEnumerable<SpawnableItem> GetSpawnableItems()
     {
-        IEnumerable<ISearchableItem> GetSpawnableItemsRaw()
+        IEnumerable<SearchableItem> GetSpawnableItemsRaw()
         {
-            foreach (ISearchableItem entry in new ItemRepository().GetAll())
+            foreach (SearchableItem entry in new ItemRepository().GetAll())
             {
                 yield return entry;
             }
@@ -147,7 +147,7 @@ internal class ModEntry : Mod
             }
         }
 
-        foreach (ISearchableItem entry in GetSpawnableItemsRaw())
+        foreach (SearchableItem entry in GetSpawnableItemsRaw())
         {
             ModDataCategory? category = this.Categories.FirstOrDefault(rule => rule.IsMatch(entry));
 

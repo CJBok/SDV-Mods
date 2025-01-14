@@ -13,7 +13,7 @@ internal record ModDataCategory(string Label, ModDataCategoryRule? When, ModData
     *********/
     /// <summary>Get whether a given item matches the rules for this category.</summary>
     /// <param name="item">The item to check.</param>
-    public bool IsMatch(ISearchableItem item)
+    public bool IsMatch(SearchableItem item)
     {
         return
             this.When != null

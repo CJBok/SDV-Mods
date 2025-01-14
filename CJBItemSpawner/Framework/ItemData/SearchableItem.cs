@@ -3,31 +3,32 @@ using StardewValley;
 
 namespace CJBItemSpawner.Framework.ItemData;
 
-/// <inheritdoc />
-internal class SearchableItem : ISearchableItem
+/// <summary>A game item with metadata.</summary>
+/// <remarks>This is copied from the SMAPI source code and should be kept in sync with it.</remarks>
+internal class SearchableItem
 {
     /*********
     ** Accessors
     *********/
-    /// <inheritdoc />
+    /// <summary>The <see cref="IItemDataDefinition.Identifier"/> value for the item type.</summary>
     public string Type { get; }
 
-    /// <inheritdoc />
+    /// <summary>A sample item instance.</summary>
     public Item Item { get; }
 
-    /// <inheritdoc />
+    /// <summary>Create an item instance.</summary>
     public Func<Item> CreateItem { get; }
 
-    /// <inheritdoc />
+    /// <summary>The unqualified item ID.</summary>
     public string Id { get; }
 
-    /// <inheritdoc />
+    /// <summary>The qualified item ID.</summary>
     public string QualifiedItemId { get; }
 
-    /// <inheritdoc />
+    /// <summary>The item's default name.</summary>
     public string Name => this.Item.Name;
 
-    /// <inheritdoc />
+    /// <summary>The item's display name for the current language.</summary>
     public string DisplayName => this.Item.DisplayName;
 
 
@@ -38,7 +39,7 @@ internal class SearchableItem : ISearchableItem
     /// <param name="type">The item type.</param>
     /// <param name="id">The unqualified item ID.</param>
     /// <param name="createItem">Create an item instance.</param>
-    public SearchableItem(string type, string id, Func<ISearchableItem, Item> createItem)
+    public SearchableItem(string type, string id, Func<SearchableItem, Item> createItem)
     {
         this.Type = type;
         this.Id = id;
@@ -49,7 +50,7 @@ internal class SearchableItem : ISearchableItem
 
     /// <summary>Construct an instance.</summary>
     /// <param name="item">The item metadata to copy.</param>
-    public SearchableItem(ISearchableItem item)
+    public SearchableItem(SearchableItem item)
     {
         this.Type = item.Type;
         this.Id = item.Id;
@@ -58,7 +59,8 @@ internal class SearchableItem : ISearchableItem
         this.Item = item.Item;
     }
 
-    /// <inheritdoc />
+    /// <summary>Get whether the item name contains a case-insensitive substring.</summary>
+    /// <param name="substring">The substring to find.</param>
     public bool NameContains(string substring)
     {
         return
@@ -66,7 +68,8 @@ internal class SearchableItem : ISearchableItem
             || this.DisplayName.IndexOf(substring, StringComparison.OrdinalIgnoreCase) != -1;
     }
 
-    /// <inheritdoc />
+    /// <summary>Get whether the item name is exactly equal to a case-insensitive string.</summary>
+    /// <param name="name">The substring to find.</param>
     public bool NameEquivalentTo(string name)
     {
         return

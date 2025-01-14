@@ -22,7 +22,7 @@ internal class ItemRepository
     /// <param name="onlyType">Only include items for the given <see cref="IItemDataDefinition.Identifier"/>.</param>
     /// <param name="includeVariants">Whether to include flavored variants like "Sunflower Honey".</param>
     [SuppressMessage("ReSharper", "AccessToModifiedClosure", Justification = $"{nameof(ItemRepository.TryCreate)} invokes the lambda immediately.")]
-    public IEnumerable<ISearchableItem> GetAll(string? onlyType = null, bool includeVariants = true)
+    public IEnumerable<SearchableItem> GetAll(string? onlyType = null, bool includeVariants = true)
     {
         //
         //
@@ -34,7 +34,7 @@ internal class ItemRepository
         //
         //
 
-        IEnumerable<ISearchableItem?> GetAllRaw()
+        IEnumerable<SearchableItem?> GetAllRaw()
         {
             // get from item data definitions
             foreach (IItemDataDefinition itemType in ItemRegistry.ItemTypes)
@@ -52,7 +52,7 @@ internal class ItemRepository
                             foreach (string id in itemType.GetAllIds())
                             {
                                 // base item
-                                ISearchableItem? result = this.TryCreate(itemType.Identifier, id, p => ItemRegistry.Create(itemType.Identifier + p.Id));
+                                SearchableItem? result = this.TryCreate(itemType.Identifier, id, p => ItemRegistry.Create(itemType.Identifier + p.Id));
 
                                 // ring
                                 if (result?.Item is Ring)
@@ -61,14 +61,14 @@ internal class ItemRepository
                                 // journal scraps
                                 else if (result?.QualifiedItemId == "(O)842")
                                 {
-                                    foreach (ISearchableItem? journalScrap in this.GetSecretNotes(itemType, isJournalScrap: true))
+                                    foreach (SearchableItem? journalScrap in this.GetSecretNotes(itemType, isJournalScrap: true))
                                         yield return journalScrap;
                                 }
 
                                 // secret notes
                                 else if (result?.QualifiedItemId == "(O)79")
                                 {
-                                    foreach (ISearchableItem? secretNote in this.GetSecretNotes(itemType, isJournalScrap: false))
+                                    foreach (SearchableItem? secretNote in this.GetSecretNotes(itemType, isJournalScrap: false))
                                         yield return secretNote;
                                 }
 
@@ -97,7 +97,7 @@ internal class ItemRepository
 
                                     if (includeVariants)
                                     {
-                                        foreach (ISearchableItem? variant in this.GetFlavoredObjectVariants(objectDataDefinition, result?.Item as SObject, itemType))
+                                        foreach (SearchableItem? variant in this.GetFlavoredObjectVariants(objectDataDefinition, result?.Item as SObject, itemType))
                                             yield return variant;
                                     }
                                 }
@@ -129,7 +129,7 @@ internal class ItemRepository
     /// <param name="itemType">The object data definition.</param>
     /// <param name="isJournalScrap">Whether to get journal scraps.</param>
     /// <remarks>Derived from <see cref="GameLocation.tryToCreateUnseenSecretNote"/>.</remarks>
-    private IEnumerable<ISearchableItem?> GetSecretNotes(IItemDataDefinition itemType, bool isJournalScrap)
+    private IEnumerable<SearchableItem?> GetSecretNotes(IItemDataDefinition itemType, bool isJournalScrap)
     {
         // get base item ID
         string baseId = isJournalScrap ? "842" : "79";
@@ -165,7 +165,7 @@ internal class ItemRepository
     /// <param name="objectDataDefinition">The item data definition for object items.</param>
     /// <param name="item">A sample of the base item.</param>
     /// <param name="itemType">The object data definition.</param>
-    private IEnumerable<ISearchableItem?> GetFlavoredObjectVariants(ObjectDataDefinition objectDataDefinition, SObject? item, IItemDataDefinition itemType)
+    private IEnumerable<SearchableItem?> GetFlavoredObjectVariants(ObjectDataDefinition objectDataDefinition, SObject? item, IItemDataDefinition itemType)
     {
         if (item is null)
             yield break;
@@ -226,7 +226,7 @@ internal class ItemRepository
                             continue;
 
                         // create roe
-                        ISearchableItem? roe = this.TryCreate(itemType.Identifier, $"812/{input.ItemId}", _ => objectDataDefinition.CreateFlavoredRoe(input));
+                        SearchableItem? roe = this.TryCreate(itemType.Identifier, $"812/{input.ItemId}", _ => objectDataDefinition.CreateFlavoredRoe(input));
                         yield return roe;
 
                         // create aged roe
@@ -286,11 +286,11 @@ internal class ItemRepository
     /// <param name="type">The item type.</param>
     /// <param name="key">The locally unique item key.</param>
     /// <param name="createItem">Create an item instance.</param>
-    private ISearchableItem? TryCreate(string type, string key, Func<ISearchableItem, Item> createItem)
+    private SearchableItem? TryCreate(string type, string key, Func<SearchableItem, Item> createItem)
     {
         try
         {
-            ISearchableItem item = new SearchableItem(type, key, createItem);
+            SearchableItem item = new SearchableItem(type, key, createItem);
             item.Item.getDescription(); // force-load item data, so it crashes here if it's invalid
 
             if (item.Item.Name is null or "Error Item")
