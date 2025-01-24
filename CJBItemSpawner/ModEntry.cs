@@ -30,12 +30,17 @@ internal class ModEntry : Mod
     private readonly TextEntryManager TextEntryManager = new();
 
     /// <summary>The API</summary>
-    private readonly ItemSpawnerAPI API = new();
+    private readonly ItemSpawnerAPI API;
 
 
     /*********
     ** Public methods
     *********/
+    public ModEntry()
+    {
+        this.API = new(this.BuildMenu);
+    }
+
     /// <inheritdoc />
     public override void Entry(IModHelper helper)
     {

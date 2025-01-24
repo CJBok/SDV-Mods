@@ -2,14 +2,19 @@ using System;
 using System.Collections.Generic;
 using CJBItemSpawner.Framework.ItemData;
 using StardewValley;
+using StardewValley.Menus;
 
 namespace CJBItemSpawner.Framework
 {
     public class ItemSpawnerAPI : IItemSpawnerAPI
     {
+        /*********
+        ** Fields
+        *********/
         internal delegate SearchableItem? SearchableItemFactory(string type, string key, Func<SearchableItem, Item> createItem);
 
         private readonly HashSet<string> Blacklist = [];
+        private readonly Func<IClickableMenu> BuildMenu;
 
         public class VariantsRequestedEventArgs : IItemSpawnerAPI.IVariantsRequestedEventArgs
         {
@@ -35,6 +40,15 @@ namespace CJBItemSpawner.Framework
             }
         }
 
+        /*********
+        ** Public methods
+        *********/
+        /// <inheritdoc/>
+        public void OpenItemSpawnerMenu()
+        {
+            Game1.activeClickableMenu = this.BuildMenu();
+        }
+
         /// <inheritdoc/>
         public event EventHandler<IItemSpawnerAPI.IVariantsRequestedEventArgs>? VariantsRequested;
 
@@ -42,6 +56,14 @@ namespace CJBItemSpawner.Framework
         public void BlacklistItem(string qualifiedId)
         {
             this.Blacklist.Add(qualifiedId);
+        }
+
+        /*********
+        ** Private methods
+        *********/
+        internal ItemSpawnerAPI(Func<IClickableMenu> BuildMenu)
+        {
+            this.BuildMenu = BuildMenu;
         }
 
         /// <summary>Gets API-Added variants for a given item.</summary>

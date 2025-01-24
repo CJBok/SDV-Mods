@@ -17,6 +17,11 @@ namespace CJBItemSpawner
         }
 
         /// <summary>
+        /// Open the item spawner menu.
+        /// </summary>
+        void OpenItemSpawnerMenu();
+
+        /// <summary>
         /// Prevent an item from being displayed in the item spawner.
         /// Should only be used for placeholder items. <br/>
         /// Does not disable variants for this item.
