@@ -16,8 +16,19 @@ namespace CJBItemSpawner.Framework.ItemData;
 internal class ItemRepository
 {
     /*********
+    ** Fields
+    *********/
+    /// <summary>Used to communicate with other mods</summary>
+    private readonly ItemSpawnerAPI API;
+
+    /*********
     ** Public methods
     *********/
+    public ItemRepository(ItemSpawnerAPI API)
+    {
+        this.API = API;
+    }
+
     /// <summary>Get all spawnable items.</summary>
     /// <param name="onlyType">Only include items for the given <see cref="IItemDataDefinition.Identifier"/>.</param>
     /// <param name="includeVariants">Whether to include flavored variants like "Sunflower Honey".</param>
@@ -90,7 +101,8 @@ internal class ItemRepository
                                             break;
 
                                         default:
-                                            if (result != null)
+                                            // skip blacklisted items
+                                            if (result != null && !this.API.IsBlacklisted(result.QualifiedItemId))
                                                 yield return result;
                                             break;
                                     }
@@ -98,6 +110,9 @@ internal class ItemRepository
                                     if (includeVariants)
                                     {
                                         foreach (SearchableItem? variant in this.GetFlavoredObjectVariants(objectDataDefinition, result?.Item as SObject, itemType))
+                                            yield return variant;
+
+                                        foreach (SearchableItem? variant in this.API.GetVariantsFor("(O)", id, this.TryCreate))
                                             yield return variant;
                                     }
                                 }
@@ -108,7 +123,17 @@ internal class ItemRepository
                     // no special handling needed
                     default:
                         foreach (string id in itemType.GetAllIds())
-                            yield return this.TryCreate(itemType.Identifier, id, p => ItemRegistry.Create(itemType.Identifier + p.Id));
+                        {
+                            // skip blacklisted items
+                            if (!this.API.IsBlacklisted(itemType.Identifier + id))
+                                yield return this.TryCreate(itemType.Identifier, id, p => ItemRegistry.Create(itemType.Identifier + p.Id));
+
+                            if (includeVariants)
+                            {
+                                foreach (SearchableItem? variant in this.API.GetVariantsFor(itemType.Identifier, id, this.TryCreate))
+                                    yield return variant;
+                            }
+                        }
                         break;
                 }
             }
