@@ -14,7 +14,7 @@ internal class AddMoneyCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        foreach (int amount in new[] { 100, 1_000, 10_000, 100_000 })
+        foreach (int amount in new[] { 100, 1_000, 10_000, 100_000, 1_000_000 })
         {
             yield return new CheatsOptionsButton(
                 label: I18n.Add_AmountGold(amount: Utility.getNumberWithCommas(amount)),

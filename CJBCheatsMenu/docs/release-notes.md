@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Added 1,000,000g option to the add-money cheat.
 * Added comma separators to add-money and add-casino-coin cheats.
 
 ## 1.38.0
