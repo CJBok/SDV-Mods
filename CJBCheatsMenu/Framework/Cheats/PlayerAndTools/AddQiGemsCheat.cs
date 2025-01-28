@@ -17,7 +17,7 @@ internal class AddQiGemsCheat : BaseCheat
         foreach (int amount in new[] { 1, 10, 100 })
         {
             yield return new CheatsOptionsButton(
-                label: I18n.Add_AmountOther(amount: amount),
+                label: I18n.Add_AmountOther(amount: Utility.getNumberWithCommas(amount)),
                 slotWidth: context.SlotWidth,
                 toggle: () => this.AddGems(amount)
             );

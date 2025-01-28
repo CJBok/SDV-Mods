@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Added comma separators to add-money and add-casino-coin cheats.
+
 ## 1.38.0
 Released 11 January 2025 for SMAPI 4.1.10 or later.
 
