@@ -9,11 +9,10 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.show-when.name": "Show price",
-    "config.show-when.desc": "Choose when the sell price UI should be shown.",
+    "config.show-when.name": "Ár megjelenítése",
+    "config.show-when.desc": "Mikor legyen látható az eladási ár.",
 
-    "config.show-when.Always": "Always show",
-    "config.show-when.BeforePriceCatalogue": "Before price catalogue is unlocked",
-    "config.show-when.AfterPriceCatalogue": "After price catalogue is unlocked"
+    "config.show-when.Always": "Mindig",
+    "config.show-when.BeforePriceCatalogue": "Az árkatalógus feloldása előtt",
+    "config.show-when.AfterPriceCatalogue": "Az árkatalógus feloldása után"
 }
