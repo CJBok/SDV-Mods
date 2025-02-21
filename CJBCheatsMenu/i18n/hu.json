@@ -38,11 +38,10 @@
     "tools.harvest-with-scythe": "Betakarítás Kaszával",
 
     // tool enchantments
-    // TODO
-    "tool-enchantments.title": "Tool Enchantments",
-    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
-    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
-    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+    "tool-enchantments.title": "Eszköz Elbűvölések",
+    "tool-enchantments.select-tool": "Válassz egy eszközt az eszköztáradról a bűvölések szerkesztéséhez.",
+    "tool-enchantments.none-for-tool": "A kiválasztott {{toolName}} számára nem érhetők el bűvölések.",
+    "tool-enchantments.for-tool": "A kiválasztott {{toolName}} számára.",
 
     // money
     "add.money": "Pénz",
@@ -62,8 +61,8 @@
     "farm.durable-fences": "Tartós Kerítések",
     "farm.instant-build": "Azonnali Építés",
     "farm.auto-feed-animals": "Mindig Automata Etetés",
-    "farm.auto-pet-animals": "Auto-Pet Animals", // TODO
-    "farm.auto-pet-pets": "Auto-Pet Pets", // TODO
+    "farm.auto-pet-animals": "Automata Állatsimogatás",
+    "farm.auto-pet-pets": "Automata Kisállatsimogatás",
     "farm.infinite-hay": "Végtelen Széna",
 
     // fishing
@@ -129,13 +128,13 @@
     ** Weather tab
     *********/
     "weather.title": "Holnapi Időjárás",
-    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
-    "weather.explanation": "Click a button below to set the weather for tomorrow (and only tomorrow). This tab has zero effect on weather otherwise.", // TODO
+    "weather.current-value": "A holnapi időjárás: {{weather}}.",
+    "weather.explanation": "Kattints az alábbi gombok egyikére, hogy beállítsd a holnapi időjárást (csak holnapra). Ez a fül más módon nem befolyásolja az időjárást.",
     "weather.sunny": "Napos",
     "weather.raining": "Eső",
     "weather.lightning": "Vihar",
     "weather.snowing": "Havazás",
-    "weather.green-rain": "Green Raining", // TODO
+    "weather.green-rain": "Zöld Eső",
 
 
     /*********
@@ -150,7 +149,7 @@
     /*********
     ** Warps tab
     *********/
-    "warp.customized-warning": "These warps were edited by your mods. Please report warp issues to the mods which added them if applicable.", // TODO
+    "warp.customized-warning": "Ezeket a teleportokat a modjaid szerkesztették. Ha problémát észlelsz velük, jelezd annak a modnak, amelyik hozzáadta őket.",
 
     // main areas
     "warp-section.main": "Fő területek",
@@ -173,7 +172,7 @@
     // forest
     "warp-section.forest": "Erdő",
     "warp.hats": "Romos Ház",
-    "warp.mastery-cave": "Mastery Cave", // TODO
+    "warp.mastery-cave": "Mesterség Barlang",
     "warp.ranch": "Marnie Tanyája",
     "warp.secret-woods": "Titkos Erdő",
     "warp.wizard-tower": "Varázsló Torony",
@@ -192,13 +191,12 @@
     "warp.willy-shop": "Hal Bolt",
 
     // island
-    // TODO
-    "warp-section.island": "Ginger Island",
-    "warp.forge": "Forge",
-    "warp.island-farm": "Island Farm",
-    "warp.dwarf-shop": "Volcano Dwarf Shop",
-    "warp.field-office": "Field Office",
-    "warp.leo-house": "Leo's House",
+    "warp-section.island": "Gyömbér-sziget",
+    "warp.forge": "Kohó",
+    "warp.island-farm": "Szigetbeli Farm",
+    "warp.dwarf-shop": "Vulkán Törpe Bolt",
+    "warp.field-office": "Sziget Iroda",
+    "warp.leo-house": "Leo háza",
 
     // desert
     "warp-section.desert": "Sivatag",
@@ -215,17 +213,16 @@
     "time.freeze-inside": "Idő Megállítása Beltéren",
     "time.freeze-caves": "Idő Megállítása Barlangokban",
     "time.freeze-everywhere": "Idő Megállítása Mindenhol",
-    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
+    "time.fade-time-frozen-message": "'{{timeFrozen}}' elrejtése Néhány Másodperc Után",
     "time.time": "Idő",
     "time.time-frozen-message": "Idő Megállítva",
 
     // date
-    // TODO
-    "date.title": "Date",
-    "date.warning": "Some things won't update until a night has passed.",
-    "date.year": "Year",
-    "date.season": "Season",
-    "date.day": "Day",
+    "date.title": "Dátum",
+    "date.warning": "Bizonyos dolgok csak egy éjszaka eltelte után frissülnek.",
+    "date.year": "Év",
+    "date.season": "Évszak",
+    "date.day": "Nap",
 
 
     /*********
@@ -239,8 +236,8 @@
     "flags.unlocked.room": "Szoba: {{name}}",
     "flags.unlocked-content": "Feloldott Tartalmak",
     "flags.unlocked-content.dyes-and-tailoring": "Festékek & Szabás",
-    "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
-    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
+    "flags.unlocked-content.junimo-text": "Képes olvasni Junimo szöveget",
+    "flags.unlocked-content.perfection": "Tökéletesség elérve",
     "flags.community-center": "Közösségi Központ",
     "flags.community-center.door-unlocked": "Ajtó Kinyitva",
     "flags.jojamart.membership": "JojaMart Tagság",
@@ -263,18 +260,16 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.open-menu.desc": "The keybind which opens the menu (when no other menu is open).",
-    "config.freeze-time.desc": "The keybind which freezes the game clock.",
-    "config.grow-tree.desc": "The keybind held to grow trees around the player.",
-    "config.grow-crops.desc": "The keybind held to grow crops around the player.",
+    "config.open-menu.desc": "A billentyű, amely megnyitja a menüt (ha nincs másik menü nyitva).",
+    "config.freeze-time.desc": "A billentyű, amely megállítja a játékidőt.",
+    "config.grow-tree.desc": "A billentyű, amelyet lenyomva tartva fák nőnek a játékos körül.",
+    "config.grow-crops.desc": "A billentyű, amelyet lenyomva tartva termények nőnek a játékos körül.",
 
-    // TODO
-    "controls.reload-config": "Reload settings from file",
-    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+    "controls.reload-config": "Beállítások újratöltése",
+    "controls.reload-config.desc": "A billentyű, amely újratölti a mod beállításait a config.json fájlból. Ha a menü éppen nyitva van, a változtatások csak a menü újranyitásakor léphetnek életbe.",
 
-    "config.title.other-options": "Other options",
-    "config.default-tab.name": "Default tab",
-    "config.default-tab.desc": "The tab shown by default when you open the menu.",
-    "config.other-options": "To configure cheats, press the 'open menu' key shown above in-game. Make sure you press it after loading the save, when no other menu or dialogue is open."
+    "config.title.other-options": "Egyéb beállítások",
+    "config.default-tab.name": "Alapértelmezett fül",
+    "config.default-tab.desc": "A fül, amely alapértelmezés szerint nyílik meg a menü megnyitásakor.",
+    "config.other-options": "A csalások konfigurálásához nyomd meg a fenti 'menü megnyitása' gombot a játékban. Győződj meg róla, hogy a mentés betöltése után, amikor nincs másik menü vagy párbeszédablak nyitva, nyomod meg."
 }
