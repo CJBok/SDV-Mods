@@ -4,6 +4,7 @@
 ## Upcoming release
 * Added 1,000,000g option to the add-money cheat.
 * Added comma separators to add-money and add-casino-coin cheats.
+* Improved translations. Thanks to insaneArian (updated Polish) and therealmate (updated Hungarian)!
 
 ## 1.38.0
 Released 11 January 2025 for SMAPI 4.1.10 or later.

@@ -1,4 +1,4 @@
-{
+﻿{
     /*********
     ** Main translations
     *********/
@@ -38,11 +38,10 @@
     "tools.harvest-with-scythe": "Zbieraj Plony za Pomocą Kosy",
 
     // tool enchantments
-    // TODO
-	"tool-enchantments.title": "Zaklęcia Narzędzi",
-	"tool-enchantments.select-tool": "Wybierz narzędzie z paska narzędzi, aby edytować zaklęcia.",
-	"tool-enchantments.none-for-tool": "Brak dostępnych zaklęć dla wybranego {{toolName}}.",
-	"tool-enchantments.for-tool": "Dla wybranego {{toolName}}.",
+    "tool-enchantments.title": "Zaklęcia Narzędzi",
+    "tool-enchantments.select-tool": "Wybierz narzędzie z paska narzędzi, aby edytować zaklęcia.",
+    "tool-enchantments.none-for-tool": "Brak dostępnych zaklęć dla wybranego {{toolName}}.",
+    "tool-enchantments.for-tool": "Dla wybranego {{toolName}}.",
 
     // money
     "add.money": "Pieniądze",
@@ -130,7 +129,7 @@
     *********/
     "weather.title": "Jutrzejsza Pogoda",
     "weather.current-value": "Jutrzejsza pogoda jest ustawiona na {{weather}}.",
-	"weather.explanation": "Kliknij przycisk poniżej, aby ustawić pogodę na jutro (tylko na jutro). Ta zakładka nie ma wpływu na pogodę w innych przypadkach.",
+    "weather.explanation": "Kliknij przycisk poniżej, aby ustawić pogodę na jutro (tylko na jutro). Ta zakładka nie ma wpływu na pogodę w innych przypadkach.",
     "weather.sunny": "Słoneczna",
     "weather.raining": "Deszczowa",
     "weather.lightning": "Burzowa",
@@ -150,7 +149,7 @@
     /*********
     ** Warps tab
     *********/
-	"warp.customized-warning": "Te teleportacje zostały zmodyfikowane przez twoje mody. Proszę zgłaszać problemy z teleportacjami do modów, które je dodały, jeśli ma to zastosowanie.",
+    "warp.customized-warning": "Te teleportacje zostały zmodyfikowane przez twoje mody. Proszę zgłaszać problemy z teleportacjami do modów, które je dodały, jeśli ma to zastosowanie.",
 
     // main areas
     "warp-section.main": "Główne Obszary",
@@ -261,17 +260,16 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
     "config.open-menu.desc": "Skrót klawiszowy, który otwiera menu (gdy żadne inne menu nie jest otwarte).",
-	"config.freeze-time.desc": "Skrót klawiszowy, który zatrzymuje zegar gry.",
-	"config.grow-tree.desc": "Skrót klawiszowy, który powoduje wzrost drzew wokół gracza.",
-	"config.grow-crops.desc": "Skrót klawiszowy, który powoduje wzrost upraw wokół gracza.",
+    "config.freeze-time.desc": "Skrót klawiszowy, który zatrzymuje zegar gry.",
+    "config.grow-tree.desc": "Skrót klawiszowy, który powoduje wzrost drzew wokół gracza.",
+    "config.grow-crops.desc": "Skrót klawiszowy, który powoduje wzrost upraw wokół gracza.",
 
-	"controls.reload-config": "Przeładuj ustawienia z pliku",
-	"controls.reload-config.desc": "Skrót klawiszowy, który przeładowuje ustawienia moda z pliku config.json moda. Jeśli menu jest obecnie otwarte, zmiany mogą obowiązywać dopiero po ponownym otwarciu.",
+    "controls.reload-config": "Przeładuj ustawienia z pliku",
+    "controls.reload-config.desc": "Skrót klawiszowy, który przeładowuje ustawienia moda z pliku config.json moda. Jeśli menu jest obecnie otwarte, zmiany mogą obowiązywać dopiero po ponownym otwarciu.",
 
     "config.title.other-options": "Inne opcje",
-	"config.default-tab.name": "Domyślna zakładka",
-	"config.default-tab.desc": "Zakładka domyślnie wyświetlana po otwarciu menu.",
-	"config.other-options": "Aby skonfigurować oszustwa, naciśnij klawisz 'otwórz menu' pokazany powyżej w grze. Upewnij się, że naciśniesz go po załadowaniu zapisu, gdy żadne inne menu lub dialog nie jest otwarty."
+    "config.default-tab.name": "Domyślna zakładka",
+    "config.default-tab.desc": "Zakładka domyślnie wyświetlana po otwarciu menu.",
+    "config.other-options": "Aby skonfigurować oszustwa, naciśnij klawisz 'otwórz menu' pokazany powyżej w grze. Upewnij się, że naciśniesz go po załadowaniu zapisu, gdy żadne inne menu lub dialog nie jest otwarty."
 }
