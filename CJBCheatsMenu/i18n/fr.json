@@ -1,4 +1,4 @@
-﻿{
+{
     /*********
     ** Main translations
     *********/
@@ -38,18 +38,17 @@
     "tools.harvest-with-scythe": "Récolter avec la faux",
 
     // tool enchantments
-    // TODO
-    "tool-enchantments.title": "Tool Enchantments",
-    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
-    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
-    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+    "tool-enchantments.title": "Enchantements d’outils",
+    "tool-enchantments.select-tool": "Sélectionnez un outil dans votre barre d’outil pour éditer les enchantements.",
+    "tool-enchantments.none-for-tool": "Aucun enchantement disponible pour {{toolName}}.",
+    "tool-enchantments.for-tool": "Pour l’outil sélectionné ({{toolName}}).",
 
     // money
     "add.money": "Argent",
     "add.casino-coins": "Pièces de casino",
-    "add.golden-walnuts": "Noix Dorées",
+    "add.golden-walnuts": "Noix dorées",
     "add.qi-gems": "Gemmes Qi",
-    "add.amount-gold": "Ajouter {{amount}}po",
+    "add.amount-gold": "Ajouter {{amount}} po",
     "add.amount-other": "Ajouter {{amount}}",
 
 
@@ -61,7 +60,7 @@
     "farm.auto-water": "Arroser les champs automatiquement",
     "farm.durable-fences": "Clôtures durables",
     "farm.instant-build": "Construction instantanée",
-    "farm.auto-feed-animals": "Toujours nourrir automatiquement",
+    "farm.auto-feed-animals": "Nourrir les animaux automatiquement",
     "farm.auto-pet-animals": "Caresser les animaux automatiquement",
     "farm.auto-pet-pets": "Caresser animal de compagnie automatiquement",
     "farm.infinite-hay": "Foin infini",
@@ -69,12 +68,12 @@
     // fishing
     "fishing.title": "Pêche",
     "fishing.instant-catch": "Capture instantanée",
-    "fishing.instant-bite": "Prise instantanée",
+    "fishing.instant-bite": "Morsure du poisson instantanée",
     "fishing.always-throw-max-distance": "Toujours jeter à la distance maximale",
     "fishing.always-treasure": "Toujours un trésor",
     "fishing.durable-tackles": "Matériel de pêche durable",
 
-    // fast machine
+    // fast machines
     "fast-machines.title": "Transformations rapides",
     "fast-machines.fruit-trees": "Arbres fruitiers",
     "fast-machines.ready-in-the-morning": "{{machineName}} (prêt le matin)",
@@ -85,57 +84,57 @@
     *********/
     // skills
     "skills.title": "Compétences",
-    "skills.increase-farming": "Augm. Niveau d'Agriculture: {{currentLevel}}",
-    "skills.increase-mining": "Augm. Niveau d'Ext. Minière: {{currentLevel}}",
-    "skills.increase-foraging": "Augm. Niveau de Cueillette: {{currentLevel}}",
-    "skills.increase-fishing": "Augm. Niveau de Pêche: {{currentLevel}}",
-    "skills.increase-combat": "Augm. Niveau de Combat: {{currentLevel}}",
+    "skills.increase-farming": "Augm. Niveau d'Agriculture : {{currentLevel}}",
+    "skills.increase-mining": "Augm. Niveau d'Ext. Minière : {{currentLevel}}",
+    "skills.increase-foraging": "Augm. Niveau de Cueillette : {{currentLevel}}",
+    "skills.increase-fishing": "Augm. Niveau de Pêche : {{currentLevel}}",
+    "skills.increase-combat": "Augm. Niveau de Combat : {{currentLevel}}",
 
     // professions
     "professions.title": "Professions",
-    "professions.combat.fighter": "Combat lvl 5 - Combattant",
-    "professions.combat.scout": "Combat lvl 5 - Éclaireur",
-    "professions.combat.acrobat": "Combat lvl 10 - Acrobate",
-    "professions.combat.brute": "Combat lvl 10 - Brute",
-    "professions.combat.defender": "Combat lvl 10 - Défenseur",
-    "professions.combat.desperado": "Combat lvl 10 - Desperado",
-    "professions.farming.rancher": "Agriculture lvl 5 - Éleveur de bétail",
-    "professions.farming.tiller": "Agriculture lvl 5 - Cultivateur",
-    "professions.farming.agriculturist": "Agriculture lvl 10 - Agriculteur",
-    "professions.farming.artisan": "Agriculture lvl 10 - Artisan",
-    "professions.farming.coopmaster": "Agriculture lvl 10 - Maître du poulailler",
-    "professions.farming.shepherd": "Agriculture lvl 10 - Berger",
-    "professions.fishing.fisher": "Pêche lvl 5 - Pêcheur",
-    "professions.fishing.trapper": "Pêche lvl 5 - Trappeur",
-    "professions.fishing.angler": "Pêche lvl 10 - Pêcheur",
-    "professions.fishing.luremaster": "Pêche lvl 10 - Maître des leurres",
-    "professions.fishing.mariner": "Pêche lvl 10 - Loup de mer",
-    "professions.fishing.pirate": "Pêche lvl 10 - Pirate",
-    "professions.foraging.forester": "Cueillette lvl 5 - Forestier",
-    "professions.foraging.gatherer": "Cueillette lvl 5 - Chasseur-cueilleur",
-    "professions.foraging.botanist": "Cueillette lvl 10 - Botaniste",
-    "professions.foraging.lumberjack": "Cueillette lvl 10 - Bûcheron",
-    "professions.foraging.tapper": "Cueillette lvl 10 - Saigneur",
-    "professions.foraging.tracker": "Cueillette lvl 10 - Traqueur",
-    "professions.mining.geologist": "Ext. Minière lvl 5 - Géologue",
-    "professions.mining.miner": "Ext. Minière lvl 5 - Mineur",
-    "professions.mining.blacksmith": "Ext. Minière lvl 10 - Forgeron",
-    "professions.mining.excavator": "Ext. Minière lvl 10 - Excavateur",
-    "professions.mining.gemologist": "Ext. Minière lvl 10 - Gemmologue",
-    "professions.mining.prospector": "Ext. Minière lvl 10 - Prospecteur",
+    "professions.combat.fighter": "Combat niv. 5 - Combattant",
+    "professions.combat.scout": "Combat niv. 5 - Éclaireur",
+    "professions.combat.acrobat": "Combat niv. 10 - Acrobate",
+    "professions.combat.brute": "Combat niv. 10 - Brute",
+    "professions.combat.defender": "Combat niv. 10 - Défenseur",
+    "professions.combat.desperado": "Combat niv. 10 - Desperado",
+    "professions.farming.rancher": "Agriculture niv. 5 - Éleveur de bétail",
+    "professions.farming.tiller": "Agriculture niv. 5 - Cultivateur",
+    "professions.farming.agriculturist": "Agriculture niv. 10 - Agriculteur",
+    "professions.farming.artisan": "Agriculture niv. 10 - Artisan",
+    "professions.farming.coopmaster": "Agriculture niv. 10 - Maître du poulailler",
+    "professions.farming.shepherd": "Agriculture niv. 10 - Berger",
+    "professions.fishing.fisher": "Pêche niv. 5 - Pêcheur",
+    "professions.fishing.trapper": "Pêche niv. 5 - Trappeur",
+    "professions.fishing.angler": "Pêche niv. 10 - Pêcheur",
+    "professions.fishing.luremaster": "Pêche niv. 10 - Maître des leurres",
+    "professions.fishing.mariner": "Pêche niv. 10 - Loup de mer",
+    "professions.fishing.pirate": "Pêche niv. 10 - Pirate",
+    "professions.foraging.forester": "Cueillette niv. 5 - Forestier",
+    "professions.foraging.gatherer": "Cueillette niv. 5 - Chasseur-cueilleur",
+    "professions.foraging.botanist": "Cueillette niv. 10 - Botaniste",
+    "professions.foraging.lumberjack": "Cueillette niv. 10 - Bûcheron",
+    "professions.foraging.tapper": "Cueillette niv. 10 - Saigneur",
+    "professions.foraging.tracker": "Cueillette niv. 10 - Traqueur",
+    "professions.mining.geologist": "Ext. Minière niv. 5 - Géologue",
+    "professions.mining.miner": "Ext. Minière niv. 5 - Mineur",
+    "professions.mining.blacksmith": "Ext. Minière niv. 10 - Forgeron",
+    "professions.mining.excavator": "Ext. Minière niv. 10 - Excavateur",
+    "professions.mining.gemologist": "Ext. Minière niv. 10 - Gemmologue",
+    "professions.mining.prospector": "Ext. Minière niv. 10 - Prospecteur",
 
 
     /*********
     ** Weather tab
     *********/
     "weather.title": "Météo de demain",
-    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
-    "weather.explanation": "Cliquer sur un bouton changera la météo pour demain (et uniquement demain). Cet onglet n'aura aucun effect sur la météo autrement.",
+    "weather.current-value": "Le temps de demain a été paramétré sur {{weather}}.",
+    "weather.explanation": "Cliquer sur un bouton changera la météo pour demain (et uniquement demain). Cet onglet n'aura aucun effet sur la météo autrement.",
     "weather.sunny": "Soleil",
     "weather.raining": "Pluie",
     "weather.lightning": "Orage",
     "weather.snowing": "Neige",
-    "weather.green-rain": "Green Raining", // TODO
+    "weather.green-rain": "Pluie verte",
 
 
     /*********
@@ -150,7 +149,7 @@
     /*********
     ** Warps tab
     *********/
-    "warp.customized-warning": "These warps were edited by your mods. Please report warp issues to the mods which added them if applicable.", // TODO
+    "warp.customized-warning": "Ces téléportations ont été édités par vos mods. Veuillez reporter des problèmes de téléportation aux auteurs des mods ajoutés si nécessaire.",
 
     // main areas
     "warp-section.main": "Zones principales",
@@ -173,7 +172,7 @@
     // forest
     "warp-section.forest": "En forêt",
     "warp.hats": "Chapeaux",
-    "warp.mastery-cave": "Caverne de Maitrise",
+    "warp.mastery-cave": "Caverne de Maîtrise",
     "warp.ranch": "Ferme de Marnie",
     "warp.secret-woods": "Forêt secrète",
     "warp.wizard-tower": "Tour du sorcier",
@@ -188,7 +187,7 @@
 
     // beach
     "warp-section.beach": "À la plage",
-    "warp.tide-pools": "Cuvettes de marée",
+    "warp.tide-pools": "Mares résiduelles",
     "warp.willy-shop": "Poissonnerie",
 
     // island
@@ -214,7 +213,7 @@
     "time.freeze-inside": "Arrêter le temps à l'intérieur",
     "time.freeze-caves": "Arrêter le temps dans les grottes",
     "time.freeze-everywhere": "Arrêter le temps partout",
-    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
+    "time.fade-time-frozen-message": "Cacher « {{timeFrozen}} » après quelques secondes",
     "time.time": "Heure",
     "time.time-frozen-message": "Temps figé",
 
@@ -229,7 +228,7 @@
     /*********
     ** Advanced tab
     *********/
-    "flags.warning": "Utiliser cette section à vos risques et périls !\nCela peut causer des problèmes tels que des mails, événements ou quêtes non déclenchées.",
+    "flags.warning": "Utiliser cette section à vos risques et périls !\nCela peut causer des problèmes tels que des courriers, événements ou quêtes non déclenchées.",
     "flags.quests": "Quêtes complétées",
     "flags.wallet": "Objets du porte-feuille",
     "flags.unlocked": "Zones débloquées",
@@ -238,7 +237,7 @@
     "flags.unlocked-content": "Contenus débloqués",
     "flags.unlocked-content.dyes-and-tailoring": "Teintures & couture",
     "flags.unlocked-content.junimo-text": "Vous pouvez lire le texte Jumino",
-    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
+    "flags.unlocked-content.perfection": "Perfection atteinte",
     "flags.community-center": "Centre communautaire",
     "flags.community-center.door-unlocked": "Porte déverrouillée",
     "flags.jojamart.membership": "Adhérant au Marché Joja",
@@ -266,9 +265,8 @@
     "config.grow-tree.desc": "Le raccourci clavier qui fait pousser les arbres autour du joueur.",
     "config.grow-crops.desc": "Le raccourci clavier qui fait pousser les cultures autour du joueur.",
 
-    // TODO
-    "controls.reload-config": "Reload settings from file",
-    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+    "controls.reload-config": "Recharger les paramètres\nà partir du fichier",
+    "controls.reload-config.desc": "Le raccourci qui recharge les paramètres du mod à partir du fichier config.json du mod. Si le menu est actuellement ouvert, les changements ne pourraient prendre effet qu’à la réouverture de ce dernier.",
 
     "config.title.other-options": "Autres options",
     "config.default-tab.name": "Onglet par défaut",
