@@ -5,6 +5,7 @@
 * Added 1,000,000g option to the add-money cheat.
 * Added comma separators to add-money and add-casino-coin cheats.
 * Fixed some cases where the weather tab showed the wrong weather for tomorrow.
+* Fixed error when a farmhand is mid-warp while a time-freeze option is enabled.
 * Improved translations. Thanks to CaranudLapin (updated French), insaneArian (updated Polish), and therealmate (updated Hungarian)!
 
 ## 1.38.0

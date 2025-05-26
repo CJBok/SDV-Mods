@@ -73,7 +73,7 @@ internal class FreezeTimeCheat : BaseCheat
     /// <inheritdoc />
     public override void OnUpdated(CheatContext context, UpdateTickedEventArgs e)
     {
-        if (!Context.IsWorldReady)
+        if (!Context.IsWorldReady || Game1.currentLocation is null)
             return;
 
         bool fadeMessage = context.Config.FadeTimeFrozenMessage;
