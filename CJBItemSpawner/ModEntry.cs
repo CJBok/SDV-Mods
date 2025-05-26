@@ -7,6 +7,7 @@ using CJBItemSpawner.Framework.Models;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
+using static CJBItemSpawner.ICJBItemSpawnerAPI;
 
 namespace CJBItemSpawner;
 
@@ -24,6 +25,9 @@ internal class ModEntry : Mod
 
     /// <summary>The item category filters available in the item spawner menu.</summary>
     private ModDataCategory[] Categories = null!; // set in Entry
+
+    /// <summary>The item repositories which returns all spawnable items.</summary>
+    private readonly IList<Repository> ItemRepositories = new List<Repository>();
 
     /// <summary>Manages the gamepad text entry UI.</summary>
     private readonly TextEntryManager TextEntryManager = new();
@@ -64,6 +68,11 @@ internal class ModEntry : Mod
         helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
     }
 
+    /// <inheritdoc />
+    public override object GetApi()
+    {
+        return new CJBItemSpawnerAPI(this.BuildMenu, this.ItemRepositories);
+    }
 
     /*********
     ** Private methods
@@ -121,7 +130,23 @@ internal class ModEntry : Mod
     /// <summary>Get the items which can be spawned.</summary>
     private IEnumerable<SpawnableItem> GetSpawnableItems()
     {
-        foreach (SearchableItem entry in new ItemRepository().GetAll())
+        IEnumerable<SearchableItem> GetSpawnableItemsRaw()
+        {
+            foreach (SearchableItem entry in new ItemRepository().GetAll())
+            {
+                yield return entry;
+            }
+
+            foreach (Repository getAll in this.ItemRepositories)
+            {
+                foreach ((string type, string id, CreateItem createItem) in getAll())
+                {
+                    yield return new SearchableItem(type, id, p => createItem(p.Type, p.Id));
+                }
+            }
+        }
+
+        foreach (SearchableItem entry in GetSpawnableItemsRaw())
         {
             ModDataCategory? category = this.Categories.FirstOrDefault(rule => rule.IsMatch(entry));
 
