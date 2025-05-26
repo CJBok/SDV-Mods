@@ -38,11 +38,10 @@
     "tools.harvest-with-scythe": "Zbieraj Plony za Pomocą Kosy",
 
     // tool enchantments
-    // TODO
-    "tool-enchantments.title": "Tool Enchantments",
-    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
-    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
-    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+    "tool-enchantments.title": "Zaklęcia Narzędzi",
+    "tool-enchantments.select-tool": "Wybierz narzędzie z paska narzędzi, aby edytować zaklęcia.",
+    "tool-enchantments.none-for-tool": "Brak dostępnych zaklęć dla wybranego {{toolName}}.",
+    "tool-enchantments.for-tool": "Dla wybranego {{toolName}}.",
 
     // money
     "add.money": "Pieniądze",
@@ -129,13 +128,13 @@
     ** Weather tab
     *********/
     "weather.title": "Jutrzejsza Pogoda",
-    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
-    "weather.explanation": "Click a button below to set the weather for tomorrow (and only tomorrow). This tab has zero effect on weather otherwise.", // TODO
+    "weather.current-value": "Jutrzejsza pogoda jest ustawiona na {{weather}}.",
+    "weather.explanation": "Kliknij przycisk poniżej, aby ustawić pogodę na jutro (tylko na jutro). Ta zakładka nie ma wpływu na pogodę w innych przypadkach.",
     "weather.sunny": "Słoneczna",
     "weather.raining": "Deszczowa",
     "weather.lightning": "Burzowa",
     "weather.snowing": "Śnieżna",
-    "weather.green-rain": "Green Raining", // TODO
+    "weather.green-rain": "Zielony Deszcz",
 
 
     /*********
@@ -150,7 +149,7 @@
     /*********
     ** Warps tab
     *********/
-    "warp.customized-warning": "These warps were edited by your mods. Please report warp issues to the mods which added them if applicable.", // TODO
+    "warp.customized-warning": "Te teleportacje zostały zmodyfikowane przez twoje mody. Proszę zgłaszać problemy z teleportacjami do modów, które je dodały, jeśli ma to zastosowanie.",
 
     // main areas
     "warp-section.main": "Główne Obszary",
@@ -173,7 +172,7 @@
     // forest
     "warp-section.forest": "Las",
     "warp.hats": "Sklep z Czapkami",
-    "warp.mastery-cave": "Mastery Cave", // TODO
+    "warp.mastery-cave": "Jaskinia Mistrzostwa",
     "warp.ranch": "Ranczo Marnie",
     "warp.secret-woods": "Tajemniczy Las",
     "warp.wizard-tower": "Wieża Czarodzieja",
@@ -214,7 +213,7 @@
     "time.freeze-inside": "Zatrzymaj Czas Wewnątrz",
     "time.freeze-caves": "Zatrzymaj Czas w Jaskiniach",
     "time.freeze-everywhere": "Zatrzymaj Czas Wszędzie",
-    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
+    "time.fade-time-frozen-message": "Ukryj '{{timeFrozen}}' po kilku sekundach",
     "time.time": "Czas",
     "time.time-frozen-message": "Czas Zatrzymany",
 
@@ -237,8 +236,8 @@
     "flags.unlocked.room": "Pokój: {{name}}",
     "flags.unlocked-content": "Odblokowana Zawartość",
     "flags.unlocked-content.dyes-and-tailoring": "Barwniki i Krawiectwo",
-    "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
-    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
+    "flags.unlocked-content.junimo-text": "Możliwość czytania tekstu Junimo",
+    "flags.unlocked-content.perfection": "Osiągnięto perfekcję",
     "flags.community-center": "Centrum Społeczności",
     "flags.community-center.door-unlocked": "Odblokowane Drzwi",
     "flags.jojamart.membership": "Członkostwo JojaMarket",
@@ -261,18 +260,16 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.open-menu.desc": "The keybind which opens the menu (when no other menu is open).",
-    "config.freeze-time.desc": "The keybind which freezes the game clock.",
-    "config.grow-tree.desc": "The keybind held to grow trees around the player.",
-    "config.grow-crops.desc": "The keybind held to grow crops around the player.",
+    "config.open-menu.desc": "Skrót klawiszowy, który otwiera menu (gdy żadne inne menu nie jest otwarte).",
+    "config.freeze-time.desc": "Skrót klawiszowy, który zatrzymuje zegar gry.",
+    "config.grow-tree.desc": "Skrót klawiszowy, który powoduje wzrost drzew wokół gracza.",
+    "config.grow-crops.desc": "Skrót klawiszowy, który powoduje wzrost upraw wokół gracza.",
 
-    // TODO
-    "controls.reload-config": "Reload settings from file",
-    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+    "controls.reload-config": "Przeładuj ustawienia z pliku",
+    "controls.reload-config.desc": "Skrót klawiszowy, który przeładowuje ustawienia moda z pliku config.json moda. Jeśli menu jest obecnie otwarte, zmiany mogą obowiązywać dopiero po ponownym otwarciu.",
 
-    "config.title.other-options": "Other options",
-    "config.default-tab.name": "Default tab",
-    "config.default-tab.desc": "The tab shown by default when you open the menu.",
-    "config.other-options": "To configure cheats, press the 'open menu' key shown above in-game. Make sure you press it after loading the save, when no other menu or dialogue is open."
+    "config.title.other-options": "Inne opcje",
+    "config.default-tab.name": "Domyślna zakładka",
+    "config.default-tab.desc": "Zakładka domyślnie wyświetlana po otwarciu menu.",
+    "config.other-options": "Aby skonfigurować oszustwa, naciśnij klawisz 'otwórz menu' pokazany powyżej w grze. Upewnij się, że naciśniesz go po załadowaniu zapisu, gdy żadne inne menu lub dialog nie jest otwarty."
 }

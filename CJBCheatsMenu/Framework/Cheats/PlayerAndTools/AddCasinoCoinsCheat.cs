@@ -14,10 +14,10 @@ internal class AddCasinoCoinsCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        foreach (int amount in new[] { 100, 1000, 10000 })
+        foreach (int amount in new[] { 100, 1_000, 10_000 })
         {
             yield return new CheatsOptionsButton(
-                label: I18n.Add_AmountOther(amount: amount),
+                label: I18n.Add_AmountOther(amount: Utility.getNumberWithCommas(amount)),
                 slotWidth: context.SlotWidth,
                 toggle: () => this.AddCoins(amount)
             );

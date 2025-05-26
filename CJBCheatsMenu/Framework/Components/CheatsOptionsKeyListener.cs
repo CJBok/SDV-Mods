@@ -33,9 +33,8 @@ internal class CheatsOptionsKeyListener : BaseOptionsElement
     private readonly SButton ClearToButton;
 
     /// <summary>Buttons that can't be bound.</summary>
-    private readonly HashSet<SButton> InvalidButtons = new()
-    {
-        // invalid
+    private readonly HashSet<SButton> InvalidButtons =
+    [
         SButton.None,
 
         // buttons that would exit menu or conflict
@@ -55,7 +54,7 @@ internal class CheatsOptionsKeyListener : BaseOptionsElement
         SButton.RightThumbstickUp,
         SButton.LeftShoulder,
         SButton.RightShoulder
-    };
+    ];
 
 
     /*********

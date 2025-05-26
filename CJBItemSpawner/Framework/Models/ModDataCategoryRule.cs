@@ -36,7 +36,7 @@ internal record ModDataCategoryRule
     /// <param name="itemId">The item's unique ID (i.e. <see cref="Item.ParentSheetIndex"/>).</param>
     public ModDataCategoryRule(HashSet<string>? @class, HashSet<string>? objType, HashSet<int>? objCategory, HashSet<string>? itemId)
     {
-        IEnumerable<string> empty = Enumerable.Empty<string>();
+        IEnumerable<string> empty = [];
 
         this.Class = new HashSet<string>(@class ?? empty, StringComparer.OrdinalIgnoreCase);
         this.ObjType = new HashSet<string>(objType ?? empty, StringComparer.OrdinalIgnoreCase);

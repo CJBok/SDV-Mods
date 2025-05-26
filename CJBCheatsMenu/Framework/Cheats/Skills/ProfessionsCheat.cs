@@ -14,8 +14,8 @@ internal class ProfessionsCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        return new[]
-        {
+        return
+        [
             this.GetField(I18n.Professions_Combat_Fighter(), Farmer.fighter),
             this.GetField(I18n.Professions_Combat_Scout(), Farmer.scout),
             this.GetField(I18n.Professions_Combat_Acrobat(), Farmer.acrobat),
@@ -50,7 +50,7 @@ internal class ProfessionsCheat : BaseCheat
             this.GetField(I18n.Professions_Mining_Excavator(), Farmer.excavator),
             this.GetField(I18n.Professions_Mining_Gemologist(), Farmer.gemologist),
             this.GetField(I18n.Professions_Mining_Prospector(), Farmer.burrower) // burrower = prospecter
-        };
+        ];
     }
 
 

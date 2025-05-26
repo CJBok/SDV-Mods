@@ -110,7 +110,7 @@ internal class WarpContentLoader
         Dictionary<string, WarpContentModel> defaultWarps = this.BuildDefaultWarps().ToDictionary(p => p.Id, StringComparer.OrdinalIgnoreCase);
 
         // detect changes and new entries
-        HashSet<string> seenIds = new HashSet<string>();
+        HashSet<string> seenIds = [];
         foreach (WarpContentModel warp in warps)
         {
             if (!defaultWarps.TryGetValue(warp.Id, out WarpContentModel? defaultWarp))
@@ -139,7 +139,7 @@ internal class WarpContentLoader
     /// <summary>Get the content model for the default warp sections.</summary>
     private List<WarpSectionContentModel> BuildDefaultWarpSections()
     {
-        List<WarpSectionContentModel> sections = new();
+        List<WarpSectionContentModel> sections = [];
 
         int order = 0;
         foreach (string translationKey in this.ModData.SectionOrder)
@@ -158,9 +158,9 @@ internal class WarpContentLoader
     /// <summary>Get the content model for the default warps.</summary>
     private List<WarpContentModel> BuildDefaultWarps()
     {
-        List<WarpContentModel> warps = new();
+        List<WarpContentModel> warps = [];
 
-        HashSet<string> seenIds = new();
+        HashSet<string> seenIds = [];
 
         foreach ((string sectionTranslationKey, ModDataWarp[] sectionWarps) in this.ModData.Warps)
         {

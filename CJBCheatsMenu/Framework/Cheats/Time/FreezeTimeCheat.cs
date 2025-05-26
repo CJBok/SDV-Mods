@@ -40,13 +40,13 @@ internal class FreezeTimeCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        return new[]
-        {
+        return
+        [
             new CheatsOptionsCheckbox(I18n.Time_FreezeInside(), context.Config.FreezeTimeInside, value => context.Config.FreezeTimeInside = value),
             new CheatsOptionsCheckbox(I18n.Time_FreezeCaves(), context.Config.FreezeTimeCaves, value => context.Config.FreezeTimeCaves = value),
             new CheatsOptionsCheckbox(I18n.Time_FreezeEverywhere(), context.Config.FreezeTime, value => context.Config.FreezeTime = value),
-            new CheatsOptionsCheckbox(I18n.Time_FadeTimeFrozenMessage(I18n.Time_TimeFrozenMessage()), context.Config.FadeTimeFrozenMessage, value => context.Config.FadeTimeFrozenMessage = value),
-        };
+            new CheatsOptionsCheckbox(I18n.Time_FadeTimeFrozenMessage(I18n.Time_TimeFrozenMessage()), context.Config.FadeTimeFrozenMessage, value => context.Config.FadeTimeFrozenMessage = value)
+        ];
     }
 
     /// <inheritdoc />
@@ -73,7 +73,7 @@ internal class FreezeTimeCheat : BaseCheat
     /// <inheritdoc />
     public override void OnUpdated(CheatContext context, UpdateTickedEventArgs e)
     {
-        if (!Context.IsWorldReady)
+        if (!Context.IsWorldReady || Game1.currentLocation is null)
             return;
 
         bool fadeMessage = context.Config.FadeTimeFrozenMessage;

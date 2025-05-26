@@ -15,7 +15,7 @@ internal class BundlesCheat : BaseCheat
     ** Fields
     *********/
     /// <summary>Maps JojaMart completion flags to their Community Center equivalent.</summary>
-    private readonly IDictionary<string, string> JojaMartCompletionFlags = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
+    private readonly Dictionary<string, string> JojaMartCompletionFlags = new(StringComparer.InvariantCultureIgnoreCase)
     {
         ["jojaBoilerRoom"] = "ccBoilerRoom",
         ["jojaCraftsRoom"] = "ccCraftsRoom",

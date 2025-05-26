@@ -20,6 +20,6 @@ internal record DataModel
     /// <param name="forceSellable">Item categories that can be sold in shops, regardless of what <see cref="SObject.canBeShipped"/> returns.</param>
     public DataModel(HashSet<int>? forceSellable)
     {
-        this.ForceSellable = forceSellable ?? new();
+        this.ForceSellable = forceSellable ?? [];
     }
 }

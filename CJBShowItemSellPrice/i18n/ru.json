@@ -1,19 +1,18 @@
 ﻿{
     /*********
-    ** In-game UI
+    ** In-game UI (Игровой интерфейс)
     *********/
     "labels.single-price": "Один",
     "labels.stack-price": "Все",
 
 
     /*********
-    ** Generic Mod Config Menu UI
+    ** Generic Mod Config Menu UI (Общий интерфейс меню конфигурации мода)
     *********/
-    // TODO
-    "config.show-when.name": "Show price",
-    "config.show-when.desc": "Choose when the sell price UI should be shown.",
+    "config.show-when.name": "Показывать цену",
+    "config.show-when.desc": "Выберите, когда должен отображаться интерфейс с ценой продажи.",
 
-    "config.show-when.Always": "Always show",
-    "config.show-when.BeforePriceCatalogue": "Before price catalogue is unlocked",
-    "config.show-when.AfterPriceCatalogue": "After price catalogue is unlocked"
+    "config.show-when.Always": "Показывать всегда",
+    "config.show-when.BeforePriceCatalogue": "До разблокировки каталога цен",
+    "config.show-when.AfterPriceCatalogue": "После разблокировки каталога цен"
 }

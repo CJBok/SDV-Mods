@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace CJBCheatsMenu.Framework.Models;
@@ -24,7 +23,7 @@ internal record ModData
     /// <param name="warps">The warps to show in the cheats menu.</param>
     public ModData(string[]? sectionOrder, Dictionary<string, ModDataWarp[]>? warps)
     {
-        this.SectionOrder = sectionOrder ?? Array.Empty<string>();
+        this.SectionOrder = sectionOrder ?? [];
         this.Warps = warps ?? new();
     }
 }

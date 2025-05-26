@@ -16,7 +16,7 @@ internal class NoFriendshipDecayCheat : BaseCheat
     ** Fields
     *********/
     /// <summary>The minimum friendship points to maintain for each NPC.</summary>
-    private readonly Dictionary<string, int> PreviousFriendships = new();
+    private readonly Dictionary<string, int> PreviousFriendships = [];
 
 
     /*********

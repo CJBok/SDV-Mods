@@ -34,15 +34,14 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.title.controls": "Controls",
-    "config.show-menu-key.name": "Show menu key",
-    "config.show-menu-key.desc": "The keybind which opens the menu (when no other menu is open).",
+    "config.title.controls": "Sterowanie",
+    "config.show-menu-key.name": "Klawisz otwierający menu",
+    "config.show-menu-key.desc": "Skrót klawiszowy, który otwiera menu (gdy żadne inne menu nie jest otwarte).",
 
-    "config.title.options": "Options",
-    "config.apply-trash-can-upgrade.name": "Apply trash can upgrade",
-    "config.apply-trash-can-upgrade.desc": "When you upgrade your trash can to reclaim part of the price of trashed items, whether that upgrade applies in the item spawner menu too.",
+    "config.title.options": "Opcje",
+    "config.apply-trash-can-upgrade.name": "Zastosuj ulepszenie kosza na śmieci",
+    "config.apply-trash-can-upgrade.desc": "Gdy ulepszysz kosz na śmieci, aby odzyskać część ceny wyrzuconych przedmiotów, czy to ulepszenie ma również zastosowanie w menu spawnera przedmiotów.",
 
-    "config.title.hide-categories": "Hide categories",
-    "config.hide-category.desc": "Whether to hide the '{{name}}' category in the UI. If it's hidden, items in this category will not be accessible through the spawn menu."
+    "config.title.hide-categories": "Ukryj kategorie",
+    "config.hide-category.desc": "Czy ukryć kategorię '{{name}}' w interfejsie użytkownika. Jeśli jest ukryta, przedmioty z tej kategorii nie będą dostępne przez menu spawnera."
 }

@@ -127,10 +127,10 @@ internal class ModConfig
     public HashSet<string> HideWarps { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 
     /// <summary>The custom warp sections to add to the list.</summary>
-    public List<WarpSectionContentModel> AddWarpSections { get; set; } = new();
+    public List<WarpSectionContentModel> AddWarpSections { get; set; } = [];
 
     /// <summary>The custom warps to add to the list.</summary>
-    public List<WarpContentModel> AddWarps { get; set; } = new();
+    public List<WarpContentModel> AddWarps { get; set; } = [];
 
     /****
     ** Other cheats
@@ -232,7 +232,7 @@ internal class ModConfig
                     _ => null
                 };
 
-                if (machineItemId is not null && value is bool enabled && enabled)
+                if (machineItemId is not null && value is true)
                     this.FastMachines.Add(machineItemId);
             }
 
