@@ -1,7 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.39.0
+Released 25 May 2025 for SMAPI 4.1.10 or later.
+
 * Added 1,000,000g option to the add-money cheat.
 * Added comma separators to add-money and add-casino-coin cheats.
 * Fixed some cases where the weather tab showed the wrong weather for tomorrow.
