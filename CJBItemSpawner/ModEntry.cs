@@ -28,10 +28,18 @@ internal class ModEntry : Mod
     /// <summary>Manages the gamepad text entry UI.</summary>
     private readonly TextEntryManager TextEntryManager = new();
 
+    /// <summary>The API</summary>
+    private readonly ItemSpawnerAPI API;
+
 
     /*********
     ** Public methods
     *********/
+    public ModEntry()
+    {
+        this.API = new(this.BuildMenu);
+    }
+
     /// <inheritdoc />
     public override void Entry(IModHelper helper)
     {
@@ -64,6 +72,11 @@ internal class ModEntry : Mod
         helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
     }
 
+    /// <inheritdoc/>
+    public override object? GetApi()
+    {
+        return this.API;
+    }
 
     /*********
     ** Private methods
@@ -121,7 +134,7 @@ internal class ModEntry : Mod
     /// <summary>Get the items which can be spawned.</summary>
     private IEnumerable<SpawnableItem> GetSpawnableItems()
     {
-        foreach (SearchableItem entry in new ItemRepository().GetAll())
+        foreach (SearchableItem entry in new ItemRepository(this.API).GetAll())
         {
             ModDataCategory? category = this.Categories.FirstOrDefault(rule => rule.IsMatch(entry));
 
