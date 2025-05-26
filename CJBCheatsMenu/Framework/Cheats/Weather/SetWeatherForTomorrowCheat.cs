@@ -15,15 +15,15 @@ internal class SetWeatherForTomorrowCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        return new OptionsElement[]
-        {
+        return
+        [
             new DescriptionElement(() => I18n.Weather_CurrentValue(this.GetWeatherForNextDay())),
             this.GetWeatherField(context, I18n.Weather_Sunny(), Game1.weather_sunny),
             this.GetWeatherField(context, I18n.Weather_Raining(), Game1.weather_rain),
             this.GetWeatherField(context, I18n.Weather_Lightning(), Game1.weather_lightning),
             this.GetWeatherField(context, I18n.Weather_Snowing(), Game1.weather_snow),
             this.GetWeatherField(context, I18n.Weather_GreenRain(), Game1.weather_green_rain)
-        };
+        ];
     }
 
 

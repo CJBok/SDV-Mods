@@ -91,13 +91,13 @@ internal class WarpCheat : BaseCheat
 
         // add sections
         foreach (WarpSectionContentModel section in warpSections)
-            sections.TryAdd(section.Id, new());
+            sections.TryAdd(section.Id, []);
 
         // add warps
         foreach (WarpContentModel warp in warps)
         {
             if (!sections.TryGetValue(warp.SectionId, out List<WarpContentModel>? list))
-                sections[warp.SectionId] = list = new();
+                sections[warp.SectionId] = list = [];
 
             list.Add(warp);
         }

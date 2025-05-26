@@ -28,19 +28,20 @@ internal class FastMachinesCheat : BaseCheat
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
         // special cases
-        List<OptionsElement> fields = new()
-        {
+        List<OptionsElement> fields =
+        [
             new CheatsOptionsCheckbox(
                 label: ItemRegistry.GetDataOrErrorItem("(O)710").DisplayName,
                 value: context.Config.FastMachines.Contains("(O)710"),
                 setValue: value => context.Config.FastMachines.Toggle("(O)710", value)
             ),
+
             new CheatsOptionsCheckbox(
                 label: I18n.FastMachines_FruitTrees(),
                 value: context.Config.FastFruitTree,
                 setValue: value => context.Config.FastFruitTree = value
             )
-        };
+        ];
 
         // from Data/Buildings
         foreach ((string buildingId, BuildingData data) in Game1.buildingData)

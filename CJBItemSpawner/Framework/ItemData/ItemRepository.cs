@@ -250,8 +250,8 @@ internal class ItemRepository
     /// <param name="complexTags">A list of tag sets which match roe-producing fish.</param>
     private void GetRoeContextTagLookups(out HashSet<string> simpleTags, out List<List<string>> complexTags)
     {
-        simpleTags = new HashSet<string>();
-        complexTags = new List<List<string>>();
+        simpleTags = [];
+        complexTags = [];
 
         foreach (FishPondData data in this.TryLoad(() => DataLoader.FishPondData(Game1.content)))
         {

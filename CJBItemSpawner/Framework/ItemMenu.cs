@@ -35,11 +35,11 @@ internal class ItemMenu : ItemGrabMenu
     private readonly int ItemsPerRow = Chest.capacity / 3;
 
     /// <summary>The IDs for objects which can't have a quality value.</summary>
-    private readonly ISet<int> ItemsWithoutQuality = new HashSet<int>
-    {
+    private readonly HashSet<int> ItemsWithoutQuality =
+    [
         447, // aged roe
-        812 // roe
-    };
+        812  // roe
+    ];
 
     /// <summary>The available category names.</summary>
     private readonly string[] Categories;
@@ -91,7 +91,7 @@ internal class ItemMenu : ItemGrabMenu
     private readonly SpawnableItem[] AllItems;
 
     /// <summary>The items matching the current search filters, without scrolling.</summary>
-    private readonly List<SpawnableItem> FilteredItems = new();
+    private readonly List<SpawnableItem> FilteredItems = [];
 
     /// <summary>The items currently visible in the UI.</summary>
     private readonly IList<Item> ItemsInView;
@@ -156,7 +156,7 @@ internal class ItemMenu : ItemGrabMenu
     *********/
     /// <summary>The child components for controller snapping.</summary>
     /// <remarks>This must be public and match a type supported by <see cref="IClickableMenu.populateClickableComponentList"/>.</remarks>
-    public readonly List<ClickableComponent> ChildComponents = new();
+    public readonly List<ClickableComponent> ChildComponents = [];
 
 
     /*********
@@ -522,7 +522,7 @@ internal class ItemMenu : ItemGrabMenu
         string all = I18n.Filter_All();
         string misc = I18n.Filter_Miscellaneous();
 
-        HashSet<string> categories = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        HashSet<string> categories = new(StringComparer.OrdinalIgnoreCase);
         foreach (SpawnableItem item in items)
         {
             if (this.EqualsCaseInsensitive(item.Category, all) || this.EqualsCaseInsensitive(item.Category, misc))
@@ -636,7 +636,7 @@ internal class ItemMenu : ItemGrabMenu
 
         // update component list
         this.ChildComponents.Clear();
-        this.ChildComponents.AddRange(new[] { this.QualityButton, this.SortButton, this.UpArrow, this.DownArrow, this.SearchBoxArea, this.CategoryDropdown });
+        this.ChildComponents.AddRange([this.QualityButton, this.SortButton, this.UpArrow, this.DownArrow, this.SearchBoxArea, this.CategoryDropdown]);
 
         // set IDs
         {
@@ -893,7 +893,7 @@ internal class ItemMenu : ItemGrabMenu
     /// <remarks>See remarks on <see cref="BaseDraw"/>.</remarks>
     private Action<SpriteBatch> GetBaseDraw()
     {
-        MethodInfo method = typeof(ItemGrabMenu).GetMethod("draw", BindingFlags.Instance | BindingFlags.Public, null, new[] { typeof(SpriteBatch) }, null) ?? throw new InvalidOperationException($"Can't find {nameof(ItemGrabMenu)}.{nameof(ItemGrabMenu.draw)} method.");
+        MethodInfo method = typeof(ItemGrabMenu).GetMethod("draw", BindingFlags.Instance | BindingFlags.Public, null, [typeof(SpriteBatch)], null) ?? throw new InvalidOperationException($"Can't find {nameof(ItemGrabMenu)}.{nameof(ItemGrabMenu.draw)} method.");
         IntPtr pointer = method.MethodHandle.GetFunctionPointer();
         return (Action<SpriteBatch>)Activator.CreateInstance(typeof(Action<SpriteBatch>), this, pointer)!;
     }

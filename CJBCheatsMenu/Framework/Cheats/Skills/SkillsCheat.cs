@@ -15,14 +15,14 @@ internal class SkillsCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        return new[]
-        {
+        return
+        [
             this.GetSkillButton(context, "farming", Farmer.farmingSkill, Game1.player.FarmingLevel),
             this.GetSkillButton(context, "mining", Farmer.miningSkill, Game1.player.MiningLevel),
             this.GetSkillButton(context, "foraging", Farmer.foragingSkill, Game1.player.ForagingLevel),
             this.GetSkillButton(context, "fishing", Farmer.fishingSkill, Game1.player.FishingLevel),
             this.GetSkillButton(context, "combat", Farmer.combatSkill, Game1.player.CombatLevel)
-        };
+        ];
     }
 
 
@@ -51,7 +51,7 @@ internal class SkillsCheat : BaseCheat
         if (level is < 0 or > 9)
             return 0;
 
-        int[] exp = { 100, 280, 390, 530, 850, 1150, 1500, 2100, 3100, 5000 };
+        int[] exp = [100, 280, 390, 530, 850, 1150, 1500, 2100, 3100, 5000];
 
         return exp[level];
     }

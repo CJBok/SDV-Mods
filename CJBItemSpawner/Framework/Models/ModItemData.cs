@@ -19,6 +19,6 @@ internal record ModItemData
     /// <param name="forceSellable">Item categories that can be sold in shops, regardless of what <see cref="StardewValley.Object.canBeShipped"/> returns.</param>
     public ModItemData(HashSet<int>? forceSellable)
     {
-        this.ForceSellable = forceSellable ?? new HashSet<int>();
+        this.ForceSellable = forceSellable ?? [];
     }
 }

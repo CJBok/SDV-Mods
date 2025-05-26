@@ -28,13 +28,13 @@ internal class CheatManager
     private readonly ICheat[] Cheats;
 
     /// <summary>The cheat implementations which should be notified of update ticks and saves.</summary>
-    private readonly List<ICheat> CheatsWhichNeedUpdate = new();
+    private readonly List<ICheat> CheatsWhichNeedUpdate = [];
 
     /// <summary>The cheat implementations which should be notified of user input.</summary>
-    private readonly List<ICheat> CheatsWhichNeedInput = new();
+    private readonly List<ICheat> CheatsWhichNeedInput = [];
 
     /// <summary>The cheat implementations which should be notified of render ticks.</summary>
-    private readonly List<ICheat> CheatsWhichNeedRendering = new();
+    private readonly List<ICheat> CheatsWhichNeedRendering = [];
 
     /// <summary>The backing field for <see cref="NoFriendshipDecay"/>.</summary>
     private readonly NoFriendshipDecayCheat NoFriendshipDecayImpl = new();

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using CJB.Common;
@@ -55,7 +54,7 @@ internal class ModEntry : Mod
             ModDataCategory[]? categories = helper.Data.ReadJsonFile<ModDataCategory[]>("assets/categories.json");
             if (categories == null)
                 this.Monitor.LogOnce("One of the mod files (assets/categories.json) is missing or invalid. Some features may not work correctly; consider reinstalling the mod.", LogLevel.Warn);
-            this.Categories = categories ?? Array.Empty<ModDataCategory>();
+            this.Categories = categories ?? [];
         }
 
         // init mod
@@ -140,7 +139,7 @@ internal class ModEntry : Mod
     /// <summary>Log a trace message which summarizes the user's current config.</summary>
     private void LogCustomConfig()
     {
-        List<string> phrases = new() { $"menu key {this.Config.ShowMenuKey}" };
+        List<string> phrases = [$"menu key {this.Config.ShowMenuKey}"];
 
         if (!this.Config.ReclaimPriceInMenuTrashCan)
             phrases.Add("reclaim trash can price disabled");

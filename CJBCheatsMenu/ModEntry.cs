@@ -246,7 +246,7 @@ internal class ModEntry : Mod
     {
         return new(() => Context.IsWorldReady
             ? CommonHelper.GetAllLocations().ToArray()
-            : Array.Empty<GameLocation>()
+            : []
         );
     }
 }
