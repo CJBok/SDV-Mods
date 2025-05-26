@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
 using StardewValley;
 using StardewValley.Menus;
+using StardewValley.Objects;
 
 namespace CJBCheatsMenu.Framework.Cheats.Weather;
 
@@ -43,9 +44,15 @@ internal class SetWeatherForTomorrowCheat : BaseCheat
     }
 
     /// <summary>Get the display text for the current weather for tomorrow.</summary>
+    /// <remarks>Forecast logic derived from <see cref="TV.getWeatherForecast()"/>.</remarks>
     private string GetWeatherForNextDay()
     {
-        switch (Game1.weatherForTomorrow)
+        WorldDate tomorrow = WorldDate.ForDaysPlayed(WorldDate.Now().TotalDays + 1);
+        string forecast = Game1.IsMasterGame
+            ? Game1.getWeatherModificationsForDate(tomorrow, Game1.weatherForTomorrow)
+            : Game1.getWeatherModificationsForDate(tomorrow, Game1.netWorldState.Value.WeatherForTomorrow);
+
+        switch (forecast)
         {
             case Game1.weather_sunny:
             case Game1.weather_debris:
@@ -66,7 +73,7 @@ internal class SetWeatherForTomorrowCheat : BaseCheat
                 return I18n.Weather_GreenRain();
 
             default:
-                return Game1.weatherForTomorrow;
+                return forecast;
         }
     }
 
