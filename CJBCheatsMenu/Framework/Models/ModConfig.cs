@@ -232,7 +232,7 @@ internal class ModConfig
                     _ => null
                 };
 
-                if (machineItemId is not null && value is bool enabled && enabled)
+                if (machineItemId is not null && value is true)
                     this.FastMachines.Add(machineItemId);
             }
 
