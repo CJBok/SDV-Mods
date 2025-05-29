@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* The 'skills' tab now reflects skill/profession skill renames by other mods.
+
 ## 1.39.0
 Released 25 May 2025 for SMAPI 4.1.10 or later.
 

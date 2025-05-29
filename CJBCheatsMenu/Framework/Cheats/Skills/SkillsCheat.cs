@@ -17,11 +17,11 @@ internal class SkillsCheat : BaseCheat
     {
         return
         [
-            this.GetSkillButton(context, "farming", Farmer.farmingSkill, Game1.player.FarmingLevel),
-            this.GetSkillButton(context, "mining", Farmer.miningSkill, Game1.player.MiningLevel),
-            this.GetSkillButton(context, "foraging", Farmer.foragingSkill, Game1.player.ForagingLevel),
-            this.GetSkillButton(context, "fishing", Farmer.fishingSkill, Game1.player.FishingLevel),
-            this.GetSkillButton(context, "combat", Farmer.combatSkill, Game1.player.CombatLevel)
+            this.GetSkillButton(context, Farmer.farmingSkill, Game1.player.FarmingLevel),
+            this.GetSkillButton(context, Farmer.miningSkill, Game1.player.MiningLevel),
+            this.GetSkillButton(context, Farmer.foragingSkill, Game1.player.ForagingLevel),
+            this.GetSkillButton(context, Farmer.fishingSkill, Game1.player.FishingLevel),
+            this.GetSkillButton(context, Farmer.combatSkill, Game1.player.CombatLevel)
         ];
     }
 
@@ -31,13 +31,14 @@ internal class SkillsCheat : BaseCheat
     *********/
     /// <summary>Get the option field to increase a skill.</summary>
     /// <param name="context">The cheat context.</param>
-    /// <param name="translationKey">The unique portion of its display text translation key.</param>
     /// <param name="id">The game's skill ID.</param>
     /// <param name="currentLevel">The current skill level.</param>
-    private CheatsOptionsButton GetSkillButton(CheatContext context, string translationKey, int id, int currentLevel)
+    private CheatsOptionsButton GetSkillButton(CheatContext context, int id, int currentLevel)
     {
+        string skillName = Farmer.getSkillDisplayNameFromIndex(id);
+
         return new CheatsOptionsButton(
-            label: I18n.GetByKey($"skills.increase-{translationKey}", new { currentLevel }),
+            label: I18n.Skills_IncreaseSkill(skillName: skillName, currentLevel: currentLevel),
             slotWidth: context.SlotWidth,
             toggle: () => this.IncreaseSkill(id),
             disabled: currentLevel >= 10

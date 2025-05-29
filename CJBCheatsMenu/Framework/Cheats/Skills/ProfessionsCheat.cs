@@ -14,59 +14,61 @@ internal class ProfessionsCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        return
-        [
-            this.GetField(I18n.Professions_Combat_Fighter(), Farmer.fighter),
-            this.GetField(I18n.Professions_Combat_Scout(), Farmer.scout),
-            this.GetField(I18n.Professions_Combat_Acrobat(), Farmer.acrobat),
-            this.GetField(I18n.Professions_Combat_Brute(), Farmer.brute),
-            this.GetField(I18n.Professions_Combat_Defender(), Farmer.defender),
-            this.GetField(I18n.Professions_Combat_Desperado(), Farmer.desperado),
+        foreach ((int skillId, Dictionary<int, int[]> professionsByLevel) in this.GetProfessions())
+        {
+            string skillName = Farmer.getSkillDisplayNameFromIndex(skillId);
 
-            this.GetField(I18n.Professions_Farming_Rancher(), Farmer.rancher),
-            this.GetField(I18n.Professions_Farming_Tiller(), Farmer.tiller),
-            this.GetField(I18n.Professions_Farming_Agriculturist(), Farmer.agriculturist),
-            this.GetField(I18n.Professions_Farming_Artisan(), Farmer.artisan),
-            this.GetField(I18n.Professions_Farming_Coopmaster(), Farmer.butcher), // butcher = coopmaster
-            this.GetField(I18n.Professions_Farming_Shepherd(), Farmer.shepherd),
+            foreach ((int level, int[] professionIds) in professionsByLevel)
+            {
+                foreach (int professionId in professionIds)
+                {
+                    string professionName = LevelUpMenu.getProfessionTitleFromNumber(professionId);
 
-            this.GetField(I18n.Professions_Fishing_Fisher(), Farmer.fisher),
-            this.GetField(I18n.Professions_Fishing_Trapper(), Farmer.trapper),
-            this.GetField(I18n.Professions_Fishing_Angler(), Farmer.angler),
-            this.GetField(I18n.Professions_Fishing_Luremaster(), Farmer.mariner), // mariner = luremaster (??)
-            this.GetField(I18n.Professions_Fishing_Mariner(), Farmer.baitmaster), // baitmaster = mariner (??)
-            this.GetField(I18n.Professions_Fishing_Pirate(), Farmer.pirate),
-
-            this.GetField(I18n.Professions_Foraging_Forester(), Farmer.forester),
-            this.GetField(I18n.Professions_Foraging_Gatherer(), Farmer.gatherer),
-            this.GetField(I18n.Professions_Foraging_Botanist(), Farmer.botanist),
-            this.GetField(I18n.Professions_Foraging_Lumberjack(), Farmer.lumberjack),
-            this.GetField(I18n.Professions_Foraging_Tapper(), Farmer.tapper),
-            this.GetField(I18n.Professions_Foraging_Tracker(), Farmer.tracker),
-
-            this.GetField(I18n.Professions_Mining_Geologist(), Farmer.geologist),
-            this.GetField(I18n.Professions_Mining_Miner(), Farmer.miner),
-            this.GetField(I18n.Professions_Mining_Blacksmith(), Farmer.blacksmith),
-            this.GetField(I18n.Professions_Mining_Excavator(), Farmer.excavator),
-            this.GetField(I18n.Professions_Mining_Gemologist(), Farmer.gemologist),
-            this.GetField(I18n.Professions_Mining_Prospector(), Farmer.burrower) // burrower = prospecter
-        ];
+                    yield return new CheatsOptionsCheckbox(
+                        label: I18n.Professions_Profession(skillName: skillName, level: level, professionName: professionName),
+                        value: this.GetProfession(professionId),
+                        setValue: value => this.SetProfession(professionId, value)
+                    );
+                }
+            }
+        }
     }
 
 
     /*********
     ** Private methods
     *********/
-    /// <summary>Get the option field to toggle a profession.</summary>
-    /// <param name="label">The option label text.</param>
-    /// <param name="id">The game's profession ID.</param>
-    private CheatsOptionsCheckbox GetField(string label, int id)
+    /// <summary>Get the profession IDs by skill ID and level.</summary>
+    private Dictionary<int, Dictionary<int, int[]>> GetProfessions()
     {
-        return new CheatsOptionsCheckbox(
-            label: label,
-            value: this.GetProfession(id),
-            setValue: value => this.SetProfession(id, value)
-        );
+        return new()
+        {
+            [Farmer.combatSkill] = new()
+            {
+                [5] = [Farmer.fighter, Farmer.scout],
+                [10] = [Farmer.acrobat, Farmer.brute, Farmer.defender, Farmer.desperado]
+            },
+            [Farmer.farmingSkill] = new()
+            {
+                [5] = [Farmer.rancher, Farmer.tiller],
+                [10] = [Farmer.agriculturist, Farmer.artisan, Farmer.butcher, Farmer.shepherd] // butcher = coopmaster
+            },
+            [Farmer.fishingSkill] = new()
+            {
+                [5] = [Farmer.fisher, Farmer.trapper],
+                [10] = [Farmer.angler, Farmer.mariner, Farmer.baitmaster, Farmer.pirate] // mariner = luremaster, and baitmaster = mariner
+            },
+            [Farmer.foragingSkill] = new()
+            {
+                [5] = [Farmer.forester, Farmer.gatherer],
+                [10] = [Farmer.botanist, Farmer.lumberjack, Farmer.tapper, Farmer.tracker]
+            },
+            [Farmer.miningSkill] = new()
+            {
+                [5] = [Farmer.geologist, Farmer.miner],
+                [10] = [Farmer.blacksmith, Farmer.excavator, Farmer.gemologist, Farmer.burrower] // burrower = prospecter
+            }
+        };
     }
 
     /// <summary>Get whether the player has the given profession.</summary>
