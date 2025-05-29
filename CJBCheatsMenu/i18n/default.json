@@ -84,11 +84,11 @@
     *********/
     // skills
     "skills.title": "Skills",
-    "skills.increase-skill": "Incr. {{skillName}} lvl: {{currentLevel}}",
+    "skills.increase-skill": "Increase {{skillName}} level: {{currentLevel}}",
 
     // professions
     "professions.title": "Professions",
-    "professions.profession": "{{skillName}} lvl {{level}} - {{professionName}}",
+    "professions.profession": "{{skillName}} level {{level}} - {{professionName}}",
 
 
     /*********
