@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using CJBCheatsMenu.Framework.Components;
 using StardewValley;
 using StardewValley.Enchantments;
+using StardewValley.GameData.Enchantments;
 using StardewValley.Menus;
 using StardewValley.Tools;
 
@@ -25,7 +25,7 @@ internal class ToolEnchantmentsCheat : BaseCheat
             return [new DescriptionElement(I18n.ToolEnchantments_SelectTool(), splitLinesIfNeeded: false)];
 
         // no enchantments available
-        BaseEnchantment[] enchantments = this.GetValidEnchantments(tool).ToArray();
+        Enchantment[] enchantments = this.GetValidEnchantments(tool).ToArray();
         if (enchantments.Length == 0)
             return [new DescriptionElement(I18n.ToolEnchantments_NoneForTool(tool.DisplayName), splitLinesIfNeeded: false)];
 
@@ -53,10 +53,10 @@ internal class ToolEnchantmentsCheat : BaseCheat
     ** Private methods
     *********/
     /// <summary>Get a field to display.</summary>
-    private OptionsElement GetField(Tool tool, BaseEnchantment enchantment)
+    private OptionsElement GetField(Tool tool, Enchantment enchantment)
     {
         string displayName = enchantment.GetDisplayName();
-        bool hasEnchantment = tool.enchantments.Any(other => enchantment.GetName() == other.GetName());
+        bool hasEnchantment = tool.HasEnchantment(enchantment.Id);
 
         return new CheatsOptionsCheckbox(
             label: displayName,
@@ -78,37 +78,19 @@ internal class ToolEnchantmentsCheat : BaseCheat
     /// <summary>Get the enchantments which can be applied to a tool.</summary>
     /// <param name="tool">The tool whose enchantments to edit.</param>
     /// <remarks>The innate enchantments are derived from <see cref="MeleeWeapon.attemptAddRandomInnateEnchantment"/>.</remarks>>
-    private IEnumerable<BaseEnchantment> GetValidEnchantments(Tool tool)
+    private IEnumerable<Enchantment> GetValidEnchantments(Tool tool)
     {
-        // explicit enchantments
-        IEnumerable<BaseEnchantment> enchantments = BaseEnchantment.GetAvailableEnchantmentsForItem(tool);
-
-        // 'innate' enchantments
-        if (tool is MeleeWeapon weapon)
+        foreach ((string id, EnchantmentData? value) in DataLoader.Enchantments(Game1.content))
         {
-            int weaponLevel = weapon.getItemLevel();
+            if (value is null || !EnchantmentManager.MatchesTags(tool, value.AppliesTo))
+                continue;
 
-            enchantments = [
-                ..enchantments,
-                new DefenseEnchantment { Level = Math.Max(1, Math.Min(2, weaponLevel / 2 + 1)) },
-                new LightweightEnchantment { Level = 5 },
-                new SlimeGathererEnchantment(),
-                new AttackEnchantment { Level = Math.Max(1, Math.Min(5, weaponLevel / 2 + 1)) },
-                new CritEnchantment { Level = Math.Max(1, Math.Min(3, (weaponLevel - 1) / 3)) },
-                new WeaponSpeedEnchantment { Level = Math.Max(1, Math.Min(Math.Max(1, 4 - weapon.speed.Value), weaponLevel - 1)) },
-                new SlimeSlayerEnchantment(),
-                new CritPowerEnchantment { Level = Math.Max(1, Math.Min(3, (weaponLevel - 1) / 3)) }
-            ];
+            Enchantment enchantment = EnchantmentManager.CreateEnchantment(id);
+            if (enchantment is null)
+                continue;
+
+            enchantment.Level = enchantment.GetMaximumLevel();
+            yield return enchantment;
         }
-
-        // tool's current enchantments
-        if (tool.enchantments.Count > 0)
-        {
-            enchantments = tool.enchantments
-                .Concat(enchantments)
-                .DistinctBy(p => p.GetName());
-        }
-
-        return enchantments;
     }
 }
