@@ -38,7 +38,6 @@
     "tools.harvest-with-scythe": "Mit Sense ernten",
 
     // tool enchantments
-    // TODO
     "tool-enchantments.title": "Werkzeugverzauberungen",
     "tool-enchantments.select-tool": "Wähle ein Werkzeug in deiner Werkzeugleiste, um die Verzauberungen zu editieren.",
     "tool-enchantments.none-for-tool": "Keine Verzauberung für {{toolName}} verfügbar.",
@@ -228,13 +227,11 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
     "config.open-menu.desc": "Die Taste, die das Menü öffnet (wenn kein anderes Menü geöffnet ist)",
     "config.freeze-time.desc": "Die Taste, die die In-Game-Zeit stoppt.",
     "config.grow-tree.desc": "Die Taste, die Bäume um den Spieler sofort wachsen lässt.",
     "config.grow-crops.desc": "Die Taste, die gesäte Pflanzen um den Spieler sofort wachsen lässt.",
 
-    // TODO
     "controls.reload-config": "Reload settings from file",
     "controls.reload-config.desc": "Die Taste, die die Mod Einstellungen in der config.json der Mod neu lädt. Falls ein Menü geist, werden Änderungen erst bei erneutem Öffnen des Menüs sichtbar.",
 
