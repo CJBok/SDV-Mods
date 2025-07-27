@@ -33,14 +33,13 @@
 
     /*********
     ** Generic Mod Config Menu UI
-    *********/
-    // TODO
-    "config.title.controls": "Controls",
-    "config.show-menu-key.name": "Show menu key",
-    "config.show-menu-key.desc": "The keybind which opens the menu (when no other menu is open).",
+    **********/
+    "config.title.controls": "Steuerung",
+    "config.show-menu-key.name": "Menü-Taste",
+    "config.show-menu-key.desc": "Tastenbelegung, welche das Menü öffnet (wenn kein anderes Menü geöffnet ist).",
 
-    "config.title.options": "Options",
-    "config.apply-trash-can-upgrade.name": "Apply trash can upgrade",
+    "config.title.options": "Optionen",
+    "config.apply-trash-can-upgrade.name": "Mülleimer-Upgrade anwenden",
     "config.apply-trash-can-upgrade.desc": "When you upgrade your trash can to reclaim part of the price of trashed items, whether that upgrade applies in the item spawner menu too.",
 
     "config.title.hide-categories": "Hide categories",
