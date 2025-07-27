@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Fixed some newer juice/pickle/roe items not shown.
 * Improved translations. Thanks to flowerssummerr (updated Italian)!
 
 ## 2.5.3
