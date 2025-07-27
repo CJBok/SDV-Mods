@@ -3,7 +3,7 @@
 # Release notes
 ## Upcoming release
 * Fixed some newer juice/pickle/roe items not shown.
-* Improved translations. Thanks to flowerssummerr (updated Italian)!
+* Improved translations. Thanks to derrausch (updated German) and flowerssummerr (updated Italian)!
 
 ## 2.5.3
 Released 25 May 2025 for SMAPI 4.1.10 or later.

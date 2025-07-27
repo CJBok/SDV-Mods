@@ -40,8 +40,9 @@
 
     "config.title.options": "Optionen",
     "config.apply-trash-can-upgrade.name": "Mülleimer-Upgrade anwenden",
-    "config.apply-trash-can-upgrade.desc": "When you upgrade your trash can to reclaim part of the price of trashed items, whether that upgrade applies in the item spawner menu too.",
+    "config.apply-trash-can-upgrade.desc": "When you upgrade your trash can to reclaim part of the price of trashed items, whether that upgrade applies in the item spawner menu too.", // TODO
 
+    // TODO
     "config.title.hide-categories": "Hide categories",
     "config.hide-category.desc": "Whether to hide the '{{name}}' category in the UI. If it's hidden, items in this category will not be accessible through the spawn menu."
 }

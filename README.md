@@ -24,7 +24,7 @@ on the wiki for help contributing translations.
 :----------- | :------------------------------ | :------------------------------- | :-------------------------------------
 Chinese      | [↻](CJBCheatsMenu/i18n/zh.json) | [✓](CJBItemSpawner/i18n/zh.json) | [✓](CJBShowItemSellPrice/i18n/zh.json)
 French       | [✓](CJBCheatsMenu/i18n/fr.json) | [✓](CJBItemSpawner/i18n/fr.json) | [↻](CJBShowItemSellPrice/i18n/fr.json)
-German       | [✓](CJBCheatsMenu/i18n/de.json) | [↻](CJBItemSpawner/i18n/de.json) | [↻](CJBShowItemSellPrice/i18n/de.json)
+German       | [✓](CJBCheatsMenu/i18n/de.json) | [↻](CJBItemSpawner/i18n/de.json) | [✓](CJBShowItemSellPrice/i18n/de.json)
 Hungarian    | [✓](CJBCheatsMenu/i18n/hu.json) | [✓](CJBItemSpawner/i18n/hu.json) | [✓](CJBShowItemSellPrice/i18n/hu.json)
 Italian      | [✓](CJBCheatsMenu/i18n/it.json) | [✓](CJBItemSpawner/i18n/it.json) | [✓](CJBShowItemSellPrice/i18n/it.json)
 Japanese     | [↻](CJBCheatsMenu/i18n/ja.json) | [✓](CJBItemSpawner/i18n/ja.json) | [↻](CJBShowItemSellPrice/i18n/ja.json)
