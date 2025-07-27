@@ -38,11 +38,10 @@
     "tools.harvest-with-scythe": "낫으로 수확",
 
     // tool enchantments
-    // TODO
-    "tool-enchantments.title": "Tool Enchantments",
-    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
-    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
-    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+    "tool-enchantments.title": "도구 마법 부여",
+    "tool-enchantments.select-tool": "인벤토리에서 도구를 선택한 뒤 부여할 마법을 편집하세요.",
+    "tool-enchantments.none-for-tool": "선택한 {{toolName}} 는(은) 마법 부여를 선택할 수 없습니다.",
+    "tool-enchantments.for-tool": "{{toolName}} 선택됨.",
 
     // money
     "add.money": "돈",
@@ -85,57 +84,24 @@
     *********/
     // skills
     "skills.title": "스킬",
-    "skills.increase-farming": "농사 레벨 UP: {{currentLevel}}",
-    "skills.increase-mining": "채광 레벨 UP: {{currentLevel}}",
-    "skills.increase-foraging": "채집 레벨 UP: {{currentLevel}}",
-    "skills.increase-fishing": "낚시 레벨 UP: {{currentLevel}}",
-    "skills.increase-combat": "전투 레벨 UP: {{currentLevel}}",
+    "skills.increase-skill": "{{skillName}} 레벨 UP: {{currentLevel}}",
 
     // professions
     "professions.title": "직업 변경",
-    "professions.combat.fighter": "전투 레벨 5 - 싸움꾼",
-    "professions.combat.scout": "전투 레벨 5 - 정찰자",
-    "professions.combat.acrobat": "전투 레벨 10 - 곡예사",
-    "professions.combat.brute": "전투 레벨 10 - 덩치",
-    "professions.combat.defender": "전투 레벨 10 - 수호자",
-    "professions.combat.desperado": "전투 레벨 10 - 무법자",
-    "professions.farming.rancher": "농사 레벨 5 - 목축업자",
-    "professions.farming.tiller": "농사 레벨 5 - 경작인",
-    "professions.farming.agriculturist": "농사 레벨 10 - 농업 전문가",
-    "professions.farming.artisan": "농사 레벨 10 - 장인",
-    "professions.farming.coopmaster": "농사 레벨 10 - 닭장의 달인",
-    "professions.farming.shepherd": "농사 레벨 10 - 양치기",
-    "professions.fishing.fisher": "낚시 레벨 5 - 어부",
-    "professions.fishing.trapper": "낚시 레벨 5 - 덫 사냥꾼",
-    "professions.fishing.angler": "낚시 레벨 10 - 낚시 장인",
-    "professions.fishing.luremaster": "낚시 레벨 10 - 미끼 장인",
-    "professions.fishing.mariner": "낚시 레벨 10 - 뱃사람",
-    "professions.fishing.pirate": "낚시 레벨 10 - 해적",
-    "professions.foraging.forester": "채집 레벨 5 - 수목 관리원",
-    "professions.foraging.gatherer": "채집 레벨 5 - 채집가",
-    "professions.foraging.botanist": "채집 레벨 10 - 식물학자",
-    "professions.foraging.lumberjack": "채집 레벨 10 - 벌목꾼",
-    "professions.foraging.tapper": "채집 레벨 10 - 수액 채취자",
-    "professions.foraging.tracker": "채집 레벨 10 - 추적자",
-    "professions.mining.geologist": "채광 레벨 5 - 지질학자",
-    "professions.mining.miner": "채광 레벨 5 - 광부",
-    "professions.mining.blacksmith": "채광 레벨 10 - 대장장이",
-    "professions.mining.excavator": "채광 레벨 10 - 발굴자",
-    "professions.mining.gemologist": "채광 레벨 10 - 보석학자",
-    "professions.mining.prospector": "채광 레벨 10 - 탐광자",
+    "professions.profession": "{{skillName}} 레벨 {{level}} - {{professionName}}",
 
 
     /*********
     ** Weather tab
     *********/
     "weather.title": "내일의 날씨",
-    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
-    "weather.explanation": "Click a button below to set the weather for tomorrow (and only tomorrow). This tab has zero effect on weather otherwise.", // TODO
+    "weather.current-value": "내일 날씨는 {{weather}}으로(로) 설정되어 있습니다.",
+    "weather.explanation": "아래 버튼을 클릭하여 내일 날씨를 설정할 수 있습니다(내일 날씨만). 이 탭은 다른 날씨에는 아무런 영향을 주지 않습니다.",
     "weather.sunny": "맑음",
     "weather.raining": "비",
     "weather.lightning": "폭풍(번개)",
     "weather.snowing": "눈",
-    "weather.green-rain": "Green Raining", // TODO
+    "weather.green-rain": "녹색 비",
 
 
     /*********
@@ -150,7 +116,7 @@
     /*********
     ** Warps tab
     *********/
-    "warp.customized-warning": "These warps were edited by your mods. Please report warp issues to the mods which added them if applicable.", // TODO
+    "warp.customized-warning": "해당 워프는 모드에 의해 수정됐습니다. 문제가 발생할 경우 해당 모드에 보고해 주세요.",
 
     // main areas
     "warp-section.main": "주요 지역",
@@ -167,13 +133,13 @@
     "warp.jojamart": "조자마트",
     "warp.movie-theater": "영화관",
     "warp.museum": "박물관",
-    "warp.saloon": "스타드롭 살롱",
+    "warp.saloon": "스타드롭 주점",
     "warp.sewer": "하수도",
 
     // forest
     "warp-section.forest": "숲",
     "warp.hats": "모자쥐 상점",
-    "warp.mastery-cave": "Mastery Cave", // TODO
+    "warp.mastery-cave": "마스터리 동굴",
     "warp.ranch": "마니의 목장",
     "warp.secret-woods": "비밀의 숲",
     "warp.wizard-tower": "마법사의 탑",
@@ -214,7 +180,7 @@
     "time.freeze-inside": "실내에서 시간 정지",
     "time.freeze-caves": "광산/해골동굴 안에서 시간 정지",
     "time.freeze-everywhere": "모든 장소에서 시간 정지",
-    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
+    "time.fade-time-frozen-message": "{{timeFrozen}}' 표시 몇 초 후에 숨기기",
     "time.time": "시간",
     "time.time-frozen-message": "시간 멈춤",
 
@@ -238,7 +204,7 @@
     "flags.unlocked-content": "해제되지 않은 콘텐츠",
     "flags.unlocked-content.dyes-and-tailoring": "염색&재봉틀",
     "flags.unlocked-content.junimo-text": "주니모 글씨 읽기 가능",
-    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
+    "flags.unlocked-content.perfection": "완벽 달성함",
     "flags.community-center": "마을 회관",
     "flags.community-center.door-unlocked": "마을회관 잠긴 문 열기",
     "flags.jojamart.membership": "조자마트 회원권",
@@ -266,9 +232,8 @@
     "config.grow-tree.desc": "플레이어 주변에 나무를 성장시키는 키입니다.",
     "config.grow-crops.desc": "플레이어 주변에 작물을 성장시키는 키입니다.",
 
-    // TODO
-    "controls.reload-config": "Reload settings from file",
-    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+    "controls.reload-config": "파일에서 설정 다시 불러오기",
+    "controls.reload-config.desc": "모드의 config.json 파일에서 모드 설정을 다시 불러오는 단축키입니다. 현재 메뉴가 열려 있는 경우, 메뉴를 다시 열어야 변경 사항을 적용할 수 있습니다.",
 
     "config.title.other-options": "기타 옵션",
     "config.default-tab.name": "기본 탭",

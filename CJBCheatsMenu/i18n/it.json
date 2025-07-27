@@ -8,7 +8,7 @@
     // tab names
     "tabs.player-and-tools": "Giocatore & Utensili",
     "tabs.farm-and-fishing": "Agricoltura & Pesca",
-    "tabs.skills": "Abilitá",
+    "tabs.skills": "Abilità",
     "tabs.weather": "Meteo",
     "tabs.relationships": "Relazioni",
     "tabs.warp": "Luoghi Teletrasporto",
@@ -24,12 +24,12 @@
     "player.title": "Giocatore",
     "player.infinite-stamina": "Stamina Infinita",
     "player.infinite-health": "Salute Infinita",
-    "player.instant-cooldowns": "Arma Cooldowns Istantanea",
-    "player.inventory-size": "Dimensione dell'Inventario",
+    "player.instant-cooldowns": "Tempo di recupero Arma Istantaneo",
+    "player.inventory-size": "Dimensione Inventario",
     "player.movement-speed": "Velocitá di Movimento",
     "player.movement-speed.default": "normale",
     "player.one-hit-kill": "Colpo Mortale",
-    "player.max-daily-luck": "Max Fortuna Giornaliera",
+    "player.max-daily-luck": "Fortuna Giornaliera Massima",
 
     // tools
     "tools.title": "Utensili",
@@ -38,15 +38,14 @@
     "tools.harvest-with-scythe": "Mietere con la falce",
 
     // tool enchantments
-    // TODO
-    "tool-enchantments.title": "Tool Enchantments",
-    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
-    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
-    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+    "tool-enchantments.title": "Incantamenti",
+    "tool-enchantments.select-tool": "Seleziona un attrezzo sulla tua barra di scelta rapida per modificare gli incantamenti.",
+    "tool-enchantments.none-for-tool": "Nessun incantamento disponibile per l'attrezzo ({{toolName}}) .",
+    "tool-enchantments.for-tool": "Per lo strumento ({{toolName}}) selezionato.",
 
     // money
     "add.money": "Soldi",
-    "add.casino-coins": "Monete del Casinó",
+    "add.casino-coins": "Monete del Casinò",
     "add.golden-walnuts": "Noci Dorate",
     "add.qi-gems": "Gemme Qi",
     "add.amount-gold": "Aggiungi {{amount}}g",
@@ -58,18 +57,18 @@
     *********/
     // farm
     "farm.title": "Fattoria",
-    "farm.auto-water": "Annaffia Raccolto Automatico",
-    "farm.durable-fences": "Recinti Durabili",
+    "farm.auto-water": "Annaffia Automaticamente le Colture",
+    "farm.durable-fences": "Recinti Resistenti",
     "farm.instant-build": "Costruisci Instantaneamente",
     "farm.auto-feed-animals": "Nutri gli Animali Automaticamente",
     "farm.auto-pet-animals": "Cura degli Animali Automatica",
-    "farm.auto-pet-pets": "Auto-Pet Pets", // TODO
+    "farm.auto-pet-pets": "Accarezza gli Animali Automaticamente",
     "farm.infinite-hay": "Fieno Infinito",
 
     // fishing
     "fishing.title": "Pesca",
     "fishing.instant-catch": "Cattura Instantanea",
-    "fishing.instant-bite": "Abboccato Istantaneo",
+    "fishing.instant-bite": "Pesce Abbocca Instantaneamente",
     "fishing.always-throw-max-distance": "Raggiungi Sempre la Distanza Massima",
     "fishing.always-treasure": "Sempre Tesori",
     "fishing.durable-tackles": "Ami Durabili",
@@ -77,112 +76,79 @@
     // fast machines
     "fast-machines.title": "Processo Macchinari Veloce",
     "fast-machines.fruit-trees": "Alberi della Frutta",
-    "fast-machines.ready-in-the-morning": "{{machineName}} (pronto il mattino)",
+    "fast-machines.ready-in-the-morning": "{{machineName}} (pronto al mattino)",
 
 
     /*********
     ** Skills tab
     *********/
     // skills
-    "skills.title": "Abilitá",
-    "skills.increase-farming": "Aumenta Livello Agricolo Lvl: {{currentLevel}}",
-    "skills.increase-mining": "Aumenta Livello Minatore Lvl: {{currentLevel}}",
-    "skills.increase-foraging": "Aumenta Livello Foraggio Lvl: {{currentLevel}}",
-    "skills.increase-fishing": "Aumenta Livello Pesca Lvl: {{currentLevel}}",
-    "skills.increase-combat": "Aumenta Livello Combattimento Lvl: {{currentLevel}}",
+    "skills.title": "Abilità",
+    "skills.increase-skill": "Aumenta Livello {{skillName}}: {{currentLevel}}",
 
     // professions
     "professions.title": "Professioni",
-    "professions.combat.fighter": "Combattimento lvl 5 - Fighter",
-    "professions.combat.scout": "Combattimento lvl 5 - Scout",
-    "professions.combat.acrobat": "Combattimento lvl 10 - Acrobat",
-    "professions.combat.brute": "Combattimento lvl 10 - Brute",
-    "professions.combat.defender": "Combattimento lvl 10 - Defender",
-    "professions.combat.desperado": "Combattimento lvl 10 - Desperado",
-    "professions.farming.rancher": "Agricolo lvl 5 - Rancher",
-    "professions.farming.tiller": "Agricolo lvl 5 - Tiller",
-    "professions.farming.agriculturist": "Agricolo lvl 10 - Agriculturist",
-    "professions.farming.artisan": "Agricolo lvl 10 - Artisan",
-    "professions.farming.coopmaster": "Agricolo lvl 10 - Coopmaster",
-    "professions.farming.shepherd": "Agricolo lvl 10 - Shepherd",
-    "professions.fishing.fisher": "Pesca lvl 5 - Fisher",
-    "professions.fishing.trapper": "Pesca lvl 5 - Trapper",
-    "professions.fishing.angler": "Pesca lvl 10 - Angler",
-    "professions.fishing.luremaster": "Pesca lvl 10 - Luremaster",
-    "professions.fishing.mariner": "Pesca lvl 10 - Mariner",
-    "professions.fishing.pirate": "Pesca lvl 10 - Pirate",
-    "professions.foraging.forester": "Foraggio lvl 5 - Forester",
-    "professions.foraging.gatherer": "Foraggio lvl 5 - Gatherer",
-    "professions.foraging.botanist": "Foraggio lvl 10 - Botanist",
-    "professions.foraging.lumberjack": "Foraggio lvl 10 - Lumberjack",
-    "professions.foraging.tapper": "Foraggio lvl 10 - Tapper",
-    "professions.foraging.tracker": "Foraggio lvl 10 - Tracker",
-    "professions.mining.geologist": "Minatore lvl 5 - Geologist",
-    "professions.mining.miner": "Minatore lvl 5 - Miner",
-    "professions.mining.blacksmith": "Minatore lvl 10 - Blacksmith",
-    "professions.mining.excavator": "Minatore lvl 10 - Excavator",
-    "professions.mining.gemologist": "Minatore lvl 10 - Gemologist",
-    "professions.mining.prospector": "Minatore lvl 10 - Prospector",
+    "professions.profession": "{{skillName}} lvl {{level}} - {{professionName}}",
 
 
     /*********
     ** Weather tab
     *********/
     "weather.title": "Meteo di Domani",
-    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
-    "weather.explanation": "Click a button below to set the weather for tomorrow (and only tomorrow). This tab has zero effect on weather otherwise.", // TODO
+    "weather.current-value": "Il meteo di domani è impostato su {{weather}}.",
+    "weather.explanation": "Clicca su un pulsante qui sotto per impostare il meteo di domani (e solo di domani). In caso contrario, questa scheda non influirà sul meteo.",
     "weather.sunny": "Soleggiato",
     "weather.raining": "Pioggia",
     "weather.lightning": "Fulmini",
     "weather.snowing": "Neve",
-    "weather.green-rain": "Green Raining", // TODO
+    "weather.green-rain": "Pioggia verde",
 
 
     /*********
     ** Relationships tab
     *********/
     "relationships.title": "Relazioni",
-    "relationships.give-gifts-anytime": "Sempre Regali",
-    "relationships.no-decay": "Nessun Declino dell'Amicizia",
+    "relationships.give-gifts-anytime": "Puoi sempre dare Regali",
+    "relationships.no-decay": "Nessun declino dell'Amicizia",
     "relationships.friends": "Amici",
 
 
     /*********
     ** Warps tab
     *********/
-    "warp.customized-warning": "These warps were edited by your mods. Please report warp issues to the mods which added them if applicable.", // TODO
+    "warp.customized-warning": "Questi teletrasporti sono stati modificati dalle tue mod. Se ci sono problemi con i teletrasporti, riporta gli errori alle mod originali.",
 
     // main areas
     "warp-section.main": "Aree Principali",
     "warp.farm": "Fattoria",
     "warp.carpenter": "Carpentiere",
     "warp.desert": "Deserto",
-    "warp.mines": "Miniera",
+    "warp.mines": "Miniere",
     "warp.pierre-shop": "Emporio di Pierre",
 
     // town
-    "warp-section.town": "Paese",
+    "warp-section.town": "Città",
     "warp.blacksmith": "Fabbro",
     "warp.community-center": "Centro Sociale",
     "warp.jojamart": "JojaMart",
     "warp.movie-theater": "Cinema",
     "warp.museum": "Museo",
-    "warp.saloon": " Saloon Astropomo",
+    "warp.saloon": "Saloon Astropomo",
     "warp.sewer": "Fogne",
 
     // forest
     "warp-section.forest": "Foresta",
     "warp.hats": "Cappelli",
-    "warp.mastery-cave": "Mastery Cave", // TODO
+    "warp.mastery-cave": "Grotta della Maestria",
     "warp.ranch": "Ranch di Marnie",
-    "warp.secret-woods": "Foresta Segreta",
+    "warp.secret-woods": "Boschi segreti",
     "warp.wizard-tower": "Torre del Mago",
 
     // mountain
-    "warp-section.mountain": "Montagna",
+    "warp-section.mountain": "Montagne",
     "warp.adventurers-guild": "Gilda degli Avventurieri",
     "warp.bathhouse": "Terme",
-    "warp.mutant-bug-lair": "Covo di insetti mutanti",
+    "warp.mutant-bug-lair": "Covo degli insetti mutanti",
     "warp.quarry": "Cava",
     "warp.witch-swamp": "Palude della Strega",
 
@@ -192,11 +158,11 @@
     "warp.willy-shop": "Negozio di Pesca",
 
     // island
-    "warp-section.island": "Isola di Ginger",
-    "warp.forge": "Fabbro",
+    "warp-section.island": "Isola Zenzero",
+    "warp.forge": "Forgia",
     "warp.island-farm": "Fattoria dell'Isola",
-    "warp.dwarf-shop": "Negozio del Nano del Vulcano",
-    "warp.field-office": "Ufficio del Campo",
+    "warp.dwarf-shop": "Mercante dell'isola",
+    "warp.field-office": "Ufficio da campo dell'isola",
     "warp.leo-house": "Casa di Leo",
 
     // desert
@@ -214,7 +180,7 @@
     "time.freeze-inside": "Ferma il Tempo all'Interno",
     "time.freeze-caves": "Ferma il Tempo nelle Grotte",
     "time.freeze-everywhere": "Ferma il Tempo Ovunque",
-    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
+    "time.fade-time-frozen-message": "Nascondi'{{timeFrozen}}' Dopo Qualche Secondo",
     "time.time": "Tempo",
     "time.time-frozen-message": "Ferma l'Orologio",
 
@@ -237,8 +203,8 @@
     "flags.unlocked.room": "Stanza: {{name}}",
     "flags.unlocked-content": "Contenuto Sbloccato",
     "flags.unlocked-content.dyes-and-tailoring": "Colorante e Sartoria",
-    "flags.unlocked-content.junimo-text": "Can read Junimo text", // TODO
-    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
+    "flags.unlocked-content.junimo-text": "Può leggere le placche Junimo",
+    "flags.unlocked-content.perfection": "Perfezione ottenuta",
     "flags.community-center": "Centro Sociale",
     "flags.community-center.door-unlocked": "Porta Sbloccata",
     "flags.jojamart.membership": "Membro di JojaMart",
@@ -261,18 +227,16 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.open-menu.desc": "The keybind which opens the menu (when no other menu is open).",
-    "config.freeze-time.desc": "The keybind which freezes the game clock.",
-    "config.grow-tree.desc": "The keybind held to grow trees around the player.",
-    "config.grow-crops.desc": "The keybind held to grow crops around the player.",
+    "config.open-menu.desc": "Il tasto che apre il menù (quando nessun'altro menù è aperto).",
+    "config.freeze-time.desc": "Il tasto che ferma il tempo in gioco.",
+    "config.grow-tree.desc": "Il tasto che va premuto per fare crescere gli alberi attorno al giocatore.",
+    "config.grow-crops.desc": "Il tasto che va premuto per fare crescere le colture attorno al giocatore.",
 
-    // TODO
-    "controls.reload-config": "Reload settings from file",
-    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+    "controls.reload-config": "Ricarica le impostazioni da file",
+    "controls.reload-config.desc": "Il tasto che ricarica le impostazioni della mod dal file config.json. Se il menù è aperto in quel momento, le impostazioni verranno modificate solo dopo che il menù verrà riaperto.",
 
-    "config.title.other-options": "Other options",
-    "config.default-tab.name": "Default tab",
-    "config.default-tab.desc": "The tab shown by default when you open the menu.",
-    "config.other-options": "To configure cheats, press the 'open menu' key shown above in-game. Make sure you press it after loading the save, when no other menu or dialogue is open."
+    "config.title.other-options": "Altre opzioni",
+    "config.default-tab.name": "Scheda predefinita",
+    "config.default-tab.desc": "La scheda che viene mostrata per prima quando apri il menù.",
+    "config.other-options": "Per configurare i trucchi, premi il pulsante 'apri menù' mostrato in alto quando sei in gioco. Assicurati di premerlo dopo aver caricato il salvataggio, quando non ci sono altri menù aperti."
 }
