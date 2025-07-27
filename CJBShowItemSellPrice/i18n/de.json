@@ -9,11 +9,10 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.show-when.name": "Show price",
-    "config.show-when.desc": "Choose when the sell price UI should be shown.",
+    "config.show-when.name": "Preis anzeigen",
+    "config.show-when.desc": "Wähle, wenn der Verkaufspreis im UI angezeigt werden soll.",
 
-    "config.show-when.Always": "Always show",
-    "config.show-when.BeforePriceCatalogue": "Before price catalogue is unlocked",
-    "config.show-when.AfterPriceCatalogue": "After price catalogue is unlocked"
+    "config.show-when.Always": "Immer anzeigen",
+    "config.show-when.BeforePriceCatalogue": "Bevor der Preiskatalog freigeschaltet wurde.",
+    "config.show-when.AfterPriceCatalogue": "Nachdem der Preiskatalog freigeschaltet wurde."
 }
