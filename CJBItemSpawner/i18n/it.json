@@ -3,7 +3,7 @@
     ** Sort button
     *********/
     "sort.by-name": "Nome",
-    "sort.by-price": "Sell Price", // TODO
+    "sort.by-price": "Prezzo di vendita",
     "sort.by-type": "Categoria",
     "sort.by-id": "ID",
 
@@ -34,15 +34,14 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.title.controls": "Controls",
-    "config.show-menu-key.name": "Show menu key",
-    "config.show-menu-key.desc": "The keybind which opens the menu (when no other menu is open).",
+    "config.title.controls": "Controlli",
+    "config.show-menu-key.name": "Mostra pulsante del menù",
+    "config.show-menu-key.desc": "Il pulsante che apre il menù (quando nessun'altro menù è aperto).",
 
-    "config.title.options": "Options",
-    "config.apply-trash-can-upgrade.name": "Apply trash can upgrade",
-    "config.apply-trash-can-upgrade.desc": "When you upgrade your trash can to reclaim part of the price of trashed items, whether that upgrade applies in the item spawner menu too.",
+    "config.title.options": "Opzioni",
+    "config.apply-trash-can-upgrade.name": "Applica miglioramento al Bidone dei rifiuti",
+    "config.apply-trash-can-upgrade.desc": "Quando migliori il Bidone dei rifiuti, ti verrà restituito del denaro quando butterai degli oggetti, anche se sei nel menù dello spawner di oggetti.",
 
-    "config.title.hide-categories": "Hide categories",
-    "config.hide-category.desc": "Whether to hide the '{{name}}' category in the UI. If it's hidden, items in this category will not be accessible through the spawn menu."
+    "config.title.hide-categories": "Nascondi categorie",
+    "config.hide-category.desc": "Se nascondere la categoria '{{name}} nella IU. Se nascosta, gli oggetti di quella categoria non saranno accessibili tramite il menù dello spawner."
 }
