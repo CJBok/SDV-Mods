@@ -233,12 +233,11 @@
     "config.grow-tree.desc": "La tecla que hace crecer los árboles alrededor del jugador.",
     "config.grow-crops.desc": "La tecla que hace crecer los cultivos alrededor del jugador.",
 
-    // TODO
-    "controls.reload-config": "Reload settings from file",
-    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+    "controls.reload-config": "Recargar Configuración desde Archivo",
+    "controls.reload-config.desc": "La tecla que recarga la configuración del mod desde el archivo config.json. Si el menú está abierto, los cambios podrían aplicarse solo al volver a abrirlo.",
 
-    "config.title.other-options": "Other options",
-    "config.default-tab.name": "Default tab",
-    "config.default-tab.desc": "The tab shown by default when you open the menu.",
-    "config.other-options": "To configure cheats, press the 'open menu' key shown above in-game. Make sure you press it after loading the save, when no other menu or dialogue is open."
+    "config.title.other-options": "Otras Opciones",
+    "config.default-tab.name": "Pestaña predeterminada",
+    "config.default-tab.desc": "La pestaña que se muestra por defecto al abrir el menú.",
+    "config.other-options": "Para configurar trampas, presiona la tecla 'abrir menú' indicada arriba en el juego. Asegúrate de hacerlo después de cargar la partida, cuando no haya otro menú o diálogo abierto."
 }

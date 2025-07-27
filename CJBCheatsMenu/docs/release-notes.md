@@ -4,7 +4,7 @@
 ## Upcoming release
 * The 'skills' tab now reflects skill/profession skill renames by other mods.
 * Removed unneeded abbreviations on 'skills' tab.
-* Improved translations. Thanks to derrausch (updated German), flowerssummerr (updated Italian), and RuneMaid (updated Korean)!
+* Improved translations. Thanks to derrausch (updated German), flowerssummerr (updated Italian), RuneMaid (updated Korean), and Zer0samaXD (updated Spanish)!
 
 ## 1.39.0
 Released 25 May 2025 for SMAPI 4.1.10 or later.
