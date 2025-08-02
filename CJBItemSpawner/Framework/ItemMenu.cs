@@ -108,6 +108,9 @@ internal class ItemMenu : ItemGrabMenu
     /// <summary>Whether the player can scroll down in the list.</summary>
     private bool CanScrollDown => this.TopRowIndex < this.MaxTopRowIndex;
 
+    /// <summary>Rate limiter for mouse button held events.</summary>
+    private int LeftClickHeldTimer;
+
     /// <summary>Whether the user explicitly selected the textbox by clicking on it, so the selection should be maintained.</summary>
     private bool IsSearchBoxSelectedExplicitly;
 
@@ -262,6 +265,24 @@ internal class ItemMenu : ItemGrabMenu
             // default behavior
             base.receiveLeftClick(x, y, playSound);
         }
+    }
+
+    /// <inheritdoc />
+    public override void leftClickHeld(int x, int y)
+    {
+        base.leftClickHeld(x, y);
+
+        this.LeftClickHeldTimer -= Game1.currentGameTime.ElapsedGameTime.Milliseconds;
+        if (this.LeftClickHeldTimer > 0)
+            return;
+
+        // scroll buttons
+        else if (this.UpArrow.bounds.Contains(x, y))
+            this.receiveScrollWheelAction(1);
+        else if (this.DownArrow.bounds.Contains(x, y))
+            this.receiveScrollWheelAction(-1);
+
+        this.LeftClickHeldTimer = 100;
     }
 
     /// <inheritdoc />
