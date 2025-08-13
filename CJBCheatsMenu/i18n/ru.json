@@ -38,11 +38,10 @@
     "tools.harvest-with-scythe": "Сбор культур серпом",
 
     // tool enchantments
-    // TODO
-    "tool-enchantments.title": "Tool Enchantments",
-    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
-    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
-    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+    "tool-enchantments.title": "Чары для инструментов",
+    "tool-enchantments.select-tool": "Выберите инструмент на панели быстрого доступа, чтобы редактировать чары.",
+    "tool-enchantments.none-for-tool": "Для {{toolName}} чары недоступны.",
+    "tool-enchantments.for-tool": "Для {{toolName}}.",
 
     // money
     "add.money": "Деньги",
@@ -96,13 +95,13 @@
     ** Weather tab
     *********/
     "weather.title": "Погода",
-    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
-    "weather.explanation": "Click a button below to set the weather for tomorrow (and only tomorrow). This tab has zero effect on weather otherwise.", // TODO
+    "weather.current-value": "Погода на завтра установлена на {{weather}}.",
+    "weather.explanation": "Нажмите кнопку ниже, чтобы установить погоду на завтра (только на завтра). Эта вкладка не влияет на погоду в другое время.",
     "weather.sunny": "Солнечно",
     "weather.raining": "Дождь",
     "weather.lightning": "Гроза",
     "weather.snowing": "Снегопад",
-    "weather.green-rain": "Green Raining", // TODO
+    "weather.green-rain": "Зелёный дождь",
 
 
     /*********
@@ -117,7 +116,7 @@
     /*********
     ** Warps tab
     *********/
-    "warp.customized-warning": "These warps were edited by your mods. Please report warp issues to the mods which added them if applicable.", // TODO
+    "warp.customized-warning": "Эти телепорты были изменены вашими модами. Пожалуйста, сообщайте о проблемах с телепортами модам, которые их добавили, если это возможно.", // TODO
 
     // main areas
     "warp-section.main": "Главные локации",
@@ -140,7 +139,7 @@
     // forest
     "warp-section.forest": "Лес",
     "warp.hats": "Разрушенный дом",
-    "warp.mastery-cave": "Mastery Cave", // TODO
+    "warp.mastery-cave": "Пещера Мастерства",
     "warp.ranch": "Ранчо Марни",
     "warp.secret-woods": "Тайный лес",
     "warp.wizard-tower": "Башня волшебника",
@@ -181,7 +180,7 @@
     "time.freeze-inside": "Остановить время в помещениях",
     "time.freeze-caves": "Остановить время в пещерах",
     "time.freeze-everywhere": "Остановить время в любых местах",
-    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
+    "time.fade-time-frozen-message": "Скрывать '{{timeFrozen}}' через несколько секунд",
     "time.time": "Текущее время",
     "time.time-frozen-message": "Время остановлено",
 
@@ -205,7 +204,7 @@
     "flags.unlocked-content": "Разблокировать контент",
     "flags.unlocked-content.dyes-and-tailoring": "Перекраска и шитьё",
     "flags.unlocked-content.junimo-text": "Изучен язык Джунимо",
-    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
+    "flags.unlocked-content.perfection": "Совершенство достигнуто",
     "flags.community-center": "Клуб",
     "flags.community-center.door-unlocked": "Открыть дверь",
     "flags.jojamart.membership": "Членство в корпорации \"ДжоджаМарт\"",
@@ -228,18 +227,16 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.open-menu.desc": "The keybind which opens the menu (when no other menu is open).",
-    "config.freeze-time.desc": "The keybind which freezes the game clock.",
-    "config.grow-tree.desc": "The keybind held to grow trees around the player.",
-    "config.grow-crops.desc": "The keybind held to grow crops around the player.",
+    "config.open-menu.desc": "Кнопка открытия меню (когда нет других открытых меню).",
+    "config.freeze-time.desc": "Кнопка остановки времени.",
+    "config.grow-tree.desc": "Кнопка, которую нужно удерживать, чтобы вырастить деревья вокруг игрока",
+    "config.grow-crops.desc": "Кнопка, которую нужно удерживать, чтобы вырастить посевные культуры вокруг игрока.",
 
-    // TODO
-    "controls.reload-config": "Reload settings from file",
-    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+    "controls.reload-config": "Перезагрузить настройки из файла",
+    "controls.reload-config.desc": "Кнопка, которая перезагружает настройки мода из файла config.json мода. Если меню открыто в данный момент, изменения вступят в силу только после повторного его открытия.",
 
-    "config.title.other-options": "Other options",
-    "config.default-tab.name": "Default tab",
-    "config.default-tab.desc": "The tab shown by default when you open the menu.",
-    "config.other-options": "To configure cheats, press the 'open menu' key shown above in-game. Make sure you press it after loading the save, when no other menu or dialogue is open."
+    "config.title.other-options": "Другое",
+    "config.default-tab.name": "Вкладка по умолчанию",
+    "config.default-tab.desc": "Вкладка, показываемая по умолчанию",
+    "config.other-options": "Чтобы настроить читы, нажмите кнопку 'Открыть меню', указанную выше в игре. Убедитесь, что вы нажимаете её после загрузки сохранения, когда никакое другое меню или диалог не открыт."
 }
