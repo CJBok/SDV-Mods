@@ -228,18 +228,16 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.open-menu.desc": "The keybind which opens the menu (when no other menu is open).",
-    "config.freeze-time.desc": "The keybind which freezes the game clock.",
-    "config.grow-tree.desc": "The keybind held to grow trees around the player.",
-    "config.grow-crops.desc": "The keybind held to grow crops around the player.",
+    "config.open-menu.desc": "Menüyü açan tuş ataması (başka bir menü açık değilken).",
+    "config.freeze-time.desc": "Oyun saatini durduran tuş ataması.",
+    "config.grow-tree.desc": "Oyuncu etrafında ağaç yetiştiren tuş ataması.",
+    "config.grow-crops.desc": "Oyuncu etrafında ekin yetiştirmek için kullanılan tuş ataması.",
 
-    // TODO
-    "controls.reload-config": "Reload settings from file",
-    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+    "controls.reload-config": "Ayarları dosyadan yeniden yükle",
+    "controls.reload-config.desc": "Modun config.json dosyasından mod ayarlarını yeniden yükleyen tuş ataması. Menü şu anda açıksa, değişiklikler yalnızca menü yeniden açıldığında etkili olabilir.",
 
-    "config.title.other-options": "Other options",
-    "config.default-tab.name": "Default tab",
-    "config.default-tab.desc": "The tab shown by default when you open the menu.",
-    "config.other-options": "To configure cheats, press the 'open menu' key shown above in-game. Make sure you press it after loading the save, when no other menu or dialogue is open."
+    "config.title.other-options": "Diğer ayarlar",
+    "config.default-tab.name": "Varsayılan sekme",
+    "config.default-tab.desc": "Menüyü açtığınızda varsayılan olarak gösterilen sekme.",
+    "config.other-options": "Hileleri ayarlamak için, oyun içinde gösterilen 'menüyü aç' tuşuna basın. Kaydınızı yükledikten sonra başka bir menü veya diyalog penceresi açık değilken bu tuşa bastığınızdan emin olun."
 }
