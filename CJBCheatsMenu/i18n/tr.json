@@ -38,11 +38,10 @@
     "tools.harvest-with-scythe": "Tırpanla Hasat Etme",
 
     // tool enchantments
-    // TODO
-    "tool-enchantments.title": "Tool Enchantments",
-    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
-    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
-    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+    "tool-enchantments.title": "Alet büyüleri",
+    "tool-enchantments.select-tool": "Büyüleri düzenlemek için araç çubuğunuzdan bir alet seçin.",
+    "tool-enchantments.none-for-tool": "Seçilen {{toolName}} için bir büyü yok.",
+    "tool-enchantments.for-tool": "Seçilen {{toolName}} için.",
 
     // money
     "add.money": "Para",
@@ -96,13 +95,13 @@
     ** Weather tab
     *********/
     "weather.title": "Yarının Hava Durumu",
-    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
-    "weather.explanation": "Click a button below to set the weather for tomorrow (and only tomorrow). This tab has zero effect on weather otherwise.", // TODO
+    "weather.current-value": "Yarınki hava durumu {{weather}} olacak.",
+    "weather.explanation": "Yarınki hava durumunu ayarlamak için aşağıdaki düğmeye tıklayın. Bu sekme, hava durumu üzerinde başka hiçbir etkiye sahip değildir.",
     "weather.sunny": "Güneşli",
     "weather.raining": "Yağmurlu",
     "weather.lightning": "Fırtınalı",
     "weather.snowing": "Karlı",
-    "weather.green-rain": "Green Raining", // TODO
+    "weather.green-rain": "Asit Yağmuru",
 
 
     /*********
@@ -117,7 +116,7 @@
     /*********
     ** Warps tab
     *********/
-    "warp.customized-warning": "These warps were edited by your mods. Please report warp issues to the mods which added them if applicable.", // TODO
+    "warp.customized-warning": "Bu ışınlanma noktaları modlarınız tarafından düzenlenmiştir. Işınlanma sorunlarını, hangi mod düzenlemişse o moda bildiriniz.",
 
     // main areas
     "warp-section.main": "Ana Bölgeler",
@@ -181,7 +180,7 @@
     "time.freeze-inside": "İçerideyken Zamanı Dondur",
     "time.freeze-caves": "Mağaradayken Zamanı Dondur",
     "time.freeze-everywhere": "Zamanı Her Yerde Dondur",
-    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
+    "time.fade-time-frozen-message": "'{{timeFrozen}}' birkaç saniye sonra gizle",
     "time.time": "Saat",
     "time.time-frozen-message": "Zaman Dondu",
 
@@ -205,7 +204,7 @@
     "flags.unlocked-content": "Açılmış İçerik",
     "flags.unlocked-content.dyes-and-tailoring": "Boyama ve Dikiş",
     "flags.unlocked-content.junimo-text": "Junimo yazılarını okuyabilme",
-    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
+    "flags.unlocked-content.perfection": "Mükemmellik elde edildi",
     "flags.community-center": "Halkevi",
     "flags.community-center.door-unlocked": "Kapı Açıldı",
     "flags.jojamart.membership": "JojaMart Üyeliği",
@@ -228,18 +227,16 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
-    "config.open-menu.desc": "The keybind which opens the menu (when no other menu is open).",
-    "config.freeze-time.desc": "The keybind which freezes the game clock.",
-    "config.grow-tree.desc": "The keybind held to grow trees around the player.",
-    "config.grow-crops.desc": "The keybind held to grow crops around the player.",
+    "config.open-menu.desc": "Menüyü açan tuş ataması (başka bir menü açık değilken).",
+    "config.freeze-time.desc": "Oyun saatini durduran tuş ataması.",
+    "config.grow-tree.desc": "Oyuncu etrafında ağaç yetiştiren tuş ataması.",
+    "config.grow-crops.desc": "Oyuncu etrafında ekin yetiştirmek için kullanılan tuş ataması.",
 
-    // TODO
-    "controls.reload-config": "Reload settings from file",
-    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+    "controls.reload-config": "Ayarları dosyadan yeniden yükle",
+    "controls.reload-config.desc": "Modun config.json dosyasından mod ayarlarını yeniden yükleyen tuş ataması. Menü şu anda açıksa, değişiklikler yalnızca menü yeniden açıldığında etkili olabilir.",
 
-    "config.title.other-options": "Other options",
-    "config.default-tab.name": "Default tab",
-    "config.default-tab.desc": "The tab shown by default when you open the menu.",
-    "config.other-options": "To configure cheats, press the 'open menu' key shown above in-game. Make sure you press it after loading the save, when no other menu or dialogue is open."
+    "config.title.other-options": "Diğer ayarlar",
+    "config.default-tab.name": "Varsayılan sekme",
+    "config.default-tab.desc": "Menüyü açtığınızda varsayılan olarak gösterilen sekme.",
+    "config.other-options": "Hileleri ayarlamak için, oyun içinde gösterilen 'menüyü aç' tuşuna basın. Kaydınızı yükledikten sonra başka bir menü veya diyalog penceresi açık değilken bu tuşa bastığınızdan emin olun."
 }
