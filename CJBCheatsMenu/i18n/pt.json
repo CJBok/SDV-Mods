@@ -38,7 +38,6 @@
     "tools.harvest-with-scythe": "Colher com a foice",
 
     // tool enchantments
-    // TODO
     "tool-enchantments.title": "Encantamentos de Ferramenta",
     "tool-enchantments.select-tool": "Selecione uma Ferramenta na sua Barra de Ferramentas para editar Encantamentos.",
     "tool-enchantments.none-for-tool": "Sem Encantamentos disponíveis para {{toolname}}.",
@@ -233,7 +232,6 @@
     "config.grow-tree.desc": "A tecla que apertada faz crescer árvores em torno do jogador.",
     "config.grow-crops.desc": "A tecla que apertada faz crescer plantações em torno do jogador.",
 
-    // TODO
     "controls.reload-config": "Recarregar configurações de Ficheiro",
     "controls.reload-config.desc": "A tecla que recarrega as configurações do ficheiro config.json. Se o menu estiver aberto neste momento, alterações podem só manter efeito quando o menu for reaberto",
 
