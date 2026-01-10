@@ -1,55 +1,14 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.2.32516.85
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CJBShowItemSellPrice", "CJBShowItemSellPrice\CJBShowItemSellPrice.csproj", "{D4C790D4-10E4-431E-83AE-926AA16407DD}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CJBCheatsMenu", "CJBCheatsMenu\CJBCheatsMenu.csproj", "{25358189-F40E-427D-B4E9-5F0EB707A8A1}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CJBItemSpawner", "CJBItemSpawner\CJBItemSpawner.csproj", "{EC7EA9A2-AF3A-48AC-8048-024254359D5E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{74124A73-75C8-4CF4-9640-B3039FBE7E1A}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		.gitattributes = .gitattributes
-		.gitignore = .gitignore
-		Directory.Build.props = Directory.Build.props
-		Directory.Packages.props = Directory.Packages.props
-		README.md = README.md
-	EndProjectSection
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = ".Common", "Common\.Common.shproj", "{5C29420A-91D8-4598-8A08-60CA5D563FC2}"
-EndProject
-Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Common\Common.projitems*{25358189-f40e-427d-b4e9-5f0eb707a8a1}*SharedItemsImports = 5
-		Common\Common.projitems*{5c29420a-91d8-4598-8a08-60ca5d563fc2}*SharedItemsImports = 13
-		Common\Common.projitems*{d4c790d4-10e4-431e-83ae-926aa16407dd}*SharedItemsImports = 5
-		Common\Common.projitems*{ec7ea9a2-af3a-48ac-8048-024254359d5e}*SharedItemsImports = 5
-	EndGlobalSection
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D4C790D4-10E4-431E-83AE-926AA16407DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4C790D4-10E4-431E-83AE-926AA16407DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4C790D4-10E4-431E-83AE-926AA16407DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4C790D4-10E4-431E-83AE-926AA16407DD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{25358189-F40E-427D-B4E9-5F0EB707A8A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{25358189-F40E-427D-B4E9-5F0EB707A8A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{25358189-F40E-427D-B4E9-5F0EB707A8A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{25358189-F40E-427D-B4E9-5F0EB707A8A1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC7EA9A2-AF3A-48AC-8048-024254359D5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC7EA9A2-AF3A-48AC-8048-024254359D5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC7EA9A2-AF3A-48AC-8048-024254359D5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC7EA9A2-AF3A-48AC-8048-024254359D5E}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {F003DE3E-BC6A-4F76-B451-74B2ABA409A9}
-	EndGlobalSection
-EndGlobal
+<Solution>
+  <Folder Name="/root/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="CJBCheatsMenu/CJBCheatsMenu.csproj" />
+  <Project Path="CJBItemSpawner/CJBItemSpawner.csproj" />
+  <Project Path="CJBShowItemSellPrice/CJBShowItemSellPrice.csproj" />
+  <Project Path="Common/.Common.shproj" />
+</Solution>
