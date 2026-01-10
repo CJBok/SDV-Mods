@@ -479,7 +479,6 @@ internal class CheatsMenu : IClickableMenu
 
             case MenuTab.Weather:
                 this.AddTitle($"{I18n.Weather_Title()}:");
-                this.AddDescription(I18n.Weather_Explanation());
                 this.AddOptions(cheats.SetWeatherForTomorrow);
                 break;
 

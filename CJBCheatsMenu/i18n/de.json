@@ -97,6 +97,7 @@
     "weather.title": "Wetter Morgen",
     "weather.current-value": "Das morgige Wetter wurde auf {{weather}} geändert.",
     "weather.explanation": "Klicke auf einen unteren Knopf, um das morgige Wetter zu ändern (nur das morgige). Dieser Reiter hat ansonsten keinen anderen Effekt auf des Wetter.",
+    "weather.cannot-change-weather": "The game forces tomorrow's weather to {{weather}}, so it can't be changed.", // TODO
     "weather.sunny": "Sonnig",
     "weather.raining": "Regen",
     "weather.lightning": "Gewitter",

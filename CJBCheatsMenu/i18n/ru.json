@@ -97,6 +97,7 @@
     "weather.title": "Погода",
     "weather.current-value": "Погода на завтра установлена на {{weather}}.",
     "weather.explanation": "Нажмите кнопку ниже, чтобы установить погоду на завтра (только на завтра). Эта вкладка не влияет на погоду в другое время.",
+    "weather.cannot-change-weather": "The game forces tomorrow's weather to {{weather}}, so it can't be changed.", // TODO
     "weather.sunny": "Солнечно",
     "weather.raining": "Дождь",
     "weather.lightning": "Гроза",

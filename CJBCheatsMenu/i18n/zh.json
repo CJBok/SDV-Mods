@@ -97,6 +97,7 @@
     "weather.title": "明日天气",
     "weather.current-value": "明日天气设置为 {{weather}}",
     "weather.explanation": "点击下方按钮设置明日天气（仅限明日）。除此之外本页面不会对天气有任何影响。",
+    "weather.cannot-change-weather": "The game forces tomorrow's weather to {{weather}}, so it can't be changed.", // TODO
     "weather.sunny": "晴天",
     "weather.raining": "雨天",
     "weather.lightning": "雷雨",

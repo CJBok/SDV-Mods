@@ -98,6 +98,7 @@
     "weather.title": "Thời tiết ngày mai",
     "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
     "weather.explanation": "Nhấp vào nút bên dưới để đặt thời tiết cho ngày mai (và chỉ ngày mai). Tab này không có tác dụng gì đối với thời tiết.",
+    "weather.cannot-change-weather": "The game forces tomorrow's weather to {{weather}}, so it can't be changed.", // TODO
     "weather.sunny": "Nắng",
     "weather.raining": "Mưa",
     "weather.lightning": "Mưa kèm sấm sét",

@@ -97,6 +97,7 @@
     "weather.title": "내일의 날씨",
     "weather.current-value": "내일 날씨는 {{weather}}으로(로) 설정되어 있습니다.",
     "weather.explanation": "아래 버튼을 클릭하여 내일 날씨를 설정할 수 있습니다(내일 날씨만). 이 탭은 다른 날씨에는 아무런 영향을 주지 않습니다.",
+    "weather.cannot-change-weather": "The game forces tomorrow's weather to {{weather}}, so it can't be changed.", // TODO
     "weather.sunny": "맑음",
     "weather.raining": "비",
     "weather.lightning": "폭풍(번개)",

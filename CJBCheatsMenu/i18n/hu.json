@@ -97,6 +97,7 @@
     "weather.title": "Holnapi Időjárás",
     "weather.current-value": "A holnapi időjárás: {{weather}}.",
     "weather.explanation": "Kattints az alábbi gombok egyikére, hogy beállítsd a holnapi időjárást (csak holnapra). Ez a fül más módon nem befolyásolja az időjárást.",
+    "weather.cannot-change-weather": "The game forces tomorrow's weather to {{weather}}, so it can't be changed.", // TODO
     "weather.sunny": "Napos",
     "weather.raining": "Eső",
     "weather.lightning": "Vihar",

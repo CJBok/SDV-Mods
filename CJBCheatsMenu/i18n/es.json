@@ -98,6 +98,7 @@
     "weather.title": "Clima para Mañana",
     "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
     "weather.explanation": "Haz clic en un botón para establecer el clima para mañana (y sólo para MAÑANA). Esto no tiene ningún efecto sobre el clima de hoy.",
+    "weather.cannot-change-weather": "The game forces tomorrow's weather to {{weather}}, so it can't be changed.", // TODO
     "weather.sunny": "Sol",
     "weather.raining": "Lluvia",
     "weather.lightning": "Tormenta",

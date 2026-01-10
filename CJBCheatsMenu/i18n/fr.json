@@ -97,6 +97,7 @@
     "weather.title": "Météo de demain",
     "weather.current-value": "Le temps de demain a été paramétré sur {{weather}}.",
     "weather.explanation": "Cliquer sur un bouton changera la météo pour demain (et uniquement demain). Cet onglet n'aura aucun effet sur la météo autrement.",
+    "weather.cannot-change-weather": "The game forces tomorrow's weather to {{weather}}, so it can't be changed.", // TODO
     "weather.sunny": "Soleil",
     "weather.raining": "Pluie",
     "weather.lightning": "Orage",

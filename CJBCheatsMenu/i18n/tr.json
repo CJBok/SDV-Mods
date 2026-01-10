@@ -97,6 +97,7 @@
     "weather.title": "Yarının Hava Durumu",
     "weather.current-value": "Yarınki hava durumu {{weather}} olacak.",
     "weather.explanation": "Yarınki hava durumunu ayarlamak için aşağıdaki düğmeye tıklayın. Bu sekme, hava durumu üzerinde başka hiçbir etkiye sahip değildir.",
+    "weather.cannot-change-weather": "The game forces tomorrow's weather to {{weather}}, so it can't be changed.", // TODO
     "weather.sunny": "Güneşli",
     "weather.raining": "Yağmurlu",
     "weather.lightning": "Fırtınalı",

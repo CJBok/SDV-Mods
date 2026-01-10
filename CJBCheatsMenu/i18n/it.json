@@ -97,6 +97,7 @@
     "weather.title": "Meteo di Domani",
     "weather.current-value": "Il meteo di domani è impostato su {{weather}}.",
     "weather.explanation": "Clicca su un pulsante qui sotto per impostare il meteo di domani (e solo di domani). In caso contrario, questa scheda non influirà sul meteo.",
+    "weather.cannot-change-weather": "The game forces tomorrow's weather to {{weather}}, so it can't be changed.", // TODO
     "weather.sunny": "Soleggiato",
     "weather.raining": "Pioggia",
     "weather.lightning": "Fulmini",

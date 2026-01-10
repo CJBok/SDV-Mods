@@ -15,9 +15,22 @@ internal class SetWeatherForTomorrowCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
+        string? hardcodedWeatherId = this.GetHardcodedWeatherTomorrow();
+
+        // can't change weather today
+        if (hardcodedWeatherId != null)
+        {
+            return
+            [
+                new DescriptionElement(I18n.Weather_CannotChangeWeather(hardcodedWeatherId))
+            ];
+        }
+
+        // else change weather
         return
         [
-            new DescriptionElement(() => I18n.Weather_CurrentValue(this.GetWeatherForNextDay())),
+            new DescriptionElement(I18n.Weather_Explanation()),
+            new DescriptionElement(() => I18n.Weather_CurrentValue(this.GetWeatherForNextDay())), // pass lambda to update weather on change
             this.GetWeatherField(context, I18n.Weather_Sunny(), Game1.weather_sunny),
             this.GetWeatherField(context, I18n.Weather_Raining(), Game1.weather_rain),
             this.GetWeatherField(context, I18n.Weather_Lightning(), Game1.weather_lightning),
@@ -75,6 +88,18 @@ internal class SetWeatherForTomorrowCheat : BaseCheat
             default:
                 return forecast;
         }
+    }
+
+    /// <summary>Get the hardcoded weather ID for tomorrow, if it can't be changed.</summary>
+    private string? GetHardcodedWeatherTomorrow()
+    {
+        const string testWeatherId = "CJBok.CheatsMenu/TestWeatherId";
+        WorldDate tomorrow = WorldDate.ForDaysPlayed(WorldDate.Now().TotalDays + 1);
+
+        string forecast = Game1.getWeatherModificationsForDate(tomorrow, testWeatherId);
+        return forecast != testWeatherId
+            ? forecast
+            : null;
     }
 
     /// <summary>Set the weather for tomorrow.</summary>
