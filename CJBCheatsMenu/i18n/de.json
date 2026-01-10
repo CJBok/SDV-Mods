@@ -57,7 +57,8 @@
     *********/
     // farm
     "farm.title": "Farm",
-    "farm.auto-water": "Automatisches Gießen",
+    "farm.auto-water-crops": "Automatisches Gießen",
+    "farm.auto-water-pet-bowls": "Auto-Water Pet Bowls", // TODO
     "farm.durable-fences": "Widerstandsfähige Zäune",
     "farm.instant-build": "Sofortiger Bau",
     "farm.auto-feed-animals": "Tiere automatisch füttern",

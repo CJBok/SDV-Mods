@@ -159,6 +159,9 @@ internal class ModConfig
     /// <summary>Crops are watered automatically.</summary>
     public bool AutoWater { get; set; }
 
+    /// <summary>Pet bowls are watered automatically.</summary>
+    public bool AutoWaterPetBowls { get; set; }
+
     /// <summary>Hay silos are always full.</summary>
     public bool InfiniteHay { get; set; }
 

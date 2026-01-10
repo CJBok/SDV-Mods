@@ -11,7 +11,7 @@ using StardewValley.TerrainFeatures;
 namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing;
 
 /// <summary>A cheat which automatically waters crops.</summary>
-internal class AutoWaterCheat : BaseCheat
+internal class AutoWaterCropsCheat : BaseCheat
 {
     /*********
     ** Public methods
@@ -20,7 +20,7 @@ internal class AutoWaterCheat : BaseCheat
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
         yield return new CheatsOptionsCheckbox(
-            label: I18n.Farm_AutoWater(),
+            label: I18n.Farm_AutoWaterCrops(),
             value: context.Config.AutoWater,
             setValue: value => context.Config.AutoWater = value
         );

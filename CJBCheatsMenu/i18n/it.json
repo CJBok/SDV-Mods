@@ -57,7 +57,8 @@
     *********/
     // farm
     "farm.title": "Fattoria",
-    "farm.auto-water": "Annaffia Automaticamente le Colture",
+    "farm.auto-water-crops": "Annaffia Automaticamente le Colture",
+    "farm.auto-water-pet-bowls": "Auto-Water Pet Bowls", // TODO
     "farm.durable-fences": "Recinti Resistenti",
     "farm.instant-build": "Costruisci Instantaneamente",
     "farm.auto-feed-animals": "Nutri gli Animali Automaticamente",

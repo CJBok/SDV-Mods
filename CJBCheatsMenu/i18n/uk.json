@@ -58,7 +58,8 @@
     *********/
     // farm
     "farm.title": "Ферма",
-    "farm.auto-water": "Автоматичний полив культур",
+    "farm.auto-water-crops": "Автоматичний полив культур",
+    "farm.auto-water-pet-bowls": "Auto-Water Pet Bowls", // TODO
     "farm.durable-fences": "Міцні огорожі",
     "farm.instant-build": "Миттєва побудова",
     "farm.auto-feed-animals": "Авто-годування тварин",

@@ -58,7 +58,8 @@
     *********/
     // farm
     "farm.title": "การทำฟาร์ม",
-    "farm.auto-water": "รดน้ำพืชผักอัตโนมัติ",
+    "farm.auto-water-crops": "รดน้ำพืชผักอัตโนมัติ",
+    "farm.auto-water-pet-bowls": "Auto-Water Pet Bowls", // TODO
     "farm.durable-fences": "รั้วไม่ถูกทำลาย",
     "farm.instant-build": "สร้างสิ่งปลูกสร้างทันที",
     "farm.auto-feed-animals": "ให้อาหารสัตว์อัตโนมัติ",

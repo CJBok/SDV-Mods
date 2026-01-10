@@ -58,7 +58,8 @@
     *********/
     // farm
     "farm.title": "Granja",
-    "farm.auto-water": "Regar Cultivos Automáticamente",
+    "farm.auto-water-crops": "Regar Cultivos Automáticamente",
+    "farm.auto-water-pet-bowls": "Auto-Water Pet Bowls", // TODO
     "farm.durable-fences": "Vallas Duraderas",
     "farm.instant-build": "Construcciones Instantáneas",
     "farm.auto-feed-animals": "Alimentar Animales Automáticamente",

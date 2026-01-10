@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Added new 'Auto-Water Pet Bowls' cheat.
 * The weather options are now disabled on days when the game doesn't allow changing the weather.
 * Improved translations. Thanks to k1llm3sixy (updated Russian), Windytest (update Portuguese), and mstww (updated Turkish)!
 

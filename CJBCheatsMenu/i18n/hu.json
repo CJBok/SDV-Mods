@@ -57,7 +57,8 @@
     *********/
     // farm
     "farm.title": "Farm",
-    "farm.auto-water": "Termények Automata Öntözése",
+    "farm.auto-water-crops": "Termények Automata Öntözése",
+    "farm.auto-water-pet-bowls": "Auto-Water Pet Bowls", // TODO
     "farm.durable-fences": "Tartós Kerítések",
     "farm.instant-build": "Azonnali Építés",
     "farm.auto-feed-animals": "Mindig Automata Etetés",

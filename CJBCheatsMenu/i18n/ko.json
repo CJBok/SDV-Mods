@@ -57,7 +57,8 @@
     *********/
     // farm
     "farm.title": "농장",
-    "farm.auto-water": "작물 자동 물주기",
+    "farm.auto-water-crops": "작물 자동 물주기",
+    "farm.auto-water-pet-bowls": "Auto-Water Pet Bowls", // TODO
     "farm.durable-fences": "울타리 부식 방지",
     "farm.instant-build": "농장 건물 건설 즉시 완성",
     "farm.auto-feed-animals": "사료 자동 급식",

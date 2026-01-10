@@ -58,7 +58,8 @@
     *********/
     // farm
     "farm.title": "Nông trại",
-    "farm.auto-water": "Tự động tưới nước",
+    "farm.auto-water-crops": "Tự động tưới nước",
+    "farm.auto-water-pet-bowls": "Auto-Water Pet Bowls", // TODO
     "farm.durable-fences": "Hàng rào không bị hỏng",
     "farm.instant-build": "Xây nhanh",
     "farm.auto-feed-animals": "Tự động cho vật nuôi ăn",

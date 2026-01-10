@@ -57,7 +57,8 @@
     *********/
     // farm
     "farm.title": "Fazenda",
-    "farm.auto-water": "Regar colheita automaticamente",
+    "farm.auto-water-crops": "Regar colheita automaticamente",
+    "farm.auto-water-pet-bowls": "Auto-Water Pet Bowls", // TODO
     "farm.durable-fences": "Cercas duráveis",
     "farm.instant-build": "Construções instantâneas",
     "farm.auto-feed-animals": "Alimentação automática para animais",

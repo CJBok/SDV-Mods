@@ -437,7 +437,8 @@ internal class CheatsMenu : IClickableMenu
                 // farming
                 this.AddOptions(
                     $"{I18n.Farm_Title()}:",
-                    cheats.AutoWater,
+                    cheats.AutoWaterCrops,
+                    cheats.AutoWaterPetBowls,
                     cheats.DurableFences,
                     cheats.InstantBuild,
                     cheats.AutoFeedAnimals,
