@@ -1,10 +1,12 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
-* Added new 'Auto-Water Pet Bowls' cheat.
+## 1.40.0
+Released 11 January 2026 for SMAPI 4.1.10 or later.
+
+* Added 'Auto-Water Pet Bowls' cheat.
 * The weather options are now disabled on days when the game doesn't allow changing the weather.
-* Improved translations. Thanks to k1llm3sixy (updated Russian), Windytest (update Portuguese), and mstww (updated Turkish)!
+* Improved translations. Thanks to k1llm3sixy (updated Russian), mstww (updated Turkish), and Windytest (updated Portuguese)!
 
 ## 1.39.1
 Released 27 July 2025 for SMAPI 4.1.10 or later.
