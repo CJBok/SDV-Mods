@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/root/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="CJBCheatsMenu/CJBCheatsMenu.csproj" />
+  <Project Path="CJBItemSpawner/CJBItemSpawner.csproj" />
+  <Project Path="CJBShowItemSellPrice/CJBShowItemSellPrice.csproj" />
+  <Project Path="Common/.Common.shproj" />
+</Solution>

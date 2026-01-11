@@ -98,7 +98,10 @@ internal class CheatManager
     ** Farming & fishing
     ****/
     /// <summary>Automatically waters all crops.</summary>
-    public ICheat AutoWater { get; } = new AutoWaterCheat();
+    public ICheat AutoWaterCrops { get; } = new AutoWaterCropsCheat();
+
+    /// <summary>Automatically waters all pet bowls.</summary>
+    public ICheat AutoWaterPetBowls { get; } = new AutoWaterPetBowlsCheat();
 
     /// <summary>Gives fences infinite health.</summary>
     public ICheat DurableFences { get; } = new DurableFencesCheat();

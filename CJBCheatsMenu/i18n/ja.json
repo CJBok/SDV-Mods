@@ -57,7 +57,8 @@
     *********/
     // farm
     "farm.title": "農業",
-    "farm.auto-water": "自動水やり",
+    "farm.auto-water-crops": "自動水やり",
+    "farm.auto-water-pet-bowls": "Auto-Water Pet Bowls", // TODO
     "farm.durable-fences": "柵を強化",
     "farm.instant-build": "建築がすぐに終わる",
     "farm.auto-feed-animals": "エサやり自動化",
@@ -97,6 +98,7 @@
     "weather.title": "明日の天気",
     "weather.current-value": "明日の天気は{{weather}}です。",
     "weather.explanation": "明日の天気を設定するには、せっていボタンをクリックしてください。\nこのタブはそれ以外の天気に影響を与えません。",
+    "weather.cannot-change-weather": "The game forces tomorrow's weather to {{weather}}, so it can't be changed.", // TODO
     "weather.sunny": "晴れ",
     "weather.raining": "雨",
     "weather.lightning": "嵐",

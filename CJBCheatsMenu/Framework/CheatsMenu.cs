@@ -437,7 +437,8 @@ internal class CheatsMenu : IClickableMenu
                 // farming
                 this.AddOptions(
                     $"{I18n.Farm_Title()}:",
-                    cheats.AutoWater,
+                    cheats.AutoWaterCrops,
+                    cheats.AutoWaterPetBowls,
                     cheats.DurableFences,
                     cheats.InstantBuild,
                     cheats.AutoFeedAnimals,
@@ -479,7 +480,6 @@ internal class CheatsMenu : IClickableMenu
 
             case MenuTab.Weather:
                 this.AddTitle($"{I18n.Weather_Title()}:");
-                this.AddDescription(I18n.Weather_Explanation());
                 this.AddOptions(cheats.SetWeatherForTomorrow);
                 break;
 

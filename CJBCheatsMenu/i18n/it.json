@@ -57,7 +57,8 @@
     *********/
     // farm
     "farm.title": "Fattoria",
-    "farm.auto-water": "Annaffia Automaticamente le Colture",
+    "farm.auto-water-crops": "Annaffia Automaticamente le Colture",
+    "farm.auto-water-pet-bowls": "Auto-Water Pet Bowls", // TODO
     "farm.durable-fences": "Recinti Resistenti",
     "farm.instant-build": "Costruisci Instantaneamente",
     "farm.auto-feed-animals": "Nutri gli Animali Automaticamente",
@@ -97,6 +98,7 @@
     "weather.title": "Meteo di Domani",
     "weather.current-value": "Il meteo di domani è impostato su {{weather}}.",
     "weather.explanation": "Clicca su un pulsante qui sotto per impostare il meteo di domani (e solo di domani). In caso contrario, questa scheda non influirà sul meteo.",
+    "weather.cannot-change-weather": "The game forces tomorrow's weather to {{weather}}, so it can't be changed.", // TODO
     "weather.sunny": "Soleggiato",
     "weather.raining": "Pioggia",
     "weather.lightning": "Fulmini",

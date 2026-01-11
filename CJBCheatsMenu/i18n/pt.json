@@ -38,11 +38,10 @@
     "tools.harvest-with-scythe": "Colher com a foice",
 
     // tool enchantments
-    // TODO
-    "tool-enchantments.title": "Tool Enchantments",
-    "tool-enchantments.select-tool": "Select a tool on your toolbar to edit enchantments.",
-    "tool-enchantments.none-for-tool": "No enchantments available for selected {{toolName}}.",
-    "tool-enchantments.for-tool": "For the selected {{toolName}}.",
+    "tool-enchantments.title": "Encantamentos de Ferramenta",
+    "tool-enchantments.select-tool": "Selecione uma Ferramenta na sua Barra de Ferramentas para editar Encantamentos.",
+    "tool-enchantments.none-for-tool": "Sem Encantamentos disponíveis para {{toolname}}.",
+    "tool-enchantments.for-tool": "Para o/a {{toolName}}.",
 
     // money
     "add.money": "Dinheiro",
@@ -58,7 +57,8 @@
     *********/
     // farm
     "farm.title": "Fazenda",
-    "farm.auto-water": "Regar colheita automaticamente",
+    "farm.auto-water-crops": "Regar colheita automaticamente",
+    "farm.auto-water-pet-bowls": "Auto-Water Pet Bowls", // TODO
     "farm.durable-fences": "Cercas duráveis",
     "farm.instant-build": "Construções instantâneas",
     "farm.auto-feed-animals": "Alimentação automática para animais",
@@ -98,6 +98,7 @@
     "weather.title": "Clima Amanhã",
     "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
     "weather.explanation": "Clique em um botão para definir o clima de amanhã (e apenas de amanhã). Essa aba não tem efeito sobre sobre o clima de outro modo.",
+    "weather.cannot-change-weather": "The game forces tomorrow's weather to {{weather}}, so it can't be changed.", // TODO
     "weather.sunny": "Ensolarado",
     "weather.raining": "Chuva",
     "weather.lightning": "Tempestade",
@@ -233,9 +234,8 @@
     "config.grow-tree.desc": "A tecla que apertada faz crescer árvores em torno do jogador.",
     "config.grow-crops.desc": "A tecla que apertada faz crescer plantações em torno do jogador.",
 
-    // TODO
-    "controls.reload-config": "Reload settings from file",
-    "controls.reload-config.desc": "The keybind which reloads the mod settings from the mod's config.json file. If the menu is currently open, changes may only take effect when it's reopened.",
+    "controls.reload-config": "Recarregar configurações de Ficheiro",
+    "controls.reload-config.desc": "A tecla que recarrega as configurações do ficheiro config.json. Se o menu estiver aberto neste momento, alterações podem só manter efeito quando o menu for reaberto",
 
     "config.title.other-options": "Outras opções",
     "config.default-tab.name": "Aba padrão",

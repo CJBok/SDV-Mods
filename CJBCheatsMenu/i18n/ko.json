@@ -57,7 +57,8 @@
     *********/
     // farm
     "farm.title": "농장",
-    "farm.auto-water": "작물 자동 물주기",
+    "farm.auto-water-crops": "작물 자동 물주기",
+    "farm.auto-water-pet-bowls": "Auto-Water Pet Bowls", // TODO
     "farm.durable-fences": "울타리 부식 방지",
     "farm.instant-build": "농장 건물 건설 즉시 완성",
     "farm.auto-feed-animals": "사료 자동 급식",
@@ -97,6 +98,7 @@
     "weather.title": "내일의 날씨",
     "weather.current-value": "내일 날씨는 {{weather}}으로(로) 설정되어 있습니다.",
     "weather.explanation": "아래 버튼을 클릭하여 내일 날씨를 설정할 수 있습니다(내일 날씨만). 이 탭은 다른 날씨에는 아무런 영향을 주지 않습니다.",
+    "weather.cannot-change-weather": "The game forces tomorrow's weather to {{weather}}, so it can't be changed.", // TODO
     "weather.sunny": "맑음",
     "weather.raining": "비",
     "weather.lightning": "폭풍(번개)",

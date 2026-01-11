@@ -58,7 +58,8 @@
     *********/
     // farm
     "farm.title": "Granja",
-    "farm.auto-water": "Regar Cultivos Automáticamente",
+    "farm.auto-water-crops": "Regar Cultivos Automáticamente",
+    "farm.auto-water-pet-bowls": "Auto-Water Pet Bowls", // TODO
     "farm.durable-fences": "Vallas Duraderas",
     "farm.instant-build": "Construcciones Instantáneas",
     "farm.auto-feed-animals": "Alimentar Animales Automáticamente",
@@ -98,6 +99,7 @@
     "weather.title": "Clima para Mañana",
     "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
     "weather.explanation": "Haz clic en un botón para establecer el clima para mañana (y sólo para MAÑANA). Esto no tiene ningún efecto sobre el clima de hoy.",
+    "weather.cannot-change-weather": "The game forces tomorrow's weather to {{weather}}, so it can't be changed.", // TODO
     "weather.sunny": "Sol",
     "weather.raining": "Lluvia",
     "weather.lightning": "Tormenta",
