@@ -58,7 +58,7 @@
     // farm
     "farm.title": "농장",
     "farm.auto-water-crops": "작물 자동 물주기",
-    "farm.auto-water-pet-bowls": "펫 자동 물주기",
+    "farm.auto-water-pet-bowls": "펫 물그릇 자동 채우기",
     ** Main translations
     *********/
     // mod name shown in the menu
@@ -183,7 +183,7 @@
     "warp-section.main": "주요 지역",
     "warp.farm": "농장",
     "warp.carpenter": "로빈 목공소",
-    "warp.desert": "캘리코 사막",
+    "warp.desert": "칼리코 사막",
     "warp.mines": "광산",
     "warp.pierre-shop": "피에르 잡화점",
 
