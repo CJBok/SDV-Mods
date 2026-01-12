@@ -58,7 +58,66 @@
     // farm
     "farm.title": "농장",
     "farm.auto-water-crops": "작물 자동 물주기",
-    "farm.auto-water-pet-bowls": "Auto-Water Pet Bowls", // TODO
+    "farm.auto-water-pet-bowls": "펫 자동 물주기*******
+    ** Main translations
+    *********/
+    // mod name shown in the menu
+    "mod-name": "CJB 치트 메뉴",
+
+    // tab names
+    "tabs.player-and-tools": "플레이어 & 도구",
+    "tabs.farm-and-fishing": "농장 & 낚시",
+    "tabs.skills": "스킬",
+    "tabs.weather": "날씨",
+    "tabs.relationships": "사회관계",
+    "tabs.warp": "이동",
+    "tabs.time": "시간",
+    "tabs.advanced": "고급",
+    "tabs.controls": "조작키",
+
+
+    /*********
+    ** Player & Tools tab
+    *********/
+    // player
+    "player.title": "플레이어",
+    "player.infinite-stamina": "기력 무한",
+    "player.infinite-health": "체력 무한",
+    "player.instant-cooldowns": "무기 즉시 재사용 대기 시간",
+    "player.inventory-size": "가방 크기",
+    "player.movement-speed": "이동 속도",
+    "player.movement-speed.default": "기본 이동 속도",
+    "player.one-hit-kill": "한방에 처치",
+    "player.max-daily-luck": "매일 최상의 행운",
+
+    // tools
+    "tools.title": "도구",
+    "tools.infinite-water": "물뿌리개 무한",
+    "tools.one-hit-break": "한방에 쪼개기/부수기",
+    "tools.harvest-with-scythe": "낫으로 수확",
+
+    // tool enchantments
+    "tool-enchantments.title": "도구 마법 부여",
+    "tool-enchantments.select-tool": "인벤토리에서 도구를 선택한 뒤 부여할 마법을 편집하세요.",
+    "tool-enchantments.none-for-tool": "선택한 {{toolName}} 는(은) 마법 부여를 선택할 수 없습니다.",
+    "tool-enchantments.for-tool": "{{toolName}} 선택됨.",
+
+    // money
+    "add.money": "돈",
+    "add.casino-coins": "카지노 코인",
+    "add.golden-walnuts": "황금 호두",
+    "add.qi-gems": "치 보석",
+    "add.amount-gold": "{{amount}}골드 추가",
+    "add.amount-other": "{{amount}}개 추가",
+
+
+    /*********
+    ** Farm & Fishing tab
+    *********/
+    // farm
+    "farm.title": "농장",
+    "farm.auto-water-crops": "작물 자동 물주기",
+    "farm.auto-water-pet-bowls": "펫 물그릇 자동 채우기", // TODO
     "farm.durable-fences": "울타리 부식 방지",
     "farm.instant-build": "농장 건물 건설 즉시 완성",
     "farm.auto-feed-animals": "사료 자동 급식",
