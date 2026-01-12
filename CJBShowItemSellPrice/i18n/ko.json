@@ -10,10 +10,10 @@
     ** Generic Mod Config Menu UI
     *********/
     // TODO
-    "config.show-when.name": "Show price",
-    "config.show-when.desc": "Choose when the sell price UI should be shown.",
+    "config.show-when.name": "가격 표시",
+    "config.show-when.desc": "가격 UI를 언제 표시할지 선택하세요.",
 
-    "config.show-when.Always": "Always show",
-    "config.show-when.BeforePriceCatalogue": "Before price catalogue is unlocked",
-    "config.show-when.AfterPriceCatalogue": "After price catalogue is unlocked"
+    "config.show-when.Always": "항상 표시",
+    "config.show-when.BeforePriceCatalogue": "가격 카탈로그 해금 전",
+    "config.show-when.AfterPriceCatalogue": "가격 카탈로그 해금 후"
 }
