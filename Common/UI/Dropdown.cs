@@ -28,9 +28,6 @@ internal class Dropdown<TItem> : ClickableComponent
     /// <summary>The size of the rendered button borders.</summary>
     private readonly int BorderWidth = CommonSprites.Tab.TopLeft.Width * 2 * Game1.pixelZoom;
 
-    /// <summary>The maximum width of the form field, if any. This has no effect on the width of the expanded list shown under it.</summary>
-    private readonly int? MaxTabWidth;
-
     /// <summary>The backing field for <see cref="IsExpanded"/>.</summary>
     private bool IsExpandedImpl;
 
@@ -61,6 +58,9 @@ internal class Dropdown<TItem> : ClickableComponent
 
     /// <summary>The downward neighbor ID when the dropdown is closed for controller snapping.</summary>
     public int DefaultDownNeighborId { get; set; } = -99999;
+
+    /// <summary>The maximum width of the form field, if any. This has no effect on the width of the expanded list shown under it.</summary>
+    public int? MaxTabWidth { get; set; }
 
 
     /*********

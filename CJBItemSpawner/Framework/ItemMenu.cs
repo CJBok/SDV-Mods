@@ -108,6 +108,9 @@ internal class ItemMenu : ItemGrabMenu
     /// <summary>Whether the player can scroll down in the list.</summary>
     private bool CanScrollDown => this.TopRowIndex < this.MaxTopRowIndex;
 
+    /// <summary>Rate limiter for mouse button held events.</summary>
+    private int LeftClickHeldTimer;
+
     /// <summary>Whether the user explicitly selected the textbox by clicking on it, so the selection should be maintained.</summary>
     private bool IsSearchBoxSelectedExplicitly;
 
@@ -208,6 +211,14 @@ internal class ItemMenu : ItemGrabMenu
     }
 
     /// <inheritdoc />
+    public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)
+    {
+        base.gameWindowSizeChanged(oldBounds, newBounds);
+
+        this.UpdateComponentsLayout();
+    }
+
+    /// <inheritdoc />
     public override void receiveLeftClick(int x, int y, bool playSound = true)
     {
         // allow trashing any item
@@ -262,6 +273,24 @@ internal class ItemMenu : ItemGrabMenu
             // default behavior
             base.receiveLeftClick(x, y, playSound);
         }
+    }
+
+    /// <inheritdoc />
+    public override void leftClickHeld(int x, int y)
+    {
+        base.leftClickHeld(x, y);
+
+        this.LeftClickHeldTimer -= Game1.currentGameTime.ElapsedGameTime.Milliseconds;
+        if (this.LeftClickHeldTimer > 0)
+            return;
+
+        // scroll buttons
+        else if (this.UpArrow.bounds.Contains(x, y))
+            this.receiveScrollWheelAction(1);
+        else if (this.DownArrow.bounds.Contains(x, y))
+            this.receiveScrollWheelAction(-1);
+
+        this.LeftClickHeldTimer = 100;
     }
 
     /// <inheritdoc />
@@ -455,7 +484,7 @@ internal class ItemMenu : ItemGrabMenu
         spriteBatch.Draw(this.SearchIcon.texture, this.SearchIcon.bounds, this.SearchIcon.sourceRect, Color.White * this.SearchIconOpacity);
 
         // draw buttons
-        CommonHelper.DrawTab(this.QualityButton.bounds.X, this.QualityButton.bounds.Y, this.QualityButton.bounds.Width - CommonHelper.ButtonBorderWidth, this.QualityButton.bounds.Height - CommonHelper.ButtonBorderWidth, out Vector2 qualityIconPos, drawShadow: this.IsAndroid);
+        CommonHelper.DrawTab(this.QualityButton.bounds.X - CommonHelper.ButtonBorderWidth / 2, this.QualityButton.bounds.Y, this.QualityButton.bounds.Width - CommonHelper.ButtonBorderWidth, this.QualityButton.bounds.Height - CommonHelper.ButtonBorderWidth, out Vector2 qualityIconPos, drawShadow: this.IsAndroid);
         CommonHelper.DrawTab(this.SortButton.bounds.X, this.SortButton.bounds.Y, Game1.smallFont, this.SortButton.name, drawShadow: this.IsAndroid);
         this.SortIcon.draw(spriteBatch);
 
@@ -467,7 +496,7 @@ internal class ItemMenu : ItemGrabMenu
 
         // draw category dropdown
         this.CategoryDropdown.Draw(spriteBatch);
-
+        
         // redraw cursor over new UI
         this.drawMouse(spriteBatch);
     }
@@ -476,9 +505,9 @@ internal class ItemMenu : ItemGrabMenu
     /*********
     ** Private methods
     *********/
-    /// <summary>Get the sell price for an item.</summary>
-    /// <param name="item">The item to check.</param>
-    /// <returns>Returns the sell price, or <c>null</c> if it can't be sold.</returns>
+        /// <summary>Get the sell price for an item.</summary>
+        /// <param name="item">The item to check.</param>
+        /// <returns>Returns the sell price, or <c>null</c> if it can't be sold.</returns>
     private int? GetSellPrice(Item item)
     {
         return CommonHelper.GetSellPrice(item, this.Data.ForceSellable);
@@ -550,63 +579,96 @@ internal class ItemMenu : ItemGrabMenu
     )]
     private void InitializeComponents()
     {
+        // filter UI
+        this.QualityButton = new ClickableComponent(default, "");
+        this.SortButton = new ClickableComponent(default, this.GetSortLabel(this.SortBy));
+        this.SortIcon = new ClickableTextureComponent(default, this.SortTexture, new Rectangle(0, 0, this.SortTexture.Width, this.SortTexture.Height), 1f);
+        this.CategoryDropdown = new Dropdown<string>(0, 0, Game1.smallFont, this.CategoryDropdown?.Selected ?? I18n.Filter_All(), this.Categories, p => p);
+
+        // basic UI
+        this.UpArrow = new ClickableTextureComponent(default, Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
+        this.DownArrow = new ClickableTextureComponent(default, Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
+
+        // search UI
+        this.SearchBox = new TextBox(Game1.content.Load<Texture2D>("LooseSprites\\textBox"), null, Game1.smallFont, Game1.textColor)
+        {
+            Text = this.SearchText
+        };
+        this.SearchBoxArea = new ClickableComponent(default, "");
+        this.SearchIcon = new ClickableTextureComponent(default, Game1.mouseCursors, new Rectangle(80, 0, 13, 13), Game1.pixelZoom * 0.666f);
+
+        // apply controller flow
+        this.InitializeControllerFlow();
+
+        // assign layout
+        this.UpdateComponentsLayout();
+    }
+
+    /// <summary>
+    /// Layout menu and child components for the current game window size.
+    /// </summary>
+    private void UpdateComponentsLayout()
+    {
+        const int scale = Game1.pixelZoom;
+
         // get basic positions
-        int x = this.xPositionOnScreen;
-        int y = this.yPositionOnScreen;
-        int right = x + this.width;
-        int top = this.IsAndroid
-            ? y - (CommonSprites.Tab.Top.Height * Game1.pixelZoom) // at top of screen, moved up slightly to reduce overlap over items
-            : y - Game1.tileSize * 2 + 10; // above menu
+        int left = this.xPositionOnScreen;
+        int right = left + this.width;
+        int top = this.yPositionOnScreen;
+        int above = this.IsAndroid
+            ? top - (CommonSprites.Tab.Top.Height * scale) // at top of screen, moved up slightly to reduce overlap over items
+            : top - 30 * scale; // above menu
 
         // get tab sizes
-        const int qualityButtonWidth = 9 * Game1.pixelZoom + CommonHelper.ButtonBorderWidth;
+        const int qualityButtonWidth = 9 * scale + CommonHelper.ButtonBorderWidth;
         int maxTabWidth = (this.width - qualityButtonWidth) / 3;
         int minSearchWidth = Math.Min((int)Game1.smallFont.MeasureString("ABCDEF").X, maxTabWidth);
         int maxSearchWidth = Math.Min((int)Game1.smallFont.MeasureString("ABCDEFGHIJKLMNOPQRSTUVWXYZ").X, maxTabWidth);
         int maxDropdownWidth = Math.Min((int)Game1.smallFont.MeasureString("ABCDEFGHIJKLMNOPQRSTUVW").X, maxTabWidth);
 
+        // filter UI
+        this.QualityButton.bounds = new Rectangle(left + CommonHelper.ButtonBorderWidth / 2, above, qualityButtonWidth, qualityButtonWidth); // manually tweak height to align with sort button
+        this.SortButton.bounds = new Rectangle(this.QualityButton.bounds.Right + 5 * scale, above, this.GetMaxSortLabelWidth(Game1.smallFont) + CommonHelper.ButtonBorderWidth, Game1.tileSize);
+        this.SortIcon.bounds = new Rectangle(this.SortButton.bounds.X + CommonHelper.ButtonBorderWidth, above + CommonHelper.ButtonBorderWidth, this.SortTexture.Width, Game1.tileSize);
+        this.CategoryDropdown.bounds = new Rectangle(this.SortButton.bounds.Right + 5 * scale, this.SortButton.bounds.Y, 0, 0);
+        this.CategoryDropdown.MaxTabWidth = maxDropdownWidth;
+        this.CategoryDropdown.ReinitializeComponents();
+
         // basic UI
-        this.QualityButton = new ClickableComponent(new Rectangle(x - 2 * Game1.pixelZoom, top, qualityButtonWidth, qualityButtonWidth - 2), ""); // manually tweak height to align with sort button
-        this.SortButton = new ClickableComponent(new Rectangle(this.QualityButton.bounds.Right + 20, top, this.GetMaxSortLabelWidth(Game1.smallFont) + CommonHelper.ButtonBorderWidth, Game1.tileSize), this.GetSortLabel(this.SortBy));
-        this.SortIcon = new ClickableTextureComponent(new Rectangle(this.SortButton.bounds.X + CommonHelper.ButtonBorderWidth, top + CommonHelper.ButtonBorderWidth, this.SortTexture.Width, Game1.tileSize), this.SortTexture, new Rectangle(0, 0, this.SortTexture.Width, this.SortTexture.Height), 1f);
-        this.CategoryDropdown = new Dropdown<string>(this.SortButton.bounds.Right + 20, this.SortButton.bounds.Y, Game1.smallFont, this.CategoryDropdown?.Selected ?? I18n.Filter_All(), this.Categories, p => p, maxTabWidth: maxDropdownWidth);
-        this.UpArrow = new ClickableTextureComponent(new Rectangle(right - 32, y - 64, 11 * Game1.pixelZoom, 12 * Game1.pixelZoom), Game1.mouseCursors, new Rectangle(421, 459, 11, 12), Game1.pixelZoom);
-        this.DownArrow = new ClickableTextureComponent(new Rectangle(this.UpArrow.bounds.X, this.UpArrow.bounds.Y + this.height / 2 - 64, this.UpArrow.bounds.Width, this.UpArrow.bounds.Height), Game1.mouseCursors, new Rectangle(421, 472, 11, 12), Game1.pixelZoom);
+        this.UpArrow.bounds = new Rectangle(right - 8 * scale, top - 16 * scale, 11 * scale, 12 * scale);
+        this.DownArrow.bounds = new Rectangle(this.UpArrow.bounds.X, this.UpArrow.bounds.Y + this.height / 2 - 16 * scale, this.UpArrow.bounds.Width, this.UpArrow.bounds.Height);
+
+        // search UI
 
         // search box
         // aligned to the right, stretched to fit space between category dropdown and right margin up to a max width
         {
-            int leftSpacing = 10 * Game1.pixelZoom; // min space between category dropdown and search box
+            int leftSpacing = 10 * scale; // min space between category dropdown and search box
             int searchRight = this.IsAndroid
-                ? this.upperRightCloseButton.bounds.X - 5 * Game1.pixelZoom
-                : right - 13 * Game1.pixelZoom;
+                ? this.upperRightCloseButton.bounds.X - 5 * scale
+                : right - 13 * scale;
 
-            int searchWidth = Math.Clamp(searchRight - this.CategoryDropdown.bounds.Right - leftSpacing + 10, min: minSearchWidth, max: maxSearchWidth);
+            int searchWidth = Math.Clamp(searchRight - this.CategoryDropdown.bounds.Right - leftSpacing + 2 * scale, min: minSearchWidth, max: maxSearchWidth);
             int searchX = searchRight - searchWidth;
 
-            this.SearchBox = new TextBox(Game1.content.Load<Texture2D>("LooseSprites\\textBox"), null, Game1.smallFont, Game1.textColor)
-            {
-                X = searchX,
-                Y = top + 6,
-                Height = 0,
-                Width = searchWidth,
-                Text = this.SearchText
-            };
-            this.SearchBoxBounds = new Rectangle(this.SearchBox.X, this.SearchBox.Y + 4, this.SearchBox.Width, 12 * Game1.pixelZoom);
-            this.SearchBoxArea = new ClickableComponent(new Rectangle(this.SearchBoxBounds.X, this.SearchBoxBounds.Y, this.SearchBoxBounds.Width, this.SearchBoxBounds.Height), "");
-        }
+            this.SearchBox.X = searchX;
+            this.SearchBox.Y = above + 1 * scale;
+            this.SearchBox.Height = 0;
+            this.SearchBox.Width = searchWidth;
 
+            this.SearchBoxBounds = new Rectangle(this.SearchBox.X, this.SearchBox.Y + 1 * scale, this.SearchBox.Width, 12 * scale);
+            this.SearchBoxArea.bounds = new Rectangle(this.SearchBoxBounds.X, this.SearchBoxBounds.Y, this.SearchBoxBounds.Width, this.SearchBoxBounds.Height);
+        }
         // search icon
         {
-            var iconRect = new Rectangle(80, 0, 13, 13);
-            float scale = 2.5f;
-            var iconBounds = new Rectangle(
-                x: (int)(this.SearchBoxBounds.Right - (iconRect.Width * scale)),
-                y: (int)(this.SearchBoxBounds.Center.Y - (iconRect.Height / 2f * scale)),
-                width: (int)(iconRect.Width * scale),
-                height: (int)(iconRect.Height * scale)
+            float iconScale = this.SearchIcon.scale;
+            Rectangle iconRect = this.SearchIcon.sourceRect;
+            this.SearchIcon.bounds = new Rectangle(
+                x: (int)(this.SearchBoxBounds.Right - (iconRect.Width * iconScale)) - 1 * scale,
+                y: (int)(this.SearchBoxBounds.Center.Y - (iconRect.Height / 2 * iconScale)),
+                width: (int)(iconRect.Width * iconScale),
+                height: (int)(iconRect.Height * iconScale)
             );
-            this.SearchIcon = new ClickableTextureComponent(iconBounds, Game1.mouseCursors, iconRect, scale);
         }
 
         // move layout for Android
@@ -616,9 +678,6 @@ internal class ItemMenu : ItemGrabMenu
             this.UpArrow.bounds.Y = this.upperRightCloseButton.bounds.Bottom;
             this.DownArrow.bounds.X = this.UpArrow.bounds.X;
         }
-
-        // controller flow
-        this.InitializeControllerFlow();
     }
 
     /// <summary>Set the fields to support controller snapping.</summary>
