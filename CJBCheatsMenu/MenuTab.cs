@@ -1,7 +1,7 @@
-namespace CJBCheatsMenu.Framework;
+namespace CJBCheatsMenu;
 
 /// <summary>A tab in the cheat menu.</summary>
-internal enum MenuTab
+public enum MenuTab
 {
     /// <summary>The 'player &amp; tools' tab.</summary>
     PlayerAndTools,
