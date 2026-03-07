@@ -1,26 +1,17 @@
 using System;
-using CJB.Common.Integrations;
+using CJB.Common.Integrations.GenericModConfigMenu;
 using StardewModdingAPI;
 
 namespace CJBShowItemSellPrice.Framework;
 
 /// <summary>Registers the mod configuration with Generic Mod Config Menu.</summary>
-internal class GenericModConfigMenuIntegration
+internal class GenericModConfigMenuIntegrationForShowItemSellPrice
 {
     /*********
     ** Fields
     *********/
-    /// <summary>The CJB Show Item Sell Price manifest.</summary>
-    private readonly IManifest Manifest;
-
     /// <summary>The Generic Mod Config Menu integration.</summary>
-    private readonly IGenericModConfigMenuApi? ConfigMenu;
-
-    /// <summary>The current mod settings.</summary>
-    private readonly ModConfig Config;
-
-    /// <summary>Save the mod's current config to the <c>config.json</c> file.</summary>
-    private readonly Action Save;
+    private readonly GenericModConfigMenuIntegration<ModConfig>? ConfigMenu;
 
 
     /*********
@@ -29,14 +20,12 @@ internal class GenericModConfigMenuIntegration
     /// <summary>Construct an instance.</summary>
     /// <param name="manifest">The CJB Show Item Sell Price manifest.</param>
     /// <param name="modRegistry">An API for fetching metadata about loaded mods.</param>
+    /// <param name="monitor">Encapsulates monitoring and logging.</param>
     /// <param name="config">Get the current mod config.</param>
     /// <param name="save">Save the mod's current config to the <c>config.json</c> file.</param>
-    public GenericModConfigMenuIntegration(IManifest manifest, IModRegistry modRegistry, ModConfig config, Action save)
+    public GenericModConfigMenuIntegrationForShowItemSellPrice(IManifest manifest, IModRegistry modRegistry, IMonitor monitor, ModConfig config, Action save)
     {
-        this.Manifest = manifest;
-        this.ConfigMenu = modRegistry.GetApi<IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
-        this.Config = config;
-        this.Save = save;
+        this.ConfigMenu = new GenericModConfigMenuIntegration<ModConfig>(modRegistry, monitor, manifest, () => config, () => this.Reset(config), save);
     }
 
     /// <summary>Register the config menu if available.</summary>
@@ -46,17 +35,16 @@ internal class GenericModConfigMenuIntegration
         if (menu is null)
             return;
 
-        menu.Register(this.Manifest, this.Reset, this.Save);
-
-        menu.AddTextOption(
-            mod: this.Manifest,
-            name: I18n.Config_ShowWhen_Name,
-            tooltip: I18n.Config_ShowWhen_Desc,
-            getValue: () => this.Config.ShowWhen.ToString(),
-            setValue: value => this.Config.ShowWhen = Enum.Parse<ActivateCondition>(value),
-            allowedValues: Enum.GetNames<ActivateCondition>(),
-            formatAllowedValue: value => I18n.GetByKey($"config.show-when.{value}")
-        );
+        menu
+            .Register()
+            .AddDropdown(
+                name: I18n.Config_ShowWhen_Name,
+                tooltip: I18n.Config_ShowWhen_Desc,
+                get: config => config.ShowWhen.ToString(),
+                set: (config, value) => config.ShowWhen = Enum.Parse<ActivateCondition>(value),
+                allowedValues: Enum.GetNames<ActivateCondition>(),
+                formatAllowedValue: value => I18n.GetByKey($"config.show-when.{value}")
+            );
     }
 
 
@@ -64,9 +52,9 @@ internal class GenericModConfigMenuIntegration
     ** Private methods
     *********/
     /// <summary>Reset the mod's config to its default values.</summary>
-    private void Reset()
+    /// <param name="config">The mod config to reset.</param>
+    private void Reset(ModConfig config)
     {
-        ModConfig config = this.Config;
         ModConfig defaults = new();
 
         config.ShowWhen = defaults.ShowWhen;

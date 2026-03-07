@@ -1,27 +1,18 @@
 using System;
-using CJB.Common.Integrations;
+using CJB.Common.Integrations.GenericModConfigMenu;
 using CJBCheatsMenu.Framework.Models;
 using StardewModdingAPI;
 
 namespace CJBCheatsMenu.Framework;
 
 /// <summary>Registers the mod configuration with Generic Mod Config Menu.</summary>
-internal class GenericModConfigMenuIntegration
+internal class GenericModConfigMenuIntegrationForCheatsMenu
 {
     /*********
     ** Fields
     *********/
-    /// <summary>The CJB Cheats Menu manifest.</summary>
-    private readonly IManifest Manifest;
-
     /// <summary>The Generic Mod Config Menu integration.</summary>
-    private readonly IGenericModConfigMenuApi? ConfigMenu;
-
-    /// <summary>The current mod settings.</summary>
-    private readonly ModConfig Config;
-
-    /// <summary>Save the mod's current config to the <c>config.json</c> file.</summary>
-    private readonly Action Save;
+    private readonly GenericModConfigMenuIntegration<ModConfig>? ConfigMenu;
 
 
     /*********
@@ -30,14 +21,12 @@ internal class GenericModConfigMenuIntegration
     /// <summary>Construct an instance.</summary>
     /// <param name="manifest">The CJB Cheats Menu manifest.</param>
     /// <param name="modRegistry">An API for fetching metadata about loaded mods.</param>
+    /// <param name="monitor">Encapsulates monitoring and logging.</param>
     /// <param name="config">Get the current mod config.</param>
     /// <param name="save">Save the mod's current config to the <c>config.json</c> file.</param>
-    public GenericModConfigMenuIntegration(IManifest manifest, IModRegistry modRegistry, ModConfig config, Action save)
+    public GenericModConfigMenuIntegrationForCheatsMenu(IManifest manifest, IModRegistry modRegistry, IMonitor monitor, ModConfig config, Action save)
     {
-        this.Manifest = manifest;
-        this.ConfigMenu = modRegistry.GetApi<IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
-        this.Config = config;
-        this.Save = save;
+        this.ConfigMenu = new GenericModConfigMenuIntegration<ModConfig>(modRegistry, monitor, manifest, () => config, () => this.Reset(config), save);
     }
 
     /// <summary>Register the config menu if available.</summary>
@@ -47,81 +36,76 @@ internal class GenericModConfigMenuIntegration
         if (menu is null)
             return;
 
-        menu.Register(this.Manifest, this.Reset, this.Save);
+        menu
+            .Register()
 
-        // controls
-        menu.AddSectionTitle(this.Manifest, I18n.Controls_Title);
-        menu.AddKeybindList(
-            mod: this.Manifest,
-            name: I18n.Controls_OpenMenu,
-            tooltip: I18n.Config_OpenMenu_Desc,
-            getValue: () => this.Config.OpenMenuKey,
-            setValue: value => this.Config.OpenMenuKey = value
-        );
-        menu.AddKeybindList(
-            mod: this.Manifest,
-            name: I18n.Controls_FreezeTime,
-            tooltip: I18n.Config_FreezeTime_Desc,
-            getValue: () => this.Config.FreezeTimeKey,
-            setValue: value => this.Config.FreezeTimeKey = value
-        );
-        menu.AddKeybindList(
-            mod: this.Manifest,
-            name: I18n.Controls_GrowTree,
-            tooltip: I18n.Config_GrowTree_Desc,
-            getValue: () => this.Config.GrowTreeKey,
-            setValue: value => this.Config.GrowTreeKey = value
-        );
-        menu.AddKeybindList(
-            mod: this.Manifest,
-            name: I18n.Controls_GrowCrops,
-            tooltip: I18n.Config_GrowCrops_Desc,
-            getValue: () => this.Config.GrowCropsKey,
-            setValue: value => this.Config.GrowCropsKey = value
-        );
-        menu.AddKeybindList(
-            mod: this.Manifest,
-            name: I18n.Controls_ReloadConfig,
-            tooltip: I18n.Controls_ReloadConfig_Desc,
-            getValue: () => this.Config.ReloadConfigKey,
-            setValue: value => this.Config.ReloadConfigKey = value
-        );
+            // controls
+            .AddSectionTitle(I18n.Controls_Title)
+            .AddKeyBinding(
+                name: I18n.Controls_OpenMenu,
+                tooltip: I18n.Config_OpenMenu_Desc,
+                get: config => config.OpenMenuKey,
+                set: (config, value) => config.OpenMenuKey = value
+            )
+            .AddKeyBinding(
+                name: I18n.Controls_FreezeTime,
+                tooltip: I18n.Config_FreezeTime_Desc,
+                get: config => config.FreezeTimeKey,
+                set: (config, value) => config.FreezeTimeKey = value
+            )
+            .AddKeyBinding(
+                name: I18n.Controls_GrowTree,
+                tooltip: I18n.Config_GrowTree_Desc,
+                get: config => config.GrowTreeKey,
+                set: (config, value) => config.GrowTreeKey = value
+            )
+            .AddKeyBinding(
+                name: I18n.Controls_GrowCrops,
+                tooltip: I18n.Config_GrowCrops_Desc,
+                get: config => config.GrowCropsKey,
+                set: (config, value) => config.GrowCropsKey = value
+            )
+            .AddKeyBinding(
+                name: I18n.Controls_ReloadConfig,
+                tooltip: I18n.Controls_ReloadConfig_Desc,
+                get: config => config.ReloadConfigKey,
+                set: (config, value) => config.ReloadConfigKey = value
+            )
 
-        // other options
-        menu.AddSectionTitle(this.Manifest, I18n.Config_Title_OtherOptions);
-        menu.AddTextOption(
-            mod: this.Manifest,
-            name: I18n.Config_DefaultTab_Name,
-            tooltip: I18n.Config_DefaultTab_Desc,
-            getValue: () => this.Config.DefaultTab.ToString(),
-            setValue: value =>
-            {
-                if (Enum.TryParse(value, out MenuTab tab))
-                    this.Config.DefaultTab = tab;
-            },
-            allowedValues: Enum.GetNames<MenuTab>(),
-            formatAllowedValue: value =>
-            {
-                if (Enum.TryParse(value, out MenuTab tab))
+            // other options
+            .AddSectionTitle(I18n.Config_Title_OtherOptions)
+            .AddDropdown(
+                name: I18n.Config_DefaultTab_Name,
+                tooltip: I18n.Config_DefaultTab_Desc,
+                get: config => config.DefaultTab.ToString(),
+                set: (config, value) =>
                 {
-                    return tab switch
+                    if (Enum.TryParse(value, out MenuTab tab))
+                        config.DefaultTab = tab;
+                },
+                allowedValues: Enum.GetNames<MenuTab>(),
+                formatAllowedValue: value =>
+                {
+                    if (Enum.TryParse(value, out MenuTab tab))
                     {
-                        MenuTab.PlayerAndTools => I18n.Tabs_PlayerAndTools(),
-                        MenuTab.FarmAndFishing => I18n.Tabs_FarmAndFishing(),
-                        MenuTab.Skills => I18n.Tabs_Skills(),
-                        MenuTab.Weather => I18n.Tabs_Weather(),
-                        MenuTab.Relationships => I18n.Tabs_Relationships(),
-                        MenuTab.WarpLocations => I18n.Tabs_Warp(),
-                        MenuTab.Time => I18n.Tabs_Time(),
-                        MenuTab.Advanced => I18n.Tabs_Advanced(),
-                        MenuTab.Controls => I18n.Tabs_Controls(),
-                        _ => value
-                    };
-                }
+                        return tab switch
+                        {
+                            MenuTab.PlayerAndTools => I18n.Tabs_PlayerAndTools(),
+                            MenuTab.FarmAndFishing => I18n.Tabs_FarmAndFishing(),
+                            MenuTab.Skills => I18n.Tabs_Skills(),
+                            MenuTab.Weather => I18n.Tabs_Weather(),
+                            MenuTab.Relationships => I18n.Tabs_Relationships(),
+                            MenuTab.WarpLocations => I18n.Tabs_Warp(),
+                            MenuTab.Time => I18n.Tabs_Time(),
+                            MenuTab.Advanced => I18n.Tabs_Advanced(),
+                            MenuTab.Controls => I18n.Tabs_Controls(),
+                            _ => value
+                        };
+                    }
 
-                return value;
-            });
-        menu.AddParagraph(this.Manifest, I18n.Config_OtherOptions);
+                    return value;
+                })
+                .AddParagraph(I18n.Config_OtherOptions);
     }
 
 
@@ -129,9 +113,9 @@ internal class GenericModConfigMenuIntegration
     ** Private methods
     *********/
     /// <summary>Reset the mod's config to its default values.</summary>
-    private void Reset()
+    /// <param name="config">The config to reset.</param>
+    private void Reset(ModConfig config)
     {
-        ModConfig config = this.Config;
         ModConfig defaults = new();
 
         config.OpenMenuKey = defaults.OpenMenuKey;

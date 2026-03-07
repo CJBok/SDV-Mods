@@ -71,9 +71,10 @@ internal class ModEntry : Mod
     /// <inheritdoc cref="IGameLoopEvents.GameLaunched" />
     private void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
     {
-        var configMenu = new GenericModConfigMenuIntegration(
+        var configMenu = new GenericModConfigMenuIntegrationForItemSpawner(
             manifest: this.ModManifest,
             modRegistry: this.Helper.ModRegistry,
+            monitor: this.Monitor,
             config: this.Config,
             save: () => this.Helper.WriteConfig(this.Config)
         );
