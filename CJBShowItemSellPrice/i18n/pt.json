@@ -9,7 +9,6 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    
     "config.show-when.name": "Mostrar preço",
     "config.show-when.desc": "Escolha quando a interface do preço de venda deve ser exibida.",
 

@@ -9,7 +9,6 @@
     /*********
     ** Generic Mod Config Menu UI
     *********/
-    // TODO
     "config.show-when.name": "가격 표시",
     "config.show-when.desc": "가격 UI를 언제 표시할지 선택하세요.",
 
