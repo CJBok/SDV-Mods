@@ -58,7 +58,7 @@
     // farm
     "farm.title": "Fazenda",
     "farm.auto-water-crops": "Regar colheita automaticamente",
-    "farm.auto-water-pet-bowls": "Auto-Water Pet Bowls", // TODO
+    "farm.auto-water-pet-bowls": "Bebedouros de Pets automáticos",
     "farm.durable-fences": "Cercas duráveis",
     "farm.instant-build": "Construções instantâneas",
     "farm.auto-feed-animals": "Alimentação automática para animais",
@@ -96,14 +96,14 @@
     ** Weather tab
     *********/
     "weather.title": "Clima Amanhã",
-    "weather.current-value": "Tomorrow's weather is set to {{weather}}.", // TODO
+    "weather.current-value": "O clima de amanhã será {{weather}}.",
     "weather.explanation": "Clique em um botão para definir o clima de amanhã (e apenas de amanhã). Essa aba não tem efeito sobre sobre o clima de outro modo.",
-    "weather.cannot-change-weather": "The game forces tomorrow's weather to {{weather}}, so it can't be changed.", // TODO
+    "weather.cannot-change-weather": "O clima de amanhã está fixado como {{weather}} e não pode ser alterado.",
     "weather.sunny": "Ensolarado",
     "weather.raining": "Chuva",
     "weather.lightning": "Tempestade",
     "weather.snowing": "Neve",
-    "weather.green-rain": "Green Raining", // TODO
+    "weather.green-rain": "Chuva Verde",
 
 
     /*********
@@ -182,7 +182,7 @@
     "time.freeze-inside": "Parar o tempo dentro das construções",
     "time.freeze-caves": "Parar o tempo nas cavernas",
     "time.freeze-everywhere": "Parar o tempo em qualquer lugar",
-    "time.fade-time-frozen-message": "Hide '{{timeFrozen}}' After a Few Seconds", // TODO
+    "time.fade-time-frozen-message": "Esconder '{{timeFrozen}}' após alguns segundos",
     "time.time": "Horário",
     "time.time-frozen-message": "Tempo parado",
 
@@ -197,7 +197,7 @@
     /*********
     ** Advanced tab
     *********/
-    "flags.warning": "Use esta seção por sua conta e risco!\nIsso pode causar problemas como mensagens ignoradas, eventos\n ou missões.",
+    "flags.warning": "Use essa seção por sua conta e risco!\nIsso pode causar problemas como mensagens ignoradas, eventos\n ou missões.",
     "flags.quests": "Completar missão",
     "flags.wallet": "Itens da carteira",
     "flags.unlocked": "Liberar áreas",
@@ -206,7 +206,7 @@
     "flags.unlocked-content": "Conteúdo desbloqueado",
     "flags.unlocked-content.dyes-and-tailoring": "Corantes e alfaiataria",
     "flags.unlocked-content.junimo-text": "Pode ler texto dos Junimos",
-    "flags.unlocked-content.perfection": "Perfection achieved", // TODO
+    "flags.unlocked-content.perfection": "Perfeição alcançada",
     "flags.community-center": "Centro Comunitário",
     "flags.community-center.door-unlocked": "Destrancar porta",
     "flags.jojamart.membership": "Associar ao Mercado Joja",
@@ -216,7 +216,7 @@
     ** Controls tab
     *********/
     "controls.title": "Controles",
-    "controls.android-config-note": "Você pode mudar os botões mostrados na tela nos arquivos de configuração do Meu de Trapaças CJB e dos mods de teclado virtual.",
+    "controls.android-config-note": "Você pode mudar os botões mostrados na tela nos arquivos de configuração do Menu de Trapaças CJB e dos mods de teclado virtual.",
     "controls.open-menu": "Abrir menu",
     "controls.freeze-time": "Parar o tempo",
     "controls.grow-tree": "Crescer árvores",
@@ -231,14 +231,14 @@
     *********/
     "config.open-menu.desc": "A tecla que abre o menu (quando nenhum outro menu está aberto).",
     "config.freeze-time.desc": "A tecla que para o relógio do jogo.",
-    "config.grow-tree.desc": "A tecla que apertada faz crescer árvores em torno do jogador.",
-    "config.grow-crops.desc": "A tecla que apertada faz crescer plantações em torno do jogador.",
+    "config.grow-tree.desc": "A tecla que quando apertada faz crescer árvores em torno do jogador.",
+    "config.grow-crops.desc": "A tecla que quando apertada faz crescer plantações em torno do jogador.",
 
-    "controls.reload-config": "Recarregar configurações de Ficheiro",
-    "controls.reload-config.desc": "A tecla que recarrega as configurações do ficheiro config.json. Se o menu estiver aberto neste momento, alterações podem só manter efeito quando o menu for reaberto",
+    "controls.reload-config": "Recarregar configurações de Arquivo",
+    "controls.reload-config.desc": "A tecla que recarrega as configurações do arquivo 'config.json'. Se o menu estiver aberto nesse momento, alterações podem só manter efeito quando o menu for reaberto",
 
     "config.title.other-options": "Outras opções",
     "config.default-tab.name": "Aba padrão",
     "config.default-tab.desc": "A aba mostrada por padrão quando você abre o menu.",
-    "config.other-options": "Para configurar cheats, pressione a tecla de 'Abrir menu' mostrada acima, durante o jogo. Tenha certeza de pressionar após você carregar o save, quando nenhum outro menu ou diálogo esteja aberto."
+    "config.other-options": "Para configurar os cheats, pressione a tecla de 'Abrir menu' mostrada acima, durante o jogo. Tenha certeza de pressionar após você carregar o save, quando nenhum outro menu ou diálogo esteja aberto."
 }
