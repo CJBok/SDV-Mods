@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Added integration with Custom Bush for the 'grow crop' cheat.
 * Improved translations. Thanks to jjongleee (updated Korean) and Maatsuki (updated Portuguese)!
 
 ## 1.40.0

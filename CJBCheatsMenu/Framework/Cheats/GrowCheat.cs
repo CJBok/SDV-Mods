@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CJB.Common;
+using CJB.Common.Integrations.CustomBush;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -17,6 +18,9 @@ internal class GrowCheat : BaseCheat
     /*********
     ** Fields
     *********/
+    /// <summary>The integration with the Custom Bush mod.</summary>
+    private readonly CustomBushIntegration CustomBush;
+
     /// <summary>Whether to grow crops under the cursor.</summary>
     private bool ShouldGrowCrops;
 
@@ -30,6 +34,13 @@ internal class GrowCheat : BaseCheat
     /*********
     ** Public methods
     *********/
+    /// <summary>Construct an instance.</summary>
+    /// <param name="customBush">The integration with the Custom Bush mod.</param>
+    public GrowCheat(CustomBushIntegration customBush)
+    {
+        this.CustomBush = customBush;
+    }
+
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
@@ -72,7 +83,7 @@ internal class GrowCheat : BaseCheat
     /// <summary>Grow crops and trees around the given position.</summary>
     /// <param name="origin">The origin around which to grow crops and trees.</param>
     /// <param name="radius">The number of tiles in each direction to include, not counting the origin.</param>
-    public void Grow(Vector2 origin, int radius)
+    private void Grow(Vector2 origin, int radius)
     {
         // get location
         GameLocation location = Game1.currentLocation;
@@ -110,55 +121,91 @@ internal class GrowCheat : BaseCheat
             {
                 case HoeDirt dirt:
                     if (this.ShouldGrowCrops)
-                    {
-                        Crop crop = dirt.crop;
-                        // grow crop using newDay to apply full logic like giant crops, wild seed randomization, etc
-                        for (int i = 0; i < 100 && !crop.fullyGrown.Value; i++)
-                            crop.newDay(HoeDirt.watered);
-
-                        // trigger regrowth logic for multi-harvest crops
-                        crop.growCompletely();
-                    }
+                        this.GrowCrop(dirt.crop);
                     break;
 
                 case Bush bush:
-                    if (this.ShouldGrowCrops && bush.size.Value == Bush.greenTeaBush)
-                    {
-                        if (bush.getAge() < Bush.daysToMatureGreenTeaBush)
-                        {
-                            bush.datePlanted.Value = (int)(Game1.stats.DaysPlayed - Bush.daysToMatureGreenTeaBush);
-                            bush.dayUpdate(); // update sprite, etc
-                        }
-
-                        if (bush.inBloom() && bush.tileSheetOffset.Value == 0)
-                            bush.dayUpdate(); // grow tea leaves
-                    }
+                    if (this.ShouldGrowCrops)
+                        this.GrowBush(bush);
                     break;
 
                 case FruitTree fruitTree:
-                    if (this.ShouldGrowTrees && !fruitTree.stump.Value)
-                    {
-                        if (fruitTree.growthStage.Value < FruitTree.treeStage)
-                        {
-                            fruitTree.growthStage.Value = Tree.treeStage;
-                            fruitTree.daysUntilMature.Value = 0;
-                        }
-
-                        if (fruitTree.IsInSeasonHere())
-                            fruitTree.TryAddFruit();
-                    }
+                    if (this.ShouldGrowTrees)
+                        this.GrowFruitTree(fruitTree);
                     break;
 
                 case Tree tree:
-                    if (this.ShouldGrowTrees && !tree.stump.Value)
-                    {
-                        if (tree.growthStage.Value < Tree.treeStage)
-                            tree.growthStage.Value = Tree.treeStage;
-
-                        tree.wasShakenToday.Value = false;
-                    }
+                    if (this.ShouldGrowTrees)
+                        this.GrowWildTree(tree);
                     break;
             }
+        }
+    }
+
+    /// <summary>Grow a crop.</summary>
+    /// <param name="crop">The crop to grow.</param>
+    private void GrowCrop(Crop crop)
+    {
+        // grow crop using newDay to apply full logic like giant crops, wild seed randomization, etc
+        for (int i = 0; i < 100 && !crop.fullyGrown.Value; i++)
+            crop.newDay(HoeDirt.watered);
+
+        // trigger regrowth logic for multi-harvest crops
+        crop.growCompletely();
+    }
+
+    /// <summary>Grow a bush.</summary>
+    /// <param name="bush">The bush to grow.</param>
+    private void GrowBush(Bush bush)
+    {
+        // get bush info
+        int minAge;
+        if (this.CustomBush.IsLoaded && this.CustomBush.TryGetCustomBush(bush, out ICustomBush? customBush) && customBush is not null)
+            minAge = customBush.AgeToProduce;
+        else if (bush.size.Value == Bush.greenTeaBush)
+            minAge = Bush.daysToMatureGreenTeaBush;
+        else
+            return;
+
+        // grow bush
+        if (bush.getAge() < minAge)
+        {
+            bush.datePlanted.Value = (int)(Game1.stats.DaysPlayed - minAge);
+            bush.dayUpdate(); // update sprite, etc
+        }
+
+        // grow produce
+        if (bush.inBloom() && bush.tileSheetOffset.Value == 0)
+            bush.dayUpdate();
+    }
+
+    /// <summary>Grow a fruit tree.</summary>
+    /// <param name="tree">The fruit tree to grow.</param>
+    private void GrowFruitTree(FruitTree tree)
+    {
+        if (!tree.stump.Value)
+        {
+            if (tree.growthStage.Value < FruitTree.treeStage)
+            {
+                tree.growthStage.Value = Tree.treeStage;
+                tree.daysUntilMature.Value = 0;
+            }
+
+            if (tree.IsInSeasonHere())
+                tree.TryAddFruit();
+        }
+    }
+
+    /// <summary>Grow a wild tree.</summary>
+    /// <param name="tree">The wild tree to grow.</param>
+    private void GrowWildTree(Tree tree)
+    {
+        if (!tree.stump.Value)
+        {
+            if (tree.growthStage.Value < Tree.treeStage)
+                tree.growthStage.Value = Tree.treeStage;
+
+            tree.wasShakenToday.Value = false;
         }
     }
 }

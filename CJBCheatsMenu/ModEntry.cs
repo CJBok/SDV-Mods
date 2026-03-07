@@ -53,7 +53,7 @@ internal class ModEntry : Mod
 
         // load cheats
         this.ResetLocationCache();
-        this.Cheats = new PerScreen<CheatManager>(() => new CheatManager(this.Config, this.Helper.GameContent, this.Helper.Reflection, this.WarpContentLoader, () => this.Locations.Value.Value));
+        this.Cheats = new PerScreen<CheatManager>(() => new CheatManager(this.Config, this.Helper.GameContent, this.Helper.ModRegistry, this.Monitor, this.Helper.Reflection, this.WarpContentLoader, () => this.Locations.Value.Value));
 
         // hook events
         helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
