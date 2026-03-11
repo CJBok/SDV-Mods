@@ -2,7 +2,8 @@
 
 # Release notes
 ## Upcoming release
-* Added integration with Custom Bush for the 'grow crop' cheat.
+* The 'Auto-Feed Animals' cheat now supports custom animal building interior maps.
+* The 'Grow Crops' cheat now supports bushes added via Custom Bush.
 * Improved translations. Thanks to jjongleee (updated Korean) and Maatsuki (updated Portuguese)!
 
 ## 1.40.0
