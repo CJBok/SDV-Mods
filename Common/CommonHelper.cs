@@ -45,7 +45,7 @@ internal static class CommonHelper
         batch.Draw(sheet, new Rectangle(x, y, width, height), sprite, color ?? Color.White);
     }
 
-    /// <summary>Draw a button texture fir the given text to the screen.</summary>
+    /// <summary>Draw a button texture for the given text to the screen.</summary>
     /// <param name="x">The X position at which to draw.</param>
     /// <param name="y">The Y position at which to draw.</param>
     /// <param name="font">The text font.</param>

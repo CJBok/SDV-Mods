@@ -194,7 +194,7 @@ internal class WarpCheat : BaseCheat
             },
             initialValue: inQuarryMine ? 0 : Game1.CurrentMineLevel,
             minValue: isSkullCavern ? bottomOfMine : 0,
-            maxValue: isSkullCavern ? 999_999 : bottomOfMine, // the game behaves weirdly with high numbers and we have limited space, so set a semi-reasonable limit
+            maxValue: isSkullCavern ? 999_999 : bottomOfMine, // the game behaves weirdly with high numbers, and we have limited space, so set a semi-reasonable limit
             formatValue: formatValue
         );
     }
