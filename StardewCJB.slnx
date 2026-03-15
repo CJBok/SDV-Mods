@@ -7,6 +7,17 @@
     <File Path="Directory.Packages.props" />
     <File Path="README.md" />
   </Folder>
+  <Folder Name="/root/.github/">
+    <File Path=".github/CONTRIBUTING.md" />
+    <File Path=".github/SUPPORT.md" />
+  </Folder>
+  <Folder Name="/root/.github/ISSUE_TEMPLATE/">
+    <File Path=".github/ISSUE_TEMPLATE/config.yml" />
+    <File Path=".github/ISSUE_TEMPLATE/custom.md" />
+  </Folder>
+  <Folder Name="/root/.github/workflows/">
+    <File Path=".github/workflows/build.yml" />
+  </Folder>
   <Project Path="CJBCheatsMenu/CJBCheatsMenu.csproj" />
   <Project Path="CJBItemSpawner/CJBItemSpawner.csproj" />
   <Project Path="CJBShowItemSellPrice/CJBShowItemSellPrice.csproj" />

@@ -25,9 +25,6 @@ internal class CheatsMenu : IClickableMenu
     /// <summary>Manages the cheat implementations.</summary>
     private readonly CheatManager Cheats;
 
-    /// <summary>Encapsulates monitoring and logging.</summary>
-    private readonly IMonitor Monitor;
-
     /// <summary>Reopen the cheats menu with the selected tab.</summary>
     private readonly Action<MenuTab> ReopenMenu;
 
@@ -66,13 +63,11 @@ internal class CheatsMenu : IClickableMenu
     /// <summary>Construct an instance.</summary>
     /// <param name="initialTab">The tab to display by default.</param>
     /// <param name="cheats">The cheats helper.</param>
-    /// <param name="monitor">Encapsulates monitoring and logging.</param>
     /// <param name="isNewMenu">Whether to play the open-menu sound.</param>
     /// <param name="reopenMenu">Reopen the cheats menu with the selected tab.</param>
-    public CheatsMenu(MenuTab initialTab, CheatManager cheats, IMonitor monitor, bool isNewMenu, Action<MenuTab> reopenMenu)
+    public CheatsMenu(MenuTab initialTab, CheatManager cheats, bool isNewMenu, Action<MenuTab> reopenMenu)
     {
         this.Cheats = cheats;
-        this.Monitor = monitor;
         this.ReopenMenu = reopenMenu;
         this.CurrentTab = initialTab;
         this.ResetComponents();
@@ -343,15 +338,15 @@ internal class CheatsMenu : IClickableMenu
 
             this.Tabs.Clear();
             this.Tabs.AddRange([
-                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.PlayerAndTools.ToString(), I18n.Tabs_PlayerAndTools()),
-                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.FarmAndFishing.ToString(), I18n.Tabs_FarmAndFishing()),
-                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Skills.ToString(), I18n.Tabs_Skills()),
-                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Weather.ToString(), I18n.Tabs_Weather()),
-                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Relationships.ToString(), I18n.Tabs_Relationships()),
-                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.WarpLocations.ToString(), I18n.Tabs_Warp()),
-                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Time.ToString(), I18n.Tabs_Time()),
-                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Advanced.ToString(), I18n.Tabs_Advanced()),
-                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), MenuTab.Controls.ToString(), I18n.Tabs_Controls())
+                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), nameof(MenuTab.PlayerAndTools), I18n.Tabs_PlayerAndTools()),
+                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), nameof(MenuTab.FarmAndFishing), I18n.Tabs_FarmAndFishing()),
+                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), nameof(MenuTab.Skills), I18n.Tabs_Skills()),
+                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), nameof(MenuTab.Weather), I18n.Tabs_Weather()),
+                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), nameof(MenuTab.Relationships), I18n.Tabs_Relationships()),
+                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), nameof(MenuTab.WarpLocations), I18n.Tabs_Warp()),
+                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), nameof(MenuTab.Time), I18n.Tabs_Time()),
+                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), nameof(MenuTab.Advanced), I18n.Tabs_Advanced()),
+                new ClickableComponent(new Rectangle(labelX, labelY + labelHeight * i++, Game1.tileSize * 5, Game1.tileSize), nameof(MenuTab.Controls), I18n.Tabs_Controls())
             ]);
         }
 

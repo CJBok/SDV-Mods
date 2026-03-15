@@ -1,6 +1,15 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## 1.41.0
+Released 15 March 2026 for SMAPI 4.1.10 or later.
+
+* The 'Auto-Feed Animals' cheat now supports custom animal building interior maps.
+* The 'Grow Crops' cheat now supports bushes added via Custom Bush.
+* CJB Cheats Menu downloads are now created via [automated and attested builds](https://www.patreon.com/posts/automated-builds-148417912).  
+  _This guarantees that the download only contains what's in the public source code and hasn't been tampered with._
+* Improved translations. Thanks to jjongleee (updated Korean) and Maatsuki (updated Portuguese)!
+
 ## 1.40.0
 Released 11 January 2026 for SMAPI 4.1.10 or later.
 

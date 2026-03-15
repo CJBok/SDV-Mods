@@ -35,8 +35,6 @@ internal class WarpCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        bool isJojaMember = this.HasFlag("JojaMember");
-
         WarpSectionContentModel[] rawSections = this.WarpContentLoader.LoadWarpSections();
         WarpContentModel[] rawWarps = this.WarpContentLoader.LoadWarps();
 
@@ -180,7 +178,7 @@ internal class WarpCheat : BaseCheat
                         break;
 
                     case bottomOfMine when isSkullCavern:
-                        this.Warp(warp.Location!, (int)warp.Tile.X, (int)warp.Tile.Y);
+                        this.Warp(warp.Location, (int)warp.Tile.X, (int)warp.Tile.Y);
                         break;
 
                     case MineShaft.quarryMineShaft:
@@ -194,7 +192,7 @@ internal class WarpCheat : BaseCheat
             },
             initialValue: inQuarryMine ? 0 : Game1.CurrentMineLevel,
             minValue: isSkullCavern ? bottomOfMine : 0,
-            maxValue: isSkullCavern ? 999_999 : bottomOfMine, // the game behaves weirdly with high numbers and we have limited space, so set a semi-reasonable limit
+            maxValue: isSkullCavern ? 999_999 : bottomOfMine, // the game behaves weirdly with high numbers, and we have limited space, so set a semi-reasonable limit
             formatValue: formatValue
         );
     }

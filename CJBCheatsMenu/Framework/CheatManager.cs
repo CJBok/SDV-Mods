@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using CJB.Common.Integrations.CustomBush;
 using CJBCheatsMenu.Framework.Cheats;
 using CJBCheatsMenu.Framework.Cheats.Advanced;
 using CJBCheatsMenu.Framework.Cheats.FarmAndFishing;
@@ -212,8 +212,7 @@ internal class CheatManager
     ** Other
     ****/
     /// <summary>Grows crops and trees under the cursor.</summary>
-    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Used via reflection")]
-    public ICheat Grow { get; } = new GrowCheat();
+    public ICheat Grow { get; }
 
 
     /*********
@@ -222,12 +221,17 @@ internal class CheatManager
     /// <summary>Construct an instance.</summary>
     /// <param name="config">The mod configuration.</param>
     /// <param name="gameContent">An API for managing the game's content assets.</param>
+    /// <param name="modRegistry">An API for fetching metadata about loaded mods.</param>
+    /// <param name="monitor">Encapsulates monitoring and logging.</param>
     /// <param name="reflection">Simplifies access to private code.</param>
     /// <param name="warpContentLoader">Manages building and loading the warp data assets.</param>
     /// <param name="getAllLocations">Get a cached list of all in-game locations.</param>
-    public CheatManager(ModConfig config, IGameContentHelper gameContent, IReflectionHelper reflection, WarpContentLoader warpContentLoader, Func<IEnumerable<GameLocation>> getAllLocations)
+    public CheatManager(ModConfig config, IGameContentHelper gameContent, IModRegistry modRegistry, IMonitor monitor, IReflectionHelper reflection, WarpContentLoader warpContentLoader, Func<IEnumerable<GameLocation>> getAllLocations)
     {
+        CustomBushIntegration customBush = new(modRegistry, monitor);
+
         this.Context = new CheatContext(config, reflection, getAllLocations);
+        this.Grow = new GrowCheat(customBush);
         this.Hearts = new HeartsCheat(onPointsChanged: (npc, points) => this.NoFriendshipDecayImpl.UpdateFriendship(npc, points));
         this.Warps = new WarpCheat(warpContentLoader);
         this.HarvestWithScythe = new HarvestWithScytheCheat(gameContent);

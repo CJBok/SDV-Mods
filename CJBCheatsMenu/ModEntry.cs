@@ -53,7 +53,7 @@ internal class ModEntry : Mod
 
         // load cheats
         this.ResetLocationCache();
-        this.Cheats = new PerScreen<CheatManager>(() => new CheatManager(this.Config, this.Helper.GameContent, this.Helper.Reflection, this.WarpContentLoader, () => this.Locations.Value.Value));
+        this.Cheats = new PerScreen<CheatManager>(() => new CheatManager(this.Config, this.Helper.GameContent, this.Helper.ModRegistry, this.Monitor, this.Helper.Reflection, this.WarpContentLoader, () => this.Locations.Value.Value));
 
         // hook events
         helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
@@ -79,9 +79,10 @@ internal class ModEntry : Mod
     /// <inheritdoc cref="IGameLoopEvents.GameLaunched" />
     private void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
     {
-        var configMenu = new GenericModConfigMenuIntegration(
+        var configMenu = new GenericModConfigMenuIntegrationForCheatsMenu(
             manifest: this.ModManifest,
             modRegistry: this.Helper.ModRegistry,
+            monitor: this.Monitor,
             config: this.Config,
             save: () => this.Helper.WriteConfig(this.Config)
         );
@@ -229,7 +230,7 @@ internal class ModEntry : Mod
     /// <param name="isNewMenu">Whether to play the open-menu sound.</param>
     private void OpenCheatsMenu(MenuTab tab, bool isNewMenu)
     {
-        Game1.activeClickableMenu = new CheatsMenu(tab, this.Cheats.Value, this.Monitor, isNewMenu, ReopenForTab);
+        Game1.activeClickableMenu = new CheatsMenu(tab, this.Cheats.Value, isNewMenu, ReopenForTab);
 
         void ReopenForTab(MenuTab newTab) => this.OpenCheatsMenu(newTab, isNewMenu: false);
     }
