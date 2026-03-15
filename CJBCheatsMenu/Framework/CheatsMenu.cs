@@ -25,9 +25,6 @@ internal class CheatsMenu : IClickableMenu
     /// <summary>Manages the cheat implementations.</summary>
     private readonly CheatManager Cheats;
 
-    /// <summary>Encapsulates monitoring and logging.</summary>
-    private readonly IMonitor Monitor;
-
     /// <summary>Reopen the cheats menu with the selected tab.</summary>
     private readonly Action<MenuTab> ReopenMenu;
 
@@ -66,13 +63,11 @@ internal class CheatsMenu : IClickableMenu
     /// <summary>Construct an instance.</summary>
     /// <param name="initialTab">The tab to display by default.</param>
     /// <param name="cheats">The cheats helper.</param>
-    /// <param name="monitor">Encapsulates monitoring and logging.</param>
     /// <param name="isNewMenu">Whether to play the open-menu sound.</param>
     /// <param name="reopenMenu">Reopen the cheats menu with the selected tab.</param>
-    public CheatsMenu(MenuTab initialTab, CheatManager cheats, IMonitor monitor, bool isNewMenu, Action<MenuTab> reopenMenu)
+    public CheatsMenu(MenuTab initialTab, CheatManager cheats, bool isNewMenu, Action<MenuTab> reopenMenu)
     {
         this.Cheats = cheats;
-        this.Monitor = monitor;
         this.ReopenMenu = reopenMenu;
         this.CurrentTab = initialTab;
         this.ResetComponents();

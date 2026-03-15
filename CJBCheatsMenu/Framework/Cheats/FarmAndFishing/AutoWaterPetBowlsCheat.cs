@@ -1,13 +1,10 @@
 using System.Collections.Generic;
-using System.Linq;
 using CJBCheatsMenu.Framework.Components;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Buildings;
 using StardewValley.Menus;
-using StardewValley.Objects;
-using StardewValley.TerrainFeatures;
 
 namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing;
 

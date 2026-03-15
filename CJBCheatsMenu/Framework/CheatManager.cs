@@ -228,7 +228,7 @@ internal class CheatManager
     /// <param name="getAllLocations">Get a cached list of all in-game locations.</param>
     public CheatManager(ModConfig config, IGameContentHelper gameContent, IModRegistry modRegistry, IMonitor monitor, IReflectionHelper reflection, WarpContentLoader warpContentLoader, Func<IEnumerable<GameLocation>> getAllLocations)
     {
-        CustomBushIntegration customBush = new CustomBushIntegration(modRegistry, monitor);
+        CustomBushIntegration customBush = new(modRegistry, monitor);
 
         this.Context = new CheatContext(config, reflection, getAllLocations);
         this.Grow = new GrowCheat(customBush);

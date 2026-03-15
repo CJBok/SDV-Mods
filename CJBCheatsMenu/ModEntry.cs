@@ -230,7 +230,7 @@ internal class ModEntry : Mod
     /// <param name="isNewMenu">Whether to play the open-menu sound.</param>
     private void OpenCheatsMenu(MenuTab tab, bool isNewMenu)
     {
-        Game1.activeClickableMenu = new CheatsMenu(tab, this.Cheats.Value, this.Monitor, isNewMenu, ReopenForTab);
+        Game1.activeClickableMenu = new CheatsMenu(tab, this.Cheats.Value, isNewMenu, ReopenForTab);
 
         void ReopenForTab(MenuTab newTab) => this.OpenCheatsMenu(newTab, isNewMenu: false);
     }

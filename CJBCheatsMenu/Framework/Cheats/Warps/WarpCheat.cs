@@ -35,8 +35,6 @@ internal class WarpCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        bool isJojaMember = this.HasFlag("JojaMember");
-
         WarpSectionContentModel[] rawSections = this.WarpContentLoader.LoadWarpSections();
         WarpContentModel[] rawWarps = this.WarpContentLoader.LoadWarps();
 
@@ -180,7 +178,7 @@ internal class WarpCheat : BaseCheat
                         break;
 
                     case bottomOfMine when isSkullCavern:
-                        this.Warp(warp.Location!, (int)warp.Tile.X, (int)warp.Tile.Y);
+                        this.Warp(warp.Location, (int)warp.Tile.X, (int)warp.Tile.Y);
                         break;
 
                     case MineShaft.quarryMineShaft:
