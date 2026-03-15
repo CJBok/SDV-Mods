@@ -33,8 +33,7 @@ internal class GenericModConfigMenuIntegrationForItemSpawner
     /// <summary>Register the config menu if available.</summary>
     public void Register()
     {
-        var menu = this.ConfigMenu;
-        if (menu is null)
+        if (this.ConfigMenu is not { IsLoaded: true } menu)
             return;
 
         menu.Register();

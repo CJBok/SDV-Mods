@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed error in 1.10.5 when Generic Mod Config Menu isn't installed.
+
 ## 1.10.5
 Released 15 March 2026 for SMAPI 4.1.10 or later.
 
