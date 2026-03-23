@@ -44,6 +44,9 @@ internal class ItemMenu : ItemGrabMenu
     /// <summary>The available category names.</summary>
     private readonly string[] Categories;
 
+    /// <summary>The cached text for the 'reclaim' tooltip over the trash can.</summary>
+    private readonly string TrashCanReclaimHoverText = Game1.content.LoadString("Strings\\UI:TrashCanSale");
+
     /// <summary>Whether the menu is being displayed on Android.</summary>
     private bool IsAndroid => SConstants.TargetPlatform == GamePlatform.Android;
 
@@ -392,6 +395,12 @@ internal class ItemMenu : ItemGrabMenu
 
         // base logic
         base.performHoverAction(x, y);
+
+        if (!this.ReclaimPriceInTrashCan && this.hoverText == this.TrashCanReclaimHoverText && this.trashCan.containsPoint(x, y))
+        {
+            this.hoverText = null;
+            this.hoverAmount = 0;
+        }
     }
 
     /// <inheritdoc />

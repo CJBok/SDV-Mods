@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed 'reclaim' tooltip shown over trash can even if the "apply trash can upgrade" option is disabled.
+
 ## 1.41.1
 Released 15 March 2026 for SMAPI 4.1.10 or later.
 
