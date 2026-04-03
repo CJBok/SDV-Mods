@@ -58,12 +58,12 @@
     // farm
     "farm.title": "Ferme",
     "farm.auto-water-crops": "Arroser les champs automatiquement",
-    "farm.auto-water-pet-bowls": "Auto-Water Pet Bowls", // TODO
+    "farm.auto-water-pet-bowls": "Remplir les gamelles automatiquement",
     "farm.durable-fences": "Clôtures durables",
     "farm.instant-build": "Construction instantanée",
-    "farm.auto-feed-animals": "Nourrir les animaux automatiquement",
-    "farm.auto-pet-animals": "Caresser les animaux automatiquement",
-    "farm.auto-pet-pets": "Caresser animal de compagnie automatiquement",
+    "farm.auto-feed-animals": "Nourrir les animaux de ferme automatiquement",
+    "farm.auto-pet-animals": "Caresser les animaux de ferme automatiquement",
+    "farm.auto-pet-pets": "Caresser les animaux de compagnie automatiquement",
     "farm.infinite-hay": "Foin infini",
 
     // fishing
@@ -98,7 +98,7 @@
     "weather.title": "Météo de demain",
     "weather.current-value": "Le temps de demain a été paramétré sur {{weather}}.",
     "weather.explanation": "Cliquer sur un bouton changera la météo pour demain (et uniquement demain). Cet onglet n'aura aucun effet sur la météo autrement.",
-    "weather.cannot-change-weather": "The game forces tomorrow's weather to {{weather}}, so it can't be changed.", // TODO
+    "weather.cannot-change-weather": "Le jeu force le temps {{weather}} pour demain, il ne peut pas être changé.",
     "weather.sunny": "Soleil",
     "weather.raining": "Pluie",
     "weather.lightning": "Orage",
