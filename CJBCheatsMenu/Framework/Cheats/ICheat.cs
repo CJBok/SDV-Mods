@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI.Events;
+using StardewValley;
 
 namespace CJBCheatsMenu.Framework.Cheats;
 
@@ -26,12 +27,17 @@ internal interface ICheat
     /// <param name="context">The cheat context.</param>
     void OnSaveLoaded(CheatContext context);
 
-    /// <summary>Handle the player pressing or releasing any buttons if <see cref="OnSaveLoaded"/> indicated input was needed.</summary>
+    /// <summary>Handle the cheats menu opening.</summary>
+    /// <param name="context">The cheat context.</param>
+    /// <remarks>This is called during menu creation (before the menu builds its list of cheat fields, and before it's added to <see cref="Game1.activeClickableMenu"/>).</remarks>
+    void OnCheatsMenuOpening(CheatContext context);
+
+    /// <summary>Handle the player pressing or releasing any buttons if <see cref="OnConfig"/> indicated input was needed.</summary>
     /// <param name="context">The cheat context.</param>
     /// <param name="e">The input event arguments.</param>
     void OnButtonsChanged(CheatContext context, ButtonsChangedEventArgs e);
 
-    /// <summary>Handle a game update if <see cref="OnSaveLoaded"/> indicated updates were needed.</summary>
+    /// <summary>Handle a game update if <see cref="OnConfig"/> indicated updates were needed.</summary>
     /// <param name="context">The cheat context.</param>
     /// <param name="e">The update event arguments.</param>
     void OnUpdated(CheatContext context, UpdateTickedEventArgs e);

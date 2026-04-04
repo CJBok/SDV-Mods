@@ -272,6 +272,14 @@ internal class CheatManager
         }
     }
 
+    /// <summary>Perform any action needed when the cheats menu is opening.</summary>
+    /// <remarks>This is called during menu creation (before the menu builds its list of cheat fields, and before it's added to <see cref="Game1.activeClickableMenu"/>).</remarks>
+    public void OnCheatsMenuOpening()
+    {
+        foreach (ICheat cheat in this.Cheats)
+            cheat.OnCheatsMenuOpening(this.Context);
+    }
+
     /// <summary>Raised after the game draws to the sprite patch in a draw tick, just before the final sprite batch is rendered to the screen.</summary>
     public void OnRendered()
     {

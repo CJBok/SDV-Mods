@@ -14,15 +14,10 @@ internal abstract class BaseCheat : ICheat
     /*********
     ** Public methods
     *********/
-    /// <summary>Get the config UI fields to show in the cheats menu.</summary>
-    /// <param name="context">The cheat context.</param>
+    /// <inheritdoc />
     public abstract IEnumerable<CheatElement> GetFields(CheatContext context);
 
-    /// <summary>Handle the cheat options being loaded or changed.</summary>
-    /// <param name="context">The cheat context.</param>
-    /// <param name="needsUpdate">Whether the cheat should be notified of game updates.</param>
-    /// <param name="needsInput">Whether the cheat should be notified of button presses.</param>
-    /// <param name="needsRendering">Whether the cheat should be notified of render ticks.</param>
+    /// <inheritdoc />
     public virtual void OnConfig(CheatContext context, out bool needsInput, out bool needsUpdate, out bool needsRendering)
     {
         needsInput = false;
@@ -30,27 +25,22 @@ internal abstract class BaseCheat : ICheat
         needsRendering = false;
     }
 
-    /// <summary>Handle the player loading a save file.</summary>
-    /// <param name="context">The cheat context.</param>
+    /// <inheritdoc />
     public virtual void OnSaveLoaded(CheatContext context) { }
 
-    /// <summary>Handle the player pressing or releasing any buttons if <see cref="ICheat.OnSaveLoaded"/> indicated input was needed.</summary>
-    /// <param name="context">The cheat context.</param>
-    /// <param name="e">The input event arguments.</param>
+    /// <inheritdoc />
+    public virtual void OnCheatsMenuOpening(CheatContext context) { }
+
+    /// <inheritdoc />
     public virtual void OnButtonsChanged(CheatContext context, ButtonsChangedEventArgs e) { }
 
-    /// <summary>Handle a game update if <see cref="ICheat.OnSaveLoaded"/> indicated updates were needed.</summary>
-    /// <param name="context">The cheat context.</param>
-    /// <param name="e">The update event arguments.</param>
+    /// <inheritdoc />
     public virtual void OnUpdated(CheatContext context, UpdateTickedEventArgs e) { }
 
-    /// <summary>Raised before the game begins writing data to the save file (except the initial save creation).</summary>
-    /// <param name="context">The cheat context.</param>
+    /// <inheritdoc />
     public virtual void OnSaving(CheatContext context) { }
 
-    /// <summary>Handle the game draws to the sprite patch in a draw tick, just before the final sprite batch is rendered to the screen.</summary>
-    /// <param name="context">The cheat context.</param>
-    /// <param name="spriteBatch">The sprite batch being drawn.</param>
+    /// <inheritdoc />
     public virtual void OnRendered(CheatContext context, SpriteBatch spriteBatch) { }
 
 

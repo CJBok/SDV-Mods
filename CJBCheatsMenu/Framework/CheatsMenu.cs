@@ -22,6 +22,8 @@ internal class CheatsMenu : IClickableMenu
     /*********
     ** Fields
     *********/
+    private const int ItemsPerPage = 10;
+
     /// <summary>Manages the cheat implementations.</summary>
     private readonly CheatManager Cheats;
 
@@ -35,7 +37,6 @@ internal class CheatsMenu : IClickableMenu
     private ClickableTextureComponent Scrollbar;
     private readonly List<ClickableComponent> Tabs = [];
     private ClickableComponent Title;
-    private const int ItemsPerPage = 10;
 
     /// <summary>Whether the mod is running on Android.</summary>
     private readonly bool IsAndroid = Constants.TargetPlatform == GamePlatform.Android;
@@ -46,8 +47,8 @@ internal class CheatsMenu : IClickableMenu
     private bool IsScrolling;
     private Rectangle ScrollbarRunner;
 
-    /// <summary>Whether the menu was opened in the current tick.</summary>
-    private bool JustOpened = true;
+    /// <summary>Whether the next draw tick is the first one since the menu was opened.</summary>
+    private bool IsFirstDrawTick = true;
 
 
     /*********
@@ -70,7 +71,10 @@ internal class CheatsMenu : IClickableMenu
         this.Cheats = cheats;
         this.ReopenMenu = reopenMenu;
         this.CurrentTab = initialTab;
+
         this.ResetComponents();
+
+        this.Cheats.OnCheatsMenuOpening();
         this.SetOptions();
 
         Game1.playSound(isNewMenu
@@ -315,9 +319,9 @@ internal class CheatsMenu : IClickableMenu
             b.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, Game1.options.gamepadControls ? 44 : 0, 16, 16), Color.White, 0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
 
         // reinitialize the UI to fix Android pinch-zoom scaling issues
-        if (this.JustOpened)
+        if (this.IsFirstDrawTick)
         {
-            this.JustOpened = false;
+            this.IsFirstDrawTick = false;
             if (this.IsAndroid)
                 this.ResetComponents();
         }
