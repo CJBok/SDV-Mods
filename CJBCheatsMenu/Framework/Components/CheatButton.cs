@@ -13,6 +13,9 @@ internal class CheatButton<TButton> : CheatElement
     /*********
     ** Fields
     *********/
+    /// <summary>Get whether the button should be disabled.</summary>
+    private readonly Func<bool>? GetDisabled;
+
     /// <summary>The action to perform when the button is toggled (or <c>null</c> to handle it manually).</summary>
     private readonly Action<TButton> Toggle;
 
@@ -30,13 +33,35 @@ internal class CheatButton<TButton> : CheatElement
     /// <param name="label">The field label.</param>
     /// <param name="slotWidth">The field width.</param>
     /// <param name="toggle">The action to perform when the button is toggled.</param>
-    /// <param name="disabled">Whether the button should be disabled.</param>
-    public CheatButton(string label, int slotWidth, Action<TButton> toggle, bool disabled = false)
+    /// <param name="disabled">Get whether the button should be disabled.</param>
+    public CheatButton(string label, int slotWidth, Action<TButton> toggle, Func<bool>? disabled = null)
         : base(label, -1, -1, slotWidth + 1, 11 * Game1.pixelZoom)
     {
         this.SetButtonBounds = new Rectangle(slotWidth - 28 * Game1.pixelZoom, -1 + Game1.pixelZoom * 3, 21 * Game1.pixelZoom, 11 * Game1.pixelZoom);
         this.Toggle = toggle;
-        this.greyedOut = disabled;
+        this.GetDisabled = disabled;
+    }
+
+    /// <summary>Construct an instance.</summary>
+    /// <param name="getLabel">Get the field label.</param>
+    /// <param name="slotWidth">The field width.</param>
+    /// <param name="toggle">The action to perform when the button is toggled.</param>
+    /// <param name="disabled">Get whether the button should be disabled.</param>
+    public CheatButton(Func<string> getLabel, int slotWidth, Action<TButton> toggle, Func<bool>? disabled = null)
+        : base(getLabel, -1, -1, slotWidth + 1, 11 * Game1.pixelZoom)
+    {
+        this.SetButtonBounds = new Rectangle(slotWidth - 28 * Game1.pixelZoom, -1 + Game1.pixelZoom * 3, 21 * Game1.pixelZoom, 11 * Game1.pixelZoom);
+        this.Toggle = toggle;
+        this.GetDisabled = disabled;
+    }
+
+    /// <inheritdoc />
+    public override void Update()
+    {
+        base.Update();
+
+        if (this.GetDisabled != null)
+            this.greyedOut = this.GetDisabled();
     }
 
     /// <inheritdoc />
@@ -74,6 +99,10 @@ internal class CheatButton : CheatButton<CheatButton>
     ** Public methods
     *********/
     /// <inheritdoc />
-    public CheatButton(string label, int slotWidth, Action toggle, bool disabled = false)
+    public CheatButton(string label, int slotWidth, Action toggle, Func<bool>? disabled = null)
         : base(label, slotWidth, _ => toggle(), disabled) { }
+
+    /// <inheritdoc />
+    public CheatButton(Func<string> getLabel, int slotWidth, Action toggle, Func<bool>? disabled = null)
+        : base(getLabel, slotWidth, _ => toggle(), disabled) { }
 }

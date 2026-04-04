@@ -45,6 +45,19 @@ internal class CheatElement : OptionsElement
     protected CheatElement(string label, int x, int y, int width, int height, int whichOption = -1)
         : base(label, x, y, width, height, whichOption) { }
 
+    /// <summary>Construct an instance.</summary>
+    /// <param name="getLabel">Get the display label.</param>
+    /// <param name="x">The X pixel position at which to draw the element.</param>
+    /// <param name="y">The Y pixel position at which to draw the element.</param>
+    /// <param name="width">The pixel width.</param>
+    /// <param name="height">The pixel height.</param>
+    /// <param name="whichOption">The option ID.</param>
+    protected CheatElement(Func<string> getLabel, int x, int y, int width, int height, int whichOption = -1)
+        : base(getLabel(), x, y, width, height, whichOption)
+    {
+        this.GetLabel = getLabel;
+    }
+
     /// <summary>Get the X offset at which to render the element.</summary>
     protected int GetOffsetX()
     {
