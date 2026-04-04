@@ -8,7 +8,6 @@ using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Buildings;
 using StardewValley.Locations;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Warps;
 
@@ -33,7 +32,7 @@ internal class WarpCheat : BaseCheat
     }
 
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         WarpSectionContentModel[] rawSections = this.WarpContentLoader.LoadWarpSections();
         WarpContentModel[] rawWarps = this.WarpContentLoader.LoadWarps();
@@ -47,7 +46,7 @@ internal class WarpCheat : BaseCheat
         foreach ((string sectionKey, List<WarpContentModel> sectionWarps) in warps)
         {
             // section title
-            yield return new OptionsElement($"{sectionNames.GetValueOrDefault(sectionKey, sectionKey)}:");
+            yield return new CheatElement($"{sectionNames.GetValueOrDefault(sectionKey, sectionKey)}:");
 
             // warps
             foreach (WarpContentModel warp in sectionWarps)

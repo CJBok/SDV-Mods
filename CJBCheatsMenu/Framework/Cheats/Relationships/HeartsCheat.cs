@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using CJBCheatsMenu.Framework.Components;
 using StardewValley;
-using StardewValley.Menus;
 using StardewValley.Quests;
 
 namespace CJBCheatsMenu.Framework.Cheats.Relationships;
@@ -29,7 +28,7 @@ internal class HeartsCheat : BaseCheat
     }
 
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         return this.SortFields(
             this.GetSocialCharacters()
@@ -52,7 +51,7 @@ internal class HeartsCheat : BaseCheat
     ** Private methods
     *********/
     /// <summary>Get the unsorted fields to display.</summary>
-    private OptionsElement GetField(NPC npc)
+    private CheatElement GetField(NPC npc)
     {
         // get friendship info
         Game1.player.friendshipData.TryGetValue(npc.Name, out Friendship? friendship);

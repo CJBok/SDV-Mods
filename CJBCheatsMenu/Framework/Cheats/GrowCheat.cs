@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using CJB.Common;
 using CJB.Common.Integrations.CustomBush;
+using CJBCheatsMenu.Framework.Components;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
-using StardewValley.Menus;
 using StardewValley.Objects;
 using StardewValley.TerrainFeatures;
 using SObject = StardewValley.Object;
@@ -42,7 +42,7 @@ internal class GrowCheat : BaseCheat
     }
 
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         yield break; // handled by cheats menu directly
     }

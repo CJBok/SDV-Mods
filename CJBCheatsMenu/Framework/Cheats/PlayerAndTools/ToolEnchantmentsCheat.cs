@@ -4,7 +4,6 @@ using System.Linq;
 using CJBCheatsMenu.Framework.Components;
 using StardewValley;
 using StardewValley.Enchantments;
-using StardewValley.Menus;
 using StardewValley.Tools;
 
 namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools;
@@ -16,7 +15,7 @@ internal class ToolEnchantmentsCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         Tool tool = Game1.player.CurrentTool;
 
@@ -53,7 +52,7 @@ internal class ToolEnchantmentsCheat : BaseCheat
     ** Private methods
     *********/
     /// <summary>Get a field to display.</summary>
-    private OptionsElement GetField(Tool tool, BaseEnchantment enchantment)
+    private CheatElement GetField(Tool tool, BaseEnchantment enchantment)
     {
         string displayName = enchantment.GetDisplayName();
         bool hasEnchantment = tool.enchantments.Any(other => enchantment.GetName() == other.GetName());

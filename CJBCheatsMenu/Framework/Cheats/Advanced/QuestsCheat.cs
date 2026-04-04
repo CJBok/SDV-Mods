@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
 using StardewValley;
-using StardewValley.Menus;
 using StardewValley.Quests;
 
 namespace CJBCheatsMenu.Framework.Cheats.Advanced;
@@ -13,7 +12,7 @@ internal class QuestsCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         foreach (Quest quest in Game1.player.questLog)
         {

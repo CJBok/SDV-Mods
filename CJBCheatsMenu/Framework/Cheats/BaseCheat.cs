@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using CJBCheatsMenu.Framework.Components;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -15,7 +16,7 @@ internal abstract class BaseCheat : ICheat
     *********/
     /// <summary>Get the config UI fields to show in the cheats menu.</summary>
     /// <param name="context">The cheat context.</param>
-    public abstract IEnumerable<OptionsElement> GetFields(CheatContext context);
+    public abstract IEnumerable<CheatElement> GetFields(CheatContext context);
 
     /// <summary>Handle the cheat options being loaded or changed.</summary>
     /// <param name="context">The cheat context.</param>
@@ -58,7 +59,7 @@ internal abstract class BaseCheat : ICheat
     *********/
     /// <summary>Get fields sorted by their display label.</summary>
     /// <param name="fields">The fields to sort.</param>
-    protected IEnumerable<OptionsElement> SortFields(params OptionsElement[] fields)
+    protected IEnumerable<CheatElement> SortFields(params CheatElement[] fields)
     {
         return fields.OrderBy(p => p.label);
     }

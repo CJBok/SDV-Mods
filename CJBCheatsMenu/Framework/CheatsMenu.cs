@@ -29,7 +29,7 @@ internal class CheatsMenu : IClickableMenu
     private readonly Action<MenuTab> ReopenMenu;
 
     private readonly List<ClickableComponent> OptionSlots = [];
-    private readonly List<OptionsElement> Options = [];
+    private readonly List<CheatElement> Options = [];
     private ClickableTextureComponent UpArrow;
     private ClickableTextureComponent DownArrow;
     private ClickableTextureComponent Scrollbar;
@@ -593,7 +593,7 @@ internal class CheatsMenu : IClickableMenu
                         setValue: value => config.GrowRadius = value,
                         disabled: () => !config.GrowTreeKey.IsBound && !config.GrowCropsKey.IsBound
                     ),
-                    new OptionsElement(string.Empty), // blank line
+                    new CheatElement(string.Empty), // blank line
                     new CheatButton(
                         label: I18n.Controls_ResetControls(),
                         toggle: this.ResetControls,
@@ -612,7 +612,7 @@ internal class CheatsMenu : IClickableMenu
     }
 
     /// <summary>Get the currently active option, if any.</summary>
-    private OptionsElement? GetActiveOption()
+    private CheatElement? GetActiveOption()
     {
         if (this.OptionsSlotHeld == -1)
             return null;
@@ -640,7 +640,7 @@ internal class CheatsMenu : IClickableMenu
     /// <param name="title">The section title.</param>
     private void AddTitle(string title)
     {
-        this.Options.Add(new OptionsElement(title));
+        this.Options.Add(new CheatElement(title));
     }
 
     /// <summary>Add descriptive text that may extend onto multiple lines if it's too long.</summary>
@@ -672,7 +672,7 @@ internal class CheatsMenu : IClickableMenu
 
     /// <summary>Add fields to the options list.</summary>
     /// <param name="fields">The fields to add.</param>
-    private void AddOptions(params OptionsElement[] fields)
+    private void AddOptions(params CheatElement[] fields)
     {
         this.Options.AddRange(fields);
     }
@@ -681,7 +681,7 @@ internal class CheatsMenu : IClickableMenu
     /// <param name="cheats">The cheats to add.</param>
     private void AddOptions(params ICheat[] cheats)
     {
-        foreach (OptionsElement field in cheats.SelectMany(p => p.GetFields(this.Cheats.Context)))
+        foreach (CheatElement field in cheats.SelectMany(p => p.GetFields(this.Cheats.Context)))
         {
             if (field is CheatDescription { SplitLinesIfNeeded: true } description)
                 this.AddDescription(description.label);

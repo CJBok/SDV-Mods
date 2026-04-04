@@ -4,7 +4,6 @@ using System.Linq;
 using CJBCheatsMenu.Framework.Components;
 using StardewValley;
 using StardewValley.Locations;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Advanced;
 
@@ -40,7 +39,7 @@ internal class BundlesCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         // unlock community center door
         yield return new CheatCheckbox(
@@ -65,7 +64,7 @@ internal class BundlesCheat : BaseCheat
             this.GetBundleField("Pantry", "Pantry", "ccPantry"),
             this.GetBundleField("Vault", "Vault", "ccVault")
         );
-        foreach (var field in bundleFields)
+        foreach (CheatElement field in bundleFields)
             yield return field;
 
         // abandoned JojaMart bundle

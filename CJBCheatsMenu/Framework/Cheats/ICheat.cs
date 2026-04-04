@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using CJBCheatsMenu.Framework.Components;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI.Events;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats;
 
@@ -13,7 +13,7 @@ internal interface ICheat
     *********/
     /// <summary>Get the config UI fields to show in the cheats menu.</summary>
     /// <param name="context">The cheat context.</param>
-    IEnumerable<OptionsElement> GetFields(CheatContext context);
+    IEnumerable<CheatElement> GetFields(CheatContext context);
 
     /// <summary>Handle the cheat options being loaded or changed.</summary>
     /// <param name="context">The cheat context.</param>

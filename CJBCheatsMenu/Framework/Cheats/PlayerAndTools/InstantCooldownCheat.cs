@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
 using StardewModdingAPI.Events;
-using StardewValley.Menus;
 using StardewValley.Tools;
 
 namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools;
@@ -13,7 +12,7 @@ internal class InstantCooldownCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         yield return new CheatCheckbox(
             label: I18n.Player_InstantCooldowns(),

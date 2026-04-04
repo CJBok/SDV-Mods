@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
 using StardewValley;
-using StardewValley.Menus;
 using StardewValley.Objects;
 
 namespace CJBCheatsMenu.Framework.Cheats.Weather;
@@ -13,7 +12,7 @@ internal class SetWeatherForTomorrowCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         string? hardcodedWeatherId = this.GetHardcodedWeatherTomorrow();
 

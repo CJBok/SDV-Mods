@@ -10,7 +10,6 @@ using StardewValley.Extensions;
 using StardewValley.GameData.Buildings;
 using StardewValley.GameData.Machines;
 using StardewValley.ItemTypeDefinitions;
-using StardewValley.Menus;
 using StardewValley.Objects;
 using StardewValley.TerrainFeatures;
 using StardewValley.TokenizableStrings;
@@ -25,10 +24,10 @@ internal class FastMachinesCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         // special cases
-        List<OptionsElement> fields =
+        List<CheatElement> fields =
         [
             new CheatCheckbox(
                 label: ItemRegistry.GetDataOrErrorItem("(O)710").DisplayName,

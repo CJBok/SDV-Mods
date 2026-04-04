@@ -3,7 +3,6 @@ using CJBCheatsMenu.Framework.Components;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
-using StardewValley.Menus;
 using StardewValley.Tools;
 
 namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools;
@@ -15,7 +14,7 @@ internal class InfiniteWaterCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         yield return new CheatCheckbox(
             label: I18n.Tools_InfiniteWater(),

@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using CJBCheatsMenu.Framework.Components;
 using StardewValley;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Advanced;
 
@@ -13,7 +12,7 @@ internal class UnlockDoorCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         // adventurer's guild
         yield return new CheatCheckbox(

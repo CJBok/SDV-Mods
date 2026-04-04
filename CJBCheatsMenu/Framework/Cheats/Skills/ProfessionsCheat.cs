@@ -12,7 +12,7 @@ internal class ProfessionsCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         foreach ((int skillId, Dictionary<int, int[]> professionsByLevel) in this.GetProfessions())
         {
