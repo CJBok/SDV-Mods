@@ -87,6 +87,7 @@
     // skills
     "skills.title": "Kĩ năng",
     "skills.increase-skill": "Nâng cấp. {{skillName}} Lvl: {{currentLevel}}",
+    "skills.increase-mastery": "Increase mastery level: {{currentLevel}}", // TODO
 
     // professions
     "professions.title": "Nghề nghiệp",

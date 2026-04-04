@@ -86,6 +86,7 @@
     // skills
     "skills.title": "Beceriler",
     "skills.increase-skill": "{{skillName}} Seviyesini Yükselt: {{currentLevel}}",
+    "skills.increase-mastery": "Increase mastery level: {{currentLevel}}", // TODO
 
     // professions
     "professions.title": "Uzmanlık Alanları",

@@ -2,6 +2,7 @@
 
 # Release notes
 ## Upcoming release
+* Added 'Increase Mastery Level' cheat.
 * When increasing a skill level through the cheats menu, it now reopens after you close the level-up screen.
 * Fixed 'reclaim' tooltip shown over trash can even if the "apply trash can upgrade" option is disabled.
 

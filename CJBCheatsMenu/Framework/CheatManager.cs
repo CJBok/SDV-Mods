@@ -142,8 +142,11 @@ internal class CheatManager
     /****
     ** Skills
     ****/
-    /// <summary>Increases or resets skill levels.</summary>
+    /// <summary>Increases skill levels.</summary>
     public ICheat Skills { get; } = new SkillsCheat();
+
+    /// <summary>Increases mastery level.</summary>
+    public ICheat MasteryLevel { get; } = new MasteryLevelCheat();
 
     /// <summary>Toggles player professions.</summary>
     public ICheat Professions { get; } = new ProfessionsCheat();

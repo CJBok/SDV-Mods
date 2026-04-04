@@ -7,7 +7,7 @@ using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Skills;
 
-/// <summary>A cheat which increases or resets skill levels.</summary>
+/// <summary>A cheat which increases skill levels.</summary>
 internal class SkillsCheat : BaseCheat
 {
     /*********

@@ -86,6 +86,7 @@
     // skills
     "skills.title": "스킬",
     "skills.increase-skill": "{{skillName}} 레벨 UP: {{currentLevel}}",
+    "skills.increase-mastery": "Increase mastery level: {{currentLevel}}", // TODO
 
     // professions
     "professions.title": "직업 변경",

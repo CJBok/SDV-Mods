@@ -87,6 +87,7 @@
     // skills
     "skills.title": "ทักษะ",
     "skills.increase-skill": "เพิ่มค่าทักษะ {{skillName}}: {{currentLevel}}",
+    "skills.increase-mastery": "Increase mastery level: {{currentLevel}}", // TODO
 
     // professions
     "professions.title": "อาชีพ",

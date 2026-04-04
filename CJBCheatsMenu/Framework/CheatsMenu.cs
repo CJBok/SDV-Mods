@@ -482,7 +482,8 @@ internal class CheatsMenu : IClickableMenu
                 // skills
                 this.AddOptions(
                     $"{I18n.Skills_Title()}:",
-                    cheats.Skills
+                    cheats.Skills,
+                    cheats.MasteryLevel
                 );
 
                 // professions

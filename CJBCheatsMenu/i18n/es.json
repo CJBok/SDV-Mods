@@ -87,6 +87,7 @@
     // skills
     "skills.title": "Habilidades",
     "skills.increase-skill": "{{skillName}} Lvl +1: {{currentLevel}}",
+    "skills.increase-mastery": "Increase mastery level: {{currentLevel}}", // TODO
 
     // professions
     "professions.title": "Profesiones",
