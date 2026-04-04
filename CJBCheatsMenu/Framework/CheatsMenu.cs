@@ -259,6 +259,21 @@ internal class CheatsMenu : IClickableMenu
     }
 
     /// <inheritdoc />
+    public override void update(GameTime time)
+    {
+        base.update(time);
+
+        for (int i = 0; i < this.OptionSlots.Count; ++i)
+        {
+            int index = this.CurrentItemIndex + i;
+            if (index >= this.Options.Count)
+                break;
+
+            this.Options[index].Update();
+        }
+    }
+
+    /// <inheritdoc />
     public override void draw(SpriteBatch b)
     {
         if (!Game1.options.showMenuBackground && !Game1.options.showClearBackgrounds)

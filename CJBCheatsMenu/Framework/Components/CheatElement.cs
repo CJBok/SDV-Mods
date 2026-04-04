@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewValley.Menus;
@@ -8,12 +9,27 @@ namespace CJBCheatsMenu.Framework.Components;
 internal class CheatElement : OptionsElement
 {
     /*********
+    ** Fields
+    *********/
+    /// <summary>If set, get the label to display each tick.</summary>
+    private readonly Func<string>? GetLabel;
+
+
+    /*********
     ** Public methods
     *********/
     /// <summary>Construct an instance.</summary>
     /// <param name="label">The element label.</param>
     public CheatElement(string label)
         : base(label) { }
+
+    /// <summary>Construct an instance.</summary>
+    /// <param name="getLabel">Get the element label.</param>
+    public CheatElement(Func<string> getLabel)
+        : base(getLabel())
+    {
+        this.GetLabel = getLabel;
+    }
 
 
     /*********
@@ -48,5 +64,12 @@ internal class CheatElement : OptionsElement
         this.ReceiveButtonPress(key.ToSButton());
 
         base.receiveKeyPress(key);
+    }
+
+    /// <summary>Update the option state each tick before it's displayed.</summary>
+    public virtual void Update()
+    {
+        if (this.GetLabel != null)
+            this.label = this.GetLabel();
     }
 }

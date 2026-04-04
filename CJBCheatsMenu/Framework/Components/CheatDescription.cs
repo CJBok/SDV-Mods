@@ -10,13 +10,6 @@ namespace CJBCheatsMenu.Framework.Components;
 internal class CheatDescription : CheatElement
 {
     /*********
-    ** Fields
-    *********/
-    /// <summary>If set, get the label to display each tick.</summary>
-    private readonly Func<string>? GetLabel;
-
-
-    /*********
     ** Accessors
     *********/
     /// <summary>Whether to split the element into multiple lines if needed to fit the page.</summary>
@@ -30,7 +23,7 @@ internal class CheatDescription : CheatElement
     /// <param name="label">The checkbox label.</param>
     /// <param name="splitLinesIfNeeded">Whether to split the element into multiple lines if needed to fit the page.</param>
     public CheatDescription(string label, bool splitLinesIfNeeded = true)
-        : base(label, -1, -1, 0, 0, 0)
+        : base(label)
     {
         this.SplitLinesIfNeeded = splitLinesIfNeeded;
     }
@@ -38,18 +31,14 @@ internal class CheatDescription : CheatElement
     /// <summary>Construct an instance.</summary>
     /// <param name="label">The checkbox label.</param>
     public CheatDescription(Func<string> label)
-        : base(label(), -1, -1, 0, 0, 0)
+        : base(label)
     {
-        this.GetLabel = label;
         this.SplitLinesIfNeeded = false; // not compatible with dynamic line splitting, since that happens ahead of time
     }
 
     /// <inheritdoc />
     public override void draw(SpriteBatch spriteBatch, int slotX, int slotY, IClickableMenu? context = null)
     {
-        if (this.GetLabel != null)
-            this.label = this.GetLabel();
-
         spriteBatch.DrawString(Game1.smallFont, this.label, new Vector2(slotX + this.bounds.X, slotY + this.bounds.Y), Color.Black);
     }
 }

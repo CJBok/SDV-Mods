@@ -39,14 +39,6 @@ internal class CheatButton<TButton> : CheatElement
         this.greyedOut = disabled;
     }
 
-    /// <summary>Construct an instance.</summary>
-    /// <param name="label">The field label.</param>
-    /// <param name="slotWidth">The field width.</param>
-    /// <param name="toggle">The action to perform when the button is toggled.</param>
-    /// <param name="disabled">Whether the button should be disabled.</param>
-    public CheatButton(string label, int slotWidth, Action toggle, bool disabled = false)
-        : this(label, slotWidth, _ => toggle(), disabled) { }
-
     /// <inheritdoc />
     public override void receiveLeftClick(int x, int y)
     {
@@ -81,10 +73,6 @@ internal class CheatButton : CheatButton<CheatButton>
     /*********
     ** Public methods
     *********/
-    /// <inheritdoc />
-    public CheatButton(string label, int slotWidth, Action<CheatButton> toggle, bool disabled = false)
-        : base(label, slotWidth, toggle, disabled) { }
-
     /// <inheritdoc />
     public CheatButton(string label, int slotWidth, Action toggle, bool disabled = false)
         : base(label, slotWidth, _ => toggle(), disabled) { }
