@@ -5,14 +5,14 @@ using StardewValley.Menus;
 namespace CJBCheatsMenu.Framework.Components;
 
 /// <summary>The base implementation for a cheat option element.</summary>
-internal abstract class BaseOptionsElement : OptionsElement
+internal abstract class CheatElement : OptionsElement
 {
     /*********
     ** Protected methods
     *********/
     /// <summary>Construct an instance.</summary>
     /// <param name="label">The element label.</param>
-    protected BaseOptionsElement(string label)
+    protected CheatElement(string label)
         : base(label) { }
 
     /// <summary>Construct an instance.</summary>
@@ -22,7 +22,7 @@ internal abstract class BaseOptionsElement : OptionsElement
     /// <param name="width">The pixel width.</param>
     /// <param name="height">The pixel height.</param>
     /// <param name="whichOption">The option ID.</param>
-    protected BaseOptionsElement(string label, int x, int y, int width, int height, int whichOption = -1)
+    protected CheatElement(string label, int x, int y, int width, int height, int whichOption = -1)
         : base(label, x, y, width, height, whichOption) { }
 
     /// <summary>Get the X offset at which to render the element.</summary>

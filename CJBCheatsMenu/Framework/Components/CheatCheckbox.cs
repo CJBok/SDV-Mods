@@ -7,7 +7,7 @@ using StardewValley.Menus;
 namespace CJBCheatsMenu.Framework.Components;
 
 /// <summary>A checkbox UI option.</summary>
-internal class CheatsOptionsCheckbox : BaseOptionsElement
+internal class CheatCheckbox : CheatElement
 {
     /*********
     ** Fields
@@ -30,7 +30,7 @@ internal class CheatsOptionsCheckbox : BaseOptionsElement
     /// <param name="label">The checkbox label.</param>
     /// <param name="value">The initial value to set.</param>
     /// <param name="setValue">A callback to invoke when the value changes.</param>
-    public CheatsOptionsCheckbox(string label, bool value, Action<bool> setValue)
+    public CheatCheckbox(string label, bool value, Action<bool> setValue)
         : base(label, -1, -1, 9 * Game1.pixelZoom, 9 * Game1.pixelZoom, 0)
     {
         this.IsChecked = value;

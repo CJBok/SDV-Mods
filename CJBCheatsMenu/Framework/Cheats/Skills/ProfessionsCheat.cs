@@ -24,7 +24,7 @@ internal class ProfessionsCheat : BaseCheat
                 {
                     string professionName = LevelUpMenu.getProfessionTitleFromNumber(professionId);
 
-                    yield return new CheatsOptionsCheckbox(
+                    yield return new CheatCheckbox(
                         label: I18n.Professions_Profession(skillName: skillName, level: level, professionName: professionName),
                         value: this.GetProfession(professionId),
                         setValue: value => this.SetProfession(professionId, value)

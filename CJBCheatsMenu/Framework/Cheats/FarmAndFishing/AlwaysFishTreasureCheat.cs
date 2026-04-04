@@ -17,7 +17,7 @@ internal class AlwaysFishTreasureCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Fishing_AlwaysTreasure(),
             value: context.Config.AlwaysTreasure,
             setValue: value => context.Config.AlwaysTreasure = value

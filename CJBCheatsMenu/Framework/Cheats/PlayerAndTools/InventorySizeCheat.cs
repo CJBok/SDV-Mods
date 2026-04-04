@@ -21,7 +21,7 @@ internal class InventorySizeCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsSlider(
+        yield return new CheatSlider(
             label: I18n.Player_InventorySize(),
             value: Game1.player.MaxItems / this.ItemsPerBackpackUpgrade,
             minValue: 1,

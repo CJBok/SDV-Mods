@@ -16,7 +16,7 @@ internal class AddGoldenWalnutsCheat : BaseCheat
     {
         foreach (int amount in new[] { 1, 10, 100 })
         {
-            yield return new CheatsOptionsButton(
+            yield return new CheatButton(
                 label: I18n.Add_AmountOther(amount: Utility.getNumberWithCommas(amount)),
                 slotWidth: context.SlotWidth,
                 toggle: () => this.AddGems(amount)

@@ -30,7 +30,7 @@ internal class MoveSpeedCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsSlider(
+        yield return new CheatSlider(
             label: I18n.Player_MovementSpeed(),
             value: context.Config.MoveSpeed,
             maxValue: 10,

@@ -17,7 +17,7 @@ internal class DurableFencesCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Farm_DurableFences(),
             value: context.Config.DurableFences,
             setValue: value => context.Config.DurableFences = value

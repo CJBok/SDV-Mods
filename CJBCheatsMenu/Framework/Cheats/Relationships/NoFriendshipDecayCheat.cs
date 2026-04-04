@@ -25,7 +25,7 @@ internal class NoFriendshipDecayCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Relationships_NoDecay(),
             value: context.Config.NoFriendshipDecay,
             setValue: value => context.Config.NoFriendshipDecay = value

@@ -9,7 +9,7 @@ using StardewValley.Menus;
 namespace CJBCheatsMenu.Framework.Components;
 
 /// <summary>A button which lets the user choose a key binding.</summary>
-internal class CheatsOptionsKeyListener : BaseOptionsElement
+internal class CheatKeyBinding : CheatElement
 {
     /*********
     ** Fields
@@ -73,7 +73,7 @@ internal class CheatsOptionsKeyListener : BaseOptionsElement
     /// <param name="value">The current key binding.</param>
     /// <param name="setValue">The action to perform when the button is toggled.</param>
     /// <param name="clearToButton">The button to set when the player clears it.</param>
-    public CheatsOptionsKeyListener(string label, int slotWidth, SButton value, Action<SButton> setValue, SButton clearToButton = SButton.None)
+    public CheatKeyBinding(string label, int slotWidth, SButton value, Action<SButton> setValue, SButton clearToButton = SButton.None)
         : base(label, -1, -1, slotWidth + 1, 11 * Game1.pixelZoom)
     {
         this.Value = value;

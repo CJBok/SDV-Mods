@@ -16,7 +16,7 @@ internal class AddMoneyCheat : BaseCheat
     {
         foreach (int amount in new[] { 100, 1_000, 10_000, 100_000, 1_000_000 })
         {
-            yield return new CheatsOptionsButton(
+            yield return new CheatButton(
                 label: I18n.Add_AmountGold(amount: Utility.getNumberWithCommas(amount)),
                 slotWidth: context.SlotWidth,
                 toggle: () => this.AddMoney(amount)

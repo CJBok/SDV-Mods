@@ -16,7 +16,7 @@ internal class AlwaysCastMaxDistanceCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Fishing_AlwaysThrowMaxDistance(),
             value: context.Config.ThrowBobberMax,
             setValue: value => context.Config.ThrowBobberMax = value

@@ -17,7 +17,7 @@ internal class InfiniteWaterCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Tools_InfiniteWater(),
             value: context.Config.InfiniteWateringCan,
             setValue: value => context.Config.InfiniteWateringCan = value

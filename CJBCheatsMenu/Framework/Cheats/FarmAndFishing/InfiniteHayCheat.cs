@@ -16,7 +16,7 @@ internal class InfiniteHayCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Farm_InfiniteHay(),
             value: context.Config.InfiniteHay,
             setValue: value => context.Config.InfiniteHay = value

@@ -16,7 +16,7 @@ internal class AlwaysGiveGiftsCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Relationships_GiveGiftsAnytime(),
             value: context.Config.AlwaysGiveGift,
             setValue: value => context.Config.AlwaysGiveGift = value

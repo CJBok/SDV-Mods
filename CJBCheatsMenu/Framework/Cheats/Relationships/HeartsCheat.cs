@@ -61,7 +61,7 @@ internal class HeartsCheat : BaseCheat
         int maxHearts = isSpouse ? 14 : NPC.maxFriendshipPoints / NPC.friendshipPointsPerHeartLevel;
 
         // get field
-        return new CheatsOptionsNpcSlider(
+        return new CheatNpcSlider(
             npc: npc,
             isMet: friendship != null,
             value: curHearts,

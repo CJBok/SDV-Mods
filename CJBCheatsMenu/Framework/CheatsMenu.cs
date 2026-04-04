@@ -163,7 +163,7 @@ internal class CheatsMenu : IClickableMenu
         }
 
         // send to active menu
-        (this.GetActiveOption() as BaseOptionsElement)?.ReceiveButtonPress(button.ToSButton());
+        (this.GetActiveOption() as CheatElement)?.ReceiveButtonPress(button.ToSButton());
     }
 
     /// <inheritdoc />
@@ -560,32 +560,32 @@ internal class CheatsMenu : IClickableMenu
                     this.AddDescription(I18n.Controls_AndroidConfigNote());
 
                 this.AddOptions(
-                    new CheatsOptionsKeyListener(
+                    new CheatKeyBinding(
                         label: I18n.Controls_OpenMenu(),
                         value: this.GetSingleButton(config.OpenMenuKey),
                         setValue: key => config.OpenMenuKey = new(key),
                         slotWidth: context.SlotWidth,
                         clearToButton: this.GetSingleButton(ModConfig.Defaults.OpenMenuKey)
                     ),
-                    new CheatsOptionsKeyListener(
+                    new CheatKeyBinding(
                         label: I18n.Controls_FreezeTime(),
                         value: this.GetSingleButton(config.FreezeTimeKey),
                         setValue: key => config.FreezeTimeKey = new(key),
                         slotWidth: context.SlotWidth
                     ),
-                    new CheatsOptionsKeyListener(
+                    new CheatKeyBinding(
                         label: I18n.Controls_GrowTree(),
                         value: this.GetSingleButton(config.GrowTreeKey),
                         setValue: key => config.GrowTreeKey = new(key),
                         slotWidth: context.SlotWidth
                     ),
-                    new CheatsOptionsKeyListener(
+                    new CheatKeyBinding(
                         label: I18n.Controls_GrowCrops(),
                         value: this.GetSingleButton(config.GrowCropsKey),
                         setValue: key => config.GrowCropsKey = new(key),
                         slotWidth: context.SlotWidth
                     ),
-                    new CheatsOptionsSlider(
+                    new CheatSlider(
                         label: I18n.Controls_GrowRadius(),
                         value: config.GrowRadius,
                         minValue: 1,
@@ -594,7 +594,7 @@ internal class CheatsMenu : IClickableMenu
                         disabled: () => !config.GrowTreeKey.IsBound && !config.GrowCropsKey.IsBound
                     ),
                     new OptionsElement(string.Empty), // blank line
-                    new CheatsOptionsButton(
+                    new CheatButton(
                         label: I18n.Controls_ResetControls(),
                         toggle: this.ResetControls,
                         slotWidth: context.SlotWidth
@@ -608,7 +608,7 @@ internal class CheatsMenu : IClickableMenu
     /// <summary>Whether any button bind control is active and listening for input.</summary>
     private bool IsPressNewKeyActive()
     {
-        return this.Options.Any(p => p is CheatsOptionsKeyListener { IsListening: true });
+        return this.Options.Any(p => p is CheatKeyBinding { IsListening: true });
     }
 
     /// <summary>Get the currently active option, if any.</summary>
@@ -661,12 +661,12 @@ internal class CheatsMenu : IClickableMenu
                     line += " " + word;
                 else
                 {
-                    this.Options.Add(new DescriptionElement(line, splitLinesIfNeeded: false));
+                    this.Options.Add(new CheatDescription(line, splitLinesIfNeeded: false));
                     line = word;
                 }
             }
             if (line != "")
-                this.Options.Add(new DescriptionElement(line, splitLinesIfNeeded: false));
+                this.Options.Add(new CheatDescription(line, splitLinesIfNeeded: false));
         }
     }
 
@@ -683,7 +683,7 @@ internal class CheatsMenu : IClickableMenu
     {
         foreach (OptionsElement field in cheats.SelectMany(p => p.GetFields(this.Cheats.Context)))
         {
-            if (field is DescriptionElement { SplitLinesIfNeeded: true } description)
+            if (field is CheatDescription { SplitLinesIfNeeded: true } description)
                 this.AddDescription(description.label);
             else
                 this.Options.Add(field);

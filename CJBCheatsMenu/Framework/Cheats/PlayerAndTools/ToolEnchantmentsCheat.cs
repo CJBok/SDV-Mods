@@ -22,16 +22,16 @@ internal class ToolEnchantmentsCheat : BaseCheat
 
         // no tool selected
         if (tool is null)
-            return [new DescriptionElement(I18n.ToolEnchantments_SelectTool(), splitLinesIfNeeded: false)];
+            return [new CheatDescription(I18n.ToolEnchantments_SelectTool(), splitLinesIfNeeded: false)];
 
         // no enchantments available
         BaseEnchantment[] enchantments = this.GetValidEnchantments(tool).ToArray();
         if (enchantments.Length == 0)
-            return [new DescriptionElement(I18n.ToolEnchantments_NoneForTool(tool.DisplayName), splitLinesIfNeeded: false)];
+            return [new CheatDescription(I18n.ToolEnchantments_NoneForTool(tool.DisplayName), splitLinesIfNeeded: false)];
 
         // else add checkboxes
         return [
-            new DescriptionElement(I18n.ToolEnchantments_ForTool(tool.DisplayName)),
+            new CheatDescription(I18n.ToolEnchantments_ForTool(tool.DisplayName)),
             ..this.SortFields(
                 enchantments
                     .Select(enchantment => this.GetField(tool, enchantment))
@@ -58,7 +58,7 @@ internal class ToolEnchantmentsCheat : BaseCheat
         string displayName = enchantment.GetDisplayName();
         bool hasEnchantment = tool.enchantments.Any(other => enchantment.GetName() == other.GetName());
 
-        return new CheatsOptionsCheckbox(
+        return new CheatCheckbox(
             label: displayName,
             value: hasEnchantment,
             setValue: value =>

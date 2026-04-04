@@ -18,7 +18,7 @@ internal class SetTimeCheat : BaseCheat
         int ToValue(int time) => Utility.ConvertTimeToMinutes(time) / 10;
         int FromValue(int value) => Utility.ConvertMinutesToTime(value * 10);
 
-        yield return new CheatsOptionsSlider(
+        yield return new CheatSlider(
             label: I18n.Time_Time(),
             value: ToValue(Game1.timeOfDay),
             minValue: ToValue(600),

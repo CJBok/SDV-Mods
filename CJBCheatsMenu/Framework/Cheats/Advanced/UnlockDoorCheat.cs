@@ -16,7 +16,7 @@ internal class UnlockDoorCheat : BaseCheat
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
         // adventurer's guild
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Flags_Unlocked_Guild(),
             value: this.HasFlag("guildMember"),
             setValue: value => this.SetFlag(value, "guildMember")
@@ -25,7 +25,7 @@ internal class UnlockDoorCheat : BaseCheat
         // NPC rooms
         foreach (NPC npc in this.GetSocialCharacters().OrderBy(p => p.displayName))
         {
-            yield return new CheatsOptionsCheckbox(
+            yield return new CheatCheckbox(
                 label: I18n.Flags_Unlocked_Room(name: npc.displayName),
                 value: this.HasFlag($"doorUnlock{npc.Name}"),
                 setValue: value => this.SetFlag(value, $"doorUnlock{npc.Name}")

@@ -43,14 +43,14 @@ internal class BundlesCheat : BaseCheat
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
         // unlock community center door
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Flags_CommunityCenter_DoorUnlocked(),
             value: this.HasFlag("ccDoorUnlock"),
             setValue: value => this.SetFlag(value, "ccDoorUnlock")
         );
 
         // JojaMart membership
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Flags_Jojamart_Membership(),
             value: this.HasFlag("JojaMember"),
             setValue: value => this.SetCommunityCenterFlags(value, "JojaMember")
@@ -80,9 +80,9 @@ internal class BundlesCheat : BaseCheat
     /// <param name="areaName">The name used in the translation key for the bundle name.</param>
     /// <param name="rewardName">The name used in the translation key for the reward name (or <c>null</c> to show '???').</param>
     /// <param name="flag">The game flag to toggle.</param>
-    private CheatsOptionsCheckbox GetBundleField(string areaName, string? rewardName, string flag)
+    private CheatCheckbox GetBundleField(string areaName, string? rewardName, string flag)
     {
-        return new CheatsOptionsCheckbox(
+        return new CheatCheckbox(
             label: this.GetJunimoRewardText(areaName, rewardName),
             value: this.HasFlag(flag),
             setValue: value => this.SetCommunityCenterFlags(value, flag)

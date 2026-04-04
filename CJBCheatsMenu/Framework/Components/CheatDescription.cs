@@ -7,7 +7,7 @@ using StardewValley.Menus;
 namespace CJBCheatsMenu.Framework.Components;
 
 /// <summary>An options element which contains descriptive text.</summary>
-internal class DescriptionElement : BaseOptionsElement
+internal class CheatDescription : CheatElement
 {
     /*********
     ** Fields
@@ -29,7 +29,7 @@ internal class DescriptionElement : BaseOptionsElement
     /// <summary>Construct an instance.</summary>
     /// <param name="label">The checkbox label.</param>
     /// <param name="splitLinesIfNeeded">Whether to split the element into multiple lines if needed to fit the page.</param>
-    public DescriptionElement(string label, bool splitLinesIfNeeded = true)
+    public CheatDescription(string label, bool splitLinesIfNeeded = true)
         : base(label, -1, -1, 0, 0, 0)
     {
         this.SplitLinesIfNeeded = splitLinesIfNeeded;
@@ -37,7 +37,7 @@ internal class DescriptionElement : BaseOptionsElement
 
     /// <summary>Construct an instance.</summary>
     /// <param name="label">The checkbox label.</param>
-    public DescriptionElement(Func<string> label)
+    public CheatDescription(Func<string> label)
         : base(label(), -1, -1, 0, 0, 0)
     {
         this.GetLabel = label;

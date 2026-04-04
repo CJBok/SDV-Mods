@@ -20,7 +20,7 @@ internal class OneHitBreakCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Tools_OneHitBreak(),
             value: context.Config.OneHitBreak,
             setValue: value => context.Config.OneHitBreak = value

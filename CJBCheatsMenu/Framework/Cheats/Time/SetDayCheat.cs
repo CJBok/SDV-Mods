@@ -14,7 +14,7 @@ internal class SetDayCheat : BaseDateCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsSlider(
+        yield return new CheatSlider(
             label: I18n.Date_Day(),
             value: Game1.dayOfMonth,
             minValue: 1,

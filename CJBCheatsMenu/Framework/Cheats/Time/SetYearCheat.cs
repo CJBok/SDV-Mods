@@ -15,7 +15,7 @@ internal class SetYearCheat : BaseDateCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsSlider(
+        yield return new CheatSlider(
             label: I18n.Date_Year(),
             value: Game1.year,
             minValue: 1,

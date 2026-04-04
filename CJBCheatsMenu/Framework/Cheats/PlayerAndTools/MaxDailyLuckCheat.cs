@@ -16,7 +16,7 @@ internal class MaxDailyLuckCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Player_MaxDailyLuck(),
             value: context.Config.MaxDailyLuck,
             setValue: value => context.Config.MaxDailyLuck = value

@@ -17,7 +17,7 @@ internal class AutoWaterPetBowlsCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Farm_AutoWaterPetBowls(),
             value: context.Config.AutoWaterPetBowls,
             setValue: value => context.Config.AutoWaterPetBowls = value

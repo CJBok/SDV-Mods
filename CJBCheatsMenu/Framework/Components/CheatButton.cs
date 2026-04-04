@@ -7,8 +7,8 @@ using StardewValley.Menus;
 namespace CJBCheatsMenu.Framework.Components;
 
 /// <summary>A button with a label which invokes a callback when clicked.</summary>
-internal class CheatsOptionsButton<TButton> : BaseOptionsElement
-    where TButton : CheatsOptionsButton<TButton>
+internal class CheatButton<TButton> : CheatElement
+    where TButton : CheatButton<TButton>
 {
     /*********
     ** Fields
@@ -31,7 +31,7 @@ internal class CheatsOptionsButton<TButton> : BaseOptionsElement
     /// <param name="slotWidth">The field width.</param>
     /// <param name="toggle">The action to perform when the button is toggled.</param>
     /// <param name="disabled">Whether the button should be disabled.</param>
-    public CheatsOptionsButton(string label, int slotWidth, Action<TButton> toggle, bool disabled = false)
+    public CheatButton(string label, int slotWidth, Action<TButton> toggle, bool disabled = false)
         : base(label, -1, -1, slotWidth + 1, 11 * Game1.pixelZoom)
     {
         this.SetButtonBounds = new Rectangle(slotWidth - 28 * Game1.pixelZoom, -1 + Game1.pixelZoom * 3, 21 * Game1.pixelZoom, 11 * Game1.pixelZoom);
@@ -44,7 +44,7 @@ internal class CheatsOptionsButton<TButton> : BaseOptionsElement
     /// <param name="slotWidth">The field width.</param>
     /// <param name="toggle">The action to perform when the button is toggled.</param>
     /// <param name="disabled">Whether the button should be disabled.</param>
-    public CheatsOptionsButton(string label, int slotWidth, Action toggle, bool disabled = false)
+    public CheatButton(string label, int slotWidth, Action toggle, bool disabled = false)
         : this(label, slotWidth, _ => toggle(), disabled) { }
 
     /// <inheritdoc />
@@ -75,17 +75,17 @@ internal class CheatsOptionsButton<TButton> : BaseOptionsElement
     }
 }
 
-/// <inheritdoc cref="CheatsOptionsButton{T}" />
-internal class CheatsOptionsButton : CheatsOptionsButton<CheatsOptionsButton>
+/// <inheritdoc cref="CheatButton{T}" />
+internal class CheatButton : CheatButton<CheatButton>
 {
     /*********
     ** Public methods
     *********/
     /// <inheritdoc />
-    public CheatsOptionsButton(string label, int slotWidth, Action<CheatsOptionsButton> toggle, bool disabled = false)
+    public CheatButton(string label, int slotWidth, Action<CheatButton> toggle, bool disabled = false)
         : base(label, slotWidth, toggle, disabled) { }
 
     /// <inheritdoc />
-    public CheatsOptionsButton(string label, int slotWidth, Action toggle, bool disabled = false)
+    public CheatButton(string label, int slotWidth, Action toggle, bool disabled = false)
         : base(label, slotWidth, _ => toggle(), disabled) { }
 }

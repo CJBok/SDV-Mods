@@ -20,7 +20,7 @@ internal class QuestsCheat : BaseCheat
             if (quest.completed.Value)
                 continue;
 
-            yield return new CheatsOptionsButton(
+            yield return new CheatButton(
                 label: quest.questTitle,
                 slotWidth: context.SlotWidth,
                 toggle: () => this.CompleteQuest(quest)

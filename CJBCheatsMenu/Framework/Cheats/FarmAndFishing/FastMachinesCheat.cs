@@ -30,13 +30,13 @@ internal class FastMachinesCheat : BaseCheat
         // special cases
         List<OptionsElement> fields =
         [
-            new CheatsOptionsCheckbox(
+            new CheatCheckbox(
                 label: ItemRegistry.GetDataOrErrorItem("(O)710").DisplayName,
                 value: context.Config.FastMachines.Contains("(O)710"),
                 setValue: value => context.Config.FastMachines.Toggle("(O)710", value)
             ),
 
-            new CheatsOptionsCheckbox(
+            new CheatCheckbox(
                 label: I18n.FastMachines_FruitTrees(),
                 value: context.Config.FastFruitTree,
                 setValue: value => context.Config.FastFruitTree = value
@@ -51,7 +51,7 @@ internal class FastMachinesCheat : BaseCheat
                 continue;
 
             fields.Add(
-                new CheatsOptionsCheckbox(
+                new CheatCheckbox(
                     label: TokenParser.ParseText(data!.Name) ?? buildingId,
                     value: context.Config.FastBuildings.Contains(buildingId),
                     setValue: value => context.Config.FastBuildings.Toggle(buildingId, value)
@@ -71,7 +71,7 @@ internal class FastMachinesCheat : BaseCheat
                 label = I18n.FastMachines_ReadyInTheMorning(label);
 
             fields.Add(
-                new CheatsOptionsCheckbox(
+                new CheatCheckbox(
                     label: label,
                     value: context.Config.FastMachines.Contains(data.QualifiedItemId),
                     setValue: value => context.Config.FastMachines.Toggle(data.QualifiedItemId, value)
@@ -88,7 +88,7 @@ internal class FastMachinesCheat : BaseCheat
         needsInput = false;
         needsUpdate = this
             .GetFields(context)
-            .Cast<CheatsOptionsCheckbox>()
+            .Cast<CheatCheckbox>()
             .Any(p => p.IsChecked);
         needsRendering = false;
     }

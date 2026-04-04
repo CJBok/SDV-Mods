@@ -16,7 +16,7 @@ internal class InfiniteStaminaCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Player_InfiniteStamina(),
             value: context.Config.InfiniteStamina,
             setValue: value => context.Config.InfiniteStamina = value

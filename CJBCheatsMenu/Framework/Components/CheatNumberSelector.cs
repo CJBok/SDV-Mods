@@ -8,7 +8,7 @@ using StardewValley.Menus;
 namespace CJBCheatsMenu.Framework.Components;
 
 /// <summary>A button with a label and number selector which invokes a callback when clicked.</summary>
-internal class CheatsOptionsNumberWheel : CheatsOptionsButton<CheatsOptionsNumberWheel>
+internal class CheatNumberSelector : CheatButton<CheatNumberSelector>
 {
     /*********
     ** Fields
@@ -56,7 +56,7 @@ internal class CheatsOptionsNumberWheel : CheatsOptionsButton<CheatsOptionsNumbe
     /// <param name="maxValue">The maximum value of the number.</param>
     /// <param name="minValue">The minimum value of the number.</param>
     /// <param name="formatValue">Format the value for display.</param>
-    public CheatsOptionsNumberWheel(string label, int slotWidth, Action<CheatsOptionsNumberWheel> action, int initialValue, int minValue, int maxValue, Func<int, string>? formatValue = null)
+    public CheatNumberSelector(string label, int slotWidth, Action<CheatNumberSelector> action, int initialValue, int minValue, int maxValue, Func<int, string>? formatValue = null)
         : base(label, slotWidth, action)
     {
         this.Value = Math.Clamp(initialValue, minValue, maxValue);

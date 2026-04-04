@@ -8,7 +8,7 @@ using StardewValley.Menus;
 namespace CJBCheatsMenu.Framework.Components;
 
 /// <summary>A UI slider for setting a villager's friendship level.</summary>
-internal class CheatsOptionsNpcSlider : BaseOptionsElement
+internal class CheatNpcSlider : CheatElement
 {
     /*********
     ** Fields
@@ -44,7 +44,7 @@ internal class CheatsOptionsNpcSlider : BaseOptionsElement
     /// <param name="maxValue">The maximum number of hearts.</param>
     /// <param name="isMet">Whether the player has met the NPC.</param>
     /// <param name="setValue">The callback to invoke when the value changes.</param>
-    public CheatsOptionsNpcSlider(NPC npc, int value, int maxValue, bool isMet, Action<int> setValue)
+    public CheatNpcSlider(NPC npc, int value, int maxValue, bool isMet, Action<int> setValue)
         : base(label: npc.displayName, x: 96, y: -1, width: maxValue * HeartSize, height: 6 * Game1.pixelZoom, whichOption: 0)
     {
         this.SetValue = setValue;

@@ -34,7 +34,7 @@ internal class AutoFeedAnimalsCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Farm_AutoFeedAnimals(),
             value: context.Config.AutoFeed,
             setValue: value => context.Config.AutoFeed = value

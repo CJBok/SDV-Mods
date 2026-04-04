@@ -33,11 +33,11 @@ internal class SkillsCheat : BaseCheat
     /// <param name="context">The cheat context.</param>
     /// <param name="id">The game's skill ID.</param>
     /// <param name="currentLevel">The current skill level.</param>
-    private CheatsOptionsButton GetSkillButton(CheatContext context, int id, int currentLevel)
+    private CheatButton GetSkillButton(CheatContext context, int id, int currentLevel)
     {
         string skillName = Farmer.getSkillDisplayNameFromIndex(id);
 
-        return new CheatsOptionsButton(
+        return new CheatButton(
             label: I18n.Skills_IncreaseSkill(skillName: skillName, currentLevel: currentLevel),
             slotWidth: context.SlotWidth,
             toggle: () => this.IncreaseSkill(id),

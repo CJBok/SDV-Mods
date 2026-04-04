@@ -15,7 +15,7 @@ internal class InstantCooldownCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Player_InstantCooldowns(),
             value: context.Config.InstantCooldowns,
             setValue: value => context.Config.InstantCooldowns = value

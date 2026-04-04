@@ -16,7 +16,7 @@ internal class DurableFishTacklesCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Fishing_DurableTackles(),
             value: context.Config.DurableTackles,
             setValue: value => context.Config.DurableTackles = value

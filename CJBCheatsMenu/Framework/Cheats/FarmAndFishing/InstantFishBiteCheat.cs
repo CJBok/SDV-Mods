@@ -16,7 +16,7 @@ internal class InstantFishBiteCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Fishing_InstantBite(),
             value: context.Config.InstantBite,
             setValue: value => context.Config.InstantBite = value

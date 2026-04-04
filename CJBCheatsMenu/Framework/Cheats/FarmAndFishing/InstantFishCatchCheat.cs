@@ -16,7 +16,7 @@ internal class InstantFishCatchCheat : BaseCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Fishing_InstantCatch(),
             value: context.Config.InstantCatch,
             setValue: value => context.Config.InstantCatch = value

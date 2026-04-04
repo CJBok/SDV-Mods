@@ -14,7 +14,7 @@ internal class SetSeasonCheat : BaseDateCheat
     /// <inheritdoc />
     public override IEnumerable<OptionsElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsSlider(
+        yield return new CheatSlider(
             label: I18n.Date_Season(),
             value: Utility.getSeasonNumber(Game1.currentSeason),
             minValue: 0,
