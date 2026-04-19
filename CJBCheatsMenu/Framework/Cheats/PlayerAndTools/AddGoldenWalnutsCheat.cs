@@ -31,6 +31,6 @@ internal class AddGoldenWalnutsCheat : BaseCheat
     /// <param name="amount">The amount to add.</param>
     private void AddGems(int amount)
     {
-        Game1.player.addItemToInventoryBool(new Object("73", amount));
+        Game1.player.TryAddToInventory(ItemRegistry.Create("(O)73", amount));
     }
 }

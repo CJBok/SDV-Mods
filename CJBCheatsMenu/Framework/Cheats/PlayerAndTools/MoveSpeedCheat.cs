@@ -66,7 +66,7 @@ internal class MoveSpeedCheat : BaseCheat
         // add or extend buff
         if (!Game1.player.buffs.AppliedBuffs.TryGetValue(MoveSpeedCheat.BuffId, out Buff? buff) || buff.millisecondsDuration <= MoveSpeedCheat.BuffMinDurationBeforeRenew)
         {
-            Game1.player.applyBuff(
+            Game1.player.applyLocalBuff(
                 new Buff(
                     id: MoveSpeedCheat.BuffId,
                     source: "CJB Cheats Menu",
