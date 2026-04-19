@@ -126,7 +126,7 @@ internal class CheatNumberSelector : CheatButton<CheatNumberSelector>
         xOffset += this.MinusButtonSource.Width + 2;
 
         // get the maximum width the value label can be
-        Vector2 valueSize = Game1.dialogueFont.MeasureString(new string('0', this.FormatValue(this.Value).Length));
+        Vector2 valueSize = Game1.dialogueFont.MeasureString("000");
         int maxValueWidth = (int)(valueSize.X / Game1.pixelZoom) + 1;
         int maxValueHeight = (int)valueSize.Y;
 
