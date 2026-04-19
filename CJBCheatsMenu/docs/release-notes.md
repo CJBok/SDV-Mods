@@ -4,7 +4,9 @@
 ## Upcoming release
 * Added 'Increase Mastery Level' cheat.
 * When increasing a skill level through the cheats menu, it now reopens after you close the level-up screen.
+* Fixed mine level selector getting resized as the number grows (thanks to pneuma163!).
 * Fixed 'reclaim' tooltip shown over trash can even if the "apply trash can upgrade" option is disabled.
+* Improved translations. Thanks to Sytred (updated French)!
 
 ## 1.41.1
 Released 15 March 2026 for SMAPI 4.1.10 or later.
