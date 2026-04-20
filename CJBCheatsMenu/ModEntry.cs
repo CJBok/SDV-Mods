@@ -72,6 +72,11 @@ internal class ModEntry : Mod
         helper.Events.World.LocationListChanged += this.OnLocationListChanged;
     }
 
+    /// <inheritdoc />
+    public override object GetApi()
+    {
+        return new CJBCheatsMenuAPI(this.Cheats.Value, this.Config, this.Monitor);
+    }
 
     /*********
     ** Private methods
