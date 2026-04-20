@@ -1,7 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
-## Upcoming release
+## 1.42.0
+Released 19 April 2026 for SMAPI 4.1.10 or later.
+
 * Added 'Increase Mastery Level' cheat.
 * When increasing a skill level through the cheats menu, it now reopens after you close the level-up screen.
 * Fixed mine level selector getting resized as the number grows (thanks to pneuma163!).
