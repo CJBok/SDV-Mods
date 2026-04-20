@@ -1,6 +1,5 @@
 using System;
 using StardewValley;
-using StardewValley.ItemTypeDefinitions;
 
 namespace CJBItemSpawner.Framework.ItemData;
 
