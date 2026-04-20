@@ -3,7 +3,6 @@ using CJBCheatsMenu.Framework.Components;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing;
 
@@ -14,9 +13,9 @@ internal class AutoPetAnimalsCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Farm_AutoPetAnimals(),
             value: context.Config.AutoPetAnimals,
             setValue: value => context.Config.AutoPetAnimals = value

@@ -4,7 +4,6 @@ using System.Linq;
 using CJBCheatsMenu.Framework.Components;
 using StardewValley;
 using StardewValley.Enchantments;
-using StardewValley.Menus;
 using StardewValley.Tools;
 
 namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools;
@@ -16,22 +15,22 @@ internal class ToolEnchantmentsCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         Tool tool = Game1.player.CurrentTool;
 
         // no tool selected
         if (tool is null)
-            return [new DescriptionElement(I18n.ToolEnchantments_SelectTool(), splitLinesIfNeeded: false)];
+            return [new CheatDescription(I18n.ToolEnchantments_SelectTool(), splitLinesIfNeeded: false)];
 
         // no enchantments available
         BaseEnchantment[] enchantments = this.GetValidEnchantments(tool).ToArray();
         if (enchantments.Length == 0)
-            return [new DescriptionElement(I18n.ToolEnchantments_NoneForTool(tool.DisplayName), splitLinesIfNeeded: false)];
+            return [new CheatDescription(I18n.ToolEnchantments_NoneForTool(tool.DisplayName), splitLinesIfNeeded: false)];
 
         // else add checkboxes
         return [
-            new DescriptionElement(I18n.ToolEnchantments_ForTool(tool.DisplayName)),
+            new CheatDescription(I18n.ToolEnchantments_ForTool(tool.DisplayName)),
             ..this.SortFields(
                 enchantments
                     .Select(enchantment => this.GetField(tool, enchantment))
@@ -53,12 +52,12 @@ internal class ToolEnchantmentsCheat : BaseCheat
     ** Private methods
     *********/
     /// <summary>Get a field to display.</summary>
-    private OptionsElement GetField(Tool tool, BaseEnchantment enchantment)
+    private CheatElement GetField(Tool tool, BaseEnchantment enchantment)
     {
         string displayName = enchantment.GetDisplayName();
         bool hasEnchantment = tool.enchantments.Any(other => enchantment.GetName() == other.GetName());
 
-        return new CheatsOptionsCheckbox(
+        return new CheatCheckbox(
             label: displayName,
             value: hasEnchantment,
             setValue: value =>

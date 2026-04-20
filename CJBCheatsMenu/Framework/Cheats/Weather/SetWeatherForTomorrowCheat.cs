@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
 using StardewValley;
-using StardewValley.Menus;
 using StardewValley.Objects;
 
 namespace CJBCheatsMenu.Framework.Cheats.Weather;
@@ -13,7 +12,7 @@ internal class SetWeatherForTomorrowCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         string? hardcodedWeatherId = this.GetHardcodedWeatherTomorrow();
 
@@ -22,15 +21,15 @@ internal class SetWeatherForTomorrowCheat : BaseCheat
         {
             return
             [
-                new DescriptionElement(I18n.Weather_CannotChangeWeather(hardcodedWeatherId))
+                new CheatDescription(I18n.Weather_CannotChangeWeather(hardcodedWeatherId))
             ];
         }
 
         // else change weather
         return
         [
-            new DescriptionElement(I18n.Weather_Explanation()),
-            new DescriptionElement(() => I18n.Weather_CurrentValue(this.GetWeatherForNextDay())), // pass lambda to update weather on change
+            new CheatDescription(I18n.Weather_Explanation()),
+            new CheatDescription(() => I18n.Weather_CurrentValue(this.GetWeatherForNextDay())), // pass lambda to update weather on change
             this.GetWeatherField(context, I18n.Weather_Sunny(), Game1.weather_sunny),
             this.GetWeatherField(context, I18n.Weather_Raining(), Game1.weather_rain),
             this.GetWeatherField(context, I18n.Weather_Lightning(), Game1.weather_lightning),
@@ -47,9 +46,9 @@ internal class SetWeatherForTomorrowCheat : BaseCheat
     /// <param name="context">The cheat context.</param>
     /// <param name="label">The option label text.</param>
     /// <param name="id">The game's weather ID.</param>
-    private CheatsOptionsButton GetWeatherField(CheatContext context, string label, string id)
+    private CheatButton GetWeatherField(CheatContext context, string label, string id)
     {
-        return new CheatsOptionsButton(
+        return new CheatButton(
             label: label,
             slotWidth: context.SlotWidth,
             toggle: () => this.SetWeatherForNextDay(id)

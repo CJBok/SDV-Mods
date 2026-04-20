@@ -3,7 +3,6 @@ using CJBCheatsMenu.Framework.Components;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools;
 
@@ -14,9 +13,9 @@ internal class InfiniteStaminaCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Player_InfiniteStamina(),
             value: context.Config.InfiniteStamina,
             setValue: value => context.Config.InfiniteStamina = value

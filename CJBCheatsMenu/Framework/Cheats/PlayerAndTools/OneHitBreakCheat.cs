@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
-using StardewValley.Menus;
 using StardewValley.TerrainFeatures;
 using StardewValley.Tools;
 using SObject = StardewValley.Object;
@@ -18,9 +17,9 @@ internal class OneHitBreakCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Tools_OneHitBreak(),
             value: context.Config.OneHitBreak,
             setValue: value => context.Config.OneHitBreak = value

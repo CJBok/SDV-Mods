@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewValley.Menus;
@@ -5,16 +6,35 @@ using StardewValley.Menus;
 namespace CJBCheatsMenu.Framework.Components;
 
 /// <summary>The base implementation for a cheat option element.</summary>
-internal abstract class BaseOptionsElement : OptionsElement
+internal class CheatElement : OptionsElement
 {
     /*********
-    ** Protected methods
+    ** Fields
+    *********/
+    /// <summary>If set, get the label to display each tick.</summary>
+    private readonly Func<string>? GetLabel;
+
+
+    /*********
+    ** Public methods
     *********/
     /// <summary>Construct an instance.</summary>
     /// <param name="label">The element label.</param>
-    protected BaseOptionsElement(string label)
+    public CheatElement(string label)
         : base(label) { }
 
+    /// <summary>Construct an instance.</summary>
+    /// <param name="getLabel">Get the element label.</param>
+    public CheatElement(Func<string> getLabel)
+        : base(getLabel())
+    {
+        this.GetLabel = getLabel;
+    }
+
+
+    /*********
+    ** Protected methods
+    *********/
     /// <summary>Construct an instance.</summary>
     /// <param name="label">The display label.</param>
     /// <param name="x">The X pixel position at which to draw the element.</param>
@@ -22,8 +42,21 @@ internal abstract class BaseOptionsElement : OptionsElement
     /// <param name="width">The pixel width.</param>
     /// <param name="height">The pixel height.</param>
     /// <param name="whichOption">The option ID.</param>
-    protected BaseOptionsElement(string label, int x, int y, int width, int height, int whichOption = -1)
+    protected CheatElement(string label, int x, int y, int width, int height, int whichOption = -1)
         : base(label, x, y, width, height, whichOption) { }
+
+    /// <summary>Construct an instance.</summary>
+    /// <param name="getLabel">Get the display label.</param>
+    /// <param name="x">The X pixel position at which to draw the element.</param>
+    /// <param name="y">The Y pixel position at which to draw the element.</param>
+    /// <param name="width">The pixel width.</param>
+    /// <param name="height">The pixel height.</param>
+    /// <param name="whichOption">The option ID.</param>
+    protected CheatElement(Func<string> getLabel, int x, int y, int width, int height, int whichOption = -1)
+        : base(getLabel(), x, y, width, height, whichOption)
+    {
+        this.GetLabel = getLabel;
+    }
 
     /// <summary>Get the X offset at which to render the element.</summary>
     protected int GetOffsetX()
@@ -44,5 +77,12 @@ internal abstract class BaseOptionsElement : OptionsElement
         this.ReceiveButtonPress(key.ToSButton());
 
         base.receiveKeyPress(key);
+    }
+
+    /// <summary>Update the option state each tick before it's displayed.</summary>
+    public virtual void Update()
+    {
+        if (this.GetLabel != null)
+            this.label = this.GetLabel();
     }
 }

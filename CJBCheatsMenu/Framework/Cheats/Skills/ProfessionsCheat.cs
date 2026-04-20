@@ -12,7 +12,7 @@ internal class ProfessionsCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         foreach ((int skillId, Dictionary<int, int[]> professionsByLevel) in this.GetProfessions())
         {
@@ -24,7 +24,7 @@ internal class ProfessionsCheat : BaseCheat
                 {
                     string professionName = LevelUpMenu.getProfessionTitleFromNumber(professionId);
 
-                    yield return new CheatsOptionsCheckbox(
+                    yield return new CheatCheckbox(
                         label: I18n.Professions_Profession(skillName: skillName, level: level, professionName: professionName),
                         value: this.GetProfession(professionId),
                         setValue: value => this.SetProfession(professionId, value)

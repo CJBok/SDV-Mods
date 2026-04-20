@@ -8,7 +8,7 @@ using StardewValley.Menus;
 namespace CJBCheatsMenu.Framework.Components;
 
 /// <summary>A UI slider for selecting from a range of values.</summary>
-internal class CheatsOptionsSlider : BaseOptionsElement
+internal class CheatSlider : CheatElement
 {
     /*********
     ** Fields
@@ -53,7 +53,7 @@ internal class CheatsOptionsSlider : BaseOptionsElement
     /// <param name="disabled">Whether the slider should be disabled.</param>
     /// <param name="format">Format the display label.</param>
     /// <param name="width">The field width.</param>
-    public CheatsOptionsSlider(string label, int value, int maxValue, Action<int> setValue, int minValue = 0, Func<bool>? disabled = null, Func<int, string>? format = null, int width = 48)
+    public CheatSlider(string label, int value, int maxValue, Action<int> setValue, int minValue = 0, Func<bool>? disabled = null, Func<int, string>? format = null, int width = 48)
         : base(label, -1, -1, width * Game1.pixelZoom, 6 * Game1.pixelZoom, 0)
     {
         this.Label = label;

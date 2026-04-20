@@ -22,6 +22,8 @@ internal class CheatsMenu : IClickableMenu
     /*********
     ** Fields
     *********/
+    private const int ItemsPerPage = 10;
+
     /// <summary>Manages the cheat implementations.</summary>
     private readonly CheatManager Cheats;
 
@@ -29,13 +31,12 @@ internal class CheatsMenu : IClickableMenu
     private readonly Action<MenuTab> ReopenMenu;
 
     private readonly List<ClickableComponent> OptionSlots = [];
-    private readonly List<OptionsElement> Options = [];
+    private readonly List<CheatElement> Options = [];
     private ClickableTextureComponent UpArrow;
     private ClickableTextureComponent DownArrow;
     private ClickableTextureComponent Scrollbar;
     private readonly List<ClickableComponent> Tabs = [];
     private ClickableComponent Title;
-    private const int ItemsPerPage = 10;
 
     /// <summary>Whether the mod is running on Android.</summary>
     private readonly bool IsAndroid = Constants.TargetPlatform == GamePlatform.Android;
@@ -46,8 +47,8 @@ internal class CheatsMenu : IClickableMenu
     private bool IsScrolling;
     private Rectangle ScrollbarRunner;
 
-    /// <summary>Whether the menu was opened in the current tick.</summary>
-    private bool JustOpened = true;
+    /// <summary>Whether the next draw tick is the first one since the menu was opened.</summary>
+    private bool IsFirstDrawTick = true;
 
 
     /*********
@@ -70,7 +71,10 @@ internal class CheatsMenu : IClickableMenu
         this.Cheats = cheats;
         this.ReopenMenu = reopenMenu;
         this.CurrentTab = initialTab;
+
         this.ResetComponents();
+
+        this.Cheats.OnCheatsMenuOpening();
         this.SetOptions();
 
         Game1.playSound(isNewMenu
@@ -163,7 +167,7 @@ internal class CheatsMenu : IClickableMenu
         }
 
         // send to active menu
-        (this.GetActiveOption() as BaseOptionsElement)?.ReceiveButtonPress(button.ToSButton());
+        (this.GetActiveOption() as CheatElement)?.ReceiveButtonPress(button.ToSButton());
     }
 
     /// <inheritdoc />
@@ -259,6 +263,21 @@ internal class CheatsMenu : IClickableMenu
     }
 
     /// <inheritdoc />
+    public override void update(GameTime time)
+    {
+        base.update(time);
+
+        for (int i = 0; i < this.OptionSlots.Count; ++i)
+        {
+            int index = this.CurrentItemIndex + i;
+            if (index >= this.Options.Count)
+                break;
+
+            this.Options[index].Update();
+        }
+    }
+
+    /// <inheritdoc />
     public override void draw(SpriteBatch b)
     {
         if (!Game1.options.showMenuBackground && !Game1.options.showClearBackgrounds)
@@ -300,9 +319,9 @@ internal class CheatsMenu : IClickableMenu
             b.Draw(Game1.mouseCursors, new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()), Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, Game1.options.gamepadControls ? 44 : 0, 16, 16), Color.White, 0f, Vector2.Zero, Game1.pixelZoom + Game1.dialogueButtonScale / 150f, SpriteEffects.None, 1f);
 
         // reinitialize the UI to fix Android pinch-zoom scaling issues
-        if (this.JustOpened)
+        if (this.IsFirstDrawTick)
         {
-            this.JustOpened = false;
+            this.IsFirstDrawTick = false;
             if (this.IsAndroid)
                 this.ResetComponents();
         }
@@ -463,7 +482,8 @@ internal class CheatsMenu : IClickableMenu
                 // skills
                 this.AddOptions(
                     $"{I18n.Skills_Title()}:",
-                    cheats.Skills
+                    cheats.Skills,
+                    cheats.MasteryLevel
                 );
 
                 // professions
@@ -560,32 +580,32 @@ internal class CheatsMenu : IClickableMenu
                     this.AddDescription(I18n.Controls_AndroidConfigNote());
 
                 this.AddOptions(
-                    new CheatsOptionsKeyListener(
+                    new CheatKeyBinding(
                         label: I18n.Controls_OpenMenu(),
                         value: this.GetSingleButton(config.OpenMenuKey),
                         setValue: key => config.OpenMenuKey = new(key),
                         slotWidth: context.SlotWidth,
                         clearToButton: this.GetSingleButton(ModConfig.Defaults.OpenMenuKey)
                     ),
-                    new CheatsOptionsKeyListener(
+                    new CheatKeyBinding(
                         label: I18n.Controls_FreezeTime(),
                         value: this.GetSingleButton(config.FreezeTimeKey),
                         setValue: key => config.FreezeTimeKey = new(key),
                         slotWidth: context.SlotWidth
                     ),
-                    new CheatsOptionsKeyListener(
+                    new CheatKeyBinding(
                         label: I18n.Controls_GrowTree(),
                         value: this.GetSingleButton(config.GrowTreeKey),
                         setValue: key => config.GrowTreeKey = new(key),
                         slotWidth: context.SlotWidth
                     ),
-                    new CheatsOptionsKeyListener(
+                    new CheatKeyBinding(
                         label: I18n.Controls_GrowCrops(),
                         value: this.GetSingleButton(config.GrowCropsKey),
                         setValue: key => config.GrowCropsKey = new(key),
                         slotWidth: context.SlotWidth
                     ),
-                    new CheatsOptionsSlider(
+                    new CheatSlider(
                         label: I18n.Controls_GrowRadius(),
                         value: config.GrowRadius,
                         minValue: 1,
@@ -593,8 +613,8 @@ internal class CheatsMenu : IClickableMenu
                         setValue: value => config.GrowRadius = value,
                         disabled: () => !config.GrowTreeKey.IsBound && !config.GrowCropsKey.IsBound
                     ),
-                    new OptionsElement(string.Empty), // blank line
-                    new CheatsOptionsButton(
+                    new CheatElement(string.Empty), // blank line
+                    new CheatButton(
                         label: I18n.Controls_ResetControls(),
                         toggle: this.ResetControls,
                         slotWidth: context.SlotWidth
@@ -608,11 +628,11 @@ internal class CheatsMenu : IClickableMenu
     /// <summary>Whether any button bind control is active and listening for input.</summary>
     private bool IsPressNewKeyActive()
     {
-        return this.Options.Any(p => p is CheatsOptionsKeyListener { IsListening: true });
+        return this.Options.Any(p => p is CheatKeyBinding { IsListening: true });
     }
 
     /// <summary>Get the currently active option, if any.</summary>
-    private OptionsElement? GetActiveOption()
+    private CheatElement? GetActiveOption()
     {
         if (this.OptionsSlotHeld == -1)
             return null;
@@ -640,7 +660,7 @@ internal class CheatsMenu : IClickableMenu
     /// <param name="title">The section title.</param>
     private void AddTitle(string title)
     {
-        this.Options.Add(new OptionsElement(title));
+        this.Options.Add(new CheatElement(title));
     }
 
     /// <summary>Add descriptive text that may extend onto multiple lines if it's too long.</summary>
@@ -661,18 +681,18 @@ internal class CheatsMenu : IClickableMenu
                     line += " " + word;
                 else
                 {
-                    this.Options.Add(new DescriptionElement(line, splitLinesIfNeeded: false));
+                    this.Options.Add(new CheatDescription(line, splitLinesIfNeeded: false));
                     line = word;
                 }
             }
             if (line != "")
-                this.Options.Add(new DescriptionElement(line, splitLinesIfNeeded: false));
+                this.Options.Add(new CheatDescription(line, splitLinesIfNeeded: false));
         }
     }
 
     /// <summary>Add fields to the options list.</summary>
     /// <param name="fields">The fields to add.</param>
-    private void AddOptions(params OptionsElement[] fields)
+    private void AddOptions(params CheatElement[] fields)
     {
         this.Options.AddRange(fields);
     }
@@ -681,9 +701,9 @@ internal class CheatsMenu : IClickableMenu
     /// <param name="cheats">The cheats to add.</param>
     private void AddOptions(params ICheat[] cheats)
     {
-        foreach (OptionsElement field in cheats.SelectMany(p => p.GetFields(this.Cheats.Context)))
+        foreach (CheatElement field in cheats.SelectMany(p => p.GetFields(this.Cheats.Context)))
         {
-            if (field is DescriptionElement { SplitLinesIfNeeded: true } description)
+            if (field is CheatDescription { SplitLinesIfNeeded: true } description)
                 this.AddDescription(description.label);
             else
                 this.Options.Add(field);

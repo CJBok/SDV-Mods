@@ -8,7 +8,6 @@ using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Buildings;
 using StardewValley.Locations;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Warps;
 
@@ -33,7 +32,7 @@ internal class WarpCheat : BaseCheat
     }
 
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         WarpSectionContentModel[] rawSections = this.WarpContentLoader.LoadWarpSections();
         WarpContentModel[] rawWarps = this.WarpContentLoader.LoadWarps();
@@ -42,12 +41,12 @@ internal class WarpCheat : BaseCheat
         Dictionary<string, List<WarpContentModel>> warps = this.GetWarpsBySection(rawSections, rawWarps);
 
         if (this.WarpContentLoader.IsCustomizedWarpList(rawWarps))
-            yield return new DescriptionElement(I18n.Warp_CustomizedWarning());
+            yield return new CheatDescription(I18n.Warp_CustomizedWarning());
 
         foreach ((string sectionKey, List<WarpContentModel> sectionWarps) in warps)
         {
             // section title
-            yield return new OptionsElement($"{sectionNames.GetValueOrDefault(sectionKey, sectionKey)}:");
+            yield return new CheatElement($"{sectionNames.GetValueOrDefault(sectionKey, sectionKey)}:");
 
             // warps
             foreach (WarpContentModel warp in sectionWarps)
@@ -60,7 +59,7 @@ internal class WarpCheat : BaseCheat
                 switch (warp.Location)
                 {
                     case "Farm" when warp.Tile == Vector2.Zero:
-                        yield return new CheatsOptionsButton(warp.DisplayName, context.SlotWidth, this.WarpToFarm);
+                        yield return new CheatButton(warp.DisplayName, context.SlotWidth, this.WarpToFarm);
                         break;
 
                     case "Mine":
@@ -69,7 +68,7 @@ internal class WarpCheat : BaseCheat
                         break;
 
                     default:
-                        yield return new CheatsOptionsButton(warp.DisplayName, context.SlotWidth, toggle: () => this.Warp(warp.Location, (int)warp.Tile.X, (int)warp.Tile.Y));
+                        yield return new CheatButton(warp.DisplayName, context.SlotWidth, toggle: () => this.Warp(warp.Location, (int)warp.Tile.X, (int)warp.Tile.Y));
                         break;
                 }
             }
@@ -155,7 +154,7 @@ internal class WarpCheat : BaseCheat
     /// <summary>Create a warp option with a mine level selector.</summary>
     /// <param name="warp">The warp data.</param>
     /// <param name="slotWidth">The width of the component to create.</param>
-    private CheatsOptionsNumberWheel CreateMinesButton(WarpContentModel warp, int slotWidth)
+    private CheatNumberSelector CreateMinesButton(WarpContentModel warp, int slotWidth)
     {
         const int bottomOfMine = MineShaft.bottomOfMineLevel;
         bool isSkullCavern = warp.Location == "SkullCave";
@@ -165,7 +164,7 @@ internal class WarpCheat : BaseCheat
             ? value => (value - bottomOfMine).ToString()
             : value => value.ToString();
 
-        return new CheatsOptionsNumberWheel(
+        return new CheatNumberSelector(
             label: warp.DisplayName,
             slotWidth: slotWidth,
             action: field =>

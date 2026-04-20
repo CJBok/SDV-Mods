@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
 using StardewValley;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Time;
 
@@ -12,9 +11,9 @@ internal class SetSeasonCheat : BaseDateCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsSlider(
+        yield return new CheatSlider(
             label: I18n.Date_Season(),
             value: Utility.getSeasonNumber(Game1.currentSeason),
             minValue: 0,

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
 using Microsoft.Xna.Framework;
@@ -6,22 +7,22 @@ using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Skills;
 
-/// <summary>A cheat which increases or resets skill levels.</summary>
+/// <summary>A cheat which increases skill levels.</summary>
 internal class SkillsCheat : BaseCheat
 {
     /*********
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         return
         [
-            this.GetSkillButton(context, Farmer.farmingSkill, Game1.player.FarmingLevel),
-            this.GetSkillButton(context, Farmer.miningSkill, Game1.player.MiningLevel),
-            this.GetSkillButton(context, Farmer.foragingSkill, Game1.player.ForagingLevel),
-            this.GetSkillButton(context, Farmer.fishingSkill, Game1.player.FishingLevel),
-            this.GetSkillButton(context, Farmer.combatSkill, Game1.player.CombatLevel)
+            this.GetSkillButton(context, Farmer.farmingSkill, () => Game1.player.FarmingLevel),
+            this.GetSkillButton(context, Farmer.miningSkill, () => Game1.player.MiningLevel),
+            this.GetSkillButton(context, Farmer.foragingSkill, () => Game1.player.ForagingLevel),
+            this.GetSkillButton(context, Farmer.fishingSkill, () => Game1.player.FishingLevel),
+            this.GetSkillButton(context, Farmer.combatSkill, () => Game1.player.CombatLevel)
         ];
     }
 
@@ -33,16 +34,21 @@ internal class SkillsCheat : BaseCheat
     /// <param name="context">The cheat context.</param>
     /// <param name="id">The game's skill ID.</param>
     /// <param name="currentLevel">The current skill level.</param>
-    private CheatsOptionsButton GetSkillButton(CheatContext context, int id, int currentLevel)
+    private CheatButton GetSkillButton(CheatContext context, int id, Func<int> currentLevel)
     {
         string skillName = Farmer.getSkillDisplayNameFromIndex(id);
 
-        return new CheatsOptionsButton(
-            label: I18n.Skills_IncreaseSkill(skillName: skillName, currentLevel: currentLevel),
+        return new CheatButton(
+            getLabel: GetLabel,
             slotWidth: context.SlotWidth,
             toggle: () => this.IncreaseSkill(id),
-            disabled: currentLevel >= 10
+            disabled: () => currentLevel() >= 10
         );
+
+        string GetLabel()
+        {
+            return I18n.Skills_IncreaseSkill(skillName: skillName, currentLevel: currentLevel());
+        }
     }
 
     /// <summary>Get the experience points needed to level up once to the given level.</summary>
@@ -69,7 +75,8 @@ internal class SkillsCheat : BaseCheat
         if (newLevels.Count > wasNewLevels)
             newLevels.RemoveAt(newLevels.Count - 1);
 
-        Game1.exitActiveMenu();
+        if (Game1.activeClickableMenu is CheatsMenu cheatsMenu)
+            Game1.nextClickableMenu.Add(cheatsMenu);
         Game1.activeClickableMenu = new LevelUpMenu(skillId, Game1.player.GetSkillLevel(skillId));
     }
 }

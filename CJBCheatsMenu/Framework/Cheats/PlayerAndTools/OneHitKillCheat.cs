@@ -4,7 +4,6 @@ using Netcode;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
-using StardewValley.Menus;
 using StardewValley.Monsters;
 
 namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools;
@@ -16,9 +15,9 @@ internal class OneHitKillCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Player_OneHitKill(),
             value: context.Config.OneHitKill,
             setValue: value => context.Config.OneHitKill = value

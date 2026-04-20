@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
-using StardewValley.Menus;
 using xTile;
 using xTile.Layers;
 using xTile.Tiles;
@@ -32,9 +31,9 @@ internal class AutoFeedAnimalsCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Farm_AutoFeedAnimals(),
             value: context.Config.AutoFeed,
             setValue: value => context.Config.AutoFeed = value

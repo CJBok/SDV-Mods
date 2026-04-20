@@ -223,9 +223,9 @@ internal class ModEntry : Mod
 
         // prepare text
         string unitLabel = I18n.Labels_SinglePrice() + ":";
-        string unitPrice = price.ToString()!;
+        string unitPrice = Utility.getNumberWithCommas(price.Value);
         string stackLabel = I18n.Labels_StackPrice() + ":";
-        string stackPrice = (price * stack).ToString()!;
+        string stackPrice = Utility.getNumberWithCommas(price.Value * stack);
 
         // get dimensions
         Vector2 unitPriceSize = font.MeasureString(unitPrice);

@@ -4,7 +4,6 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Buildings;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing;
 
@@ -15,9 +14,9 @@ internal class AutoWaterPetBowlsCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Farm_AutoWaterPetBowls(),
             value: context.Config.AutoWaterPetBowls,
             setValue: value => context.Config.AutoWaterPetBowls = value

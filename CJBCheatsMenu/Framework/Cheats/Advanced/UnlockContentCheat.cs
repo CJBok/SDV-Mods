@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
 using StardewValley;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Advanced;
 
@@ -12,19 +11,19 @@ internal class UnlockContentCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Flags_UnlockedContent_DyesAndTailoring(),
             value: this.HasEvent("992559"),
             setValue: value => this.SetEvent("992559", value)
         );
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Flags_UnlockedContent_JunimoText(),
             value: this.HasFlag("canReadJunimoText"),
             setValue: value => this.SetFlag(value, "canReadJunimoText")
         );
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Flags_UnlockedContent_Perfection(),
             value: Game1.player.team.farmPerfect.Value,
             setValue: this.SetPerfection

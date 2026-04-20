@@ -8,7 +8,6 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Locations;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Time;
 
@@ -38,14 +37,14 @@ internal class FreezeTimeCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         return
         [
-            new CheatsOptionsCheckbox(I18n.Time_FreezeInside(), context.Config.FreezeTimeInside, value => context.Config.FreezeTimeInside = value),
-            new CheatsOptionsCheckbox(I18n.Time_FreezeCaves(), context.Config.FreezeTimeCaves, value => context.Config.FreezeTimeCaves = value),
-            new CheatsOptionsCheckbox(I18n.Time_FreezeEverywhere(), context.Config.FreezeTime, value => context.Config.FreezeTime = value),
-            new CheatsOptionsCheckbox(I18n.Time_FadeTimeFrozenMessage(I18n.Time_TimeFrozenMessage()), context.Config.FadeTimeFrozenMessage, value => context.Config.FadeTimeFrozenMessage = value)
+            new CheatCheckbox(I18n.Time_FreezeInside(), context.Config.FreezeTimeInside, value => context.Config.FreezeTimeInside = value),
+            new CheatCheckbox(I18n.Time_FreezeCaves(), context.Config.FreezeTimeCaves, value => context.Config.FreezeTimeCaves = value),
+            new CheatCheckbox(I18n.Time_FreezeEverywhere(), context.Config.FreezeTime, value => context.Config.FreezeTime = value),
+            new CheatCheckbox(I18n.Time_FadeTimeFrozenMessage(I18n.Time_TimeFrozenMessage()), context.Config.FadeTimeFrozenMessage, value => context.Config.FadeTimeFrozenMessage = value)
         ];
     }
 

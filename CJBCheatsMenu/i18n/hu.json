@@ -86,6 +86,7 @@
     // skills
     "skills.title": "Képességek",
     "skills.increase-skill": "{{skillName}} Szint Növelése: {{currentLevel}}",
+    "skills.increase-mastery": "Increase mastery level: {{currentLevel}}", // TODO
 
     // professions
     "professions.title": "Szakmák",

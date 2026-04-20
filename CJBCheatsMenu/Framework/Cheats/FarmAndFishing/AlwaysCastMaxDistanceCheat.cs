@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
 using StardewModdingAPI.Events;
 using StardewValley;
-using StardewValley.Menus;
 using StardewValley.Tools;
 
 namespace CJBCheatsMenu.Framework.Cheats.FarmAndFishing;
@@ -14,9 +13,9 @@ internal class AlwaysCastMaxDistanceCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Fishing_AlwaysThrowMaxDistance(),
             value: context.Config.ThrowBobberMax,
             setValue: value => context.Config.ThrowBobberMax = value

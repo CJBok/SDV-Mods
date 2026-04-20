@@ -86,6 +86,7 @@
     // skills
     "skills.title": "Навыки",
     "skills.increase-skill": "Увеличить ур. {{skillName}}: {{currentLevel}}",
+    "skills.increase-mastery": "Increase mastery level: {{currentLevel}}", // TODO
 
     // professions
     "professions.title": "Профессии",

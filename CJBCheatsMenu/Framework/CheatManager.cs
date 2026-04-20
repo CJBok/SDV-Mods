@@ -142,8 +142,11 @@ internal class CheatManager
     /****
     ** Skills
     ****/
-    /// <summary>Increases or resets skill levels.</summary>
+    /// <summary>Increases skill levels.</summary>
     public ICheat Skills { get; } = new SkillsCheat();
+
+    /// <summary>Increases mastery level.</summary>
+    public ICheat MasteryLevel { get; } = new MasteryLevelCheat();
 
     /// <summary>Toggles player professions.</summary>
     public ICheat Professions { get; } = new ProfessionsCheat();
@@ -270,6 +273,14 @@ internal class CheatManager
             if (needsRendering)
                 this.CheatsWhichNeedRendering.Add(cheat);
         }
+    }
+
+    /// <summary>Perform any action needed when the cheats menu is opening.</summary>
+    /// <remarks>This is called during menu creation (before the menu builds its list of cheat fields, and before it's added to <see cref="Game1.activeClickableMenu"/>).</remarks>
+    public void OnCheatsMenuOpening()
+    {
+        foreach (ICheat cheat in this.Cheats)
+            cheat.OnCheatsMenuOpening(this.Context);
     }
 
     /// <summary>Raised after the game draws to the sprite patch in a draw tick, just before the final sprite batch is rendered to the screen.</summary>

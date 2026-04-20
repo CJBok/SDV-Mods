@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
 using Microsoft.Xna.Framework;
 using StardewValley;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Time;
 
@@ -13,12 +12,12 @@ internal class SetTimeCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         int ToValue(int time) => Utility.ConvertTimeToMinutes(time) / 10;
         int FromValue(int value) => Utility.ConvertMinutesToTime(value * 10);
 
-        yield return new CheatsOptionsSlider(
+        yield return new CheatSlider(
             label: I18n.Time_Time(),
             value: ToValue(Game1.timeOfDay),
             minValue: ToValue(600),

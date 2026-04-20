@@ -4,7 +4,6 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Buffs;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools;
 
@@ -28,9 +27,9 @@ internal class MoveSpeedCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsSlider(
+        yield return new CheatSlider(
             label: I18n.Player_MovementSpeed(),
             value: context.Config.MoveSpeed,
             maxValue: 10,

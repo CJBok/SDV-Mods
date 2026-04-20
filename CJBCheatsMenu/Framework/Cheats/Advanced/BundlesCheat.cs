@@ -4,7 +4,6 @@ using System.Linq;
 using CJBCheatsMenu.Framework.Components;
 using StardewValley;
 using StardewValley.Locations;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.Advanced;
 
@@ -40,17 +39,17 @@ internal class BundlesCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         // unlock community center door
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Flags_CommunityCenter_DoorUnlocked(),
             value: this.HasFlag("ccDoorUnlock"),
             setValue: value => this.SetFlag(value, "ccDoorUnlock")
         );
 
         // JojaMart membership
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Flags_Jojamart_Membership(),
             value: this.HasFlag("JojaMember"),
             setValue: value => this.SetCommunityCenterFlags(value, "JojaMember")
@@ -65,7 +64,7 @@ internal class BundlesCheat : BaseCheat
             this.GetBundleField("Pantry", "Pantry", "ccPantry"),
             this.GetBundleField("Vault", "Vault", "ccVault")
         );
-        foreach (var field in bundleFields)
+        foreach (CheatElement field in bundleFields)
             yield return field;
 
         // abandoned JojaMart bundle
@@ -80,9 +79,9 @@ internal class BundlesCheat : BaseCheat
     /// <param name="areaName">The name used in the translation key for the bundle name.</param>
     /// <param name="rewardName">The name used in the translation key for the reward name (or <c>null</c> to show '???').</param>
     /// <param name="flag">The game flag to toggle.</param>
-    private CheatsOptionsCheckbox GetBundleField(string areaName, string? rewardName, string flag)
+    private CheatCheckbox GetBundleField(string areaName, string? rewardName, string flag)
     {
-        return new CheatsOptionsCheckbox(
+        return new CheatCheckbox(
             label: this.GetJunimoRewardText(areaName, rewardName),
             value: this.HasFlag(flag),
             setValue: value => this.SetCommunityCenterFlags(value, flag)

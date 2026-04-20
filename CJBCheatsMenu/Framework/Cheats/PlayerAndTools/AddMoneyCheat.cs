@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using CJBCheatsMenu.Framework.Components;
 using StardewValley;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools;
 
@@ -12,11 +11,11 @@ internal class AddMoneyCheat : BaseCheat
     ** Public methods
     *********/
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
         foreach (int amount in new[] { 100, 1_000, 10_000, 100_000, 1_000_000 })
         {
-            yield return new CheatsOptionsButton(
+            yield return new CheatButton(
                 label: I18n.Add_AmountGold(amount: Utility.getNumberWithCommas(amount)),
                 slotWidth: context.SlotWidth,
                 toggle: () => this.AddMoney(amount)

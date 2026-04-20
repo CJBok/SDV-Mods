@@ -87,6 +87,7 @@
     // skills
     "skills.title": "Навички",
     "skills.increase-skill": "Підвищити рів. {{skillName}}: {{currentLevel}}",
+    "skills.increase-mastery": "Increase mastery level: {{currentLevel}}", // TODO
 
     // professions
     "professions.title": "Професії",

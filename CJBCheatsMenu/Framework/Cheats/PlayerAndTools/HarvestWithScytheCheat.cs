@@ -3,7 +3,6 @@ using CJBCheatsMenu.Framework.Components;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley.GameData.Crops;
-using StardewValley.Menus;
 
 namespace CJBCheatsMenu.Framework.Cheats.PlayerAndTools;
 
@@ -34,9 +33,9 @@ internal class HarvestWithScytheCheat : BaseCheat
     }
 
     /// <inheritdoc />
-    public override IEnumerable<OptionsElement> GetFields(CheatContext context)
+    public override IEnumerable<CheatElement> GetFields(CheatContext context)
     {
-        yield return new CheatsOptionsCheckbox(
+        yield return new CheatCheckbox(
             label: I18n.Tools_HarvestWithScythe(),
             value: context.Config.HarvestScythe,
             setValue: value => context.Config.HarvestScythe = value
