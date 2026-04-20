@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Displayed prices are now formatted (like "1,000,000" instead of "1000000" in English).
+
 ## 1.10.6
 Released 15 March 2026 for SMAPI 4.1.10 or later.
 
