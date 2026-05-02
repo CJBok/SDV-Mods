@@ -100,6 +100,7 @@ internal class WarpContentLoader
         return
             this.FilterWarps(Game1.content.Load<List<WarpContentModel>>(this.WarpsAssetName), seenIds, config, isPersonalWarps: false)
                 .Concat(this.FilterWarps(config.AddWarps, seenIds, config, isPersonalWarps: true))
+                .OrderBy(p => p.Order)
                 .ToArray();
     }
 

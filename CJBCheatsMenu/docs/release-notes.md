@@ -1,6 +1,9 @@
 ﻿[← back to readme](README.md)
 
 # Release notes
+## Upcoming release
+* Fixed custom warp `Order` fields not applied.
+
 ## 1.42.0
 Released 19 April 2026 for SMAPI 4.1.10 or later.
 
